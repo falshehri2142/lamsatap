@@ -1,52 +1,76 @@
-/* الأساس المشترك لكل صفحات website/.
-   الترتيب في كل صفحة: assets/brand/tokens.css ← assets/brand/components.css ← هذا الملف (← style.css حق القالب).
-   كل الألوان من tokens.css (الفاتح والداكن هناك)، ولا لون مكتوب هنا.
-   صفحات الاستخدام (GM-011): خط الجهاز، بدون ظل ولا حركة. رد الضغط تغيير لون فوري (:active + لون لمس آيفون). */
-:root{--bg:var(--lt-bg);--card:var(--lt-surface);--text:var(--lt-text);--muted:var(--lt-muted);--line:var(--lt-border);--btn:var(--lt-primary-strong);--btnt:var(--lt-on-primary)}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scrollbar-color:var(--lt-muted) transparent}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--lt-font-ui);font-size:16px;line-height:1.6;overflow-wrap:anywhere}
-main{max-width:520px;margin:0 auto;padding:16px 16px 40px}
-h1,h2,h3{text-wrap:balance}
-h1{font-size:22px;line-height:1.35;margin:16px 0 8px}
-h2{font-size:18px;line-height:1.4;margin:0 0 8px}
-a{color:var(--btn);text-underline-offset:.22em;text-decoration-thickness:1px}
-::selection{background:var(--lt-accent);color:var(--lt-on-accent)}
-:focus-visible{outline:3px solid var(--lt-focus);outline-offset:3px}
-.muted{color:var(--muted)}
-[hidden]{display:none!important}
+/* موقع لمسة تاب (البيئة أ، موجز المدير الفني §3 و §4): الرئيسية وصفحة شرح ستاند التقييم.
+   الترتيب: tokens.css ← components.css (الأزرار والروابط واللوحات) ← هذا الملف.
+   خط الهوية Readex Pro، والأوزان 400 و 500 و 600 بس (ولا 700). ولا ظل ولا حد 2px ولا حركة هنا
+   (الحركة الوحيدة في motion.css: رسمة البطل مرة وحدة). كل الألوان والمسافات من tokens.css. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: var(--lt-font-brand); font-size: 17px; line-height: 1.75; font-weight: 400; letter-spacing: 0; overflow-wrap: anywhere; }
+:where(p, ul, ol, figure, h1, h2, h3) { margin: 0; }
+:where(h1, h2, h3) { font-weight: 600; text-wrap: balance; }
+:where(p) { text-wrap: pretty; }
+:where(a) { color: var(--lt-link); text-underline-offset: .22em; text-decoration-thickness: 1px; }
+:focus-visible { outline: 3px solid var(--lt-focus); outline-offset: 3px; }
+[hidden] { display: none !important; }
+.s-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* الأزرار: الأساسي تيل غامق (7.61 فاتح، 9.34 داكن)، والثانوي بإطار. نفس مقاس زر الواتساب في الهوية (56px) */
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;margin:12px 0 0;padding:12px 20px;border:2px solid transparent;border-radius:var(--lt-radius-m);background:var(--btn);color:var(--btnt);font-family:inherit;font-size:18px;font-weight:700;line-height:1.3;text-align:center;text-decoration:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,.18)}
-.btn:active{background:var(--lt-primary-press)}
-.btn.alt{background:transparent;border-color:var(--lt-primary);color:var(--lt-primary-strong);-webkit-tap-highlight-color:rgba(0,0,0,.1)}
-.btn.alt:active{background:var(--lt-primary-soft)}
-@media (hover:hover){.btn:hover{background:var(--lt-primary-press)}.btn.alt:hover{background:var(--lt-primary-soft)}}
-@media (prefers-color-scheme:dark){.btn.alt{-webkit-tap-highlight-color:rgba(255,255,255,.1)}}
-/* زر الواتساب (.lt-wa): رد الضغط من components.css بس، ولا شي هنا */
-/* روابط الواتساب النصية (الرئيسية): لون --lt-wa من الهوية مو التيل (GM-020) */
-.wa-link{display:inline-flex;align-items:center;gap:6px;min-height:var(--lt-tap-min);color:var(--lt-wa);font-weight:700;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
-.wa-link .lt-wa-icon{inline-size:20px;block-size:20px;flex:none}
+/* الحاوية والشبكة (§3.1): 1200، والحواف 20 / 32 / 48 من tokens */
+.s-wrap { max-width: calc(var(--lt-container) + 2 * var(--lt-gutter)); margin: 0 auto; padding-inline: var(--lt-gutter); }
 
-/* سطر الحالة بعد النسخ أو الضغط (aria-live). فاضي = بدون مساحة، ويبقى في الصفحة عشان قارئ الشاشة يعلن اللي ينكتب فيه */
-.status{margin:8px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
-.status:empty{margin:0}
+/* سلّم الخط (§4.2): ممنوع أي حجم برّا الجدول */
+.s-h1 { max-width: 10.5em; font-size: 40px; line-height: 1.2; }
+.s-h2 { font-size: 30px; line-height: 1.25; }
+.s-h3 { font-size: 22px; line-height: 1.3; }
+.s-h4 { font-size: 20px; line-height: 1.4; font-weight: 600; }
+.s-lead { max-width: 30em; font-size: 18px; line-height: 1.7; color: var(--lt-muted); }
+.s-body { max-width: 34em; }
+.s-small { font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--lt-muted); }
+.s-note { font-size: 15px; line-height: 1.5; color: var(--lt-muted); }
+@media (min-width: 768px) {
+  .s-h1 { font-size: 52px; line-height: 1.15; }
+  .s-h2 { font-size: 36px; line-height: 1.2; }
+  .s-h3 { font-size: 24px; }
+  .s-lead { font-size: 19px; }
+}
+@media (min-width: 1024px) {
+  .s-h1 { font-size: 64px; line-height: 1.12; }
+  .s-h2 { font-size: 44px; line-height: 1.15; }
+  .s-h3 { font-size: 28px; }
+  .s-lead { font-size: 20px; line-height: 1.65; }
+}
 
-/* وضع العرض (demo:true، web-ux ر3-5): شريط رفيع فوق + زر كبير آخر الصفحة */
-.demo-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;margin:0 0 4px;padding:6px;padding-inline-start:14px;border-radius:var(--lt-radius-m);background:var(--lt-primary-soft);color:var(--lt-primary-strong);font-size:14px;font-weight:700;line-height:1.4}
-.demo-bar .lt-wa{flex:none;inline-size:auto;min-block-size:var(--lt-tap-min);padding:6px 14px;gap:6px;border-radius:calc(var(--lt-radius-m) - 6px);font-size:16px}
-.demo-bar .lt-wa-icon{inline-size:20px;block-size:20px}
-.demo-end{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
-.demo-end p{margin:0 0 12px;color:var(--muted)}
+/* الرأس (§4.4 بند 0): 64 على الجوال و 80 من 1024، مو ثابت فوق */
+.s-head { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-24); min-height: 64px; }
+.s-logo { display: block; width: 174px; height: 48px; }
+.s-nav { display: none; }
+@media (min-width: 1024px) {
+  .s-head { min-height: 80px; }
+  .s-nav { display: flex; gap: var(--lt-space-32); }
+  .s-nav a { display: inline-flex; align-items: center; min-height: var(--lt-tap-min); color: var(--lt-text); font-size: 17px; font-weight: 500; text-decoration: none; }
+  .s-nav a:hover { text-decoration: underline; }
+}
 
-/* صندوق الواي فاي: نفسه في دليل الوحدة وصفحة الواي فاي (web-ux ر3-2 بند 2). الصندوق الوحيد الملوّن في الصفحة */
-.wifi{margin:16px 0 0;padding:16px;border-radius:var(--lt-radius-m);background:var(--lt-primary-soft)}
-.wifi h2{margin:0 0 12px}
-.lbl{margin:0;font-size:14px;line-height:1.4;color:var(--muted)}
-.val{margin:2px 0 12px;font-size:18px;font-weight:700;line-height:1.4}
-.pw{margin:2px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:22px;font-weight:700;line-height:1.35}
-.wifi .lbl,.wifi .status{color:var(--lt-primary-strong)}
-.wifi .val,.wifi .pw{text-align:right;-webkit-user-select:all;user-select:all}
-.wifi .open{margin:2px 0 0;font-weight:700}
+/* الأفعال: زر أساسي + رابط مستقل بينهم 24 */
+.s-acts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-12) var(--lt-space-24); }
+.s-acts > .lt-btn { margin: 0; }
+.s-wa-soon { font-size: 15px; line-height: 1.5; color: var(--lt-muted); }
 
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* سطر ثقة أو ميزة بعلامة صح تيل 20px (§4.3 قائمة المزايا) */
+.s-check { display: flex; align-items: flex-start; gap: var(--lt-space-8); }
+.s-check-i { flex: none; width: 20px; height: 20px; margin-top: .35em; color: var(--lt-check); }
+.s-feats { list-style: none; padding: 0; }
+.s-feats li { display: flex; align-items: flex-start; gap: var(--lt-space-12); padding: var(--lt-space-12) 0; font-size: 17px; line-height: 1.6; }
+.s-feats li + li { border-top: var(--lt-hairline) solid var(--lt-border); }
+
+/* البلاطة (§4.3): سطح، زاوية 22، حد 1px، حشوة 24 جوال و 64 كمبيوتر. على الجوال تبعد 8px بس عن حافة الشاشة */
+.s-tile { margin-inline: calc(8px - var(--lt-gutter)); padding: var(--lt-space-24); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-l); background: var(--lt-surface); }
+@media (min-width: 768px) { .s-tile { margin-inline: 0; padding: var(--lt-space-48); } }
+@media (min-width: 1024px) { .s-tile { padding: var(--lt-space-64); } }
+
+/* الأقسام: بين الأقسام 72 / 96 / 128 (--lt-section)، وفوق العنوان ضعف تحته */
+.s-section { margin-top: var(--lt-section); }
+
+/* الذيل (§4.4 بند 8) */
+.s-foot { margin-top: var(--lt-section); padding: var(--lt-space-48) 0; border-top: var(--lt-hairline) solid var(--lt-border); font-size: 14px; line-height: 1.6; color: var(--lt-muted); }
+@media (min-width: 1024px) { .s-foot { padding: var(--lt-space-64) 0; } }
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }

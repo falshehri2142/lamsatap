@@ -6,10 +6,10 @@
 /* من 600px الشريط داخل العمود، بدون هوامش سالبة (ما يطلع برّا العمود على 1440) */
 @media (min-width: 600px) { .m-tabs { margin: 12px 0 0; } .m-tabs-in { padding: 0; } }
 /* التبويب: نص مو حبة، 48 ارتفاع وعرض. النشط حبر وخط 2px بلون المحل (خانة من الأربع، §5.1) */
-.m-tabs a { flex: none; display: flex; align-items: center; justify-content: center; min-width: var(--lt-tap-min); min-height: var(--lt-tap-min); padding: 0 var(--lt-space-12); border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--lt-muted); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
-.m-tabs a[aria-current="true"] { color: var(--lt-text); border-bottom-color: var(--shop-line); }
-.m-tabs a:focus-visible { outline-offset: -3px; }
-@media (hover: hover) { .m-tabs a:hover { color: var(--lt-text); } }
+.m-tab { flex: none; display: flex; align-items: center; justify-content: center; min-width: var(--lt-tap-min); min-height: var(--lt-tap-min); padding: 0 var(--lt-space-12); border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--lt-muted); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
+.m-tab[aria-current="true"] { color: var(--lt-text); border-bottom-color: var(--shop-line); }
+.m-tab:focus-visible { outline-offset: -3px; }
+@media (hover: hover) { .m-tab:hover { color: var(--lt-text); } }
 /* تلاشي 24px على الطرف اللي فيه باقي تبويبات (RTL: البداية يمين، والنهاية يسار). يدل على شي، مو زينة */
 .m-tabs.is-more-end .m-tabs-in { -webkit-mask-image: linear-gradient(to right, transparent, #000 24px); mask-image: linear-gradient(to right, transparent, #000 24px); }
 .m-tabs.is-more-start .m-tabs-in { -webkit-mask-image: linear-gradient(to left, transparent, #000 24px); mask-image: linear-gradient(to left, transparent, #000 24px); }

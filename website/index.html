@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>لمسة تاب — شرائح NFC وباركود QR للإيجار القصير والمحلات</title>
-<meta name="description" content="شريحة NFC وباركود QR على نفس الرابط: ضيفك أو زبونك يقرّب جواله أو يمسح الباركود وتنفتح الصفحة. دليل وحدة للإيجار القصير، ومنيو وتقييم قوقل للمحلات.">
-<!-- Open Graph (معاينة الرابط في الواتساب والسوشال). og:url و canonical يتولدون من config.js (domain) في assets/app.js.
-     og:image ينضاف يوم الإطلاق: يحتاج رابط كامل بالدومين وصورة مشاركة من web-brand (website/README.md، «يوم الإطلاق»). -->
+<meta name="description" content="ستاند وشريحة NFC وباركود QR بشعار محلك في جدة: ضيفك يقرّب جواله أو يمسح الباركود، ويفتح المنيو أو دليل الوحدة. العتاد والتركيب علينا طول الاشتراك.">
+<!-- Open Graph (web-copy §1.0). og:url و canonical يتولدون من config.js (domain) في assets/app.js.
+     og:image ينضاف يوم الإطلاق: رابط كامل بالدومين وصورة مشاركة من web-brand (website/README.md، «يوم الإطلاق»). -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="لمسة تاب">
 <meta property="og:locale" content="ar_SA">
-<meta property="og:title" content="لمسة تاب — دليل وحدتك وصفحة محلك، بلمسة جوال">
-<meta property="og:description" content="شريحة NFC وباركود QR على نفس الرابط: ضيفك أو زبونك يقرّب جواله أو يمسح الباركود وتنفتح الصفحة.">
+<meta property="og:title" content="لمسة تاب — منيو محلك ودليل شقتك، في جوال ضيفك">
+<meta property="og:description" content="ضيفك يقرّب جواله من شريحة NFC أو يمسح باركود QR، وينفتح له المنيو أو دليل الوحدة. العتاد والتركيب علينا طول الاشتراك.">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
@@ -20,137 +20,148 @@
 <link rel="stylesheet" href="assets/brand/tokens.css">
 <link rel="stylesheet" href="assets/brand/components.css">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+<!-- الشاشات المصغرة: نفس تنسيق صفحات الزبون (الموجز §4.4: HTML حقيقي بنفس classes) -->
+<link rel="stylesheet" href="assets/client.css">
+<link rel="stylesheet" href="templates/menu/style.css">
+<link rel="stylesheet" href="templates/rental-guide/style.css">
 <link rel="stylesheet" href="assets/motion.css">
-<style>
-/* الرئيسية (Persuade، web-ux ر4-6): قصة وحدة من فوق لتحت: وش هو ← وش تشتري ← كيف نشتغل ← ابدأ.
-   خط الهوية، سلّم الأحجام 14/16/18/24/32/44، بدون بطاقات متكررة ولا ظلال ولا تدرجات.
-   الحركة الوحيدة: رسمة البطل مرة وحدة (assets/motion.css). رد الضغط من components.css. */
-body{font-family:var(--lt-font-brand);font-size:17px}
-main{max-width:1120px;padding:0 16px 48px}
-h1,h2,h3{font-weight:700}
-.top{padding:12px 0}
-.top img{display:block;width:174px;height:48px}
-.hero{display:grid;gap:32px;align-items:center;padding:24px 0 0}
-.hero h1{font-size:30px;line-height:1.3;margin:0 0 16px}
-.lead{margin:0 0 24px;font-size:18px;line-height:1.7;color:var(--muted);max-width:40ch}
-.hero .lt-wa{max-inline-size:400px}
-.wa-soon{margin:0;font-size:15px;color:var(--muted)}
-.hero-fig{margin:0}
-.hero-art{display:block;width:100%;max-width:400px;height:auto;aspect-ratio:408/306;margin:0 auto}
-.hero-fig figcaption{margin-top:8px;text-align:center;font-size:16px;color:var(--muted)}
-.band{margin-top:48px}
-.band > h2{font-size:24px;line-height:1.3;margin:0 0 16px}
-.pkgs{display:grid;gap:0}
-.pkg + .pkg{margin-top:32px;padding-top:32px;border-top:1px solid var(--line)}
-.pkg h3{font-size:20px;line-height:1.35;margin:0 0 8px}
-.pkg p{margin:0}
-.feat{list-style:none;margin:16px 0;padding:0;max-width:70ch}
-.feat li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 16px;min-height:48px;padding:6px 0;border-top:1px solid var(--line)}
-.feat li:last-child{border-bottom:1px solid var(--line)}
-.feat a,.more-link{display:inline-flex;align-items:center;min-height:var(--lt-tap-min);font-weight:700;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
-.sub{font-size:16px;color:var(--muted);max-width:70ch}
-.price{margin:16px 0!important;font-size:18px;font-weight:700}
-.pkg .lt-wa{max-inline-size:400px}
-.more-link{margin-top:4px}
-.extras{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);max-width:70ch}
-.extras p{margin:0 0 4px}
-.ask{display:flex;flex-wrap:wrap;gap:0 24px}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:24px;counter-reset:st}
-.steps li{counter-increment:st;max-width:40ch}
-.steps li::before{content:counter(st);display:block;margin-bottom:4px;font-size:24px;font-weight:700;line-height:1.2;color:var(--lt-primary-strong);font-variant-numeric:tabular-nums}
-.start .lt-wa{max-inline-size:400px}
-.foot{margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
-.foot p{margin:0;font-size:14px;color:var(--muted)}
-@media (min-width:768px){
-  main{padding:0 32px 64px}
-  .hero{grid-template-columns:1fr 1fr;gap:48px;padding-top:48px}
-  .hero h1{font-size:44px;line-height:1.25}
-  .hero-art{max-width:520px}
-  .band{margin-top:64px}
-  .band > h2{font-size:32px;margin-bottom:24px}
-  .pkgs{grid-template-columns:1fr 1fr}
-  .pkg + .pkg{margin-top:0;padding-top:0;border-top:0;padding-inline-start:48px;border-inline-start:1px solid var(--line)}
-  .pkg:first-child{padding-inline-end:48px}
-  .pkg h3{font-size:24px}
-  .steps{grid-template-columns:repeat(3,1fr);gap:32px}
-  .foot{margin-top:64px}
-}
-</style>
+<!-- @@minis-style: ألوان محلات العرض للشاشات المصغرة، يولّدها tools/build-home-minis.cjs من محرك اللون --><style>.mini--cafe{--shop:#7A3E2B;--on-shop:#FFFFFF;--shop-press:#662C19;--shop-line:#7A3E2B;--shop-tint:#F4F0EE;--shop-hl:rgba(0,0,0,.14)}@media (prefers-color-scheme:dark){.mini--cafe{--shop:#90523E;--on-shop:#FFFFFF;--shop-press:#7D412E;--shop-line:#985945;--shop-tint:#262824;--shop-hl:rgba(0,0,0,.14)}}.mini--flats{--shop:#1F3B57;--on-shop:#FFFFFF;--shop-press:#0F2B46;--shop-line:#1F3B57;--shop-tint:#EDEFF2;--shop-hl:rgba(0,0,0,.14)}@media (prefers-color-scheme:dark){.mini--flats{--shop:#486684;--on-shop:#FFFFFF;--shop-press:#365471;--shop-line:#4E6C8A;--shop-tint:#1C2B2E;--shop-hl:rgba(0,0,0,.14)}}</style><!-- /@@minis-style -->
 </head>
 <body>
-<main>
-<header class="top"><picture><source srcset="assets/brand/lamsatap-horizontal-dark.svg" media="(prefers-color-scheme: dark)"><img src="assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt></picture></header>
+<div class="s-wrap">
+<header class="s-head">
+<a href="index.html" aria-label="الرئيسية"><picture><source srcset="assets/brand/lamsatap-horizontal-dark.svg" media="(prefers-color-scheme: dark)"><img class="s-logo" src="assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt></picture></a>
+<nav class="s-nav" aria-label="أقسام الصفحة"><a href="#host">للمضيفين</a><a href="#shop">للمحلات</a><a href="#how">كيف نشتغل</a></nav>
+<a class="lt-btn lt-btn--compact h-headwa" data-wa="home" hidden><span>كلّمنا على واتساب</span></a>
+</header>
 
-<section class="hero" aria-labelledby="hero-h">
-<div>
-<h1 id="hero-h">دليل وحدتك وصفحة محلك، بلمسة جوال</h1>
-<p class="lead">شريحة NFC وباركود QR على نفس الرابط: ضيفك أو زبونك يقرّب جواله أو يمسح الباركود، وتنفتح الصفحة.</p>
-<a class="lt-wa" data-wa="home" hidden><span>كلّمنا على واتساب</span></a>
-<p class="wa-soon" data-wa-empty hidden>رقم التواصل على الواتساب ينضاف قريباً.</p>
+<main>
+<!-- 1) البطل -->
+<section class="h-hero" aria-labelledby="hero-h">
+<div class="h-hero-text">
+<h1 class="s-h1" id="hero-h">منيو محلك ودليل شقتك، في جوال ضيفك</h1>
+<p class="s-lead h-lead">يقرّب جواله من شريحة NFC أو يمسح باركود QR، وتنفتح له الصفحة.</p>
+<div class="h-cta">
+<a class="lt-btn lt-btn--fit" data-wa="home" hidden><span>كلّمنا على واتساب</span></a>
+<p class="s-wa-soon" data-wa-empty hidden>رقم التواصل على واتساب ينضاف قريباً.</p>
 </div>
-<figure class="hero-fig">
-<!-- رسمة البطل من brand/illustrations/tap-hero.svg (web-brand)، inline عشان ألوانها من tokens.css و motion.css يحرك أجزاءها مرة وحدة.
-     لو تغيّرت: انسخ محتوى الملف هنا كما هو، وخل الصنف hero-art والـ IDs (th-phone و th-dot-1..3 و th-page). -->
-<svg class="hero-art" xmlns="http://www.w3.org/2000/svg" viewBox="94 50 408 306" width="408" height="306" role="img" aria-labelledby="th-title"><title id="th-title">جوال يلمس الستاند، ونقطة الستاند تنزل على صفحة المنيو اللي انفتحت في الجوال</title><style>.th-ln{stroke:var(--lt-text,#14201F)}.th-sf{fill:var(--lt-surface,#FFFFFF)}.th-tx{fill:var(--lt-text,#14201F)}.th-mu{fill:var(--lt-muted,#56625F)}.th-so{fill:var(--lt-primary-soft,#E3F3F1)}.th-pr{fill:var(--lt-primary,#0B7A75)}.th-ps{stroke:var(--lt-primary,#0B7A75)}.th-ct{fill:var(--lt-primary-strong,#075E5A)}.th-on{fill:var(--lt-on-primary,#FFFFFF)}.th-dt{fill:var(--lt-accent,#F2A93B)}.th-tb{stroke:var(--lt-border,#E4DCD0)}.th-ln{fill:none;stroke-width:3;stroke-linejoin:round}.th-ps{fill:none;stroke-width:1.6;stroke-linecap:round}.th-tb{fill:none;stroke-width:6;stroke-linecap:round}@media (prefers-color-scheme:dark){.th-ln{stroke:var(--lt-text,#ECF2F0)}.th-sf{fill:var(--lt-surface,#152120)}.th-tx{fill:var(--lt-text,#ECF2F0)}.th-mu{fill:var(--lt-muted,#A3B2AE)}.th-so{fill:var(--lt-primary-soft,#123A37)}.th-pr{fill:var(--lt-primary,#3FC1B6)}.th-ps{stroke:var(--lt-primary,#3FC1B6)}.th-ct{fill:var(--lt-primary-strong,#6AD6CC)}.th-on{fill:var(--lt-on-primary,#062522)}.th-dt{fill:var(--lt-accent,#F5B85A)}.th-tb{stroke:var(--lt-border,#2A3B38)}}</style><path class="th-tb" d="M132 338H462"/><path class="th-sf" d="M300 318V126A16 16 0 0 1 316 110H424A16 16 0 0 1 440 126V318Z"/><path class="th-ln" d="M300 318V126A16 16 0 0 1 316 110H424A16 16 0 0 1 440 126V318"/><rect class="th-sf" x="286" y="318" width="168" height="14" rx="7"/><rect class="th-ln" x="286" y="318" width="168" height="14" rx="7"/><g id="th-symbol" transform="translate(334 134) scale(0.140625)"><rect width="512" height="512" rx="115" fill="#075E5A"/><path fill="#fff" d="M197.5 279.5Q140.2 279.5 115.6 258.7Q91 237.9 91 200.1Q91 183.3 97.1 161.6Q103.2 139.8 118.9 111.6L163.9 131.8Q157.8 149 155.1 161Q152.5 173 152.5 182.6Q152.5 197.4 158.9 205.5Q165.4 213.5 177.1 216.5Q188.7 219.6 204 219.6H342.6L349.8 279.5ZM304.4 279.5V219.6H371.6Q368.5 206.2 359.7 189.8Q351 173.4 337.6 156.6L392.6 100.5Q404 122.2 412.4 148.2Q420.8 174.2 421 206.4Q421.2 238.7 407.1 279.5ZM304.4 219.6H308.2V279.5H304.4Q292.9 279.5 292.9 249.7Q292.9 219.6 304.4 219.6Z"/><circle cx="256" cy="365.5" r="46" fill="#F2A93B"/></g><rect class="th-tx" x="332" y="240" width="76" height="8" rx="4"/><rect class="th-mu" x="344" y="258" width="52" height="6" rx="3"/><g id="th-phone"><g transform="translate(235 195) rotate(10) translate(-64.0 -116.0)"><rect class="th-tx" x="0" y="0" width="128" height="232" rx="22"/><rect class="th-sf" x="8" y="8" width="112" height="216" rx="15"/><rect class="th-tx" x="46" y="15" width="36" height="6" rx="3"/><g id="th-page"><rect class="th-so" x="18" y="30" width="92" height="40" rx="8"/><rect class="th-tx" x="58" y="40" width="44" height="7" rx="3.5"/><rect class="th-mu" x="72" y="53" width="30" height="5" rx="2.5"/><rect class="th-pr" x="80" y="80" width="30" height="12" rx="6"/><rect class="th-so" x="46" y="80" width="30" height="12" rx="6"/><rect class="th-so" x="92" y="104" width="18" height="18" rx="5"/><rect class="th-pr" x="96.5" y="110" width="8" height="6.5" rx="2"/><path class="th-ps" d="M104.5 111.5h1.5a1.8 1.8 0 0 1 0 3.6h-1.5"/><rect class="th-pr" x="95.5" y="117.5" width="11" height="1.6" rx="0.8"/><rect class="th-tx" x="48" y="107" width="38" height="6" rx="3"/><rect class="th-mu" x="60" y="116" width="26" height="4" rx="2"/><rect class="th-pr" x="18" y="109" width="18" height="7" rx="3.5"/><rect class="th-so" x="92" y="132" width="18" height="18" rx="5"/><rect class="th-pr" x="96.5" y="138" width="8" height="6.5" rx="2"/><path class="th-ps" d="M104.5 139.5h1.5a1.8 1.8 0 0 1 0 3.6h-1.5"/><rect class="th-pr" x="95.5" y="145.5" width="11" height="1.6" rx="0.8"/><rect class="th-tx" x="48" y="135" width="38" height="6" rx="3"/><rect class="th-mu" x="60" y="144" width="26" height="4" rx="2"/><rect class="th-pr" x="18" y="137" width="18" height="7" rx="3.5"/><rect class="th-so" x="92" y="160" width="18" height="18" rx="5"/><rect class="th-pr" x="96.5" y="166" width="8" height="6.5" rx="2"/><path class="th-ps" d="M104.5 167.5h1.5a1.8 1.8 0 0 1 0 3.6h-1.5"/><rect class="th-pr" x="95.5" y="173.5" width="11" height="1.6" rx="0.8"/><rect class="th-tx" x="48" y="163" width="38" height="6" rx="3"/><rect class="th-mu" x="60" y="172" width="26" height="4" rx="2"/><rect class="th-pr" x="18" y="165" width="18" height="7" rx="3.5"/><rect class="th-ct" x="18" y="194" width="92" height="20" rx="7"/><rect class="th-on" x="50" y="202" width="28" height="4" rx="2"/></g></g></g><g id="th-trail"><circle id="th-dot-1" class="th-dt" cx="305.5" cy="157.6" r="4.5"/><circle id="th-dot-2" class="th-dt" cx="259.8" cy="137.9" r="6"/><circle id="th-dot-3" class="th-dt" cx="214" cy="118.2" r="8"/></g></svg>
-<figcaption>قرّب جوالك، وتنفتح الصفحة.</figcaption>
+<p class="s-check h-trust"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>العتاد والتركيب علينا طول الاشتراك</span></p>
+</div>
+<!-- المشهد: hero-counter.svg (web-illustrator، لين يوصل). مؤقتاً: جوال فيه منيو «مقهى المثال» الحقيقي مصغّر -->
+<figure class="h-scene" role="img" aria-label="منيو «مقهى المثال» مفتوح في جوال">
+<div class="phone" aria-hidden="true"><div class="phone-screen"><!-- @@mini:menu --><div class="c mini mini--cafe" inert><div class="c-main"><div class="c-id"><picture><source srcset="demo/_brands/cafe-dark.svg" media="(prefers-color-scheme: dark)"><img class="c-logo" src="demo/_brands/cafe.svg" alt="مقهى المثال" data-name="مقهى المثال"></picture></div><div class="c-sr" data-h="1">مقهى المثال — المنيو</div><p class="c-sub m-note">مثال للعرض: الأصناف والأسعار والسعرات هنا مو حقيقية.</p><div class="m-tabs"><div class="m-tabs-in"><span class="m-tab" aria-current="true">قهوة الإسبريسو</span><span class="m-tab">قهوة مقطّرة وسعودية</span></div></div><div class="m-sec" id="mh-s0-espresso"><div id="mh-s0-espresso-h" data-h="2">قهوة الإسبريسو</div><div class="lt-panel"><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">إسبريسو</span><span class="lt-row-sub">شوت مزدوج · السعرات: 5</span></span><span class="lt-row-end lt-row-end--value">12 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">أمريكانو</span><span class="lt-row-sub">إسبريسو وماء حار · السعرات: 10</span></span><span class="lt-row-end lt-row-end--value">13 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">كورتادو</span><span class="lt-row-sub">إسبريسو وحليب مبخّر بالتساوي · السعرات: 70</span></span><span class="lt-row-end lt-row-end--value">16 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">فلات وايت</span><span class="lt-row-sub">حليب ناعم فوق إسبريسو مزدوج · السعرات: 110</span></span><span class="lt-row-end lt-row-end--value">18 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">لاتيه</span><span class="lt-row-sub">حليب كامل الدسم · السعرات: 190</span></span><span class="lt-row-end lt-row-end--value">19 ريال</span></div></div></div><div class="m-sec" id="mh-s1-brew"><div id="mh-s1-brew-h" data-h="2">قهوة مقطّرة وسعودية</div><div class="lt-panel"><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">قهوة V60</span><span class="lt-row-sub">محصول اليوم · السعرات: 5</span></span><span class="lt-row-end lt-row-end--value">22 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">قهوة سعودية</span><span class="lt-row-sub">دلة صغيرة بالهيل، مع تمر · السعرات: 90</span></span><span class="lt-row-end lt-row-end--value">20 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">كولد برو</span><span class="lt-row-sub">منقوع بارد 16 ساعة · السعرات: 5</span></span><span class="lt-row-end lt-row-end--value">18 ريال</span></div></div></div></div></div><!-- /@@mini:menu --></div></div>
 </figure>
 </section>
 
-<section class="band" aria-labelledby="pkgs-h">
-<h2 id="pkgs-h">الحزم</h2>
-<div class="pkgs">
-<article class="pkg" aria-labelledby="pkg-host">
-<h3 id="pkg-host">باقة المضيف (إيجار قصير)</h3>
-<p>شريحة داخل كل وحدة تفتح دليلها لضيفك.</p>
-<ul class="feat">
-<li>كلمة مرور الواي فاي بزر نسخ</li>
-<li>التكييف، ووقت الخروج، والشروط، والعنوان</li>
-<li>زر «تم الخروج» و«بلاغ صيانة» يوصلوننا على الواتساب، ونبلغك</li>
-<li>رقمك ما يظهر للضيف</li>
-</ul>
-<p class="sub">اشتراك شهري لكل وحدة، والعتاد والتركيب علينا طول الاشتراك. للمضيف المرخّص من وزارة السياحة.</p>
-<p class="price">[السعر المعتمد]</p>
-<a class="lt-wa" data-wa="host" aria-describedby="pkg-host" hidden><span>اطلبها على الواتساب</span></a>
-<a class="more-link" href="demo/rental-guide/index.html">شوف دليل الوحدة</a>
-</article>
-
-<article class="pkg" aria-labelledby="pkg-shop">
-<h3 id="pkg-shop">حزمة المحل الكامل</h3>
-<p>أربع صفحات لمحلك باشتراك واحد، ونركّبها لك في المحل.</p>
-<ul class="feat">
-<li><span>ستاند تقييم قوقل</span><a href="demo/review/index.html">شوف ستاند التقييم</a></li>
-<li><span>منيو إلكتروني بالأسعار والسعرات</span><a href="demo/menu/index.html">شوف المنيو</a></li>
-<li><span>صفحة الواي فاي</span><a href="demo/wifi/index.html">شوف صفحة الواي فاي</a></li>
-<li><span>صفحة روابط حساباتك</span><a href="demo/links/index.html">شوف صفحة الروابط</a></li>
-</ul>
-<p class="sub">اشتراك سنوي، والعتاد والتركيب علينا طول الاشتراك. ستاند التقييم يطلب التقييم من كل زباينك، بدون أي مقابل.</p>
-<p class="price">[السعر المعتمد]</p>
-<a class="lt-wa" data-wa="shop" aria-describedby="pkg-shop" hidden><span>اطلبها على الواتساب</span></a>
-</article>
+<!-- 2) بلاطة المضيف -->
+<section class="s-section s-tile h-tile" id="host" aria-labelledby="host-h">
+<div class="h-tile-text">
+<h2 class="s-h2" id="host-h">دليل كل وحدة، عند بابها</h2>
+<p class="s-lead h-lead">شريحة وباركود داخل الوحدة، وضيفك يفتح منهم الدليل بجواله.</p>
 </div>
-
-<div class="extras">
-<p>وعندنا بعد: ستاند حجز المواعيد للعيادات والصالونات، وشريحة لكل سيارة في معارض السيارات.</p>
-<p class="ask"><a class="wa-link" data-wa="appointments" hidden><span>اسأل عن ستاند المواعيد</span></a><a class="wa-link" data-wa="showroom" hidden><span>اسأل عن شرائح المعارض</span></a></p>
+<!-- المشهد: host-door.svg (web-illustrator، لين يوصل). مؤقتاً: جوال فيه دليل «شقق المثال» الحقيقي مصغّر -->
+<figure class="h-tile-scene" role="img" aria-label="دليل وحدة «شقق المثال» مفتوح في جوال">
+<div class="phone" aria-hidden="true"><div class="phone-screen"><!-- @@mini:guide --><div class="c mini mini--flats" inert><div class="c-main"><div class="c-id"><picture><source srcset="demo/_brands/apartments-dark.svg" media="(prefers-color-scheme: dark)"><img class="c-logo" src="demo/_brands/apartments.svg" alt="شقق المثال" data-name="شقق المثال"></picture></div><div data-h="1">أهلاً في شقة المثال</div><div><div class="c-wifi"><p class="c-label">الشبكة</p><p class="c-wifi-v" dir="ltr" translate="no">Mithal-Guest</p><p class="c-label">كلمة المرور</p><p class="c-pw" dir="ltr" translate="no">Mithal@2026</p><span class="lt-btn lt-btn--shop" id="mg-wifi-copy">انسخ كلمة المرور</span></div><p class="c-status" id="mg-wifi-st"></p></div><div><div id="mg-out-h" data-h="2">الخروج والصيانة</div><div class="lt-panel"><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">وقت الخروج</span></span><span class="lt-row-end lt-row-end--value">12 الظهر</span></div></div><p class="c-sub g-notice">بالضغط يفتح واتساب وترسل رسالة من رقمك إلى <span data-company>لمسة تاب</span>، مشغّل خدمة الوحدة. نستخدم رقمك لهذا الطلب فقط، ما نشاركه مع أحد، ونحذف المحادثة بعد إغلاق الطلب. <span>سياسة الخصوصية</span></p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="mg-out"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>تم الخروج</span></span><div class="lt-panel g-confirm" id="mg-out-confirm" hidden><p class="g-confirm-h">قبل ما تطلع:</p><ul class="g-steps"><li>طفّ المكيفات والأنوار</li><li>سكّر الشبابيك</li><li>ارمِ الزبالة في الحاوية تحت العمارة</li></ul><div class="g-confirm-b"><p>متأكد إنك طلعت من الوحدة؟ بيفتح واتساب برسالة جاهزة، اضغط «إرسال» عشان نبلغ المضيف.</p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="mg-out-yes"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>نعم، طلعت</span></span><span class="lt-btn lt-btn--secondary" id="mg-out-no">لا، رجوع</span></div></div></div><span class="lt-btn lt-btn--secondary" id="mg-fix"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>بلاغ صيانة</span></span></div><p class="c-label g-contact-h">تواصل مع مشغّل خدمة الوحدة</p><div class="lt-panel"><span class="lt-row" id="mg-ask"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span class="lt-row-body"><span class="lt-row-title">استفسار على واتساب</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span><span class="lt-row" id="mg-call"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 2.8 8.4 3.6 9.2 6.9 7.5 8.4Q8.9 11.1 11.6 12.5L13.1 10.8 16.4 11.6 17.2 13.8Q17.2 16.9 14.4 17.2 4.6 16.6 2.8 5.6 3.1 2.8 6.2 2.8z"/></svg><span class="lt-row-body"><span class="lt-row-title">اتصل بنا</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span></div><p class="c-status" id="mg-out-st"></p></div><p class="c-sub g-privacy" id="mg-privacy-policy">سياسة الخصوصية: ما انكتبت للحين.</p></div></div><!-- /@@mini:guide --></div></div>
+</figure>
+<div class="h-tile-more">
+<ul class="s-feats">
+<li><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>كلمة مرور الواي فاي، بزر نسخ</span></li>
+<li><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>التكييف، ووقت الخروج، والشروط، والعنوان</span></li>
+<li><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>ضيفك يرسل «تم الخروج» أو «بلاغ صيانة»، ونبلغك</span></li>
+<li><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>رقمك ما يظهر للضيف</span></li>
+</ul>
+<p class="h-price">[السعر المعتمد]</p>
+<p class="s-note" id="host-plan">باقة المضيف، اشتراك شهري لكل وحدة</p>
+<p class="s-small h-elig">للمضيف المرخّص من وزارة السياحة</p>
+<div class="s-acts h-acts">
+<a class="lt-btn lt-btn--fit" data-wa="host" aria-describedby="host-plan" hidden><span>اطلبها على واتساب</span></a>
+<a class="lt-link" href="demo/rental-guide/index.html">شوف دليل الوحدة<svg class="lt-link-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/></svg></a>
+</div>
 </div>
 </section>
 
-<section class="band" aria-labelledby="how-h">
-<h2 id="how-h">كيف نشتغل</h2>
-<ol class="steps">
-<li>نجهز صفحة محلك أو دليل وحدتك.</li>
-<li>نبرمج الشريحة ونطبع الباركود على نفس الرابط.</li>
-<li>نركّبها عندك، وأي تعديل بعدين يصير على الصفحة بدون ما نغيّر الشريحة.</li>
+<!-- 3) بلاطة المحل (معكوسة على الكمبيوتر) -->
+<section class="s-section s-tile h-tile h-tile--rev" id="shop" aria-labelledby="shop-h">
+<div class="h-tile-text">
+<h2 class="s-h2" id="shop-h">المنيو وتقييم قوقل والواي فاي، باشتراك واحد</h2>
+<p class="s-lead h-lead">نجهّزها ونركّبها في محلك، وزبونك يقرّب جواله ويفتحها.</p>
+</div>
+<!-- ثلاث شاشات «مقهى المثال» الحقيقية (web-copy §1.3): المنيو قدام، والواي فاي والروابط وراه -->
+<figure class="h-tile-scene h-fan" role="img" aria-label="ثلاث شاشات من «مقهى المثال»: المنيو، والواي فاي، والروابط.">
+<div class="phone phone--3" aria-hidden="true"><div class="phone-screen"><!-- @@mini:links --><div class="c mini mini--cafe" inert><div class="c-main"><div class="c-id"><picture><source srcset="demo/_brands/cafe-dark.svg" media="(prefers-color-scheme: dark)"><img class="c-logo" src="demo/_brands/cafe.svg" alt="مقهى المثال" data-name="مقهى المثال"></picture></div><div class="c-sr" data-h="1">روابط مقهى المثال</div><p class="c-sub l-tag">قهوة مختصة في جدة (مثال للعرض)</p><div class="lt-panel"><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">واتساب</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></div><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">انستقرام</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></div><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">سناب شات</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></div><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">تيك توك</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></div><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">موقعنا على الخريطة</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></div><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">قيّمنا في قوقل</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></div></div><p class="c-status" id="ml-st"></p></div></div><!-- /@@mini:links --></div></div>
+<div class="phone phone--2" aria-hidden="true"><div class="phone-screen"><!-- @@mini:wifi --><div class="c mini mini--cafe" inert><div class="c-main"><div class="c-id"><picture><source srcset="demo/_brands/cafe-dark.svg" media="(prefers-color-scheme: dark)"><img class="c-logo" src="demo/_brands/cafe.svg" alt="مقهى المثال" data-name="مقهى المثال"></picture></div><div data-h="1">الواي فاي</div><div><div class="c-wifi"><p class="c-label">الشبكة</p><p class="c-wifi-v" dir="ltr" translate="no">Mithal-Cafe</p><p class="c-label">كلمة المرور</p><p class="c-pw" dir="ltr" translate="no">Qahwa2026</p><span class="lt-btn lt-btn--shop" id="mw-wifi-copy">انسخ كلمة المرور</span></div><p class="c-status" id="mw-wifi-st"></p></div></div></div><!-- /@@mini:wifi --></div></div>
+<div class="phone phone--1" aria-hidden="true"><div class="phone-screen"><!-- @@mini:menu2 --><div class="c mini mini--cafe" inert><div class="c-main"><div class="c-id"><picture><source srcset="demo/_brands/cafe-dark.svg" media="(prefers-color-scheme: dark)"><img class="c-logo" src="demo/_brands/cafe.svg" alt="مقهى المثال" data-name="مقهى المثال"></picture></div><div class="c-sr" data-h="1">مقهى المثال — المنيو</div><p class="c-sub m-note">مثال للعرض: الأصناف والأسعار والسعرات هنا مو حقيقية.</p><div class="m-tabs"><div class="m-tabs-in"><span class="m-tab" aria-current="true">قهوة الإسبريسو</span><span class="m-tab">قهوة مقطّرة وسعودية</span></div></div><div class="m-sec" id="mf-s0-espresso"><div id="mf-s0-espresso-h" data-h="2">قهوة الإسبريسو</div><div class="lt-panel"><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">إسبريسو</span><span class="lt-row-sub">شوت مزدوج · السعرات: 5</span></span><span class="lt-row-end lt-row-end--value">12 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">أمريكانو</span><span class="lt-row-sub">إسبريسو وماء حار · السعرات: 10</span></span><span class="lt-row-end lt-row-end--value">13 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">كورتادو</span><span class="lt-row-sub">إسبريسو وحليب مبخّر بالتساوي · السعرات: 70</span></span><span class="lt-row-end lt-row-end--value">16 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">فلات وايت</span><span class="lt-row-sub">حليب ناعم فوق إسبريسو مزدوج · السعرات: 110</span></span><span class="lt-row-end lt-row-end--value">18 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">لاتيه</span><span class="lt-row-sub">حليب كامل الدسم · السعرات: 190</span></span><span class="lt-row-end lt-row-end--value">19 ريال</span></div></div></div><div class="m-sec" id="mf-s1-brew"><div id="mf-s1-brew-h" data-h="2">قهوة مقطّرة وسعودية</div><div class="lt-panel"><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">قهوة V60</span><span class="lt-row-sub">محصول اليوم · السعرات: 5</span></span><span class="lt-row-end lt-row-end--value">22 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">قهوة سعودية</span><span class="lt-row-sub">دلة صغيرة بالهيل، مع تمر · السعرات: 90</span></span><span class="lt-row-end lt-row-end--value">20 ريال</span></div><div class="lt-row m-item"><span class="lt-row-body"><span class="lt-row-title">كولد برو</span><span class="lt-row-sub">منقوع بارد 16 ساعة · السعرات: 5</span></span><span class="lt-row-end lt-row-end--value">18 ريال</span></div></div></div></div></div><!-- /@@mini:menu2 --></div></div>
+</figure>
+<div class="h-tile-more">
+<ul class="h-pages">
+<li><span>ستاند تقييم قوقل</span><a class="lt-link" href="demo/review/index.html" aria-label="شوف ستاند التقييم">شوف<svg class="lt-link-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/></svg></a></li>
+<li><span>المنيو، بالأسعار والسعرات</span><a class="lt-link" href="demo/menu/index.html" aria-label="شوف المنيو">شوف<svg class="lt-link-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/></svg></a></li>
+<li><span>كلمة مرور الواي فاي</span><a class="lt-link" href="demo/wifi/index.html" aria-label="شوف صفحة الواي فاي">شوف<svg class="lt-link-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/></svg></a></li>
+<li><span>روابط حساباتك</span><a class="lt-link" href="demo/links/index.html" aria-label="شوف صفحة الروابط">شوف<svg class="lt-link-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/></svg></a></li>
+</ul>
+<p class="s-small h-policy">ستاند التقييم يطلب التقييم من كل زبائنك، بدون أي مقابل.</p>
+<p class="h-price">[السعر المعتمد]</p>
+<p class="s-note" id="shop-plan">حزمة المحل الكامل، اشتراك سنوي</p>
+<div class="s-acts h-acts">
+<a class="lt-btn lt-btn--fit" data-wa="shop" aria-describedby="shop-plan" hidden><span>اطلبها على واتساب</span></a>
+</div>
+</div>
+</section>
+
+<!-- 4) سطر الإضافات -->
+<div class="h-extras">
+<p class="s-body h-extras-t">وعندنا كمان: ستاند حجز المواعيد للعيادات والصالونات، وشريحة لكل سيارة في معارض السيارات.</p>
+<p class="h-extras-l"><a class="lt-link" data-wa="appointments" hidden>اسأل عن ستاند المواعيد<svg class="lt-link-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/></svg></a><a class="lt-link" data-wa="showroom" hidden>اسأل عن شرائح المعارض<svg class="lt-link-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/></svg></a></p>
+</div>
+
+<!-- 5) كيف نشتغل -->
+<section class="s-section" id="how" aria-labelledby="how-h">
+<h2 class="s-h2" id="how-h">كيف نشتغل</h2>
+<ol class="h-steps">
+<li><span class="h-step-n" aria-hidden="true">1</span><h3 class="s-h4">نبني صفحتك</h3><p class="s-body h-step-t">المنيو أو دليل الوحدة أو الواي فاي، بمعلوماتك وشعارك.</p></li>
+<li><span class="h-step-n" aria-hidden="true">2</span><h3 class="s-h4">نجهّز العتاد</h3><p class="s-body h-step-t">نطبعه بشعارك، ونبرمج الشريحة والباركود على نفس الرابط.</p></li>
+<li><span class="h-step-n" aria-hidden="true">3</span><h3 class="s-h4">نركّب عندك</h3><p class="s-body h-step-t">وأي تعديل بعدين نسويه على الصفحة، بدون ما نغيّر الشريحة.</p></li>
 </ol>
 </section>
+</main>
+</div>
 
-<section class="band start" aria-labelledby="start-h" data-wa-only hidden>
-<h2 id="start-h">تبغى تبدأ؟</h2>
-<a class="lt-wa" data-wa="home" hidden><span>كلّمنا على واتساب</span></a>
+<!-- 6) الالتزامات: شريط بعرض الشاشة بلون السطح 2 -->
+<section class="h-trust-band" id="trust" aria-labelledby="trust-h">
+<div class="s-wrap">
+<h2 class="s-h2" id="trust-h">اللي تقدر تعتمد عليه</h2>
+<ul class="h-commits">
+<li><p class="s-h4">العتاد والتركيب علينا طول الاشتراك</p><p class="s-body h-commit-t">ما تشتري ستاند ولا شريحة، كلها داخل الاشتراك.</p></li>
+<li><p class="s-h4">نركّب حالياً في جدة</p><p class="s-body h-commit-t">نجيك ونركّبها، ونجرّب كل شريحة قبل التسليم.</p></li>
+<li><p class="s-h4">العتاد والصفحات بشعارك وألوانك</p><p class="s-body h-commit-t">اسمنا ما يطلع لضيوفك، إلا سطر صغير «بواسطة <span data-company>لمسة تاب</span>» لو وافقت.</p></li>
+<li><p class="s-h4">ما يحتاج تطبيق</p><p class="s-body h-commit-t">ضيفك يقرّب جواله من الشريحة، أو يمسح الباركود بالكاميرا.</p></li>
+</ul>
+</div>
 </section>
 
-<footer class="foot"><p data-company>لمسة تاب</p></footer>
-</main>
+<!-- 7) الشريط الأخير: تيل بعرض الشاشة، ويختفي كامل بدون رقم -->
+<section class="h-band" id="start" aria-labelledby="start-h" data-wa-only hidden>
+<div class="s-wrap">
+<h2 class="s-h2" id="start-h">تبغى تبدأ؟</h2>
+<p class="h-band-t">خبّرنا عن محلك أو وحداتك، ونرسل لك التفاصيل والسعر.</p>
+<a class="lt-btn lt-btn--on-band lt-btn--fit" data-wa="home" hidden><span>كلّمنا على واتساب</span></a>
+</div>
+</section>
+
+<!-- 8) الذيل -->
+<footer class="s-wrap">
+<div class="s-foot h-foot">
+<div class="h-foot-id">
+<picture><source srcset="assets/brand/lamsatap-horizontal-dark.svg" media="(prefers-color-scheme: dark)"><img class="s-logo" src="assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt></picture>
+<p><span data-company>لمسة تاب</span> — <span data-company-en>LamsaTap</span></p>
+<p>السجل التجاري: [رقم السجل التجاري]</p>
+<p>نركّب حالياً في جدة</p>
+</div>
+<p class="h-foot-links"><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a><a data-wa="home" hidden>واتساب</a></p>
+<p class="h-foot-c">© 2026 <span data-company>لمسة تاب</span></p>
+</div>
+</footer>
 <script src="config.js"></script>
 <script src="assets/app.js"></script>
 </body>

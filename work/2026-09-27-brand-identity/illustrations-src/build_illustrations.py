@@ -220,17 +220,17 @@ def icons():
 
 
 # ---------- 3) الجوال ----------
-def phone_parts(k, p, slot_id, hi=True):
+def phone_parts(k, p, slot_id, hi=True, ox=0):
     """جوال من قدام بإحداثيات محلية: (0,0) = نص الحافة العليا، والجوال نازل لتحت. k = px لكل mm.
     72×150mm، زاوية 10mm، حافة متساوية 3mm، وكاميرا دائرية صغيرة في النص فوق.
     يرجع (الجسم، الشاشة، الكاميرا، أبعاد الشاشة)."""
     W, H, R, b = 72 * k, 150 * k, 10 * k, 3 * k
-    body = f'<path fill="{INK}" class="{p}edge" d="{rrect(-W / 2, 0, W, H, R)}"/>'
+    body = f'<path fill="{INK}" class="{p}edge" d="{rrect(ox - W / 2, 0, W, H, R)}"/>'
     if hi:  # حافة عليا أفتح (النور من فوق)
-        body += f'<path fill="{INK_EDGE}" d="{rrect(-W / 2 + R * .9, 0, W - R * 1.8, 1.4 * k / 1.85 + .6, .8)}"/>'
-    sx, sy, sw, sh, sr = -W / 2 + b, b, W - 2 * b, H - 2 * b, R - b
+        body += f'<path fill="{INK_EDGE}" d="{rrect(ox - W / 2 + R * .9, 0, W - R * 1.8, 1.4 * k / 1.85 + .6, .8)}"/>'
+    sx, sy, sw, sh, sr = ox - W / 2 + b, b, W - 2 * b, H - 2 * b, R - b
     screen = f'<rect id="{slot_id}" x="{f(sx)}" y="{f(sy)}" width="{f(sw)}" height="{f(sh)}" rx="{f(sr)}" fill="#FFFFFF"/>'
-    cam = f'<circle cx="0" cy="{f(sy + 3.2 * k)}" r="{f(1.35 * k)}" fill="{INK}"/>'
+    cam = f'<circle cx="{f(ox)}" cy="{f(sy + 3.2 * k)}" r="{f(1.35 * k)}" fill="{INK}"/>'
     return body, screen, cam, (sx, sy, sw, sh, sr)
 
 
@@ -238,11 +238,11 @@ def phone_frame():
     """إطار الجوال لشاشات المحل (بلاطة المحل في الرئيسية): 240×500، والشاشة خانة فاضية."""
     k = 240 / 72
     p = "pf-"
-    body, screen, cam, (sx, sy, sw, sh, sr) = phone_parts(k, p, "pf-slot-screen", hi=True)
+    body, screen, cam, (sx, sy, sw, sh, sr) = phone_parts(k, p, "pf-slot-screen", hi=True, ox=120)
     style = (f".{p}edge{{stroke:none}}@media (prefers-color-scheme:dark){{.{p}edge{{stroke:{INK_EDGE};stroke-width:1}}}}")
-    g = f'<g transform="translate(120 0)">{body}{screen}{cam}</g>'
-    meta = (f' data-slot="{f(sx + 120)} {f(sy)} {f(sw)} {f(sh)}" data-slot-radius="{f(sr)}"')
-    return svg_doc(240, 500, "إطار جوال", g, style, p, meta), (sx + 120, sy, sw, sh, sr)
+    g = f'{body}{screen}{cam}'
+    meta = (f' data-slot="{f(sx)} {f(sy)} {f(sw)} {f(sh)}" data-slot-radius="{f(sr)}"')
+    return svg_doc(240, 500, "إطار جوال", g, style, p, meta), (sx, sy, sw, sh, sr)
 
 
 # ---------- 4) الأشياء ----------
@@ -284,7 +284,7 @@ def stand(p, cx, floor_y, k, shop_cls, name, title):
     fw, fh = 105 * k, 148 * k
     fx, fy = cx - fw / 2, by + 1.5 - fh
     g = [block(bx, by, bw, bh, INK, INK_EDGE, INK_DEEP),
-         block(fx, fy, fw, fh, WHITE, WHITE, SAND200, d=(-3.2, -2.4))]
+         block(fx, fy, fw, fh, WHITE, WHITE, SAND200, d=(-3.2, -2.4), r=2 * k)]
     content, dot = face_content(fx, fy, k, shop_cls, name, title)
     g.append(content)
     return "".join(g), dot, (bx, bw)
@@ -310,8 +310,8 @@ def dalla(p, x, y, u):
               + "L" + P([(49, -78)]) + "C" + P([(76, -102), (72, -150), (39, -150)]) + "Z")
     hi = ("M" + P([(30, -16)]) + "C" + P([(48, -30), (52, -64), (38, -92)])
           + "C" + P([(44, -64), (42, -36), (30, -16)]) + "Z"
-          + "M" + P([(22, -130)]) + "C" + P([(28, -142), (35, -153), (39, -163)])
-          + "L" + P([(35, -164)]) + "C" + P([(30, -152), (24, -141), (20, -131)]) + "Z"
+          + "M" + P([(17, -135)]) + "C" + P([(22, -145), (28, -153), (33, -161)])
+          + "C" + P([(28, -157), (22, -149), (15, -137)]) + "Z"
           + "M" + P([(10, -196)]) + "C" + P([(22, -193), (32, -187), (36, -178)])
           + "C" + P([(28, -184), (20, -189), (10, -196)]) + "Z")
     foot = poly([(x - 34 * u, y), (x + 34 * u, y), (x + 32 * u, y - 7 * u), (x - 32 * u, y - 7 * u)])
@@ -347,8 +347,8 @@ def hero():
          f'<rect class="{p}top" y="{top_y}" width="{W}" height="{front_y - top_y}"/>',
          f'<rect class="{p}front" y="{front_y}" width="{W}" height="{H - front_y}"/>']
     # الدلة والفنجالين ورا الستاند (الصف الخلفي)
-    g.append(shadow(p, 148, 383, 58, 6.5))
-    g.append(dalla(p, 152, 383, .94))
+    g.append(shadow(p, 150, 383, 54, 6))
+    g.append(dalla(p, 154, 383, .88))
     g.append(shadow(p, 56, 385, 32, 5))
     g.append(finjan(60, 385, 26))
     g.append(shadow(p, 234, 386, 32, 5))
@@ -401,15 +401,15 @@ def sticker(x, y, w, h, k):
 def host():
     p = "hd-"
     W, H = 560, 520
-    kw, kp, tilt = 1.3, 1.55, 13         # px/mm للجدار والملصقات، وللجوال (أقرب للكاميرا)، وميلانه
-    top_cm = 145                          # أعلى المشهد على ارتفاع 145cm، وتحته كل 1cm = 13px
+    kw, kp, tilt = 1.5, 1.75, 13         # px/mm للجدار والملصقات، وللجوال (أقرب للكاميرا)، وميلانه
+    top_cm = 136                          # أعلى المشهد على ارتفاع 136cm، وتحته كل 1cm = 15px
     y_at = lambda cm: (top_cm - cm) * 10 * kw
     style = (f".{p}wall{{fill:var(--lt-surface-2,#F3EEE6)}}.{p}shop{{color:var(--il-apartments,{APARTMENTS})}}.{p}edge{{stroke:none}}"
              f"@media (prefers-color-scheme:dark){{.{p}wall{{fill:var(--lt-surface-2,#1C2B29)}}"
              f".{p}edge{{stroke:{INK_EDGE};stroke-width:1}}}}" + shadow_css(p))
     g = [f"<defs>{shadow_def(p)}</defs>", f'<rect class="{p}wall" width="{W}" height="{H}"/>']
     # الباب: درفة بيضاء، وفتحة بحافة #E4DCD0، وإطار أبيض (حلق) بعرض 6cm، ومقبض حبر
-    leaf_r, frame_w = 132, 6 * 10 * kw
+    leaf_r, frame_w = 74, 6 * 10 * kw
     g.append(f'<rect fill="{WHITE}" x="-2" y="-2" width="{leaf_r + 2}" height="{H + 4}"/>')
     g.append(f'<rect fill="{SAND200}" x="{leaf_r - 5}" y="-2" width="7" height="{H + 4}"/>')          # حافة الدرفة والفتحة
     g.append(f'<rect fill="{SAND200}" x="{leaf_r + 2}" y="-2" width="5" height="{H + 4}"/>')          # جنب الإطار (ظل)
@@ -420,7 +420,7 @@ def host():
     g.append(f'<path fill="{SLATE}" d="{rrect(hx - 112, hy - 9, 114, 4, 2)}"/>')
     # الملصقين على 125cm (مركز الشريحة): الشريحة 45×45، وبعدها بـ 16mm ملصق الباركود 55×75
     cs = 45 * kw
-    cx0 = leaf_r + frame_w + 76
+    cx0 = leaf_r + frame_w + 112
     cy = y_at(125)
     x_chip, y_chip = cx0, cy - cs / 2
     g.append(shadow(p, x_chip + cs / 2 - 3, y_chip + cs + 2, cs * .55, 3))
@@ -432,13 +432,13 @@ def host():
     g.append(shadow(p, x_qr + qw / 2 - 3, y_qr + qh + 2, qw * .55, 3))
     g.append(sticker(x_qr, y_qr, qw, qh, kw))
     qcx = x_qr + qw / 2
-    d, _, _ = text_path("شقق المثال", 600, height=5 * kw, cx=qcx, cy=y_qr + 8 * kw, simplify=.12)
+    d, _, _ = text_path("شقق المثال", 600, height=5 * kw, cx=qcx, cy=y_qr + 8 * kw, simplify=.15)
     g.append(f'<path class="{p}shop" fill="currentColor" d="{d}"/>')
-    d, _, _ = text_path("الواي فاي ودليل الوحدة", 600, size=3.6 * kw, cx=qcx, cy=y_qr + 17 * kw, simplify=.18)
+    d, _, _ = text_path("الواي فاي ودليل الوحدة", 600, size=3.6 * kw, cx=qcx, cy=y_qr + 17 * kw, simplify=.24)
     g.append(f'<path fill="{INK}" d="{d}"/>')
     qs = 32 * kw
     g.append(fake_qr(qcx - qs / 2, y_qr + 24 * kw, qs))
-    d, _, _ = text_path("امسح الباركود", 500, size=3.2 * kw, cx=qcx, cy=y_qr + 64 * kw, simplify=.18)
+    d, _, _ = text_path("امسح الباركود", 500, size=3.2 * kw, cx=qcx, cy=y_qr + 64 * kw, simplify=.24)
     g.append(f'<path fill="{INK}" d="{d}"/>')
     # الجوال يلمس النقطة
     body, screen, cam, _ = phone_parts(kp, p, "hd-slot-guide")

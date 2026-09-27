@@ -1,6 +1,6 @@
 // محرك لون المحل (موجز المدير الفني §5.2، GM-023). يحوّل brand.color (و brand.colorDark) لمتغيرات CSS:
 // --shop (تعبئة الزر الأساسي) و --on-shop (نصه) و --shop-press (وقت الضغط) و --shop-line (مؤشر التبويب)
-// و --shop-tint (لون صندوق الواي فاي) و --shop-hl (لون اللمس في آيفون: أسود 12% لو النص أبيض، وأبيض 20% لو النص حبر، §5.6)، للفاتح والداكن.
+// و --shop-tint (لون صندوق الواي فاي) و --shop-hl (لون اللمس في آيفون: بنفس اتجاه الضغط، 14%، قرار المدير الفني 17-2)، للفاتح والداكن.
 // التعديل دايماً في فاتحية OKLCH بخطوات 0.005 (نحافظ على الدرجة والتشبع). المرجع: art-review/color/engine.js.
 // أي قيمة غير #RRGGBB = الثيم المحايد (الحبر)، ولا تيل ولا زعفران (GM-023 و GM-025).
 (function (w) {
@@ -87,10 +87,14 @@
     if (!fb && !(cr(line, R.bg) >= 3 && cr(line, R.surf) >= 3)) {
       line = shift(line, light ? -1 : +1, function (y) { return cr(y, R.bg) >= 3 && cr(y, R.surf) >= 3; })[0] || R.neutral;
     }
+    // لون اللمس في آيفون (قرار المدير الفني 17-2): بنفس اتجاه الضغط. الضغط يفتّح = أبيض 14%، ويغمّق = أسود 14%.
+    // الشرط: النص يبقى 4.5 أو أكثر فوق الضغط واللمس مع بعض، وإلا بدون لون لمس
+    var up = lch(press)[0] > L0, hlHex = up ? WHITE : '#000000', hlOk = cr(mix(hlHex, press, 0.14), on) >= 4.5;
     return {
       shop: fill, onShop: on, press: press, line: line,
       tint: mix(fill, R.surf, R.tintPct),
-      hl: on === WHITE ? 'rgba(0,0,0,.12)' : 'rgba(255,255,255,.2)',
+      hl: hlOk ? (up ? 'rgba(255,255,255,.14)' : 'rgba(0,0,0,.14)') : 'transparent',
+      hlContrast: +cr(mix(hlHex, press, 0.14), on).toFixed(2),
       contrast: +cr(fill, on).toFixed(2), pressContrast: +cr(press, on).toFixed(2),
       lineContrast: +Math.min(cr(line, R.bg), cr(line, R.surf)).toFixed(2), fallback: fb
     };

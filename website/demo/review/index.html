@@ -5,22 +5,41 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
-<title>قيّمنا</title>
-<link rel="icon" href="data:,">
+<title>ستاند تقييم قوقل — لمسة تاب</title>
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
 <link rel="stylesheet" href="../../assets/brand/tokens.css">
 <link rel="stylesheet" href="../../assets/brand/components.css">
-<link rel="stylesheet" href="../../assets/client.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+/* صفحة شرح ستاند التقييم لصاحب المحل (web-copy §2.5)، بطبقتنا. الستاند الحقيقي يفتح صفحة التقييم في قوقل مباشرة،
+   فما فيه صفحة تقييم للزبون ولا نحاكي واجهة قوقل. وهذي الصفحة اللي يفتحها باركود ورقة QR. */
+.r-page { max-width: 640px; padding-block: var(--lt-space-48) var(--lt-space-64); }
+.r-page .s-lead { margin-top: var(--lt-space-16); }
+.r-fig { margin: var(--lt-space-40) 0; }
+.r-page .s-small { margin-top: var(--lt-space-24); }
+.r-page .s-body { margin-top: var(--lt-space-8); }
+.r-page .s-acts { margin-top: var(--lt-space-32); }
+</style>
 </head>
-<body class="c">
-<!-- نسخة العرض: الهيكل نفسه، والمنطق والتنسيق من هذا المجلد، والبيانات من data.js هنا (demo: true). -->
-<div id="app"><noscript><p class="c-main">ما قدرنا نفتح الصفحة. فعّل JavaScript من إعدادات المتصفح، وافتحها من جديد.</p></noscript></div>
+<body>
+<div class="s-wrap">
+<header class="s-head"><a href="../../index.html"><picture><source srcset="../../assets/brand/lamsatap-horizontal-dark.svg" media="(prefers-color-scheme: dark)"><img class="s-logo" src="../../assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt></picture></a></header>
+<main class="r-page">
+<h1 class="s-h2">ستاند يفتح صفحة تقييمك في قوقل</h1>
+<p class="s-lead">زبونك يقرّب جواله أو يمسح الباركود، وتنفتح له صفحة تقييم محلك في قوقل مباشرة.</p>
+<!-- مكان رسمة الستاند بهوية المحل (web-illustrator، website/assets/illustrations/). تنحط هنا داخل:
+     <figure class="r-fig">...</figure> ، والباركود في الرسمة ما ينقرى (الموجز §7). -->
+<p class="s-small">يطلب التقييم من كل زبائنك، بدون أي مقابل.</p>
+<p class="s-body">يجي داخل حزمة المحل الكامل، مع المنيو والواي فاي والروابط.</p>
+<div class="s-acts">
+<a class="lt-btn lt-btn--fit" data-wa="demoReview" hidden><span>أبغى ستاند تقييم لمحلي</span></a>
+<a class="lt-link" href="../../index.html">رجوع لموقع <span data-company>لمسة تاب</span></a>
+</div>
+</main>
+</div>
 <script src="../../config.js"></script>
 <script src="../../assets/app.js"></script>
-<script src="../../assets/shop-color.js"></script>
-<script src="../../assets/client.js"></script>
-<script src="../_brands/brands.js"></script>
-<script src="data.js"></script>
-<script src="render.js"></script>
 </body>
 </html>

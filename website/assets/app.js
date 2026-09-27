@@ -42,6 +42,7 @@
   w.fillCompany = function () {
     var n = companyName(), en = str(S.companyNameEn);
     all('[data-company]').forEach(function (el) { el.textContent = n; });
+    all('[data-company-en]').forEach(function (el) { el.textContent = en || 'LamsaTap'; });
     all('[data-company-alt]').forEach(function (el) { el.alt = en ? n + ' — ' + en : n; });
     if (n !== NAME) d.title = d.title.split(NAME).join(n);
   };

@@ -16,7 +16,7 @@
     if (str(D.note)) h.push('<p class="c-sub m-note">' + esc(D.note) + '</p>');
     // شريط الأقسام: نص مو حبوب، والنشط خط 2px بلون المحل. يطلع بس مع قسمين أو أكثر
     if (secs.length > 1) h.push('<nav class="m-tabs" aria-label="أقسام المنيو"><div class="m-tabs-in">' +
-      secs.map(function (s, i) { return '<a href="#' + sid(s, i) + '"' + (i ? '' : ' aria-current="true"') + '>' + esc(s.title) + '</a>'; }).join('') + '</div></nav>');
+      secs.map(function (s, i) { return '<a class="m-tab" href="#' + sid(s, i) + '"' + (i ? '' : ' aria-current="true"') + '>' + esc(s.title) + '</a>'; }).join('') + '</div></nav>');
     secs.forEach(function (s, i) {
       var id = sid(s, i);
       h.push('<section class="m-sec" id="' + id + '" aria-labelledby="' + id + '-h"><h2 id="' + id + '-h">' + esc(s.title) + '</h2>' +
