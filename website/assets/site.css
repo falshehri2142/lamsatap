@@ -27,8 +27,9 @@ a{color:var(--btn);text-underline-offset:.22em;text-decoration-thickness:1px}
 .wa-link{display:inline-flex;align-items:center;gap:6px;min-height:var(--lt-tap-min);font-weight:700;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
 .wa-link .lt-wa-icon{inline-size:20px;block-size:20px;flex:none}
 
-/* سطر الحالة بعد النسخ أو الضغط (aria-live) */
-.status{min-height:1.6em;margin:8px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
+/* سطر الحالة بعد النسخ أو الضغط (aria-live). فاضي = بدون مساحة، ويبقى في الصفحة عشان قارئ الشاشة يعلن اللي ينكتب فيه */
+.status{margin:8px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
+.status:empty{margin:0}
 
 /* وضع العرض (demo:true، web-ux ر3-5): شريط رفيع فوق + زر كبير آخر الصفحة */
 .demo-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;margin:0 0 4px;padding:6px;padding-inline-start:14px;border-radius:var(--lt-radius-m);background:var(--lt-primary-soft);color:var(--lt-primary-strong);font-size:14px;font-weight:700;line-height:1.4}
@@ -44,8 +45,6 @@ a{color:var(--btn);text-underline-offset:.22em;text-decoration-thickness:1px}
 .val{margin:2px 0 12px;font-size:18px;font-weight:700;line-height:1.4}
 .pw{margin:2px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:22px;font-weight:700;line-height:1.35}
 .wifi .lbl,.wifi .status{color:var(--lt-primary-strong)}
-.wifi .status{min-height:0;margin:0}
-.wifi .status:not(:empty){margin-top:8px}
 .wifi .val,.wifi .pw{text-align:right;-webkit-user-select:all;user-select:all}
 .wifi .open{margin:2px 0 0;font-weight:700}
 

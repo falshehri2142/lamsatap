@@ -1,5 +1,5 @@
 // المنيو: المنطق كله هنا. يستخدمه القالب (templates/menu/) ونسخة العرض (demo/menu/).
-// المواصفة: web-ux.md ر3-4 (الصنف سطر مو بطاقة، شريط أقسام ثابت، السعرات تحت كل صنف) و ر3-5 (وضع العرض).
+// المواصفة: web-ux.md ر3-4 (الصنف سطر مو بطاقة، شريط أقسام ثابت، «السعرات: {cal}» تحت كل صنف، ر4-7) و ر3-5 (وضع العرض).
 (function () {
   var D = window.MENU_DATA || {}, demo = D.demo === true, name = str(D.name), h = [];
   var secs = (Array.isArray(D.sections) ? D.sections : []).filter(function (s) { return s && Array.isArray(s.items) && s.items.length; });
@@ -23,7 +23,7 @@
       h.push('<li class="item"><div class="row"><h3>' + esc(it.name) + '</h3>' +
         (price ? '<span class="price">' + esc(price) + '</span>' : '') + '</div>' +
         (desc ? '<p class="desc">' + esc(desc) + '</p>' : '') +
-        (cal ? '<p class="cal">' + esc(cal) + ' سعرة حرارية</p>' : '') + '</li>');
+        (cal ? '<p class="cal">السعرات: ' + esc(cal) + '</p>' : '') + '</li>');
     });
     h.push('</ul></section>');
   });

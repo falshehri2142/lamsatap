@@ -1,16 +1,15 @@
-// بيانات نسخة العرض لصفحة الروابط (demo: true): الأزرار بدون روابط، والضغط يكتب «عرض تجريبي» في سطر الحالة.
-// المحتوى مؤقت لين يكتبه web-ux. نفس حقول templates/links/data.js.
+// مثال للعرض فقط: مقهى وهمي. الروابط على example.com (نطاق محجوز للأمثلة)، وفي العرض الأزرار ما تفتح.
 window.LINKS_DATA = {
   demo: true,
   name: "مقهى المثال",
-  tagline: "",
+  tagline: "قهوة مختصة في جدة (مثال للعرض)",
   whatsapp: "",
   waText: "",
   links: [
-    { label: "انستقرام", url: "" },
-    { label: "سناب شات", url: "" },
-    { label: "تيك توك", url: "" },
-    { label: "الموقع على الخريطة", url: "" },
-    { label: "قيّمنا في قوقل", url: "" }
+    { label: "انستقرام", url: "https://example.com/instagram" },
+    { label: "سناب شات", url: "https://example.com/snapchat" },
+    { label: "تيك توك", url: "https://example.com/tiktok" },
+    { label: "موقعنا على الخريطة", url: "https://example.com/map" },
+    { label: "قيّمنا في قوقل", url: "https://example.com/review" }
   ]
 };

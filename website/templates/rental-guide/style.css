@@ -1,9 +1,10 @@
-/* دليل الوحدة: أقسام بدون بطاقات، عنوان وبعده المحتوى، وخط فاصل رفيع بين الأقسام (web-ux ر3-2).
-   الصندوق الملوّن الوحيد هو الواي فاي (site.css). بدون ظل ولا حركة (GM-011). */
-.sec{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
-.wifi + .sec{border-top:0;padding-top:0}
-.sec .val{margin-bottom:16px}
-.notice{margin:0 0 16px;font-size:15px;line-height:1.7;color:var(--muted)}
+/* دليل الوحدة: أقسام بدون بطاقات، عنوان وبعده المحتوى، وخط فاصل رفيع بين الأقسام (web-ux ر3-2 و ر4-3).
+   الصندوق الملوّن الوحيد هو الواي فاي (site.css). بدون ظل ولا حركة (GM-011).
+   الإيقاع: 36px بين الأقسام (مع الخط)، و8px تحت العنوان: القسم ينقرى بنظرة وما فيه فراغات كبيرة. */
+.sec{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.wifi + .sec{margin-top:24px;border-top:0;padding-top:0}
+.sec .val{margin-bottom:12px}
+.notice{margin:0 0 12px;font-size:15px;line-height:1.7;color:var(--muted)}
 .acts{display:flex;flex-direction:column;gap:12px}
 .acts > .lt-wa,.acts > .confirm{margin:0}
 .confirm{padding:16px;border:1px solid var(--line);border-radius:var(--lt-radius-m);background:var(--card)}
@@ -11,15 +12,22 @@
 .confirm-h{font-weight:700}
 .confirm .steps{margin:-8px 0 12px;padding-inline-start:22px}
 .confirm .btn{margin-top:12px}
-.alt-line{margin:4px 0 0;font-size:15px;color:var(--muted)}
-.tel{display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding:0 4px;font-weight:700;font-variant-numeric:tabular-nums;unicode-bidi:isolate;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
+.ask-h{margin:16px 0 8px;font-size:15px;color:var(--muted)}
+/* صف زرين ثانويين جنب بعض: 48px على الأقل وبينهم 8px (touch-target-size و touch-spacing) */
+.pair{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ask-h + .pair{margin-top:0}
+.pair > *{flex:1 1 140px;margin:0}
+.pair .btn,.pair .lt-wa{min-height:var(--lt-tap-min);min-block-size:var(--lt-tap-min);padding:8px 12px;gap:6px;font-size:16px}
+.pair .lt-wa-icon{inline-size:20px;block-size:20px}
 .pre{margin:0;white-space:pre-line}
-.pair{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
-.pair .btn{flex:1 1 150px;margin:0;font-size:16px}
 .rules{margin:0;padding-inline-start:22px}
-.rules li + li{margin-top:6px}
-.sos{list-style:none;margin:0;padding:0}
-.sos li{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line)}
-.sos li:last-child{border-bottom:0}
-.sos a{display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding:0 8px;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
-.privacy{margin:28px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.rules li + li{margin-top:4px}
+/* الطوارئ: لون عادي مو أحمر (destructive-emphasis)، والاسم مع كل رقم (color-not-only) */
+.sos-main{margin:0;font-variant-numeric:tabular-nums}
+.sos-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.sos-btn{flex-direction:column;gap:0;margin:0;padding:8px 4px;font-size:15px;line-height:1.35}
+.sos-btn span + span{font-size:18px;font-variant-numeric:tabular-nums}
+.is-demo{cursor:default}
+.btn.alt.is-demo:active{background:transparent}
+.sos-note{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.privacy{margin:20px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}

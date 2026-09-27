@@ -14,8 +14,8 @@
   .hero #th-dot-3{animation-delay:620ms}
   .hero #th-page{animation:lt-page 420ms cubic-bezier(.2,.7,.3,1) 780ms backwards}
 }
-/* الجوال: 30 وحدة لورا على خط النقاط، ويظهر خلال أول 40% وهو يقرب */
-@keyframes lt-phone{from{opacity:0;transform:translate(-26px,-16px)}40%{opacity:1}to{opacity:1;transform:none}}
+/* الجوال: يبدأ 30 وحدة لورا على خط النقاط (من #th-dot-1 إلى #th-dot-3 في رسمة 15:49)، ويظهر خلال أول 40% وهو يقرب */
+@keyframes lt-phone{from{opacity:0;transform:translate(-28px,-12px)}40%{opacity:1}to{opacity:1;transform:none}}
 @keyframes lt-show{from{opacity:0}}
 @keyframes lt-page{from{opacity:0;transform:translateY(10px)}}
 @media print{.hero #th-phone,.hero #th-dot-1,.hero #th-dot-2,.hero #th-dot-3,.hero #th-page{animation:none!important}}

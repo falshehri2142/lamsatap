@@ -45,8 +45,8 @@
     if (n !== NAME) d.title = d.title.split(NAME).join(n);
   };
 
-  // أزرار واتساب الشركة: [data-wa="<مفتاح في waText>"]. بدون رقم: hidden، مو زر معطّل (GM-010)
-  // [data-wa-empty]: سطر يطلع بدالها لما الرقم فاضي (الرئيسية بس)
+  // أزرار واتساب الشركة: [data-wa="<مفتاح في waText>"]. بدون رقم: hidden، مو زر معطّل (GM-010، web-ux ر4-4)
+  // [data-wa-empty]: سطر يطلع بدالها لما الرقم فاضي (الرئيسية بس). [data-wa-only]: قسم يطلع بس مع الرقم
   w.fillWhatsapp = function () {
     var num = waNum(S.whatsapp);
     all('[data-wa]').forEach(function (a) {
@@ -60,6 +60,20 @@
       }
     });
     all('[data-wa-empty]').forEach(function (el) { el.hidden = !!num; });
+    all('[data-wa-only]').forEach(function (el) { el.hidden = !num; });
+  };
+
+  // canonical و og:url من config.domain (بس للصفحة اللي عليها <html data-canonical="<المسار>">، يعني الرئيسية)
+  w.fillCanonical = function () {
+    var p = d.documentElement.getAttribute('data-canonical'), dom = str(S.domain).replace(/\/+$/, ''), url, el;
+    if (p == null || !/^https:\/\//.test(dom)) return;
+    url = dom + p;
+    el = d.querySelector('link[rel="canonical"]') || d.head.appendChild(d.createElement('link'));
+    el.rel = 'canonical';
+    el.href = url;
+    el = d.querySelector('meta[property="og:url"]') || d.head.appendChild(d.createElement('meta'));
+    el.setAttribute('property', 'og:url');
+    el.content = url;
   };
 
   // النسخ: clipboard في https و localhost، و execCommand في file://
@@ -149,5 +163,5 @@
   // سفاري آيفون ما يطبّق :active (لون الضغط) إلا إذا الصفحة فيها مستمع touchstart
   d.addEventListener('touchstart', function () {}, { passive: true });
 
-  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); });
+  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); fillCanonical(); });
 })(document, window);
