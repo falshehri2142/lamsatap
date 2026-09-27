@@ -56,8 +56,8 @@ design_minutes,menu,تصميم المنيو (داخل رسوم التجهيز),,
 wa_platform_monthly,host_bundle,اشتراك منصة/مزود WhatsApp API الشهري (ثابت لكل الخدمة),,50,SAR/month,افتراض fin-modeler غير مؤكد ؛ يُراجع عند مزود حقيقي,systems-supervisor
 cac_per_client,all,تكلفة جلب عميل واحد (زيارة وعينات وإعلان),,40,SAR/client,افتراض fin-modeler غير مؤكد,sales
 install_delivery,all,توصيل أو زيارة التركيب لكل عميل,,20,SAR/client,افتراض fin-modeler غير مؤكد,nfc-engineer
-price_shop_annual,shop_bundle,حزمة المحل الكامل سنوي مقدم (العتاد والتركيب مشمول),,1199,SAR/yr,مقترح المحلل المالي بعد GM-007 (بانتظار الاعتماد) غير مؤكد,fin-pricing
-price_shop_renewal,shop_bundle,تجديد السنة الثانية,,790,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing
+price_shop_annual,shop_bundle,حزمة المحل الكامل سنوي مقدم (العتاد والتركيب مشمول),1211,1211,SAR/yr,معتمد: قرار صاحب المشروع GM-045 2026-09-27 (services/pricing.md),fin-pricing
+price_shop_renewal,shop_bundle,تجديد السنة الثانية,798,798,SAR/yr,معتمد: قرار صاحب المشروع GM-045 2026-09-27 (services/pricing.md),fin-pricing
 shop_stands_included,shop_bundle,ستاندات مشمولة (تقييم + واي فاي/روابط),,2,units,fin-pricing.md غير مؤكد,fin-pricing
 cost_stand_unit,shop_bundle,ستاند بشعار العميل: ورقة مطبوعة 8.00 + حامل أكريليك JST A6 مع حصة الشحن 5.22 + شريحة 2.95 (قبل الضريبة),,16.17,SAR/unit,الورقة (الإيثار) والحامل (JST) مؤكدين؛ الشريحة €0.67 بصرف 4.4 تقدير؛ engineering/client-logo-printing.md بند 6 (GM-023),nfc-engineer
 cost_shipping,shop_bundle,شحن الطباعة من الإيثار (موزع لكل ستاند),,3,SAR/unit,غير مؤكد (client-logo-printing.md: شحن الإيثار لكل عميل غير مؤكد),nfc-engineer
@@ -79,9 +79,9 @@ cost_hosting_monthly,review_sub,استضافة وتحويل الرابط,,1,SAR/
 support_minutes_monthly,review_sub,دعم شهري,,0,min/month,افتراض fin-modeler غير مؤكد,fin-modeler
 wa_msgs_cost_monthly,review_sub,رسائل واتساب شهرية,,0,SAR/month,لا يوجد,fin-modeler
 units_per_client,review_sub,وحدات لكل عميل,,1,units,تعريف,fin-modeler
-price_host_monthly_per_unit_free_hw,host_free_hw,المضيف لكل وحدة شهرياً 1-4 وحدات (العتاد مشمول),,49,SAR/unit/month,fin-pricing.md نطاق 39-69 غير مؤكد,fin-pricing
-price_host_monthly_per_unit_5plus,host_free_hw,المضيف لكل وحدة شهرياً 5+ وحدات,,39,SAR/unit/month,fin-pricing.md غير مؤكد,fin-pricing
-host_annual_months_charged,host_free_hw,الدفع السنوي = 12 شهر بسعر كم شهر,,10,months,fin-pricing.md غير مؤكد,fin-pricing
+price_host_monthly_per_unit_free_hw,host_free_hw,المضيف لكل وحدة شهرياً 1-4 وحدات (العتاد مشمول),49.5,49.5,SAR/unit/month,معتمد: قرار صاحب المشروع GM-045 2026-09-27 (services/pricing.md),fin-pricing
+price_host_monthly_per_unit_5plus,host_free_hw,المضيف لكل وحدة شهرياً 5+ وحدات,39.5,39.5,SAR/unit/month,معتمد: قرار صاحب المشروع GM-045 2026-09-27 (services/pricing.md),fin-pricing
+host_annual_months_charged,host_free_hw,الدفع السنوي = 12 شهر بسعر كم شهر,11,11,months,معتمد: قرار صاحب المشروع GM-045 2026-09-27 (services/pricing.md),fin-pricing
 host_min_commit_months,host_free_hw,التزام أدنى للدفع الشهري,,6,months,fin-pricing.md 6؛ fin-risk 3؛ غير مؤكد,fin-pricing
 price_host_setup_free_hw,host_free_hw,رسوم تجهيز,,0,SAR/unit,fin-pricing.md العتاد مجاني,fin-pricing
 cost_chip,host_free_hw,عتاد الوحدة: on-metal 45×45 + بطاقة PVC (€3.08) + احتياط 1/10,,15,SAR/unit,€3.08 مؤكد ومتوفر (Shop NFC، host-unit-and-stand-alternatives.md)؛ ×4.4 وطباعة البطاقة والاحتياط غير مؤكدة,nfc-engineer
