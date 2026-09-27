@@ -101,12 +101,13 @@
     return href ? '<a class="lt-btn lt-btn--' + (kind || 'shop') + '" href="' + esc(href) + '">' + cIcon('chat', 'lt-btn-icon') + '<span>' + esc(label) + '</span></a>' : '';
   };
 
-  // طبقة لمسة تاب في نسخ العرض (§5.6): شريط بلون الفعل فوق، وقسم آخر الصفحة، والزرين لرقم الشركة.
+  // طبقة لمسة تاب في نسخ العرض (§5.6): شريط حبر فوق، وقسم آخر الصفحة، والزرين لرقم الشركة.
+  // الشريط لوحة حبر (.lt-ink من tokens.css) بالوضعين (التقييم 2 بند 8)، وزره الأساسي داخلها يطلع فاتح على الحبر.
   // اسم الزر المختصر = نصه الظاهر (WCAG 2.5.3)، ووصفه = نص الزر الكبير (aria-describedby)
   // «عرض تجريبي» بس، بدون نقطة وسطى ولا اسم المحل: الاسم موجود في رأس الصفحة (الاتجاه 2 §3.3). label باقي للتوافق وما يُستخدم
   w.cDemoBar = function (label, key) {
-    return '<aside class="c-demo" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي</span>' +
-      (key ? '<a class="lt-btn lt-btn--compact lt-btn--on-bar" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a>' : '') +
+    return '<aside class="c-demo lt-ink" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي</span>' +
+      (key ? '<a class="lt-btn lt-btn--compact" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a>' : '') +
       '</div></aside>';
   };
   // آخر العرض (web-copy 2.0 و ر5-2): العنوان والسطر والزر حسب الصفحة، ورابط الرجوع لموقعنا

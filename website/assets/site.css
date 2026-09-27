@@ -57,6 +57,20 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .s-nav a:hover { text-decoration: underline; }
 }
 
+/* خانات الشعار (GM-036): كل خانة ملف SVG بمسار واحد في assets/brand/ (logo-horizontal و-dark، وlogo-stack-dark و-since-dark)،
+   يسلمها المدير العام ويركّبها tools/build-home-minis.cjs مكان الكلمة. الملفات نفسها ما نلمسها.
+   - الأفقي في الرأس: ارتفاع 40 على الجوال و44 من 1024 (المدى 40 إلى 48)، والعرض من نسبة الملف (تقريباً 10.9H).
+     الفراغ الآمن 0.5H (تقريباً 10px) فوقه وتحته من ارتفاع الرأس (64 و72)، وجنبه من فراغ الرأس (24).
+   - المكدّس في التذييل: 120px، و160px من 1024 (نسخة «SINCE 2026» بس هناك، لأنها تبي 160 أو أكثر).
+   - ما ينحط فوق صورة: الرأس والتذييل على الحبر أو الرملي بس */
+.s-logo-link { display: inline-flex; align-items: center; min-height: var(--lt-tap-min); }
+.s-logo-h { display: block; width: auto; height: 40px; }
+.s-logo-stack { display: block; width: 120px; height: auto; }
+@media (min-width: 1024px) {
+  .s-logo-h { height: 44px; }
+  .s-logo-stack { width: 160px; }
+}
+
 /* الأزرار في صفحات الشركة (§3.5 و§3.6): كبسولة، 52 ارتفاع، حشو 24، ونص 16/500. الانتقال 150ms على اللون والحد بس.
    الألوان من متغيرات components.css (الفعل الأساسي، والحبر يقلبها في .lt-ink). أزرار صفحات الزبون (.c) زي ما هي */
 .lt-btn:not(.c .lt-btn) {

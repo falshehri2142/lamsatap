@@ -4,7 +4,10 @@
 // - «كيف نشتغل»: مشهد hero-counter.svg ومنيوه المصغر.
 // - الصور الأربع (ص1 إلى ص4): تنحط بس لو ملفاتها موجودة في website/assets/images/ (بعد إذن التنزيل والتحويل).
 // نفس دوال render.js ونفس بيانات demo/ ونفس classes، فاللي يشوفه الزائر هو اللي يطلع. الرئيسية ما تشغّل render.js (ثابتة، أخف).
-// التشغيل (من جذر المشروع): node tools/build-home-minis.cjs
+// - ستاند التقييم (التقييم 2، القرار 2): tools/stand.cjs بمقاسات print/dims.js وباركود حقيقي، في صفحة الشرح (والرئيسية بعدين).
+// التشغيل (من جذر المشروع): node tools/build-home-minis.cjs [صفحات...]
+//   بدون صفحات = كلها (index.html و demo/review/index.html و demo/review/qr-sheet.html). مع صفحة = هي بس، مثل: node tools/build-home-minis.cjs demo/review/index.html
+//   الملف ما ينكتب إلا لو محتواه تغيّر.
 // أعد تشغيله بعد أي تعديل في templates/*/render.js أو demo/*/data.js أو demo/_brands/ أو assets/client.js أو محرك اللون،
 // أو assets/brand/tokens.css، أو لما تنضاف صورة في assets/images/.
 const fs = require('fs'), path = require('path'), vm = require('vm');
@@ -17,7 +20,10 @@ const doc = { currentScript: null, addEventListener: noop, getElementById: () =>
 const ctx = { document: doc, console, Math, JSON, Object, Array, String, Number, RegExp, encodeURIComponent, setTimeout: noop, navigator: {} };
 ctx.window = ctx; vm.createContext(ctx);
 const run = (f) => vm.runInContext(read(f), ctx, { filename: f });
-['config.js', 'assets/app.js', 'assets/shop-color.js', 'assets/client.js', 'demo/_brands/brands.js'].forEach(run);
+['config.js', 'assets/app.js', 'assets/shop-color.js', 'assets/client.js', 'demo/_brands/brands.js', 'vendor/qrcode-generator.js'].forEach(run);
+// مقاسات الستاند من قالب الطباعة نفسه (مصدر واحد)، ومكوّنه
+vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'print', 'dims.js'), 'utf8'), ctx, { filename: 'print/dims.js' });
+const standHtml = require('./stand.cjs');
 ctx.LT_NO_MOUNT = true;
 ['demo/menu/data.js', 'templates/menu/render.js', 'demo/wifi/data.js', 'templates/wifi/render.js',
   'demo/links/data.js', 'templates/links/render.js', 'demo/rental-guide/data.js', 'templates/rental-guide/render.js'].forEach(run);
@@ -26,7 +32,7 @@ const R = ctx.LT_RENDER;
 // الشاشة المصغرة تعرض أول 851px بس، فنقص اللي تحت الطي عشان الصفحة تبقى خفيفة
 const menu = Object.assign({}, ctx.MENU_DATA, { sections: ctx.MENU_DATA.sections.slice(0, 2).map((s, i) => i ? Object.assign({}, s, { items: s.items.slice(0, 2) }) : s) });
 const guide = Object.assign({}, ctx.GUIDE_DATA, { ac: '', address: '', rules: [] });
-const site = ctx.SITE; const sos = site.emergency; site.emergency = [];
+const site = ctx.SITE; const sos = site.emergency;
 
 // داخل الرئيسية: ولا h1 ثانية ولا main ثاني ولا header أو nav زيادة، وولا aria-live
 function tame(html) {
@@ -115,38 +121,96 @@ function img(name) {
   return '';
 }
 
-// كل نسخة ببادئة id مختلفة (§4)
-const out = {
-  'phone:hero': phone(shots.guide('hg-')),
-  'phone:ex-guide': phone(shots.guide('eg-')),
-  'phone:ex-menu': phone(shots.menu('em-')),
-  'phone:ex-wifi': phone(shots.wifi('ew-')),
-  'phone:ex-links': phone(shots.links('el-')),
-  'scene:counter': scene('hero-counter.svg', 'hc-slot-menu', 'جوال يلمس ستاند «مقهى المثال» على كاونتر القهوة، وعلى شاشته منيو المقهى.', shots.menu('mh-'))
+// ستاند التقييم (القرار 2): شعار «مقهى المثال» ولونه من demo/_brands/brands.js، والباركود يودّي لصفحة الشرح
+// (SITE.domain + /demo/review/، نفس رابط ورقة QR في demo/review/config.js). logo = مسار الشعار من الصفحة نفسها
+const stand = (logo) => standHtml({
+  dims: ctx.PRINT_DIMS.stand, qrcode: ctx.qrcode, title: 'قيّمنا في قوقل', logo, color: ctx.DEMO_BRANDS.cafe.color,
+  url: String(site.domain || 'https://example.com').replace(/\/+$/, '') + '/demo/review/'
+});
+
+// خانات الشعار (GM-036): كل خانة تاخذ ملف SVG بمسار واحد في assets/brand/، والملفات يسلمها المدير العام (ما نلمسها).
+// لين توصل: الكلمة «لمسة تاب» نص مثل الحين (بدون صورة مكسورة ولا طلب 404). يوم التسليم: الملفات هنا، ثم هالسكربت.
+const LOGO = {
+  h: 'assets/brand/logo-horizontal.svg',                 // الأفقي على الفاتح (رأس الرملي، وورقة QR)
+  hDark: 'assets/brand/logo-horizontal-dark.svg',        // الأفقي على الحبر والداكن (رأس الرئيسية، والرملي في الداكن)
+  stack: 'assets/brand/logo-stack-dark.svg',             // المكدّس على الحبر (التذييل)
+  stackSince: 'assets/brand/logo-stack-since-dark.svg'   // نفسه مع «SINCE 2026»: بس لما عرضه 160px أو أكثر
 };
-for (const n of Object.keys(IMGS)) out['img:' + n] = img(n);
-site.emergency = sos;
-
-// ألوان المحلين من محرك اللون، على صندوق الشاشة المصغرة (فاتح وداكن)
-const vars = (x) => '--shop:' + x.shop + ';--on-shop:' + x.onShop + ';--shop-press:' + x.press + ';--shop-line:' + x.line + ';--shop-tint:' + x.tint + ';--shop-hl:' + x.hl;
-let style = '';
-for (const [cls, b] of [['mini--cafe', ctx.DEMO_BRANDS.cafe], ['mini--flats', ctx.DEMO_BRANDS.flats]]) {
-  const t = ctx.shopColors(b);
-  style += '.' + cls + '{' + vars(t.light) + '}@media (prefers-color-scheme:dark){.' + cls + '{' + vars(t.dark) + '}}';
+const hasFile = (f) => fs.existsSync(path.join(W, f));
+// نسبة العرض للارتفاع من viewBox الملف، عشان width و height في <img> (image-dimension)
+function ratio(f) {
+  const m = fs.readFileSync(path.join(W, f), 'utf8').match(/viewBox="\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)/);
+  if (!m) throw new Error('الشعار بدون viewBox: ' + f);
+  return +m[1] / +m[2];
 }
-// تنسيق قالبي الروابط والواي فاي صغير، فينحط هنا بدل ملفين زيادة
-for (const f of ['templates/links/style.css', 'templates/wifi/style.css']) style += read(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*\n\s*/g, '');
-out['minis-style'] = '<style>' + style + '</style>';
+const logoImg = (rel, f, cls, h) => '<img class="' + cls + '" src="' + rel + f + '" width="' + Math.round(h * ratio(f)) + '" height="' + h + '" alt="لمسة تاب — LamsaTap" data-company-alt>';
+// rel = المسار من الصفحة لجذر website/ ('' للرئيسية، و'../../' لصفحات demo)
+const logo = {
+  // رأس على الرملي: الفاتح، وفي الداكن نسخة الداكن لو موجودة
+  headPage: (rel, fallback) => !hasFile(LOGO.h) ? fallback : '<a class="s-logo-link" href="' + rel + 'index.html">' +
+    (hasFile(LOGO.hDark) ? '<picture><source srcset="' + rel + LOGO.hDark + '" media="(prefers-color-scheme: dark)">' + logoImg(rel, LOGO.h, 's-logo-h', 44) + '</picture>' : logoImg(rel, LOGO.h, 's-logo-h', 44)) + '</a>',
+  // رأس على الحبر (نفس الشي بالوضعين)
+  headInk: (rel, fallback) => !hasFile(LOGO.hDark) ? fallback : '<a class="s-logo-link" href="' + rel + 'index.html">' + logoImg(rel, LOGO.hDark, 's-logo-h', 44) + '</a>',
+  // التذييل على الحبر: المكدّس، و«SINCE 2026» من 1024 (عرضه هناك 160px)
+  foot: (rel, fallback) => !hasFile(LOGO.stack) ? fallback :
+    (hasFile(LOGO.stackSince) ? '<picture><source srcset="' + rel + LOGO.stackSince + '" media="(min-width: 1024px)">' + logoImg(rel, LOGO.stack, 's-logo-stack', 120) + '</picture>' : logoImg(rel, LOGO.stack, 's-logo-stack', 120)),
+  // ورقة QR (ورق أبيض): الأفقي الفاتح بارتفاع 12mm
+  sheet: (rel, fallback) => !hasFile(LOGO.h) ? fallback : logoImg(rel, LOGO.h, 'q-logo', 45)
+};
+const WORD = {
+  review: '<a class="s-word" href="../../index.html" data-company>لمسة تاب</a>',
+  reviewFoot: '<p class="s-foot-name" data-company>لمسة تاب</p>',
+  sheet: '<p class="q-word" data-company>لمسة تاب</p>'
+};
 
-// نكتبها بين العلامات في index.html
-let html = read('index.html');
-for (const [k, v] of Object.entries(out)) {
-  const re = new RegExp('(<!-- @@' + k.replace(/[-]/g, '\\-') + '(?::[^>]*)? -->)[\\s\\S]*?(<!-- /@@' + k.replace(/[-]/g, '\\-') + ' -->)');
-  if (!re.test(html)) throw new Error('marker not found: ' + k);
-  html = html.replace(re, (m, a, b) => a + v + b);
+// المخرجات لكل صفحة (تنحسب بس لو الصفحة مطلوبة)
+function homeOut() {
+  // كل نسخة ببادئة id مختلفة (§4)
+  site.emergency = [];
+  const out = {
+    'phone:hero': phone(shots.guide('hg-')),
+    'phone:ex-guide': phone(shots.guide('eg-')),
+    'phone:ex-menu': phone(shots.menu('em-')),
+    'phone:ex-wifi': phone(shots.wifi('ew-')),
+    'phone:ex-links': phone(shots.links('el-')),
+    'scene:counter': scene('hero-counter.svg', 'hc-slot-menu', 'جوال يلمس ستاند «مقهى المثال» على كاونتر القهوة، وعلى شاشته منيو المقهى.', shots.menu('mh-'))
+  };
+  for (const n of Object.keys(IMGS)) out['img:' + n] = img(n);
+  site.emergency = sos;
+  // ألوان المحلين من محرك اللون، على صندوق الشاشة المصغرة (فاتح وداكن)
+  const vars = (x) => '--shop:' + x.shop + ';--on-shop:' + x.onShop + ';--shop-press:' + x.press + ';--shop-line:' + x.line + ';--shop-tint:' + x.tint + ';--shop-hl:' + x.hl;
+  let style = '';
+  for (const [cls, b] of [['mini--cafe', ctx.DEMO_BRANDS.cafe], ['mini--flats', ctx.DEMO_BRANDS.flats]]) {
+    const t = ctx.shopColors(b);
+    style += '.' + cls + '{' + vars(t.light) + '}@media (prefers-color-scheme:dark){.' + cls + '{' + vars(t.dark) + '}}';
+  }
+  // تنسيق قالبي الروابط والواي فاي صغير، فينحط هنا بدل ملفين زيادة
+  for (const f of ['templates/links/style.css', 'templates/wifi/style.css']) style += read(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*\n\s*/g, '');
+  out['minis-style'] = '<style>' + style + '</style>';
+  return out;
 }
-fs.writeFileSync(path.join(W, 'index.html'), html);
-// الميزانية (§4): الصفحة تحت 90KB بدون الخطوط والصور، وإلا المشهد يصير <img> بدون المنيو اللي داخله
-const size = Buffer.byteLength(html);
-console.log('written:', Object.keys(out).map((k) => k + ' ' + Buffer.byteLength(out[k]) + 'B').join(', '));
-console.log('index.html:', size, 'bytes' + (size > 90 * 1024 ? '  (فوق 90KB: المشهد لازم يصير <img>، §4)' : ''));
+const PAGES = {
+  'index.html': homeOut,
+  'demo/review/index.html': () => ({
+    'stand:review': stand('../_brands/cafe.svg'),
+    'logo:head': logo.headPage('../../', WORD.review),
+    'logo:foot': logo.foot('../../', WORD.reviewFoot)
+  }),
+  'demo/review/qr-sheet.html': () => ({ 'logo:sheet': logo.sheet('../../', WORD.sheet) })
+};
+
+// نكتبها بين العلامات في كل صفحة مطلوبة
+const targets = process.argv.slice(2).map((p) => p.replace(/\\/g, '/').replace(/^website\//, ''));
+for (const page of (targets.length ? targets : Object.keys(PAGES))) {
+  if (!PAGES[page]) throw new Error('صفحة مو معروفة: ' + page + ' (المعروفة: ' + Object.keys(PAGES).join('، ') + ')');
+  const out = PAGES[page](), before = read(page);
+  let html = before;
+  for (const [k, v] of Object.entries(out)) {
+    const re = new RegExp('(<!-- @@' + k.replace(/[-]/g, '\\-') + '(?::[^>]*)? -->)[\\s\\S]*?(<!-- /@@' + k.replace(/[-]/g, '\\-') + ' -->)');
+    if (!re.test(html)) throw new Error('marker not found in ' + page + ': ' + k);
+    html = html.replace(re, (m, a, b) => a + v + b);
+  }
+  if (html !== before) fs.writeFileSync(path.join(W, page), html);
+  console.log(page + (html !== before ? ' (انكتب)' : ' (ما تغيّر)') + ':', Object.keys(out).map((k) => k + ' ' + Buffer.byteLength(out[k]) + 'B').join(', '));
+  console.log('  الحجم:', Buffer.byteLength(html), 'bytes');
+}

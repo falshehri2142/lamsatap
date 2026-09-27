@@ -79,6 +79,17 @@
     ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { hero.addEventListener(t, end, { passive: true }); });
   };
 
+  // روابط السياسات في الذيل (التقييم 2 بند 7): [data-link="privacy|terms"] يطلع بس لو رابطه https في config.js (SITE.links)،
+  // وإلا يبقى مخفي. مثل أزرار الواتساب: ولا رابط يودّي لـ #
+  w.fillLinks = function () {
+    var L = S.links || {};
+    all('[data-link]').forEach(function (a) {
+      var u = str(L[a.getAttribute('data-link')]);
+      if (/^https:\/\/[^\s"'<>]+$/.test(u)) { a.href = u; a.hidden = false; }
+      else { a.removeAttribute('href'); a.hidden = true; }
+    });
+  };
+
   // canonical و og:url من config.domain (بس للصفحة اللي عليها <html data-canonical="<المسار>">، يعني الرئيسية)
   w.fillCanonical = function () {
     var p = d.documentElement.getAttribute('data-canonical'), dom = str(S.domain).replace(/\/+$/, ''), url, el;
@@ -130,5 +141,5 @@
   // سفاري آيفون ما يطبّق :active (لون الضغط) إلا إذا الصفحة فيها مستمع touchstart
   d.addEventListener('touchstart', function () {}, { passive: true });
 
-  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); fillCanonical(); bindRotator(); });
+  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); fillLinks(); fillCanonical(); bindRotator(); });
 })(document, window);

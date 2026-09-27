@@ -12,54 +12,35 @@
 <link rel="stylesheet" href="../../assets/brand/tokens.css">
 <link rel="stylesheet" href="../../assets/brand/components.css">
 <link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/stand.css">
 <style>
 /* صفحة شرح ستاند التقييم لصاحب المحل (web-copy §2.5)، صفحة شركة على «الاتجاه 2»: الرأس كلمة على الرملي، وعرضها 720 بحد أقصى،
    وتحت h1 الستاند نفسه، ثم «كيف يشتغل» بنفس خطوات الرئيسية، وسطر السياسة، وسطر البيع، والزر، والذيل نفسه حق الرئيسية.
    الستاند يفتح صفحة التقييم في قوقل مباشرة، فما فيه صفحة تقييم للزبون ولا نحاكي واجهة قوقل. وهذي الصفحة اللي يفتحها باركود ورقة QR. */
-.r-page { max-width: calc(720px + 2 * var(--lt-gutter)); padding-block: var(--lt-space-24) var(--lt-section); }
+/* الرأس والمحتوى نفس العمود 720 (التقييم 2 بند 9): الكلمة فوق بداية العنوان بالضبط */
+.r-head, .r-page { max-width: calc(720px + 2 * var(--lt-gutter)); }
+.r-page { padding-block: var(--lt-space-24) var(--lt-section); }
 .r-steps-h { margin-top: var(--lt-space-48); }
 .r-steps { margin-top: var(--lt-space-24); }
 .r-policy { margin-top: var(--lt-space-40); }
 .r-sales { max-width: 36em; margin-top: var(--lt-space-8); }
 .r-acts { margin-top: var(--lt-space-32); }
 
-/* الستاند (الاتجاه 2 §1 بند 6: المنتج نفسه هو الرسمة): وجه قالب الطباعة بمقاساته من print/dims.js (100×150mm، والشعار 60×16mm
-   من 12mm، والعنوان 18pt على 34mm، والنقطة 14mm على 62mm، والسطرين على 80 و97mm، والباركود 30mm على 110mm).
-   شي مادي: الورقة بيضاء والنص حبر بالوضعين. الباركود نقش web-illustrator (host-door.svg) وما ينقرى (فحصته بـ jsQR). */
-.r-fig { position: relative; display: flex; justify-content: center; margin: var(--lt-space-32) calc(-1 * var(--lt-gutter)) 0; padding-top: var(--lt-space-40); background: var(--lt-surface-2); overflow: hidden; }
-.r-fig::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28px; background: var(--lt-border); }   /* الكاونتر */
-.r-stand { --mm: 2.3px; --dot: #7A3E2B; position: relative; z-index: 1; width: calc(100 * var(--mm)); height: calc(150 * var(--mm)); margin-bottom: 20px; border: 1px solid var(--lt-sand-200); background: var(--lt-inverse); color: var(--lt-ink); font-family: var(--lt-font-brand); line-height: 1.2; text-align: center; }
-.r-stand > * { position: absolute; left: 0; right: 0; margin: 0; }
-.r-stand-logo { top: calc(12 * var(--mm)); right: auto; left: calc(20 * var(--mm)); width: calc(60 * var(--mm)); height: calc(16 * var(--mm)); object-fit: contain; }
-.r-stand-t { top: calc(34 * var(--mm)); font-size: calc(6.35 * var(--mm)); font-weight: 600; }                /* 18pt = 6.35mm */
-.r-stand-dot { top: calc(55 * var(--mm)); right: auto; left: calc(43 * var(--mm)); width: calc(14 * var(--mm)); height: calc(14 * var(--mm)); border-radius: 50%; background: var(--dot); }
-.r-stand-l1 { top: calc(80 * var(--mm)); font-size: calc(3.88 * var(--mm)); font-weight: 600; }               /* 11pt */
-.r-stand-l2 { top: calc(97 * var(--mm)); font-size: calc(3.53 * var(--mm)); font-weight: 500; }               /* 10pt */
-.r-stand-qr { top: calc(110 * var(--mm)); right: auto; left: calc(35 * var(--mm)); width: calc(30 * var(--mm)); height: calc(30 * var(--mm)); }
-@media (min-width: 768px) {
-  .r-fig { margin-inline: 0; }
-  .r-stand { --mm: 2.6px; }
-}
+/* الستاند مكوّن (التقييم 2، القرار 2): ../../assets/stand.css، والـ HTML من tools/stand.cjs بعلامة @@stand:review.
+   هنا المسافة حوله بس. على الجوال المسرح من حافة لحافة */
+.r-fig { margin: var(--lt-space-32) calc(-1 * var(--lt-gutter)) 0; }
+@media (min-width: 768px) { .r-fig { margin-inline: 0; } }
 </style>
 </head>
 <body>
 <a class="s-skip" href="#main">انتقل للمحتوى</a>
-<!-- الرأس (الاتجاه 2 §3.7): كلمة «لمسة تاب» نص على الرملي، والشعار موقوف -->
-<header class="s-wrap s-head"><a class="s-word" href="../../index.html" data-company>لمسة تاب</a></header>
+<!-- الرأس: خانة الشعار الأفقي (GM-036). لين يوصل ملفه: كلمة «لمسة تاب» نص على الرملي (tools/build-home-minis.cjs) -->
+<header class="s-wrap s-head r-head"><!-- @@logo:head --><a class="s-word" href="../../index.html" data-company>لمسة تاب</a><!-- /@@logo:head --></header>
 <main class="s-wrap r-page" id="main">
 <h1 class="s-h2">ستاند يفتح صفحة تقييمك في قوقل</h1>
-<!-- ستاند «مقهى المثال» (محل وهمي، demo/_brands/brands.js: اللون #7A3E2B والشعار cafe.svg). صورة المنتج بمقياس مصغر، زخرفية وما تنضغط
-     (aria-hidden و inert مثل الشاشات المصغرة في الرئيسية): الخطوات تحت تشرحه، وسطوره الصغيرة جزء من الصورة مو نص للقراية -->
-<figure class="r-fig" aria-hidden="true" inert>
-<div class="r-stand">
-<img class="r-stand-logo" src="../_brands/cafe.svg" alt="">
-<p class="r-stand-t">قيّمنا في قوقل</p>
-<span class="r-stand-dot"></span>
-<p class="r-stand-l1">قرّب جوالك هنا</p>
-<p class="r-stand-l2">أو امسح الباركود</p>
-<svg class="r-stand-qr" viewBox="380.8 163.2 56 56" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M384.8 167.2h16v16h-16zM387 169.5v11.4h11.4v-11.4zM389.3 171.8h6.9v6.9h-6.9zM416.8 167.2h16v16h-16zM419 169.5v11.4h11.4v-11.4zM421.3 171.8h6.9v6.9h-6.9zM384.8 199.2h16v16h-16zM387 201.5v11.4h11.4v-11.4zM389.3 203.8h6.9v6.9h-6.9zM405.3 169.5h2.3v2.3h-2.3zM403 171.8h6.9v2.3h-6.9zM403 174.1h2.3v2.3h-2.3zM403 176.4h4.6v2.3h-4.6zM409.9 176.4h4.6v2.3h-4.6zM403 178.7h4.6v2.3h-4.6zM403 183.2h2.3v2.3h-2.3zM384.8 185.5h9.1v2.3h-9.1zM396.2 185.5h2.3v2.3h-2.3zM400.8 185.5h2.3v2.3h-2.3zM407.6 185.5h4.6v2.3h-4.6zM419 185.5h4.6v2.3h-4.6zM428.2 185.5h4.6v2.3h-4.6zM384.8 187.8h2.3v2.3h-2.3zM391.6 187.8h9.1v2.3h-9.1zM403 187.8h2.3v2.3h-2.3zM409.9 187.8h2.3v2.3h-2.3zM414.5 187.8h2.3v2.3h-2.3zM419 187.8h2.3v2.3h-2.3zM423.6 187.8h4.6v2.3h-4.6zM384.8 190.1h2.3v2.3h-2.3zM389.3 190.1h4.6v2.3h-4.6zM398.5 190.1h2.3v2.3h-2.3zM403 190.1h4.6v2.3h-4.6zM409.9 190.1h9.1v2.3h-9.1zM421.3 190.1h2.3v2.3h-2.3zM425.9 190.1h2.3v2.3h-2.3zM391.6 192.4h4.6v2.3h-4.6zM400.8 192.4h4.6v2.3h-4.6zM409.9 192.4h2.3v2.3h-2.3zM421.3 192.4h4.6v2.3h-4.6zM428.2 192.4h2.3v2.3h-2.3zM384.8 194.7h2.3v2.3h-2.3zM391.6 194.7h4.6v2.3h-4.6zM398.5 194.7h4.6v2.3h-4.6zM409.9 194.7h2.3v2.3h-2.3zM414.5 194.7h6.9v2.3h-6.9zM423.6 194.7h6.9v2.3h-6.9zM403 197h4.6v2.3h-4.6zM419 197h6.9v2.3h-6.9zM403 199.2h2.3v2.3h-2.3zM412.2 199.2h2.3v2.3h-2.3zM416.8 199.2h2.3v2.3h-2.3zM405.3 201.5h2.3v2.3h-2.3zM414.5 201.5h2.3v2.3h-2.3zM425.9 201.5h2.3v2.3h-2.3zM403 203.8h2.3v2.3h-2.3zM414.5 203.8h2.3v2.3h-2.3zM425.9 203.8h2.3v2.3h-2.3zM430.5 203.8h2.3v2.3h-2.3zM407.6 206.1h2.3v2.3h-2.3zM419 206.1h6.9v2.3h-6.9zM428.2 206.1h4.6v2.3h-4.6zM412.2 208.4h2.3v2.3h-2.3zM416.8 208.4h2.3v2.3h-2.3zM428.2 208.4h2.3v2.3h-2.3zM403 210.7h4.6v2.3h-4.6zM419 210.7h4.6v2.3h-4.6zM425.9 210.7h6.9v2.3h-6.9zM407.6 213h2.3v2.3h-2.3zM416.8 213h4.6v2.3h-4.6zM423.6 213h2.3v2.3h-2.3zM430.5 213h2.3v2.3h-2.3z"/></svg>
-</div>
-</figure>
+<!-- ستاند «مقهى المثال» (محل وهمي): المكوّن tools/stand.cjs بمقاسات print/dims.js، وباركود حقيقي يفتح هالصفحة
+     (SITE.domain + /demo/review/). زخرفي (aria-hidden و inert): الخطوات تحت تشرحه. يتولد بـ node tools/build-home-minis.cjs -->
+<div class="r-fig"><!-- @@stand:review --><figure class="lt-stand-stage" aria-hidden="true" inert><div class="lt-stand" data-qr-url="https://example.com/demo/review/"><img class="lt-stand-logo" src="../_brands/cafe.svg" alt="" style="top:calc(12 * var(--mm));left:calc(20 * var(--mm));width:calc(60 * var(--mm));height:calc(16 * var(--mm))"><p class="lt-stand-line" style="top:calc(34 * var(--mm));font-size:calc(6.35 * var(--mm));font-weight:600">قيّمنا في قوقل</p><span class="lt-stand-dot" style="top:calc(55 * var(--mm));left:calc(43 * var(--mm));width:calc(14 * var(--mm));height:calc(14 * var(--mm));background:#7A3E2B"></span><p class="lt-stand-line" style="top:calc(80 * var(--mm));font-size:calc(3.881 * var(--mm));font-weight:600">قرّب جوالك هنا</p><p class="lt-stand-line" style="top:calc(97 * var(--mm));font-size:calc(3.528 * var(--mm));font-weight:500">أو امسح الباركود</p><svg class="lt-stand-qr" viewBox="0 0 29 29" shape-rendering="crispEdges" focusable="false" style="top:calc(110 * var(--mm));left:calc(35 * var(--mm));width:calc(30 * var(--mm));height:calc(30 * var(--mm))"><path fill="currentColor" d="M0 0h7v1h-7zM8 0h1v1h-1zM10 0h2v1h-2zM15 0h2v1h-2zM18 0h1v1h-1zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h2v1h-2zM16 1h1v1h-1zM19 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h2v1h-2zM11 2h2v1h-2zM15 2h2v1h-2zM19 2h2v1h-2zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h2v1h-2zM12 3h1v1h-1zM16 3h2v1h-2zM20 3h1v1h-1zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h5v1h-5zM14 4h3v1h-3zM18 4h2v1h-2zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM15 5h2v1h-2zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM9 7h1v1h-1zM12 7h2v1h-2zM15 7h2v1h-2zM19 7h1v1h-1zM0 8h1v1h-1zM3 8h7v1h-7zM11 8h3v1h-3zM17 8h3v1h-3zM21 8h1v1h-1zM24 8h1v1h-1zM26 8h3v1h-3zM0 9h4v1h-4zM5 9h1v1h-1zM7 9h2v1h-2zM10 9h2v1h-2zM13 9h1v1h-1zM16 9h4v1h-4zM21 9h1v1h-1zM23 9h2v1h-2zM26 9h2v1h-2zM0 10h1v1h-1zM2 10h1v1h-1zM6 10h1v1h-1zM8 10h2v1h-2zM12 10h2v1h-2zM15 10h2v1h-2zM21 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM0 11h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM7 11h3v1h-3zM11 11h1v1h-1zM13 11h1v1h-1zM16 11h2v1h-2zM19 11h2v1h-2zM22 11h1v1h-1zM25 11h1v1h-1zM28 11h1v1h-1zM0 12h8v1h-8zM10 12h2v1h-2zM13 12h1v1h-1zM15 12h2v1h-2zM20 12h1v1h-1zM22 12h2v1h-2zM28 12h1v1h-1zM0 13h2v1h-2zM4 13h1v1h-1zM7 13h2v1h-2zM11 13h4v1h-4zM16 13h1v1h-1zM20 13h1v1h-1zM22 13h7v1h-7zM0 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM13 14h1v1h-1zM16 14h5v1h-5zM23 14h2v1h-2zM26 14h1v1h-1zM28 14h1v1h-1zM1 15h5v1h-5zM7 15h4v1h-4zM12 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM0 16h2v1h-2zM3 16h1v1h-1zM5 16h3v1h-3zM9 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h2v1h-2zM23 16h1v1h-1zM25 16h1v1h-1zM0 17h1v1h-1zM2 17h2v1h-2zM8 17h4v1h-4zM13 17h2v1h-2zM16 17h5v1h-5zM24 17h1v1h-1zM26 17h2v1h-2zM0 18h4v1h-4zM6 18h3v1h-3zM15 18h1v1h-1zM17 18h1v1h-1zM19 18h1v1h-1zM22 18h4v1h-4zM28 18h1v1h-1zM0 19h6v1h-6zM8 19h1v1h-1zM12 19h1v1h-1zM14 19h3v1h-3zM21 19h1v1h-1zM25 19h2v1h-2zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM10 20h2v1h-2zM13 20h2v1h-2zM16 20h2v1h-2zM20 20h8v1h-8zM8 21h1v1h-1zM14 21h3v1h-3zM20 21h1v1h-1zM24 21h2v1h-2zM0 22h7v1h-7zM8 22h2v1h-2zM11 22h2v1h-2zM14 22h3v1h-3zM19 22h2v1h-2zM22 22h1v1h-1zM24 22h2v1h-2zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h2v1h-2zM12 23h1v1h-1zM14 23h2v1h-2zM17 23h4v1h-4zM24 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h2v1h-2zM13 24h3v1h-3zM19 24h7v1h-7zM27 24h2v1h-2zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM8 25h1v1h-1zM10 25h2v1h-2zM13 25h1v1h-1zM15 25h4v1h-4zM23 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM15 26h1v1h-1zM18 26h2v1h-2zM21 26h1v1h-1zM23 26h2v1h-2zM26 26h3v1h-3zM0 27h1v1h-1zM6 27h1v1h-1zM11 27h2v1h-2zM21 27h1v1h-1zM23 27h4v1h-4zM28 27h1v1h-1zM0 28h7v1h-7zM8 28h2v1h-2zM12 28h4v1h-4zM19 28h4v1h-4zM24 28h1v1h-1z"/></svg></div></figure><!-- /@@stand:review --></div>
 <h2 class="s-h3 r-steps-h">كيف يشتغل</h2>
 <ol class="s-steps r-steps">
 <li><span class="s-step-n" aria-hidden="true">1</span><h3 class="s-h3">زبونك يقرّب جواله</h3><p class="s-step-t">من الستاند على الطاولة أو الكاشير، أو يمسح الباركود.</p></li>
@@ -78,11 +59,11 @@
 <div class="s-wrap">
 <div class="s-foot">
 <div class="s-foot-id">
-<p class="s-foot-name" data-company>لمسة تاب</p>
+<!-- @@logo:foot --><p class="s-foot-name" data-company>لمسة تاب</p><!-- /@@logo:foot -->
 <p>نركّب حالياً في جدة</p>
 <p>السجل التجاري: [رقم السجل التجاري]</p>
 </div>
-<p class="s-foot-links"><a href="../../index.html#host">للمضيفين</a><a href="../../index.html#shop">للمحلات</a><a href="../../index.html#pricing">الاشتراك</a><a href="../../index.html#faq">الأسئلة</a><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a><a data-wa="home" hidden>واتساب</a></p>
+<p class="s-foot-links"><a href="../../index.html#host">للمضيفين</a><a href="../../index.html#shop">للمحلات</a><a href="../../index.html#pricing">الاشتراك</a><a href="../../index.html#faq">الأسئلة</a><a data-link="privacy" hidden>سياسة الخصوصية</a><a data-link="terms" hidden>الشروط والأحكام</a><a data-wa="home" hidden>واتساب</a></p>
 <p class="s-foot-c">© 2026 <span data-company>لمسة تاب</span></p>
 </div>
 </div>

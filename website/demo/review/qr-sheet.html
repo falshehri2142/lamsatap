@@ -20,25 +20,30 @@
 @page { size: A4; margin: 20mm; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--lt-sand-50); color: var(--lt-ink); font-family: var(--lt-font-brand); font-size: 14pt; line-height: 1.5; }
-.q-page { width: 210mm; min-height: 297mm; max-width: 100%; margin: 12mm auto; padding: 20mm; background: var(--lt-inverse); text-align: center; }
+/* المجموعة كلها في نص الورقة طولياً (التقييم 2 بند 10): عمود مرن يتوسّط ارتفاع الورقة */
+.q-page { display: flex; flex-direction: column; justify-content: center; width: 210mm; min-height: 297mm; max-width: 100%; margin: 12mm auto; padding: 20mm; background: var(--lt-inverse); text-align: center; }
 .q-word { margin: 0; font-size: 20pt; line-height: 1.3; font-weight: 600; }
+/* خانة الشعار الأفقي (GM-036): ارتفاع 12mm على الورق الأبيض، ويطلع بدل الكلمة لما يوصل ملفه */
+.q-logo { display: block; width: auto; height: 12mm; margin: 0 auto; }
 .q-h { max-width: 15em; margin: 12mm auto 10mm; font-size: 28pt; line-height: 1.25; font-weight: 600; text-wrap: balance; }
 .q-code { width: 100mm; max-width: 100%; margin: 0 auto; }
 .q-code svg { display: block; width: 100%; height: auto; }
 .q-lines { margin-top: 10mm; }
 .q-lines p { margin: 0 0 2mm; font-size: 14pt; }
-.q-url { margin: 6mm 0 0; direction: ltr; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10pt; color: var(--lt-slate); word-break: break-all; }
+/* الرابط بخط الشركة (التقييم 2 بند 10): المونو محصور في كلمة سر الواي فاي («الاتجاه 2» §3.3) */
+.q-url { margin: 6mm 0 0; direction: ltr; font-size: 10pt; color: var(--lt-slate); word-break: break-all; }
 .q-foot { margin: 12mm 0 0; padding-top: 4mm; border-top: var(--lt-hairline) solid var(--lt-sand-200); font-size: 9pt; color: var(--lt-slate); }
 .q-err { font-size: 12pt; }
 @media print {
   body { background: var(--lt-inverse); }
-  .q-page { width: auto; min-height: 0; margin: 0; padding: 0; }
+  /* المساحة المطبوعة 297 − 2×20 = 257mm. 255 عشان ما تطلع ورقة ثانية فاضية من تقريب البكسل */
+  .q-page { width: auto; min-height: 255mm; margin: 0; padding: 0; }
 }
 </style>
 </head>
 <body>
 <main class="q-page">
-<p class="q-word" data-company>لمسة تاب</p>
+<!-- @@logo:sheet --><p class="q-word" data-company>لمسة تاب</p><!-- /@@logo:sheet -->
 <h1 class="q-h">امسح واعرف كيف يشتغل ستاند التقييم</h1>
 <div class="q-code" id="qr" role="img" aria-label="باركود QR لرابط صفحة العرض"></div>
 <div class="q-lines">

@@ -1,18 +1,116 @@
-/* حركة «لمسة تاب» (web-motion). الحركة الوحيدة في الموقع: لحظة وحدة في بطل الرئيسية، مرة وحدة عند التحميل، CSS بدون JS.
-   الموجز الفني §9 (web-art-director.md):
-   1) الجوال يقرب 20px على اتجاه ميلانه: 600ms.
-   2) من 520ms الشاشة تنكشف من فوق لتحت: 450ms. المجموع 970ms.
-   المنحنى cubic-bezier(.16,1,.3,1)، ويتحرك transform و clip-path بس.
-   الرسمة website/assets/illustrations/hero-counter.svg (web-illustrator) inline في index.html:
-   .hc-phone-move = الجوال (داخل #hc-phone المايل 13°، فـ translateY على اتجاه ميلانه)،
-   و .fo-screen = div الشاشة داخل foreignObject الجوال (web-builder). الاثنين موجودين في البطل بس.
-   العنوان والنص والزر ومشهد باب الشقة ما يتحركون. الوضع الافتراضي = آخر لقطة (fill: backwards)،
-   فمع prefers-reduced-motion: reduce، أو بدون هذا الملف، تطلع الصورة النهائية ثابتة.
-   ينربط في index.html بس. الشرح: work/2026-09-27-brand-identity/web-motion.md */
-@media (prefers-reduced-motion:no-preference){
-  .hc-phone-move{animation:lt-approach 600ms cubic-bezier(.16,1,.3,1) backwards}
-  .hc-phone-move .fo-screen,.hc-phone-move foreignObject>div{animation:lt-reveal 450ms cubic-bezier(.16,1,.3,1) 520ms backwards}
+/* نظام الحركة 2 (web-motion): الرئيسية وصفحة شرح الستاند بس. أمر صاحب المشروع «حركة مجنونة» (goal.md آخر قسم).
+   الشرح والـ hooks: work/2026-09-27-brand-identity/web-motion.md «النظام 2».
+   - كل الحالات المخفية تحت html.m بس: سكربت الرأس يحط m لما reduced-motion مطفي، ويشيلها بعد 2.5 ثانية لو motion.js ما اشتغل.
+     يعني بدون JS، ومع reduced-motion، ولو فشل الملف: كل شي ظاهر من البداية.
+   - الحركة بـ translate و scale و opacity و clip-path. ما نلمس transform اللي يستخدمه التخطيط (مثل جوال البطل على الكمبيوتر).
+   - مرة وحدة: الظهور ما يرجع يتكرر، والعرض الحي في الجوال ينتهي على الصورة الثابتة. */
+:root {
+  --m-out: cubic-bezier(.16, 1, .3, 1);        /* الدخول */
+  --m-in: cubic-bezier(.7, 0, .84, 0);         /* الخروج */
+  --m-io: cubic-bezier(.65, 0, .35, 1);        /* تمرير الشاشة داخل الجوال */
+  --m-back: cubic-bezier(.34, 1.56, .64, 1);   /* الرجوع بعد الضغط: نطة خفيفة */
+  --m-t1: 150ms; --m-t2: 300ms; --m-t3: 450ms; --m-t4: 700ms; --m-t5: 1000ms;
+  --m-rise: 16px;
+  --m-step: 60ms;
 }
-@keyframes lt-approach{from{transform:translateY(20px)}}
-@keyframes lt-reveal{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
-@media print{.hc-phone-move,.hc-phone-move .fo-screen,.hc-phone-move foreignObject>div{animation:none!important}}
+
+/* ===== 1) الظهور مع التمرير: [data-reveal] لعنصر، و [data-reveal-group] لأبناء بتتابع (motion.js يحط --i ويضيف is-in) ===== */
+[data-reveal="1"] { --i: 1; } [data-reveal="2"] { --i: 2; } [data-reveal="3"] { --i: 3; }
+.m [data-reveal]:not(.is-in), .m [data-reveal-group]:not(.is-in) > * { opacity: 0; translate: 0 var(--m-rise); }
+.m [data-reveal], .m [data-reveal-group] > * {
+  transition: opacity var(--m-t3) var(--m-out) calc(var(--i, 0) * var(--m-step)), translate var(--m-t4) var(--m-out) calc(var(--i, 0) * var(--m-step));
+}
+
+/* ===== 2) دخول البطل (مرة وحدة عند التحميل، CSS بس): السطرين، ثم السطر، ثم الأزرار، والصورة تهدى، والجوال يدخل ===== */
+[data-intro="1"] { --d: 90ms; } [data-intro="2"] { --d: 220ms; } [data-intro="3"] { --d: 320ms; } [data-intro="4"] { --d: 400ms; }
+.m [data-intro] { animation: m-rise var(--m-t4) var(--m-out) var(--d, 0ms) backwards; }
+@keyframes m-rise { from { opacity: 0; translate: 0 24px; } }
+.m .h-photo--hero img { animation: m-settle 1400ms var(--m-out) backwards; }
+@keyframes m-settle { from { opacity: 0; scale: 1.08; } }
+.m .h-phone--hero { animation: m-phone var(--m-t5) var(--m-out) 280ms backwards; }
+@keyframes m-phone { from { opacity: 0; translate: 0 56px; } }
+
+/* العبارة المتبدلة (التقييم 2): تبديل متتالي، القديمة تطلع 150ms وبعدها الجديدة تدخل 150ms، والنهاية 3.8 ثانية.
+   التخطيط (العبارات فوق بعض) في home.css. التفاعل داخل البطل يوقفها على الأخيرة (app.js يحط is-end) */
+.js.m .h-rot:not(.is-end) .h-rot-i:nth-child(1) { animation: h-rot-1 1.75s linear backwards; }
+.js.m .h-rot:not(.is-end) .h-rot-i:nth-child(2) { animation: h-rot-2 1.9s linear 1.75s backwards; }
+.js.m .h-rot:not(.is-end) .h-rot-i:nth-child(3) { animation: h-rot-3 .15s var(--m-out) 3.65s backwards; }
+@keyframes h-rot-1 { 0%, 91.43% { opacity: 1; translate: 0 0; animation-timing-function: var(--m-in); } 100% { opacity: 0; translate: 0 -.18em; } }
+@keyframes h-rot-2 { 0% { opacity: 0; translate: 0 .18em; animation-timing-function: var(--m-out); } 7.89%, 92.11% { opacity: 1; translate: 0 0; animation-timing-function: var(--m-in); } 100% { opacity: 0; translate: 0 -.18em; } }
+@keyframes h-rot-3 { from { opacity: 0; translate: 0 .18em; } }
+
+/* ===== 3) الشاشة تنفتح في كل جوال (فكرة المنتج: تلمس وتنفتح الصفحة): كشف من فوق لتحت ===== */
+.m .h-phone-svg > rect { fill: #14201F; }   /* خانة الشاشة قبل ما تنكشف: شاشة مطفية بلون الجوال (بدل الأبيض اللي يومض في الداكن) */
+.m .h-phone--hero .fo-screen { animation: m-screen 520ms var(--m-out) 760ms backwards; }
+@keyframes m-screen { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+.m .h-ex-list:not(.is-in) .fo-screen { clip-path: inset(0 0 100% 0); }
+.m .h-ex-list .fo-screen { transition: clip-path 560ms var(--m-out) calc(var(--i, 0) * var(--m-step) + 260ms); }
+
+/* العرض الحي داخل الجوال (motion.js): الصفحة المصغرة تنزل وتطلع، ولمسة، وتأكيد النسخ، ولوحة الخروج */
+.m .mini .c-main { transition: transform var(--m-t4) var(--m-io); }
+.m .mini .lt-btn { position: relative; }
+.m-touch { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: currentColor; opacity: 0; pointer-events: none; }
+.m .mini .m-st { animation: m-rise var(--m-t2) var(--m-out) backwards; }
+.m .mini .g-confirm.m-open { animation: m-rise var(--m-t2) var(--m-out) backwards; }
+
+/* ===== 4) قصة الضيف (#host مع [data-story]): مثبّتة، والشاشة تتبدل مع الخطوات. تشتغل بس لما motion.js يبني الجوال (is-live) ===== */
+.h-story-phone { display: none; }
+.m .h-story.is-live .h-story-phone { display: block; }
+.m .h-story.is-live .h-story-phone .h-phone-svg { display: block; width: 100%; height: auto; }
+.m .h-story.is-live [data-step] { transition: opacity var(--m-t2) var(--m-out); }
+.m .h-story.is-live [data-step] .h-steps3-k { transition: color var(--m-t2) var(--m-out); }
+.m .h-story.is-live [data-step].is-on .h-steps3-k { color: var(--lt-text); }
+/* الجوال (تحت 1024): الصورة فوق عادي، وتحتها الخطوات يمين والجوال يسار مثبّت */
+@media (max-width: 1023.98px) {
+  .m .h-story.is-live .h-story-run { display: grid; grid-template-columns: minmax(0, 1fr) 38%; column-gap: var(--lt-space-16); align-items: start; }
+  .m .h-story.is-live .h-story-run > .h-steps3 { margin-top: 0; }
+  .m .h-story.is-live .h-story-phone { position: sticky; top: 24px; margin-top: var(--lt-space-16); }
+  .m .h-story.is-live [data-step] { min-height: 58vh; }
+  .m .h-story.is-live [data-step]:last-child { min-height: 40vh; }
+}
+/* الكمبيوتر: الصورة والجوال فوقها مثبّتين في العمود الثاني، والخطوات طويلة في عمود النص */
+@media (min-width: 1024px) {
+  .m .h-story.is-live .h-aud-grid { align-items: start; }
+  .m .h-story.is-live .h-photo--aud { position: sticky; top: max(96px, calc(50vh - 260px)); }
+  .m .h-story.is-live .h-story-phone { grid-column: 8 / span 5; grid-row: 1; justify-self: center; align-self: start; position: sticky; top: max(120px, calc(50vh - 236px)); width: 228px; z-index: 1; }
+  .m .h-story.is-live [data-step] { min-height: 46vh; display: flex; flex-direction: column; justify-content: center; }
+}
+
+/* ===== 5) عمق الصور مع التمرير: motion.js يحرك الصورة داخل إطارها ([data-parallax]) بـ translate و scale ===== */
+.m [data-parallax] img { will-change: transform; }
+
+/* ===== 6) الضغط والتحويم (صفحات الشركة) ===== */
+/* الأزرار الكبسولة: تنضغط 3% فوراً وترجع بنطة خفيفة. نفس انتقالات الألوان حقت site.css، ومعها scale */
+.lt-btn:not(.c .lt-btn) { transition: background-color .15s ease-out, border-color .15s ease-out, color .15s ease-out, scale var(--m-t2) var(--m-back); }
+.lt-btn:not(.c .lt-btn):active { scale: .97; transition-duration: .15s, .15s, .15s, 80ms; }
+/* البطاقات: ترتفع 3px، وجوال بطاقة المثال يرتفع 6px زيادة (عمق) */
+@media (hover: hover) and (pointer: fine) {
+  .h-ex-card, .h-plan { transition: translate var(--m-t2) var(--m-out); }
+  .h-ex-card .h-ex-phone { transition: translate var(--m-t3) var(--m-out); }
+  .h-ex-card:hover, .h-plan:hover { translate: 0 -3px; }
+  .h-ex-card:hover .h-ex-phone { translate: 0 -6px; }
+  /* الروابط بسطر واحد (motion.js يحط m-ul): خط تحت يمسح ويرجع من البداية */
+  .m .m-ul { position: relative; text-decoration: none; }
+  .m .m-ul::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% + .72em); height: 1px; background: currentColor; transform-origin: right; }
+  .m .m-ul:hover::after { animation: m-ul var(--m-t3) var(--m-out); }
+}
+@keyframes m-ul { 0% { transform: scaleX(1); transform-origin: left; } 45% { transform: scaleX(0); transform-origin: left; } 46% { transform: scaleX(0); transform-origin: right; } 100% { transform: scaleX(1); transform-origin: right; } }
+
+/* ===== 7) الأسئلة: أكورديون ناعم (motion.js). الجواب يطلع بشفافية وحركة 300ms، ويختفي 150ms، و+ تصير − (الخط الواقف ينطوي) ===== */
+.m .h-q summary { position: relative; }
+.m .h-q summary::after { background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat; }
+.m .h-q summary::before { content: ""; position: absolute; left: 0; top: 50%; width: 16px; height: 16px; margin-top: -8px; background: linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; transition: transform var(--m-t2) var(--m-out); }
+.m .h-q[open] summary::before { transform: scaleY(0); }
+.m .h-q.m-closing .h-q-a { opacity: 0; translate: 0 -4px; transition: opacity var(--m-t1) var(--m-in), translate var(--m-t1) var(--m-in); }
+.m .h-q.m-closing summary::before { transform: none; }
+
+/* ===== 8) صفحة شرح الستاند: الستاند يدخل، ومسح الباركود مرة وحدة ===== */
+.m .r-fig [data-scan] { position: relative; overflow: hidden; }
+.m .r-fig [data-scan]::after { content: ""; position: absolute; left: -2px; right: -2px; top: 0; height: 18%; background: linear-gradient(to bottom, transparent, rgba(11, 122, 117, .35), transparent); translate: 0 -100%; animation: m-scan 1400ms var(--m-io) 1100ms backwards; opacity: 0; }
+@keyframes m-scan { 0% { translate: 0 -100%; opacity: 1; } 90% { opacity: 1; } 100% { translate: 0 560%; opacity: 0; } }
+
+/* الطباعة: كل شي ظاهر وثابت */
+@media print {
+  .m [data-reveal], .m [data-reveal-group] > * { opacity: 1 !important; translate: none !important; }
+  .m [data-intro], .m .h-phone--hero, .m .h-photo--hero img, .m .fo-screen { animation: none !important; clip-path: none !important; }
+}
