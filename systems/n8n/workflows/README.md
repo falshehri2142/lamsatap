@@ -11,12 +11,21 @@
 | `renewal-reminder.js` | LT (ب) renewal reminder | `LHo4RXdblHtz4oe8` | مبني؛ 09:00 + نموذجين («أرسلت»، «سجّل تجديد») |
 | `tap-import.js` | LT (و) tap totals import | `2gTrHuXErO13A5FJ` | مبني؛ Webhook بـ header auth (credential «LamsaTap tap import»)؛ مصدر العد (Function + D1) ما انبنى |
 | `door-report.js` | LT (أ) door report | `vFwm5pET4Ft199rk` | مبني؛ لصاحب المشروع بس (code + place)، التحويل يدوي (GM-017)؛ النشر بعد بند 23 |
+| `invoice-payment.js` | LT (ج) invoice and payment | `hQOihebIag7aRUmK` | مبني؛ نموذجين («أصدر فاتورة»، «سجّل دفعة»)؛ ولا كتابة قبل الموافقة |
 | `sales-followup.js` | LT (هـ) sales follow-up | `q6pJoS9H7pmdLrds` | مبني؛ 09:00 + نموذج (credential «LamsaTap forms» Basic Auth) |
 
 الـ credentials ينشئها صاحب المشروع بنفسه في n8n: «Gmail LamsaTap» (احتياط)، «WhatsApp LamsaTap» (بعد تفعيل Cloud API، §4.1 في المواصفة).
 
 ## اختبار
+- `node systems/n8n/workflows/test-invoice-payment.js`: رقم الفاتورة، القيد المتوازن، الدفعة الجزئية/الكاملة، النقد، والرفض (11 PASS).
+- (ج2) انجرب في n8n بفاتورة غير موجودة: نجح وراح لمسار «ما انسجلت» بدون كتابة.
 - `node systems/n8n/workflows/test-door-report.js`: حذف أرقام الجوال من نص البلاغ (7 حالات PASS).
 - (أ) انجرب بـ test_workflow بـ ref غير موجود: نجح ووقف بدون إرسال.
 - `node systems/n8n/workflows/test-code-nodes.js systems/n8n/workflows`: يشغّل منطق عقد Code (التصنيف، التقرير، فلترة اللمسات) على بيانات وهمية.
 - (و) انجرب في n8n بـ test_workflow مع تثبيت الـ Webhook والكتابة: نجح. سجل التنفيذ ما انحفظ (حفظ التنفيذ مطفّى = صح).
+
+## قبل أي تشغيل حقيقي (صاحب المشروع)
+1. يعبّي عقدة `CHANNEL` في «LT get-channel»: owner_email (والواتساب بعد التفعيل).
+2. ينشئ credentials: «Gmail LamsaTap»، «LamsaTap forms» (Basic Auth)، «LamsaTap tap import» (Header Auth)، و«WhatsApp LamsaTap» بعد التفعيل.
+3. يعتمد قوالب واتساب (§4.1): owner_alert، owner_approval، renewal_reminder، invoice_issued.
+4. النشر لكل workflow قراره (GM-006). (أ) بعد بند 23.
