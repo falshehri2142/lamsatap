@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Manage links.json then rebuild with build.js. No external packages.
 //   node links-cli.js list
-//   node links-cli.js add <code>|--gen --client <c> --place <p> --dest <https-url>
+//   node links-cli.js add <code>|--gen --client <c> --place <p> --dest <https-url> [--type door|public]
 //   node links-cli.js set-dest <code> <https-url> [--reactivate]
 //   node links-cli.js cancel <code>
 // Option --dir <folder> (or env SHORTLINKS_DIR): folder containing links.json + build.js (default: this folder).
@@ -11,7 +11,7 @@ const { spawnSync } = require('child_process');
 
 function die(msg) { console.error('ERROR: ' + msg); process.exit(2); }
 const argv = process.argv.slice(2), pos = [], opt = {};
-const FLAGS = new Set(['gen', 'reactivate']), VALS = new Set(['dir', 'client', 'place', 'dest']);
+const FLAGS = new Set(['gen', 'reactivate']), VALS = new Set(['dir', 'client', 'place', 'dest', 'type']);
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
   if (a.startsWith('--')) {
@@ -54,7 +54,7 @@ function saveAndBuild(msg) {
 switch (cmd) {
   case 'list': {
     if (pos.length) die('list takes no arguments');
-    for (const l of links) console.log([l.code, l.status, l.client || '-', l.place, l.dest].join('\t'));
+    for (const l of links) console.log([l.code, l.status, l.type || 'public', l.client || '-', l.place, l.dest].join('\t'));
     break;
   }
   case 'add': {
@@ -64,7 +64,7 @@ switch (cmd) {
     code = String(code); // no lowercasing: build.js rejects uppercase so the typo is visible
     for (const k of ['client', 'place', 'dest']) if (!opt[k] || !opt[k].trim()) die(`--${k} is required`);
     if (find(code)) die(`code exists: ${code} (${find(code).status}). Codes are never reused.`);
-    links.push({ code, client: opt.client.trim(), place: opt.place.trim(), dest: opt.dest, status: 'active', programmed: today });
+    links.push({ code, client: opt.client.trim(), place: opt.place.trim(), dest: opt.dest, type: opt.type || 'public', status: 'active', programmed: today });
     saveAndBuild(`added ${code}`);
     break;
   }
