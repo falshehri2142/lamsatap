@@ -9,6 +9,11 @@
 | `daily-report.js` | LT (د) daily report | `ujpzEBdZlnoQYyVw` | مبني؛ 20:00 يومياً |
 | `client-send.js` | LT client-send | `wrxHqyElTEwoCPOX` | مبني؛ ما يُنادى إلا بعد موافقة؛ ما يرسل إيميل لعميل |
 | `renewal-reminder.js` | LT (ب) renewal reminder | `LHo4RXdblHtz4oe8` | مبني؛ 09:00 + نموذجين («أرسلت»، «سجّل تجديد») |
+| `tap-import.js` | LT (و) tap totals import | `2gTrHuXErO13A5FJ` | مبني؛ Webhook بـ header auth (credential «LamsaTap tap import»)؛ مصدر العد (Function + D1) ما انبنى |
 | `sales-followup.js` | LT (هـ) sales follow-up | `q6pJoS9H7pmdLrds` | مبني؛ 09:00 + نموذج (credential «LamsaTap forms» Basic Auth) |
 
 الـ credentials ينشئها صاحب المشروع بنفسه في n8n: «Gmail LamsaTap» (احتياط)، «WhatsApp LamsaTap» (بعد تفعيل Cloud API، §4.1 في المواصفة).
+
+## اختبار
+- `node systems/n8n/workflows/test-code-nodes.js systems/n8n/workflows`: يشغّل منطق عقد Code (التصنيف، التقرير، فلترة اللمسات) على بيانات وهمية.
+- (و) انجرب في n8n بـ test_workflow مع تثبيت الـ Webhook والكتابة: نجح. سجل التنفيذ ما انحفظ (حفظ التنفيذ مطفّى = صح).
