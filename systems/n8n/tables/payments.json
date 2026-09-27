@@ -1,0 +1,37 @@
+{
+  "table": "payments",
+  "key": "invoice_no+date+bank_ref",
+  "source": "accounting/payments.csv (exact columns)",
+  "writer": "owner/accountant",
+  "columns": [
+    {
+      "name": "date",
+      "type": "Date"
+    },
+    {
+      "name": "invoice_no",
+      "type": "String"
+    },
+    {
+      "name": "client",
+      "type": "String"
+    },
+    {
+      "name": "amount_sar",
+      "type": "Number"
+    },
+    {
+      "name": "payment_method",
+      "type": "String"
+    },
+    {
+      "name": "bank_ref",
+      "type": "String"
+    },
+    {
+      "name": "owner_confirmed",
+      "type": "String",
+      "note": "yes|no (same as CSV)"
+    }
+  ]
+}

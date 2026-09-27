@@ -1,0 +1,40 @@
+{
+  "table": "invoices",
+  "key": "invoice_no",
+  "source": "accounting/invoices.csv (exact columns)",
+  "writer": "workflow (c) after owner approval / accountant",
+  "columns": [
+    {
+      "name": "invoice_no",
+      "type": "String"
+    },
+    {
+      "name": "date",
+      "type": "Date"
+    },
+    {
+      "name": "client",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "type": "String"
+    },
+    {
+      "name": "amount_sar",
+      "type": "Number"
+    },
+    {
+      "name": "status",
+      "type": "String"
+    },
+    {
+      "name": "payment_ref",
+      "type": "String"
+    },
+    {
+      "name": "notes",
+      "type": "String"
+    }
+  ]
+}

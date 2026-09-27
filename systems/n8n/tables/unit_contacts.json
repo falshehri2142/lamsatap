@@ -1,0 +1,40 @@
+{
+  "table": "unit_contacts",
+  "key": "code",
+  "source": "owner, after host/worker consent (legal item 13); door units only",
+  "writer": "owner only; status=cancelled clears both numbers",
+  "columns": [
+    {
+      "name": "code",
+      "type": "String"
+    },
+    {
+      "name": "client_id",
+      "type": "String"
+    },
+    {
+      "name": "host_whatsapp",
+      "type": "String",
+      "note": "host number; empty before launch"
+    },
+    {
+      "name": "worker_whatsapp",
+      "type": "String",
+      "note": "only after documented worker consent"
+    },
+    {
+      "name": "worker_consent_date",
+      "type": "Date"
+    },
+    {
+      "name": "worker_consent_ref",
+      "type": "String",
+      "note": "file reference, not ID image"
+    },
+    {
+      "name": "status",
+      "type": "String",
+      "note": "active|cancelled"
+    }
+  ]
+}

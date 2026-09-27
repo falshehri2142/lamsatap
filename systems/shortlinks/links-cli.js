@@ -30,6 +30,8 @@ const find = c => links.find(l => l.code === c);
 const today = new Date().toISOString().slice(0, 10);
 const cmd = pos.shift();
 
+// door unit reference (§8 / N8N-SPEC units.ref): 16 random base32 chars, never derived from name/address
+function genRef() { const a = 'abcdefghjkmnpqrstuvwxyz23456789'; return Array.from(crypto.randomBytes(16), b => a[b % a.length]).join(''); }
 function genCode() {
   const abc = 'abcdefghijkmnpqrstuvwxyz23456789'; // no 0/o/1/l (easy to misread)
   for (;;) {
@@ -64,7 +66,7 @@ switch (cmd) {
     code = String(code); // no lowercasing: build.js rejects uppercase so the typo is visible
     for (const k of ['client', 'place', 'dest']) if (!opt[k] || !opt[k].trim()) die(`--${k} is required`);
     if (find(code)) die(`code exists: ${code} (${find(code).status}). Codes are never reused.`);
-    links.push({ code, client: opt.client.trim(), place: opt.place.trim(), dest: opt.dest, type: opt.type || 'public', status: 'active', programmed: today });
+    links.push({ code, client: opt.client.trim(), place: opt.place.trim(), dest: opt.dest, type: opt.type || 'public', ...(opt.type === 'door' ? { ref: genRef() } : {}), status: 'active', programmed: today });
     saveAndBuild(`added ${code}`);
     break;
   }

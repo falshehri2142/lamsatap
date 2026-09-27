@@ -1,0 +1,45 @@
+{
+  "table": "prospects",
+  "key": "prospect_no",
+  "source": "sales/pipeline.md table (#, الاسم, النشاط, الحي, عدد التقييمات يوم الزيارة, المسؤول, المرحلة, آخر متابعة, ملاحظات)",
+  "writer": "sales; workflow (e) reads",
+  "columns": [
+    {
+      "name": "prospect_no",
+      "type": "Number"
+    },
+    {
+      "name": "name",
+      "type": "String"
+    },
+    {
+      "name": "activity",
+      "type": "String"
+    },
+    {
+      "name": "district",
+      "type": "String"
+    },
+    {
+      "name": "reviews_at_visit",
+      "type": "Number"
+    },
+    {
+      "name": "owner_rep",
+      "type": "String"
+    },
+    {
+      "name": "stage",
+      "type": "String",
+      "note": "contact|visit|trial|signed|rejected"
+    },
+    {
+      "name": "last_followup",
+      "type": "Date"
+    },
+    {
+      "name": "notes",
+      "type": "String"
+    }
+  ]
+}
