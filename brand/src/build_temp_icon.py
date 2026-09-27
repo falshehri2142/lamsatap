@@ -1,13 +1,14 @@
-"""يبني الأيقونة المؤقتة للموقع (الاتجاه 2 §3.7) لين يتقرر الشعار الجديد.
+"""يبني الأيقونة المؤقتة للموقع لين يسلّم المدير العام الشعار v1.0.0 (GM-035).
 
-مربع حبر #14201F بزوايا 22%، وفي نصه نقطة مصمتة رملي #FAF7F2 قطرها 40% (علامة اللمس المعتمدة، GM-027).
-بدون حرف ولا زعفران. «ب» مرفوض (GM-022)، وخلفية #075E5A متقاعدة (GM-026). ما يلمس brand/logo/.
+على اتجاه GM-039 (الرمز أبيض على دائرة حبر): دائرة حبر #14201F، وفي نصها نقطة مصمتة بيضاء قطرها 40%
+(علامة اللمس، GM-027)، لأن رمز الشعار نفسه عند المدير العام وما نلمسه. الأبيض على الحبر 16.72.
+قبلها (الاتجاه 2 §3.7): مربع حبر بزوايا 22% ونقطة رملي. بدون حرف ولا زعفران ولا تيل. ما يلمس brand/logo/.
 
 الناتج في brand/icons/:
-  app-icon-temp.svg            (favicon.svg: بزوايا)
-  app-icon-temp-fullbleed.svg  (مصدر apple-touch-icon: مربع كامل، آيفون يدوّر الزوايا بنفسه)
+  app-icon-temp.svg            (favicon.svg: دائرة، والزوايا شفافة)
+  app-icon-temp-fullbleed.svg  (مصدر apple-touch-icon: مربع حبر كامل، لأن آيفون يدوّر الزوايا بنفسه ويسوّد الشفاف)
   png/app-icon-temp-180.png    (apple-touch-icon)
-  app-icon-temp.ico            (favicon.ico: 16 و32 و48)
+  app-icon-temp.ico            (favicon.ico: 16 و32 و48، من الدائرة)
 التشغيل من جذر المشروع:  python brand/src/build_temp_icon.py
 يحتاج: Microsoft Edge أو Chrome (للرسم)، و Pillow (لملف ico).
 """
@@ -19,7 +20,7 @@ import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 OUT = ROOT / "brand" / "icons"
-INK, SAND = "#14201F", "#FAF7F2"
+INK, MARK = "#14201F", "#FFFFFF"
 S = 512
 BROWSERS = [
     r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
@@ -29,13 +30,14 @@ BROWSERS = [
 TITLE = "لمسة تاب"
 
 
-def svg(radius_ratio):
-    r = round(S * radius_ratio, 2)
+def svg(circle):
+    """circle=True: دائرة حبر (favicon). circle=False: مربع حبر كامل (مصدر أيقونة آيفون)."""
     dot_r = S * 0.40 / 2
+    ground = (f'<circle cx="{S / 2:g}" cy="{S / 2:g}" r="{S / 2:g}" fill="{INK}"/>' if circle
+              else f'<rect width="{S}" height="{S}" fill="{INK}"/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {S} {S}" width="{S}" height="{S}" role="img" '
-            f'aria-label="{TITLE}"><title>{TITLE}</title>'
-            f'<rect width="{S}" height="{S}" rx="{r:g}" fill="{INK}"/>'
-            f'<circle cx="{S / 2:g}" cy="{S / 2:g}" r="{dot_r:g}" fill="{SAND}"/></svg>\n')
+            f'aria-label="{TITLE}"><title>{TITLE}</title>{ground}'
+            f'<circle cx="{S / 2:g}" cy="{S / 2:g}" r="{dot_r:g}" fill="{MARK}"/></svg>\n')
 
 
 def render(browser, src, size, out):
@@ -56,8 +58,8 @@ def main():
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     (OUT / "png").mkdir(parents=True, exist_ok=True)
     rounded, full = OUT / "app-icon-temp.svg", OUT / "app-icon-temp-fullbleed.svg"
-    rounded.write_text(svg(0.22), encoding="utf-8", newline="\n")
-    full.write_text(svg(0), encoding="utf-8", newline="\n")
+    rounded.write_text(svg(circle=True), encoding="utf-8", newline="\n")
+    full.write_text(svg(circle=False), encoding="utf-8", newline="\n")
     browser = next((b for b in BROWSERS if os.path.exists(b)), None)
     if not browser:
         raise SystemExit("ما لقيت Edge أو Chrome")

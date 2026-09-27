@@ -35,6 +35,22 @@
 - **وعد الرد:** «خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم»، ومكانه حسب web-copy.
 - **زر أساسي واحد لكل شاشة:** التليجرام دايماً رابط نصي، مو زر.
 
+## من مسؤول الهوية (web-brand، بعد ما خلص)
+1. **على `<html>` في صفحات الشركة الخمس** (`index.html` و`restaurants/` و`hosts/` و`demo/review/index.html` و`qr-sheet.html`):
+   - حط `data-lt-scheme="light"`.
+   - وفي `<head>` حط `<meta name="color-scheme" content="only light">`.
+2. **القواعد الداكنة في ملفات الشركة:** `.lt-ink` في `site.css`، و`.pf-edge` في `home.css`. شيلها، أو حطها تحت `:where(:root:not([data-lt-scheme="light"]))`.
+3. **`tools/build-home-minis.cjs`:**
+   - شيل `<source media="(prefers-color-scheme: dark)">`، وألوان المحلات الداكنة في `@@minis-style`.
+   - **السبب:** على جهاز داكن، صندوق الواي فاي داخل الجوالات يطلع غامق، والنص حبر بتباين 1.14.
+4. **`.lt-ink`:** شيله من صفحات الشركة بعد web-motion، وحط بداله `.lt-lift` في المكان اللي يحدده المدير الفني.
+5. **`site.css`:**
+   - `.s-h3` و`.s-foot-name` وزنهم 500، مو 600.
+   - أرقام «كيف نشتغل» وزنها 700 بمقاس 44.
+   - الصور داخل التخطيط زاويتها 8.
+   - زوايا البابين الكبيرة (§11).
+6. **التوكنز الجديدة:** `--lt-weight-heading` و`--lt-weight-figure` و`--lt-weight-unit`، و`--lt-accent` و`--lt-accent-glow` و`--lt-accent-tail`، و`.lt-lift`. الشرح في `web-brand.md` «جولة GM-038 إلى GM-043».
+
 ## اقرأ قبل ما تبدأ (بالترتيب)
 1. **`brief-gm040.md`:** البنية، والقواعد، ومين يملك أي ملف.
 2. **`web-art-director.md` «الاتجاه 3»** (السطر 2180 وبعده): الشكل والتخطيط على 1440 و390. §9 فيه اللي يبقى من «الاتجاه 2».
