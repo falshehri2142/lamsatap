@@ -129,7 +129,9 @@ def text_path(text, w, height=None, size=None, cx=0, cy=0, anchor="middle", prec
             gs[name].draw(TransformPen(fl, (s, 0, 0, -s, ox + dx * s, oy - dy * s)))
         d = []
         for poly_ in fl.polys:
-            pts = _rdp(poly_ + [poly_[0]], simplify)[:-1]
+            # حد مقفل: نقسمه عند أبعد نقطة عن البداية، ونبسّط النصين (خط القاعدة ما يصير صفر)
+            k = max(range(len(poly_)), key=lambda i: math.dist(poly_[0], poly_[i]))
+            pts = _rdp(poly_[:k + 1], simplify)[:-1] + _rdp(poly_[k:] + [poly_[0]], simplify)[:-1]
             if len(pts) > 2:
                 d.append("M" + "L".join(f"{f(x, prec)} {f(y, prec)}" for x, y in pts) + "Z")
         return "".join(d), (x1 - x0) * s, (y1 - y0) * s
@@ -262,12 +264,12 @@ def face_content(x0, y0, k, shop_cls, name, title, parts=("name", "title", "dot"
     out = []
     cx = x0 + 52.5 * k
     if "name" in parts:  # خانة الشعار 70×18mm من 12 لين 30mm: الاسم بارتفاع حبر 9mm
-        d, w, _ = text_path(name, 600, height=9 * k, cx=cx, cy=y0 + 21 * k, simplify=.06)
+        d, w, _ = text_path(name, 600, height=9 * k, cx=cx, cy=y0 + 21 * k, simplify=.12)
         if w > 64 * k:
-            d, w, _ = text_path(name, 600, height=9 * k * 64 * k / w, cx=cx, cy=y0 + 21 * k, simplify=.06)
+            d, w, _ = text_path(name, 600, height=9 * k * 64 * k / w, cx=cx, cy=y0 + 21 * k, simplify=.12)
         out.append(f'<path class="{shop_cls}" fill="currentColor" d="{d}"/>')
     if "title" in parts:  # العنوان 18pt (6.35mm) من 34 لين 42mm
-        d, _, _ = text_path(title, 600, size=6.35 * k, cx=cx, cy=y0 + 38.5 * k, simplify=.06)
+        d, _, _ = text_path(title, 600, size=6.35 * k, cx=cx, cy=y0 + 38.5 * k, simplify=.1)
         out.append(f'<path fill="{INK}" d="{d}"/>')
     dot = (cx, y0 + 62 * k, DOT_MM / 2 * k)
     if "dot" in parts:
@@ -430,13 +432,13 @@ def host():
     g.append(shadow(p, x_qr + qw / 2 - 3, y_qr + qh + 2, qw * .55, 3))
     g.append(sticker(x_qr, y_qr, qw, qh, kw))
     qcx = x_qr + qw / 2
-    d, _, _ = text_path("شقق المثال", 600, height=5 * kw, cx=qcx, cy=y_qr + 8 * kw, simplify=.08)
+    d, _, _ = text_path("شقق المثال", 600, height=5 * kw, cx=qcx, cy=y_qr + 8 * kw, simplify=.12)
     g.append(f'<path class="{p}shop" fill="currentColor" d="{d}"/>')
-    d, _, _ = text_path("الواي فاي ودليل الوحدة", 600, size=3.6 * kw, cx=qcx, cy=y_qr + 17 * kw, simplify=.1)
+    d, _, _ = text_path("الواي فاي ودليل الوحدة", 600, size=3.6 * kw, cx=qcx, cy=y_qr + 17 * kw, simplify=.18)
     g.append(f'<path fill="{INK}" d="{d}"/>')
     qs = 32 * kw
     g.append(fake_qr(qcx - qs / 2, y_qr + 24 * kw, qs))
-    d, _, _ = text_path("امسح الباركود", 500, size=3.2 * kw, cx=qcx, cy=y_qr + 64 * kw, simplify=.1)
+    d, _, _ = text_path("امسح الباركود", 500, size=3.2 * kw, cx=qcx, cy=y_qr + 64 * kw, simplify=.18)
     g.append(f'<path fill="{INK}" d="{d}"/>')
     # الجوال يلمس النقطة
     body, screen, cam, _ = phone_parts(kp, p, "hd-slot-guide")

@@ -22,16 +22,14 @@
       h.push('<section class="m-sec" id="' + id + '" aria-labelledby="' + id + '-h"><h2 id="' + id + '-h">' + esc(s.title) + '</h2>' +
         cPanel(s.items.map(function (it) {
           it = it || {};
-          var price = str(it.price), meta = [str(it.desc), str(it.cal) ? 'السعرات: ' + esc(str(it.cal)) : ''];
-          meta[0] = esc(meta[0]);
-          meta = meta.filter(Boolean).join(' · ');
-          return cRow({ cls: 'm-item', html: '<span class="m-top"><span class="m-name">' + esc(it.name) + '</span>' +
-            (price ? '<span class="m-price c-num">' + esc(price) + '</span>' : '') + '</span>' +
-            (meta ? '<span class="c-sub m-meta">' + meta + '</span>' : '') });
+          // سطرين (web-copy 2.1): الاسم والسعر، وتحتهم «{الوصف} · السعرات: {cal}» أو واحد منهم بس
+          var price = str(it.price), desc = str(it.desc), cal = str(it.cal);
+          var sub = [desc ? esc(desc) : '', cal ? 'السعرات: ' + esc(cal) : ''].filter(Boolean).join(' · ');
+          return cRow({ cls: 'm-item', title: esc(it.name), sub: sub, value: price ? esc(price) : null });
         })) + '</section>');
     });
     // صفحة عميل: واتساب المحل زر أساسي آخر المنيو. العرض: قسم «لصاحب المحل» حقنا
-    if (!D.demo && !o.mini) { var wa = cShopWa(D, 'c-btn'); if (wa) h.push('<div class="m-wa">' + wa + '</div>'); }
+    if (!D.demo && !o.mini) { var wa = cShopWa(D, 'shop'); if (wa) h.push('<div class="m-wa">' + wa + '</div>'); }
     if (demo) h.push(cOwner('لصاحب المحل', 'هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود. ونسويها بشعار محلك وألوانه.', 'أبغى منيو مثله لمحلي', 'demoMenu'));
 
     return {

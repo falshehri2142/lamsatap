@@ -1,10 +1,12 @@
 """يبني شعارات محلات العرض الوهمية (الموجز الفني 5.8، GM-023 بند 2) في website/demo/_brands/.
 
-«مقهى المثال» #7A3E2B: حبة قهوة مجردة (بيضاوي + شق)، و«شقق المثال» #1F3B57: باب بقوس (باب + مقبض).
-كل رمز شكلين بس، وما يشبه شعارنا ولا أي علامة حقيقية. الاسم مسارات من Readex Pro وزن 600 (الرخصة تسمح)،
+«مقهى المثال» #7A3E2B: حبة قهوة مجردة (بيضاوي + شق) + الاسم.
+«شقق المثال» #1F3B57: كلمة بس بدون رمز (قرار المدير الفني، الموجز 17-4: الباب بالقوس يشبه شعار «جاذر إن»،
+والكلمة لحالها تورّي إن النظام يشتغل مع أي شكل شعار).
+الرمز شكلين بس، وما يشبه شعارنا ولا أي علامة حقيقية. الاسم مسارات من Readex Pro وزن 600 (الرخصة تسمح)،
 بنقاط الخط نفسها (النقاط الدائرية توقيعنا، مو توقيع المحل). ولا زعفران ولا تيل.
-لكل محل ملفين: للخلفية الفاتحة، و-dark للداكنة (brand.logoDark): الرمز بلون المحل مفتّح في OKLCH
-لين تباينه مع خلفية الداكن 4.5، والاسم #ECF2F0.
+لكل محل ملفين: للخلفية الفاتحة، و-dark للداكنة (brand.logoDark): لون المحل مفتّح في OKLCH لين تباينه مع
+خلفية الداكن 4.5. مع الرمز: الرمز بهذا اللون والاسم #ECF2F0. الكلمة لحالها: الكلمة كلها بهذا اللون.
 
 التشغيل من جذر المشروع:  python brand/src/build_demo_brands.py
 """
@@ -25,7 +27,7 @@ W_NAME = 600
 
 SHOPS = {
     "cafe": ("مقهى المثال", "#7A3E2B", "bean"),
-    "apartments": ("شقق المثال", "#1F3B57", "door"),
+    "apartments": ("شقق المثال", "#1F3B57", "word"),
 }
 
 
@@ -120,30 +122,24 @@ def bean(color):
     return f'<path fill="{color}" fill-rule="evenodd" d="{body}{crease}"/>', (min(xs), max(xs))
 
 
-def door(color):
-    """باب بقوس: قوس ممتلئ بنسبة باب (1:2، مو مربع عريض يشبه شاهد قبر أو محراب) ومقبض دائري مفرّغ (evenodd)."""
-    x0, x1, top, bot = 15, 41, 2, 54
-    r = (x1 - x0) / 2
-    body = f"M{x0} {bot}V{top + r}A{r} {r} 0 0 1 {x1} {top + r}V{bot}Z"
-    kx, ky, kr = x0 + 6.5, 32, 2.8
-    knob = f"M{num(kx - kr)} {ky}a{kr} {kr} 0 1 0 {num(2 * kr)} 0a{kr} {kr} 0 1 0 {num(-2 * kr)} 0Z"
-    return f'<path fill="{color}" fill-rule="evenodd" d="{body}{knob}"/>', (x0, x1)
-
-
 def logo(name, symbol, text_color):
     """الرمز يمين (بداية القراءة) والاسم يساره، في النص عمودياً، وبينهم GAP من حبر الرمز.
-    الإطار مقصوص على الشعار."""
-    symbol_svg, (sx0, sx1) = symbol
+    بدون رمز (symbol=None): الكلمة لحالها. الإطار مقصوص على الشعار."""
     t = Text(name, W_NAME, split_dots=False)
     x0, y0, x1, y1 = t.bbox
     s = TEXT_H / (y1 - y0)
     tw = (x1 - x0) * s
-    W = tw + GAP + (sx1 - sx0)
-    base = (H - TEXT_H) / 2 + y1 * s               # حبر الاسم في النص عمودياً
-    body = t.svg(0, base, s, text_color, text_color)
-    body += f'<g transform="translate({num(tw + GAP - sx0)} 0)">{symbol_svg}</g>'
+    if symbol is None:
+        W, h = tw, TEXT_H
+        body = t.svg(0, y1 * s, s, text_color, text_color)
+    else:
+        symbol_svg, (sx0, sx1) = symbol
+        W, h = tw + GAP + (sx1 - sx0), H
+        base = (H - TEXT_H) / 2 + y1 * s           # حبر الاسم في النص عمودياً
+        body = t.svg(0, base, s, text_color, text_color)
+        body += f'<g transform="translate({num(tw + GAP - sx0)} 0)">{symbol_svg}</g>'
     title = html.escape(name)
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {num(W)} {H}" width="{num(W)}" height="{H}" '
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {num(W)} {h}" width="{num(W)}" height="{h}" '
             f'role="img" aria-label="{title}"><title>{title}</title>{body}</svg>\n')
 
 
@@ -152,17 +148,20 @@ def main():
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     os.makedirs(OUT, exist_ok=True)
     for key, (name, color, kind) in SHOPS.items():
-        draw = bean if kind == "bean" else door
         dark = lighten_until(color, 4.5, (DARK_BG, DARK_SURFACE))
-        files = {f"{key}.svg": logo(name, draw(color), color),
-                 f"{key}-dark.svg": logo(name, draw(dark), DARK_TEXT)}
+        if kind == "bean":
+            files = {f"{key}.svg": logo(name, bean(color), color),
+                     f"{key}-dark.svg": logo(name, bean(dark), DARK_TEXT)}
+        else:  # كلمة بس
+            files = {f"{key}.svg": logo(name, None, color),
+                     f"{key}-dark.svg": logo(name, None, dark)}
         for fname, svg in files.items():
             with open(os.path.join(OUT, fname), "w", encoding="utf-8", newline="\n") as f:
                 f.write(svg)
             print(f"{fname}: {len(svg.encode('utf-8'))} bytes")
         print(f"  {name}: {color} على الأبيض {contrast(color, '#FFFFFF'):.2f}؛ "
-              f"الداكن: الرمز {dark} ({contrast(dark, DARK_BG):.2f} على الخلفية، {contrast(dark, DARK_SURFACE):.2f} على السطح)، "
-              f"الاسم {DARK_TEXT} ({contrast(DARK_TEXT, DARK_BG):.2f})")
+              f"الداكن: {dark} ({contrast(dark, DARK_BG):.2f} على الخلفية، {contrast(dark, DARK_SURFACE):.2f} على السطح)"
+              + (f"، والاسم مع الرمز {DARK_TEXT} ({contrast(DARK_TEXT, DARK_BG):.2f})" if kind == "bean" else ""))
 
 
 if __name__ == "__main__":

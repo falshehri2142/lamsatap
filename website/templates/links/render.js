@@ -12,8 +12,8 @@
     var ok = function (u) { return /^https:\/\/[^\s"'<>]+$/.test(u); };
     var still = D.demo === true || o.mini;   // العرض والشاشة المصغرة: الصفوف ما تفتح شي
     var row = function (label, href) {
-      return still ? cRow({ tag: o.mini ? 'div' : 'button', attrs: o.mini ? '' : ' data-demo-link', text: esc(label), chevron: true })
-        : cRow({ tag: 'a', attrs: ' href="' + esc(href) + '" rel="noopener"', text: esc(label), chevron: true });
+      return still ? cRow({ tag: o.mini ? 'div' : 'button', attrs: o.mini ? '' : ' data-demo-link', title: esc(label), chevron: true })
+        : cRow({ tag: 'a', attrs: ' href="' + esc(href) + '" rel="noopener"', title: esc(label), chevron: true });
     };
     var wa = waHref(D.whatsapp, str(D.waText) || 'السلام عليكم، عندي استفسار');
     if (still || wa) rows.push(row('واتساب', wa));

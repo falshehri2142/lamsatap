@@ -1,98 +1,309 @@
-/* مكوّنات هوية «لمسة تاب» الجاهزة (web-brand). تنربط بعد tokens.css.
-   web-builder ينسخ الملف كما هو إلى website/assets/brand/components.css (نفس طريقة tokens.css).
-   القرارات والمصادر: work/2026-09-27-brand-identity/web-brand.md
-   المبدأ (GM-011): العملية قبل الزخرفة. بدون ظل ولا تدرج ولا حركة؛ رد الضغط فوري بتغيير اللون فقط. */
+/* مكوّنات هوية «لمسة تاب» الجاهزة (web-brand). تنربط بعد tokens.css في كل صفحة.
+   web-builder ينسخ الملف كما هو إلى website/assets/brand/components.css.
+   المرجع: الموجز الفني (web-art-director.md، الأقسام 3.2 و3.4 و4.3 و5.6)، و GM-011 و GM-020 و GM-022 و GM-023.
+   القواعد: ولا ظل، ولا حد 2px (الحدود 1px، وحلقة التركيز 3px بس)، ولا حركة: الضغط والـ hover والتركيز تغيير فوري.
+   الأوزان: 600 للأزرار والصفوف، 400 للثانوي. letter-spacing صفر (العربي). */
 
-/* ===== 1) زر الواتساب: الـ CTA الأول في كل صفحة (GM-010) =====
-   لون الحبر (GM-020: مو التيل، لأن تيلنا الغامق شبه تيل واتساب) + فقاعة محادثة خاصة فينا
-   (brand/icons/chat.svg، تنحط inline عشان تاخذ لون النص) + كلمة «واتساب» اسم بنفس خط الزر.
-   ممنوع شعار واتساب، ولونه الأخضر أو التيل، و«واتساب» كفعل («واتسبنا»).
-   لو رقم الواتساب فاضي في config.js: الزر ما يطلع أبداً (hidden)، مو زر معطّل.
+/* ===== 0) أسطح المتصفح (3.4): التحديد تيل خفيف، مو زعفران ===== */
+::selection { background: var(--lt-selection); color: var(--lt-on-selection); }
+html { caret-color: var(--lt-text); scrollbar-color: var(--lt-muted) transparent; }
 
-   <a class="lt-wa" href="https://wa.me/<رقم>?text=<رسالة مرمّزة>">
-     <svg class="lt-wa-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4h10a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4v3.5L12.5 17H7a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="10.5" r="1.3" fill="currentColor"/><circle cx="12" cy="10.5" r="1.3" fill="currentColor"/><circle cx="16" cy="10.5" r="1.3" fill="currentColor"/></svg>
+/* ===== 1) الأزرار =====
+   ارتفاع 56، وحشوة جانبية 24، وزاوية 14، ونص 17/600، وعرض كامل.
+   الألوان من متغيرات الزر (--btn-*)، وكل نوع يبدّلها بس:
+     .lt-btn                  الأساسي في موقعنا: حبر (GM-020). الفاتح: أبيض على #14201F 16.72، الضغط #2A3B38 11.79.
+                              الداكن: #0E1615 على #ECF2F0 16.19، الضغط #A3B2AE 8.33.
+     .lt-btn--shop            الأساسي في صفحات الزبون: لون المحل من محرك اللون (--shop و --on-shop و --shop-press،
+                              ولون اللمس --shop-hl). بدونها: الحبر (الثيم المحايد).
+     .lt-btn--secondary       الثانوي: سطح وحد 1px ونص حبر (16.72 فاتح، 14.58 داكن)، والضغط السطح 2 (14.48، 12.98).
+     .lt-btn--on-band         المعكوس على الشريط التيل (بالوضعين): أبيض ونص حبر 16.72، الضغط #E4DCD0 12.30، وحلقة التركيز بيضاء.
+     .lt-btn--on-bar          المعكوس على شريط العرض (لونه الفعل): عكس ألوان الفعل، والضغط 12.30 فاتح و10.40 داكن.
+     .lt-btn--compact         المختصر (رأس الكمبيوتر وشريط العرض): 48، ونص 15/600، وأيقونة 18، وعرضه حسب النص.
+     .lt-btn--fit             من 1024 عرضه حسب النص وأقل شي 240 (الموقع). تحت 1024 عرض كامل.
+   زر الواتساب = .lt-btn (أو .lt-btn--shop في صفحة العميل) مع أيقونة المحادثة 20px، للواتساب بس:
+   <a class="lt-btn" href="https://wa.me/<رقم>?text=<رسالة مرمّزة>">
+     <svg class="lt-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4h10a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4v3.5L12.5 17H7a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="10.5" r="1.3" fill="currentColor"/><circle cx="12" cy="10.5" r="1.3" fill="currentColor"/><circle cx="16" cy="10.5" r="1.3" fill="currentColor"/></svg>
      <span>كلّمنا على واتساب</span>
    </a>
-
-   زر واتساب ثاني في نفس الشاشة (مثل «بلاغ صيانة» تحت «تم الخروج»): class="lt-wa lt-wa--quiet".
-   التباين (WCAG، المتغيرات في tokens.css):
-     الفاتح: خلفية --lt-wa #14201F ونص أبيض 16.72، وقت الضغط --lt-wa-press #3B4A47 والأبيض 9.31.
-     الداكن: خلفية --lt-wa #ECF2F0 ونص #14201F 14.75، وقت الضغط --lt-wa-press #BFCCC8 والحبر 10.10.
-     الهادي: إطار ونص بلون --lt-text (15.64 على الرملي، 16.19 على الداكن)، وقت الضغط --lt-surface-2 (14.48، داكن 12.98).
-     حلقة التركيز --lt-focus على خلفية الصفحة: 7.13 فاتح، 10.58 داكن.
-     وقت اللمس (لون الضغط + لون اللمس فوقه) أقل رقم 7.41.
-   رد الضغط هنا ملك الهوية: لا تحط عليه opacity ولا -webkit-tap-highlight-color: transparent من ملف ثاني. */
+   بدون رقم واتساب: الزر hidden (مو معطّل). و«واتساب» اسم مو فعل. ممنوع شعار واتساب ولونه.
+   الأسماء القديمة .lt-wa و .lt-wa--quiet و .lt-wa-icon تشتغل نفس .lt-btn و .lt-btn--secondary و .lt-btn-icon
+   لين ينقل web-builder الصفحات. */
+.lt-btn,
 .lt-wa {
+  --btn-bg: var(--lt-action);
+  --btn-fg: var(--lt-on-action);
+  --btn-press: var(--lt-action-press);
+  --btn-line: transparent;
+  --btn-hl: rgba(255, 255, 255, .14);     /* لون اللمس في آيفون (سفاري ما يطبّق :active بشكل مضمون) */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   box-sizing: border-box;
   inline-size: 100%;
-  min-block-size: 56px;            /* أكبر من أقل هدف لمس 48px */
+  min-block-size: 56px;
   margin: 0;
-  padding: 12px 20px;
-  border: 2px solid transparent;   /* نفس المقاس للنوعين، ويبين الإطار في وضع التباين العالي بويندوز */
+  padding: 12px 24px;
+  border: 1px solid var(--btn-line);       /* شفاف في الأساسي: يبين في وضع التباين العالي بويندوز */
   border-radius: var(--lt-radius-m);
-  background: var(--lt-wa);
-  color: var(--lt-on-wa);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   font-family: inherit;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 600;
   line-height: 1.3;
+  letter-spacing: 0;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, .14); /* رد الضغط في آيفون: سفاري ما يطبّق :active بشكل مضمون */
+  -webkit-tap-highlight-color: var(--btn-hl);
 }
-.lt-wa[hidden] { display: none; }   /* display:flex فوق يغلب [hidden] حق المتصفح، فلازم هذا السطر */
-.lt-wa:active { background: var(--lt-wa-press); }
+.lt-btn[hidden],
+.lt-wa[hidden] { display: none; }          /* display:flex يغلب [hidden] حق المتصفح */
+.lt-btn:active,
+.lt-wa:active { background: var(--btn-press); }
 @media (hover: hover) {
-  .lt-wa:hover { background: var(--lt-wa-press); }
+  .lt-btn:hover,
+  .lt-wa:hover { background: var(--btn-press); }
 }
+.lt-btn:focus-visible,
 .lt-wa:focus-visible {
   outline: 3px solid var(--lt-focus);
   outline-offset: 3px;
 }
+.lt-btn-icon,
 .lt-wa-icon {
-  inline-size: 24px;
-  block-size: 24px;
+  inline-size: 20px;
+  block-size: 20px;
   flex: none;
 }
-.lt-wa--quiet {
-  background: transparent;
-  border-color: var(--lt-text);
-  color: var(--lt-text);
-  -webkit-tap-highlight-color: rgba(0, 0, 0, .08);
-}
-.lt-wa--quiet:active { background: var(--lt-surface-2); }
-@media (hover: hover) {
-  .lt-wa--quiet:hover { background: var(--lt-surface-2); }
-}
-@media (prefers-color-scheme: dark) {
-  .lt-wa { -webkit-tap-highlight-color: rgba(0, 0, 0, .14); }          /* الزر فاتح في الداكن: اللمس يغمّقه */
-  .lt-wa--quiet { -webkit-tap-highlight-color: rgba(255, 255, 255, .10); } /* الأسود ما يبين على خلفية داكنة */
-}
-.lt-wa + .lt-wa { margin-block-start: 12px; }
+.lt-btn:not(.lt-btn--compact) + .lt-btn:not(.lt-btn--compact),
+.lt-wa + .lt-wa { margin-block-start: 12px; }  /* الأزرار فوق بعض. المختصرة جنب بعض ما تاخذ مسافة */
 
-/* ===== 2) سطر «بواسطة لمسة تاب» =====
-   حضورنا الوحيد في صفحات الزبون (GM-010 و GM-011): سطر صغير هادي آخر الصفحة، بدون رابط بيع.
-   <p class="lt-by"><img src="<مسار>/lamsatap-icon.svg" width="16" height="16" alt=""><span>بواسطة <span data-company>لمسة تاب</span></span></p>
-   الرمز هنا بأصغر حجم مسموح (16px). النص الثانوي: 5.94 على الرملي (داكن 8.33). */
-.lt-by[hidden] { display: none; }
-.lt-by {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin: 24px 0 0;
-  font-size: 14px;
-  line-height: 1.4;
-  color: var(--lt-muted);
+.lt-btn--shop {
+  --btn-bg: var(--shop, var(--lt-action));
+  --btn-fg: var(--on-shop, var(--lt-on-action));
+  --btn-press: var(--shop-press, var(--lt-action-press));
+  /* لون اللمس من محرك اللون (--shop-hl). بدونه (الثيم المحايد): نفس الأساسي، أبيض 14% على الحبر، وأسود 14%
+     على الفاتح في الداكن، لأن الأسود فوق الحبر أو الأبيض فوق الفاتح ما يبين */
+  --btn-hl: var(--shop-hl, rgba(255, 255, 255, .14));
 }
-.lt-by img {
+.lt-btn--secondary,
+.lt-wa--quiet {
+  --btn-bg: var(--lt-surface);
+  --btn-fg: var(--lt-text);
+  --btn-press: var(--lt-surface-2);
+  --btn-line: var(--lt-border);
+  --btn-hl: rgba(0, 0, 0, .06);
+}
+.lt-btn--on-band {
+  --btn-bg: var(--lt-inverse);
+  --btn-fg: var(--lt-on-inverse);
+  --btn-press: var(--lt-inverse-press);
+  --btn-hl: rgba(0, 0, 0, .08);
+}
+.lt-btn--on-band:focus-visible { outline-color: var(--lt-focus-on-band); }
+.lt-btn--on-bar {
+  --btn-bg: var(--lt-on-action);
+  --btn-fg: var(--lt-action);
+  --btn-press: var(--lt-on-action-press);
+  --btn-hl: rgba(0, 0, 0, .08);
+}
+.lt-btn--on-bar:focus-visible { outline-color: var(--lt-on-action); }
+.lt-btn--compact {
+  display: inline-flex;
+  inline-size: auto;
+  min-block-size: 48px;
+  padding: 8px 18px;
+  font-size: 15px;
+}
+.lt-btn--compact .lt-btn-icon,
+.lt-btn--compact .lt-wa-icon {
+  inline-size: 18px;
+  block-size: 18px;
+}
+@media (min-width: 1024px) {
+  .lt-btn--fit {
+    display: inline-flex;
+    inline-size: auto;
+    min-inline-size: 240px;
+  }
+}
+
+/* ===== 2) الرابط المستقل (4.3): 17/600 بلون --lt-link، بدون خط تحت، وبعده سهم التقدّم 16px، ولمسه 48 ===== */
+.lt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-block-size: 48px;
+  color: var(--lt-link);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .06);
+}
+@media (hover: hover) {
+  .lt-link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .22em;
+  }
+}
+.lt-link:focus-visible {
+  outline: 3px solid var(--lt-focus);
+  outline-offset: 3px;
+  border-radius: var(--lt-radius-s);
+}
+.lt-link-icon {
   inline-size: 16px;
   block-size: 16px;
   flex: none;
+}
+
+/* ===== 3) اللوحة المجمّعة والصف (5.6)، مثل إعدادات آيفون =====
+   <div class="lt-panel">
+     <a class="lt-row" href="...">
+       <svg class="lt-row-icon">…</svg>                      (اختياري: يا كل صفوف اللوحة فيها أيقونة، يا ولا واحد)
+       <span class="lt-row-body"><span class="lt-row-title">اسم الصنف</span><span class="lt-row-sub">وصف · السعرات: 120</span></span>
+       <span class="lt-row-end lt-row-end--value">18</span>   (القيمة، أو سهم .lt-row-chevron يأشر لاتجاه القراءة)
+     </a>
+   </div>
+   .lt-row-end            قيمة ثانوية (400، لون ثانوي).
+   .lt-row-end--value     قيمة مهمة (الموجز 5.5 و5.7): السعر، ووقت الخروج، وأرقام الطوارئ: 17/600 حبر، وأرقام متساوية،
+                          ومعزولة الاتجاه، وأقل عرض 4.5em.
+   الصف كله ينضغط (رابط أو زر)، والضغط السطح 2 فوراً. الخط الشعري بين الصفوف يبدأ بعد 16px من جهة البداية،
+   وما ينحسب الصف المخفي (hidden): أول صف ظاهر ما فوقه خط.
+   صف بدون فعل (معلومة بس): <div class="lt-row">. */
+.lt-panel {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;                         /* لون الضغط يلتزم بالزاوية */
+  background: var(--lt-surface);
+  border: 1px solid var(--lt-border);
+  border-radius: var(--lt-radius-m);
+}
+.lt-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 56px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--lt-text);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-align: start;
+  text-decoration: none;
+}
+.lt-row:not([hidden]) ~ .lt-row::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 16px 0;
+  border-block-start: 1px solid var(--lt-border);
+}
+a.lt-row,
+button.lt-row {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .06);
+}
+a.lt-row:active,
+button.lt-row:active { background: var(--lt-surface-2); }
+@media (hover: hover) {
+  a.lt-row:hover,
+  button.lt-row:hover { background: var(--lt-surface-2); }
+}
+.lt-row:focus-visible {
+  outline: 3px solid var(--lt-focus);
+  outline-offset: -3px;                     /* داخل الصف، عشان overflow اللوحة ما يقصها */
+}
+.lt-panel > .lt-row:first-child {           /* زوايا أول وآخر صف مع زاوية اللوحة، فحلقة التركيز تمشي معها */
+  border-start-start-radius: calc(var(--lt-radius-m) - 1px);
+  border-start-end-radius: calc(var(--lt-radius-m) - 1px);
+}
+.lt-panel > .lt-row:last-child {
+  border-end-start-radius: calc(var(--lt-radius-m) - 1px);
+  border-end-end-radius: calc(var(--lt-radius-m) - 1px);
+}
+.lt-row[hidden],
+.lt-panel[hidden] { display: none; }
+.lt-row-icon {
+  inline-size: 20px;
+  block-size: 20px;
+  flex: none;
+  color: var(--lt-muted);
+}
+.lt-row-body {
+  flex: 1;
+  min-inline-size: 0;
+}
+.lt-row-title { display: block; }
+.lt-row-sub {
+  display: block;
+  margin-block-start: 2px;
+  color: var(--lt-muted);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+.lt-row-end {
+  flex: none;
+  color: var(--lt-muted);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+.lt-row-end--value {
+  min-inline-size: 4.5em;
+  color: var(--lt-text);
+  font-weight: 600;
+  text-align: end;
+  unicode-bidi: isolate;
+}
+.lt-row-chevron {
+  inline-size: 16px;
+  block-size: 16px;
+  flex: none;
+  color: var(--lt-muted);
+}
+
+/* ===== 4) سطر «بواسطة لمسة تاب» (5.6، GM-022، GM-023) =====
+   نص بس، بدون الرمز: <p class="lt-by">بواسطة <span data-company>لمسة تاب</span></p>
+   يطلع بس لو poweredBy: true (القوالب false، والعرض true). النص الثانوي: 5.94 على الرملي، 8.33 داكن. */
+.lt-by[hidden] { display: none; }
+.lt-by {
+  margin: 40px 0 0;
+  color: var(--lt-muted);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+}
+.lt-by img,
+.lt-by svg { display: none; }              /* GM-022: الرمز الحالي ما يطلع هنا لين يجي الرمز الجديد */
+
+/* ===== الوضع الداكن: لون اللمس بس (الألوان نفسها من tokens.css) ===== */
+@media (prefers-color-scheme: dark) {
+  .lt-btn,
+  .lt-wa { --btn-hl: rgba(0, 0, 0, .14); }
+  .lt-btn--shop { --btn-hl: var(--shop-hl, rgba(0, 0, 0, .14)); }
+  .lt-btn--secondary,
+  .lt-wa--quiet { --btn-hl: rgba(255, 255, 255, .08); }
+  .lt-btn--on-band { --btn-hl: rgba(0, 0, 0, .08); }
+  .lt-btn--on-bar { --btn-hl: rgba(255, 255, 255, .10); }
+  .lt-link,
+  a.lt-row,
+  button.lt-row { -webkit-tap-highlight-color: rgba(255, 255, 255, .08); }
 }

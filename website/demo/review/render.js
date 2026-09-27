@@ -10,7 +10,7 @@
     var h = cIdentity(brand) +
       '<section class="r-main" aria-labelledby="' + p + 'r-h"><h1 id="' + p + 'r-h">شكراً لزيارتك</h1>' +
       '<p class="r-sub">رأيك يهمنا ويساعد غيرك.</p>' +
-      '<button class="c-btn" type="button" id="' + p + 'go">قيّمنا على قوقل</button>' +
+      '<button class="lt-btn lt-btn--shop" type="button" id="' + p + 'go">قيّمنا على قوقل</button>' +
       '<p class="c-status" id="' + p + 'r-st" role="status" aria-live="polite"></p></section>';
     if (demo) h += '<section class="c-owner r-owner" aria-labelledby="owner-h"><h2 id="owner-h">لصاحب المحل</h2>' +
       '<p>هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود.</p>' +

@@ -1,6 +1,6 @@
 // محرك لون المحل (موجز المدير الفني §5.2، GM-023). يحوّل brand.color (و brand.colorDark) لمتغيرات CSS:
 // --shop (تعبئة الزر الأساسي) و --on-shop (نصه) و --shop-press (وقت الضغط) و --shop-line (مؤشر التبويب)
-// و --shop-tint (لون صندوق الواي فاي) و --shop-tap (لون اللمس في آيفون)، للفاتح والداكن.
+// و --shop-tint (لون صندوق الواي فاي) و --shop-hl (لون اللمس في آيفون: أسود 12% لو النص أبيض، وأبيض 20% لو النص حبر، §5.6)، للفاتح والداكن.
 // التعديل دايماً في فاتحية OKLCH بخطوات 0.005 (نحافظ على الدرجة والتشبع). المرجع: art-review/color/engine.js.
 // أي قيمة غير #RRGGBB = الثيم المحايد (الحبر)، ولا تيل ولا زعفران (GM-023 و GM-025).
 (function (w) {
@@ -90,7 +90,7 @@
     return {
       shop: fill, onShop: on, press: press, line: line,
       tint: mix(fill, R.surf, R.tintPct),
-      tap: on === WHITE ? 'rgba(0,0,0,.12)' : 'rgba(255,255,255,.2)',
+      hl: on === WHITE ? 'rgba(0,0,0,.12)' : 'rgba(255,255,255,.2)',
       contrast: +cr(fill, on).toFixed(2), pressContrast: +cr(press, on).toFixed(2),
       lineContrast: +Math.min(cr(line, R.bg), cr(line, R.surf)).toFixed(2), fallback: fb
     };
@@ -111,7 +111,7 @@
     if (!t) { if (el) el.parentNode.removeChild(el); return null; }
     var vars = function (x) {
       return '--shop:' + x.shop + ';--on-shop:' + x.onShop + ';--shop-press:' + x.press + ';--shop-line:' + x.line +
-        ';--shop-tint:' + x.tint + ';--shop-tap:' + x.tap;
+        ';--shop-tint:' + x.tint + ';--shop-hl:' + x.hl;
     };
     if (!el) { el = document.createElement('style'); el.id = id; document.head.appendChild(el); }
     el.textContent = scope + '{' + vars(t.light) + '}@media (prefers-color-scheme:dark){' + scope + '{' + vars(t.dark) + '}}';

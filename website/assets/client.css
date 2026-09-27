@@ -1,109 +1,74 @@
 /* نظام صفحات الزبون (البيئة ب، موجز المدير الفني §5، GM-023 و GM-025).
-   النظام ثابت، وهوية المحل تلمس 4 خانات بس: تعبئة الزر الأساسي، وضغطه، ومؤشر التبويب، ولون صندوق الواي فاي.
-   الترتيب: tokens.css ← client.css ← style.css حق القالب. متغيرات --shop* يكتبها محرك اللون (assets/shop-color.js).
-   بدون brand: الثيم المحايد تحت (حبر ورملي). ولا تيل ولا زعفران ولا لون من ألوان لمسة تاب (GM-025)،
-   إلا طبقتنا في نسخ العرض (الشريط فوق وقسم «لصاحب المحل»). بدون ظل ولا حركة (GM-011): الضغط تغيير لون فوري.
-   كل شي تحت .c (body في صفحة الزبون، أو صندوق الشاشة المصغرة في الرئيسية). */
+   فوق brand/components.css: الأزرار (.lt-btn و --shop و --secondary) واللوحة والصف (.lt-panel و .lt-row) و«بواسطة» (.lt-by).
+   الترتيب: tokens.css ← components.css ← client.css ← style.css حق القالب. متغيرات --shop* من محرك اللون (assets/shop-color.js).
+   هنا بس اللي يخص صفحة الزبون: الأساس، والثيم المحايد، ورأس الهوية، وصندوق الواي فاي، وطبقة العرض.
+   ولا تيل ولا زعفران ولا لون من ألوان لمسة تاب (GM-025)، إلا طبقتنا في نسخ العرض (الشريط فوق و«لصاحب المحل»).
+   بدون ظل ولا حركة (GM-011). كل شي تحت .c (body في صفحة الزبون، أو صندوق الشاشة المصغرة في الرئيسية). */
 
-/* الثيم المحايد (§5.4): الحبر للزر والمؤشر، والسطح 2 لصندوق الواي فاي */
+/* الثيم المحايد (§5.4): بدون brand. الزر وضغطه ولمسه يرجعون للحبر من components.css لو --shop فاضي */
 :root {
-  --shop: var(--lt-text);
-  --on-shop: var(--lt-surface);
-  --shop-press: var(--lt-wa-press);
   --shop-line: var(--lt-text);
   --shop-tint: var(--lt-surface-2);
-  --shop-tap: rgba(0, 0, 0, .12);
   --c-plate: #FFFFFF;               /* لوح الشعار أبيض بالوضعين (§5.3). مو لون هوية */
 }
-@media (prefers-color-scheme: dark) {
-  :root { --on-shop: var(--lt-bg); --shop-tap: rgba(255, 255, 255, .2); }
-}
 
-/* الأساس */
-html:has(> body.c) { scrollbar-color: var(--lt-muted) transparent; }
-.c { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: var(--lt-font-ui); font-size: 16px; line-height: 1.6; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-wrap: anywhere; caret-color: var(--lt-text); }
+/* الأساس. التركيز حبر والتحديد محايد في صفحة الزبون، مو تيل (GM-023، و web-brand.md «قرارات من ملاحظات الفحص») */
+.c {
+  --lt-focus: var(--lt-text);
+  --lt-selection: var(--lt-border);
+  --lt-on-selection: var(--lt-text);
+  margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: var(--lt-font-ui); font-size: 16px; line-height: 1.6;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-wrap: anywhere;
+}
 .c *, .c *::before, .c *::after { box-sizing: border-box; }
-.c ::selection { background: var(--lt-border); color: var(--lt-text); }
-.c :focus-visible { outline: 3px solid var(--lt-text); outline-offset: 3px; }
+.c :focus-visible { outline: 3px solid var(--lt-focus); outline-offset: 3px; }
 .c [hidden] { display: none !important; }
 :where(.c) p { margin: 0; text-wrap: pretty; }
 :where(.c) a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
-.c-main { max-width: 560px; margin: 0 auto; padding: 0 20px 48px; }
+.c-main { max-width: var(--lt-column-client); margin: 0 auto; padding: 0 var(--lt-space-20) var(--lt-space-48); }
 .c-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* سلّم الخط (§5.5): خط الجهاز، ثلاثة أوزان 400 و 600 و 700. القواعد العامة بـ :where (بدون وزن) عشان المكوّنات تغلبها */
-:where(.c) h1 { margin: 0 0 16px; font-size: 28px; line-height: 1.25; font-weight: 700; text-wrap: balance; }
-:where(.c) h2 { margin: 32px 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
+/* سلّم الخط (§5.5): خط الجهاز، والأوزان 400 و 600 و 700. القواعد العامة بـ :where (بدون وزن) عشان المكوّنات تغلبها */
+:where(.c) h1 { margin: 0 0 var(--lt-space-16); font-size: 28px; line-height: 1.25; font-weight: 700; text-wrap: balance; }
+:where(.c) h2 { margin: var(--lt-section-client) 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
 .c-sub { font-size: 14px; line-height: 1.45; color: var(--lt-muted); }
 .c-label { font-size: 13px; line-height: 1.3; font-weight: 600; color: var(--lt-muted); }
-.c-num { font-variant-numeric: tabular-nums; unicode-bidi: isolate; }
+.c-stack { display: flex; flex-direction: column; gap: var(--lt-space-12); }
+.c-stack > .lt-btn { margin: 0; }
 
-/* رأس الهوية (§5.3): شعار المحل أو اسمه، في النص. ما ينمط ولا ينقص ولا ينلوّن */
-.c-id { display: flex; align-items: center; justify-content: center; margin: 28px 0 20px; }
+/* صف نص بس (التكييف، والعنوان، والشروط): 16/1.6 بدون وزن */
+.lt-row.c-row-text { display: block; font-size: 16px; line-height: 1.6; font-weight: 400; }
+
+/* رأس الهوية (§5.3): شعار المحل أو اسمه (GM-027)، في النص. ما ينمط ولا ينقص ولا ينلوّن */
+.c-id { display: flex; align-items: center; justify-content: center; margin: 28px 0 var(--lt-space-20); }
 .c-logo { display: block; width: auto; height: auto; max-width: 180px; max-height: 56px; object-fit: contain; }
 .c-id--sm .c-logo { max-height: 40px; }
 .c-id-name { font-size: 22px; line-height: 1.3; font-weight: 700; text-align: center; }
 @media (prefers-color-scheme: dark) {
-  /* أغلب الشعارات مرسومة للأبيض: لوح أبيض، إلا لو فيه brand.logoDark */
-  .c-plate { box-sizing: content-box; padding: 8px 12px; border-radius: 12px; background: var(--c-plate); }
+  /* أغلب الشعارات مرسومة للأبيض: الملف الفاتح على لوح أبيض، إلا لو فيه brand.logoDark (يطلع بدون لوح) */
+  .c-plate { box-sizing: content-box; padding: var(--lt-space-8) var(--lt-space-12); border-radius: 12px; background: var(--c-plate); }
 }
 
-/* الأيقونات: 20px، currentColor (§3.3) */
+/* الأيقونات 20px، currentColor (§3.3) */
 .c-ico { flex: none; width: 20px; height: 20px; }
 
-/* الزر الأساسي بلون المحل، والثانوي محايد (§5.6) */
-.c-btn, .c-btn2 { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 56px; margin: 0; padding: 12px 20px; border: 1px solid transparent; border-radius: var(--lt-radius-m); font-family: inherit; font-size: 17px; line-height: 1.3; font-weight: 600; text-align: center; text-decoration: none; cursor: pointer; touch-action: manipulation; }
-.c-btn { background: var(--shop); color: var(--on-shop); -webkit-tap-highlight-color: var(--shop-tap); }
-.c-btn:active { background: var(--shop-press); }
-.c-btn2 { background: var(--lt-surface); border-color: var(--lt-border); color: var(--lt-text); -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
-.c-btn2:active { background: var(--lt-surface-2); }
-@media (hover: hover) {
-  .c-btn:hover { background: var(--shop-press); }
-  .c-btn2:hover { background: var(--lt-surface-2); }
-}
-.c-stack { display: flex; flex-direction: column; gap: 12px; }
-
-/* اللوحة المجمّعة (§5.6، مثل إعدادات آيفون): بدون حشوة، والصفوف تحمل الحشوة، وخط شعري يبدأ بعد 16px */
-.c-panel { margin: 0; padding: 0; list-style: none; background: var(--lt-surface); border: 1px solid var(--lt-border); border-radius: var(--lt-radius-m); overflow: hidden; }
-.c-panel > li { position: relative; }
-.c-panel > li + li::before { content: ""; position: absolute; top: 0; inset-inline-start: 16px; inset-inline-end: 0; border-top: 1px solid var(--lt-border); }
-.c-row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; margin: 0; padding: 14px 16px; border: 0; background: none; color: var(--lt-text); font-family: inherit; font-size: 17px; line-height: 1.4; font-weight: 600; text-align: start; text-decoration: none; }
-a.c-row, button.c-row { cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
-a.c-row:active, button.c-row:active { background: var(--lt-surface-2); }
-@media (hover: hover) { a.c-row:hover, button.c-row:hover { background: var(--lt-surface-2); } }
-.c-row > .c-ico { color: var(--lt-muted); }
-.c-row-t { flex: 1; min-width: 0; }
-.c-row-v { flex: none; color: var(--lt-muted); font-weight: 400; }
-.c-row-v.is-strong { color: var(--lt-text); font-weight: 600; }
-.c-chev { flex: none; width: 16px; height: 16px; color: var(--lt-muted); }
-.c-row--text { display: block; font-size: 16px; line-height: 1.6; font-weight: 400; }
-
 /* سطر الحالة (aria-live). فاضي = بدون مساحة، ويبقى في الصفحة عشان قارئ الشاشة يعلن اللي ينكتب فيه */
-.c-status { margin-top: 8px; font-size: 14px; line-height: 1.45; color: var(--lt-muted); }
+.c-status { margin-top: var(--lt-space-8); font-size: 14px; line-height: 1.45; color: var(--lt-muted); }
 .c-status:empty { margin: 0; }
 
 /* صندوق الواي فاي: الوحيد الملوّن بلون المحل الخفيف (§5.7) */
-.c-wifi { padding: 20px; border-radius: var(--lt-radius-m); background: var(--shop-tint); }
+.c-wifi { padding: var(--lt-space-20); border-radius: var(--lt-radius-m); background: var(--shop-tint); }
 .c-wifi .c-label { color: var(--lt-text); }
 .c-wifi-v { margin: 2px 0 14px; font-size: 17px; line-height: 1.4; font-weight: 600; text-align: right; -webkit-user-select: all; user-select: all; }
-.c-pw { margin: 2px 0 16px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 24px; line-height: 1.3; font-weight: 600; text-align: right; -webkit-user-select: all; user-select: all; }
+.c-pw { margin: 2px 0 var(--lt-space-16); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 24px; line-height: 1.3; font-weight: 600; text-align: right; -webkit-user-select: all; user-select: all; }
 .c-wifi-open { font-size: 17px; line-height: 1.4; font-weight: 600; }
 
-/* طبقة لمسة تاب في نسخ العرض بس (§5.6): شريط بعرض الشاشة فوق، وقسم «لصاحب المحل» آخر الصفحة */
-.c-demo { background: var(--lt-wa); color: var(--lt-on-wa); }
-.c-demo-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 560px; min-height: 64px; margin: 0 auto; padding: 8px 20px; font-size: 14px; line-height: 1.4; font-weight: 600; }
-.c-demo :focus-visible { outline-color: var(--lt-on-wa); }
-.c-demo-btn { display: inline-flex; flex: none; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border-radius: var(--lt-radius-m); background: var(--lt-on-wa); color: var(--lt-wa); font-size: 15px; font-weight: 600; text-decoration: none; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .1); }
-.c-demo-btn:active { background: var(--c-demo-press, var(--lt-surface-2)); }
-.c-demo-btn .lt-wa-icon, .c-demo-btn .c-ico { width: 18px; height: 18px; }
-@media (prefers-color-scheme: dark) { .c-demo-btn { --c-demo-press: var(--lt-border); } }
-.c-owner { margin-top: 48px; padding: 24px 20px; border-radius: var(--lt-radius-m); background: var(--lt-surface-2); color: var(--lt-text); }
-.c-owner h2 { margin: 0 0 8px; }
-.c-owner p { margin-bottom: 16px; }
-.c-owner .c-owner-back { margin: 8px 0 0; }
-.c-owner-back a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 600; }
-
-/* «بواسطة لمسة تاب»: نص بس (GM-022)، ويطلع بس لو poweredBy: true (GM-023) */
-.c-by { margin-top: 40px; text-align: center; font-size: 13px; line-height: 1.4; color: var(--lt-muted); }
+/* طبقة لمسة تاب في نسخ العرض بس (§5.6): شريط بلون الفعل بعرض الشاشة فوق، وقسم «لصاحب المحل» آخر الصفحة */
+.c-demo { background: var(--lt-action); color: var(--lt-on-action); }
+.c-demo-in { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-12); max-width: var(--lt-column-client); min-height: 64px; margin: 0 auto; padding: var(--lt-space-8) var(--lt-space-20); font-size: 14px; line-height: 1.4; font-weight: 600; }
+.c-owner { margin-top: var(--lt-space-48); padding: var(--lt-space-24) var(--lt-space-20); border-radius: var(--lt-radius-m); background: var(--lt-surface-2); color: var(--lt-text); }
+:where(.c-owner) h2 { margin: 0 0 var(--lt-space-8); }
+.c-owner > p { margin-bottom: var(--lt-space-16); }
+.c-owner > .c-owner-back { margin: var(--lt-space-8) 0 0; }
 
 @media (prefers-reduced-motion: reduce) { .c * { scroll-behavior: auto !important; transition: none !important; } }

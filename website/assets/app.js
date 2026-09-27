@@ -6,8 +6,9 @@
   var me = d.currentScript && d.currentScript.getAttribute('src');
   w.ASSETS = me ? me.replace(/app\.js(\?.*)?$/, '') : 'assets/';
 
-  // أيقونة المحادثة حقتنا (brand/icons/chat.svg). مو شعار واتساب (web-brand.md §3)
-  var ICON = '<svg class="lt-wa-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4h10a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4v3.5L12.5 17H7a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="10.5" r="1.3" fill="currentColor"/><circle cx="12" cy="10.5" r="1.3" fill="currentColor"/><circle cx="16" cy="10.5" r="1.3" fill="currentColor"/></svg>';
+  // أيقونة المحادثة حقتنا، مو شعار واتساب (web-brand.md §3). على شبكة 20 وخط 1.75 مثل باقي الأيقونات (موجز §3.3)،
+  // المسار من مجموعة web-illustrator (illustrations-src/build_illustrations.py). للواتساب بس.
+  var ICON = '<svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg>';
 
   function all(sel, root) { return [].slice.call((root || d).querySelectorAll(sel)); }
   w.$ = function (id) { return d.getElementById(id); };
@@ -27,7 +28,7 @@
     return 'https://wa.me/' + num + (text ? '?text=' + encodeURIComponent(text) : '');
   };
   w.waIcon = function (el) {
-    if (!el.querySelector('.lt-wa-icon')) el.insertAdjacentHTML('afterbegin', ICON);
+    if (!el.querySelector('.lt-btn-icon')) el.insertAdjacentHTML('afterbegin', ICON);
     return el;
   };
   // رسالة من config (SITE.waText)، و{unitRef} ينعوض
@@ -53,7 +54,7 @@
       if (num) {
         a.href = waHref(num, waText(a.getAttribute('data-wa')));
         a.hidden = false;
-        if (a.classList.contains('lt-wa') || a.classList.contains('wa-link')) waIcon(a);
+        if (a.classList.contains('lt-btn')) waIcon(a);   // الأزرار بس. الروابط المستقلة (.lt-link) بدون أيقونة
       } else {
         a.removeAttribute('href');
         a.hidden = true;

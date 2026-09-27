@@ -1,21 +1,20 @@
-/* المنيو (موجز المدير الفني §5.7): شريط أقسام ثابت فوق بتبويبات نص، والصنف صف بسطرين داخل لوحة مجمّعة. */
+/* المنيو (موجز المدير الفني §5.7): شريط أقسام ثابت فوق بتبويبات نص، والصنف صف بسطرين داخل لوحة مجمّعة (components.css). */
 .m-note { margin-top: -8px; text-align: center; }
-.m-tabs { position: sticky; top: 0; z-index: 2; margin: 12px -20px 0; background: var(--lt-bg); border-bottom: 1px solid var(--lt-border); }
-.m-tabs-in { display: flex; gap: 4px; overflow-x: auto; padding: 0 8px; scrollbar-width: none; overscroll-behavior-x: contain; }
+.m-tabs { position: sticky; top: 0; z-index: 2; margin: 12px calc(-1 * var(--lt-space-20)) 0; background: var(--lt-bg); border-bottom: var(--lt-hairline) solid var(--lt-border); }
+.m-tabs-in { display: flex; gap: 4px; overflow-x: auto; padding: 0 var(--lt-space-8); scrollbar-width: none; overscroll-behavior-x: contain; }
 .m-tabs-in::-webkit-scrollbar { display: none; }
 /* من 600px الشريط داخل العمود، بدون هوامش سالبة (ما يطلع برّا العمود على 1440) */
 @media (min-width: 600px) { .m-tabs { margin: 12px 0 0; } .m-tabs-in { padding: 0; } }
-.m-tabs a { flex: none; display: flex; align-items: center; justify-content: center; min-width: 48px; min-height: 48px; padding: 0 12px; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--lt-muted); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
+/* التبويب: نص مو حبة، 48 ارتفاع وعرض. النشط حبر وخط 2px بلون المحل (خانة من الأربع، §5.1) */
+.m-tabs a { flex: none; display: flex; align-items: center; justify-content: center; min-width: var(--lt-tap-min); min-height: var(--lt-tap-min); padding: 0 var(--lt-space-12); border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--lt-muted); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
 .m-tabs a[aria-current="true"] { color: var(--lt-text); border-bottom-color: var(--shop-line); }
+.m-tabs a:focus-visible { outline-offset: -3px; }
 @media (hover: hover) { .m-tabs a:hover { color: var(--lt-text); } }
-/* تلاشي 24px على الطرف اللي فيه باقي (RTL: البداية يمين، والنهاية يسار) */
+/* تلاشي 24px على الطرف اللي فيه باقي تبويبات (RTL: البداية يمين، والنهاية يسار). يدل على شي، مو زينة */
 .m-tabs.is-more-end .m-tabs-in { -webkit-mask-image: linear-gradient(to right, transparent, #000 24px); mask-image: linear-gradient(to right, transparent, #000 24px); }
 .m-tabs.is-more-start .m-tabs-in { -webkit-mask-image: linear-gradient(to left, transparent, #000 24px); mask-image: linear-gradient(to left, transparent, #000 24px); }
 .m-tabs.is-more-start.is-more-end .m-tabs-in { -webkit-mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent); mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent); }
 .m-sec { scroll-margin-top: 60px; }
-.m-item { flex-direction: column; align-items: stretch; gap: 2px; }
-.m-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-.m-name { flex: 1; min-width: 0; }
-.m-price { flex: none; min-width: 4.5em; text-align: left; white-space: nowrap; }
-.m-meta { font-weight: 400; }
-.m-wa { margin-top: 32px; }
+/* الصنف: السعر على سطر الاسم (فوق)، مو في نص الصف */
+.lt-row.m-item { align-items: flex-start; }
+.m-wa { margin-top: var(--lt-space-32); }

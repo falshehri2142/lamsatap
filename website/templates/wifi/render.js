@@ -11,7 +11,7 @@
     h.push('<h1>الواي فاي</h1>');
     h.push(cWifi(wf, false, p));
     // صفحة عميل: واتساب المحل زر ثانوي (الأساسي هنا زر النسخ)
-    if (!D.demo && !o.mini) { var wa = cShopWa(D, 'c-btn2'); if (wa) h.push('<div class="w-wa">' + wa + '</div>'); }
+    if (!D.demo && !o.mini) { var wa = cShopWa(D, 'secondary'); if (wa) h.push('<div class="w-wa">' + wa + '</div>'); }
     if (demo) h.push(cOwner('لصاحب المحل', 'هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود. ونسويها بشعار محلك وألوانه.', 'أبغى صفحة واي فاي مثلها لمحلي', 'demoWifi'));
     return {
       title: place ? 'واي فاي ' + place : 'الواي فاي',

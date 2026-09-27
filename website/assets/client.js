@@ -44,17 +44,19 @@
     });
   }
 
-  // لوحة مجمّعة من صفوف (§5.6). كل صف: { tag, cls, attrs, icon, text, value, strong, chevron, html }
+  // لوحة مجمّعة من صفوف (§5.6) بمكوّنات components.css: .lt-panel و .lt-row.
+  // الصف: { tag, cls, attrs, icon, title, sub, value (قيمة مهمة 17/600)، end (قيمة ثانوية)، chevron، html }
   w.cRow = function (r) {
     var tag = r.tag || 'div';
-    var inner = r.html || ((r.icon ? cIcon(r.icon) : '') + '<span class="c-row-t">' + r.text + '</span>' +
-      (r.value != null ? '<span class="c-row-v' + (r.strong ? ' is-strong' : '') + '">' + r.value + '</span>' : '') +
-      (r.chevron ? cIcon('chevron', 'c-chev') : ''));
-    return '<' + tag + ' class="c-row' + (r.cls ? ' ' + r.cls : '') + '"' + (tag === 'button' ? ' type="button"' : '') + (r.attrs || '') + '>' + inner + '</' + tag + '>';
+    var inner = r.html != null ? r.html :
+      (r.icon ? cIcon(r.icon, 'lt-row-icon') : '') +
+      '<span class="lt-row-body"><span class="lt-row-title">' + r.title + '</span>' + (r.sub ? '<span class="lt-row-sub">' + r.sub + '</span>' : '') + '</span>' +
+      (r.value != null ? '<span class="lt-row-end lt-row-end--value">' + r.value + '</span>' : '') +
+      (r.end != null ? '<span class="lt-row-end">' + r.end + '</span>' : '') +
+      (r.chevron ? cIcon('chevron', 'lt-row-chevron') : '');
+    return '<' + tag + ' class="lt-row' + (r.cls ? ' ' + r.cls : '') + '"' + (tag === 'button' ? ' type="button"' : '') + (r.attrs || '') + '>' + inner + '</' + tag + '>';
   };
-  w.cPanel = function (rows, attrs) {
-    return '<ul class="c-panel"' + (attrs || '') + '>' + rows.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
-  };
+  w.cPanel = function (rows, attrs) { return '<div class="lt-panel"' + (attrs || '') + '>' + rows.join('') + '</div>'; };
 
   // صندوق الواي فاي (§5.7): نفسه في دليل الوحدة وصفحة الواي فاي. p = بادئة الـ IDs
   w.cWifi = function (wf, heading, p) {
@@ -65,19 +67,20 @@
     x += '<div class="c-wifi">';
     if (ssid) x += '<p class="c-label">الشبكة</p><p class="c-wifi-v" dir="ltr" translate="no">' + esc(ssid) + '</p>';
     if (pw.trim()) x += '<p class="c-label">كلمة المرور</p><p class="c-pw" dir="ltr" translate="no">' + esc(pw) + '</p>' +
-      '<button class="c-btn" type="button" id="' + p + 'wifi-copy">انسخ كلمة المرور</button>';
+      '<button class="lt-btn lt-btn--shop" type="button" id="' + p + 'wifi-copy">انسخ كلمة المرور</button>';
     else x += '<p class="c-wifi-open">الشبكة مفتوحة، بدون كلمة مرور.</p>';
     return x + '</div><p class="c-status" id="' + p + 'wifi-st" role="status" aria-live="polite"></p></section>';
   };
   // زر نسخ: «تم النسخ» مع علامة صح ثانيتين ويرجع فوراً (بدون حركة)، والرسالة في سطر الحالة
   w.cCopy = function (btn, getText, status, okMsg, failMsg) {
     if (!btn) return;
-    var label = btn.innerHTML, timer;
+    var label = btn.innerHTML, timer, row = btn.classList.contains('lt-row');
     btn.addEventListener('click', function () {
       copyText(getText(), function (ok) {
         status.textContent = ok ? okMsg : failMsg;
         if (!ok) return;
-        btn.innerHTML = cIcon('check') + '<span>تم النسخ</span>';
+        btn.innerHTML = row ? cIcon('check', 'lt-row-icon') + '<span class="lt-row-body"><span class="lt-row-title">تم النسخ</span></span>'
+          : cIcon('check', 'lt-btn-icon') + '<span>تم النسخ</span>';
         clearTimeout(timer);
         timer = setTimeout(function () { btn.innerHTML = label; }, 2000);
       });
@@ -90,30 +93,32 @@
       'تم النسخ. اختر الشبكة من إعدادات الواي فاي، والصق كلمة المرور.', 'ما قدرنا ننسخ. اكتب كلمة المرور يدوياً.');
   };
 
-  // واتساب المحل في صفحة العميل: الزر بلون المحل مع أيقونة المحادثة (GM-023). cls = c-btn أو c-btn2. النص «كلّمنا على واتساب» (web-copy 2.0)
-  w.cShopWa = function (D, cls, label) {
+  // واتساب المحل في صفحة العميل: الزر بلون المحل مع أيقونة المحادثة (GM-023). النوع: shop (أساسي) أو secondary.
+  // النص «كلّمنا على واتساب» (web-copy 2.0)
+  w.cShopWa = function (D, kind, label) {
     label = label || 'كلّمنا على واتساب';
     var href = waHref(D.whatsapp, str(D.waText) || 'السلام عليكم، عندي استفسار');
-    return href ? '<a class="' + cls + '" href="' + esc(href) + '">' + cIcon('chat') + '<span>' + esc(label) + '</span></a>' : '';
+    return href ? '<a class="lt-btn lt-btn--' + (kind || 'shop') + '" href="' + esc(href) + '">' + cIcon('chat', 'lt-btn-icon') + '<span>' + esc(label) + '</span></a>' : '';
   };
 
-  // طبقة لمسة تاب في نسخ العرض (§5.6): شريط فوق بعرض الشاشة، وقسم «لصاحب المحل» آخر الصفحة، والزرين لرقم الشركة.
-  // اسم الزر الصغير = نصه الظاهر (WCAG 2.5.3)، ووصفه = نص الزر الكبير
+  // طبقة لمسة تاب في نسخ العرض (§5.6): شريط بلون الفعل فوق، وقسم آخر الصفحة، والزرين لرقم الشركة.
+  // اسم الزر المختصر = نصه الظاهر (WCAG 2.5.3)، ووصفه = نص الزر الكبير (aria-describedby)
   w.cDemoBar = function (label, key) {
     return '<aside class="c-demo" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي · ' + esc(label) + '</span>' +
-      '<a class="c-demo-btn" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a></div></aside>';
+      (key ? '<a class="lt-btn lt-btn--compact lt-btn--on-bar" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a>' : '') +
+      '</div></aside>';
   };
   // آخر العرض (web-copy 2.0 و ر5-2): العنوان والسطر والزر حسب الصفحة، ورابط الرجوع لموقعنا
   w.cOwner = function (title, line, cta, key) {
     var home = (w.ASSETS || '../../assets/').replace(/assets\/$/, '') + 'index.html';
     return '<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">' + title + '</h2>' +
       '<p>' + line + '</p>' +
-      '<a class="lt-wa" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a>' +
-      '<p class="c-owner-back"><a href="' + esc(home) + '">رجوع لموقع <span data-company>' + esc(companyName()) + '</span></a></p></section>';
+      '<a class="lt-btn" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a>' +
+      '<p class="c-owner-back"><a class="lt-link" href="' + esc(home) + '">رجوع لموقع <span data-company>' + esc(companyName()) + '</span></a></p></section>';
   };
-  // «بواسطة لمسة تاب»: نص بس، ويطلع بس لو poweredBy: true (GM-023). بدون رمز (GM-022)
+  // «بواسطة لمسة تاب» (components.css: .lt-by): نص بس، ويطلع بس لو poweredBy: true (GM-023). بدون رمز (GM-022)
   w.cBy = function (on) {
-    return on === true ? '<p class="c-by">بواسطة <span data-company>' + esc(companyName()) + '</span></p>' : '';
+    return on === true ? '<p class="lt-by">بواسطة <span data-company>' + esc(companyName()) + '</span></p>' : '';
   };
 
   // لون شريط المتصفح = خلفية الصفحة (§5.6)، ويتبع الوضع الداكن
@@ -127,7 +132,7 @@
   w.cMount = function (bar, html, poweredBy) {
     var app = $('app');
     app.innerHTML = (bar || '') + '<main class="c-main">' + html + cBy(poweredBy) + '</main>';
-    [].forEach.call(app.querySelectorAll('.c-demo-btn,.lt-wa'), function (a) { waIcon(a); });
+    [].forEach.call(app.querySelectorAll('.lt-btn[data-wa]'), function (a) { waIcon(a); });
     logoFallback(app);
     themeColor();
     if (w.matchMedia) {
