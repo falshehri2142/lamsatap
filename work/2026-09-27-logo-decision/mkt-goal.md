@@ -45,4 +45,4 @@
 
 ## الملفات
 كل وكيل يكتب في `work/2026-09-27-logo-decision/` داخل نسخة القسم `C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\bold-blackwell-2d3a52`: `mkt-strategist.md`، `mkt-creator.md`، `mkt-compliance.md`. لا أحد يكتب في المجلد الرئيسي ولا في نسخة المصمم.
-الناتج المدمج (يكتبه القسم): `C:\Users\TechTroniX\Desktop\NFC\work\2026-09-27-logo-decision\marketing.md`.
+الناتج المدمج (يكتبه القسم): `work/2026-09-27-logo-decision/marketing.md` على فرع القسم. حماية النسخ منعت الكتابة المباشرة في المجلد الرئيسي، والمدير العام يدمجه.
