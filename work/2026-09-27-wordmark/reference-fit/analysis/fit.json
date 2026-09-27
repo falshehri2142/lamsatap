@@ -1,0 +1,11 @@
+{
+ "background_red": 91.0,
+ "iou": 0.9737,
+ "x0": 273.75,
+ "y0": 132.75,
+ "cell": 56.0,
+ "side": 224.0,
+ "mean_abs_diff": 0.0151,
+ "pixels_off_over_50": 0,
+ "mark_pixels": 32139
+}
