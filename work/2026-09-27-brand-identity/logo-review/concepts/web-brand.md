@@ -83,7 +83,7 @@
 - **الأفقي:**
   - h من أعلى «ل» لخط قاعدة اللاتيني (1.3627 em).
   - المسافة بين السطح والاسم 0.3h، والنقطة في الطرف الخارجي (أول شي من اليمين).
-  - الحرف اللاتيني الكبير يوصل 7px من ارتفاع **26px** للقفل (القديم كان يحتاج 44px).
+  - الحرف اللاتيني الكبير يوصل 7px من ارتفاع **27px** للقفل (القديم كان يحتاج 44px).
 - **العربي بس:** h = أعلى «ل» لخط القاعدة.
 - **العمودي:**
   - المسافة 0.35h.
@@ -120,18 +120,48 @@
   - `-favicon.svg`: بدون خلفية ويتكيف فاتح وداكن.
   - `-avatar.svg`: مربع حبر والرمز داخل 80%.
   - `-horizontal*.svg` و`-horizontal-ar*.svg` و`-logo*.svg`: فاتح وداكن ولون واحد.
-  - `-geometry.json`، والورقة، وتكبير البكسلات، و`check/` و`mark-test/`.
+  - `-512.png` (الرمز على 512: فاتح وصورة الحساب)، و`-geometry.json`، والورقة، وتكبير البكسلات، و`check/` و`mark-test/`.
 - **السكربتات** في `brand-src/`: `geometry.py` (السطح والنقطة)، و`lockup.py` (الاسم والأقفال)، و`build_concepts.py` (الملفات والأوراق والفحص)، و`boards.py` (اللوحتين).
 - **التشغيل من جذر المشروع:**
   - `python work/2026-09-27-brand-identity/logo-review/concepts/brand-src/build_concepts.py --check`
   - `python work/2026-09-27-brand-identity/logo-review/concepts/brand-src/boards.py`
 - **يحتاج `skia-pathops`** لدمج الحروف. مو مثبّت في بايثون الجهاز: شغّلته من نسخة في مجلدي المؤقت (`pip install --target`). الملفات النهائية بتحتاجه في `build_logo.py`، فلازم يتثبّت (`pip install skia-pathops`) قبل خطوة التسليم.
 
+## خطوة الملفات النهائية: جاهزة ومجرّبة (تنتظر اختيارك)
+- **الملفات:**
+  - `brand-src/make_master.py`: يكتب مصدر الرمز `lamsatap-mark.svg` (مسار السطح `id="surface"` ومسار النقطة `id="dot"` على 512).
+  - `brand-src/build_logo_next.py`: يقرأ الرمز من المصدر، والاسم من `config.js`، ويطلّع كل ملفات decision §4 بمسار واحد لكل لون.
+  - `brand-src/export_png_next.py`: يطلّع PNG وfavicon.ico وJPG الإيداع، ويعيد بصمات `MANIFEST.txt`.
+- **اللي يطلع:**
+  - الرمز: ملون للفاتح والداكن، ولون واحد أسود وأبيض (موجب للحفر)، ونسخة على الحبر.
+  - favicon SVG يتكيف، وصورة الحساب (حبر مصمت)، ودائرة احتياط للـ ico.
+  - الأفقي والعربي بس والكامل، كل واحد بأربع نسخ.
+  - PNG: 1080 و512 و180 (معتمة بدون شفافية) و32، و`favicon.ico` (16 و32 و48).
+  - JPG أبيض وأسود للإيداع (loyer ق6).
+  - `MANIFEST.txt`: الإصدار 1.0.0 وبصمة SHA-256 لكل ملف (loyer ق7).
+- **جربته كامل على brand-3 في مجلدي المؤقت** (برّا المشروع):
+  - 20 SVG و7 صور، و`sha256sum -c MANIFEST.txt` كلها OK.
+  - صور 1080 و512 و180 بدون ولا بكسل شفاف.
+  - `check_logo.py` نفس نتيجة المفهوم: PASS 31، والـ FAIL الوحيد التيل.
+  - favicon يتبدل فعلاً في الوضع الداكن (ui-probe `--dark`، داخل صفحة).
+- **بعد اختيارك** (من جذر المشروع):
+  1. `python .../brand-src/make_master.py <المفهوم> brand/src/lamsatap-mark.svg`
+  2. `build_logo_next.py` مكان `brand/src/build_logo.py`، و`export_png_next.py` مكان `export_png.py`.
+  3. `python brand/src/build_logo.py && python brand/src/export_png.py`
+  4. `check_logo.py` على `brand/logo`. ملف `-icon-onink.svg` هو اللي يمثل صورة الحساب في فحص التباين.
+- **يحتاج `pip install skia-pathops`** في بايثون الجهاز قبل الخطوة 3.
+- **أسماء الملفات والموقع:**
+  - الموقع يستخدم الحين `lamsatap-horizontal.svg` و`-dark.svg` و`favicon.ico` بس. أسماءها تبقى، والمحتوى يتبدل.
+  - `lamsatap-icon.svg` صار الرمز بدون مربع (حبر ونقطة).
+  - `lamsatap-icon-fullbleed.svg` انشال: صورة الحساب وأيقونة آيفون من `lamsatap-avatar.svg`.
+  - web-builder يضيف رابط `lamsatap-favicon.svg` (SVG يتكيف) و`png/lamsatap-icon-180.png` (apple-touch-icon).
+
 ## غير مؤكد
 - **ألوان المحاكاة:** خلفية واتساب الداكنة `#0B141A` وألوان التبويب `#202124` و`#35363A` قيم معروفة، ما لقيت لها مصدر رسمي. والقائمة والتبويب رسم تقريبي بـ Edge، مو جوال حقيقي.
 - **أشكال المنافسين والمراجع** في لوحة المقارنة: تقريب مني. وشكل pixel-nfc ما تأكدت منه.
 - **أحكام الشبه** (■● و«ز» والبطاقة): رأيي، والحكم للثلاثة في 16.6 بند 2 و3.
 - **الحفر 0.3mm:** قاعدة web-qa المبدئية لين عينة المورد. ونتائج mark_test محاكاة، مو حرق حقيقي.
+- **favicon:** تكيّفه انجرّب داخل صفحة بمحاكاة الوضع الداكن، مو في تبويب متصفح حقيقي. ودعم سفاري لـ favicon بصيغة SVG ما تأكدت منه، وعشان كذا فيه `favicon.ico` احتياط بالدائرة الحبر.
 
 ## المصادر
 - الاتجاه: `work/2026-09-27-brand-identity/web-art-director.md` القسم 16. والموجز الملزم: `work/2026-09-27-logo-decision/decision.md` (GM-026). وأحكام اللجنة في نفس المجلد (`marketing.md` بند 3 و6 و7، و`sales.md` م1، و`nfc-engineer.md`، و`legal.md`).

@@ -220,7 +220,7 @@ def icons():
 
 
 # ---------- 3) الجوال ----------
-def phone_parts(k, p, slot_id, hi=True, ox=0):
+def phone_parts(k, p, slot_id, hi=True, ox=0, screen_fill=WHITE):
     """جوال من قدام بإحداثيات محلية: (0,0) = نص الحافة العليا، والجوال نازل لتحت. k = px لكل mm.
     72×150mm، زاوية 10mm، حافة متساوية 3mm، وكاميرا دائرية صغيرة في النص فوق.
     يرجع (الجسم، الشاشة، الكاميرا، أبعاد الشاشة)."""
@@ -229,7 +229,7 @@ def phone_parts(k, p, slot_id, hi=True, ox=0):
     if hi:  # حافة عليا أفتح (النور من فوق)
         body += f'<path fill="{INK_EDGE}" d="{rrect(ox - W / 2 + R * .9, 0, W - R * 1.8, 1.4 * k / 1.85 + .6, .8)}"/>'
     sx, sy, sw, sh, sr = ox - W / 2 + b, b, W - 2 * b, H - 2 * b, R - b
-    screen = f'<rect id="{slot_id}" x="{f(sx)}" y="{f(sy)}" width="{f(sw)}" height="{f(sh)}" rx="{f(sr)}" fill="#FFFFFF"/>'
+    screen = f'<rect id="{slot_id}" x="{f(sx)}" y="{f(sy)}" width="{f(sw)}" height="{f(sh)}" rx="{f(sr)}" fill="{screen_fill}"/>'
     cam = f'<circle cx="{f(ox)}" cy="{f(sy + 3.2 * k)}" r="{f(1.35 * k)}" fill="{INK}"/>'
     return body, screen, cam, (sx, sy, sw, sh, sr)
 
@@ -358,7 +358,8 @@ def hero():
     g.append(shadow(p, bx + bw / 2 - 6, 388, bw * .62, 8))
     g.append(s)
     # الجوال: حافته العليا تلمس النقطة، مايل 13° (أعلاه لليمين)، وينزل لتحت يسار
-    body, screen, cam, _ = phone_parts(kp, p, "hc-slot-menu")
+    # الشاشة مطفية بحبر الجوال: قبل ما تنكشف المنيو في الحركة، ما يطلع وميض أبيض في الداكن (ملاحظة web-motion، قرار رئيس القسم)
+    body, screen, cam, _ = phone_parts(kp, p, "hc-slot-menu", screen_fill=INK)
     a = math.radians(tilt)
     gap = 1.2
     tx, ty = dx - (dr + gap) * math.sin(a), dy + (dr + gap) * math.cos(a)

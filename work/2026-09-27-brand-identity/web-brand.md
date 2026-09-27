@@ -199,8 +199,10 @@
 - **الفحص:** صفحة التجربة على 390 و1440، فاتح وداكن وتقليل الحركة: صفر أخطاء، بدون تمرير أفقي ولا أهداف صغيرة، وحالة الضغط تبين، و`hidden` يخفي الزر، وحلقة التركيز واضحة في الوضعين (`brand-review\probe-gm020\`، `probe-gm020-dark\`، `gm020-focus.png`).
 - **المطلوب من web-builder:** ينسخ `brand/tokens.css` و`brand/components.css` إلى `website/assets/brand/`.
 
-## الشعار: الاستكشاف موقوف
-بأمر رئيس القسم، قرار الشعار عند لجنة الأقسام (`work/2026-09-27-logo-decision/`). وين وصلت: `logo-review/web-brand.md`. ما تغير شي في `brand/logo/` ولا `build_logo.py`.
+## الشعار: المفاهيم جاهزة وتنتظر اختيار المدير الفني (GM-026، اتجاه «الميلان»)
+- 4 مفاهيم داخل «الميلان» في `logo-review/concepts/brand-1` إلى `brand-4`، والمقارنة والترشيح (brand-3 «الحادّ») في `logo-review/concepts/web-brand.md`. كلها تعدّي بنود `check_logo.py` الملزمة.
+- خطوة الملفات النهائية جاهزة ومجرّبة برّا المشروع: `logo-review/concepts/brand-src/build_logo_next.py` و`export_png_next.py` و`make_master.py`. تنتقل لـ `brand/src/` وتطلّع `brand/logo/` بعد الاختيار بس.
+- ما تغير شي في `brand/logo/` ولا `build_logo.py` للحين.
 
 ## جولة التنفيذ: الموجز الفني (web-art-director.md، القسم 13)
 طبّقت الموجز بالحرف. قرار واحد لكل بند، ولا لمست `brand/logo/` (GM-022) ولا `website/` غير `website/demo/_brands/`.
