@@ -157,18 +157,21 @@
 ### 2.0 قناة التواصل: واتساب أولاً (GM-010، بتأكيد صاحب المشروع)
 الشركة كلها على الواتساب. أي إشعار أو موافقة أو تقرير لصاحب المشروع، وأي رسالة لعميل، **تتصمم على WhatsApp Business Cloud API**. الإيميل **احتياط داخلي مؤقت بس** (لصاحب المشروع وحده) لين يفعّل صاحب المشروع واتساب الأعمال، وما يطلع إيميل لعميل أبداً.
 
-**التبديل = إعداد واحد:** كل الـ workflows ما ترسل بنفسها؛ تنادي sub-workflow مشترك واحد:
-- **`owner-notify`** (Execute Workflow Trigger). المدخل: `text`، `kind` (`info` أو `approval`)، `timeout_min` (للموافقة). أول عقدة فيه Set اسمها **`CHANNEL`** فيها `channel = email` (الحين) أو `whatsapp` (بعد التفعيل) — **هذا المكان الوحيد اللي يتغير.** بعدها Switch على `channel`:
-  - `whatsapp` + `info` → WhatsApp Business Cloud: Send (قالب utility معتمد لرقم صاحب المشروع الشخصي).
-  - `whatsapp` + `approval` → WhatsApp Business Cloud: **Send and Wait for Response** (موجودة في عقدة WhatsApp في n8n، docs.n8n.io صفحة whatsapp) بزر موافق/مرفوض.
-  - `email` + `info` → Gmail: Send. `email` + `approval` → Gmail: **Send and Wait for Approval**.
-  - يرجّع للـ workflow الأب `approved = true/false` (الأب يناديه بـ «Wait for sub-workflow completion» = نعم للموافقات).
-  - إعدادات التنفيذ: حفظ التنفيذ مطفّى (نفس (أ))، لأن النص ممكن يحمل اسم عميل.
-- **`client-send`** (Execute Workflow Trigger): المدخل `client_id`، `template`، `params`، و`channel` (يرجّعه `owner-notify` مع `approved`، عشان يبقى الإعداد في مكان واحد). **ما يُنادى إلا بعد `approved = true`.**
-  - `whatsapp` → WhatsApp Business Cloud: Send Template للعميل.
-  - `email` (قبل التفعيل) → **ما يرسل للعميل شي.** يرسل لصاحب المشروع عبر `owner-notify` رابط `wa.me/<رقم العميل>?text=<النص>` يرسله بنفسه من جواله (نفس المرحلة 1 في §8).
+**التبديل = إعداد واحد:** كل الـ workflows ما ترسل بنفسها. فيه 3 sub-workflows مشتركة:
+- **`get-channel`** (Execute Workflow Trigger، بدون مدخل): فيه عقدة Set وحدة اسمها **`CHANNEL`** ترجّع `channel = email` (الحين) أو `whatsapp` (بعد التفعيل)، و`owner_whatsapp` (رقم صاحب المشروع الشخصي، يحطه هو؛ credential واتساب في n8n فيه `accessToken` و`businessAccountId` بس، فما ينحط هناك). **هذي العقدة هي المكان الوحيد اللي يتغير.** أي workflow يحتاج يعرف القناة (مثل (ب)) يناديه أول.
+- **`owner-notify`**: المدخل `text`، `kind` (`info` أو `approval`)، `timeout_min`. يبدأ بنداء `get-channel`، بعدها Switch:
+  - `whatsapp` + `info` → WhatsApp Business Cloud: Send Template `owner_alert` لـ `owner_whatsapp`.
+  - `whatsapp` + `approval` → **Send Template `owner_approval`** فيه النص ورابطين: `{{$execution.resumeUrl}}?d=yes` و`?d=no`، بعدها **Wait (Resume: On Webhook Call)** بمهلة `timeout_min`؛ IF على `d` → `approved`. (عقدة WhatsApp «Send and Wait for Response» في n8n ترسل نص حر بروابط مو أزرار، وبرا نافذة 24 ساعة Meta ترفضها — حسب مراجعة المشكّك لكود n8n `WhatsApp/GenericFunctions.ts`؛ فما نعتمدها.) هل الرابط يمر كمتغير في نص القالب أو زر رابط بلاحقة متغيرة = **غير مؤكد**، يُفحص عند اعتماد القالب.
+  - `email` + `info` → Gmail: Send. `email` + `approval` → Gmail: Send and Wait (موافقة).
+  - يرجّع `approved` (true/false؛ انتهاء المهلة = false).
+  - إعدادات التنفيذ: حفظ التنفيذ مطفّى (نفس (أ)).
+- **`client-send`**: المدخل `client_id`، `template`، `params`. **ما يُنادى إلا بعد `approved = true`.** يبدأ بنداء `get-channel`:
+  - `whatsapp` → Send Template للعميل → يرجّع `sent_to_client = true` لو نجح.
+  - `email` (قبل التفعيل) → **ما يرسل للعميل شي**؛ يرسل لصاحب المشروع عبر `owner-notify` رابط `wa.me/<رقم العميل>?text=<النص>` يرسله بنفسه (نفس المرحلة 1 في §8) → يرجّع `sent_to_client = false`.
+- **أي عمود يقول «أرسلنا للعميل» (مثل `reminder_*_sent`) ما يتغير إلا لما `sent_to_client = true`، أو لما صاحب المشروع يضغط «أرسلت».**
+- **انتظار الأب للموافقة:** الأب يناديها بـ «Wait for sub-workflow completion» = نعم. مضمون رسمياً؟ **غير مؤكد** (مصدر غير رسمي يقول إنه مستقر من n8n 2.0، وفيه issue #13135 قبلها). خطوة فحص في المرحلة 1ب: نسخة n8n في الـ instance + تجربة موافقة من workflow أب. لو فشل: عقد الموافقة تنحط داخل الأب نفسه، وتبقى `get-channel` هي الإعداد الوحيد.
 - عليه، في باقي المواصفة كلمة «إشعار/موافقة لصاحب المشروع» = نداء `owner-notify`، و«إرسال للعميل» = نداء `client-send` بعد الموافقة.
-- **قيد مهم:** رقم صاحب المشروع اللي يستلم الإشعارات والموافقات لازم يكون **غير رقم الشركة** المربوط بالـ API (الـ API يرسل من رقم الشركة لرقم ثاني). رقمه يُحط في إعداد الـ credential أو في `CHANNEL`، مو في الكود.
+- **قيد مهم:** رقم صاحب المشروع اللي يستلم الإشعارات والموافقات لازم يكون **غير رقم الشركة** المربوط بالـ API. رقمه في عقدة `CHANNEL` داخل `get-channel` بس.
 - **نافذة 24 ساعة:** رسائل تبدأها الشركة (تذكير عميل، تقرير يومي لصاحب المشروع) لازم تكون **قالب معتمد**. داخل نافذة 24 ساعة من آخر رسالة من الطرف الثاني يصير النص حر (developers.facebook.com/docs/whatsapp/pricing — «customer service window»). عليه: كل نص في هالمواصفة يتجهز له **قالب utility** بمتغيرات، وقائمة القوالب في §4.1.
 
 ### جدول: وش يشتغل قبل تفعيل WhatsApp API (`channel = email`)؟
@@ -185,7 +188,7 @@
 - **بدون API:** ما فيه workflow. يبقى يدوي كما في `systems/architecture.md` §8 المرحلة 1.
 - **المدخل الوحيد مع API:** زر «تم الخروج» / «بلاغ صيانة» في صفحة دليل الوحدة يرسل لـ Webhook في n8n **مرجع الوحدة (`ref`) ونوع الطلب ونص المشكلة فقط**. الضيف ما يرسل رقمه أصلاً (§8 المرحلة 2). **ممنوع** Webhook رسائل واتساب الواردة كمدخل: الرسالة الواردة فيها رقم الضيف (ضد بند 21 و§8).
 - **الخطوات:**
-  1. Webhook يستقبل. العقدة التالية مباشرة Set (Edit Fields) بخيار «احتفظ بالحقول المحددة فقط»: `ref`, `request` (`checkout`/`maintenance`), `problem` (أقصى 300 حرف، اقتراح). كل الباقي يُرمى، ولا عقدة بعدها تشوف الـ payload الخام.
+  1. Webhook يستقبل. العقدة التالية مباشرة Set (Edit Fields) بخيار «احتفظ بالحقول المحددة فقط»: `ref`, `request` (`checkout`/`maintenance`), `problem` (أقصى 300 حرف، اقتراح). بعدها Code يستبدل أي تسلسل أرقام شكله رقم جوال (نفس قاعدة `seed.js`: 05…، 5 بتسع خانات، +966/00966، بعد شيل المسافات والشرطات وتحويل الأرقام الهندية) بـ «[رقم محذوف]» — عشان ما يوصل رقم الضيف للمضيف أو لصاحب المشروع (بند 21 ج). كل الباقي يُرمى، ولا عقدة بعدها تشوف الـ payload الخام.
      **غير مؤكد:** وش يحمل Webhook في الـ headers على n8n Cloud (ممكن IP عبر `x-forwarded-for` وuser-agent). **خطوة فحص في البناء:** نداء تجربة ببيانات وهمية، ونفتح مخرج عقدة Webhook ونسجل الحقول الموجودة في `work/<task>/`، ونتأكد إن عقدة Set تشيلها كلها.
   2. Data Table Get على `units` بـ `ref` → IF: `type = door` و`status = active`، وإلا وقف بدون أي كتابة.
   3. «If row exists» على `unit_contacts` بـ `code` و`status = active` و`host_whatsapp` مو فاضي؛ ويحدد هل فيه عاملة (`worker_whatsapp` و`worker_consent_date` موجودين). الأرقام نفسها ما تنمرر هنا.
@@ -213,8 +216,9 @@
      - فات `end_date` و`renewal_confirmed = false` و`status = active` → Update `status = awaiting_renewal`.
      - `awaiting_renewal` وفات `end_date` بأكثر من 14 يوم (مهلة — اقتراح) → Update `status = expired`. ما في تجديد تلقائي أبداً.
   3. Get `clients` للاسم والرقم. نص التذكير: تاريخ الانتهاء، سعر التجديد (`renewal_price_sar`)، ولو أعلى من `price_sar` جملة صريحة بالزيادة، و«للتجديد رد بـ نعم أو ادفع؛ للإلغاء رد بـ إلغاء».
-  4. **`channel = whatsapp`:** `owner-notify` (`approval`) بقائمة التذكيرات اليوم → موافق → `client-send` لكل عميل (قالب utility «تذكير تجديد») → نجح الإرسال → Update `reminder_*_sent = true`. فشل لعميل → يبقى false ويطلع في تقرير (د).
-  4ب. **`channel = email` (احتياط):** رسالة واحدة لصاحب المشروع: لكل عميل رابط wa.me جاهز + رابط «أرسلت» (Form بـ Basic Auth؛ الرابط يحمل `subscription_id` ونوع التذكير كـ query parameters). **تعبئة الحقول من query parameters تشتغل في رابط production بس** (يعني بعد النشر)؛ في التجربة غير المنشورة يكتب صاحب المشروع `subscription_id` يدوياً في الـ Form.
+  4. نداء `get-channel` → Switch على `channel`:
+  4أ. **`whatsapp`:** `owner-notify` (`approval`) بقائمة التذكيرات اليوم → موافق → `client-send` لكل عميل (قالب «تذكير تجديد») → `sent_to_client = true` → Update `reminder_*_sent = true`. فشل لعميل → يبقى false ويطلع في تقرير (د).
+  4ب. **`email` (احتياط):** رسالة واحدة لصاحب المشروع: لكل عميل رابط wa.me جاهز + رابط «أرسلت» (Form بـ Basic Auth؛ الرابط يحمل `subscription_id` ونوع التذكير كـ query parameters). **تعبئة الحقول من query parameters تشتغل في رابط production بس** (يعني بعد النشر)؛ في التجربة غير المنشورة يكتب صاحب المشروع `subscription_id` يدوياً في الـ Form.
   5. **في الاحتياط: `reminder_*_sent` ما يتغير عند إرسال الإيميل.** يتغير بس لما صاحب المشروع يضغط «أرسلت» بعد ما يرسل فعلاً.
 - **خطوة التجديد (Form «سجّل تجديد»، Basic Auth، صاحب المشروع فقط):** بعد التأكيد الصريح من العميل: `owner-notify` (`approval`) → Update: `renewal_confirmed = true`، `renewal_confirmed_at` = تاريخ التأكيد، `renewal_confirmed_ref` = نوع ومرجع التأكيد ثم تطبيق التجديد في نفس الخطوة: `start_date = end_date` القديم، `end_date` += سنة (`annual`) أو شهر (`monthly`)، `price_sar = renewal_price_sar`، `status = active`، `reminder_30_sent = false`، `reminder_7_sent = false`، `renewal_confirmed = false` (استُهلك).
 - **الجداول:** قراءة `subscriptions`, `clients`؛ كتابة `status`, `reminder_*_sent`, وأعمدة التجديد من Form.
@@ -273,7 +277,7 @@
 | الترتيب | الشي | مين | يحتاج | «جاهز» لما |
 |---|---|---|---|---|
 | 1 | الجداول التسعة (§1، طريقة الإنشاء) | مهندس تقنية NFC | `search_projects` يؤكد مشروع لمسة تاب | الأنواع مطابقة، CSV بلا BOM استورد، عدد الصفوف مطابق، ولا عمود ممنوع |
-| 1ب | `owner-notify` + `client-send` (§2.0) | مشرف الشبكة | credential Gmail (احتياط) يضيفه صاحب المشروع؛ WhatsApp لاحقاً | `CHANNEL = email`: `info` يوصل، `approval` يرجع true/false، انتهاء المهلة = false؛ `client-send` بـ email ما يرسل لأي عميل (يرجّع رابط wa.me لصاحب المشروع بس)؛ تغيير `CHANNEL` لـ `whatsapp` هو التعديل الوحيد المطلوب بعد التفعيل (يُفحص بقراءة الـ workflows: ما في عقدة Gmail أو WhatsApp خارج `owner-notify`/`client-send`، ما عدا (أ)) |
+| 1ب | `owner-notify` + `client-send` (§2.0) | مشرف الشبكة | credential Gmail (احتياط) يضيفه صاحب المشروع؛ WhatsApp لاحقاً | `get-channel` يرجّع email: `info` يوصل، `approval` يرجع true/false، انتهاء المهلة = false؛ `client-send` بـ email ما يرسل لأي عميل (يرجّع رابط wa.me لصاحب المشروع بس)؛ تغيير عقدة `CHANNEL` لـ `whatsapp` هو التعديل الوحيد بعد التفعيل (يُفحص بقراءة الـ workflows: ما في عقدة Gmail أو WhatsApp خارج `owner-notify`/`client-send`، ما عدا (أ))؛ نسخة n8n مسجلة، وموافقة من workflow أب تنتظر فعلاً؛ `reminder_*_sent` ما ينقلب مع `sent_to_client = false` |
 | 2 | (ج1)+(ج2) | مشرف الشبكة | `owner-notify` | ببيانات وهمية: رفض الموافقة = ولا صف؛ موافقة = دفعة + قيد متوازن سطرين؛ دفعة جزئية تخلي الفاتورة `issued`، والمكملة تقلبها `paid`؛ دفعة بدون فاتورة توقف |
 | 3 | (ب) | مشرف الشبكة | `owner-notify` | اشتراك وهمي: التذكير يظهر في القائمة كل يوم لين يُضغط «أرسلت»؛ **في التجربة (غير منشور) رابط «أرسلت» ما يعبي `subscription_id` من الرابط، فيُكتب يدوياً في الـ Form** — والمعيار ينجح بالكتابة اليدوية، وتعبئة الرابط تُفحص بعد النشر؛ منتهي بلا تأكيد → `awaiting_renewal` ثم `expired` بعد المهلة؛ Form التجديد يحدث التواريخ ويصفّر الأعلام ويعبي `renewal_confirmed_at`/`renewal_confirmed_ref` |
 | 4 | (د) | مشرف الشبكة | `owner-notify` | نص صحيح من بيانات وهمية، وجدول فاضي ما يكسره |
@@ -296,8 +300,8 @@
 ### 4.1 وش يحتاجه صاحب المشروع لتفعيل WhatsApp Business Cloud API (هو يسويها بنفسه)
 مصادر: developers.facebook.com/docs/whatsapp/cloud-api/get-started و…/cloud-api/phone-numbers (فُتحت 2026-09-27 بواسطة مشرف الشبكة).
 1. **Business portfolio في Meta** (Meta Business): «Select an existing business portfolio or create a new one.»
-2. **توثيق النشاط (Business Verification):** صفحة البداية ما تقول إنه إلزامي للبداية. لكن بدونه: «New business portfolios are initially capped at two registered business phone numbers» والحد يرتفع لـ 20 بالتوثيق. هل التوثيق يحتاج السجل التجاري = **غير مؤكد** (مرتبط بـ GM-002: لا بيع قبل السجل).
-3. **رقم الشركة للـ API:** لازم يكون ملكنا، ويستقبل SMS أو اتصال. **رقم مسجّل حالياً في تطبيق واتساب ما ينسجل إلا بعد حذفه من التطبيق** («Numbers already active on WhatsApp Messenger cannot be registered unless first deleted»). ميزة استخدام نفس رقم تطبيق واتساب للأعمال مع الـ API (coexistence) **غير مؤكد** — ما لقيتها في الصفحة. **قرار لصاحب المشروع:** رقم جديد للـ API، أو ينقل رقم الشركة الحالي (ويفقد استخدامه في التطبيق).
+2. **توثيق النشاط (Business Verification):** صفحة البداية ما تقول إنه إلزامي للبداية. لكن بدونه: «New business portfolios are initially capped at two registered business phone numbers» والحد يرتفع لـ 20 بالتوثيق **أو** لما يوصل حد الرسائل 2,000. هل التوثيق يحتاج السجل التجاري = **غير مؤكد** (مرتبط بـ GM-002: لا بيع قبل السجل).
+3. **رقم الشركة للـ API:** لازم يكون ملكنا، ويستقبل SMS أو اتصال. **رقم مستخدم حالياً في واتساب ما ينسجل إلا بعد حذفه** («Numbers already in use with WhatsApp cannot be registered unless they are deleted first»). ميزة استخدام نفس رقم تطبيق واتساب للأعمال مع الـ API (coexistence) **غير مؤكد** — ما لقيتها في الصفحة. **قرار لصاحب المشروع:** رقم جديد للـ API، أو ينقل رقم الشركة الحالي (ويفقد استخدامه في التطبيق).
 4. **رقم شخصي ثاني لصاحب المشروع** يستقبل الإشعارات والموافقات (§2.0) — غير رقم الـ API.
 5. **اسم العرض (Display name):** يُطلب عند التسجيل ويمر بمراجعة (حالات مثل `PENDING_REVIEW`/`DECLINED`). الاسم المقترح «لمسة تاب» (GM-012).
 6. **Access token دائم:** «Create a system user» بصلاحيات `business_management` و`whatsapp_business_messaging` و`whatsapp_business_management`. صاحب المشروع يحطه بنفسه في credential «WhatsApp Business Cloud» في n8n. احنا ما نشوفه.
@@ -306,12 +310,12 @@
    | القالب | لمين | يستخدمه |
    |---|---|---|
    | `owner_alert` (متغير نص واحد) | صاحب المشروع | `owner-notify` info |
-   | `owner_approval` (متغير نص + زرين موافق/مرفوض) | صاحب المشروع | `owner-notify` approval |
+   | `owner_approval` (متغير نص + رابطين موافق/مرفوض من `resumeUrl`) | صاحب المشروع | `owner-notify` approval |
    | `daily_report` | صاحب المشروع | (د) |
    | `renewal_reminder` | العميل | (ب) |
    | `invoice_issued` | العميل | (ج1) |
    | `host_checkout` / `host_maintenance` | المضيف/العاملة | (أ) |
-   مدة الاعتماد وشروط تصنيف utility مقابل marketing: **غير مؤكد** (تذكير فيه زيادة سعر ممكن يتصنف marketing — سؤال مفتوح). هل Send and Wait في n8n يشتغل خارج نافذة 24 ساعة بدون قالب: **غير مؤكد**، ولذلك `owner_approval` قالب.
+   مدة الاعتماد وشروط تصنيف utility مقابل marketing: **غير مؤكد** (تذكير فيه زيادة سعر ممكن يتصنف marketing — سؤال مفتوح). «Send and Wait for Response» في عقدة WhatsApp ترسل نص حر (يحتاج نافذة 24 ساعة مفتوحة)، ولذلك الموافقة = قالب `owner_approval` + عقدة Wait (§2.0).
 9. **التكلفة:** كل قالب مُسلَّم حسب الفئة والبلد — السعر بالريال **غير مؤكد** (الجدول فوق). رسائل صاحب المشروع نفسها تنحسب كذلك لأنها قوالب.
 10. **بعد التفعيل:** مشرف الشبكة يغيّر `CHANNEL` إلى `whatsapp` ويختبر برقم صاحب المشروع فقط (ولا رسالة لعميل حقيقي قبل الإطلاق)، والنشر قرار صاحب المشروع.
 

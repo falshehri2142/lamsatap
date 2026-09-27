@@ -46,6 +46,7 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 - n8n (GM-013/GM-014): المواصفة `systems/N8N-SPEC.md` (9 جداول، 6 workflows، مراحل بناء، تكاليف). المخططات `systems/n8n/tables/*.json`، والبيانات الأولية `node systems/n8n/seed/seed.js` → `seed/out/` (بدون BOM، يرفض أرقام الجوال والأعمدة الممنوعة)، والمطابقة `node systems/n8n/seed/compare-spec.js`.
 - الوصول: الكونيكتور `mcp__42a68644-...` بس (مشروع `ozjVZ1kj1pRXQydY`، تأكد بـ `search_projects` قبل أي كتابة). **ممنوع** `mcp__33fea606-...` (مشروع ثاني). مهندس NFC ينشئ الجداول ويرفع البيانات، واحنا نبني الـ workflows، وكلها **غير منشورة**؛ النشر لصاحب المشروع (`management/n8n-access.md`).
 - قواعد n8n: حفظ التنفيذ مطفّى في أي workflow يمر عليه طلب ضيف (Redact لـ Enterprise بس)؛ لا static data لأوقات الأبواب (تنحفظ وتحتاج نشر)؛ Send-and-Wait يحفظ بيانات التنفيذ وقت الانتظار، فالطلب الخام ينفصل في workflow يرد فوراً؛ المنطقة الزمنية Asia/Riyadh؛ Basic Auth على كل Form؛ أي رسالة لعميل أو مضيف تمر بموافقة صاحب المشروع.
+- واتساب أولاً (GM-010، المواصفة §2.0/§4.1): كل إرسال عبر `owner-notify` و`client-send`، والقناة في عقدة `CHANNEL` داخل `get-channel` (email احتياط داخلي الحين → whatsapp بعد ما يفعّل صاحب المشروع Cloud API). الموافقة على واتساب = قالب `owner_approval` + Wait على `resumeUrl` (مو «Send and Wait for Response» لأنها نص حر). ولا إيميل لعميل أبداً.
 - `links-cli.js add --type door` يولّد `ref` عشوائي 16 حرف (مرجع الوحدة في رسائل واتساب).
 
 ## دروس
