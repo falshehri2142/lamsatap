@@ -18,7 +18,7 @@
 |---|---|---|
 | Blue accent #2563EB, zinc palette | Ink #14201F + sand/white. Accent per audience: #9A5B00 restaurants, #0B7A75 hosts | GM-020, GM-039, GM-040 |
 | Playfair Display SC + Karla via Google Fonts | Readex Pro (Arabic) + Figtree as "LT Latin", both self-hosted | Approved fonts; GM-006 allows no external requests |
-| Glassmorphism, shadows sm–xl | Flat surfaces, depth from 1px borders and photos, no shadows | GM-038 («العمق بالحدود والصور») |
+| Glassmorphism, shadows sm–xl | 1px borders plus layered, light, surface-tinted shadows in 3 elevations (base / raised / floating); never flat grey | GM-038 + GM-055 rule 4 |
 | Flip plugin page transition | GSAP core + ScrollTrigger only (vendored) | Flip isn't vendored; downloads need owner approval |
 | "Minimal single column" pattern | Gateway with two doors + two audience pages | GM-040 / GM-043 |
 | Anti-patterns "cheap visuals, fast animations" | **Kept** | Matches the owner ("high quality animation") |
@@ -179,3 +179,20 @@
   - [ ] Accent usage follows the rules above.
 - [ ] **Copy and prices:** only from web-copy.md «الاتجاه 3» and services/pricing.md. Nothing links to `shops/`.
 - [ ] **Skills:** ui-ux-pro-max pro-rules.md checklist done. The impeccable audit, GSAP review, frontend-design critique and seo-audit are run, with their checklists in `work/2026-09-27-brand-identity/skills/`.
+
+## GM-055 base rules (`work/2026-09-28-frontend-rules/rules.md`): these override older lines above
+- **Depth:** three elevations with layered, light shadows tinted toward the surface colour.
+  - Base: no shadow.
+  - Raised: cards.
+  - Floating: the sticky header while scrolled, and menus.
+  - The 1px borders stay.
+- **Spacing:** only from `--lt-space-*`.
+- **Motion:** transform and opacity only. `transition: all` is forbidden. Spring-like easing. Reduced motion is respected.
+- **States:** everything clickable has hover, focus-visible and active states.
+- **Type:**
+  - Arabic body line-height is 1.7.
+  - Arabic letter-spacing is always 0.
+  - Latin headings only: -0.02 to -0.03em.
+  - Fonts are Readex Pro and LT Latin only.
+- **Gradients and texture:** very subtle, only on light backgrounds, never over product photos.
+- **Screenshot loop:** 390 and 1440, with at least two comparison rounds using exact numbers.
