@@ -1,3 +1,2 @@
-// إعداد العرض التجريبي — تجريبي: الرابط يتغير لما يجي الدومين (قرار GM-002 بند 5)
-// غيّر هذا السطر فقط، والباركود في qr-sheet.html يتولد منه تلقائياً.
-window.DEMO_URL = "https://example.com/demo/review/";
+// رابط العرض يتولد من الإعداد المشترك website/config.js (GM-006). لا تكتب الدومين هنا.
+window.DEMO_URL = ((window.SITE && window.SITE.domain) || "https://example.com").replace(/\/+$/,"") + "/demo/review/";

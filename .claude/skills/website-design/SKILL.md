@@ -42,3 +42,7 @@ description: مصمم الموقع لمشروع NFC. يبني موقع الشر�
 - CSS: لا تستخدم `font:... inherit` المختصر، لأن المتصفح يتجاهله. اكتب `font-weight` و`font-size` كل واحد لحاله.
 - مكتبة الباركود `qrcode-generator@1.4.4` من jsdelivr: الورقة تحتاج إنترنت وقت الطباعة.
 - قبل الطباعة: غيّر الرابط للدومين الحقيقي، واقرأ الباركود بكاميرا جوال من ورقة مطبوعة (ما انفحص إلى الآن).
+- 2026-09-27 (GM-006، وضع التجهيز): موقع الشركة `website/index.html` + قوالب `website/templates/` (menu, links, wifi, rental-guide)، كل قالب يتعبّى من `data.js`. إعداد مشترك واحد `website/config.js` (الدومين، الاسم، واتساب). مكتبة الباركود محلية `website/vendor/`. طريقة الفتح والتعبئة والنشر: `website/README.md`. الفحص: `work/2026-09-27-company-site/web-qa.md`.
+- لا `fetch()` لملفات محلية (ما يشتغل من file://)، استخدم `<script src>`. أضف `<link rel="icon" href="data:,">` لكل صفحة عشان ما يطلع 404.
+- المعاينة المحلية: `python -m http.server 8123 --directory website`.
+- ما انفحص للحين: Safari وجوال حقيقي، ووش ينسخ زر النسخ فعلاً، وقراءة الباركود من ورقة مطبوعة.

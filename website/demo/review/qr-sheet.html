@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>ورقة الباركود — عرض ستاند التقييم (تجريبية)</title>
+<title>ورقة الباركود — عرض ستاند التقييم (تجريبية)</title><link rel="icon" href="data:,">
 <style>
 @page{size:A4;margin:15mm}
 *{box-sizing:border-box}
@@ -31,13 +31,14 @@ h1{font-size:28px;margin:0 0 6mm}
 <p class="url" id="url"></p>
 <p class="warn">ورقة تجريبية — الرابط يتغير لما يجي الدومين.</p>
 </div>
+<script src="../../config.js"></script>
 <script src="config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="../../vendor/qrcode-generator.js"></script>
 <script>
 (function(){
 var u=window.DEMO_URL||'';document.getElementById('url').textContent=u;
 var box=document.getElementById('qr');
-if(!u||typeof qrcode!=='function'){box.innerHTML='<p class="err">تعذر توليد الباركود (تأكد من config.js والاتصال بالإنترنت).</p>';return;}
+if(!u||typeof qrcode!=='function'){box.innerHTML='<p class="err">تعذر توليد الباركود (تأكد من config.js ووجود vendor/qrcode-generator.js).</p>';return;}
 var q=qrcode(0,'M');q.addData(u);q.make();
 box.innerHTML=q.createSvgTag({cellSize:8,margin:4,scalable:true});
 })();

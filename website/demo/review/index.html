@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
-<title>مثال: ستاند تقييم قوقل</title>
+<title>مثال: ستاند تقييم قوقل</title><link rel="icon" href="data:,">
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--text:#16181d;--muted:#4b5260;--line:#dfe3ea;--btn:#1a56db;--btnt:#fff;--tag:#fff4d6;--tagt:#6b4a00}
 @media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#1a1d24;--text:#eef0f4;--muted:#b4bac6;--line:#2c313b;--btn:#5b8def;--btnt:#0b0d12;--tag:#3a2f10;--tagt:#ffdf8a}}
@@ -40,9 +40,11 @@ h1{font-size:26px;margin:8px 0 4px}
 <h2>لصاحب المحل</h2>
 <p>هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود.</p>
 <p>الستاند فيه شريحة NFC وباركود QR، والاثنين يفتحون نفس الصفحة.</p>
-<p>[اسم الشركة]</p>
+<p data-company>[اسم الشركة]</p>
 </section>
 </main>
+<script src="../../config.js"></script>
+<script src="../../assets/app.js"></script>
 <script>
 document.getElementById('go').addEventListener('click',function(){var n=document.getElementById('note');n.hidden=false;n.focus&&n.setAttribute('tabindex','-1');n.focus();});
 </script>
