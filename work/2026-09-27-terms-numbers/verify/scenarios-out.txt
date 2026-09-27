@@ -1,0 +1,48 @@
+== start-up cost per model (upfront_sunk_cost) ==
+shop: upfront=427.5  no_CAC=387.5  no_CAC_no_delivery=367.5  running/month=17.60
+host: upfront=100.9  no_CAC=60.9  no_CAC_no_delivery=40.9  running/month=7.35
+host5: upfront=52.9  no_CAC=44.9  no_CAC_no_delivery=40.9  running/month=7.35
+
+| case | months used | paid upfront/so far | refund | extra charge | we keep | keep-proposal startup | keep-model startup(no CAC) | same minus running cost |
+|---|---|---|---|---|---|---|---|---|
+| shop y1 1199 | 1 | 1199.0 | 900.0 | 0.0 | 299.0 | 109.0 | -88.5 | -106.1 |
+| shop y1 1199 | 3 | 1199.0 | 700.0 | 0.0 | 499.0 | 309.0 | 111.5 | 58.7 |
+| shop y1 1199 | 6 | 1199.0 | 400.0 | 0.0 | 799.0 | 609.0 | 411.5 | 305.9 |
+| shop y1 1199 | 9 | 1199.0 | 100.0 | 0.0 | 1099.0 | 909.0 | 711.5 | 553.1 |
+| shop y1 1199 | 11 | 1199.0 | 0.0 | 0.0 | 1199.0 | 1009.0 | 811.5 | 617.9 |
+| shop renewal 790 | 1 | 790.0 | 715.0 | 0.0 | 75.0 | 75.0 (no start-up) | - | 57.4 |
+| shop renewal 790 | 6 | 790.0 | 390.0 | 0.0 | 400.0 | 400.0 (no start-up) | - | 294.4 |
+| shop renewal 790 | 11 | 790.0 | 65.0 | 0.0 | 725.0 | 725.0 (no start-up) | - | 531.4 |
+| host monthly 49 | 1 | 49.0 | 0.0 | 122.5 | 171.5 | 130.5 | 110.6 | 103.2 |
+| host monthly 49 | 2 | 98.0 | 0.0 | 98.0 | 196.0 | 155.0 | 135.1 | 120.4 |
+| host monthly 49 | 4 | 196.0 | 0.0 | 49.0 | 245.0 | 204.0 | 184.1 | 154.7 |
+| host monthly 49 | 6 | 294.0 | 0.0 | 0.0 | 294.0 | 253.0 | 233.1 | 189.0 |
+| host annual 539 | 1 | 539.0 | 490.0 | 0.0 | 49.0 | 8.0 | -11.9 | -19.3 |
+| host annual 539 | 2 | 539.0 | 441.0 | 0.0 | 98.0 | 57.0 | 37.1 | 22.4 |
+| host annual 539 | 4 | 539.0 | 343.0 | 0.0 | 196.0 | 155.0 | 135.1 | 105.7 |
+| host annual 539 | 6 | 539.0 | 245.0 | 0.0 | 294.0 | 253.0 | 233.1 | 189.0 |
+| host annual 539 | 10 | 539.0 | 49.0 | 0.0 | 490.0 | 449.0 | 429.1 | 355.5 |
+| host annual 539 | 11 | 539.0 | 0.0 | 0.0 | 539.0 | 498.0 | 478.1 | 397.2 |
+| host monthly 39 | 1 | 39.0 | 0.0 | 97.5 | 136.5 | 95.5 | 91.6 | 84.2 |
+| host monthly 39 | 2 | 78.0 | 0.0 | 78.0 | 156.0 | 115.0 | 111.1 | 96.4 |
+| host monthly 39 | 4 | 156.0 | 0.0 | 39.0 | 195.0 | 154.0 | 150.1 | 120.7 |
+| host monthly 39 | 6 | 234.0 | 0.0 | 0.0 | 234.0 | 193.0 | 189.1 | 145.0 |
+| host annual 429 | 1 | 429.0 | 390.0 | 0.0 | 39.0 | -2.0 | -5.9 | -13.3 |
+| host annual 429 | 2 | 429.0 | 351.0 | 0.0 | 78.0 | 37.0 | 33.1 | 18.4 |
+| host annual 429 | 4 | 429.0 | 273.0 | 0.0 | 156.0 | 115.0 | 111.1 | 81.7 |
+| host annual 429 | 6 | 429.0 | 195.0 | 0.0 | 234.0 | 193.0 | 189.1 | 145.0 |
+| host annual 429 | 10 | 429.0 | 39.0 | 0.0 | 390.0 | 349.0 | 345.1 | 271.5 |
+| host annual 429 | 11 | 429.0 | 0.0 | 0.0 | 429.0 | 388.0 | 384.1 | 303.2 |
+
+== monthly vs annual, same exit month (total the customer pays us) ==
+host exit after 1: monthly 171.5 vs annual 49.0 -> ANNUAL PAYS LESS
+host exit after 2: monthly 196.0 vs annual 98.0 -> ANNUAL PAYS LESS
+host exit after 4: monthly 245.0 vs annual 196.0 -> ANNUAL PAYS LESS
+host exit after 6: monthly 294.0 vs annual 294.0 -> equal
+host5 exit after 1: monthly 136.5 vs annual 39.0 -> ANNUAL PAYS LESS
+host5 exit after 2: monthly 156.0 vs annual 78.0 -> ANNUAL PAYS LESS
+host5 exit after 4: monthly 195.0 vs annual 156.0 -> ANNUAL PAYS LESS
+host5 exit after 6: monthly 234.0 vs annual 234.0 -> equal
+
+== ratio checks ==
+1199/12 = 99.92  790/12 = 65.83  11*49 = 539  11*39 = 429
