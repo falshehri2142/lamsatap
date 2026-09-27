@@ -26,3 +26,9 @@ Overrides MASTER.md for this page. Sources:
   - Frame, bell/touch zone, a FAKE non-decodable QR, and four features from approved copy only.
   - A demo property name; never AWA HOME.
 - **Hospitality photo (H1 hallway):** only a light mood background, or removed.
+
+## Owner addition (after GM-050)
+- **Door sign:** check-out only.
+- **Second scene next to the door scene:** a table inside the apartment with three small print slots: `wifi-stand.png` (Wi-Fi password), `emergency-stand.png` and `guest-guide-sign.png`.
+  - Placeholders stay until the PNGs arrive.
+- **Emergency:** no emergency wording, numbers or promises on the site until verified by an official source. Name the stand only.
