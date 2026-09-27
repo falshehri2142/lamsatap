@@ -115,7 +115,7 @@
   - Without JS the page shows B&W. With reduced motion it shows colour.
   - Decorative photos use `alt=""`.
 - **FAQ:** `<details>` elements, 8 or fewer per page.
-- **Prices:** only from `services/pricing.md` (GM-044). Never write «شامل الضريبة».
+- **Prices:** only from `services/pricing.md` (GM-045, replaces GM-044). Never write «شامل الضريبة».
 
 ## Page Pattern
 - **Gateway `index.html`:**

@@ -15,8 +15,8 @@ Overrides MASTER.md for this page. Sources:
   - Built on R2, the phone on a stand beside coffee. Its blank screen (approx. x 63–85%, y 15–82%) hosts our live menu mini-screen.
 - **Hero:** R1 dallah, two-layer, expanding (GM-037). Crops follow §7.1.
 - **Plan:** «حزمة المحل الكامل» only.
-  - Price: **1,199 ريال بالسنة**, renewal **790 ريال بالسنة**.
-  - Includes: review stand + menu + Wi-Fi + links, a stand with the shop's logo, and installation for the whole subscription. Menu updates twice a month; more updates are an add-on.
+  - Price: **1,211 ريال بالسنة**, renewal **798 ريال بالسنة**.
+  - Includes: review stand + menu + Wi-Fi + links, a stand with the shop's logo, and installation for the whole subscription. Menu updates twice a month; more updates cost 25 SAR each (GM-045).
   - Under the button: the approved risk line.
   - No VAT wording.
 - **FAQ:** 8 or fewer, including the renewal-trust answer (explicit confirmation, reminder 30 days before).
