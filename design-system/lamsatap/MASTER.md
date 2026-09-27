@@ -115,6 +115,11 @@
   - Both are intentionally empty, and an empty value hides the link.
   - URLs are built as `https://t.me/<username>`.
   - There are no unit-guide `?start=` links until the lawyer answers.
+  - **Update (lawyer, register item 34):** the unit-guide links `?start=co_<ref>` and `?start=mt_<ref>` are now allowed, with the notice.
+  - **Privacy notice (required):** directly under every Telegram link: «بالضغط تنفتح محادثة مع بوت {companyName}، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. [سياسة الخصوصية]».
+    - Size: 13–14px, muted colour with AA contrast (4.5:1).
+    - The privacy link comes from `links.privacy`; an empty value hides it.
+    - The notice renders only when the link renders.
 - **Response promise (GM-046):** «خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم» is a trust line near the contact actions.
 - **Cards:**
   - White on sand, 1px border, radius 8, no shadow.
