@@ -1,0 +1,5 @@
+[
+  { "code": "demo01", "client": "demo-restaurant", "place": "طاولة 4", "dest": "https://example.com/menu", "status": "active", "programmed": "2026-09-27" },
+  { "code": "demo02", "client": "demo-restaurant", "place": "الكاشير", "dest": "https://example.com/review", "status": "active", "programmed": "2026-09-27" },
+  { "code": "demo03", "client": "demo-cafe", "place": "الباب", "dest": "https://example.com/old", "status": "cancelled", "programmed": "2026-09-27" }
+]
