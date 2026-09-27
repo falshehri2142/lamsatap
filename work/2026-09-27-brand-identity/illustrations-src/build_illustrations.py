@@ -14,6 +14,7 @@ import random
 import sys
 
 import uharfbuzz as hb
+from fontTools.pens.basePen import BasePen
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
@@ -46,9 +47,62 @@ def _inst(w):
     return _fonts[w]
 
 
-def text_path(text, w, height=None, size=None, cx=0, cy=0, anchor="middle", prec=1):
+class _Flat(BasePen):
+    """يحوّل حدود الحرف لمضلعات (منحنيات مقسومة لقطع قصيرة)."""
+
+    def __init__(self, gs, steps=6):
+        super().__init__(gs)
+        self.polys, self.cur, self.steps = [], [], steps
+
+    def _moveTo(self, pt):
+        self.cur = [pt]
+
+    def _lineTo(self, pt):
+        self.cur.append(pt)
+
+    def _qCurveToOne(self, p1, p2):
+        p0 = self._getCurrentPoint()
+        for i in range(1, self.steps + 1):
+            t = i / self.steps
+            u = 1 - t
+            self.cur.append((u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0], u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1]))
+
+    def _curveToOne(self, p1, p2, p3):
+        p0 = self._getCurrentPoint()
+        for i in range(1, self.steps + 1):
+            t = i / self.steps
+            u = 1 - t
+            self.cur.append(tuple(u ** 3 * a + 3 * u * u * t * b + 3 * u * t * t * c + t ** 3 * d for a, b, c, d in zip(p0, p1, p2, p3)))
+
+    def _closePath(self):
+        if len(self.cur) > 2:
+            self.polys.append(self.cur)
+        self.cur = []
+
+    _endPath = _closePath
+
+
+def _rdp(pts, eps):
+    """Ramer–Douglas–Peucker: يشيل النقاط اللي بعدها عن الخط أقل من eps."""
+    if len(pts) < 3:
+        return pts
+    (x0, y0), (x1, y1) = pts[0], pts[-1]
+    dx, dy = x1 - x0, y1 - y0
+    n = math.hypot(dx, dy) or 1e-9
+    i, dmax = 0, -1
+    for j in range(1, len(pts) - 1):
+        d = abs(dy * (pts[j][0] - x0) - dx * (pts[j][1] - y0)) / n
+        if d > dmax:
+            i, dmax = j, d
+    if dmax <= eps:
+        return [pts[0], pts[-1]]
+    return _rdp(pts[:i + 1], eps)[:-1] + _rdp(pts[i:], eps)
+
+
+def text_path(text, w, height=None, size=None, cx=0, cy=0, anchor="middle", prec=1, simplify=None):
     """نص عربي مشكّل كمسار. يا size (حجم الخط بوحدات الرسم) يا height (ارتفاع الحبر).
-    anchor=middle: مركز الحبر عند (cx, cy). يرجع (d، عرض الحبر، ارتفاعه)."""
+    anchor=middle: مركز الحبر عند (cx, cy). simplify=eps: حدود مبسطة بخطوط مستقيمة (للنص الصغير، أخف بكثير).
+    يرجع (d، عرض الحبر، ارتفاعه)."""
     font = hb.Font(hb.Face(hb.Blob.from_file_path(VF)))
     font.set_variations({"wght": w, "HEXP": 0})
     buf = hb.Buffer()
@@ -69,6 +123,16 @@ def text_path(text, w, height=None, size=None, cx=0, cy=0, anchor="middle", prec
     s = (size / upm) if size else height / (y1 - y0)
     ox = cx - (x0 + x1) / 2 * s
     oy = cy + (y0 + y1) / 2 * s
+    if simplify:
+        fl = _Flat(gs)
+        for name, dx, dy in parts:
+            gs[name].draw(TransformPen(fl, (s, 0, 0, -s, ox + dx * s, oy - dy * s)))
+        d = []
+        for poly_ in fl.polys:
+            pts = _rdp(poly_ + [poly_[0]], simplify)[:-1]
+            if len(pts) > 2:
+                d.append("M" + "L".join(f"{f(x, prec)} {f(y, prec)}" for x, y in pts) + "Z")
+        return "".join(d), (x1 - x0) * s, (y1 - y0) * s
     pen = SVGPathPen(gs, ntos=lambda v: f(v, prec))
     for name, dx, dy in parts:
         gs[name].draw(TransformPen(pen, (s, 0, 0, -s, ox + dx * s, oy - dy * s)))
@@ -198,12 +262,12 @@ def face_content(x0, y0, k, shop_cls, name, title, parts=("name", "title", "dot"
     out = []
     cx = x0 + 52.5 * k
     if "name" in parts:  # خانة الشعار 70×18mm من 12 لين 30mm: الاسم بارتفاع حبر 9mm
-        d, w, _ = text_path(name, 600, height=9 * k, cx=cx, cy=y0 + 21 * k)
+        d, w, _ = text_path(name, 600, height=9 * k, cx=cx, cy=y0 + 21 * k, simplify=.06)
         if w > 64 * k:
-            d, w, _ = text_path(name, 600, height=9 * k * 64 * k / w, cx=cx, cy=y0 + 21 * k)
+            d, w, _ = text_path(name, 600, height=9 * k * 64 * k / w, cx=cx, cy=y0 + 21 * k, simplify=.06)
         out.append(f'<path class="{shop_cls}" fill="currentColor" d="{d}"/>')
     if "title" in parts:  # العنوان 18pt (6.35mm) من 34 لين 42mm
-        d, _, _ = text_path(title, 600, size=6.35 * k, cx=cx, cy=y0 + 38.5 * k)
+        d, _, _ = text_path(title, 600, size=6.35 * k, cx=cx, cy=y0 + 38.5 * k, simplify=.06)
         out.append(f'<path fill="{INK}" d="{d}"/>')
     dot = (cx, y0 + 62 * k, DOT_MM / 2 * k)
     if "dot" in parts:
@@ -312,12 +376,16 @@ def fake_qr(x, y, s, seed=11):
         X, Y = x + fx * m, y + fy * m
         d.append(f"M{f(X)} {f(Y)}h{f(7 * m)}v{f(7 * m)}h{f(-7 * m)}zM{f(X + m)} {f(Y + m)}v{f(5 * m)}h{f(5 * m)}v{f(-5 * m)}z"
                  f"M{f(X + 2 * m)} {f(Y + 2 * m)}h{f(3 * m)}v{f(3 * m)}h{f(-3 * m)}z")
-    for i in range(n):
-        for j in range(n):
-            if (i < 8 and j < 8) or (i >= n - 8 and j < 8) or (i < 8 and j >= n - 8):
-                continue
-            if rnd.random() < .42:
-                d.append(f"M{f(x + i * m)} {f(y + j * m)}h{f(m)}v{f(m)}h{f(-m)}z")
+    for j in range(n):  # كل صف: الخلايا المتلاصقة مستطيل واحد
+        run = None
+        for i in range(n + 1):
+            skip = i == n or (i < 8 and j < 8) or (i >= n - 8 and j < 8) or (i < 8 and j >= n - 8)
+            on = not skip and rnd.random() < .42
+            if on and run is None:
+                run = i
+            if not on and run is not None:
+                d.append(f"M{f(x + run * m)} {f(y + j * m)}h{f((i - run) * m)}v{f(m)}h{f(-(i - run) * m)}z")
+                run = None
     return f'<path fill="{INK}" fill-rule="evenodd" d="{"".join(d)}"/>'
 
 
@@ -362,13 +430,13 @@ def host():
     g.append(shadow(p, x_qr + qw / 2 - 3, y_qr + qh + 2, qw * .55, 3))
     g.append(sticker(x_qr, y_qr, qw, qh, kw))
     qcx = x_qr + qw / 2
-    d, _, _ = text_path("شقق المثال", 600, height=5 * kw, cx=qcx, cy=y_qr + 8 * kw)
+    d, _, _ = text_path("شقق المثال", 600, height=5 * kw, cx=qcx, cy=y_qr + 8 * kw, simplify=.08)
     g.append(f'<path class="{p}shop" fill="currentColor" d="{d}"/>')
-    d, _, _ = text_path("الواي فاي ودليل الوحدة", 600, size=3.6 * kw, cx=qcx, cy=y_qr + 17 * kw, prec=0)
+    d, _, _ = text_path("الواي فاي ودليل الوحدة", 600, size=3.6 * kw, cx=qcx, cy=y_qr + 17 * kw, simplify=.1)
     g.append(f'<path fill="{INK}" d="{d}"/>')
     qs = 32 * kw
     g.append(fake_qr(qcx - qs / 2, y_qr + 24 * kw, qs))
-    d, _, _ = text_path("امسح الباركود", 500, size=3.2 * kw, cx=qcx, cy=y_qr + 64 * kw, prec=0)
+    d, _, _ = text_path("امسح الباركود", 500, size=3.2 * kw, cx=qcx, cy=y_qr + 64 * kw, simplify=.1)
     g.append(f'<path fill="{INK}" d="{d}"/>')
     # الجوال يلمس النقطة
     body, screen, cam, _ = phone_parts(kp, p, "hd-slot-guide")

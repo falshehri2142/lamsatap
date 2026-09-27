@@ -15,6 +15,7 @@
   python brand/src/check_logo.py <مجلد>                # كل مفهوم في المجلد (وفروعه)، حسب أسماء الملفات تحت
   python brand/src/check_logo.py --icon a.svg --mono a-mono.svg --full-mono b.svg --horizontal-mono c.svg
   python brand/src/check_logo.py --self-test           # يجرّب طريقة القياس على أشكال مقاسها معروف
+  --horizontal-mm 15.2 --full-mm 34                     # ارتفاع الحفر اللي ينفحص عليه السطر اللاتيني (الافتراضي من الموجز)
 أسماء الملفات في المجلد: <اسم>-icon.svg (الرمز ملون، أو -mark أو -symbol)، <اسم>-icon-mono.svg (لون واحد أسود)،
   <اسم>-logo-mono.svg (الكامل لون واحد)، <اسم>-horizontal-mono.svg (الأفقي لون واحد).
 الناتج: التقرير في الطرفية، ونسخة منه (report.txt و report.json) والصور في --out (الافتراضي مجلد مؤقت برّا المشروع).
@@ -529,7 +530,6 @@ def on_white(rgba):
 
 def check_icon(rep, icon, mono, out, tag):
     x0, y0, W, H = viewbox(icon)
-    side = max(W, H)
     if abs(W - H) > 1e-6:
         rep.add("4", "الـviewBox مربع", f"{W:g}×{H:g}", "WARN", "الضلع = الأكبر")
     shapes, banned = scan_svg(icon)
@@ -834,19 +834,18 @@ def check_latin(rep, svg, kind, out, tag, dpi=1200):
     outside = np.isin(wl, list(border))
     wc, wat = critical(outside)
     rows = [("أرفع خط", lc * mm, "FAIL"), ("أضيق فراغ بين حرفين", None if pg is None else pg * mm, "FAIL"),
-            ("أصغر عين حرف مقفلة", None if eye is None else eye * mm, "FAIL"),
-            ("أضيق زاوية داخلية مفتوحة", wc * mm, "WARN")]
-    need, need_strict = [], []
+            ("أصغر عين حرف مقفلة", None if eye is None else eye * mm, "FAIL")]
+    need = []
     for k, v, bad in rows:
         if v is None:
             continue
         ok = v >= LATIN_MM - mm / 2
         rep.add("8", f"{label} على {target:g}mm: {k}", f"{v:.3f}mm", "PASS" if ok else bad, f"الحد {LATIN_MM}mm")
-        need_strict.append(target * LATIN_MM / max(v, 1e-6))
-        if bad == "FAIL":
-            need.append(target * LATIN_MM / max(v, 1e-6))
+        need.append(target * LATIN_MM / max(v, 1e-6))
+    rep.add("8", f"{label} على {target:g}mm: أضيق زاوية داخلية مفتوحة (رقم تقريبي)", f"{wc * mm:.3f}mm",
+            "PASS" if wc * mm >= LATIN_MM else "WARN", "الزاوية الحادة تنقفل شوي في الحفر وما تكسر الحرف، ورقمها يتغير مع الدقة")
     rep.add("8", f"{label}: أصغر ارتفاع حفر يخلي الخطوط والفراغات والعيون ≥ {LATIN_MM}mm", f"{max(need):.1f}mm",
-            "INFO", f"ومع الزوايا الداخلية {max(need_strict):.1f}mm. ارتفاع السطر اللاتيني على {target:g}mm = {(r1 - r0) * mm:.2f}mm، والدقة ±{mm:.3f}mm")
+            "INFO", f"ارتفاع السطر اللاتيني على {target:g}mm = {(r1 - r0) * mm:.2f}mm، والدقة ±{mm:.3f}mm")
     ov = np.stack([np.where(sub, 150, 255)] * 3, -1).astype(np.uint8)
     im = Image.fromarray(ov)
     d = ImageDraw.Draw(im)
@@ -945,13 +944,16 @@ def main():
     ap.add_argument("--full-mono")
     ap.add_argument("--horizontal-mono")
     ap.add_argument("--out", help="مجلد الصور والتقرير (الافتراضي مجلد مؤقت برّا المشروع)")
+    ap.add_argument("--horizontal-mm", type=float, default=LATIN_TARGET_MM["horizontal"], help="ارتفاع حفر الأفقي اللي ينفحص عليه البند 8")
+    ap.add_argument("--full-mm", type=float, default=LATIN_TARGET_MM["full"], help="ارتفاع حفر الكامل اللي ينفحص عليه البند 8")
     ap.add_argument("--self-test", action="store_true")
-    a = ap.parse_args()
-    for stream in (sys.stdout, sys.stderr):
+    for stream in (sys.stdout, sys.stderr):  # الرسائل العربية في طرفية ويندوز
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8", errors="replace")
+    a = ap.parse_args()
     if a.self_test:
         sys.exit(0 if self_test() else 1)
+    LATIN_TARGET_MM.update(horizontal=a.horizontal_mm, full=a.full_mm)
     out = pathlib.Path(a.out or os.path.join(tempfile.gettempdir(), "lamsatap-check-logo")).resolve()
     out.mkdir(parents=True, exist_ok=True)
     if ROOT / "brand" / "logo" in out.parents or out == ROOT / "brand" / "logo":
