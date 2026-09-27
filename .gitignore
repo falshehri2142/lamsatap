@@ -1,3 +1,4 @@
 publish/
 
 systems/n8n/seed/out/
+__pycache__/
