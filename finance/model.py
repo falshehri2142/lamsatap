@@ -225,3 +225,28 @@ for s, disc in (("menu", False), ("host_bundle", False), ("host_bundle", True)):
     v = r["profit_12m_per_client"]
     print(f"- {s}{' بالخصم' if disc else ''} (churn {ov['risk_monthly_churn']:.0%}): profit_12m_per_client = "
           f"{fmt(v)} → {verdict(v)}{tg(u)}")
+
+
+# ---------- السعر المطلوب للستاند بعد أسعار الموردين، وحساسيته لساعة العمل وجلب العميل ----------
+def price_needed(product, target_pct, ov):
+    """أقل سعر يعطي هامش = target_pct من السعر (bisection)."""
+    key = PRODUCTS[product][0]
+    lo, hi = 0.0, 5000.0
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        r, _ = review(product, dict(ov, **{key: mid}))
+        (lo, hi) = (lo, mid) if r["margin_per_client"] >= target_pct / 100 * mid else (mid, hi)
+    return hi
+
+print("\n## السعر المطلوب للستاند (تعادل للعميل / هامش 30%) حسب ساعة العمل وتكلفة جلب العميل [غير مؤكد]")
+print("الستاند 25 ريال مؤكد من المورد؛ الشريحة والشحن والتوصيل والساعة وجلب العميل تقديرات.")
+for product in ("basic", "pack5"):
+    print(f"\n### {product} (السعر {'للباقة' if product == 'pack5' else 'للقطعة'})")
+    print("| ساعة العمل / جلب العميل | 0 | 20 | 40 | 80 |")
+    print("|---|---|---|---|---|")
+    for h in (0, 25, 50):
+        cells = []
+        for c in (0, 20, 40, 80):
+            ov = {"labor_cost_per_hour": h, "cac_per_client": c}
+            cells.append(f"{fmt(price_needed(product, 0, ov))} / {fmt(price_needed(product, 30, ov))}")
+        print(f"| {h} | " + " | ".join(cells) + " |")

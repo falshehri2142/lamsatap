@@ -2,9 +2,9 @@ key,service,description,actual_value,estimate,unit,source,owner
 price_review_basic,review_stand,سعر ستاند التقييم الأساسي (قبل الضريبة),,79,SAR/unit,fin-pricing.md نطاق 69-89 غير مؤكد,fin-pricing
 price_review_brand,review_stand,ستاند بهوية المحل (مرجع),,129,SAR/unit,fin-pricing.md نطاق 119-149 غير مؤكد,fin-pricing
 price_review_pack5,review_stand,باقة 5 ستاندات هوية (مرجع),,499,SAR/pack,fin-pricing.md غير مؤكد,fin-pricing
-cost_chip,review_stand,شريحة NTAG213/215,,3,SAR/unit,launch-plan/financial-analysis.md نطاق 1.5-4 غير مؤكد,nfc-engineer
-cost_stand_print,review_stand,ستاند أكريليك مطبوع مع QR,,28,SAR/unit,launch-plan/financial-analysis.md نطاق 15-40 غير مؤكد,nfc-engineer
-cost_shipping,review_stand,شحن من المورد للقطعة,,6,SAR/unit,launch-plan/financial-analysis.md نطاق 3-10 غير مؤكد,nfc-engineer
+cost_chip,review_stand,ملصق NTAG213 من Shop NFC (احتياط لأن شريحة الستاند الجاهز نوعها غير معروف),,2.95,SAR/unit,سعر المورد €0.67 مؤكد من الصفحة (review-stand-kit.md)؛ التحويل ×4.4 ريال لليورو غير مؤكد؛ الشحن والجمارك غير مؤكدة,nfc-engineer
+cost_stand_print,review_stand,ستاند تقييم جاهز بشريحة 14×12×5 سم (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الهوية المطبوعة غير مؤكدة),nfc-engineer
+cost_shipping,review_stand,شحن من المورد للقطعة,,6,SAR/unit,غير مؤكد: الشحن للسعودية ما تأكد عند أي مورد (review-stand-kit.md),nfc-engineer
 labor_minutes,review_stand,دقائق البرمجة والتركيب,,60,min/unit,launch-plan/financial-analysis.md ساعة تقريباً غير مؤكد,fin-modeler
 risk_damage_rate,review_stand,نسبة التالف سنوياً (review_stand_damage_rate_yr),,0.15,ratio/yr,fin-risk.md غير مؤكد,fin-risk
 price_menu_setup,menu,رسوم تجهيز المنيو (تشمل حتى 10 شرائح),,299,SAR/client,fin-pricing.md نطاق 199-399 غير مؤكد,fin-pricing
