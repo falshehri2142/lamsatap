@@ -69,6 +69,13 @@ def box(size, a):
     return (size, size / a) if a >= 1 else (size * a, size)
 
 
+ASPECT = {}  # نسبة كل ملف (رابطه ← عرض ÷ طول)، تنعبى في main
+
+
+def fit(uri, size):
+    return box(size, ASPECT[uri])
+
+
 def image(uri, x, y, w, h, extra=""):
     return f'<image href="{uri}" x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" preserveAspectRatio="none" {extra}/>'
 
@@ -120,14 +127,14 @@ def fake_qr(x, y, s, seed=7):
 
 # ---------- المشاهد ----------
 
-def scene_stand(a, color, dark, touch):
+def scene_stand(color, dark, touch):
     K = 3.2  # px لكل mm
     W, H = mm(105, K), mm(148, K)
     out = [FILTERS, f'<rect width="1000" height="560" fill="#E9E3D8"/><rect y="560" width="1000" height="200" fill="#8C6644"/>']
     for i, (face, uri, txt, sub) in enumerate(((SAND, color, INK, MUTED), (DEEP, dark, "#fff", "#CFE3E0"))):
         x, y = 70 + i * 460, 560 - H - mm(10, K)
         chip = (x + W / 2, y + mm(29, K))  # مركز الشريحة: 29mm من فوق
-        bw, bh = box(mm(30, K), a)
+        bw, bh = fit(uri, mm(30, K))
         u, v = touch if touch else (.5, .5)
         mx, my = chip[0] - u * bw, chip[1] - v * bh
         out += [f'<ellipse cx="{x + W / 2}" cy="{y + H + mm(12, K)}" rx="{W * .62}" ry="{mm(4, K)}" fill="#000" opacity=".18" filter="url(#soft)"/>',
@@ -141,12 +148,12 @@ def scene_stand(a, color, dark, touch):
         out += [f'<rect x="{qx - mm(3, K)}" y="{qy - mm(3, K)}" width="{qs + mm(6, K)}" height="{qs + mm(6, K)}" rx="{mm(3, K)}" fill="#fff"/>',
                 fake_qr(qx, qy, qs),
                 f'<rect x="{x - mm(8, K)}" y="{y + H - mm(2, K)}" width="{W + mm(16, K)}" height="{mm(14, K)}" rx="{mm(1.5, K)}" fill="#DCE7E6" fill-opacity=".75" stroke="#fff"/>']
-    cap = ('<div style="direction:rtl;font:15px RX;color:#14201F;padding:6px 16px">وجه رملي (يسار) ووجه تيل غامق (يمين)، الرمز 30mm.'
+    cap = ('<div style="direction:rtl;font:15px RX;color:#14201F;padding:6px 16px">وجه رملي (يسار) ووجه تيل غامق (يمين)، الرمز 30mm. '
            'المتقطع الأحمر = هوائي الشريحة 28mm، والنقطة الحمراء مركزه. لو عنصر «المس هنا» مو فوق النقطة الحمراء، الستاند يكذب.</div>')
     return page(f'<svg width="1000" height="760" viewBox="0 0 1000 760">{"".join(out)}</svg>{cap}'), 1000, 800
 
 
-def scene_engrave(a, mono):
+def scene_engrave(mono):
     K = 4.0
     S, s12, B = mm(40, K), mm(12, K), mm(100, K)
     out = [FILTERS, '<rect width="1360" height="560" fill="#EFE9DF"/><rect x="910" width="450" height="560" fill="#221E1B"/>']
@@ -159,16 +166,16 @@ def scene_engrave(a, mono):
         else:
             out.append(f'<rect x="{x}" y="{y}" width="{B}" height="{B}" rx="{mm(4, K)}" fill="#fff" fill-opacity=".05" stroke="#fff" stroke-opacity=".5"/>')
             f = "frost"
-        bw, bh = box(S, a)
+        bw, bh = fit(mono, S)
         out.append(image(mono, x + (B - bw) / 2, y + (B - bh) / 2 - mm(6, K), bw, bh, f'filter="url(#{f})"'))
-        sw, sh = box(s12, a)
+        sw, sh = fit(mono, s12)
         out.append(image(mono, x + B - sw - mm(6, K), y + B - sh - mm(6, K), sw, sh, f'filter="url(#{f})"'))
         labels.append(f'<div style="flex:1;text-align:center;direction:rtl">{kind}: الرمز 40mm، وفي الزاوية 12mm</div>')
     cap = '<div style="display:flex;direction:ltr;font:15px RX;color:#14201F;padding:6px 40px">' + "".join(labels) + '</div>'
     return page(f'<svg width="1360" height="480" viewBox="0 0 1360 480">{"".join(out)}</svg>{cap}'), 1360, 520
 
 
-def scene_stickers(a, color, dark, mono, rho):
+def scene_stickers(color, dark, mono, rho):
     K = 8.0
     out = [FILTERS, '<rect width="1500" height="430" fill="#EFE9DF"/>']
     items = ((30, "#FFFFFF", color, "", "30mm أبيض + الملون"), (30, DEEP, dark, "", "30mm تيل + نسخة الداكن"),
@@ -177,7 +184,7 @@ def scene_stickers(a, color, dark, mono, rho):
     for i, (d, bg, uri, flt, lab) in enumerate(items):
         cx, cy, r = 190 + i * 370, 200, mm(d, K) / 2
         L = (r - mm(2, K)) / rho  # أكبر رمز يدخل بحاشية 2mm
-        bw, bh = box(L, a)
+        bw, bh = fit(uri, L)
         out += [f'<circle cx="{cx + 3}" cy="{cy + 5}" r="{r}" fill="#000" opacity=".18" filter="url(#soft)"/>',
                 f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{bg}" stroke="#D9D2C6"/>', image(uri, cx - bw / 2, cy - bh / 2, bw, bh, flt)]
         caps.append(f'<div style="flex:1;text-align:center;direction:rtl">{lab}: الرمز {L / K:.1f}mm</div>')
@@ -186,7 +193,7 @@ def scene_stickers(a, color, dark, mono, rho):
     for i, (d, bg, uri, flt, _) in enumerate(items):
         cx, cy, r = 190 + i * 370, 60, d * R / 2
         L = (r - 2 * R) / rho
-        bw, bh = box(L, a)
+        bw, bh = fit(uri, L)
         real += [f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{bg}" stroke="#D9D2C6"/>', image(uri, cx - bw / 2, cy - bh / 2, bw, bh, flt)]
     cap = '<div style="display:flex;direction:ltr;font:15px RX;color:#14201F;padding:0 30px">' + "".join(caps) + '</div>'
     return page(f'<svg width="1500" height="430" viewBox="0 0 1500 430">{"".join(out)}</svg>{cap}'
@@ -194,10 +201,10 @@ def scene_stickers(a, color, dark, mono, rho):
                 '<div style="direction:rtl;font:14px RX;color:#56625F;padding:0 30px">تحت: نفس الملصقات بمقاسها الحقيقي تقريباً (96dpi)</div>'), 1500, 620
 
 
-def scene_sizes(a, color, dark):
+def scene_sizes(color, dark):
     rows = []
     for bg, uri in (("#FAF7F2", color), ("#FFFFFF", color), ("#0E1615", dark), ("#35363A", dark)):
-        cells = "".join('<img src="{}" style="display:block;width:{:.2f}px;height:{:.2f}px">'.format(uri, *box(s, a))
+        cells = "".join('<img src="{}" style="display:block;width:{:.2f}px;height:{:.2f}px">'.format(uri, *fit(uri, s))
                         for s in (16, 24, 32, 48, 64))
         rows.append(f'<div style="display:flex;gap:10px;align-items:flex-end;padding:8px;background:{bg};height:80px">{cells}</div>')
     return page("".join(rows)), 380, 390
@@ -318,7 +325,8 @@ def measure(mono, out_dir, min_mm):
     g = 2 * rg / L if rg else None
     for name, v in (("أنحف جزء في الحبر", t), ("أضيق فراغ (بين جزئين أو داخل الشكل)", g)):
         if v:
-            rep.append(f"{name}: {v * 100:.1f}% من طول الرمز = {v * min_mm:.2f}mm على {min_mm:g}mm، و{v * 12:.2f}mm على 12mm، و{v * 30:.2f}mm على 30mm")
+            at_mm = "، ".join(f"{v * s:.2f}mm على {s:g}mm" for s in sorted({min_mm, 12, 30}))
+            rep.append(f"{name}: {v * 100:.1f}% من طول الرمز = {at_mm}")
         else:
             rep.append(f"{name}: ما تغير شكل الرمز لين 40% من طوله")
     need = 2 * SPREAD_MM + 0.3  # أنحف جزء وأضيق فراغ لازم يتحملون انتشار 0.1mm من كل جهة ويبقى 0.3mm
@@ -359,12 +367,13 @@ def main():
     color, mono = pathlib.Path(o.color).resolve().as_uri(), pathlib.Path(o.mono).resolve().as_uri()
     dark = pathlib.Path(o.color_dark).resolve().as_uri() if o.color_dark else color
     touch = tuple(float(v) for v in o.touch.split(",")) if o.touch else None
-    a = aspect(o.color)
+    for path in (o.color, o.mono, o.color_dark or o.color):
+        ASPECT[pathlib.Path(path).resolve().as_uri()] = aspect(path)
     rep, rho = measure(o.mono, out, o.min_mm)
-    for name, (html, w, h) in {"stand": scene_stand(a, color, dark, touch), "engrave": scene_engrave(a, mono),
-                               "stickers": scene_stickers(a, color, dark, mono, rho)}.items():
+    for name, (html, w, h) in {"stand": scene_stand(color, dark, touch), "engrave": scene_engrave(mono),
+                               "stickers": scene_stickers(color, dark, mono, rho)}.items():
         shot(html, out / f"{name}.png", w, h)
-    html, w, h = scene_sizes(a, color, dark)
+    html, w, h = scene_sizes(color, dark)
     for sc in (1, 2):
         shot(html, out / f"sizes-{sc}x.png", w, h, sc)
         im = Image.open(out / f"sizes-{sc}x.png")
