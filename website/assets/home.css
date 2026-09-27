@@ -1,6 +1,13 @@
 /* الرئيسية (الموجز §4.4، web-copy §1): البطل ← بلاطة المضيف ← بلاطة المحل ← الإضافات ← كيف نشتغل ← الالتزامات ← الشريط الأخير ← الذيل.
    فوق site.css. ولا ظل، ولا حد 2px، والجوالات «أشياء مادية» بألوانها الثابتة بالوضعين (الموجز §7). */
 
+/* خفّة التحميل (ملاحظة web-motion على الجوال الضعيف):
+   - الأقسام تحت أول شاشة ما تنرسم لين تقرب من الشاشة (content-visibility). بدون أي حركة ولا ظهور متدرج: تنرسم كاملة قبل ما توصلها،
+     وتبقى في شجرة قارئ الشاشة وفي البحث داخل الصفحة. الارتفاع التقديري للتمرير بس (auto يحفظ الحقيقي بعد أول رسم).
+   - الشاشات المصغرة صناديق بمقاس ثابت ومعزولة (contain: strict)، فتخطيطها ما يأثر على باقي الصفحة. */
+#host, #shop, .h-extras, #how, #trust, #start, .h-foot-wrap { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+.mini, .fan-screen, .fo-screen { contain: strict; }
+
 /* الرأس: الزر المختصر بس من 1024 */
 .h-headwa { display: none !important; }
 @media (min-width: 1024px) { .h-headwa:not([hidden]) { display: inline-flex !important; } }
