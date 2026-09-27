@@ -96,8 +96,8 @@ const waSend = node({
       operation: 'sendTemplate',
       phoneNumberId: expr('{{ $json.wa_phone_number_id }}'),
       recipientPhoneNumber: expr('{{ $json.to }}'),
-      template: expr('{{ $json.template }}'),
-      components: { component: [ { type: 'body', bodyParameters: { parameter: [ { type: 'text', text: expr('{{ $json.text }}') } ] } } ] }
+      template: expr("{{ $json.template }}|{{ $('Read CHANNEL').item.json.wa_template_lang || 'ar' }}"),
+      components: { component: [ { type: 'body', bodyParameters: { parameter: [ { type: 'text', text: expr("{{ String($json.text).replace(/\s*\n+\s*/g, ' — ').slice(0, 1000) }}") } ] } } ] }
     },
     credentials: { whatsAppApi: newCredential('WhatsApp LamsaTap') }
   },

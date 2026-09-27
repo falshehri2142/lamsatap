@@ -34,7 +34,7 @@ const buildList = node({
     parameters: {
       mode: 'runOnceForAllItems',
       language: 'javaScript',
-      jsCode: "const today = $today.toJSDate();\nconst late = $input.all().map(i => i.json).filter(p => ['contact','visit','trial'].includes(p.stage) && (!p.last_followup || (today - new Date(p.last_followup)) / 86400000 >= 3));\nif (!late.length) return [];\nconst lines = ['متابعات المبيعات المتأخرة (3 أيام أو أكثر، اقتراح):'];\nfor (const p of late) lines.push('- #' + p.prospect_no + ' ' + (p.name || '(بدون اسم)') + ' — ' + p.stage + (p.district ? ' — ' + p.district : ''));\nlines.push('حدّث الحالة من نموذج «حدّث عميل محتمل». ما نرسل للمحتملين آلياً أبداً.');\nreturn [{ json: { text: lines.join('\\n') } }];"
+      jsCode: "const today = $today.toJSDate();\nconst late = $input.all().map(i => i.json).filter(p => ['contact','visit','trial'].includes(p.stage) && (!p.last_followup || Math.round((today - new Date(p.last_followup)) / 86400000) >= 3));\nif (!late.length) return [];\nconst lines = ['متابعات المبيعات المتأخرة (3 أيام أو أكثر، اقتراح):'];\nfor (const p of late) lines.push('- #' + p.prospect_no + ' ' + (p.name || '(بدون اسم)') + ' — ' + p.stage + (p.district ? ' — ' + p.district : ''));\nlines.push('حدّث الحالة من نموذج «حدّث عميل محتمل». ما نرسل للمحتملين آلياً أبداً.');\nreturn [{ json: { text: lines.join('\\n') } }];"
     }
   },
   output: [{ text: 'متابعات المبيعات المتأخرة' }]

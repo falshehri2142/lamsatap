@@ -44,4 +44,17 @@ o = base({ ...f, bank_ref: '' }, inv, [{}], [{}]);
 check('bank without ref -> invalid', o.valid === false);
 o = base({ ...f, revenue_account: '4100' }, inv, [{}], [{}]);
 check('4100 revenue line', o.lines[1].account_code === '4100');
+o = base({ ...f, amount_sar: 200 }, inv, [{}], [{}]);
+check('overpay -> invalid', o.valid === false, o.text);
+
+// Race: two cash payments of 100 approved at the same time on a 150 invoice.
+const recheck = codeOf('Recheck after approval');
+const re = (form, inv2, pays, led) => run(recheck, { 'Form record payment': [form], 'Re-read invoice': [inv2], 'Re-read payments': pays, 'Re-read ledger': led })[0].json;
+const cashF = { ...f, amount_sar: 100, payment_method: 'cash', bank_ref: '' };
+const first = re(cashF, inv, [{}], [{}]);
+check('race: first recheck valid JE-0001', first.valid && first.lines[0].entry_no === 'JE-0001' && first.payment.bank_ref === 'CASH-INV-0001-1');
+const second = re(cashF, inv, [{ id: 1, amount_sar: 100, payment_method: 'cash', bank_ref: 'CASH-INV-0001-1', date: '2026-09-27' }], [{ id: 1, entry_no: 'JE-0001' }, { id: 2, entry_no: 'JE-0001' }]);
+check('race: second sees first -> overpay rejected', second.valid === false, second.text);
+const secondSmall = re({ ...cashF, amount_sar: 50 }, inv, [{ id: 1, amount_sar: 100, payment_method: 'cash', bank_ref: 'CASH-INV-0001-1', date: '2026-09-27' }], [{ id: 1, entry_no: 'JE-0001' }, { id: 2, entry_no: 'JE-0001' }]);
+check('race: second (50) gets JE-0002, CASH-2, paid', secondSmall.valid && secondSmall.lines[0].entry_no === 'JE-0002' && secondSmall.payment.bank_ref === 'CASH-INV-0001-2' && secondSmall.willBePaid === true);
 process.exit(fail ? 1 : 0);

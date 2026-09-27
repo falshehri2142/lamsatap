@@ -4,7 +4,7 @@
 
 | الملف | الاسم في n8n | المعرّف | الحالة |
 |---|---|---|---|
-| get-channel (داخل README، 3 عقد) | LT get-channel | `G36lB9xwPJEK1s7R` | مبني، `channel = email`؛ صاحب المشروع يعبّي owner_email/owner_whatsapp/wa_phone_number_id |
+| `get-channel.js` | LT get-channel | `G36lB9xwPJEK1s7R` | مبني، `channel = email`؛ صاحب المشروع يعبّي owner_email/owner_whatsapp/wa_phone_number_id |
 | `owner-notify.js` | LT owner-notify | `tyTmFhxRAh99uQIO` | مبني؛ يحتاج credential «Gmail LamsaTap» (والواتساب بعد التفعيل) |
 | `daily-report.js` | LT (د) daily report | `ujpzEBdZlnoQYyVw` | مبني؛ 20:00 يومياً |
 | `client-send.js` | LT client-send | `wrxHqyElTEwoCPOX` | مبني؛ ما يُنادى إلا بعد موافقة؛ ما يرسل إيميل لعميل |
@@ -29,3 +29,8 @@
 2. ينشئ credentials: «Gmail LamsaTap»، «LamsaTap forms» (Basic Auth)، «LamsaTap tap import» (Header Auth)، و«WhatsApp LamsaTap» بعد التفعيل.
 3. يعتمد قوالب واتساب (§4.1): owner_alert، owner_approval، renewal_reminder، invoice_issued.
 4. النشر لكل workflow قراره (GM-006). (أ) بعد بند 23.
+
+## إعدادات انضبطت بعد الإنشاء (ما تنحفظ في `*.js`)
+كل الـ workflows: Save failed/successful production executions = none، Save manual executions = false، Timezone = Asia/Riyadh.
+الـ sub-workflows (get-channel، owner-notify، client-send): callerPolicy = workflowsFromSameOwner.
+(أ) door report: `onlyRunIf` على الـ Webhook (ref من 12-32 حرف/رقم وطلب checkout/maintenance) — موجود في الكود كمان.

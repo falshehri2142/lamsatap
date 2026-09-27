@@ -43,7 +43,7 @@ const invoiceDraft = node({
       mode: 'manual',
       includeOtherFields: true,
       assignments: { assignments: [
-        { id: 'text', name: 'text', value: expr('فاتورة جديدة (الرقم يُحدد عند الموافقة)\nالعميل: {{ $json.client }}\nالوصف: {{ $json.description }}\nالمبلغ: {{ $json.amount_sar }} ريال\nأوافق؟'), type: 'string' }
+        { id: 'text', name: 'text', value: expr('فاتورة جديدة (الرقم يُحدد عند الموافقة)\nالعميل: {{ $json.client }}\nالوصف: {{ $json.description }}\nالمبلغ: {{ $json.amount_sar }} ريال\nالرسالة اللي بتروح للعميل: «فاتورة INV-(الرقم) من لمسة تاب: {{ $json.description }} — {{ $json.amount_sar }} ريال.»\nأوافق؟'), type: 'string' }
       ] }
     }
   },
@@ -191,10 +191,61 @@ const preparePayment = node({
     parameters: {
       mode: 'runOnceForAllItems',
       language: 'javaScript',
-      jsCode: "const f = $('Form record payment').first().json;\nconst inv = $('Get the invoice').first().json;\nconst pays = $('Get payments of invoice').all().map(i => i.json).filter(p => p.id !== undefined);\nconst led = $('Get ledger').all().map(i => i.json).filter(l => l.id !== undefined);\nconst amount = Math.round(Number(f.amount_sar) * 100) / 100;\nconst err = (m) => [{ json: { valid: false, text: 'دفعة ما انسجلت: ' + m + ' (' + f.invoice_no + ')' } }];\nif (!inv || inv.id === undefined) return err('الفاتورة غير موجودة');\nif (inv.status === 'void') return err('الفاتورة ملغاة');\nif (inv.status === 'paid') return err('الفاتورة مدفوعة بالكامل');\nif (!(amount > 0)) return err('مبلغ غير صحيح');\nif (f.payment_method === 'other') return err('طريقة دفع أخرى: يسجلها المحاسب يدوياً');\nconst cash = f.payment_method === 'cash';\nlet bankRef = String(f.bank_ref || '').trim();\nif (cash) bankRef = 'CASH-' + f.invoice_no + '-' + (pays.filter(p => p.payment_method === 'cash').length + 1);\nif (!bankRef) return err('مرجع التحويل مطلوب');\nif (pays.some(p => p.bank_ref === bankRef && String(p.date).slice(0, 10) === String(f.date).slice(0, 10))) return err('دفعة مكررة بنفس المرجع والتاريخ');\nconst maxJe = led.reduce((m, l) => Math.max(m, parseInt(String(l.entry_no).replace(/\\D/g, ''), 10) || 0), 0);\nconst je = 'JE-' + String(maxJe + 1).padStart(4, '0');\nif (led.some(l => l.entry_no === je)) return err('رقم قيد مكرر');\nconst rev = f.revenue_account === '4100' ? { code: '4100', name: 'إيراد بيع مرة وحدة' } : { code: '4200', name: 'إيراد اشتراكات' };\nconst dr = cash ? { code: '1100', name: 'الصندوق (نقد)' } : { code: '1110', name: 'البنك' };\nconst lines = [\n  { entry_no: je, line_no: 1, date: f.date, account_code: dr.code, account_name: dr.name, debit_sar: amount, credit_sar: 0, description: 'دفعة ' + f.invoice_no, reference: f.invoice_no, owner_approved: 'yes' },\n  { entry_no: je, line_no: 2, date: f.date, account_code: rev.code, account_name: rev.name, debit_sar: 0, credit_sar: amount, description: 'دفعة ' + f.invoice_no, reference: f.invoice_no, owner_approved: 'yes' }\n];\nconst d = lines.reduce((a, l) => a + l.debit_sar, 0), c = lines.reduce((a, l) => a + l.credit_sar, 0);\nif (Math.abs(d - c) > 0.001) return err('القيد غير متوازن');\nconst prevPaid = pays.reduce((a, p) => a + (Number(p.amount_sar) || 0), 0);\nconst willBePaid = prevPaid + amount >= Number(inv.amount_sar);\nconst text = 'وصل المبلغ؟\\nالفاتورة ' + f.invoice_no + ' (' + inv.client + ') بمبلغ ' + inv.amount_sar + ' ريال\\nالدفعة: ' + amount + ' ريال ' + f.payment_method + ' مرجع ' + bankRef + ' بتاريخ ' + String(f.date).slice(0, 10) + '\\nالقيد ' + je + ': مدين ' + dr.code + ' ' + dr.name + ' ' + amount + ' / دائن ' + rev.code + ' ' + rev.name + ' ' + amount + '\\n' + (willBePaid ? 'الفاتورة تصير مدفوعة.' : 'دفعة جزئية: المدفوع ' + (prevPaid + amount) + ' من ' + inv.amount_sar + '.');\nreturn [{ json: { valid: true, text, payment: { date: f.date, invoice_no: f.invoice_no, client: inv.client, amount_sar: amount, payment_method: f.payment_method, bank_ref: bankRef, owner_confirmed: 'yes' }, lines, willBePaid } }];"
+      jsCode: "const f = $('Form record payment').first().json;\nconst inv = $('Get the invoice').first().json;\nconst pays = $('Get payments of invoice').all().map(i => i.json).filter(p => p.id !== undefined);\nconst led = $('Get ledger').all().map(i => i.json).filter(l => l.id !== undefined);\nconst amount = Math.round(Number(f.amount_sar) * 100) / 100;\nconst err = (m) => [{ json: { valid: false, text: 'دفعة ما انسجلت: ' + m + ' (' + f.invoice_no + ')' } }];\nif (!inv || inv.id === undefined) return err('الفاتورة غير موجودة');\nif (inv.status === 'void') return err('الفاتورة ملغاة');\nif (inv.status === 'paid') return err('الفاتورة مدفوعة بالكامل');\nif (!(amount > 0)) return err('مبلغ غير صحيح');\nif (f.payment_method === 'other') return err('طريقة دفع أخرى: يسجلها المحاسب يدوياً');\nconst cash = f.payment_method === 'cash';\nlet bankRef = String(f.bank_ref || '').trim();\nif (cash) bankRef = 'CASH-' + f.invoice_no + '-' + (pays.filter(p => p.payment_method === 'cash').length + 1);\nif (!bankRef) return err('مرجع التحويل مطلوب');\nif (pays.some(p => p.bank_ref === bankRef && String(p.date).slice(0, 10) === String(f.date).slice(0, 10))) return err('دفعة مكررة بنفس المرجع والتاريخ');\nconst maxJe = led.reduce((m, l) => Math.max(m, parseInt(String(l.entry_no).replace(/\\D/g, ''), 10) || 0), 0);\nconst je = 'JE-' + String(maxJe + 1).padStart(4, '0');\nif (led.some(l => l.entry_no === je)) return err('رقم قيد مكرر');\nconst rev = f.revenue_account === '4100' ? { code: '4100', name: 'إيراد بيع مرة وحدة' } : { code: '4200', name: 'إيراد اشتراكات' };\nconst dr = cash ? { code: '1100', name: 'الصندوق (نقد)' } : { code: '1110', name: 'البنك' };\nconst lines = [\n  { entry_no: je, line_no: 1, date: f.date, account_code: dr.code, account_name: dr.name, debit_sar: amount, credit_sar: 0, description: 'دفعة ' + f.invoice_no, reference: f.invoice_no, owner_approved: 'yes' },\n  { entry_no: je, line_no: 2, date: f.date, account_code: rev.code, account_name: rev.name, debit_sar: 0, credit_sar: amount, description: 'دفعة ' + f.invoice_no, reference: f.invoice_no, owner_approved: 'yes' }\n];\nconst d = lines.reduce((a, l) => a + l.debit_sar, 0), c = lines.reduce((a, l) => a + l.credit_sar, 0);\nif (Math.abs(d - c) > 0.001) return err('القيد غير متوازن');\nconst prevPaid = pays.reduce((a, p) => a + (Number(p.amount_sar) || 0), 0);\nif (prevPaid + amount > Number(inv.amount_sar) + 0.001) return err('الدفعة أكبر من المتبقي (' + (Number(inv.amount_sar) - prevPaid) + ' ريال)');\nconst willBePaid = prevPaid + amount >= Number(inv.amount_sar);\nconst text = 'وصل المبلغ؟\\nالفاتورة ' + f.invoice_no + ' (' + inv.client + ') بمبلغ ' + inv.amount_sar + ' ريال\\nالدفعة: ' + amount + ' ريال ' + f.payment_method + ' مرجع ' + bankRef + ' بتاريخ ' + String(f.date).slice(0, 10) + '\\nالقيد ' + je + ': مدين ' + dr.code + ' ' + dr.name + ' ' + amount + ' / دائن ' + rev.code + ' ' + rev.name + ' ' + amount + '\\n' + (willBePaid ? 'الفاتورة تصير مدفوعة.' : 'دفعة جزئية: المدفوع ' + (prevPaid + amount) + ' من ' + inv.amount_sar + '.');\nreturn [{ json: { valid: true, text, payment: { date: f.date, invoice_no: f.invoice_no, client: inv.client, amount_sar: amount, payment_method: f.payment_method, bank_ref: bankRef, owner_confirmed: 'yes' }, lines, willBePaid } }];"
     }
   },
   output: [{ valid: true, text: 'وصل المبلغ؟', payment: { date: '2026-09-27', invoice_no: 'INV-0001', client: 'demo-cafe', amount_sar: 100, payment_method: 'bank_transfer', bank_ref: 'TRX1', owner_confirmed: 'yes' }, lines: [], willBePaid: true }]
+});
+
+const rereadInvoice = node({
+  type: 'n8n-nodes-base.dataTable',
+  version: 1.1,
+  config: { name: 'Re-read invoice', executeOnce: true, alwaysOutputData: true, parameters: { resource: 'row', operation: 'get', dataTableId: invoicesTable, matchType: 'allConditions', filters: { conditions: [ { keyName: 'invoice_no', condition: 'eq', keyValue: expr("{{ $('Form record payment').first().json.invoice_no }}") } ] }, limit: 1 } },
+  output: [{ id: 1, invoice_no: 'INV-0001', client: 'demo-cafe', amount_sar: 150, status: 'issued' }]
+});
+
+const rereadPayments = node({
+  type: 'n8n-nodes-base.dataTable',
+  version: 1.1,
+  config: { name: 'Re-read payments', executeOnce: true, alwaysOutputData: true, parameters: { resource: 'row', operation: 'get', dataTableId: paymentsTable, matchType: 'allConditions', filters: { conditions: [ { keyName: 'invoice_no', condition: 'eq', keyValue: expr("{{ $('Form record payment').first().json.invoice_no }}") } ] }, returnAll: true } },
+  output: [{ id: 1, invoice_no: 'INV-0001', amount_sar: 50, payment_method: 'cash', bank_ref: 'CASH-INV-0001-1' }]
+});
+
+const rereadLedger = node({
+  type: 'n8n-nodes-base.dataTable',
+  version: 1.1,
+  config: { name: 'Re-read ledger', executeOnce: true, alwaysOutputData: true, parameters: { resource: 'row', operation: 'get', dataTableId: ledgerTable, returnAll: true } },
+  output: [{ id: 1, entry_no: 'JE-0001', line_no: 1 }]
+});
+
+const recheck = node({
+  type: 'n8n-nodes-base.code',
+  version: 2,
+  config: {
+    name: 'Recheck after approval',
+    parameters: {
+      mode: 'runOnceForAllItems',
+      language: 'javaScript',
+      jsCode: "const f = $('Form record payment').first().json;\nconst inv = $('Re-read invoice').first().json;\nconst pays = $('Re-read payments').all().map(i => i.json).filter(p => p.id !== undefined);\nconst led = $('Re-read ledger').all().map(i => i.json).filter(l => l.id !== undefined);\nconst amount = Math.round(Number(f.amount_sar) * 100) / 100;\nconst err = (m) => [{ json: { valid: false, text: 'دفعة ما انسجلت بعد الموافقة (تغيّرت البيانات): ' + m + ' (' + f.invoice_no + ')' } }];\nif (!inv || inv.id === undefined) return err('الفاتورة غير موجودة');\nif (inv.status === 'void') return err('الفاتورة ملغاة');\nif (inv.status === 'paid') return err('الفاتورة مدفوعة بالكامل');\nif (!(amount > 0)) return err('مبلغ غير صحيح');\nif (f.payment_method === 'other') return err('طريقة دفع أخرى: يسجلها المحاسب يدوياً');\nconst cash = f.payment_method === 'cash';\nlet bankRef = String(f.bank_ref || '').trim();\nif (cash) bankRef = 'CASH-' + f.invoice_no + '-' + (pays.filter(p => p.payment_method === 'cash').length + 1);\nif (!bankRef) return err('مرجع التحويل مطلوب');\nif (pays.some(p => p.bank_ref === bankRef && String(p.date).slice(0, 10) === String(f.date).slice(0, 10))) return err('دفعة مكررة بنفس المرجع والتاريخ');\nconst maxJe = led.reduce((m, l) => Math.max(m, parseInt(String(l.entry_no).replace(/\\D/g, ''), 10) || 0), 0);\nconst je = 'JE-' + String(maxJe + 1).padStart(4, '0');\nif (led.some(l => l.entry_no === je)) return err('رقم قيد مكرر');\nconst rev = f.revenue_account === '4100' ? { code: '4100', name: 'إيراد بيع مرة وحدة' } : { code: '4200', name: 'إيراد اشتراكات' };\nconst dr = cash ? { code: '1100', name: 'الصندوق (نقد)' } : { code: '1110', name: 'البنك' };\nconst lines = [\n  { entry_no: je, line_no: 1, date: f.date, account_code: dr.code, account_name: dr.name, debit_sar: amount, credit_sar: 0, description: 'دفعة ' + f.invoice_no, reference: f.invoice_no, owner_approved: 'yes' },\n  { entry_no: je, line_no: 2, date: f.date, account_code: rev.code, account_name: rev.name, debit_sar: 0, credit_sar: amount, description: 'دفعة ' + f.invoice_no, reference: f.invoice_no, owner_approved: 'yes' }\n];\nconst d = lines.reduce((a, l) => a + l.debit_sar, 0), c = lines.reduce((a, l) => a + l.credit_sar, 0);\nif (Math.abs(d - c) > 0.001) return err('القيد غير متوازن');\nconst prevPaid = pays.reduce((a, p) => a + (Number(p.amount_sar) || 0), 0);\nif (prevPaid + amount > Number(inv.amount_sar) + 0.001) return err('الدفعة أكبر من المتبقي (' + (Number(inv.amount_sar) - prevPaid) + ' ريال)');\nconst willBePaid = prevPaid + amount >= Number(inv.amount_sar);\nconst text = 'وصل المبلغ؟\\nالفاتورة ' + f.invoice_no + ' (' + inv.client + ') بمبلغ ' + inv.amount_sar + ' ريال\\nالدفعة: ' + amount + ' ريال ' + f.payment_method + ' مرجع ' + bankRef + ' بتاريخ ' + String(f.date).slice(0, 10) + '\\nالقيد ' + je + ': مدين ' + dr.code + ' ' + dr.name + ' ' + amount + ' / دائن ' + rev.code + ' ' + rev.name + ' ' + amount + '\\n' + (willBePaid ? 'الفاتورة تصير مدفوعة.' : 'دفعة جزئية: المدفوع ' + (prevPaid + amount) + ' من ' + inv.amount_sar + '.');\nreturn [{ json: { valid: true, text, payment: { date: f.date, invoice_no: f.invoice_no, client: inv.client, amount_sar: amount, payment_method: f.payment_method, bank_ref: bankRef, owner_confirmed: 'yes' }, lines, willBePaid } }];"
+    }
+  },
+  output: [{ valid: true, text: 'وصل المبلغ؟', payment: { date: '2026-09-27', invoice_no: 'INV-0001', client: 'demo-cafe', amount_sar: 100, payment_method: 'bank_transfer', bank_ref: 'TRX1', owner_confirmed: 'yes' }, lines: [], willBePaid: true }]
+});
+
+const stillValid = ifElse({ version: 2.2, config: { name: 'Still valid?', parameters: { conditions: { options: { caseSensitive: true, leftValue: '', typeValidation: 'loose' }, conditions: [ { leftValue: expr('{{ $json.valid }}'), operator: { type: 'boolean', operation: 'true', singleValue: true } } ], combinator: 'and' } } } });
+
+const tellChanged = node({
+  type: 'n8n-nodes-base.executeWorkflow',
+  version: 1.3,
+  config: {
+    name: 'Tell owner: changed after approval',
+    parameters: {
+      mode: 'once', source: 'database', workflowId: ownerNotifyId,
+      workflowInputs: { mappingMode: 'defineBelow', value: { text: expr('{{ $json.text }}'), kind: 'info', timeout_min: 30, subject: 'دفعة ما انسجلت' }, matchingColumns: [], schema: ownerNotifySchema, attemptToConvertTypes: false, convertFieldsToString: true },
+      options: { waitForSubWorkflow: true }
+    }
+  },
+  output: [{ approved: false, channel: 'email' }]
 });
 
 const isValid = ifElse({ version: 2.2, config: { name: 'Valid?', parameters: { conditions: { options: { caseSensitive: true, leftValue: '', typeValidation: 'loose' }, conditions: [ { leftValue: expr('{{ $json.valid }}'), operator: { type: 'boolean', operation: 'true', singleValue: true } } ], combinator: 'and' } } } });
@@ -239,12 +290,12 @@ const insertPayment = node({
       columns: {
         mappingMode: 'defineBelow',
         value: {
-          date: expr("{{ $('Prepare payment and entry').item.json.payment.date }}"),
-          invoice_no: expr("{{ $('Prepare payment and entry').item.json.payment.invoice_no }}"),
-          client: expr("{{ $('Prepare payment and entry').item.json.payment.client }}"),
-          amount_sar: expr("{{ $('Prepare payment and entry').item.json.payment.amount_sar }}"),
-          payment_method: expr("{{ $('Prepare payment and entry').item.json.payment.payment_method }}"),
-          bank_ref: expr("{{ $('Prepare payment and entry').item.json.payment.bank_ref }}"),
+          date: expr("{{ $('Recheck after approval').item.json.payment.date }}"),
+          invoice_no: expr("{{ $('Recheck after approval').item.json.payment.invoice_no }}"),
+          client: expr("{{ $('Recheck after approval').item.json.payment.client }}"),
+          amount_sar: expr("{{ $('Recheck after approval').item.json.payment.amount_sar }}"),
+          payment_method: expr("{{ $('Recheck after approval').item.json.payment.payment_method }}"),
+          bank_ref: expr("{{ $('Recheck after approval').item.json.payment.bank_ref }}"),
           owner_confirmed: 'yes'
         },
         matchingColumns: [],
@@ -268,7 +319,7 @@ const splitLines = node({
   version: 2,
   config: {
     name: 'Two ledger lines',
-    parameters: { mode: 'runOnceForAllItems', language: 'javaScript', jsCode: "return $('Prepare payment and entry').first().json.lines.map(l => ({ json: l }));" }
+    parameters: { mode: 'runOnceForAllItems', language: 'javaScript', jsCode: "return $('Recheck after approval').first().json.lines.map(l => ({ json: l }));" }
   },
   output: [{ entry_no: 'JE-0002', line_no: 1, date: '2026-09-27', account_code: '1110', account_name: 'البنك', debit_sar: 100, credit_sar: 0, description: 'دفعة INV-0001', reference: 'INV-0001', owner_approved: 'yes' }]
 });
@@ -312,7 +363,7 @@ const fullyPaid = ifElse({
   config: {
     name: 'Fully paid now?',
     executeOnce: true,
-    parameters: { conditions: { options: { caseSensitive: true, leftValue: '', typeValidation: 'loose' }, conditions: [ { leftValue: expr("{{ $('Prepare payment and entry').first().json.willBePaid }}"), operator: { type: 'boolean', operation: 'true', singleValue: true } } ], combinator: 'and' } }
+    parameters: { conditions: { options: { caseSensitive: true, leftValue: '', typeValidation: 'loose' }, conditions: [ { leftValue: expr("{{ $('Recheck after approval').first().json.willBePaid }}"), operator: { type: 'boolean', operation: 'true', singleValue: true } } ], combinator: 'and' } }
   }
 });
 
@@ -324,10 +375,10 @@ const markPaid = node({
     executeOnce: true,
     parameters: {
       resource: 'row', operation: 'update', dataTableId: invoicesTable, matchType: 'allConditions',
-      filters: { conditions: [ { keyName: 'invoice_no', condition: 'eq', keyValue: expr("{{ $('Prepare payment and entry').first().json.payment.invoice_no }}") } ] },
+      filters: { conditions: [ { keyName: 'invoice_no', condition: 'eq', keyValue: expr("{{ $('Recheck after approval').first().json.payment.invoice_no }}") } ] },
       columns: {
         mappingMode: 'defineBelow',
-        value: { status: 'paid', payment_ref: expr("{{ $('Prepare payment and entry').first().json.payment.bank_ref }}") },
+        value: { status: 'paid', payment_ref: expr("{{ $('Recheck after approval').first().json.payment.bank_ref }}") },
         matchingColumns: [],
         schema: [
           { id: 'status', displayName: 'status', required: false, defaultMatch: false, display: true, type: 'string', canBeUsedToMatch: true },
@@ -339,7 +390,7 @@ const markPaid = node({
   output: [{ id: 1 }]
 });
 
-const note = sticky('## (ج) Invoice and payment (spec §2 (ج))\nج1: form -> owner approval FIRST -> next INV number -> insert -> client-send (WhatsApp, or wa.me link to owner in fallback).\nج2: form -> checks (invoice exists, not void/paid, method not other, no duplicate) -> balanced 2-line entry (1110/1100 vs 4200/4100) -> owner approval -> insert payment + 2 ledger lines -> paid only when total >= amount.\nNo VAT unless the accountant decides. Nothing is written before approval. Unpublished.', [preparePayment], { color: 4 });
+const note = sticky('## (ج) Invoice and payment (spec §2 (ج))\nج1: form -> owner approval FIRST -> next INV number -> insert -> client-send (WhatsApp, or wa.me link to owner in fallback).\nج2: form -> checks (invoice exists, not void/paid, method not other, no duplicate) -> balanced 2-line entry (1110/1100 vs 4200/4100) -> owner approval -> RE-READ and recheck (race-safe) -> insert payment + 2 ledger lines -> paid only when total >= amount.\nNo VAT unless the accountant decides. Nothing is written before approval. Unpublished.', [preparePayment], { color: 4 });
 
 export default workflow('invoice-payment', 'LT (ج) invoice and payment')
   .add(invoiceForm)
@@ -352,6 +403,6 @@ export default workflow('invoice-payment', 'LT (ج) invoice and payment')
   .to(getLedger)
   .to(preparePayment)
   .to(isValid
-    .onTrue(approvePayment.to(paymentApproved.onTrue(insertPayment.to(splitLines.to(insertLedger.to(fullyPaid.onTrue(markPaid)))))))
+    .onTrue(approvePayment.to(paymentApproved.onTrue(rereadInvoice.to(rereadPayments.to(rereadLedger.to(recheck.to(stillValid.onTrue(insertPayment.to(splitLines.to(insertLedger.to(fullyPaid.onTrue(markPaid))))).onFalse(tellChanged))))))))
     .onFalse(tellInvalid))
   .add(note);

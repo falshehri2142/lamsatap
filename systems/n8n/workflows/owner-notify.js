@@ -77,8 +77,8 @@ const waInfo = node({
       operation: 'sendTemplate',
       phoneNumberId: expr('{{ $json.wa_phone_number_id }}'),
       recipientPhoneNumber: expr('{{ $json.owner_whatsapp }}'),
-      template: 'owner_alert',
-      components: { component: [ { type: 'body', bodyParameters: { parameter: [ { type: 'text', text: expr('{{ $json.text }}') } ] } } ] }
+      template: expr("owner_alert|{{ $json.wa_template_lang || 'ar' }}"),
+      components: { component: [ { type: 'body', bodyParameters: { parameter: [ { type: 'text', text: expr("{{ String($json.text).replace(/\s*\n+\s*/g, ' — ').slice(0, 1000) }}") } ] } } ] }
     },
     credentials: { whatsAppApi: newCredential('WhatsApp LamsaTap') }
   },
@@ -95,11 +95,11 @@ const waApproval = node({
       operation: 'sendTemplate',
       phoneNumberId: expr('{{ $json.wa_phone_number_id }}'),
       recipientPhoneNumber: expr('{{ $json.owner_whatsapp }}'),
-      template: 'owner_approval',
+      template: expr("owner_approval|{{ $json.wa_template_lang || 'ar' }}"),
       components: { component: [ { type: 'body', bodyParameters: { parameter: [
-        { type: 'text', text: expr('{{ $json.text }}') },
-        { type: 'text', text: expr('{{ $execution.resumeUrl }}?d=yes') },
-        { type: 'text', text: expr('{{ $execution.resumeUrl }}?d=no') }
+        { type: 'text', text: expr("{{ String($json.text).replace(/\s*\n+\s*/g, ' — ').slice(0, 900) }}") },
+        { type: 'text', text: expr("{{ $execution.resumeUrl + ($execution.resumeUrl.includes('?') ? '&' : '?') + 'd=yes' }}") },
+        { type: 'text', text: expr("{{ $execution.resumeUrl + ($execution.resumeUrl.includes('?') ? '&' : '?') + 'd=no' }}") }
       ] } } ] }
     },
     credentials: { whatsAppApi: newCredential('WhatsApp LamsaTap') }

@@ -10,7 +10,7 @@ const receive = trigger({
       path: 'lt-door-report',
       authentication: 'none',
       responseMode: 'onReceived',
-      options: { ignoreBots: true, responseData: 'وصل طلبك. إذا ما جاك رد، تواصل على رقم الشركة المكتوب في الصفحة.' }
+      options: { ignoreBots: true, onlyRunIf: expr("{{ /^[a-z0-9]{12,32}$/i.test(String($json.body?.ref ?? '')) && ['checkout','maintenance'].includes($json.body?.request) }}"), responseData: 'وصل طلبك. إذا ما جاك رد، تواصل على رقم الشركة المكتوب في الصفحة.' }
     }
   },
   output: [{ body: { ref: 'abcd1234efgh5678', request: 'checkout', problem: '' } }]
@@ -27,7 +27,7 @@ const keepThree = node({
       assignments: { assignments: [
         { id: 'ref', name: 'ref', value: expr("{{ String($json.body?.ref ?? '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 32) }}"), type: 'string' },
         { id: 'request', name: 'request', value: expr("{{ $json.body?.request === 'maintenance' ? 'maintenance' : 'checkout' }}"), type: 'string' },
-        { id: 'problem', name: 'problem', value: expr("{{ String($json.body?.problem ?? '').slice(0, 300) }}"), type: 'string' }
+        { id: 'problem', name: 'problem', value: expr("{{ String($json.body?.problem ?? '').slice(0, 1000) }}"), type: 'string' }
       ] }
     }
   },
@@ -42,7 +42,7 @@ const stripPhones = node({
     parameters: {
       mode: 'runOnceForEachItem',
       language: 'javaScript',
-      jsCode: "const ar = '٠١٢٣٤٥٦٧٨٩', fa = '۰۱۲۳۴۵۶۷۸۹';\nlet t = String($json.problem || '').replace(/[٠-٩]/g, d => String(ar.indexOf(d))).replace(/[۰-۹]/g, d => String(fa.indexOf(d)));\nt = t.replace(/(\\+|00)?[\\d][\\d\\s\\-().]{7,}\\d/g, m => { const d = m.replace(/\\D/g, ''); return (/^(966|00966)?0?5\\d{8}$/.test(d) || d.length >= 9) ? '[رقم محذوف]' : m; });\nreturn { json: { ref: $json.ref, request: $json.request, problem: t } };"
+      jsCode: "let t = String($json.problem || '');\nt = t.replace(/[\\u0660-\\u0669]/g, d => String(d.charCodeAt(0) - 0x660)).replace(/[\\u06F0-\\u06F9]/g, d => String(d.charCodeAt(0) - 0x6F0)).replace(/[\\uFF10-\\uFF19]/g, d => String(d.charCodeAt(0) - 0xFF10));\nt = t.replace(/\\d(?:[^\\p{L}\\n]{0,3}\\d)+/gu, m => (m.replace(/\\D/g, '').length >= 7 ? '[رقم محذوف]' : m));\nt = t.slice(0, 300);\nreturn { json: { ref: $json.ref, request: $json.request, problem: t } };"
     }
   },
   output: [{ ref: 'abcd1234efgh5678', request: 'checkout', problem: '' }]
