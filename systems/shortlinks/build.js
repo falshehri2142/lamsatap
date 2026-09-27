@@ -3,7 +3,10 @@
 const fs = require('fs'), path = require('path');
 const root = __dirname, out = path.join(root, 'dist');
 const cfg = JSON.parse(fs.readFileSync(path.join(root, 'config.json'), 'utf8'));
+// Placeholder guard: literal "DOMAIN" fails; example.com / the word "domain" only warns.
+if (String(cfg.domain).includes('DOMAIN')) { console.error('BUILD FAILED\nconfig.json domain is still the placeholder "DOMAIN"'); process.exit(1); }
 const domain = new URL(cfg.domain).origin;
+if (/(^|\.)example\.com$/i.test(new URL(domain).hostname) || /domain/i.test(domain)) console.warn(`WARNING: config.json domain is a placeholder (${domain}). Set the real domain before programming tags or uploading.`);
 const status302 = cfg.forceBang ? '302!' : '302';
 const links = JSON.parse(fs.readFileSync(path.join(root, 'links.json'), 'utf8'));
 const publishedFile = path.join(root, 'published.txt');
@@ -17,7 +20,10 @@ function checkDest(code, d) {
   if (typeof d !== 'string' || /[\s<>"'`\\]/.test(d)) return errors.push(`bad chars in dest: ${code}`), null;
   let u; try { u = new URL(d); } catch { return errors.push(`invalid URL: ${code}`), null; }
   if (u.protocol !== 'https:' || u.username || u.password) return errors.push(`dest must be plain https: ${code}`), null;
-  if (u.origin === domain && u.pathname.startsWith('/t/')) return errors.push(`dest loops back to /t/: ${code}`), null;
+  if (u.origin === domain) {
+    let p; try { p = decodeURIComponent(u.pathname).toLowerCase().replace(/\/+/g, '/'); } catch { return errors.push(`bad %-encoding in dest: ${code}`), null; }
+    if (p === '/t' || p.startsWith('/t/')) return errors.push(`dest loops back to /t/: ${code}`), null;
+  }
   return u.href;
 }
 const seen = new Set();
@@ -27,6 +33,8 @@ for (const l of links) {
   if (seen.has(l.code)) errors.push(`duplicate code: ${l.code}`);
   seen.add(l.code);
   if (!l.place || !String(l.place).trim()) errors.push(`place required: ${l.code}`);
+  // Control chars (tab/newline/...) would forge extra lines in out/links.txt.
+  for (const k of ['place', 'client']) if (l[k] != null && /[\p{Cc}\p{Cf}]/u.test(String(l[k]))) errors.push(`control character in ${k}: ${l.code}`);
   if (!['active', 'cancelled'].includes(l.status)) errors.push(`bad status: ${l.code}`);
   if (l.status === 'active') l.href = checkDest(l.code, l.dest);
 }
@@ -58,7 +66,9 @@ for (const l of links) {
 }
 write('_redirects', red.join('\n') + '\n');
 const urls = links.map(l => `${domain}/t/${l.code}/\t${l.status}\t${l.place}`);
-write('links.txt', urls.join('\n') + '\n');
+// links.txt is private (all codes + places): kept OUT of dist/ so it is never uploaded.
+const priv = path.join(root, 'out'); fs.mkdirSync(priv, { recursive: true });
+fs.writeFileSync(path.join(priv, 'links.txt'), urls.join('\n') + '\n');
 const all = [...new Set([...published, ...links.map(l => l.code)])].sort();
 fs.writeFileSync(publishedFile, all.join('\n') + '\n');
 console.log(`built ${links.length} links (${red.length} redirect lines) -> ${out}\n` + urls.join('\n'));
