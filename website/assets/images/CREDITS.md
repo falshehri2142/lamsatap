@@ -25,6 +25,15 @@
 | R3 مشهد العرض الحي للمطاعم | `shop-counter.jpg` (نفس ص2 فوق، بدون تنزيل جديد) | Unsplash YeDV8VleuOs | https://unsplash.com/photos/a-close-up-of-a-wooden-table-in-a-restaurant-YeDV8VleuOs | Jonathon Nielsen | Unsplash License، https://unsplash.com/license | 2400×1600، 577,014 |
 | H1 و H2 بطل المضيفين وبابهم وقصتهم (H2 قص من H1) | `host-hallway-door.jpg` | Pexels 30445143 | https://www.pexels.com/photo/modern-minimalist-hallway-with-wooden-door-30445143/ | aksinfo7 universe | Pexels License، https://www.pexels.com/license/ | 3024×4032، 1,422,620 |
 
+**أصل جديد (GM-054، موافقة صاحب المشروع 2026-09-28: الصورة 4 «يد ماسكة جوال»، و«نخلي فيه شعار الشركة»):**
+
+| الخانة | الأصل | المصدر | صفحة الصورة | المصوّر | الرخصة | الأصل (بكسل، بايت) |
+|---|---|---|---|---|---|---|
+| يد وجوال في كافيه، على الشاشة شعارنا | `hand-phone-cafe.jpg`، والمشتق `hand-phone-cafe-logo.jpg` | Pexels 13111780 | https://www.pexels.com/photo/cellphone-beside-a-cup-of-coffee-13111780/ | Towfiqu barbhuiya | Pexels License، https://www.pexels.com/license/ | 2400×1601، 277,949 |
+
+- **المشتق:** الشاشة الخضراء تبدّلت بشاشة رملية فيها الشعار المكدّس الرسمي (`logo-stack.svg` بدون تعديل).
+- **طريقة التركيب:** منظور بـ OpenCV، وحواف ناعمة، وإزالة الأخضر، ولمعة زجاج خفيفة 6%.
+
 **ملفات الطبقتين (web-builder، 2026-09-28):**
 - لكل خانة 4 ملفات: اللون `<الخانة>-color-800.webp` و`-1600.webp`، والأبيض والأسود `<الخانة>-bw-800.webp` و`-1600.webp`.
 - المصدر والرخصة والمصوّر لكل ملف: صف خانته في الجدول فوق.
