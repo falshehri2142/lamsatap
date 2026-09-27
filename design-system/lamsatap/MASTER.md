@@ -111,7 +111,10 @@
   - Ink colour, underlined, 44px tap area.
   - It is never a second button, to keep primary-action.
   - The footer carries the Telegram channel link.
-  - The URLs come from `config.js` (`telegram`, `telegramChannel`); the link is hidden if empty.
+  - Usernames without @ come from `config.js` (`telegram`, `telegramChannel`).
+  - Both are intentionally empty, and an empty value hides the link.
+  - URLs are built as `https://t.me/<username>`.
+  - There are no unit-guide `?start=` links until the lawyer answers.
 - **Response promise (GM-046):** «خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم» is a trust line near the contact actions.
 - **Cards:**
   - White on sand, 1px border, radius 8, no shadow.
