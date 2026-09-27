@@ -59,6 +59,8 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 - **n8n: الـ sub-workflows ما تنادى إلا إذا كانت منشورة** («Workflow is not active and cannot be executed»). يعني get-channel وowner-notify وclient-send لازم تنشر قبل أي workflow يعتمد عليها. نشرها ما يفتح رابط عام (Execute Workflow Trigger)، بس القرار لصاحب المشروع. الاختبار قبل النشر = نسخة مؤقتة فيها نفس العقد، وتنأرشف بعده.
 - **تليجرام مجرّب (2026-09-28):** CHANNEL = telegram. تنبيه وصل، موافقة بزر = approved true، انتهاء المهلة = approved false.
 
+- **استشارة الدفع الأونلاين (GM-052، معلّق):** رأي القسم في `work/2026-09-28-online-subscriptions/network.md` (رابط دفع مستضاف + webhook متحقق بالـ API + login_tokens بدون كلمة سر). المقارنة في `gateways.md`، وأغلب أرقام البوابات غير مؤكدة.
+
 ## دروس
 - المشكّك لقى ثغرات (خطف الروابط الملغاة، XSS، حقن `_redirects`) بعد ما المختبِر أعطى PASS: لا تكتفِ بالمختبِر، شغّل المدقق والمشكّك على أي كود يولد صفحات أو تحويلات.
 - إذا `sys-architect` مو متاح كنوع وكيل، شغّل وكيل عام بتعليمات `.claude/agents/sys-architect.md`.
