@@ -35,6 +35,8 @@ for (const l of links) {
   if (!l.place || !String(l.place).trim()) errors.push(`place required: ${l.code}`);
   // Control chars (tab/newline/...) would forge extra lines in out/links.txt.
   for (const k of ['place', 'client']) if (l[k] != null && /[\p{Cc}\p{Cf}]/u.test(String(l[k]))) errors.push(`control character in ${k}: ${l.code}`);
+  if (l.type == null) l.type = 'public'; // door = unit door (host bundle): tap times never recorded (legal/register.md #20)
+  if (!['door', 'public'].includes(l.type)) errors.push(`bad type (door|public): ${l.code}`);
   if (!['active', 'cancelled'].includes(l.status)) errors.push(`bad status: ${l.code}`);
   if (l.status === 'active') l.href = checkDest(l.code, l.dest);
 }
