@@ -52,7 +52,10 @@ def main():
         o1 = SCR / cid / "canonical"
         if o1.exists():
             shutil.rmtree(o1)
-        code1, t1 = run([sys.executable, str(CHECK), str(d), "--horizontal-mm", "19", "--full-mm", "42", "--out", str(o1)])
+        for _attempt in range(2):  # web-qa may be editing the checker; retry once if it returns no summary
+            code1, t1 = run([sys.executable, str(CHECK), str(d), "--horizontal-mm", "19", "--full-mm", "42", "--out", str(o1)])
+            if summary(t1):
+                break
         (cdir / "check_logo.txt").write_text(
             f"python brand/src/check_logo.py {d.relative_to(ROOT).as_posix()} --horizontal-mm 19 --full-mm 42" + NL
             + f"(الأسماء مثل web-brand: {cid}-icon.svg = سطح أبيض ونقطة فوق الحبر، و-icon-ink للخلفية الفاتحة)" + NL + NL
@@ -65,9 +68,8 @@ def main():
         t8 = item8.run(cid)
         s8 = summary(t8)
         notes[cid] = (s1, s8)
-        line = (f"PASS {s1[0]} · FAIL {s1[1]} (الزعفران على التيل 2.59: التيل ما يُستخدم خلفية) · WARN {s1[2]} · SKIP {s1[4]} "
-                f"(الأفقي: السكربت ما يعزل السطر اللاتيني لأن الرمز جزئين)؛ البند 8 للأفقي على 19mm بكود السكربت نفسه: "
-                f"PASS {s8[0]} · FAIL {s8[1]} · WARN {s8[2]}. التفصيل في check/")
+        line = (f"PASS {s1[0]} · FAIL {s1[1]} (الزعفران على التيل 2.59: التيل مرفوض خلفية في 16.4) · WARN {s1[2]} · SKIP {s1[4]}. "
+                f"البند 8 للأفقي بقياسي المستقل (item8.py) PASS {s8[0]} · FAIL {s8[1]} · WARN {s8[2]}، ويطابق السكربت. التفصيل في check/")
         sheet.sheet(cid, C.CONCEPTS[cid], C.NAMES[cid], IDEAS[cid], line)
         # mark_test (web-illustrator tool): engraving, stickers, sizes, weak spots, even-odd
         mt = d / "mark-test"

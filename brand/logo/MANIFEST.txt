@@ -1,0 +1,31 @@
+# لمسة تاب — LamsaTap: ملفات الشعار، الإصدار 1.0.0
+# النسخة المجمّدة (loyer ق7): أي تعديل على أي ملف هنا = إصدار جديد، ويرجع لـ loyer قبل الإيداع.
+# ® ممنوعة قبل شهادة التسجيل، و™ مسموحة (legal.md). الفحص: sha256sum -c MANIFEST.txt (من داخل المجلد)
+4a5a16c03dfd98f8d77b77980491624f3a10c7aa2378414be4910912117292e0  lamsatap-icon.svg
+4680ca01f2942e5322a8d122e27cf95e9155931a10cd4b9e91396a68a8f46a5f  lamsatap-icon-dark.svg
+ff97e912c70c1e284e627dba08874957e131160dc5987d1cb4f16cda8940a556  lamsatap-icon-mono.svg
+f34c2c9cfc5fa84d8ab96d5500624b2958025c2ded28e3de8cbbd5607fcb95e6  lamsatap-icon-mono-white.svg
+bc304f459fd7826615f64aa496df77ab607f1e69fd0284dcf0f4fd3fd4f8faf9  lamsatap-icon-onink.svg
+ba69d813402bd641894b394898fba1d8a1b3585eae8e0fa1d57cf8ba3ef36b71  lamsatap-favicon.svg
+a44dec9c2adc195aaf4f95c84c428f86fdcc54f082db83cb707f46633e2752b7  lamsatap-avatar.svg
+5503020c63c8b1dd869b36145077e4243e3a785371501c761727c9a1292c0a1f  lamsatap-icon-circle.svg
+236d244c83cadef39023e10e86844266751509129923eaafa8398413948b047f  lamsatap-horizontal.svg
+2a8a19f76d1614d5e0af36bdfcd30820c23503cf93be4324f49b6d6fabd4592e  lamsatap-horizontal-dark.svg
+fc743971cf7f79b60a2a3f293bdae9e95f753f6dcd74d5e3e912116bb85a10f1  lamsatap-horizontal-mono.svg
+e7f10ad52907dbd75f40828237a813b0e5d5e579e4d58fd78fb81c3ac23244b6  lamsatap-horizontal-mono-white.svg
+dad044bef440314838a9bbb9ef3cc947fa2c7a7e5c48a2832ea85a7542230938  lamsatap-horizontal-ar.svg
+8f357f09b4838b873d52df194e3807b448bf5b59b0d5bb19817d4c19e05a7b88  lamsatap-horizontal-ar-dark.svg
+9feaffc43152ba78acbc4b377b245c02ac3716e55d5de24657fc4882ba4fa68e  lamsatap-horizontal-ar-mono.svg
+9a1d70351259f5538811d8df5229fe1d829b4599ac55726d16f45dae9d33a313  lamsatap-horizontal-ar-mono-white.svg
+a1026d4fb53d01cb72d8592c7a3fb8fa7065b577642a62b1c37bc0bdc02bb78c  lamsatap-logo.svg
+f03155589631e1d81f3fc91279f7203df7e2b0457d41f71b68ae011021512ac3  lamsatap-logo-dark.svg
+7f1135591da0d3da1bd1e297de8502be52180c73b1edf77e037b4d4e22b1cb6b  lamsatap-logo-mono.svg
+6ed5ae47a5ef882c4a54fe8dba7b83e419c5da20eeeb84170b770b0406d9bae1  lamsatap-logo-mono-white.svg
+5e4c1b1c01966adfc8ec704bd9cc863241c40c8dc73b06a8d014da199d6ff443  favicon.ico
+ad6b301e83b5e2146caf974f72ac8d776e329a52600da5d8496a3f4c163e0e48  png/lamsatap-avatar-1080.png
+364476599a18b91f26e79dd6b97fa3521db1ce6729fc91ac0b4773cd3cfecbe7  png/lamsatap-icon-512.png
+710fd305d5f8931920cae5b9381ddc79a68ccaddb994fb3679abcbf23f7f7888  png/lamsatap-icon-180.png
+a606c2bac8d2540d60954fc12a8ba126db391c86b2864d769aea1c32182ae2ab  png/lamsatap-icon-32.png
+a38abd72e4e4ae4a0c9dd191616ccc391a8fb2e360edb3259aeda86bdd0529ca  png/lamsatap-logo-mono.jpg
+7b3712e0e6b5d647478db28c7bf78e4647d162770d72f3c2380b1080c275b8ba  png/lamsatap-horizontal-mono.jpg
+# برّا الإصدار (ملف قديم باقي لين يعيد الموقع الربط): lamsatap-icon-fullbleed.svg

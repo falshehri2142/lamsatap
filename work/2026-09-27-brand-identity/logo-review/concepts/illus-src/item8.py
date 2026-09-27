@@ -41,7 +41,8 @@ def run(cid, target_mm=19.0):
             return None
         r0, r1 = rows[-1]
         cs = np.nonzero(sub[r0:r1].any(0))[0]
-        return r0, r1, a + cs[0], a + cs[-1] + 1
+        c0, c1 = a + cs[0], a + cs[-1] + 1
+        return r0, r1, c0, c1, ink[r0:r1, c0:c1]  # check_logo (18:19) expects a 5th item: the letters mask
 
     CL.latin_band = band
     CL.LATIN_TARGET_MM["horizontal"] = target_mm

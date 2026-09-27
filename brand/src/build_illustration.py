@@ -13,7 +13,11 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build_logo import ROOT, num, symbol, symbol_geometry  # noqa: E402
+try:
+    from build_logo import ROOT, num, symbol, symbol_geometry  # noqa: E402
+except ImportError:  # الشعار الجديد 1.0.0 (GM-026) ما فيه رمز «ب»
+    raise SystemExit("هذي الرسمة القديمة مبنية على رمز «ب» المرفوض (GM-022)، ومولّدها وقف مع الشعار الجديد 1.0.0. "
+                     "الملف tap-hero.svg باقي زي ما هو، والبديل رسومات web-illustrator (website/assets/illustrations/).")
 
 OUT = os.path.join(ROOT, "brand", "illustrations", "tap-hero.svg")
 TITLE = "جوال يلمس الستاند، ونقطة الستاند تنزل على صفحة المنيو اللي انفتحت في الجوال"

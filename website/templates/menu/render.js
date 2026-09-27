@@ -24,7 +24,9 @@
           it = it || {};
           // سطرين (web-copy 2.1): الاسم والسعر، وتحتهم «{الوصف} · السعرات: {cal}» أو واحد منهم بس
           var price = str(it.price), desc = str(it.desc), cal = str(it.cal);
-          var sub = [desc ? esc(desc) : '', cal ? 'السعرات: ' + esc(cal) : ''].filter(Boolean).join(' · ');
+          // «· السعرات: N» مقطع واحد ما ينقسم (التقييم 1 بند 9): النقطة معه، والمسافة قبلها برّاه عشان السطر ينكسر قبل النقطة مو بعدها
+          var sub = (desc ? esc(desc) : '') +
+            (cal ? (desc ? ' ' : '') + '<span class="m-cal">' + (desc ? '· ' : '') + 'السعرات: ' + esc(cal) + '</span>' : '');
           return cRow({ cls: 'm-item', title: esc(it.name), sub: sub, value: price ? esc(price) : null });
         })) + '</section>');
     });

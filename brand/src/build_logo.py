@@ -1,89 +1,117 @@
-"""يبني كل ملفات الشعار (SVG) من خط Readex Pro، والاسم من website/config.js.
+"""يبني كل ملفات شعار «لمسة تاب — LamsaTap»، الإصدار 1.0.0 (GM-026؛ الرمز brand-3 «الحادّ»، اتجاه «الميلان»).
 
-الفكرة «النقطة لمسة»: الرمز حرف «ب»: الحوض = سطح الستاند أو البطاقة، والنقطة الزعفرانية تحته = الشريحة
-(نقطة اللمس). كل نقاط الاسم العربي دوائر زعفرانية، ونقاط الحرف الواحد منفصلة عن بعض (كل نقطة لمسة).
-موجة اللمسة تعيش في الحركة (web-motion: موجة من نقطة الضغط)، مو في الشعار الثابت. القرار وسببه:
-work/2026-09-27-brand-identity/web-brand.md
+القرار وأسبابه: work/2026-09-27-brand-identity/web-art-director.md (القسم 16 و«قرار الشعار»)، والمقارنة:
+work/2026-09-27-brand-identity/logo-review/concepts/web-brand.md.
+
+- الرمز مسار ثابت في ملف مصدر واحد: brand/src/lamsatap-mark.svg (لوح 512: مسار السطح id="surface" ومسار النقطة
+  id="dot"، تعبئة بس، أوامر مطلقة). أي تعديل على الرمز يصير هناك = إصدار جديد، والسكربت ما يرسم الرمز من عنده.
+  يتولّد من المفهوم بـ: python work/2026-09-27-brand-identity/logo-review/concepts/brand-src/make_master.py brand-3 brand/src/lamsatap-mark.svg
+- الاسم «لمسة تاب — LamsaTap» (GM-012) ينقرى من website/config.js (companyName و companyNameEn)، والحروف مسارات من
+  خط Readex Pro (OFL)، مدموجة بـ skia-pathops: مسار واحد نظيف لكل لون، بدون تداخل (مهندس NFC بند 6).
 
 التشغيل من جذر المشروع:  python brand/src/build_logo.py && python brand/src/export_png.py
-الاسم «لمسة تاب — LamsaTap» (GM-012) ينقرى من website/config.js (companyName و companyNameEn)، مصدر واحد للموقع والشعار.
-للتجربة في مجلد ثاني بدون لمس الموقع:  --config <ملف config.js> --out <مجلد>
-يحتاج: fonttools و uharfbuzz و opencv-python و numpy (الأخيرتين لتفريغ «ب» في نسخ اللون الواحد؛ بدونها يوقف قبل ما يكتب أي ملف).
-الخط: brand/fonts/source/ReadexPro[HEXP,wght].ttf (رخصة OFL). النص يطلع مسارات (paths)، فالملفات ما تحتاج الخط مثبّت.
+للتجربة في مجلد ثاني:     --config <config.js> --mark <lamsatap-mark.svg> --out <مجلد>
+معاينة بدون skia-pathops:  --preview --out <مجلد برّا brand/logo>  (نفس التركيب، والحروف مو مدموجة: ما تصلح للتسليم)
+يحتاج: fonttools و uharfbuzz و skia-pathops (مثبّت بإذن صاحب المشروع، 2026-09-27).
+الناتج: الملفات في brand/logo/، و MANIFEST.txt فيه رقم الإصدار وبصمة SHA-256 لكل ملف من ملفات الإصدار (loyer ق7).
+ملفات قديمة ما لها بديل بنفس الاسم تبقى في المجلد (ما تنمسح)، بس ما تدخل MANIFEST.
+
+توافق: build_demo_brands.py (شعارات محلات العرض) ياخذ من هنا ROOT و num و Text.
 """
 import argparse
+import hashlib
 import html
-import itertools
 import math
 import os
 import re
 import sys
 
 import uharfbuzz as hb
-from fontTools.pens.basePen import BasePen
 from fontTools.pens.boundsPen import BoundsPen
-from fontTools.pens.recordingPen import RecordingPen
+from fontTools.pens.recordingPen import DecomposingRecordingPen, RecordingPen
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+try:
+    import pathops
+except ImportError:
+    pathops = None
+
+
+def _root():
+    """جذر المشروع: أول مجلد فوق السكربت فيه brand/fonts/source."""
+    d = os.path.dirname(os.path.abspath(__file__))
+    while not os.path.isdir(os.path.join(d, "brand", "fonts", "source")):
+        if os.path.dirname(d) == d:
+            raise SystemExit("ما لقيت جذر المشروع (brand/fonts/source)")
+        d = os.path.dirname(d)
+    return d
+
+
+ROOT = _root()
 VF = os.path.join(ROOT, "brand", "fonts", "source", "ReadexPro[HEXP,wght].ttf")
 OUT = os.path.join(ROOT, "brand", "logo")
 CONFIG = os.path.join(ROOT, "website", "config.js")
+MARK = os.path.join(ROOT, "brand", "src", "lamsatap-mark.svg")
+VERSION = "1.0.0"
 FALLBACK_EN = "LamsaTap"
+PREVIEW = False  # --preview: الحروف بدون دمج (بدون skia-pathops)
 
-# ألوان الهوية (نفس brand/tokens.css)
-TEAL = "#0B7A75"         # الأساسي: الاسم اللاتيني على الفاتح
-TEAL_DEEP = "#075E5A"    # مربع الرمز
-TEAL_LIGHT = "#3FC1B6"   # الاسم اللاتيني على الداكن
-SAFFRON = "#F2A93B"      # نقطة الرمز ونقاط الاسم على الفاتح
-SAFFRON_LIGHT = "#F5B85A"  # نقاط الاسم على الداكن
-INK = "#14201F"          # الاسم العربي على الفاتح
-LIGHT_TEXT = "#ECF2F0"   # الاسم العربي على الداكن
-MONO_BLACK, MONO_WHITE = "#000000", "#FFFFFF"  # نسخ اللون الواحد (حفر ليزر، طباعة أبيض وأسود)
-
-STYLES = {  # (الاسم العربي، نقاطه، الاسم اللاتيني، الرمز)
-    "light": (INK, SAFFRON, TEAL, None),
-    "dark": (LIGHT_TEXT, SAFFRON_LIGHT, TEAL_LIGHT, None),
-    "mono": (MONO_BLACK, MONO_BLACK, MONO_BLACK, MONO_BLACK),
-    "mono-white": (MONO_WHITE, MONO_WHITE, MONO_WHITE, MONO_WHITE),
+# الألوان (GM-020 و16.4): الشعار كله بدون تيل. الحبر، والفاتح للداكن، والزعفران للنقطة بكود واحد.
+INK, LIGHT, WHITE, BLACK, SAFFRON = "#14201F", "#ECF2F0", "#FFFFFF", "#000000", "#F2A93B"
+STYLES = {  # اسم النسخة: (لون السطح والاسم، لون النقطة)
+    "": (INK, SAFFRON),             # على الفاتح
+    "-dark": (LIGHT, SAFFRON),      # على الداكن
+    "-mono": (BLACK, BLACK),        # لون واحد أسود: حفر وختم وطباعة أبيض وأسود (موجب، بدون خلفية)
+    "-mono-white": (WHITE, WHITE),  # لون واحد أبيض: على مادة غامقة، أو فوق مساحة تيل (16.4)
 }
 
-W_AR, W_EN = 700, 500   # أوزان الخط في الشعار
-DOT_SCALE = 0.86        # قطر الدائرة ÷ حجم معيّن النقطة الأصلي في الخط
-DOT_GAP = 0.30          # أقل فراغ بين نقطتين من نفس الحرف (× القطر): النقطتين ما يلتصقون في الأحجام الصغيرة
-EN_RATIO = 0.42         # حجم الاسم اللاتيني ÷ حجم العربي
-EN_TRACK = 20           # تباعد الحروف اللاتينية (وحدات الخط)
+# الاسم (16.5): وحدات الخط العربي، em = 1000
+W_AR, W_EN = 600, 500
+SPACE_ADV = 250      # مسافة الكلمتين (الخط يعطي 306)
+PAIR = {}            # ضبط يدوي بين حرفين: {(اسم يسار، اسم يمين): إضافة}
+EN_TRACK = 12        # تباعد حروف LamsaTap (وحدات الخط اللاتيني)
+LINE_GAP = 210       # من خط قاعدة العربي لأعلى حروف LamsaTap الكبيرة
+CAP_EN = 700.0       # ارتفاع الحرف اللاتيني الكبير في Readex Pro
+E = 100.0            # em العربي بوحدات الملف
+GAP_H, GAP_V, MARK_V = 0.3, 0.35, 1.3   # المسافة للأفقي والعمودي (×h)، وحجم الرمز في العمودي (×h)
+CLEAR = 0.5          # المساحة الفارغة (×h)، تنقاس من حافة الحبر، ويمين الأفقي من حافة النقطة
 
-# مقاييس اسمية ثابتة (وحدات الخط، em = 1000): التخطيط ما يتغير مع حروف الاسم، والإطار يُقص على الحبر الفعلي
-AR_TOP, AR_BOTTOM = 803, -269    # أعلى نقاط فوق الحروف، وأسفل النقطة تحت
-EN_TOP, EN_BOTTOM = 700, -220    # ارتفاع الحروف الكبيرة، ونزول p
+# صورة الحساب (16.4 والتسويق بند 6): مربع حبر، والرمز داخل دائرة 80% في النص
+AVATAR_SCALE = 0.8   # لوح الرمز 512 ← 80% من الصورة
+AVATAR_SHIFT = 16.0  # إزاحة لليمين بوحدات الصورة (512): مركز الكتلة من 21.8 يسار المركز لـ 5.8 (قبل التجميد 2)
+# احتياط favicon.ico و PNG 32: دائرة حبر، والرمز بمقياس 6/7 عشان أعلاه وأسفله يطيحون على حدود البكسل
+# في 16 و32 و48px (160 و352 من 512 = مضاعفات 32)، فحافة النقطة العليا حادة (قبل التجميد 1)،
+# ومركز النقطة على x = 384 (حد بكسل في 16 و32 و48px) عشان تنعّم بالتساوي يمين ويسار
+ICO_SCALE = 6 / 7
+ICO_DOT_X = 384.0
 
-# الرمز (من 512): عرض «ب»، نصف قطر النقطة، الفراغ بينهم، زاوية المربع
-SYM_BODY_W, SYM_DOT_R, SYM_GAP, SYM_RADIUS = 330, 46, 40, 115
-# الشعار الكامل (عمودي): حجم الرمز، حجم العربي (px لكل em)، الفراغات
-ST_ICON, ST_AR_EM, ST_G1, ST_G2 = 240, 117, 44, 26
-# الشعار الأفقي: حجم العربي، الفراغ بين النص والرمز، بين السطرين، الرمز ÷ ارتفاع كتلة النص
-HZ_AR_EM, HZ_GX, HZ_GY, HZ_ICON_K = 90, 34, 22, 1.08
+MIN_CAP_PX = 7       # أصغر حجم على الشاشة: الحرف اللاتيني الكبير ≥ 7px
 
-# أصغر حجم: الاسم اللاتيني (ارتفاع الحرف الكبير) يبقى مقروء، والفراغ بين نقطتي الحرف ما ينسد
-MIN_CAP_PX, MIN_GAP_PX = 7, 1        # الشاشة: حرف لاتيني كبير ≥ 7px (نص 10px تقريباً)، فراغ النقطتين ≥ 1px
-MIN_CAP_MM, MIN_GAP_MM = 1.8, 0.35   # الطباعة والحفر: حرف كبير ≥ 1.8mm (نص 7pt تقريباً)، فراغ النقطتين ≥ 0.35mm
-SYM_MIN_PX, SYM_MIN_MM = 16, 6       # الرمز لحاله: 16px (favicon) و 6mm (أضيق فراغ فيه عندها 0.47mm)
+# ملفات الإصدار (MANIFEST.txt): اللي يطلعه هذا السكربت و export_png.py بس
+LOCKUPS = ("lamsatap-horizontal", "lamsatap-horizontal-ar", "lamsatap-logo")
+BUILD_FILES = ([f"lamsatap-icon{s}.svg" for s in STYLES] +
+               ["lamsatap-icon-onink.svg", "lamsatap-favicon.svg", "lamsatap-avatar.svg", "lamsatap-icon-circle.svg"] +
+               [f"{b}{s}.svg" for b in LOCKUPS for s in STYLES])
+EXPORT_FILES = ["favicon.ico", "png/lamsatap-avatar-1080.png", "png/lamsatap-icon-512.png", "png/lamsatap-icon-180.png",
+                "png/lamsatap-icon-32.png", "png/lamsatap-logo-mono.jpg", "png/lamsatap-horizontal-mono.jpg"]
 
 
-def num(v):
-    s = f"{v:.1f}"
-    s = s[:-2] if s.endswith(".0") else s
-    return "0" if s == "-0" else s
+def num(v, nd=1):
+    """رقم مختصر. الافتراضي خانة عشرية وحدة (مثل السكربت القديم، عشان build_demo_brands.py)، والشعار يمرر 2."""
+    s = f"{v:.{nd}f}".rstrip("0").rstrip(".")
+    return "0" if s in ("-0", "", "-") else s
+
+
+def n2(v):
+    return num(v, 2)
 
 
 # ---------- الاسم من config.js ----------
 
 def strip_js_comments(src):
-    """يشيل تعليقات // و /* */ من ملف JS، ويخلي اللي داخل النصوص على حاله (مثل https://)."""
     out, i, n, quote = [], 0, len(src), None
     while i < n:
         c = src[i]
@@ -116,7 +144,7 @@ def read_names(path):
     with open(path, encoding="utf-8") as f:
         src = strip_js_comments(f.read())
 
-    def field(key):  # مثل JavaScript: آخر قيمة تغلب، والمفتاح ممكن يكون بين علامتي تنصيص
+    def field(key):
         ms = list(re.finditer(r"[\"']?\b" + key + r"\b[\"']?\s*:\s*([\"'`])((?:\\.|(?!\1).)*)\1", src))
         return re.sub(r"\\(.)", r"\1", ms[-1].group(2)).strip() if ms else ""
 
@@ -126,8 +154,6 @@ def read_names(path):
     if not en:
         print(f"تنبيه: companyNameEn ناقص في {path}، استخدمت {FALLBACK_EN}")
         en = FALLBACK_EN
-    if "ب" not in ar:
-        print(f"تنبيه: الرمز «ب» ما هو في الاسم «{ar}». web-brand يراجع الرمز (GM-009).")
     return ar, en
 
 
@@ -153,359 +179,422 @@ def shape(text, w):
     if any(i.codepoint == 0 for i in buf.glyph_infos):
         raise SystemExit(f"خط Readex Pro ما فيه كل حروف «{text}»")
     # HarfBuzz يرجع النص العربي بالترتيب المرئي (من اليسار)
-    return [(order[i.codepoint], p.x_advance, p.x_offset, p.y_offset)
-            for i, p in zip(buf.glyph_infos, buf.glyph_positions)]
+    return [(order[i.codepoint], p.x_advance, p.x_offset, p.y_offset) for i, p in zip(buf.glyph_infos, buf.glyph_positions)]
 
 
-def split_contours(ops):
-    contours, cur = [], []
-    for op, args in ops:
-        cur.append((op, args))
-        if op in ("closePath", "endPath"):
-            contours.append(cur)
-            cur = []
-    return contours
-
-
-def dot_group(gs, name, dx, dy):
-    """نقاط حرف واحد كدوائر (x, y, القطر) في أماكنها الأصلية بالخط."""
-    rec = RecordingPen()
-    gs[name].draw(rec)
-    dots = []
-    for contour in split_contours(rec.value):
-        b = BoundsPen(gs)
-        for op, args in contour:
-            getattr(b, op)(*args)
-        x0, y0, x1, y1 = b.bounds
-        dots.append(((x0 + x1) / 2 + dx, (y0 + y1) / 2 + dy, max(x1 - x0, y1 - y0) * DOT_SCALE))
-    return dots
-
-
-def clearance(a, b):
-    """الفراغ بين حافتي دائرتين (سالب = متداخلة)."""
-    return math.dist(a[:2], b[:2]) - (a[2] + b[2]) / 2
-
-
-def spread_dots(groups):
-    """يباعد نقاط كل حرف لين يصير بينها فراغ DOT_GAP × القطر. التباعد أفقي عشان النقاط ما تنزل على
-    أسنان الحرف (مثل ش)، إلا لو النقاط فوق بعض فيصير من مركزها. وما يقرّب نقاط حرف من نقاط الحرف
-    اللي جنبه أكثر من الخط الأصلي أو من DOT_GAP (مثل «تت» و«يي»).
-    يرجع كل النقاط، وأضيق فراغ بين أي نقطتين في الاسم (None لو فيه نقطة وحدة بس)، وهل فيه حرف
-    ما انفصلت نقاطه (الجار ما خلى مكان، فترجع لمسافة الخط الأصلية)."""
-    def place(g, k, radial):
-        mx, my = sum(d[0] for d in g) / len(g), sum(d[1] for d in g) / len(g)
-        return [(mx + (x - mx) * k, my + (y - my) * k if radial else y, d) for x, y, d in g]
-
-    def inner_ok(g, k, radial):
-        return all(clearance(a, b) >= DOT_GAP * max(a[2], b[2]) - 1e-6
-                   for a, b in itertools.combinations(place(g, k, radial), 2))
-
-    plan = []  # [k, radial] لكل حرف
-    for g in groups:
-        if len(g) < 2 or inner_ok(g, 1.0, False):
-            plan.append([1.0, False])
-            continue
-        radial = not inner_ok(g, 3.0, False)  # الأفقي ما يكفي: النقاط فوق بعض
-        lo, hi = 1.0, 3.0
-        for _ in range(50):  # أقل تباعد يعطي الفراغ المطلوب
-            mid = (lo + hi) / 2
-            lo, hi = (lo, mid) if inner_ok(g, mid, radial) else (mid, hi)
-        plan.append([hi, radial])
-
-    pairs = list(itertools.combinations(range(len(groups)), 2))
-    limit = {(i, j): min(clearance(a, b) for a in groups[i] for b in groups[j]) for i, j in pairs}
-    for _ in range(300):  # نقاط الحروف المتجاورة: نخفف التباعد لين ترجع مسافتها مقبولة
-        pts = [place(g, k, r) for g, (k, r) in zip(groups, plan)]
-        bad = [(i, j) for i, j in pairs
-               if min(clearance(a, b) for a in pts[i] for b in pts[j])
-               < min(limit[(i, j)], DOT_GAP * max(d[2] for d in pts[i] + pts[j])) - 1e-6]
-        movable = [g for i, j in bad for g in (i, j) if plan[g][0] > 1.0]
-        if not movable:
-            break
-        for g in set(movable):
-            plan[g][0] = max(1.0, plan[g][0] - 0.01)
-    placed = [place(g, k, r) for g, (k, r) in zip(groups, plan)]
-    short = any(not inner_ok(p, 1.0, False) for p in placed if len(p) > 1)
-    dots = [p for g in placed for p in g]
-    gaps = [clearance(a, b) for a, b in itertools.combinations(dots, 2)]
-    return dots, (min(gaps) if gaps else None), short
+def glyph_top(name, w):
+    gs = instance(w).getGlyphSet()
+    b = BoundsPen(gs)
+    gs[name].draw(b)
+    return b.bounds[3]
 
 
 class Text:
-    """نص مشكّل: الجسم مسارات، والنقاط (لو split_dots) دوائر. bbox = الحبر الفعلي بوحدات الخط."""
+    """توافق مع build_demo_brands.py: نص مشكّل كمسارات (الواجهة القديمة: bbox و extent و svg). بدون فصل النقاط."""
 
-    def __init__(self, text, w, split_dots=True, tracking=0):
+    def __init__(self, text, w, split_dots=False, tracking=0):
+        if split_dots:
+            raise SystemExit("Text(split_dots=True) انشال مع الشعار القديم («ب»، GM-022)")
         font = instance(w)
         gs, glyf = font.getGlyphSet(), font["glyf"]
-        self.parts, groups, x = [], [], 0
+        self.parts, x = [], 0
         ink = BoundsPen(gs)
         for name, adv, xo, yo in shape(text, w):
             g = glyf[name]
             comps = [(c.glyphName, c.x, c.y) for c in g.components] if g.isComposite() else [(name, 0, 0)]
             for cname, cx, cy in comps:
                 dx, dy = x + xo + cx, yo + cy
-                if split_dots and "dot" in cname.lower():
-                    groups.append(dot_group(gs, cname, dx, dy))
-                else:
-                    self.parts.append((gs[cname], dx, dy))
-                    gs[cname].draw(TransformPen(ink, (1, 0, 0, 1, dx, dy)))
+                self.parts.append((gs[cname], dx, dy))
+                gs[cname].draw(TransformPen(ink, (1, 0, 0, 1, dx, dy)))
             x += adv + tracking
-        self.dots, self.min_gap, self.dots_short = spread_dots(groups) if groups else ([], None, False)
-        x0, y0, x1, y1 = ink.bounds
-        for cx, cy, d in self.dots:
-            x0, y0, x1, y1 = min(x0, cx - d / 2), min(y0, cy - d / 2), max(x1, cx + d / 2), max(y1, cy + d / 2)
-        self.bbox = (x0, y0, x1, y1)
+        self.dots, self.min_gap, self.dots_short = [], None, False
+        self.bbox = ink.bounds
 
     def extent(self, s):
-        """(عرض الحبر، ارتفاعه فوق خط القاعدة، نزوله تحت خط القاعدة) بمقياس s."""
         x0, y0, x1, y1 = self.bbox
         return (x1 - x0) * s, y1 * s, -y0 * s
 
-    def svg(self, x, base, s, fill, dot_fill):
-        """يرسم النص: حافة الحبر اليسرى عند x، وخط القاعدة عند base (y لتحت)."""
+    def svg(self, x, base, s, fill, dot_fill=None):
         x0 = self.bbox[0]
         pen = SVGPathPen(None, ntos=num)
         for glyph, dx, dy in self.parts:
             glyph.draw(TransformPen(pen, (s, 0, 0, -s, x + (dx - x0) * s, base - dy * s)))
-        out = f'<path fill="{fill}" d="{pen.getCommands()}"/>'
-        for cx, cy, d in self.dots:
-            out += (f'<circle cx="{num(x + (cx - x0) * s)}" cy="{num(base - cy * s)}" '
-                    f'r="{num(d * s / 2)}" fill="{dot_fill}"/>')
-        return out
+        return f'<path fill="{fill}" d="{pen.getCommands()}"/>'
 
 
-# ---------- الرمز ----------
+class Ink:
+    """مسار حروف: مدموج بـ skia-pathops للتسليم، أو مسجّل كما هو في المعاينة (--preview)."""
 
-def bbox_of(name, w):
-    gs = instance(w).getGlyphSet()
-    b = BoundsPen(gs)
-    gs[name].draw(b)
-    return b.bounds
+    def __init__(self, rec=None):
+        self.rec = rec if rec is not None else RecordingPen()
 
+    def add(self, other):
+        self.rec.value.extend(other.rec.value)
 
-def symbol_geometry(size=512):
-    """مكان «ب» ونقطتها داخل المربع: (تحويل الحرف، (cx, cy, r))."""
-    k = size / 512
-    x0, y0, x1, y1 = bbox_of("uni066E", W_AR)
-    s = SYM_BODY_W * k / (x1 - x0)
-    bw, bh = (x1 - x0) * s, (y1 - y0) * s
-    r, gap = SYM_DOT_R * k, SYM_GAP * k
-    top = (size - (bh + gap + 2 * r)) / 2
-    left = (size - bw) / 2
-    transform = (s, 0, 0, -s, left - x0 * s, top + y1 * s)
-    return transform, (size / 2, top + bh + gap + r, r)
+    def union(self):
+        if PREVIEW:
+            return self
+        p = pathops.Path()
+        self.rec.replay(p.getPen())
+        p.simplify(fix_winding=True)
+        out = RecordingPen()
+        p.draw(out)
+        return Ink(out)
 
+    def moved(self, dx, dy):
+        out = RecordingPen()
+        self.rec.replay(TransformPen(out, (1, 0, 0, 1, dx, dy)))
+        return Ink(out)
 
-def beh_path(transform):
-    pen = SVGPathPen(None, ntos=num)
-    instance(W_AR).getGlyphSet()["uni066E"].draw(TransformPen(pen, transform))
-    return pen.getCommands()
+    @property
+    def bounds(self):
+        b = BoundsPen(None)
+        self.rec.replay(b)
+        return b.bounds
 
-
-def rounded_rect(size, r):
-    if r <= 0:
-        return f"M0 0H{num(size)}V{num(size)}H0Z"
-    a, b, c = num(r), num(size - r), num(size)
-    return (f"M{a} 0H{b}A{a} {a} 0 0 1 {c} {a}V{b}A{a} {a} 0 0 1 {b} {c}"
-            f"H{a}A{a} {a} 0 0 1 0 {b}V{a}A{a} {a} 0 0 1 {a} 0Z")
-
-
-def circle_path(cx, cy, r):
-    return f"M{num(cx - r)} {num(cy)}a{num(r)} {num(r)} 0 1 0 {num(2 * r)} 0a{num(r)} {num(r)} 0 1 0 {num(-2 * r)} 0Z"
+    def d(self):
+        pen = SVGPathPen(None, ntos=n2)
+        self.rec.replay(pen)
+        return pen.getCommands()
 
 
-class _FlattenPen(BasePen):
-    """يحوّل مسار الحرف لمضلعات (للتفريغ في نسخة اللون الواحد)."""
-
-    def __init__(self, glyphset, steps=32):
-        super().__init__(glyphset)
-        self.polys, self.cur, self.steps = [], [], steps
-
-    def _moveTo(self, p):
-        self.cur = [p]
-
-    def _lineTo(self, p):
-        self.cur.append(p)
-
-    def _qCurveToOne(self, p1, p2):
-        p0 = self._getCurrentPoint()
-        for i in range(1, self.steps + 1):
-            t = i / self.steps
-            u = 1 - t
-            self.cur.append((u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
-                             u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1]))
-
-    def _curveToOne(self, p1, p2, p3):
-        p0 = self._getCurrentPoint()
-        for i in range(1, self.steps + 1):
-            t = i / self.steps
-            u = 1 - t
-            self.cur.append(tuple(u ** 3 * a + 3 * u * u * t * b + 3 * u * t * t * c + t ** 3 * d
-                                  for a, b, c, d in zip(p0, p1, p2, p3)))
-
-    def _closePath(self):
-        if self.cur:
-            self.polys.append(self.cur)
-        self.cur = []
-
-    _endPath = _closePath
+def text_run(text, weight, scale, tracking=0.0, space=None):
+    """سطر نص، حافة حبره اليمنى عند x=0 وخط قاعدته y=0 (SVG: y لتحت)."""
+    gs = instance(weight).getGlyphSet()
+    ink = Ink()
+    glyphs = shape(text, weight)
+    cur = 0.0
+    for i, (name, adv, xo, yo) in enumerate(glyphs):
+        if name == "space":
+            cur += space if space is not None else adv
+            continue
+        pen = DecomposingRecordingPen(gs)
+        gs[name].draw(TransformPen(pen, (scale, 0, 0, -scale, (cur + xo) * scale, -yo * scale)))
+        ink.rec.value.extend(pen.value)
+        cur += adv + tracking
+        if i + 1 < len(glyphs):
+            cur += PAIR.get((name, glyphs[i + 1][0]), 0)
+    ink = ink.union()
+    return ink.moved(-ink.bounds[2], 0)
 
 
-def beh_union_path(transform, res=16):
-    """حدود «ب» كمسار واحد بدون تداخل (خطوط الحرف في الخط متداخلة، والتفريغ evenodd يبيها نظيفة).
-    يرسم الحرف بدقة res بكسل لكل وحدة ويتتبع حدوده؛ أقصى فرق مقاس عن الحرف الأصلي 0.12 من 512."""
-    try:
-        import cv2
-        import numpy as np
-    except ImportError:
-        raise SystemExit("نسخ اللون الواحد تحتاج opencv-python و numpy:  pip install opencv-python numpy")
-    gs = instance(W_AR).getGlyphSet()
-    pen = _FlattenPen(gs)
-    gs["uni066E"].draw(TransformPen(pen, transform))
-    pts = [p for poly in pen.polys for p in poly]
-    ox, oy = min(p[0] for p in pts) - 2, min(p[1] for p in pts) - 2
-    w = int((max(p[0] for p in pts) - ox + 4) * res)
-    h = int((max(p[1] for p in pts) - oy + 4) * res)
-    mask = np.zeros((h, w), np.uint8)
-    for poly in pen.polys:  # كل خط لحاله: الاتحاد بدون مشكلة التداخل
-        arr = np.array([[round((x - ox) * res * 16), round((y - oy) * res * 16)] for x, y in poly], np.int32)
-        cv2.fillPoly(mask, [arr], 255, lineType=cv2.LINE_8, shift=4)
-    contours, _ = cv2.findContours(mask, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE)
-    out = ""
-    for c in contours:
-        pts = []
-        for px, py in cv2.approxPolyDP(c, 1.2, True)[:, 0, :]:
-            p = f"{num(px / res + ox)} {num(py / res + oy)}"  # مراكز البكسل أعداد صحيحة (نظام OpenCV)
-            if not pts or pts[-1] != p:
-                pts.append(p)
-        out += "M" + "L".join(pts) + "Z"
+class Name:
+    """كتلة الاسم: العربي فوق، واللاتيني تحته محاذي لبدايته (يمين). الإحداثيات: حافة الحبر اليمنى x=0،
+    وخط قاعدة العربي y=0."""
+
+    def __init__(self, names, latin=True):
+        s_ar = E / 1000
+        tooth = glyph_top("uni0633.medi", W_AR)   # أسنان «سـ» الوسطية
+        lam = glyph_top("uni0644.init", W_AR)     # أعلى «ل»
+        s_en = s_ar * tooth / CAP_EN              # الحرف اللاتيني الكبير = أسنان «مسـ» (16.5)
+        self.ar = text_run(names[0], W_AR, s_ar, space=SPACE_ADV)
+        self.lam_top = -lam * s_ar
+        self.cap_px = tooth * s_ar
+        if latin:
+            base = (LINE_GAP + tooth) * s_ar
+            self.en = text_run(names[1], W_EN, s_en, tracking=EN_TRACK).moved(0, base)
+            self.bottom = base
+        else:
+            self.en, self.bottom = None, 0.0
+        self.h = self.bottom - self.lam_top
+
+    def ink(self):
+        p = Ink()
+        p.add(self.ar)
+        if self.en is not None:
+            p.add(self.en)
+        return p.union()
+
+    def bounds(self):
+        bs = [self.ar.bounds] + ([self.en.bounds] if self.en is not None else [])
+        return min(b[0] for b in bs), min(b[1] for b in bs), max(b[2] for b in bs), max(b[3] for b in bs)
+
+
+# ---------- الرمز من ملف المصدر ----------
+
+_TOK = re.compile(r"[MLHVACQZmlhvacqz]|-?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?")
+_ARGS = {"M": 2, "L": 2, "H": 1, "V": 1, "A": 7, "C": 6, "Q": 4, "Z": 0}
+
+
+def parse_d(d):
+    toks, out, i, cmd = _TOK.findall(d), [], 0, None
+    while i < len(toks):
+        t = toks[i]
+        if t.isalpha():
+            if t.islower():
+                raise SystemExit(f"ملف الرمز فيه أمر نسبي «{t}»: خلّه كله مطلق")
+            cmd, i = t, i + 1
+            if cmd == "Z":
+                out.append(("Z", []))
+            continue
+        n = _ARGS[cmd]
+        out.append((cmd, [float(v) for v in toks[i:i + n]]))
+        i += n
+        if cmd == "M":
+            cmd = "L"
     return out
 
 
-def symbol(size=512, full_bleed=False, mono=None):
-    """الرمز المربع. mono=لون: نسخة لون واحد، المربع بهذا اللون و«ب» والنقطة مفرّغة (شفافة)."""
-    transform, (cx, cy, r) = symbol_geometry(size)
-    radius = 0 if full_bleed else SYM_RADIUS * size / 512
-    if mono:
-        return (f'<path fill="{mono}" fill-rule="evenodd" d="{rounded_rect(size, radius)}'
-                f'{beh_union_path(transform)}{circle_path(cx, cy, r)}"/>')
-    return (f'<rect width="{num(size)}" height="{num(size)}" rx="{num(radius)}" fill="{TEAL_DEEP}"/>'
-            f'<path fill="#fff" d="{beh_path(transform)}"/>'
-            f'<circle cx="{num(cx)}" cy="{num(cy)}" r="{num(r)}" fill="{SAFFRON}"/>')
+def xform_d(cmds, k, ox, oy):
+    s = ""
+    for c, a in cmds:
+        if c in "ML":
+            s += f"{c}{n2(a[0] * k + ox)} {n2(a[1] * k + oy)}"
+        elif c == "H":
+            s += f"H{n2(a[0] * k + ox)}"
+        elif c == "V":
+            s += f"V{n2(a[0] * k + oy)}"
+        elif c == "A":
+            s += f"A{n2(a[0] * k)} {n2(a[1] * k)} {n2(a[2])} {int(a[3])} {int(a[4])} {n2(a[5] * k + ox)} {n2(a[6] * k + oy)}"
+        elif c in "CQ":
+            s += c + " ".join(f"{n2(a[j] * k + ox)} {n2(a[j + 1] * k + oy)}" for j in range(0, len(a), 2))
+        else:
+            s += "Z"
+    return s
+
+
+def arc_points(x0, y0, r, large, sweep, x1, y1, steps=64):
+    """نقاط على قوس دائري (rx = ry، بدون دوران) من (x0, y0) لـ (x1, y1)، حسب ملاحظات تنفيذ SVG (F.6.5)."""
+    dx, dy = (x0 - x1) / 2, (y0 - y1) / 2
+    d2 = dx * dx + dy * dy
+    r = max(r, math.sqrt(d2))
+    f = math.sqrt(max(0.0, (r * r - d2) / d2)) if d2 else 0.0
+    if large == sweep:
+        f = -f
+    cx, cy = f * dy + (x0 + x1) / 2, -f * dx + (y0 + y1) / 2
+    a0, a1 = math.atan2(y0 - cy, x0 - cx), math.atan2(y1 - cy, x1 - cx)
+    da = a1 - a0
+    if sweep and da < 0:
+        da += 2 * math.pi
+    elif not sweep and da > 0:
+        da -= 2 * math.pi
+    return [(cx + r * math.cos(a0 + da * i / steps), cy + r * math.sin(a0 + da * i / steps)) for i in range(steps + 1)]
+
+
+def outline(cmds):
+    pts, cur = [], (0.0, 0.0)
+    for c, a in cmds:
+        if c in "ML":
+            cur = (a[0], a[1])
+            pts.append(cur)
+        elif c == "H":
+            cur = (a[0], cur[1])
+            pts.append(cur)
+        elif c == "V":
+            cur = (cur[0], a[0])
+            pts.append(cur)
+        elif c == "A":
+            if abs(a[0] - a[1]) > 1e-6 or a[2]:
+                raise SystemExit("ملف الرمز: الأقواس لازم دائرية بدون دوران")
+            pts += arc_points(cur[0], cur[1], a[0], int(a[3]), int(a[4]), a[5], a[6])
+            cur = (a[5], a[6])
+        elif c in "CQ":
+            cur = (a[-2], a[-1])
+            pts += [(a[j], a[j + 1]) for j in range(0, len(a), 2)]
+    return pts
+
+
+class Mark:
+    """الرمز من ملف المصدر: مسار السطح ومسار النقطة (دائرة) على لوح 512."""
+
+    def __init__(self, path):
+        src = open(path, encoding="utf-8").read()
+        vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', src).group(1).split()]
+        if vb != [0, 0, 512, 512]:
+            raise SystemExit('ملف الرمز لازم viewBox="0 0 512 512"')
+
+        def get(i):
+            m = (re.search(r'<path[^>]*\sid="' + i + r'"[^>]*\sd="([^"]+)"', src)
+                 or re.search(r'<path[^>]*\sd="([^"]+)"[^>]*\sid="' + i + r'"', src))
+            if not m:
+                raise SystemExit(f'ملف الرمز لازم فيه مسار id="{i}"')
+            return parse_d(m.group(1))
+        self.surface, self.dot = get("surface"), get("dot")
+        sp = outline(self.surface)
+        self.top, self.bottom = min(y for _, y in sp), max(y for _, y in sp)
+        self.left = min(x for x, _ in sp)
+        # النقطة دائرة: M على طرفها اليسار، وقوس لطرفها اليمين
+        (_, (mx, my)), (_, arc) = self.dot[0], self.dot[1]
+        self.r = arc[0]
+        self.cx, self.cy = (mx + arc[5]) / 2, my
+        if abs(arc[6] - my) > 1e-6 or abs(arc[5] - mx - 2 * self.r) > 1e-6:
+            raise SystemExit("ملف الرمز: مسار النقطة لازم دائرة (M على طرفها اليسار ثم قوسين)")
+        # أعلى النقطة على خط أعلى السطح بالضبط (المدير الفني «قبل التجميد» 1)
+        self.dot_top = self.cy - self.r
+        if abs(self.dot_top - self.top) > 0.01:
+            raise SystemExit(f"المحاذاة: أعلى النقطة {self.dot_top:g} لازم يساوي أعلى السطح {self.top:g}")
+        xs = [x for x, _ in sp] + [self.cx - self.r, self.cx + self.r]
+        ys = [y for _, y in sp] + [self.cy - self.r, self.cy + self.r]
+        self.bbox = (min(xs), min(ys), max(xs), max(ys))
+        # مركز الكتلة (للتوازن البصري في صورة الحساب)
+        cr = [sp[i - 1][0] * sp[i][1] - sp[i][0] * sp[i - 1][1] for i in range(len(sp))]
+        a2 = sum(cr)
+        gx = sum((sp[i - 1][0] + sp[i][0]) * cr[i] for i in range(len(sp))) / (3 * a2)
+        gy = sum((sp[i - 1][1] + sp[i][1]) * cr[i] for i in range(len(sp))) / (3 * a2)
+        a_s, a_d = abs(a2) / 2, math.pi * self.r ** 2
+        self.mass = ((gx * a_s + self.cx * a_d) / (a_s + a_d), (gy * a_s + self.cy * a_d) / (a_s + a_d))
+
+    def body(self, fg, dotc, k=1.0, ox=0.0, oy=0.0):
+        s, d = xform_d(self.surface, k, ox, oy), xform_d(self.dot, k, ox, oy)
+        if fg == dotc:
+            return f'<path fill="{fg}" d="{s}{d}"/>'
+        return f'<path fill="{fg}" d="{s}"/><path fill="{dotc}" d="{d}"/>'
 
 
 # ---------- الملفات ----------
 
-def svg_doc(names, x, y, w, h, body):
-    title = html.escape(f"{names[0]} — {names[1]}", quote=True)  # & و " و < في الاسم ما يكسرون الملف
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{num(x)} {num(y)} {num(w)} {num(h)}" '
-            f'width="{num(w)}" height="{num(h)}" role="img" aria-label="{title}">'
-            f'<title>{title}</title>{body}</svg>\n')
+def svg_doc(names, box, body, extra=""):
+    t = html.escape(f"{names[0]} — {names[1]}", quote=True)
+    x, y, w, h = box
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{n2(x)} {n2(y)} {n2(w)} {n2(h)}" width="{n2(w)}" '
+            f'height="{n2(h)}" role="img" aria-label="{t}"><title>{t}</title>{extra}{body}</svg>\n')
 
 
-def line_box(text, top, bottom):
-    """حدود السطر (وحدات الخط): المقاس الاسمي، ويتمدد لو حبر الاسم أطول (ذيل م ع ي، أو الشدة)
-    عشان الفراغ بين السطرين ما يقل عن المخطط."""
-    return max(top, text.bbox[3]), min(bottom, text.bbox[1])
+def lockup_horizontal(mark, names, latin=True):
+    nm = Name(names, latin)
+    k = nm.h / (mark.bottom - mark.top)
+    ox = GAP_H * nm.h - mark.left * k
+    oy = nm.lam_top - mark.top * k
+    x0, y0, x1, y1 = nm.bounds()
+    bx0, by0, bx1, by1 = mark.bbox
+    top = min(y0, by0 * k + oy)
+    right = bx1 * k + ox       # حافة النقطة اليمنى = حافة الملف
+    return nm, k, ox, oy, (x0, top, right - x0, max(y1, by1 * k + oy) - top)
 
 
-def placed_symbol(x, y, size, style):
-    return (f'<g transform="translate({num(x)} {num(y)}) scale({size / 512:.6g})">'
-            f'{symbol(mono=STYLES[style][3])}</g>')
+def lockup_vertical(mark, names):
+    nm = Name(names, True)
+    k = MARK_V * nm.h / (mark.bottom - mark.top)
+    x0, y0, x1, y1 = nm.bounds()
+    bx0, by0, bx1, by1 = mark.bbox
+    ox = (x0 + x1) / 2 - (bx0 + bx1) / 2 * k
+    oy = nm.lam_top - GAP_V * nm.h - mark.bottom * k
+    X0, X1 = min(x0, bx0 * k + ox), max(x1, bx1 * k + ox)
+    Y0 = by0 * k + oy
+    return nm, k, ox, oy, (X0, Y0, X1 - X0, y1 - Y0)
 
 
-def stacked(names, style):
-    """الشعار الكامل: الرمز فوق، الاسم العربي، ثم اللاتيني. الإطار مقصوص على الحبر (المساحة الفارغة في القواعد)."""
-    fg, dotc, enc, _ = STYLES[style]
-    ar, en = Text(names[0], W_AR), Text(names[1], W_EN, split_dots=False, tracking=EN_TRACK)
-    s_ar = ST_AR_EM / 1000
-    s_en = s_ar * EN_RATIO
-    (aw, a_up, a_dn), (ew, e_up, e_dn) = ar.extent(s_ar), en.extent(s_en)
-    (a_top, a_bot), (e_top, e_bot) = line_box(ar, AR_TOP, AR_BOTTOM), line_box(en, EN_TOP, EN_BOTTOM)
-    y_ar = ST_ICON + ST_G1 + a_top * s_ar
-    y_en = y_ar - a_bot * s_ar + ST_G2 + e_top * s_en
-    W = max(ST_ICON, aw, ew)
-    body = placed_symbol((W - ST_ICON) / 2, 0, ST_ICON, style)
-    body += ar.svg((W - aw) / 2, y_ar, s_ar, fg, dotc)
-    body += en.svg((W - ew) / 2, y_en, s_en, enc, enc)
-    y0 = min(0, y_ar - a_up)
-    y1 = max(ST_ICON, y_ar + a_dn, y_en + e_dn)
-    return svg_doc(names, 0, y0, W, y1 - y0, body), min_size(y1 - y0, W, EN_TOP * s_en, ar.min_gap and ar.min_gap * s_ar)
+def lock_body(mark, nm, k, ox, oy, fg, dotc):
+    s = xform_d(mark.surface, k, ox, oy)
+    d = xform_d(mark.dot, k, ox, oy)
+    t = nm.ink().d()
+    if fg == dotc:
+        return f'<path fill="{fg}" d="{s}{t}{d}"/>'
+    return f'<path fill="{fg}" d="{s}{t}"/><path fill="{dotc}" d="{d}"/>'
 
 
-def horizontal(names, style):
-    """الشعار الأفقي: الرمز يمين (بداية القراءة)، والنص يساره محاذى لجهة الرمز.
-    ارتفاع الملف = ارتفاع الرمز (166 لـ«لمسة تاب»)، إلا لو علامة فوق الحروف (مثل الشدة) طلعت فوقه شوي."""
-    fg, dotc, enc, _ = STYLES[style]
-    ar, en = Text(names[0], W_AR), Text(names[1], W_EN, split_dots=False, tracking=EN_TRACK)
-    s_ar = HZ_AR_EM / 1000
-    s_en = s_ar * EN_RATIO
-    (aw, a_up, a_dn), (ew, e_up, e_dn) = ar.extent(s_ar), en.extent(s_en)
-    (a_top, a_bot), (e_top, e_bot) = line_box(ar, AR_TOP, AR_BOTTOM), line_box(en, EN_TOP, EN_BOTTOM)
-    text_h = (AR_TOP - AR_BOTTOM) * s_ar + HZ_GY + (EN_TOP - EN_BOTTOM) * s_en  # اسمي: حجم الرمز ثابت
-    icon = round(text_h * HZ_ICON_K)
-    block_h = (a_top - a_bot) * s_ar + HZ_GY + (e_top - e_bot) * s_en       # الفعلي: الأسطر ما تتلامس
-    W = max(aw, ew) + HZ_GX + icon
-    ix = W - icon
-    top = (icon - block_h) / 2
-    y_ar = top + a_top * s_ar
-    y_en = top + (a_top - a_bot) * s_ar + HZ_GY + e_top * s_en
-    right = ix - HZ_GX
-    body = placed_symbol(ix, 0, icon, style)
-    body += ar.svg(right - aw, y_ar, s_ar, fg, dotc)
-    body += en.svg(right - ew, y_en, s_en, enc, enc)
-    y0 = min(0, y_ar - a_up, y_en - e_up)
-    y1 = max(icon, y_ar + a_dn, y_en + e_dn)
-    return svg_doc(names, 0, y0, W, y1 - y0, body), min_size(y1 - y0, W, EN_TOP * s_en, ar.min_gap and ar.min_gap * s_ar)
+def framed(mark, scale, shift_x=0.0, snap=False, dot_x=None):
+    """(k, ox, oy) لوضع الرمز داخل لوح 512: مقياس scale حول المركز، مع إزاحة لليمين. snap: أعلى السطح يبقى
+    على نفس خطه (مضاعف 32) عشان الحواف الأفقية تطيح على حدود البكسل في 16 و32 و48px. dot_x: مركز النقطة هنا."""
+    bx0, by0, bx1, by1 = mark.bbox
+    ox = 256 - (bx0 + bx1) / 2 * scale + shift_x if dot_x is None else dot_x - mark.cx * scale
+    oy = mark.top - mark.top * scale if snap else 256 - (by0 + by1) / 2 * scale
+    return scale, ox, oy
 
 
-def min_size(h, w, cap, gap):
-    """أصغر ارتفاع (px للشاشة، mm للطباعة) حسب MIN_*، والعرض المقابل. h وw وcap وgap بوحدات الملف."""
-    gap = gap if gap and gap > 0 else None  # نقاط متلاصقة ما يحلها التكبير (عليها تنبيه في main)
-    px = max(MIN_CAP_PX * h / cap, MIN_GAP_PX * h / gap if gap else 0)
-    mm = max(MIN_CAP_MM * h / cap, MIN_GAP_MM * h / gap if gap else 0)
-    px, mm = math.ceil(px), math.ceil(mm)
-    return {"px": px, "px_w": math.ceil(px * w / h), "mm": mm, "mm_w": math.ceil(mm * w / h)}
-
-
-def build(names):
-    files = {
-        "lamsatap-icon.svg": svg_doc(names, 0, 0, 512, 512, symbol()),
-        "lamsatap-icon-fullbleed.svg": svg_doc(names, 0, 0, 512, 512, symbol(full_bleed=True)),
-        "lamsatap-icon-mono.svg": svg_doc(names, 0, 0, 512, 512, symbol(mono=MONO_BLACK)),
-        "lamsatap-icon-mono-white.svg": svg_doc(names, 0, 0, 512, 512, symbol(mono=MONO_WHITE)),
-    }
-    sizes = {}
-    suffix = {"light": "", "dark": "-dark", "mono": "-mono", "mono-white": "-mono-white"}
-    for style, sfx in suffix.items():
-        files[f"lamsatap-logo{sfx}.svg"], sizes["الشعار الكامل lamsatap-logo*"] = stacked(names, style)
-        files[f"lamsatap-horizontal{sfx}.svg"], sizes["الشعار الأفقي lamsatap-horizontal*"] = horizontal(names, style)
-    return files, sizes
+def build(names, mark):
+    files, notes = {}, {}
+    icon = (0, 0, 512, 512)
+    for sfx, (fg, dc) in STYLES.items():
+        files[f"lamsatap-icon{sfx}.svg"] = svg_doc(names, icon, mark.body(fg, dc))
+    # على الحبر (صورة الحساب، وملف فحص التباين في check_logo.py): سطح أبيض ونقطة
+    files["lamsatap-icon-onink.svg"] = svg_doc(names, icon, mark.body(WHITE, SAFFRON))
+    # favicon بدون خلفية ويتكيف (16.4): فاتح = سطح حبر، داكن = #ECF2F0، والنقطة زعفران بالوضعين
+    files["lamsatap-favicon.svg"] = svg_doc(names, icon, (
+        f'<path class="s" fill="{INK}" d="{xform_d(mark.surface, 1, 0, 0)}"/>'
+        f'<path fill="{SAFFRON}" d="{xform_d(mark.dot, 1, 0, 0)}"/>'),
+        extra=f'<style>@media (prefers-color-scheme:dark){{.s{{fill:{LIGHT}}}}}</style>')
+    # صورة الحساب: مربع حبر مصمت (1080 و512 و180 PNG)، والرمز داخل دائرة 80%
+    k, ox, oy = framed(mark, AVATAR_SCALE, AVATAR_SHIFT)
+    files["lamsatap-avatar.svg"] = svg_doc(names, icon, f'<rect width="512" height="512" fill="{INK}"/>' + mark.body(WHITE, SAFFRON, k, ox, oy))
+    notes["avatar"] = dict(k=k, ox=ox, oy=oy)
+    # احتياط favicon.ico و PNG 32: دائرة حبر، تبان على التبويب الفاتح والداكن، والحواف على حدود البكسل
+    k, ox, oy = framed(mark, ICO_SCALE, snap=True, dot_x=ICO_DOT_X)
+    files["lamsatap-icon-circle.svg"] = svg_doc(names, icon, f'<circle cx="256" cy="256" r="256" fill="{INK}"/>' + mark.body(WHITE, SAFFRON, k, ox, oy))
+    notes["circle"] = dict(k=k, ox=ox, oy=oy)
+    # الأقفال
+    built = {"lamsatap-horizontal": lockup_horizontal(mark, names), "lamsatap-horizontal-ar": lockup_horizontal(mark, names, latin=False),
+             "lamsatap-logo": lockup_vertical(mark, names)}
+    for base in LOCKUPS:
+        nm, kk, ox, oy, box = built[base]
+        for sfx, (fg, dc) in STYLES.items():
+            files[f"{base}{sfx}.svg"] = svg_doc(names, box, lock_body(mark, nm, kk, ox, oy, fg, dc))
+        notes[base] = dict(box=box, h=nm.h, cap=nm.cap_px if nm.en is not None else None,
+                           dot_right=(mark.cx + mark.r) * kk + ox, dot_top=(mark.cy - mark.r) * kk + oy, surf_top=mark.top * kk + oy)
+    assert sorted(files) == sorted(BUILD_FILES), "قائمة ملفات الإصدار ما تطابق الناتج"
+    return files, notes
 
 
 def main():
-    ap = argparse.ArgumentParser(description="يبني ملفات الشعار من الخط، والاسم من config.js")
-    ap.add_argument("--config", default=CONFIG, help="ملف config.js (الافتراضي: website/config.js)")
-    ap.add_argument("--out", default=OUT, help="مجلد الناتج (الافتراضي: brand/logo)")
+    global PREVIEW
+    ap = argparse.ArgumentParser(description="يبني ملفات الشعار: الرمز من lamsatap-mark.svg، والاسم من config.js")
+    ap.add_argument("--config", default=CONFIG)
+    ap.add_argument("--mark", default=MARK)
+    ap.add_argument("--out", default=OUT)
+    ap.add_argument("--preview", action="store_true", help="بدون skia-pathops: الحروف مو مدموجة، ومو للتسليم")
     a = ap.parse_args()
-    for stream in (sys.stdout, sys.stderr):  # الرسائل العربية في طرفية ويندوز
+    for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8", errors="replace")
+    out = os.path.abspath(a.out)
+    PREVIEW = a.preview
+    if PREVIEW and os.path.normcase(out).startswith(os.path.normcase(OUT)):
+        raise SystemExit("المعاينة ما تنكتب في brand/logo")
+    if not PREVIEW and pathops is None:
+        raise SystemExit("يحتاج skia-pathops عشان يدمج الحروف (pip install skia-pathops). للمعاينة: --preview --out <مجلد>")
     names = read_names(a.config)
-    if Text(names[0], W_AR).dots_short:
-        print(f"تنبيه: في «{names[0]}» حرف ما انفصلت نقاطه (جاره قريب)، فبقت بمسافة الخط الأصلية. web-brand يراجع الشعار.")
-    files, sizes = build(names)  # يبني كل شي قبل الكتابة: لو وقف، ما يترك مجلد فاضي ولا ملفات ناقصة
-    print(f"الاسم: {names[0]} — {names[1]}")
-    os.makedirs(a.out, exist_ok=True)
+    mark = Mark(a.mark)
+    files, notes = build(names, mark)   # يبني كل شي قبل الكتابة
+    os.makedirs(out, exist_ok=True)
+    tag = "  (معاينة: الحروف مو مدموجة، مو للتسليم)" if PREVIEW else ""
+    print(f"الاسم: {names[0]} — {names[1]}   الإصدار {VERSION}{tag}")
+    print(f"المحاذاة: أعلى النقطة {mark.dot_top:g} = أعلى السطح {mark.top:g} (من 512)")
     for name, content in files.items():
-        with open(os.path.join(a.out, name), "w", encoding="utf-8", newline="\n") as f:
+        with open(os.path.join(out, name), "w", encoding="utf-8", newline="\n") as f:
             f.write(content)
         vb = re.search(r'viewBox="[^ ]+ [^ ]+ ([^ ]+) ([^"]+)"', content)
         print(f"{name}: {vb.group(1)}x{vb.group(2)}, {len(content.encode('utf-8'))} bytes")
-    print("أصغر حجم (ارتفاع × عرض):")
-    print(f"  الرمز lamsatap-icon*: الشاشة {SYM_MIN_PX}px، الطباعة {SYM_MIN_MM}mm")
-    for label, m in sizes.items():
-        print(f"  {label}: الشاشة {m['px']}×{m['px_w']}px، الطباعة {m['mm']}×{m['mm_w']}mm")
+    print("الأقفال: المساحة الفارغة 0.5h من حافة الحبر، ويمين الأفقي والعربي بس من حافة النقطة:")
+    for base in LOCKUPS:
+        n = notes[base]
+        x, y, w, h = n["box"]
+        if base != "lamsatap-logo" and abs((x + w) - n["dot_right"]) > 0.01:
+            raise SystemExit(f"{base}: حافة الملف اليمنى لازم تكون حافة النقطة")
+        if abs(n["dot_top"] - n["surf_top"]) > 0.01:
+            raise SystemExit(f"{base}: أعلى النقطة لازم على أعلى السطح")
+        line = f"  {base}: h = {n['h']:.2f}، المساحة {CLEAR * n['h']:.2f} (= {CLEAR * n['h'] / h:.3f} من ارتفاع الملف)"
+        if n["cap"]:
+            hp = math.ceil(MIN_CAP_PX * h / n["cap"])
+            line += f"، الحرف اللاتيني الكبير 7px من ارتفاع {hp}px × {math.ceil(hp * w / h)}px"
+        print(line)
+    write_manifest(out, PREVIEW)
+
+
+def write_manifest(out, preview=False):
+    """النسخة المجمّدة: رقم الإصدار وبصمة SHA-256 لكل ملف من ملفات الإصدار (يعيد الحساب بعد export_png.py)."""
+    official = BUILD_FILES + EXPORT_FILES
+    rows, missing = [], []
+    for rel in official:
+        p = os.path.join(out, *rel.split("/"))
+        if os.path.exists(p):
+            rows.append(f"{hashlib.sha256(open(p, 'rb').read()).hexdigest()}  {rel}")
+        else:
+            missing.append(rel)
+    present = set()
+    for root, _, fs in os.walk(out):
+        for f in fs:
+            present.add(os.path.relpath(os.path.join(root, f), out).replace(os.sep, "/"))
+    outside = sorted(present - set(official) - {"MANIFEST.txt"})
+    head = (f"# لمسة تاب — LamsaTap: ملفات الشعار، الإصدار {VERSION}\n"
+            + ("# معاينة بدون دمج الحروف: مو النسخة المجمّدة، ولا تنودع ولا تنطبع.\n" if preview else
+               "# النسخة المجمّدة (loyer ق7): أي تعديل على أي ملف هنا = إصدار جديد، ويرجع لـ loyer قبل الإيداع.\n")
+            + "# ® ممنوعة قبل شهادة التسجيل، و™ مسموحة (legal.md). الفحص: sha256sum -c MANIFEST.txt (من داخل المجلد)\n")
+    tail = ("".join(f"# برّا الإصدار (ملف قديم باقي لين يعيد الموقع الربط): {r}\n" for r in outside)
+            + "".join(f"# ناقص (يطلعه export_png.py): {r}\n" for r in missing))
+    with open(os.path.join(out, "MANIFEST.txt"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(head + "\n".join(rows) + "\n" + tail)
+    print(f"MANIFEST.txt: {len(rows)} ملف، الإصدار {VERSION}" + (" (معاينة)" if preview else "")
+          + (f"، و{len(outside)} ملف قديم برّا الإصدار" if outside else "") + (f"، و{len(missing)} ناقص" if missing else ""))
 
 
 if __name__ == "__main__":

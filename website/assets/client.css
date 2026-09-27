@@ -42,8 +42,11 @@
 /* رأس الهوية (§5.3): شعار المحل أو اسمه (GM-027)، في النص. ما ينمط ولا ينقص ولا ينلوّن */
 .c-id { display: flex; align-items: center; justify-content: center; margin: 28px 0 var(--lt-space-20); }
 .c-logo { display: block; width: auto; height: auto; max-width: 180px; max-height: 56px; object-fit: contain; }
-.c-id--sm .c-logo { max-height: 40px; }
+.c-id--sm .c-logo { max-width: 128px; max-height: 40px; }
+/* لما بعده ترحيب h1 (دليل الوحدة): صندوق 40px (التقييم 1 بند 10)، والعرض بنفس نسبة 180×56 (128).
+   بدون تصغير العرض ما يتغير شي في الشعار العريض: شعار «شقق المثال» 211×40 يوقفه العرض 180 على 34px في الحالتين */
 .c-id-name { font-size: 22px; line-height: 1.3; font-weight: 700; text-align: center; }
+.c-id--sm .c-id-name { font-size: 17px; }   /* الاسم بدون شعار بنفس المنطق: أصغر من الترحيب 28 بوضوح */
 @media (prefers-color-scheme: dark) {
   /* أغلب الشعارات مرسومة للأبيض: الملف الفاتح على لوح أبيض، إلا لو فيه brand.logoDark (يطلع بدون لوح) */
   .c-plate { box-sizing: content-box; padding: var(--lt-space-8) var(--lt-space-12); border-radius: 12px; background: var(--c-plate); }

@@ -2,7 +2,7 @@ python brand/src/check_logo.py work/2026-09-27-brand-identity/logo-review/concep
 (الأسماء مثل web-brand: illus-2-icon.svg = سطح أبيض ونقطة فوق الحبر، و-icon-ink للخلفية الفاتحة)
 
 == C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\elegant-mclean-8e29f3\work\2026-09-27-brand-identity\logo-review\concepts\illus-2\illus-2
-[INFO] البند -: الملفات: horizontal_mono=illus-2-horizontal-mono.svg، icon=illus-2-icon.svg، mono=illus-2-icon-mono.svg، full_mono=illus-2-logo-mono.svg
+[INFO] البند -: الملفات: horizontal_mono=illus-2-horizontal-mono.svg، mono=illus-2-icon-mono.svg، icon=illus-2-icon.svg، full_mono=illus-2-logo-mono.svg
 [PASS] البند 3: أرفع خط: 0.2475 من الضلع (126.7 من 512)، داخل الشكل  (الحد 0.096)
 [PASS] البند 3: أضيق فراغ: 0.1126 من الضلع (57.6 من 512)، بين جزئين منفصلين  (الحد 0.078)
 [PASS] البند 3: قطر النقطة: 0.2499 من الضلع (128.0 من 512)، استدارتها 1.00  (الحد 0.15)
@@ -33,12 +33,16 @@ python brand/src/check_logo.py work/2026-09-27-brand-identity/logo-review/concep
 [PASS] البند +: بعد #0B7A75 عن ألوان قريبة (ΔE2000): لتين 11.05، تيل واتساب، مصدره غير رسمي 9.97  (سماحية المطبعة 3.5)
 [PASS] البند +: بعد #14201F عن ألوان قريبة (ΔE2000): لتين 20.85، تيل واتساب، مصدره غير رسمي 22.52  (سماحية المطبعة 3.5)
 [INFO] البند 1: صورة المقارنة (دائرة 32 و40px، فاتح وداكن وأسود، ملون ورمادي): C:\Users\TechTroniX\AppData\Local\Temp\claude\C--Users-TechTroniX-Desktop-NFC--claude-worktrees-elegant-mclean-8e29f3\85efa662-67bf-4314-a683-a51a1cd64de5\scratchpad\illus-logo\checks\illus-2\canonical\illus-2-item1-avatars-1x-zoom4.png  (الحكم بالعين: ينعرف؟)
-[SKIP] البند 8: السطر اللاتيني في الأفقي: ما قدرت أحدد السطر (آخر سطر نص)
+[PASS] البند 8: الأفقي على 19mm: أرفع خط: 0.502mm  (الحد 0.3mm)
+[PASS] البند 8: الأفقي على 19mm: أضيق فراغ بين حرفين: 0.572mm  (الحد 0.3mm)
+[PASS] البند 8: الأفقي على 19mm: أصغر عين حرف مقفلة: 0.917mm  (الحد 0.3mm)
+[WARN] البند 8: الأفقي على 19mm: أضيق زاوية داخلية مفتوحة (رقم تقريبي): 0.105mm  (الزاوية الحادة تنقفل شوي في الحفر وما تكسر الحرف، ورقمها يتغير مع الدقة)
+[INFO] البند 8: الأفقي: أصغر ارتفاع حفر يخلي الخطوط والفراغات والعيون ≥ 0.3mm: 11.4mm  (ارتفاع السطر اللاتيني على 19mm = 6.58mm، والدقة ±0.021mm)
 [PASS] البند 8: الكامل على 42mm: أرفع خط: 0.509mm  (الحد 0.3mm)
 [PASS] البند 8: الكامل على 42mm: أضيق فراغ بين حرفين: 0.593mm  (الحد 0.3mm)
 [PASS] البند 8: الكامل على 42mm: أصغر عين حرف مقفلة: 0.917mm  (الحد 0.3mm)
 [WARN] البند 8: الكامل على 42mm: أضيق زاوية داخلية مفتوحة (رقم تقريبي): 0.105mm  (الزاوية الحادة تنقفل شوي في الحفر وما تكسر الحرف، ورقمها يتغير مع الدقة)
-[INFO] البند 8: الكامل: أصغر ارتفاع حفر يخلي الخطوط والفراغات والعيون ≥ 0.3mm: 24.7mm  (ارتفاع السطر اللاتيني على 42mm = 8.74mm، والدقة ±0.021mm)
--- PASS 30 | FAIL 1 | WARN 2 | INFO 3 | SKIP 1
+[INFO] البند 8: الكامل: أصغر ارتفاع حفر يخلي الخطوط والفراغات والعيون ≥ 0.3mm: 24.7mm  (ارتفاع السطر اللاتيني على 42mm = 6.60mm، والدقة ±0.021mm)
+-- PASS 33 | FAIL 1 | WARN 3 | INFO 4 | SKIP 0
 
 الصور والتقرير: C:\Users\TechTroniX\AppData\Local\Temp\claude\C--Users-TechTroniX-Desktop-NFC--claude-worktrees-elegant-mclean-8e29f3\85efa662-67bf-4314-a683-a51a1cd64de5\scratchpad\illus-logo\checks\illus-2\canonical

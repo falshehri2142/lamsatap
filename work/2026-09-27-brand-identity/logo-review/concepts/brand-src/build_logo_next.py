@@ -75,10 +75,12 @@ CLEAR = 0.5          # المساحة الفارغة (×h)، تنقاس من ح�
 
 # صورة الحساب (16.4 والتسويق بند 6): مربع حبر، والرمز داخل دائرة 80% في النص
 AVATAR_SCALE = 0.8   # لوح الرمز 512 ← 80% من الصورة
-AVATAR_SHIFT = 0.0   # إزاحة لليمين بوحدات الصورة (512)، للتوازن البصري (قبل التجميد 2)
+AVATAR_SHIFT = 16.0  # إزاحة لليمين بوحدات الصورة (512): مركز الكتلة من 21.8 يسار المركز لـ 5.8 (قبل التجميد 2)
 # احتياط favicon.ico و PNG 32: دائرة حبر، والرمز بمقياس 6/7 عشان أعلاه وأسفله يطيحون على حدود البكسل
-# في 16 و32 و48px (160 و352 من 512 = مضاعفات 32)، فحافة النقطة العليا حادة (قبل التجميد 1)
+# في 16 و32 و48px (160 و352 من 512 = مضاعفات 32)، فحافة النقطة العليا حادة (قبل التجميد 1)،
+# ومركز النقطة على x = 384 (حد بكسل في 16 و32 و48px) عشان تنعّم بالتساوي يمين ويسار
 ICO_SCALE = 6 / 7
+ICO_DOT_X = 384.0
 
 MIN_CAP_PX = 7       # أصغر حجم على الشاشة: الحرف اللاتيني الكبير ≥ 7px
 
@@ -433,11 +435,11 @@ def lock_body(mark, nm, k, ox, oy, fg, dotc):
     return f'<path fill="{fg}" d="{s}{t}"/><path fill="{dotc}" d="{d}"/>'
 
 
-def framed(mark, scale, shift_x=0.0, snap=False):
+def framed(mark, scale, shift_x=0.0, snap=False, dot_x=None):
     """(k, ox, oy) لوضع الرمز داخل لوح 512: مقياس scale حول المركز، مع إزاحة لليمين. snap: أعلى السطح يبقى
-    على نفس خطه (مضاعف 32) عشان الحواف الأفقية تطيح على حدود البكسل في 16 و32 و48px."""
+    على نفس خطه (مضاعف 32) عشان الحواف الأفقية تطيح على حدود البكسل في 16 و32 و48px. dot_x: مركز النقطة هنا."""
     bx0, by0, bx1, by1 = mark.bbox
-    ox = 256 - (bx0 + bx1) / 2 * scale + shift_x
+    ox = 256 - (bx0 + bx1) / 2 * scale + shift_x if dot_x is None else dot_x - mark.cx * scale
     oy = mark.top - mark.top * scale if snap else 256 - (by0 + by1) / 2 * scale
     return scale, ox, oy
 
@@ -459,7 +461,7 @@ def build(names, mark):
     files["lamsatap-avatar.svg"] = svg_doc(names, icon, f'<rect width="512" height="512" fill="{INK}"/>' + mark.body(WHITE, SAFFRON, k, ox, oy))
     notes["avatar"] = dict(k=k, ox=ox, oy=oy)
     # احتياط favicon.ico و PNG 32: دائرة حبر، تبان على التبويب الفاتح والداكن، والحواف على حدود البكسل
-    k, ox, oy = framed(mark, ICO_SCALE, AVATAR_SHIFT * ICO_SCALE / AVATAR_SCALE, snap=True)
+    k, ox, oy = framed(mark, ICO_SCALE, snap=True, dot_x=ICO_DOT_X)
     files["lamsatap-icon-circle.svg"] = svg_doc(names, icon, f'<circle cx="256" cy="256" r="256" fill="{INK}"/>' + mark.body(WHITE, SAFFRON, k, ox, oy))
     notes["circle"] = dict(k=k, ox=ox, oy=oy)
     # الأقفال

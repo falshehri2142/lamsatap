@@ -99,6 +99,28 @@ def _rdp(pts, eps):
     return _rdp(pts[:i + 1], eps)[:-1] + _rdp(pts[i:], eps)
 
 
+def _num10(v):
+    """رقم بالأعشار (عدد صحيح) ← نص قصير: 12.3 و-.5 و7."""
+    sgn, v = ("-" if v < 0 else ""), abs(v)
+    a, b = divmod(v, 10)
+    return sgn + (f"{a}" if a else "") + (f".{b}" if b else ("" if a else "0"))
+
+
+def _poly_rel(pts):
+    """مضلع مقفل بإحداثيات نسبية مختصرة (m ثم l)، والتقريب يتحسب من النقطة المقرّبة اللي قبلها فما يتراكم."""
+    ip = [(round(x * 10), round(y * 10)) for x, y in pts]
+    out, prev, seq = [f"M{_num10(ip[0][0])} {_num10(ip[0][1])}l"], ip[0], []
+    for x, y in ip[1:]:
+        dx, dy = x - prev[0], y - prev[1]
+        if dx or dy:
+            seq += [_num10(dx), _num10(dy)]
+            prev = (x, y)
+    body = ""
+    for t in seq:
+        body += t if (not body or t.startswith("-")) else " " + t
+    return out[0] + body + "z"
+
+
 def text_path(text, w, height=None, size=None, cx=0, cy=0, anchor="middle", prec=1, simplify=None):
     """نص عربي مشكّل كمسار. يا size (حجم الخط بوحدات الرسم) يا height (ارتفاع الحبر).
     anchor=middle: مركز الحبر عند (cx, cy). simplify=eps: حدود مبسطة بخطوط مستقيمة (للنص الصغير، أخف بكثير).
@@ -133,7 +155,7 @@ def text_path(text, w, height=None, size=None, cx=0, cy=0, anchor="middle", prec
             k = max(range(len(poly_)), key=lambda i: math.dist(poly_[0], poly_[i]))
             pts = _rdp(poly_[:k + 1], simplify)[:-1] + _rdp(poly_[k:] + [poly_[0]], simplify)[:-1]
             if len(pts) > 2:
-                d.append("M" + "L".join(f"{f(x, prec)} {f(y, prec)}" for x, y in pts) + "Z")
+                d.append(_poly_rel(pts))
         return "".join(d), (x1 - x0) * s, (y1 - y0) * s
     pen = SVGPathPen(gs, ntos=lambda v: f(v, prec))
     for name, dx, dy in parts:
@@ -150,6 +172,8 @@ def rrect(x, y, w, h, r):
 
 
 def circle(cx, cy, r):
+    """دائرة بقوسين. القطر = ضعف نصف القطر المقرّب بالضبط، وإلا القوس الكبير يطلع الدائرة بيضاوية."""
+    r = float(f(r))
     return f"M{f(cx - r)} {f(cy)}a{f(r)} {f(r)} 0 1 0 {f(2 * r)} 0a{f(r)} {f(r)} 0 1 0 {f(-2 * r)} 0Z"
 
 
@@ -220,17 +244,20 @@ def icons():
 
 
 # ---------- 3) الجوال ----------
+PHONE_BEZEL_MM = 1.8   # حافة الشاشة: 6px على عرض 240 (تقييم المدير الفني 1، البند 3). نفس الجوال في كل الرسومات
+
+
 def phone_parts(k, p, slot_id, hi=True, ox=0, screen_fill=WHITE):
     """جوال من قدام بإحداثيات محلية: (0,0) = نص الحافة العليا، والجوال نازل لتحت. k = px لكل mm.
-    72×150mm، زاوية 10mm، حافة متساوية 3mm، وكاميرا دائرية صغيرة في النص فوق.
+    72×150mm، زاوية 10mm، حافة متساوية 1.8mm، وكاميرا دائرية صغيرة في النص فوق (مركزها 5mm من الحافة العليا).
     يرجع (الجسم، الشاشة، الكاميرا، أبعاد الشاشة)."""
-    W, H, R, b = 72 * k, 150 * k, 10 * k, 3 * k
+    W, H, R, b = 72 * k, 150 * k, 10 * k, PHONE_BEZEL_MM * k
     body = f'<path fill="{INK}" class="{p}edge" d="{rrect(ox - W / 2, 0, W, H, R)}"/>'
     if hi:  # حافة عليا أفتح (النور من فوق)
-        body += f'<path fill="{INK_EDGE}" d="{rrect(ox - W / 2 + R * .9, 0, W - R * 1.8, 1.4 * k / 1.85 + .6, .8)}"/>'
+        body += f'<path fill="{INK_EDGE}" d="{rrect(ox - W / 2 + R * .9, 0, W - R * 1.8, max(.9, .75 * k), .6)}"/>'
     sx, sy, sw, sh, sr = ox - W / 2 + b, b, W - 2 * b, H - 2 * b, R - b
     screen = f'<rect id="{slot_id}" x="{f(sx)}" y="{f(sy)}" width="{f(sw)}" height="{f(sh)}" rx="{f(sr)}" fill="{screen_fill}"/>'
-    cam = f'<circle cx="{f(ox)}" cy="{f(sy + 3.2 * k)}" r="{f(1.35 * k)}" fill="{INK}"/>'
+    cam = f'<circle cx="{f(ox)}" cy="{f(5 * k)}" r="{f(1.35 * k)}" fill="{INK}"/>'
     return body, screen, cam, (sx, sy, sw, sh, sr)
 
 
@@ -243,6 +270,17 @@ def phone_frame():
     g = f'{body}{screen}{cam}'
     meta = (f' data-slot="{f(sx)} {f(sy)} {f(sw)} {f(sh)}" data-slot-radius="{f(sr)}"')
     return svg_doc(240, 500, "إطار جوال", g, style, p, meta), (sx, sy, sw, sh, sr)
+
+
+def phone_at(p, slot_id, dot, k, tilt, screen_fill=WHITE):
+    """جوال مايل حافته العليا تلمس النقطة (dot = مركزها ونصف قطرها). tilt موجب = أعلاه لليمين."""
+    body, screen, cam, _ = phone_parts(k, p, slot_id, screen_fill=screen_fill)
+    a = math.radians(tilt)
+    gap = 1.2
+    tx, ty = dot[0] - (dot[2] + gap) * math.sin(a), dot[1] + (dot[2] + gap) * math.cos(a)
+    g = (f'<g id="{p}phone" transform="translate({f(tx)} {f(ty)}) rotate({tilt})"><g class="{p}phone-move">'
+         f"{body}{screen}{cam}</g></g>")
+    return g, (tx, ty, tilt)
 
 
 # ---------- 4) الأشياء ----------
@@ -258,40 +296,177 @@ def block(x, y, w, h, front, top, side, d=DEPTH, r=0):
     return f'<path fill="{side}" d="{s}"/><path fill="{top}" d="{t}"/><path fill="{front}" d="{fr}"/>'
 
 
-def face_content(x0, y0, k, shop_cls, name, title, parts=("name", "title", "dot")):
-    """وجه الستاند أو اللوحة بمقاسات قالب الستاند (الموجز الفني القسم 6)، بالمليمتر من الزاوية العليا.
-    اسم المحل نص بلون المحل في خانة الشعار (GM-027)، والعنوان حبر، والنقطة بلون المحل على مركز الشريحة (62mm)."""
+# ورقة الستاند بمقاسات print/dims.js (قالب web-builder)، ومعها تصحيح المدير الفني (صندوق الشعار 60×16mm)
+SHEET = dict(w=100, h=150, logo_top=12, logo_w=60, logo_h=16, title=38, dot=62, touch=82.5, scan=99, qr_top=110, qr=30)
+
+
+def _parse_path(d):
+    """مسار SVG (M L H V Q C Z، مطلق ونسبي) ← مضلعات (المنحنيات مقسومة)."""
+    import re as _re
+    toks = _re.findall(r"[MmLlHhVvQqCcZz]|-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?", d)
+    polys, cur, i, cmd, x, y, sx, sy = [], [], 0, None, 0.0, 0.0, 0.0, 0.0
+
+    def nums(n):
+        nonlocal i
+        v = [float(t) for t in toks[i:i + n]]
+        i += n
+        return v
+    while i < len(toks):
+        if toks[i].isalpha():
+            cmd = toks[i]
+            i += 1
+            if cmd in "Zz":
+                if cur:
+                    polys.append(cur)
+                cur, x, y = [], sx, sy
+                continue
+        rel = cmd.islower()
+        c = cmd.upper()
+        if c == "M":
+            nx, ny = nums(2)
+            if rel:
+                nx, ny = nx + x, ny + y
+            if cur:
+                polys.append(cur)
+            cur, x, y, sx, sy = [(nx, ny)], nx, ny, nx, ny
+            cmd = "l" if rel else "L"
+        elif c == "L":
+            nx, ny = nums(2)
+            x, y = (nx + x, ny + y) if rel else (nx, ny)
+            cur.append((x, y))
+        elif c == "H":
+            (nx,) = nums(1)
+            x = nx + x if rel else nx
+            cur.append((x, y))
+        elif c == "V":
+            (ny,) = nums(1)
+            y = ny + y if rel else ny
+            cur.append((x, y))
+        elif c == "Q":
+            x1, y1, x2, y2 = nums(4)
+            if rel:
+                x1, y1, x2, y2 = x1 + x, y1 + y, x2 + x, y2 + y
+            for j in range(1, 7):
+                t = j / 6
+                u = 1 - t
+                cur.append((u * u * x + 2 * u * t * x1 + t * t * x2, u * u * y + 2 * u * t * y1 + t * t * y2))
+            x, y = x2, y2
+        elif c == "C":
+            x1, y1, x2, y2, x3, y3 = nums(6)
+            if rel:
+                x1, y1, x2, y2, x3, y3 = x1 + x, y1 + y, x2 + x, y2 + y, x3 + x, y3 + y
+            for j in range(1, 9):
+                t = j / 8
+                u = 1 - t
+                cur.append((u ** 3 * x + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t ** 3 * x3,
+                            u ** 3 * y + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t ** 3 * y3))
+            x, y = x3, y3
+    if cur:
+        polys.append(cur)
+    return polys
+
+
+def _polys_d(polys, eps, prec=1):
     out = []
-    cx = x0 + 52.5 * k
-    if "name" in parts:  # خانة الشعار 70×18mm من 12 لين 30mm: الاسم بارتفاع حبر 9mm
-        d, w, _ = text_path(name, 600, height=9 * k, cx=cx, cy=y0 + 21 * k, simplify=.12)
-        if w > 64 * k:
-            d, w, _ = text_path(name, 600, height=9 * k * 64 * k / w, cx=cx, cy=y0 + 21 * k, simplify=.12)
-        out.append(f'<path class="{shop_cls}" fill="currentColor" d="{d}"/>')
-    if "title" in parts:  # العنوان 18pt (6.35mm) من 34 لين 42mm
-        d, _, _ = text_path(title, 600, size=6.35 * k, cx=cx, cy=y0 + 38.5 * k, simplify=.1)
+    for pl in polys:
+        if len(pl) < 3:
+            continue
+        k = max(range(len(pl)), key=lambda i: math.dist(pl[0], pl[i]))
+        pts = _rdp(pl[:k + 1], eps)[:-1] + _rdp(pl[k:] + [pl[0]], eps)[:-1]
+        if len(pts) > 2:
+            out.append(_poly_rel(pts))
+    return "".join(out)
+
+
+def logo_paths(svg_file, x, y, w, h, cls, eps=.1):
+    """يحط شعار محل العرض (ملف web-brand) داخل صندوق (x, y, w, h) بدون ما يتمطط، بلون cls (currentColor)."""
+    import re as _re
+    src = open(svg_file, encoding="utf-8").read()
+    vw, vh = [float(v) for v in _re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', src).group(1, 2)]
+    s = min(w / vw, h / vh)
+    ox, oy = x + (w - vw * s) / 2, y + (h - vh * s) / 2
+    out = []
+    pat = r'(<g transform="translate\(([-\d.]+) ([-\d.]+)\)">)?<path fill="[^"]+"( fill-rule="evenodd")? d="([^"]+)"'
+    for m in _re.finditer(pat, src):
+        gx, gy = float(m.group(2) or 0), float(m.group(3) or 0)
+        polys = [[(ox + (px + gx) * s, oy + (py + gy) * s) for px, py in pl] for pl in _parse_path(m.group(5))]
+        rule = ' fill-rule="evenodd"' if m.group(4) else ""
+        out.append(f'<path class="{cls}" fill="currentColor"{rule} d="{_polys_d(polys, eps)}"/>')
+    return "".join(out)
+
+
+def fake_qr(x, y, s, seed=11, n=21):
+    """باركود ما ينقرى (الموجز الفني القسم 7): 3 مربعات زوايا وملمس نقاط، مسار واحد بأرقام مختصرة."""
+    rnd = random.Random(seed)
+    m = s / n
+    t = lambda v: _num10(round(v * 10))    # noqa: E731
+    d = []
+    for fx, fy in ((0, 0), (n - 7, 0), (0, n - 7)):
+        X, Y = x + fx * m, y + fy * m
+        d.append(f"M{t(X)} {t(Y)}h{t(7 * m)}v{t(7 * m)}h{t(-7 * m)}zM{t(X + m)} {t(Y + m)}v{t(5 * m)}h{t(5 * m)}v{t(-5 * m)}z"
+                 f"M{t(X + 2 * m)} {t(Y + 2 * m)}h{t(3 * m)}v{t(3 * m)}h{t(-3 * m)}z")
+    for j in range(n):  # كل صف: الخلايا المتلاصقة مستطيل واحد
+        run = None
+        for i in range(n + 1):
+            skip = i == n or (i < 8 and j < 8) or (i >= n - 8 and j < 8) or (i < 8 and j >= n - 8)
+            on = not skip and rnd.random() < .42
+            if on and run is None:
+                run = i
+            if not on and run is not None:
+                d.append(f"M{t(x + run * m)} {t(y + j * m)}h{t((i - run) * m)}v{t(m)}h{t(-(i - run) * m)}z")
+                run = None
+    return f'<path fill="{INK}" fill-rule="evenodd" d="{"".join(d)}"/>'
+
+
+def face_content(x0, y0, k, shop_cls, title, name=None, logo=None, parts=("logo", "title", "dot")):
+    """وجه الستاند بمقاسات القالب (SHEET، بالمليمتر من زاوية الورقة العليا): الشعار أو الاسم في صندوق 60×16،
+    والعنوان حبر، والنقطة بلون المحل على مركز الشريحة (62mm)، وسطر اللمس، وسطر الباركود فوقه، والباركود 30mm."""
+    S, out = SHEET, []
+    cx = x0 + S["w"] / 2 * k
+    if "logo" in parts:
+        bx, by, bw, bh = cx - S["logo_w"] / 2 * k, y0 + S["logo_top"] * k, S["logo_w"] * k, S["logo_h"] * k
+        if logo:
+            out.append(logo_paths(logo, bx, by, bw, bh, shop_cls, eps=max(.1, .0016 * bw)))
+        else:  # بدون شعار: الاسم نص بلون المحل (GM-027)، ارتفاع حبره 8mm
+            d, w, _ = text_path(name, 600, height=8 * k, cx=cx, cy=by + bh / 2, simplify=.12)
+            if w > bw:
+                d, w, _ = text_path(name, 600, height=8 * k * bw / w, cx=cx, cy=by + bh / 2, simplify=.12)
+            out.append(f'<path class="{shop_cls}" fill="currentColor" d="{d}"/>')
+    if "title" in parts:  # 18pt = 6.35mm، من 34 لين 42mm
+        d, _, _ = text_path(title, 600, size=6.35 * k, cx=cx, cy=y0 + S["title"] * k, simplify=max(.1, .015 * 6.35 * k))
         out.append(f'<path fill="{INK}" d="{d}"/>')
-    dot = (cx, y0 + 62 * k, DOT_MM / 2 * k)
+    dot = (cx, y0 + S["dot"] * k, DOT_MM / 2 * k)
     if "dot" in parts:
         out.append(f'<path class="{shop_cls}" fill="currentColor" d="{circle(*dot)}"/>')
+    if "touch" in parts:  # 11pt = 3.88mm، من 80 لين 85mm
+        d, _, _ = text_path("قرّب جوالك هنا", 600, size=3.88 * k, cx=cx, cy=y0 + S["touch"] * k, simplify=max(.1, .02 * 3.88 * k))
+        out.append(f'<path fill="{INK}" d="{d}"/>')
+    if "scan" in parts:  # 10pt = 3.53mm، من 97 لين 101mm (فوق الباركود، قرار المدير الفني)
+        d, _, _ = text_path("أو امسح الباركود", 500, size=3.53 * k, cx=cx, cy=y0 + S["scan"] * k, simplify=max(.1, .02 * 3.53 * k))
+        out.append(f'<path fill="{INK}" d="{d}"/>')
+    if "qr" in parts:
+        q = S["qr"] * k
+        out.append(fake_qr(cx - q / 2, y0 + S["qr_top"] * k, q))
     return "".join(out), dot
 
 
-def stand(p, cx, floor_y, k, shop_cls, name, title):
-    """ستاند A6: وجه أبيض 105×148mm على قاعدة حبر 120×12mm. يرجع (الرسم، مركز النقطة ونصف قطرها، حدود القاعدة)."""
+def stand(p, cx, floor_y, k, shop_cls, title, name=None, logo=None, parts=("logo", "title", "dot")):
+    """ستاند: ورقة 100×150mm بيضاء (قالب print/stand) على قاعدة حبر 120×12mm.
+    يرجع (الرسم، مركز النقطة ونصف قطرها، حدود القاعدة)."""
     bw, bh = 120 * k, 12 * k
     bx, by = cx - bw / 2, floor_y - bh
-    fw, fh = 105 * k, 148 * k
+    fw, fh = SHEET["w"] * k, SHEET["h"] * k
     fx, fy = cx - fw / 2, by + 1.5 - fh
     g = [block(bx, by, bw, bh, INK, INK_EDGE, INK_DEEP),
          block(fx, fy, fw, fh, WHITE, WHITE, SAND200, d=(-3.2, -2.4), r=2 * k)]
-    content, dot = face_content(fx, fy, k, shop_cls, name, title)
+    content, dot = face_content(fx, fy, k, shop_cls, title, name=name, logo=logo, parts=parts)
     g.append(content)
     return "".join(g), dot, (bx, bw)
 
 
-def dalla(p, x, y, u):
-    """دلة حديثة سادة: حبر مطفي بإضاءات #56625F على اليمين (النور من فوق يمين). (x, y) = نص القاعدة، u = مقياس."""
+def dalla(p, x, y, u, halo_cls=None):
+    """دلة حديثة سادة: حبر مطفي بإضاءات #56625F على اليمين (النور من فوق يمين). (x, y) = نص القاعدة، u = مقياس.
+    halo_cls: حافة 1px في الداكن (خط 2px تحت الأشكال، فيبين نصه برّا بس)."""
     def P(pts):
         return " ".join(f"{f(x + px * u)} {f(y + py * u)}" for px, py in pts)
     body = ("M" + P([(-34, 0)]) + "L" + P([(34, 0), (32, -7)])
@@ -315,7 +490,8 @@ def dalla(p, x, y, u):
           + "M" + P([(10, -196)]) + "C" + P([(22, -193), (32, -187), (36, -178)])
           + "C" + P([(28, -184), (20, -189), (10, -196)]) + "Z")
     foot = poly([(x - 34 * u, y), (x + 34 * u, y), (x + 32 * u, y - 7 * u), (x - 32 * u, y - 7 * u)])
-    return (f'<path fill="{INK}" d="{spout}"/><path fill="{INK}" d="{handle}"/><path fill="{INK}" d="{body}"/>'
+    halo = f'<path class="{halo_cls}" fill="none" d="{spout}{handle}{body}"/>' if halo_cls else ""
+    return (halo + f'<path fill="{INK}" d="{spout}"/><path fill="{INK}" d="{handle}"/><path fill="{INK}" d="{body}"/>'
             f'<path fill="{INK_DEEP}" d="{foot}"/><path fill="{SLATE}" d="{hi}"/>')
 
 
@@ -331,125 +507,121 @@ def finjan(x, y, a):
     return f'<path fill="{WHITE}" d="{body}"/><path fill="{SAND200}" d="{shade}"/>{rim}{ins}'
 
 
+def counter_css(p):
+    return (f".{p}wall{{fill:var(--lt-surface-2,#F3EEE6)}}.{p}top{{fill:var(--lt-surface,#FFFFFF)}}"
+            f".{p}front{{fill:var(--lt-border,#E4DCD0)}}.{p}shop{{color:var(--il-cafe,{CAFE})}}.{p}edge{{stroke:none}}"
+            f"@media (prefers-color-scheme:dark){{.{p}wall{{fill:var(--lt-surface-2,#1C2B29)}}"
+            f".{p}top{{fill:var(--lt-border,#2A3B38)}}.{p}front{{fill:var(--lt-surface,#152120)}}"
+            f".{p}edge{{stroke:{INK_EDGE};stroke-width:1}}}}" + shadow_css(p))
+
+
+def counter(p, W, H, top_y, front_y):
+    return [f"<defs>{shadow_def(p)}</defs>",
+            f'<rect class="{p}wall" width="{W}" height="{top_y}"/>',
+            f'<rect class="{p}top" y="{top_y}" width="{W}" height="{front_y - top_y}"/>',
+            f'<rect class="{p}front" y="{front_y}" width="{W}" height="{H - front_y}"/>']
+
+
 # ---------- 5) مشهد البطل: كاونتر ضيافة ----------
 def hero():
     p = "hc-"
     W, H = 600, 520
     top_y, front_y = 380, 392          # الكاونتر: الحافة الخلفية للسطح، وحافته القدامية
     k, kp, tilt = 1.75, 1.78, 13        # px/mm للستاند والجوال، وميلان الجوال
-    style = (f".{p}wall{{fill:var(--lt-surface-2,#F3EEE6)}}.{p}top{{fill:var(--lt-surface,#FFFFFF)}}"
-             f".{p}front{{fill:var(--lt-border,#E4DCD0)}}.{p}shop{{color:var(--il-cafe,{CAFE})}}.{p}edge{{stroke:none}}"
-             f"@media (prefers-color-scheme:dark){{.{p}wall{{fill:var(--lt-surface-2,#1C2B29)}}"
-             f".{p}top{{fill:var(--lt-border,#2A3B38)}}.{p}front{{fill:var(--lt-surface,#152120)}}"
-             f".{p}edge{{stroke:{INK_EDGE};stroke-width:1}}}}" + shadow_css(p))
-    g = [f"<defs>{shadow_def(p)}</defs>",
-         f'<rect class="{p}wall" width="{W}" height="{top_y}"/>',
-         f'<rect class="{p}top" y="{top_y}" width="{W}" height="{front_y - top_y}"/>',
-         f'<rect class="{p}front" y="{front_y}" width="{W}" height="{H - front_y}"/>']
-    # الدلة والفنجالين ورا الستاند (الصف الخلفي)
-    g.append(shadow(p, 150, 383, 54, 6))
-    g.append(dalla(p, 154, 383, .88))
-    g.append(shadow(p, 56, 385, 32, 5))
-    g.append(finjan(60, 385, 26))
-    g.append(shadow(p, 234, 386, 32, 5))
-    g.append(finjan(238, 386, 26))
-    # الستاند
-    s, (dx, dy, dr), (bx, bw) = stand(p, 408, 388, k, p + "shop", "مقهى المثال", "المنيو")
+    style = (counter_css(p) + f".{p}dedge{{stroke:none}}"
+             f"@media (prefers-color-scheme:dark){{.{p}dedge{{stroke:{INK_EDGE};stroke-width:2}}}}")
+    g = counter(p, W, H, top_y, front_y)
+    # الدلة أصغر 20% (0.88 ← 0.70) ومتأخرة ورا الستاند (مقبضها مستور)، والفنجالين قدامها يسار (تقييم المدير الفني 1، البند 2)
+    g.append(shadow(p, 270, 382, 40, 5))
+    g.append(dalla(p, 272, 382, .70, halo_cls=p + "dedge"))
+    g.append(shadow(p, 124, 388, 30, 5))
+    g.append(finjan(128, 388, 24))
+    g.append(shadow(p, 186, 389, 30, 5))
+    g.append(finjan(190, 389, 24))
+    # الستاند (قالب print/stand): اسم المحل نص في خانة الشعار (GM-027)
+    s, dot, (bx, bw) = stand(p, 408, 388, k, p + "shop", "المنيو", name="مقهى المثال")
     g.append(shadow(p, bx + bw / 2 - 6, 388, bw * .62, 8))
     g.append(s)
-    # الجوال: حافته العليا تلمس النقطة، مايل 13° (أعلاه لليمين)، وينزل لتحت يسار
-    # الشاشة مطفية بحبر الجوال: قبل ما تنكشف المنيو في الحركة، ما يطلع وميض أبيض في الداكن (ملاحظة web-motion، قرار رئيس القسم)
-    body, screen, cam, _ = phone_parts(kp, p, "hc-slot-menu", screen_fill=INK)
-    a = math.radians(tilt)
-    gap = 1.2
-    tx, ty = dx - (dr + gap) * math.sin(a), dy + (dr + gap) * math.cos(a)
-    g.append(f'<g id="hc-phone" transform="translate({f(tx)} {f(ty)}) rotate({tilt})"><g class="hc-phone-move">'
-             f"{body}{screen}{cam}</g></g>")
+    # الجوال: الشاشة مطفية بحبر الجوال (#14201F)، عشان ما يطلع وميض أبيض قبل ما تنكشف المنيو (قرار رئيس القسم)
+    ph, meta = phone_at(p, "hc-slot-menu", dot, kp, tilt, screen_fill=INK)
+    g.append(ph)
     title = "جوال يلمس نقطة ستاند «مقهى المثال» على كاونتر الضيافة، وتنفتح على شاشته منيو المقهى"
-    return svg_doc(W, H, title, "".join(g), style, p), {"phone": (tx, ty, tilt), "dot": (dx, dy, dr)}
+    return svg_doc(W, H, title, "".join(g), style, p), {"phone": meta, "dot": dot}
 
 
-# ---------- 6) مشهد باب الشقة: ملصق الشريحة وملصق الباركود جنب الباب ----------
-def fake_qr(x, y, s, seed=11):
-    """باركود ما ينقرى (الموجز الفني القسم 7): 3 مربعات زوايا وملمس نقاط، مسار واحد."""
-    rnd, n = random.Random(seed), 21
-    m = s / n
-    d = []
-    for fx, fy in ((0, 0), (n - 7, 0), (0, n - 7)):
-        X, Y = x + fx * m, y + fy * m
-        d.append(f"M{f(X)} {f(Y)}h{f(7 * m)}v{f(7 * m)}h{f(-7 * m)}zM{f(X + m)} {f(Y + m)}v{f(5 * m)}h{f(5 * m)}v{f(-5 * m)}z"
-                 f"M{f(X + 2 * m)} {f(Y + 2 * m)}h{f(3 * m)}v{f(3 * m)}h{f(-3 * m)}z")
-    for j in range(n):  # كل صف: الخلايا المتلاصقة مستطيل واحد
-        run = None
-        for i in range(n + 1):
-            skip = i == n or (i < 8 and j < 8) or (i >= n - 8 and j < 8) or (i < 8 and j >= n - 8)
-            on = not skip and rnd.random() < .42
-            if on and run is None:
-                run = i
-            if not on and run is not None:
-                d.append(f"M{f(x + run * m)} {f(y + j * m)}h{f((i - run) * m)}v{f(m)}h{f(-(i - run) * m)}z")
-                run = None
-    return f'<path fill="{INK}" fill-rule="evenodd" d="{"".join(d)}"/>'
-
-
-def sticker(x, y, w, h, k):
-    """ملصق أبيض على الجدار: زاوية 3mm، وسماكة خفيفة (جنب يسار وتحت أغمق)."""
-    r = 3 * k
-    return (f'<path fill="{SAND200}" d="{rrect(x - 1.6, y + 1.6, w, h, r)}"/>'
-            f'<path fill="{WHITE}" d="{rrect(x, y, w, h, r)}"/>')
-
-
+# ---------- 6) مشهد باب الشقة: الباب كامل داخل الجدار، وجنبه ملصق الباركود وملصق الشريحة ----------
 def host():
+    """تقييم المدير الفني 1، البند 1: الجدار ورا الباب وحوله، والباب كامل داخل المشهد وبعيد عن حافته 24 أو أكثر،
+    وحافة 1px (#E4DCD0 فاتح، #2A3B38 داكن)، والباب أبيض في الوضعين.
+    المقياس: الغرفة 0.2px لكل mm (الباب كامل)، والملصقين والجوال مكبّرين 3.6 مرات بنفس النسبة،
+    عشان يبانون وهم أصغر بكثير من الباب، وعلاقتهم ببعض تبقى حقيقية."""
     p = "hd-"
     W, H = 560, 520
-    kw, kp, tilt = 1.5, 1.75, 13         # px/mm للجدار والملصقات، وللجوال (أقرب للكاميرا)، وميلانه
-    top_cm = 136                          # أعلى المشهد على ارتفاع 136cm، وتحته كل 1cm = 15px
-    y_at = lambda cm: (top_cm - cm) * 10 * kw
-    style = (f".{p}wall{{fill:var(--lt-surface-2,#F3EEE6)}}.{p}shop{{color:var(--il-apartments,{APARTMENTS})}}.{p}edge{{stroke:none}}"
-             f"@media (prefers-color-scheme:dark){{.{p}wall{{fill:var(--lt-surface-2,#1C2B29)}}"
-             f".{p}edge{{stroke:{INK_EDGE};stroke-width:1}}}}" + shadow_css(p))
-    g = [f"<defs>{shadow_def(p)}</defs>", f'<rect class="{p}wall" width="{W}" height="{H}"/>']
-    # الباب: درفة بيضاء، وفتحة بحافة #E4DCD0، وإطار أبيض (حلق) بعرض 6cm، ومقبض حبر
-    leaf_r, frame_w = 74, 6 * 10 * kw
-    g.append(f'<rect fill="{WHITE}" x="-2" y="-2" width="{leaf_r + 2}" height="{H + 4}"/>')
-    g.append(f'<rect fill="{SAND200}" x="{leaf_r - 5}" y="-2" width="7" height="{H + 4}"/>')          # حافة الدرفة والفتحة
-    g.append(f'<rect fill="{SAND200}" x="{leaf_r + 2}" y="-2" width="5" height="{H + 4}"/>')          # جنب الإطار (ظل)
-    g.append(f'<rect fill="{WHITE}" x="{leaf_r + 7}" y="-2" width="{f(frame_w - 5)}" height="{H + 4}"/>')
-    hx, hy = leaf_r - 30, y_at(108)                                                                   # المقبض على 108cm
-    g.append(f'<path fill="{INK}" d="{circle(hx, hy, 22)}"/>')
-    g.append(f'<path fill="{INK}" d="{rrect(hx - 118, hy - 9, 124, 18, 9)}"/>')
-    g.append(f'<path fill="{SLATE}" d="{rrect(hx - 112, hy - 9, 114, 4, 2)}"/>')
-    # الملصقين على 125cm (مركز الشريحة): الشريحة 45×45، وبعدها بـ 16mm ملصق الباركود 55×75
-    cs = 45 * kw
-    cx0 = leaf_r + frame_w + 112
-    cy = y_at(125)
-    x_chip, y_chip = cx0, cy - cs / 2
-    g.append(shadow(p, x_chip + cs / 2 - 3, y_chip + cs + 2, cs * .55, 3))
-    g.append(sticker(x_chip, y_chip, cs, cs, kw))
-    dot = (x_chip + cs / 2, cy, DOT_MM / 2 * kw)
-    g.append(f'<path class="{p}shop" fill="currentColor" d="{circle(*dot)}"/>')
-    qw, qh = 55 * kw, 75 * kw
-    x_qr, y_qr = x_chip + cs + 16 * kw, y_chip
-    g.append(shadow(p, x_qr + qw / 2 - 3, y_qr + qh + 2, qw * .55, 3))
-    g.append(sticker(x_qr, y_qr, qw, qh, kw))
+    s = .2                         # px لكل mm للجدار والباب
+    ks = kp = s * 3.6               # الملصقين والجوال بنفس التكبير، عشان علاقتهم ببعض تبقى حقيقية
+    tilt = -13
+    floor_y = 478                  # خط الأرض
+    style = (f".{p}wall{{fill:var(--lt-surface-2,#F3EEE6)}}.{p}floor{{fill:var(--lt-border,#E4DCD0)}}"
+             f".{p}line{{stroke:{SAND200};stroke-width:1}}.{p}shop{{color:var(--il-apartments,{APARTMENTS})}}.{p}edge{{stroke:none}}"
+             f"@media (prefers-color-scheme:dark){{.{p}wall{{fill:var(--lt-surface-2,#1C2B29)}}.{p}floor{{fill:var(--lt-border,#2A3B38)}}"
+             f".{p}line{{stroke:{INK_EDGE}}}.{p}edge{{stroke:{INK_EDGE};stroke-width:1}}}}" + shadow_css(p))
+    g = [f"<defs>{shadow_def(p)}</defs>", f'<rect class="{p}wall" width="{W}" height="{H}"/>',
+         f'<rect class="{p}floor" y="{floor_y}" width="{W}" height="{H - floor_y}"/>']
+    # الباب: درفة 0.9×2.05m، وحلق 7cm حوالينها، ومقبض على 1.05m، وعين الباب على 1.5m
+    lw, lh, fw = 900 * s, 2050 * s, 70 * s
+    x0 = 100                                          # حافة الحلق اليسرى
+    top = floor_y - lh - fw
+    g.append(f'<rect class="{p}line" fill="{WHITE}" x="{f(x0)}" y="{f(top)}" width="{f(lw + 2 * fw)}" height="{f(lh + fw)}"/>')
+    lx, ly = x0 + fw, top + fw
+    g.append(f'<rect class="{p}line" fill="{WHITE}" x="{f(lx)}" y="{f(ly)}" width="{f(lw)}" height="{f(lh)}"/>')
+    shade = poly([(lx + .5, ly + .5), (lx + lw - .5, ly + .5), (lx + lw - .5, ly + 3.5), (lx + 3.5, ly + 3.5),
+                  (lx + 3.5, floor_y - .5), (lx + .5, floor_y - .5)])
+    g.append(f'<path fill="{SAND200}" d="{shade}"/>')    # ظل الحلق على الدرفة (النور من فوق يمين)
+    hx, hy = lx + lw - 24, floor_y - 1050 * s          # المقبض
+    g.append(f'<path fill="{INK}" d="{circle(hx, hy, 5.2)}{rrect(hx - 26, hy - 2.2, 28, 4.4, 2.2)}"/>')
+    g.append(f'<path fill="{SLATE}" d="{rrect(hx - 24, hy - 2.2, 24, 1.2, .6)}"/>')
+    g.append(f'<path fill="{INK}" d="{circle(lx + lw / 2, floor_y - 1500 * s, 2.2)}"/>')      # عين الباب
+    # الملصقين على 1.25m: ملصق الباركود أقرب للباب، وبعده بـ 16mm (المطلوب 10 أو أكثر) ملصق الشريحة 45×45 (print/dims.js)
+    cy = floor_y - 1250 * s
+    qw, qh, cw = 45 * ks, 68 * ks, 45 * ks
+    x_qr = x0 + lw + 2 * fw + 150 * s
+    y_top = cy - cw / 2
+    gap = 16 * ks
+    for x, w, h in ((x_qr, qw, qh), (x_qr + qw + gap, cw, cw)):
+        g.append(shadow(p, x + w / 2 - 2, y_top + h + 1.5, w * .55, 2.2))
+        g.append(f'<path class="{p}line" fill="{WHITE}" d="{rrect(x, y_top, w, h, 3 * ks)}"/>')
     qcx = x_qr + qw / 2
-    d, _, _ = text_path("شقق المثال", 600, height=5 * kw, cx=qcx, cy=y_qr + 8 * kw, simplify=.15)
+    d, _, _ = text_path("شقق المثال", 600, height=5 * ks, cx=qcx, cy=y_top + 7 * ks, simplify=.12)
     g.append(f'<path class="{p}shop" fill="currentColor" d="{d}"/>')
-    d, _, _ = text_path("الواي فاي ودليل الوحدة", 600, size=3.6 * kw, cx=qcx, cy=y_qr + 17 * kw, simplify=.24)
-    g.append(f'<path fill="{INK}" d="{d}"/>')
-    qs = 32 * kw
-    g.append(fake_qr(qcx - qs / 2, y_qr + 24 * kw, qs))
-    d, _, _ = text_path("امسح الباركود", 500, size=3.2 * kw, cx=qcx, cy=y_qr + 64 * kw, simplify=.24)
-    g.append(f'<path fill="{INK}" d="{d}"/>')
-    # الجوال يلمس النقطة
-    body, screen, cam, _ = phone_parts(kp, p, "hd-slot-guide")
-    a = math.radians(tilt)
-    gap = 1.2
-    tx, ty = dot[0] - (dot[2] + gap) * math.sin(a), dot[1] + (dot[2] + gap) * math.cos(a)
-    g.append(f'<g id="hd-phone" transform="translate({f(tx)} {f(ty)}) rotate({tilt})"><g class="hd-phone-move">'
-             f"{body}{screen}{cam}</g></g>")
-    title = "داخل شقة جنب الباب: جوال يلمس نقطة ملصق الشريحة، وجنبه ملصق الباركود، وتنفتح على الشاشة دليل «شقق المثال»"
-    return svg_doc(W, H, title, "".join(g), style, p), {"phone": (tx, ty, tilt), "dot": dot, "qr_left": (x_qr,)}
+    q = 30 * ks
+    g.append(fake_qr(qcx - q / 2, y_top + 22 * ks, q, n=15))
+    x_chip = x_qr + qw + gap
+    dot = (x_chip + cw / 2, cy, DOT_MM / 2 * ks)
+    g.append(f'<path class="{p}shop" fill="currentColor" d="{circle(*dot)}"/>')
+    # الجوال يلمس النقطة، مايل 13° (أعلاه لليسار) وينزل لتحت يمين في الجدار الفاضي
+    ph, meta = phone_at(p, "hd-slot-guide", dot, kp, tilt)
+    g.append(ph)
+    title = "داخل شقة: الباب، وجنبه ملصق الباركود وملصق الشريحة، وجوال يلمس النقطة وتنفتح على شاشته دليل «شقق المثال»"
+    return svg_doc(W, H, title, "".join(g), style, p), {"phone": meta, "dot": dot, "door": (x0, top, lw + 2 * fw, lh + fw)}
+
+
+# ---------- 7) صفحة شرح التقييم: ستاند التقييم قريب ----------
+def review():
+    """تقييم المدير الفني 1، البند 4: ستاند تقييم قريب بنفس أسلوب البطل: شعار «مقهى المثال» (ملف web-brand)،
+    و«قيّمنا في قوقل» نص عادي بدون G ولا نجوم، ونقطة اللمس، وباركود ما ينقرى. بدون زعفراننا."""
+    p = "rs-"
+    W, H = 600, 520
+    top_y, front_y = 470, 482
+    k = 2.75
+    style = counter_css(p)
+    g = counter(p, W, H, top_y, front_y)
+    logo = os.path.join(ROOT, "website", "demo", "_brands", "cafe.svg")
+    s, dot, (bx, bw) = stand(p, 306, 478, k, p + "shop", "قيّمنا في قوقل", logo=logo,
+                              parts=("logo", "title", "dot", "touch", "scan", "qr"))
+    g.append(shadow(p, bx + bw / 2 - 8, 478, bw * .62, 9))
+    g.append(s)
+    title = "ستاند تقييم «مقهى المثال» على الكاونتر: شعار المقهى، و«قيّمنا في قوقل»، ونقطة اللمس، والباركود"
+    return svg_doc(W, H, title, "".join(g), style, p), {"dot": dot}
 
 
 def main():
@@ -470,6 +642,9 @@ def main():
     hd, hd_meta = host()
     files["host-door.svg"] = hd
     print("host:", {k: tuple(round(v, 1) for v in t) for k, t in hd_meta.items()})
+    rv, rv_meta = review()
+    files["review-stand.svg"] = rv
+    print("review:", {k: tuple(round(v, 1) for v in t) for k, t in rv_meta.items()})
     for name, content in files.items():
         path = os.path.join(a.out, name)
         os.makedirs(os.path.dirname(path), exist_ok=True)

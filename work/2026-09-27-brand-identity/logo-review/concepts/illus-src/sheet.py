@@ -163,6 +163,9 @@ def sheet(cid, g, title, idea, checks):
                   f'المسافة {m["gap"]}، البعد عن المركز {m["off"]}، أبعد نقطة {m["far"]}.')
     big = "".join(f'<div style="background:{bg};padding:12px;line-height:0">{img(f, 230)}</div>'
                   for bg, f in (("#FFFFFF", icon), (SAND, icon), (INK, white), (TABD, dark)))
+    big2 = "".join(f'<div style="background:{bg};padding:0;line-height:0">{img(f, 256, "filter:" + flt)}</div>'
+                   for bg, f, flt in (("#FFFFFF", mono, "none"), (INK, mono, "invert(1)"), ("#FFFFFF", icon, "grayscale(1)"),
+                                      (INK, white, "grayscale(1)")))
     lock = (f'<div style="background:{SAND};padding:18px;display:flex;gap:40px;align-items:center">'
             f'<img src="{uri(hz)}" style="height:120px"><img src="{uri(hz)}" style="height:48px"></div>'
             f'<div style="background:{DARK};padding:18px;display:flex;gap:40px;align-items:center">'
@@ -182,13 +185,15 @@ body{{margin:0;background:#fff;font-family:RX,Tahoma;color:#14201F}} h2{{font:60
 <div style="font:13px RX;color:#56625F;margin-top:4px">check_logo.py: {checks}</div></div>
 <div class="sec" style="display:flex;gap:24px;align-items:flex-start">{construction(g)}
 <div><div class="lab">256px: أبيض، رملي، حبر (أبيض ونقطة)، تبويب داكن (#ECF2F0 ونقطة)</div><div style="display:grid;grid-template-columns:repeat(2,254px);gap:10px">{big}</div></div></div>
+<div class="sec"><div class="lab">256px: لون واحد (أسود على أبيض، أبيض على حبر)، ورمادي (على أبيض وعلى حبر)</div>
+<div style="display:flex;gap:10px">{big2}</div></div>
 <div class="sec"><div class="lab">من 16 لين 64px: ملون، لون واحد، رمادي (1x، بدون تكبير)</div>{ladder(cid)}</div>
 <div class="sec"><div class="lab">صورة الحساب في قائمة واتساب 40px (فاتح وداكن، ألوان واتساب تقريبية)، والـ favicon على تبويب فاتح وداكن</div>
 <img src="{uri(ctx)}" style="display:block"><div class="lab" style="margin-top:10px">تكبير ×4 للبكسلات (favicon 16px وصورة الحساب 40px)</div><div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end">{zoom}</div></div>
 <div class="sec"><div class="lab">القفل الأفقي على 120 و48px (رملي، داكن #0E1615، لون واحد)، والعمودي</div>{lock}</div>
 </body></html>'''
     out = d / f"{cid}-sheet.png"
-    shot(h, str(out), 1240, 3400)
+    shot(h, str(out), 1240, 3800)
     im = Image.open(out)
     arr = np.array(im.convert("L"))
     rows = np.where(arr.min(1) < 250)[0]

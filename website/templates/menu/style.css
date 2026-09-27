@@ -17,4 +17,6 @@
 .m-sec { scroll-margin-top: 60px; }
 /* الصنف: السعر على سطر الاسم (فوق)، مو في نص الصف */
 .lt-row.m-item { align-items: flex-start; }
+/* «· السعرات: N» ما ينقسم، ولا تبقى النقطة آخر السطر لحالها (التقييم 1 بند 9) */
+.m-cal { white-space: nowrap; }
 .m-wa { margin-top: var(--lt-space-32); }

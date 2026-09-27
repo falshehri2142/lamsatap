@@ -65,7 +65,8 @@ GRID_LINE, GRID_GAP_BEST, GRID_DOT = 64, 64, 92
 LATIN_MM = 0.3                                         # البند 8: أرفع خط وأضيق فراغ للحفر
 LATIN_TARGET_MM = {"horizontal": 15.2, "full": 34.0}   # أصغر ارتفاع حفر في الموجز
 CONTRAST_MIN = 3.0                                     # الفحص الإضافي
-BACKGROUNDS = ["#0B7A75", "#14201F"]
+BACKGROUNDS = ["#14201F"]                             # خلفية الرمز: الحبر (web-art-director.md 16.4)، والتيل مرفوض
+CAP_MIN_PX = 7                                         # الحرف اللاتيني الكبير على الشاشة (README، و16.5)
 DOT_COLORS = ["#F2A93B", "#F5B85A"]
 REF_COLORS = [("#005A5A", "لتين"), ("#075E54", "تيل واتساب، مصدره غير رسمي")]
 PRINT_TOLERANCE_DE = 3.5                               # سماحية المطبعة ΔE2000 (web-qa.md [ت1])
@@ -181,21 +182,31 @@ def find_browser():
     return b
 
 
-def shoot(html, w, h, dpr=1, transparent=True):
-    """يرسم صفحة HTML بمتصفح بدون واجهة ويرجع مصفوفة RGBA بمقاس w×h (بكسل CSS × dpr)."""
-    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
-        page, shot = pathlib.Path(tmp) / "p.html", pathlib.Path(tmp) / "s.png"
-        page.write_text(html, encoding="utf-8")
-        args = [find_browser(), "--headless=new", "--disable-gpu", "--hide-scrollbars",
-                f"--force-device-scale-factor={dpr}",
-                f"--window-size={max(math.ceil(w) + 8, 256)},{max(math.ceil(h) + 8, 256)}",
-                f"--user-data-dir={tmp}", f"--screenshot={shot}"]
-        if transparent:
-            args.append("--default-background-color=00000000")
-        subprocess.run(args + [page.as_uri()], check=True, capture_output=True, timeout=180)
-        im = Image.open(shot).convert("RGBA")
-        im.load()
-    return np.array(im.crop((0, 0, math.ceil(w * dpr - 1e-6), math.ceil(h * dpr - 1e-6))))
+def shoot(html, w, h, dpr=1, transparent=True, tries=3):
+    """يرسم صفحة HTML بمتصفح بدون واجهة ويرجع مصفوفة RGBA بمقاس w×h (بكسل CSS × dpr).
+    لو علّق المتصفح يعيد بملف تعريف جديد (مرتين)."""
+    for attempt in range(tries):
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
+            page, shot = pathlib.Path(tmp) / "p.html", pathlib.Path(tmp) / "s.png"
+            page.write_text(html, encoding="utf-8")
+            args = [find_browser(), "--headless=new", "--disable-gpu", "--hide-scrollbars", "--no-first-run",
+                    "--disable-extensions", f"--force-device-scale-factor={dpr}",
+                    f"--window-size={max(math.ceil(w) + 8, 256)},{max(math.ceil(h) + 8, 256)}",
+                    f"--user-data-dir={tmp}", f"--screenshot={shot}"]
+            if transparent:
+                args.append("--default-background-color=00000000")
+            try:
+                subprocess.run(args + [page.as_uri()], check=True, capture_output=True, timeout=90)
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                if attempt == tries - 1:
+                    raise
+                continue
+            if not shot.exists():
+                continue
+            im = Image.open(shot).convert("RGBA")
+            im.load()
+            return np.array(im.crop((0, 0, math.ceil(w * dpr - 1e-6), math.ceil(h * dpr - 1e-6))))
+    raise RuntimeError("المتصفح ما رسم الصفحة")
 
 
 def render_svg(path, w, h, bg=None, dpr=1):
@@ -207,7 +218,7 @@ def render_svg(path, w, h, bg=None, dpr=1):
 
 
 def parallel(jobs):
-    with ThreadPoolExecutor(6) as ex:
+    with ThreadPoolExecutor(4) as ex:
         return list(ex.map(lambda j: j[0](*j[1:]), jobs))
 
 
@@ -881,6 +892,18 @@ def check_latin(rep, svg, kind, out, tag, dpi=1200):
             "PASS" if wc * mm >= LATIN_MM else "WARN", "الزاوية الحادة تنقفل شوي في الحفر وما تكسر الحرف، ورقمها يتغير مع الدقة")
     rep.add("8", f"{label}: أصغر ارتفاع حفر يخلي الخطوط والفراغات والعيون ≥ {LATIN_MM}mm", f"{max(need):.1f}mm",
             "INFO", f"ارتفاع السطر اللاتيني على {target:g}mm = {(r1 - r0) * mm:.2f}mm، والدقة ±{mm:.3f}mm")
+    ll, lk = components(letters, 20)
+    if lk:
+        boxes = []
+        for i in lk:
+            ys_ = np.nonzero((ll == i).any(1))[0]
+            boxes.append((ys_[0], ys_[-1] + 1))
+        base = float(np.median([b for _, b in boxes]))
+        caps = [b - t for t, b in boxes if abs(b - base) <= 0.05 * (r1 - r0) + 2]
+        if caps:
+            cap = max(caps)
+            rep.add("8", f"{label}: أصغر ارتفاع على الشاشة عشان حرف LamsaTap الكبير ≥ {CAP_MIN_PX}px",
+                    f"{math.ceil(CAP_MIN_PX * hpx / cap)}px", "INFO", f"الحرف الكبير {cap / hpx * 100:.1f}% من ارتفاع الملف (16.5: أصغر من كذا القفل العربي بس)")
     ov = np.stack([np.where(sub, 150, 255)] * 3, -1).astype(np.uint8)
     im = Image.fromarray(ov)
     d = ImageDraw.Draw(im)
@@ -985,6 +1008,7 @@ def main():
     ap.add_argument("--full-mono")
     ap.add_argument("--horizontal-mono")
     ap.add_argument("--out", help="مجلد الصور والتقرير (الافتراضي مجلد مؤقت برّا المشروع)")
+    ap.add_argument("--backgrounds", default=",".join(BACKGROUNDS), help="خلفيات فحص التباين، مفصولة بفاصلة (الافتراضي الحبر حسب 16.4)")
     ap.add_argument("--horizontal-mm", type=float, default=LATIN_TARGET_MM["horizontal"], help="ارتفاع حفر الأفقي اللي ينفحص عليه البند 8")
     ap.add_argument("--full-mm", type=float, default=LATIN_TARGET_MM["full"], help="ارتفاع حفر الكامل اللي ينفحص عليه البند 8")
     ap.add_argument("--self-test", action="store_true")
@@ -995,6 +1019,7 @@ def main():
     if a.self_test:
         sys.exit(0 if self_test() else 1)
     LATIN_TARGET_MM.update(horizontal=a.horizontal_mm, full=a.full_mm)
+    BACKGROUNDS[:] = [norm_color(b) for b in a.backgrounds.split(",") if b.strip()]
     out = pathlib.Path(a.out or os.path.join(tempfile.gettempdir(), "lamsatap-check-logo")).resolve()
     out.mkdir(parents=True, exist_ok=True)
     if ROOT / "brand" / "logo" in out.parents or out == ROOT / "brand" / "logo":
@@ -1010,7 +1035,7 @@ def main():
     reports, fail = [], False
     for name, files in groups.items():
         rep = run_group(name, files, out)
-        print(rep.text() + "\n")
+        print(rep.text() + "\n", flush=True)
         reports.append(rep)
         fail |= any(r["status"] == "FAIL" for r in rep.rows)
     (out / "report.txt").write_text("\n\n".join(r.text() for r in reports) + "\n", encoding="utf-8")

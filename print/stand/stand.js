@@ -1,5 +1,5 @@
 // قالب ستاند العميل (الموجز الفني §6، GM-023 و GM-025 و GM-027). المقاسات كلها من print/dims.js (stand).
-// الوجه: شعار المحل (أو اسمه على لوح رملي)، والعنوان حسب الغرض، ونقطة اللمس على مركز الشريحة، وسطرين، والباركود.
+// الوجه: شعار المحل (أو اسمه شعار كتابي بدون لوح، التقييم 1 بند 6)، والعنوان حسب الغرض، ونقطة اللمس على مركز الشريحة، وسطرين، والباركود.
 // الخلف: «بواسطة {companyName}» بس لو poweredBy: true بموافقة العميل. ولا زعفران ولا ألوان لمسة تاب.
 (function (w, d) {
   var D = w.PRINT_DIMS.stand, mono = isMono();
@@ -56,8 +56,10 @@
     afterFont(function () {
       // العنوان: 18pt، ولو أطول من سطر ينزل لـ 16pt (الموجز §6)
       var t = $p('p-title');
-      if (t && t.scrollWidth > t.clientWidth + 0.5) { t.style.fontSize = D.titleMinPt + 'pt'; warn.push('العنوان طويل، ونزل لـ 16pt.'); }
-      fitText(d.querySelector('.p-plate-t'), 16, 9);
+      if (overflowsP(t)) { t.style.fontSize = D.titleMinPt + 'pt'; warn.push('العنوان طويل، ونزل لـ 16pt.'); }
+      // بدون شعار: الاسم من 16pt لين 12pt، سطرين بالكثير داخل صندوق الشعار (التقييم 1 بند 6)
+      if (fitName(d.querySelector('.p-name'), D.nameMaxPt, D.nameMinPt, D.nameLines) === 0)
+        warn.push('اسم المحل ما دخل في سطرين بحجم ' + D.nameMinPt + 'pt. اختصره في ملف العميل.');
       previewBar({ title: 'قالب الستاند: ' + (brand.name || id) + (mono ? ' (نسخة الحفر)' : ''), mono: mono, warnings: warn });
     });
   });

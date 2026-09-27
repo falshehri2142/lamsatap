@@ -13,14 +13,15 @@ body { font-family: var(--lt-font-brand); color: #000000; background: var(--lt-b
 .p-logo-box { display: flex; align-items: center; justify-content: center; }
 .p-logo { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .p-mono .p-logo { filter: brightness(0); }
-/* بدون شعار (GM-027): الاسم شعار كتابي على لوح رملي بالحبر. في الحفر: الاسم بس */
-.p-plate { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border-radius: 3mm; background: var(--lt-surface-2); }
-.p-plate-t { display: block; width: 100%; padding: 0 3mm; overflow: hidden; white-space: nowrap; text-align: center; color: var(--lt-ink); font-weight: 600; line-height: 1.2; }
-.p-mono .p-plate { background: none; }
-.p-mono .p-plate-t { color: #000000; }
-.p-title { font-weight: 600; line-height: 1.2; white-space: nowrap; overflow: hidden; }
+/* بدون شعار (GM-027، والتقييم 1 بند 6): اسم المحل شعار كتابي، Readex Pro 600 بالحبر (في الحفر أسود)، بدون لوح،
+   داخل صندوق الشعار، سطرين بالكثير. الحجم من fitName في print.js */
+.p-name { display: block; width: 100%; margin: 0; text-align: center; color: var(--lt-ink); font-weight: 600; line-height: 1.25; text-wrap: balance; }
+.p-mono .p-name { color: #000000; }
+/* بدون overflow: hidden (التقييم 1 بند 5): كان يقص نقاط الياء تحت السطر فتطلع «فى». العرض ينضبط بـ fitText/overflowsP بدل القص */
+.p-title { font-weight: 600; line-height: 1.2; white-space: nowrap; }
 .p-line { line-height: 1.2; white-space: nowrap; }
-.p-mark { display: block; }   /* علامة اللمس: مسار touch-mark.svg (web-illustrator) inline */
+.p-mark { display: block; overflow: visible; }   /* علامة اللمس: مسار touch-mark.svg (web-illustrator) inline. الدائرة تلمس حد الـ viewBox،
+   وبدون overflow: visible ينقص طرفها اليمين لما يتقرّب مربع الـ SVG للبكسل (بان في الرسم المكبّر ×4) */
 .p-qr-svg { display: block; }
 /* ملصقات المضيف: الاثنين جنب بعض في صفحة وحدة */
 .p-pair { display: flex; align-items: flex-start; }

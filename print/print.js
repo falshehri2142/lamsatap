@@ -41,7 +41,7 @@
       '" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 7a7 7 0 1 0 14 0a7 7 0 1 0 -14 0Z"/></svg>';
   };
 
-  // الشعار: ملف محلي بس (SVG أو PNG). بدونه: اسم المحل شعار كتابي على لوح رملي بالحبر (GM-027)
+  // الشعار: ملف محلي بس (SVG أو PNG). بدونه: اسم المحل شعار كتابي بدون لوح (GM-027، والتقييم 1 بند 6)
   w.localLogo = function (p) {
     p = s(p);
     return /^(?![a-z][a-z0-9+.-]*:)(?!\/\/)[^\s"'<>]+\.(svg|png)$/i.test(p) ? p : '';
@@ -49,21 +49,37 @@
   w.logoHtml = function (brand, mono) {
     var logo = localLogo((brand || {}).logo), name = s((brand || {}).name);
     if (logo) return '<img class="p-logo" src="' + escP(logo) + '" alt="' + escP(name) + '">';
-    return name ? '<span class="p-plate"><span class="p-plate-t">' + escP(name) + '</span></span>' : '';
+    return name ? '<span class="p-name">' + escP(name) + '</span>' : '';
   };
   // ينتظر خط الهوية (Readex Pro، محلي) قبل أي قياس للنص
   w.afterFont = function (cb) {
     if (!d.fonts || !d.fonts.load) return cb();
     Promise.all([d.fonts.load('600 16px "Readex Pro"', 'قيّم'), d.fonts.load('500 16px "Readex Pro"', 'قرّب')]).then(cb, cb);
   };
-  // الاسم في اللوح يصغر لين يدخل سطر واحد (من 16pt لين 9pt)
+  // عرض النص نفسه (Range)، مو عرض الصندوق: يكشف الطول الزايد بدون ما نقص النص (القص كان ياكل نقاط الياء، التقييم 1 بند 5)
+  function inkW(el) { var r = d.createRange(); r.selectNodeContents(el); return r.getBoundingClientRect().width; }
+  w.overflowsP = function (el) { return !!el && inkW(el) > el.clientWidth + 0.5; };
+  // سطر واحد: يصغر من fromPt لين minPt لين يدخل عرضه
   w.fitText = function (el, fromPt, minPt) {
     if (!el) return;
     for (var pt = fromPt; pt >= minPt; pt -= 0.5) {
       el.style.fontSize = pt + 'pt';
-      if (el.scrollWidth <= el.clientWidth + 0.5) return pt;
+      if (!overflowsP(el)) return pt;
     }
     return minPt;
+  };
+  // اسم المحل بدون شعار: أكبر حجم من maxPt لين minPt يدخل في maxLines سطر وداخل صندوق الشعار.
+  // يرجّع الحجم، أو 0 لو ما دخل حتى بأقل حجم (ويبقى على أقل حجم، والقالب ينبّه)
+  w.fitName = function (el, maxPt, minPt, maxLines) {
+    if (!el) return -1;
+    var box = el.parentNode;
+    for (var pt = maxPt; pt >= minPt; pt -= 0.5) {
+      el.style.fontSize = pt + 'pt';
+      var lh = parseFloat(getComputedStyle(el).lineHeight), h = el.offsetHeight;
+      if (Math.round(h / lh) <= maxLines && h <= box.clientHeight + 0.5 && !overflowsP(el)) return pt;
+    }
+    el.style.fontSize = minPt + 'pt';
+    return 0;
   };
 
   // الباركود من المكتبة المحلية (website/vendor/qrcode-generator.js)، تصحيح M، أسود على أبيض.

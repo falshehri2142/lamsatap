@@ -33,8 +33,8 @@ def trim(path, pad=16):
 
 
 def letters():
-    small = ["ب", "ت", "ن", "ف", "ق", "ا.", "ـبـ", "١", "٦", "٧", "1", "7", "7.", "I", "l", "i", "D.", "b", "P", "B."]
-    large = ["D.", "ا.", "٦", "٧", "b"]
+    small = ["ب", "ت", "ن", "ف", "ق", "ز", "ذ", "ا.", "ـبـ", "١", "٦", "٧", "1", "7", "7.", "I", "l", "i", "D.", "b", "P", "B."]
+    large = ["D.", "ز", "ا.", "٦", "٧"]
     css = (f'@font-face{{font-family:RX;src:url("{FONT}");font-weight:160 700}}body{{margin:0;background:#fff;font-family:Tahoma}}'
            '.c{display:inline-flex;align-items:center;justify-content:center;background:#FAF7F2;margin:2px;color:#14201F}'
            '.t{font:12px Tahoma;color:#56625F}')
@@ -44,8 +44,8 @@ def letters():
     for cid in IDS:
         icon = CDIR / cid / f"{cid}-icon-ink.svg"
         cells32 = "".join(f'<span class="c" style="width:40px;height:40px;font:600 26px {fam}">{t}</span>'
-                          for fam in ("RX", "'Sakkal Majalla'") for t in small[:7]) + \
-            "".join(f'<span class="c" style="width:40px;height:40px;font:700 26px Arial">{t}</span>' for t in small[7:])
+                          for fam in ("RX", "'Sakkal Majalla'") for t in small[:9]) + \
+            "".join(f'<span class="c" style="width:40px;height:40px;font:700 26px Arial">{t}</span>' for t in small[9:])
         cells256 = "".join(f'<span class="c" style="width:256px;height:256px;font:600 190px RX">{t}</span>' for t in large)
         rows.append(f'<div style="padding:8px 16px;border-top:1px solid #E4DCD0"><div class="t">{cid} «{C.NAMES[cid]}»</div>'
                     f'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="c" style="width:40px;height:40px">'

@@ -2,7 +2,7 @@
 // والفراغ بين حافتيهم 10mm أو أكثر. المقاسات من print/dims.js (host). النصوص من web-copy.md §3 (عتاد المضيف):
 // - ملصق الشريحة: النقطة وسطرها بس، مثل الستاند.
 // - ملصق الباركود: اسم المضيف أو شعاره، والعنوان «الواي فاي ودليل الوحدة»، والباركود، و«امسح الباركود» (بدون «أو»، كل ملصق ينقرى لحاله).
-// بهوية المضيف لو عنده، وإلا اسمه على لوح رملي (GM-027). ولا زعفران ولا ألوان لمسة تاب (GM-025).
+// بهوية المضيف لو عنده، وإلا اسمه شعار كتابي بدون لوح (GM-027، والتقييم 1 بند 6). ولا زعفران ولا ألوان لمسة تاب (GM-025).
 (function (w, d) {
   var H = w.PRINT_DIMS.host, mono = isMono();
   var mm = function (v) { return (+v).toFixed(2) + 'mm'; };
@@ -29,24 +29,30 @@
       touchMark(dotColor(brand, mono), H.dotD, mm(dotY - H.dotD / 2), mm(H.nfcW / 2 - H.dotD / 2)) +
       '<p class="p-el p-line p-center" style="top:' + mm(dotY + H.dotD / 2 + 3) + ';font-size:' + H.touchPt + 'pt;font-weight:600">قرّب جوالك هنا</p></section>';
 
-    // ملصق الباركود: الهوية فوق، ثم العنوان، ثم الباركود بمسافته الهادئة، ثم «امسح الباركود»
+    // ملصق الباركود: الهوية فوق، ثم العنوان، ثم الباركود بمسافته الهادئة، ثم «امسح الباركود» تحت المسافة الهادئة بـ qrLineGap،
+    // وتحته هامش bottomMin أو أكثر لحافة الملصق (التقييم 1 بند 8، ويتأكد بعد الخط تحت)
     var y = H.pad, logoH = H.logoH, titleTop = y + logoH + 2, qrTop = titleTop + 6;
+    var lineTop = qr ? qrTop + qr.totalMM + H.qrLineGap : H.qrH - H.pad - 5;
     var qrs = '<section class="' + cls + '" aria-label="ملصق الباركود" style="width:' + mm(H.qrW) + ';height:' + mm(H.qrH) + '">' + guide() +
       '<div class="p-el p-logo-box" style="top:' + mm(y) + ';left:' + mm(H.pad) + ';width:' + mm(H.qrW - 2 * H.pad) + ';height:' + mm(logoH) + '">' + logoHtml(brand, mono) + '</div>' +
       '<p class="p-el p-title p-center" id="p-title" style="top:' + mm(titleTop) + ';margin:0 auto;width:' + mm(H.qrW - 2 * H.pad) + ';font-size:' + H.titlePt + 'pt">الواي فاي ودليل الوحدة</p>' +
       (qr ? '<div class="p-el" style="top:' + mm(qrTop) + ';left:' + mm(H.qrW / 2 - qr.totalMM / 2) + '">' + qr.html + '</div>' : '') +
-      '<p class="p-el p-line p-center" style="bottom:' + mm(H.pad) + ';font-size:' + H.qrLinePt + 'pt;font-weight:500">امسح الباركود</p></section>';
-    if (qr && qrTop + qr.totalMM > H.qrH - H.pad - 5) warn.push('الباركود ما يدخل في ملصقه بهالمقاس. كبّر qrH في print/dims.js.');
+      '<p class="p-el p-line p-center" id="p-qr-line" style="top:' + mm(lineTop) + ';font-size:' + H.qrLinePt + 'pt;font-weight:500">امسح الباركود</p></section>';
 
     // الملصقين جنب بعض، والفراغ بينهم نفس الفراغ المطلوب وقت التركيب (المهندس §4)
     $p('p-sheets').innerHTML = '<div class="p-pair" style="gap:' + mm(H.gap) + '">' + nfc + qrs + '</div>';
     afterFont(function () {
-      fitText(d.querySelector('.p-plate-t'), 12, 7);
+      // بدون شعار: الاسم من 12pt لين 9pt، سطرين بالكثير داخل صندوق الشعار (8mm)
+      if (fitName(d.querySelector('.p-name'), H.nameMaxPt, H.nameMinPt, H.nameLines) === 0)
+        warn.push('اسم المحل ما دخل في سطرين بحجم ' + H.nameMinPt + 'pt. اختصره في ملف العميل.');
       // العنوان سطر واحد 9pt أو أكثر، وإلا سطرين «الواي فاي» ثم «ودليل الوحدة» (web-copy §3)
       var t = $p('p-title');
-      if (t && fitText(t, H.titlePt, 9) === 9 && t.scrollWidth > t.clientWidth + 0.5) {
+      if (t && fitText(t, H.titlePt, 9) === 9 && overflowsP(t)) {
         t.style.whiteSpace = 'normal'; t.innerHTML = 'الواي فاي<br>ودليل الوحدة';
       }
+      // الهامش تحت «امسح الباركود» (التقييم 1 بند 8): من أسفل صندوق السطر لحافة الملصق، بالمليمتر
+      var ln = $p('p-qr-line'), under = ln ? H.qrH - (lineTop + ln.offsetHeight * 25.4 / 96) : 0;
+      if (ln && under < H.bottomMin - 0.05) warn.push('الباركود ما يدخل في ملصقه بهالمقاس. كبّر qrH في print/dims.js.');
       previewBar({ title: 'ملصقات المضيف: ' + (brand.name || id) + (mono ? ' (نسخة الحفر)' : ''), mono: mono, warnings: warn });
     });
   });
