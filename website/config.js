@@ -3,6 +3,6 @@
 // whatsapp: فاضي عمداً؛ أرقام فقط بصيغة دولية بدون + (مثال الشكل: 9665XXXXXXXX). إذا فاضي يختفي زر واتساب.
 window.SITE = {
   domain: "https://example.com",
-  companyName: "[اسم الشركة]",
+  companyName: "لمسة تاب",
   whatsapp: ""
 };
