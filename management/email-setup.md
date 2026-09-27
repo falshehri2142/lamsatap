@@ -4,6 +4,8 @@
 التوفر الحقيقي ما يبان إلا داخل صفحة التسجيل نفسها، فالقائمة هنا مرتبة: جرب الأول، ما ضبط؟ اللي بعده.
 
 ## المرشحات (نفس الاسم في Gmail و Hotmail/Outlook عشان التطابق)
+
+**تحديث GM-008: الاسم المعتمد lamsatap — جرب lamsatap ثم lamsatap.sa ثم lamsa.tap.**
 1. tapnfc.sa
 2. nfctouch.sa
 3. lamsatnfc  (لمسة NFC)

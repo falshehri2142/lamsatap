@@ -31,14 +31,19 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 
 ## النظام الحالي (2026-09-27، `work/2026-09-27-short-links/`)
 - الروابط: `systems/shortlinks/` — `node systems/shortlinks/build.js` يولد `dist/`. الدومين سطر واحد في `config.json`.
-- الرابط اللي ينبرمج في الشريحة: `https://<domain>/t/<code>/` (حروف صغيرة وشرطة أخيرة) من `dist/links.txt`.
+- الرابط اللي ينبرمج في الشريحة: `https://<domain>/t/<code>/` (حروف صغيرة وشرطة أخيرة) من `out/links.txt` (خارج `dist/`، ما ينرفع).
 - الإلغاء `status: cancelled` (يروح `/t/inactive/`). `published.txt` يمنع حذف أي كود منشور.
 - الاستضافة المقترحة: Cloudflare Pages أساسي، Netlify احتياط (نفاد رصيده يوقف الموقع). GitHub Pages ممنوع للاستخدام التجاري حسب سياسته. القرار لصاحب المشروع.
 - المعمارية وتصميم إشعار تشيك أوت باقة المضيف (ورق): `systems/architecture.md`.
-- قبل أي نشر أو برمجة شريحة: `node systems/shortlinks/build.js` لازم ينجح، وافتح `dist/links.txt`. لو كود انبنى بالغلط وما انبرمج: شيله يدوياً من `published.txt` و`links.json` واذكر السبب في الـ commit.
+- قبل أي نشر أو برمجة شريحة: `node systems/shortlinks/build.js` لازم ينجح، وافتح `out/links.txt` (خارج `dist/`، ما ينرفع). لو كود انبنى بالغلط وما انبرمج: شيله يدوياً من `published.txt` و`links.json` واذكر السبب في الـ commit.
 - حمايات البناء (لا تشيلها): أكواد محجوزة، الوجهة https سليمة بلا مسافات أو `<>"'`، ممنوع ترجع لـ `/t/` على دوميننا، `?src=` بس يمر للوجهة، حد 2000 سطر في `_redirects`.
+- إدارة الروابط: `node systems/shortlinks/links-cli.js list | add <code>|--gen --client --place --dest | set-dest <code> <url> [--reactivate] | cancel <code>` (تجارب على نسخة بـ `--dir`). ما فيه حذف، وترجع `links.json` لو فشل البناء.
+- الإطلاق: `systems/LAUNCH-RUNBOOK.md` (14 خطوة، مين يسوي كل خطوة، Git Bash). الخطوات 1-3 (الدومين والحساب والـ nameservers) تنسوى قبل يوم الإطلاق. لا روابط عملاء قبل السجل التجاري، ولا برمجة شرائح قبل حسم `?src=nfc/qr` مع مهندس NFC.
+- عدّاد اللمسات: `systems/tap-counter.md`. يوم الإطلاق بدون عدّاد مبني؛ المقترح Pages Function + D1 (كود، يوم/شهر، src) بدون IP، والـ Function هي اللي تحوّل لأن `_redirects` ما يطبق على مساراتها. يحتاج موافقة صاحب المشروع. شرائح الأبواب `--type door` ما ينسجل لها أي لمس (loyer، `legal/register.md` بند 20).
 
 ## دروس
 - المشكّك لقى ثغرات (خطف الروابط الملغاة، XSS، حقن `_redirects`) بعد ما المختبِر أعطى PASS: لا تكتفِ بالمختبِر، شغّل المدقق والمشكّك على أي كود يولد صفحات أو تحويلات.
 - إذا `sys-architect` مو متاح كنوع وكيل، شغّل وكيل عام بتعليمات `.claude/agents/sys-architect.md`.
 - git بدون هوية في هالجهاز: الـ commit بـ `-c user.name=... -c user.email=...` نفس صاحب المشروع، بدون تعديل الإعدادات.
+- `dist/links.txt` كان بينرفع للعامة: أي ملف فيه أماكن أو عملاء يروح `out/` (خارج مجلد الرفع).
+- خطة الرجوع بـ `git checkout links.json` تخرب البناء (published.txt فيه الأكواد الجديدة): التصحيح بـ `set-dest`/`cancel` بس.
