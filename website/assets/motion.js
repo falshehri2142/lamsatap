@@ -56,7 +56,7 @@
     var i = { opacity: 0, y: '-0.18em', duration: 0.15, ease: 'power2.in' }, n = { opacity: 1, y: 0, duration: 0.15, ease: 'power2.out' };
     var tl = g.timeline().set(p, { opacity: 0 }).set(p[0], { opacity: 1 })
       .to(p[0], i, 1.6).fromTo(p[1], { opacity: 0, y: '0.18em' }, n, 1.75)
-      .to(p[1], i, 3.5).fromTo(p[2], { opacity: 0, y: '0.18em' }, g.utils.extend({ clearProps: 'all' }, n), 3.65);
+      .to(p[1], i, 3.5).fromTo(p[2], { opacity: 0, y: '0.18em' }, Object.assign({ clearProps: 'all' }, n), 3.65);
     ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { sec.addEventListener(t, function () { tl.progress(1); }, { passive: true, once: true }); });
   }
 
