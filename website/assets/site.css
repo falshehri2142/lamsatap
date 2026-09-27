@@ -24,7 +24,8 @@ a{color:var(--btn);text-underline-offset:.22em;text-decoration-thickness:1px}
 @media (hover:hover){.btn:hover{background:var(--lt-primary-press)}.btn.alt:hover{background:var(--lt-primary-soft)}}
 @media (prefers-color-scheme:dark){.btn.alt{-webkit-tap-highlight-color:rgba(255,255,255,.1)}}
 /* زر الواتساب (.lt-wa): رد الضغط من components.css بس، ولا شي هنا */
-.wa-link{display:inline-flex;align-items:center;gap:6px;min-height:var(--lt-tap-min);font-weight:700;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
+/* روابط الواتساب النصية (الرئيسية): لون --lt-wa من الهوية مو التيل (GM-020) */
+.wa-link{display:inline-flex;align-items:center;gap:6px;min-height:var(--lt-tap-min);color:var(--lt-wa);font-weight:700;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
 .wa-link .lt-wa-icon{inline-size:20px;block-size:20px;flex:none}
 
 /* سطر الحالة بعد النسخ أو الضغط (aria-live). فاضي = بدون مساحة، ويبقى في الصفحة عشان قارئ الشاشة يعلن اللي ينكتب فيه */
