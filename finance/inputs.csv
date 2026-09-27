@@ -59,11 +59,11 @@ install_delivery,all,توصيل أو زيارة التركيب لكل عميل,,
 price_shop_annual,shop_bundle,حزمة المحل الكامل سنوي مقدم (العتاد والتركيب مشمول),,1199,SAR/yr,مقترح المحلل المالي بعد GM-007 (بانتظار الاعتماد) غير مؤكد,fin-pricing
 price_shop_renewal,shop_bundle,تجديد السنة الثانية,,790,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing
 shop_stands_included,shop_bundle,ستاندات مشمولة (تقييم + واي فاي/روابط),,2,units,fin-pricing.md غير مؤكد,fin-pricing
-cost_stand_unit,shop_bundle,ستاند جاهز بشريحة (mego-store، بديل البريدي النافد),59,59,SAR/unit,mego-store مؤكد من صفحة المورد ومتوفر 2026-09-27 engineering/host-unit-and-stand-alternatives.md (الشحن غير مذكور؛ الضريبة غير واضحة),nfc-engineer
-cost_shipping,shop_bundle,شحن الستاند من المورد,,6,SAR/unit,غير مؤكد (review-stand-kit.md),nfc-engineer
+cost_stand_unit,shop_bundle,ستاند بشعار العميل: ورقة مطبوعة 8.00 + حامل أكريليك JST A6 مع حصة الشحن 5.22 + شريحة 2.95 (قبل الضريبة),,16.17,SAR/unit,الورقة (الإيثار) والحامل (JST) مؤكدين؛ الشريحة €0.67 بصرف 4.4 تقدير؛ engineering/client-logo-printing.md بند 6 (GM-023),nfc-engineer
+cost_shipping,shop_bundle,شحن الطباعة من الإيثار (موزع لكل ستاند),,3,SAR/unit,غير مؤكد (client-logo-printing.md: شحن الإيثار لكل عميل غير مؤكد),nfc-engineer
 shop_tags_included,shop_bundle,شرائح طاولات مشمولة,,10,units,fin-pricing.md غير مؤكد,fin-pricing
 cost_tag_unit,shop_bundle,شريحة أو ستاند طاولة صغير مع الشحن,,15,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
-labor_minutes,shop_bundle,إدخال المنيو وتركيب ستاندين (180+60) بدون التصميم,,240,min/client,fin-pricing.md غير مؤكد (fin-risk قدّر 120),fin-modeler
+labor_minutes,shop_bundle,إدخال المنيو 180 + تركيب الستاندين ~50 + تصميم الشعار 60 + التنسيق مع مورد الطباعة 20,,310,min/client,تقدير: client-logo-printing.md (design 60 لو الشعار جاهز، +20-120 لو مو جاهز؛ vendor ~20؛ 5 ستاندات 100-130 دقيقة) غير مؤكد,fin-modeler
 cost_hosting_monthly,shop_bundle,استضافة لكل محل (5 صفحات),,5,SAR/month,fin-pricing.md غير مؤكد,systems-supervisor
 support_minutes_monthly,shop_bundle,دعم شهري: تحديث منيو مرتين بالشهر (الزيادة إضافة مدفوعة),,20,min/month,حد التحديثين: قرار صاحب المشروع 2026-09-27؛ 10 دقائق للتحديث غير مؤكد,owner
 wa_msgs_cost_monthly,shop_bundle,رسائل واتساب شهرية,,0,SAR/month,لا يوجد في الحزمة,fin-modeler
