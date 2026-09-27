@@ -12,22 +12,33 @@ function lum(h) {
   return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
 }
 
+// الباركود كمسار SVG واحد (viewBox 0 0 n n): كل صف، الوحدات السودا المتجاورة مستطيل واحد (نفس الشكل، وحجم أقل بكثير
+// من مربع لكل وحدة). يستخدمه الستاند هنا، و«حقل QR» في الرئيسية (web-motion، data-scan="qr-field") عن طريق build-home-minis.cjs
+function qrPath(qrcode, url, level, hole) {
+  const q = qrcode(0, level || 'M'); q.addData(url); q.make();
+  const n = q.getModuleCount();
+  // hole: فتحة مربعة في الوسط (k وحدة) لرمزنا. وحداتها تنكتب في center (للحركة بس)، والباقي في path
+  const k = hole || 0, x0 = Math.floor((n - k) / 2), inH = (r, c) => k && r >= x0 && c >= x0 && r < x0 + k && c < x0 + k;
+  const run = (keep) => {
+    let p = '';
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) {
+        if (!q.isDark(r, c) || !keep(r, c)) continue;
+        let e = c;
+        while (e + 1 < n && q.isDark(r, e + 1) && keep(r, e + 1)) e++;
+        p += 'M' + c + ' ' + r + 'h' + (e - c + 1) + 'v1h-' + (e - c + 1) + 'z';
+        c = e;
+      }
+    }
+    return p;
+  };
+  return { n, path: run((r, c) => !inH(r, c)), center: k ? run(inH) : '', hole: k ? [x0, k] : null, version: q.getTypeNumber ? q.getTypeNumber() : 0 };
+}
+
 // o = { dims: PRINT_DIMS.stand، qrcode: دالة المكتبة، url: رابط الباركود، title، logo: مسار الشعار من الصفحة، color: لون المحل }
 module.exports = function standHtml(o) {
   const D = o.dims, base = +D.baseCover || 0;
-  const q = o.qrcode(0, 'M'); q.addData(o.url); q.make();
-  const n = q.getModuleCount();
-  // كل صف: الوحدات السودا المتجاورة مستطيل واحد (نفس الشكل، وحجم أقل بكثير من مربع لكل وحدة)
-  let path = '';
-  for (let r = 0; r < n; r++) {
-    for (let c = 0; c < n; c++) {
-      if (!q.isDark(r, c)) continue;
-      let e = c;
-      while (e + 1 < n && q.isDark(r, e + 1)) e++;
-      path += 'M' + c + ' ' + r + 'h' + (e - c + 1) + 'v1h-' + (e - c + 1) + 'z';
-      c = e;
-    }
-  }
+  const { n, path } = qrPath(o.qrcode, o.url);
   const dot = /^#[0-9A-Fa-f]{6}$/.test(o.color || '') && 1.05 / (lum(o.color) + 0.05) >= 3 ? o.color : 'var(--lt-ink)';
   const mm = (v) => 'calc(' + Number(v.toFixed(3)) + ' * var(--mm))';
   const box = (top, w, h) => 'top:' + mm(top) + ';left:' + mm((D.sheetW - w) / 2) + ';width:' + mm(w) + ';height:' + mm(h);
@@ -41,3 +52,4 @@ module.exports = function standHtml(o) {
     '<svg class="lt-stand-qr" viewBox="0 0 ' + n + ' ' + n + '" shape-rendering="crispEdges" focusable="false" style="' + box(D.qrTop - base, D.qrSize, D.qrSize) + '">' +
     '<path fill="currentColor" d="' + path + '"/></svg></div></figure>';
 };
+module.exports.qrPath = qrPath;

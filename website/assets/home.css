@@ -1,6 +1,5 @@
-/* الرئيسية (الاتجاه 2 §4، web-art-director.md): لوحة حبر (الرأس، البطل، الأمثلة) ← رملي (المضيفين، المحلات،
-   كيف نشتغل، الاشتراك، الأسئلة) ← لوحة حبر (الخاتمة، التذييل). فوق site.css. ولا ظل، ولا حد 2px.
-   الحركة الوحيدة بدون ضغط: العبارة المتبدلة في h1 (§3.8). ولا دخول للجوال، ولا ظهور مع النزول. */
+/* الرئيسية (البوابة، GM-040): الرأس والبداية من «الاتجاه 3» (web-art-director.md)، والباقي أقسام «الاتجاه 2» لين المطوّر يوزعها
+   على الصفحات الثلاث. فوق site.css. ولا ظل، ولا حد 2px. الحركة كلها في motion.css و motion.js (web-motion.md «النظام 2»). */
 
 /* خفة التحميل: الأقسام تحت أول شاشة ما تنرسم لين تقرب (بدون أي ظهور متدرج)، والشاشات المصغرة معزولة */
 #host, #shop, #how, #pricing, #faq, .h-close, .h-foot-wrap { content-visibility: auto; contain-intrinsic-size: auto 800px; }
@@ -10,14 +9,12 @@
 .h-photo { position: relative; overflow: hidden; background: var(--lt-surface-2); }
 .h-photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 /* object-position من photos.md (المدير الفني): الموضوع يبان، واليمين الهادي يروح تحت الجوال والتدرج */
-.h-photo--hero img { object-position: 12% 60%; }    /* 4:5 تحت 768 */
 .h-photo--shop img { object-position: 50% 65%; }    /* يبيّن سطح الكاونتر أكثر */
 .h-photo--host img { object-position: 50% 55%; }
 .h-photo--close img { object-position: 35% 55%; }   /* 16:9 تحت 1024 */
-@media (min-width: 768px) { .h-photo--hero img { object-position: 0% 60%; } }        /* 16:9 ولوحة الكمبيوتر */
 @media (min-width: 1024px) { .h-photo--close img { object-position: 0% 55%; } }      /* لوحة الكمبيوتر */
 /* تدرج الحبر على حافة الصورة اللي جهة النص (§4 و§5.2) */
-.h-photo--hero::after, .h-photo--close::after { content: ""; position: absolute; pointer-events: none; }
+.h-photo--close::after { content: ""; position: absolute; pointer-events: none; }
 
 /* ===== الجوالات: phone-frame.svg inline والشاشة الحقيقية داخل خانته (tools/build-home-minis.cjs) ===== */
 .h-phone-svg { display: block; width: 100%; height: auto; overflow: visible; }
@@ -31,50 +28,42 @@
 /* شريط الحالة: الكاميرا فوق الشاشة، فالمحتوى ينزل 28px عشان ما تغطي الهوية (مثل متصفح الجوال) */
 .h-phone-svg .mini > .c-main { padding-top: 28px; }
 
-/* ===== 2) البطل ===== */
-.h-hero { position: relative; overflow-x: clip; padding-block: var(--lt-space-24); }   /* الحشوة تحت = نزول الجوال 24 عن الصورة (بدون هامش يطلع برّا القسم) */
-.h-h1 { max-width: 11em; }
-.h-rot, .h-h1-fixed { display: block; }
-/* العبارات فوق بعض في خانة grid وحدة: العرض عرض أطول وحدة، فما فيه قفز (content-jumping) */
-.h-rot { display: grid; }
-.h-rot-i { grid-area: 1 / 1; opacity: 0; }
-.h-rot-i:last-child { opacity: 1; }   /* بدون JS، ومع تقليل الحركة، وبعد أي تفاعل: العبارة الأخيرة ثابتة */
-/* 1.6 ثانية لكل عبارة، وتلاشي متقاطع 300ms ease-out، وتقف عند 3.8 ثانية بدون دوران (§3.8) */
-@media (prefers-reduced-motion: no-preference) {
-  .js .h-rot:not(.is-end) .h-rot-i:nth-child(1) { animation: h-rot-1 1.9s ease-out both; }
-  .js .h-rot:not(.is-end) .h-rot-i:nth-child(2) { animation: h-rot-2 2.2s ease-out 1.6s both; }
-  .js .h-rot:not(.is-end) .h-rot-i:nth-child(3) { animation: h-rot-3 .3s ease-out 3.5s both; }
-}
-@keyframes h-rot-1 { 0%, 84.21% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes h-rot-2 { 0% { opacity: 0; } 13.64%, 86.36% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes h-rot-3 { from { opacity: 0; } to { opacity: 1; } }
-.h-lead { margin-top: var(--lt-space-16); }
-.h-pair { margin-top: var(--lt-space-32); }
-.h-risk { margin-top: var(--lt-space-16); color: var(--lt-muted); font-size: 15px; font-weight: 500; line-height: 1.5; }
+/* ===== 1) الرأس ثابت فوق (web-art-director.md «الاتجاه 3» §1): شعار البداية يطير له. تحته خط 1px دايماً،
+   و scroll-padding-top بارتفاعه عشان الروابط الداخلية ما تختفي تحته. (المطوّر يعمّمه على الصفحات الثلاث) ===== */
+html { scroll-padding-top: 88px; }
+.s-top { position: sticky; top: 0; z-index: 30; background: var(--lt-bg); border-bottom: var(--lt-hairline) solid var(--lt-border); }
 
-/* الجوال (تحت 768): الصورة 4:5 من حافة لحافة وفوقها تدرج 72px، والجوال 46% على يمينها وينزل 24 عن حافتها */
-.h-hero-media { position: relative; margin-top: var(--lt-space-40); }
-.h-photo--hero { aspect-ratio: 4 / 5; }
-.h-photo--hero::after { top: 0; left: 0; right: 0; height: 72px; background: linear-gradient(to bottom, var(--lt-bg), transparent); }
-.h-phone { display: block; }
-.h-phone--hero { position: absolute; right: var(--lt-gutter); bottom: -24px; width: 46%; }
-/* 768 إلى 1023: الصورة 16:9 والجوال 36%. الجوال أطول من الصورة، فالمسافة فوقها تكبر بنفس النسبة عشان ما يغطي الأزرار */
+/* ===== 2) البداية «باركودنا هو شعارنا» (GM-040 §1، «الاتجاه 3» §3؛ الحركة في motion.js و web-motion.md «النظام 2»).
+   هذي الحالة النهائية الثابتة (بدون JS، ومع تقليل الحركة، وآخر التسلسل): الوعد جنب الفن على الكمبيوتر وفوقه على الجوال،
+   والفن: الباركود الحقيقي (--qm = وحدة الباركود بالبكسل)، ووسطه الرمز، وتحته LAMSATAP بعرضه، وتحتها السطر. خلفية القسم أبيض ===== */
+.h-open { --qm: 6px; position: relative; overflow-x: clip; background: var(--lt-surface); }   /* الوحدة: الباركود المرئي 37 × 6 = 222 (المدير الفني: 220) */
+.h-open-grid { display: grid; gap: var(--lt-space-32); padding-block: var(--lt-space-40) var(--lt-space-48); }
+.h-open-h1 { max-width: 11em; font-size: 40px; line-height: 1.2; font-weight: 500; }
+.h-open-lead { margin-top: var(--lt-space-16); }
+.h-open-art { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 calc(-1 * var(--lt-gutter)); min-height: 440px; }
+.h-open-qr { position: relative; color: var(--lt-text); }
+.h-open-qr svg { position: relative; z-index: 1; display: block; width: calc(var(--qv, 45) * var(--qm)); height: auto; }
+/* الرمز والكلمة: نافذتين على ملف الشعار الأفقي نفسه (logo-horizontal.svg، بدون تعديل): الرمز 0..200 والكلمة 260..1068.75 × 47.4..152.4 */
+.h-open-sym { position: absolute; z-index: 2; display: block; overflow: hidden; }
+.h-open-sym img { position: absolute; left: 0; top: 0; width: auto; height: 100%; max-width: none; }
+.h-open-word { position: relative; z-index: 1; display: block; width: calc((var(--qv, 45) - 8) * var(--qm)); aspect-ratio: 808.75 / 105; margin-top: var(--lt-space-8); overflow: hidden; }   /* بعرض الباركود المرئي (بدون الفراغ الهادئ) */
+.h-open-word img { position: absolute; left: -32.148%; top: -45.143%; width: auto; height: 190.476%; max-width: none; }
+.h-open-cap { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: var(--lt-space-8); margin-top: var(--lt-space-16); }
+.h-open-scan { display: none; font-size: 15px; font-weight: 500; color: var(--lt-muted); }
+.h-open-alt { font-size: 14px; color: var(--lt-muted); }
 @media (min-width: 768px) {
-  .h-hero-media { margin-top: calc(18.75vw + 8px); }
-  .h-photo--hero { aspect-ratio: 16 / 9; }
-  .h-phone--hero { width: 36%; }
+  .h-open { --qm: 7px; }
+  .h-open-h1 { font-size: 52px; }
 }
-/* 1024 وفوق: النص 6 أعمدة يمين، والصورة يسار تنزف لحافة الشاشة بارتفاع 640، وعلى حافتها جهة النص تدرج 120px.
-   الجوال 280px داخل الصورة، على بعد 48 من التدرج، وفي نصها طولياً. الزر في البطل 56 وحشوه 28 ونصه 17 */
+/* 1024 وفوق: النص يمين 5 أعمدة في نص الارتفاع، والفن يسار 7 أعمدة ينزف لحافة الشاشة بارتفاع الشاشة ناقص الرأس. ولا زر معبّى: الباركود هو الفعل */
 @media (min-width: 1024px) {
-  .h-hero { padding-block: 0; }
-  .h-hero-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: 640px; }
-  .h-hero-text { grid-column: 1 / span 6; padding-block: var(--lt-space-64); }
-  .h-hero-media { position: absolute; top: 0; bottom: 0; left: 0; right: calc(50% + var(--lt-grid-gap) / 2); margin: 0; }
-  .h-photo--hero { position: absolute; inset: 0; aspect-ratio: auto; }
-  .h-photo--hero::after { top: 0; bottom: 0; left: auto; right: 0; width: 120px; height: auto; background: linear-gradient(to left, var(--lt-bg), transparent); }
-  .h-phone--hero { right: 168px; bottom: auto; top: 50%; width: 280px; transform: translateY(-50%); }
-  .h-hero .lt-btn:not(.lt-btn--compact) { min-block-size: 56px; padding-inline: 28px; font-size: 17px; }
+  .h-open { --qm: 9px; }   /* 37 × 9 = 333 (المدير الفني: 320)، والوحدة عدد صحيح عشان الحواف حادة */
+  .h-open-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: clamp(560px, calc(100svh - 81px), 1000px); padding-block: 0; }
+  .h-open-text { grid-column: 1 / span 5; grid-row: 1; }
+  .h-open-h1 { font-size: 72px; line-height: 1.15; }
+  .h-open-art { grid-column: 6 / span 7; grid-row: 1; align-self: stretch; margin: 0; margin-inline-end: calc(-1 * max(var(--lt-gutter), (100vw - var(--lt-container)) / 2)); min-height: clamp(560px, calc(100svh - 81px), 1000px); }
+  .h-open-scan { display: block; }
+  .h-open-try, .h-open-alt { display: none; }
 }
 
 /* ===== 3) الأمثلة: 4 بطاقات (صف على الكمبيوتر، و2×2 تحته). البطاقة: جوال بعرضها الداخلي لين 220، ثم h3، ثم سطر، ثم رابط ===== */

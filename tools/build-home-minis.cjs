@@ -24,6 +24,7 @@ const run = (f) => vm.runInContext(read(f), ctx, { filename: f });
 // مقاسات الستاند من قالب الطباعة نفسه (مصدر واحد)، ومكوّنه
 vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'print', 'dims.js'), 'utf8'), ctx, { filename: 'print/dims.js' });
 const standHtml = require('./stand.cjs');
+const { qrPath } = standHtml;
 ctx.LT_NO_MOUNT = true;
 ['demo/menu/data.js', 'templates/menu/render.js', 'demo/wifi/data.js', 'templates/wifi/render.js',
   'demo/links/data.js', 'templates/links/render.js', 'demo/rental-guide/data.js', 'templates/rental-guide/render.js'].forEach(run);
@@ -85,9 +86,15 @@ function phone(screenHtml) {
     .replace(/^<svg /, '<svg class="h-phone-svg" aria-hidden="true" focusable="false" ');
 }
 
+// مصدر صورة البطل (GM-037، web-motion.md «النظام 2»): متغير واحد. لتبديلها (مثل صورة الدلة بعد تنزيلها وتحويلها):
+// حط <الاسم>-800 و<الاسم>-1600 في assets/images/، وغيّر الاسم هنا، وشغّل السكربت. حركة البطل ما تعتمد على الصورة،
+// وقصّها --hero-pos في assets/home.css. الخانة ([data-hero-media]) تقبل <video> بعدين بنفس المكان.
+const HERO_PHOTO = 'hero-hospitality';
+
 // الصور (§5.3): WebP (أو JPEG) بعرضين 800 و1600 في assets/images/. بدون ملف: الخانة تبقى فاضية بتعبئتها
+// file = اسم الملف لو غير اسم الخانة. cover = الصورة تعبّي الشاشة بـ object-fit: cover، فـ sizes يحسب عرضها الحقيقي من نسبتها
 const IMGS = {
-  'hero-hospitality': { sizes: '(min-width: 1024px) 50vw, 100vw', hero: true },
+  hero: { file: HERO_PHOTO, cover: true, hero: true },
   'host-entry': { sizes: '(min-width: 1024px) 40vw, 100vw' },
   'shop-counter': { sizes: '(min-width: 1024px) 40vw, 100vw' },
   'touch-moment': { sizes: '(min-width: 1024px) 50vw, 100vw' }
@@ -110,12 +117,14 @@ function dims(file) {
   throw new Error('unknown image format: ' + file);
 }
 function img(name) {
-  const cfg = IMGS[name];
+  const cfg = IMGS[name], file = cfg.file || name;
   for (const ext of ['webp', 'jpg']) {
-    const f = (wd) => path.join(W, 'assets/images', name + '-' + wd + '.' + ext);
+    const f = (wd) => path.join(W, 'assets/images', file + '-' + wd + '.' + ext);
     if (!fs.existsSync(f(800)) || !fs.existsSync(f(1600))) continue;
-    const a = dims(f(800)), b = dims(f(1600)), u = (wd) => 'assets/images/' + name + '-' + wd + '.' + ext;
-    return '<img src="' + u(800) + '" srcset="' + u(800) + ' ' + a.w + 'w, ' + u(1600) + ' ' + b.w + 'w" sizes="' + cfg.sizes + '" width="' + b.w + '" height="' + b.h +
+    const a = dims(f(800)), b = dims(f(1600)), u = (wd) => 'assets/images/' + file + '-' + wd + '.' + ext;
+    // cover بخانة 100vw × 100vh: الصورة أعرض من الشاشة لما الشاشة أطول من نسبتها (الجوال)، فعرضها = الارتفاع × النسبة
+    const sizes = cfg.cover ? '(max-aspect-ratio: ' + b.w + '/' + b.h + ') ' + Math.ceil(100 * b.w / b.h) + 'vh, 100vw' : cfg.sizes;
+    return '<img src="' + u(800) + '" srcset="' + u(800) + ' ' + a.w + 'w, ' + u(1600) + ' ' + b.w + 'w" sizes="' + sizes + '" width="' + b.w + '" height="' + b.h +
       '" alt=""' + (cfg.hero ? ' fetchpriority="high"' : ' loading="lazy" decoding="async"') + '>';
   }
   return '';
@@ -131,6 +140,7 @@ const stand = (logo) => standHtml({
 // خانات الشعار (GM-036): كل خانة تاخذ ملف SVG بمسار واحد في assets/brand/، والملفات يسلمها المدير العام (ما نلمسها).
 // لين توصل: الكلمة «لمسة تاب» نص مثل الحين (بدون صورة مكسورة ولا طلب 404). يوم التسليم: الملفات هنا، ثم هالسكربت.
 const LOGO = {
+  web: 'assets/brand/logo-horizontal.svg',              // v1.0.0 بلون الحبر (GM-042): رأس البوابة، ونافذتي الرمز والكلمة في بدايتها
   h: 'assets/brand/logo-horizontal.svg',                 // الأفقي على الفاتح (رأس الرملي، وورقة QR)
   hDark: 'assets/brand/logo-horizontal-dark.svg',        // الأفقي على الحبر والداكن (رأس الرئيسية، والرملي في الداكن)
   stack: 'assets/brand/logo-stack-dark.svg',             // المكدّس على الحبر (التذييل)
@@ -177,18 +187,44 @@ function homeOut() {
   };
   for (const n of Object.keys(IMGS)) out['img:' + n] = img(n);
   site.emergency = sos;
+  // «حقل QR» (web-motion.md «النظام 2»): باركود حقيقي بمسافة هادئة 4 وحدات داخل viewBox، يفتح الدليل التجريبي.
+  // الحركة ترسم الحقل وتجمّعه لين يصير هذا الباركود نفسه. مكان القسم يحدده المدير الفني: <div data-scan="qr-field"><!-- @@qr:field --><!-- /@@qr:field --></div>
+  const demoUrl = String(site.domain || 'https://example.com').replace(/\/+$/, '') + '/demo/rental-guide/';
+  out['qr:field'] = qrSvg(demoUrl);
+  // البداية «باركودنا هو شعارنا» (web-art-director.md «الاتجاه 3» §3، و web-motion.md «النظام 2»): تصحيح H، والرمز في الوسط
+  out['qr:logo'] = qrLogo(demoUrl);
   // ألوان المحلين من محرك اللون، على صندوق الشاشة المصغرة (فاتح وداكن)
   const vars = (x) => '--shop:' + x.shop + ';--on-shop:' + x.onShop + ';--shop-press:' + x.press + ';--shop-line:' + x.line + ';--shop-tint:' + x.tint + ';--shop-hl:' + x.hl;
   let style = '';
   for (const [cls, b] of [['mini--cafe', ctx.DEMO_BRANDS.cafe], ['mini--flats', ctx.DEMO_BRANDS.flats]]) {
     const t = ctx.shopColors(b);
-    style += '.' + cls + '{' + vars(t.light) + '}@media (prefers-color-scheme:dark){.' + cls + '{' + vars(t.dark) + '}}';
+    // الداكن تحت مفتاح «فاتح دايماً» (tokens.css، GM-038): صفحة الشركة اللي عليها data-lt-scheme="light" تبقى شاشاتها المصغرة فاتحة
+    style += '.' + cls + '{' + vars(t.light) + '}@media (prefers-color-scheme:dark){:root:not([data-lt-scheme="light"]) .' + cls + '{' + vars(t.dark) + '}}';
   }
   // تنسيق قالبي الروابط والواي فاي صغير، فينحط هنا بدل ملفين زيادة
   for (const f of ['templates/links/style.css', 'templates/wifi/style.css']) style += read(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*\n\s*/g, '');
   out['minis-style'] = '<style>' + style + '</style>';
   return out;
 }
+function qrSvg(url) {
+  const { n, path: d } = qrPath(ctx.qrcode, url), v = n + 8;
+  return '<svg class="m-qr" viewBox="-4 -4 ' + v + ' ' + v + '" width="' + v * 8 + '" height="' + v * 8 + '" shape-rendering="crispEdges" role="img" aria-label="باركود يفتح الدليل التجريبي" data-qr-url="' + url.replace(/"/g, '&quot;') + '"><path fill="currentColor" d="' + d + '"/></svg>';
+}
+// باركود البداية بتصحيح H وفتحة في وسطه للرمز: الرمز (بدون فراغه) 12% من مساحة الباركود بالكثير، وفراغه وحدة من كل جهة،
+// وما يغطي مربعات الزوايا ولا خطوط التوقيت ولا مربع المحاذاة. الرمز نفسه نافذة على ملف الشعار الأفقي (بدون تعديل ولا نسخ، GM-036/042)
+function qrLogo(url) {
+  const probe = qrPath(ctx.qrcode, url, 'H'), n = probe.n;
+  if (n >= 45) throw new Error('الرابط طويل: باركود H نسخة 7 أو أكبر فيه مربع محاذاة في الوسط، والرمز بيغطيه (' + url + ')');
+  // المدير الفني §11.2: الرمز 8×8 وحدات بالضبط (كل خانة من شبكته 4×4 = وحدتين)، وحوله وحدة فاضية = فتحة 10×10 (7.3% من 37×37).
+  // الباركود ضلعه فردي، فالفتحة الزوجية تبعد نص وحدة عن النص بالضبط (عشان حواف الرمز تبقى على خطوط الوحدات)
+  const k = 10, q = qrPath(ctx.qrcode, url, 'H', k), v = n + 8, pct = (x) => +(100 * x / v).toFixed(4) + '%';
+  const x0 = q.hole[0], box = 'left:' + pct(4 + x0 + 1) + ';top:' + pct(4 + x0 + 1) + ';width:' + pct(k - 2) + ';height:' + pct(k - 2);
+  return '<svg class="m-qr" viewBox="-4 -4 ' + v + ' ' + v + '" width="' + v * 8 + '" height="' + v * 8 + '" style="--qv:' + v + '" shape-rendering="crispEdges" role="img" aria-label="باركود فيه رمز لمسة تاب، يفتح الدليل التجريبي" data-qr-url="' + url.replace(/"/g, '&quot;') + '" data-qr-hole="' + x0 + ' ' + k + '">' +
+    '<path fill="currentColor" d="' + q.path + '"/><path data-qr-center fill="none" d="' + q.center + '"/></svg>' +
+    '<span class="h-open-sym" data-open-sym style="' + box + '"><img src="' + LOGO.web + '" alt="" width="1069" height="200"></span>';
+}
+// علامات اختيارية: تنكتب لو موجودة في الصفحة، وتنتجاهل لو مو موجودة
+const OPTIONAL = new Set(['qr:field', 'qr:logo', 'phone:hero', 'img:hero']);   // البوابة ما فيها صورة بطل ولا جوال بطل (GM-040)؛ صفحتي الجمهور تستخدمهم
 const PAGES = {
   'index.html': homeOut,
   'demo/review/index.html': () => ({
@@ -207,7 +243,7 @@ for (const page of (targets.length ? targets : Object.keys(PAGES))) {
   let html = before;
   for (const [k, v] of Object.entries(out)) {
     const re = new RegExp('(<!-- @@' + k.replace(/[-]/g, '\\-') + '(?::[^>]*)? -->)[\\s\\S]*?(<!-- /@@' + k.replace(/[-]/g, '\\-') + ' -->)');
-    if (!re.test(html)) throw new Error('marker not found in ' + page + ': ' + k);
+    if (!re.test(html)) { if (OPTIONAL.has(k)) { delete out[k]; continue; } throw new Error('marker not found in ' + page + ': ' + k); }
     html = html.replace(re, (m, a, b) => a + v + b);
   }
   if (html !== before) fs.writeFileSync(path.join(W, page), html);
