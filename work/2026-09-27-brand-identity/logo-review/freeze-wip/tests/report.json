@@ -1,0 +1,151 @@
+{
+ "item1": [
+  {
+   "variant": "favicon فاتح (تبويب أبيض)",
+   "size": 16,
+   "top_px": 5.0,
+   "off_grid": -0.0,
+   "dot_top_row": 85,
+   "dot_row_above": 0,
+   "surface_top_row": 100,
+   "surface_row_above": 0
+  },
+  {
+   "variant": "favicon فاتح (تبويب أبيض)",
+   "size": 32,
+   "top_px": 10.0,
+   "off_grid": -0.0,
+   "dot_top_row": 94,
+   "dot_row_above": 0,
+   "surface_top_row": 100,
+   "surface_row_above": 0
+  },
+  {
+   "variant": "favicon داكن (تبويب #202124)",
+   "size": 16,
+   "top_px": 5.0,
+   "off_grid": -0.0,
+   "dot_top_row": 85,
+   "dot_row_above": 0,
+   "surface_top_row": 100,
+   "surface_row_above": 0
+  },
+  {
+   "variant": "favicon داكن (تبويب #202124)",
+   "size": 32,
+   "top_px": 10.0,
+   "off_grid": -0.0,
+   "dot_top_row": 93,
+   "dot_row_above": 0,
+   "surface_top_row": 100,
+   "surface_row_above": 0
+  },
+  {
+   "variant": "ico الجديد: دائرة، 6/7 على البكسل",
+   "size": 16,
+   "top_px": 5.0,
+   "off_grid": -0.0,
+   "dot_top_row": 81,
+   "dot_row_above": 0,
+   "surface_top_row": 100,
+   "surface_row_above": 0
+  },
+  {
+   "variant": "ico الجديد: دائرة، 6/7 على البكسل",
+   "size": 32,
+   "top_px": 10.0,
+   "off_grid": -0.0,
+   "dot_top_row": 92,
+   "dot_row_above": 0,
+   "surface_top_row": 100,
+   "surface_row_above": 0
+  },
+  {
+   "variant": "ico القديم: دائرة، 0.8 في النص",
+   "size": 16,
+   "top_px": 5.2,
+   "off_grid": 0.2,
+   "dot_top_row": 61,
+   "dot_row_above": 0,
+   "surface_top_row": 75,
+   "surface_row_above": 0
+  },
+  {
+   "variant": "ico القديم: دائرة، 0.8 في النص",
+   "size": 32,
+   "top_px": 10.4,
+   "off_grid": 0.4,
+   "dot_top_row": 46,
+   "dot_row_above": 0,
+   "surface_top_row": 50,
+   "surface_row_above": 0
+  }
+ ],
+ "item2": [
+  {
+   "shift": 0,
+   "mass": [
+    234.2,
+    246.3
+   ],
+   "mass_dx": -21.8,
+   "bbox_cx": 256.0,
+   "far": 169.7,
+   "inside_80": true
+  },
+  {
+   "shift": 16,
+   "mass": [
+    250.2,
+    246.3
+   ],
+   "mass_dx": -5.8,
+   "bbox_cx": 272.0,
+   "far": 175.7,
+   "inside_80": true
+  }
+ ],
+ "item3": {
+  "lamsatap-horizontal": {
+   "h": 136.27,
+   "clear": 68.13,
+   "file_h": 153.64,
+   "right_edge_is_dot": true
+  },
+  "lamsatap-horizontal-ar": {
+   "h": 74.0,
+   "clear": 37.0,
+   "file_h": 104.43,
+   "right_edge_is_dot": true
+  },
+  "lamsatap-logo": {
+   "h": 136.27,
+   "clear": 68.13,
+   "file_h": 374.08,
+   "right_edge_is_dot": false
+  }
+ },
+ "sizes": {
+  "arabic_worst_units": 5.6,
+  "arabic_at_30mm_ar_lockup": {
+   "line": 3.111,
+   "gap": 1.609,
+   "eye": 3.225
+  },
+  "العربي بس": {
+   "file_h_units": 104.43,
+   "arabic_engrave_min_mm": 5.6,
+   "arabic_screen_min_px": 19
+  },
+  "الأفقي": {
+   "file_h_units": 153.64,
+   "arabic_engrave_min_mm": 8.2,
+   "arabic_screen_min_px": 28
+  },
+  "الكامل": {
+   "file_h_units": 374.08,
+   "arabic_engrave_min_mm": 20.0,
+   "arabic_screen_min_px": 67
+  }
+ }
+}

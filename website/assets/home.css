@@ -19,7 +19,12 @@
 .h-trust { margin-top: var(--lt-space-12); font-size: 15px; line-height: 1.5; color: var(--lt-muted); }
 .h-scene { display: flex; justify-content: center; }
 @media (min-width: 1024px) {
-  .h-hero { grid-template-columns: 1fr 1fr; align-items: center; gap: var(--lt-grid-gap); padding: var(--lt-space-96) 0 112px; }
+  /* من آخر مسرح البطل لأول بلاطة المضيف 96 بالضبط (التقييم 1 بند 2): بدون حشوة تحت البطل، والبلاطة تبعد 96 بدل 128،
+     عشان البلاطة تطل في أول شاشة (900) على 1440 */
+  .h-hero { grid-template-columns: 1fr 1fr; align-items: center; gap: var(--lt-grid-gap); padding: var(--lt-space-96) 0 0; }
+  .h-hero + #host { margin-top: var(--lt-space-96); }
+  /* لو النص أطول من المشهد (1024 إلى 1279)، المشهد ينزل لآخر البطل عشان الـ 96 تنقاس من آخر المسرح نفسه */
+  .h-hero .h-scene { align-self: end; }
   .h-lead { margin-top: var(--lt-space-20); }
 }
 
@@ -53,23 +58,32 @@
   .h-acts .lt-btn { flex: 0 1 auto; }
 }
 
-/* مروحة جوالات المحل (web-illustrator §4): الإطار phone-frame.svg، والشاشة HTML بنسب الخانة، والكاميرا فوقها.
-   من 768 ثلاثة متداخلة (المنيو قدام 240، وكل واحد وراه أصغر 10%). تحت 768 جوالين. بدون ظل: حافة 3px بلون البلاطة */
-.h-fan { position: relative; min-height: 440px; }
+/* مروحة جوالات المحل (web-illustrator §4، والتقييم 1 بند 1): الإطار phone-frame.svg، والشاشة HTML بنسب الخانة، والكاميرا فوقها.
+   - الأمامي (المنيو) على اليسار، واللي وراه يطلعون لليمين ومرفوعين عنه بـ --lift. في RTL محتوى الشاشة على اليمين،
+     فالجزء المستور من كل جوال ورا (يساره) فاضي تقريباً، وأعلى شاشته (الهوية والصندوق أو الصفوف) يبين.
+   - التداخل --ov من عرض الجوال اللي ورا: 30% (على 1440 الحد 30%، التقييم 1)، والمجموعة في نص الخانة (--g عرضها).
+   - من 768 ثلاثة (المنيو 240، وكل واحد وراه أصغر 10%، الموجز §4.4)، وتحتها جوالين. بدون ظل: حافة 3px بلون البلاطة. */
+.h-fan { --p1: 200; --p2: 180; --p3: 0; --ov: .3; --lift: 56px;
+  --g: calc((var(--p1) + (var(--p2) + var(--p3)) * (1 - var(--ov))) * 1px);
+  position: relative; min-height: 476px; }
 .fan-phone { --pw: 200; position: absolute; top: 0; width: calc(var(--pw) * 1px); aspect-ratio: 240 / 500; border-radius: calc(var(--pw) * 33.3 / 240 * 1px); outline: 3px solid var(--lt-surface); }
 .fan-frame { display: block; width: 100%; height: auto; }
 .fan-screen { position: absolute; left: 4.17%; top: 2%; width: 91.67%; height: 96%; overflow: hidden; border-radius: calc(var(--pw) * 23.3 / 240 * 1px); background: var(--lt-bg); }
 .fan-screen .mini { position: absolute; left: 0; top: 0; width: 390px; height: 851px; transform: scale(calc(var(--pw) * 220 / 240 / 390)); transform-origin: 0 0; }
 .fan-cam { position: absolute; left: 48.13%; top: 3.24%; width: 3.75%; aspect-ratio: 1; border-radius: 50%; background: var(--lt-ink); }
-.fan-phone--1 { --pw: 200; z-index: 3; right: calc(50% - 130px); top: 16px; }
-.fan-phone--2 { --pw: 180; z-index: 2; right: calc(50% - 10px); top: 0; }
+.fan-phone--1 { --pw: var(--p1); z-index: 3; top: var(--lift); left: calc(50% - var(--g) / 2); }
+.fan-phone--2 { --pw: var(--p2); z-index: 2; top: 0; left: calc(50% - var(--g) / 2 + (var(--p1) - var(--p2) * var(--ov)) * 1px); }
 .fan-phone--3 { display: none; }
+/* الشاشات الصغيرة جداً (أقل من 380): جوالين أصغر عشان ما يطلعون برّا البلاطة */
+@media (max-width: 379px) { .h-fan { --p1: 172; --p2: 155; min-height: 414px; } }
 @media (min-width: 768px) {
-  .h-fan { min-height: 540px; }
-  .fan-phone--1 { --pw: 240; right: calc(50% - 190px); top: 24px; }
-  .fan-phone--2 { --pw: 216; right: calc(50% - 60px); top: 12px; }
-  .fan-phone--3 { display: block; --pw: 194; z-index: 1; right: calc(50% + 50px); top: 0; }
+  .h-fan { --p1: 240; --p2: 216; --p3: 194; --lift: 64px; min-height: 628px; }
+  .fan-phone--1 { top: calc(2 * var(--lift)); }
+  .fan-phone--2 { top: var(--lift); }
+  .fan-phone--3 { display: block; --pw: var(--p3); z-index: 1; top: 0; left: calc(50% - var(--g) / 2 + (var(--p1) + var(--p2) * (1 - var(--ov)) - var(--p3) * var(--ov)) * 1px); }
 }
+/* 1024 إلى 1279: خانة المشهد ضيقة (429px على 1024)، فالجوالات أصغر (200) والتداخل 36% عشان تدخل */
+@media (min-width: 1024px) and (max-width: 1279px) { .h-fan { --p1: 200; --p2: 180; --p3: 162; --ov: .36; --lift: 56px; min-height: 530px; } }
 
 /* صفوف صفحات المحل: الاسم 17/600، ورابط «شوف» على الطرف الثاني (لمس 48) */
 .h-pages { list-style: none; padding: 0; }
