@@ -1,0 +1,58 @@
+key,service,description,actual_value,estimate,unit,source,owner
+price_review_basic,review_stand,سعر ستاند التقييم الأساسي (قبل الضريبة),,79,SAR/unit,fin-pricing.md نطاق 69-89 غير مؤكد,fin-pricing
+price_review_brand,review_stand,ستاند بهوية المحل (مرجع),,129,SAR/unit,fin-pricing.md نطاق 119-149 غير مؤكد,fin-pricing
+price_review_pack5,review_stand,باقة 5 ستاندات هوية (مرجع),,499,SAR/pack,fin-pricing.md غير مؤكد,fin-pricing
+cost_chip,review_stand,شريحة NTAG213/215,,3,SAR/unit,launch-plan/financial-analysis.md نطاق 1.5-4 غير مؤكد,nfc-engineer
+cost_stand_print,review_stand,ستاند أكريليك مطبوع مع QR,,28,SAR/unit,launch-plan/financial-analysis.md نطاق 15-40 غير مؤكد,nfc-engineer
+cost_shipping,review_stand,شحن من المورد للقطعة,,6,SAR/unit,launch-plan/financial-analysis.md نطاق 3-10 غير مؤكد,nfc-engineer
+labor_minutes,review_stand,دقائق البرمجة والتركيب,,60,min/unit,launch-plan/financial-analysis.md ساعة تقريباً غير مؤكد,fin-modeler
+risk_damage_rate,review_stand,نسبة التالف سنوياً (review_stand_damage_rate_yr),,0.15,ratio/yr,fin-risk.md غير مؤكد,fin-risk
+price_menu_setup,menu,رسوم تجهيز المنيو (تشمل حتى 10 شرائح),,299,SAR/client,fin-pricing.md نطاق 199-399 غير مؤكد,fin-pricing
+price_menu_monthly,menu,اشتراك المنيو الشهري,,69,SAR/month,fin-pricing.md نطاق 49-99 غير مؤكد,fin-pricing
+menu_tags_included,menu,عدد شرائح الطاولات داخل التجهيز,,10,units,fin-pricing.md غير مؤكد,fin-pricing
+cost_tag_unit,menu,تكلفة شريحة أو ستاند طاولة صغير مع الشحن,,15,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
+labor_minutes,menu,إدخال المنيو والتركيب,,180,min/client,افتراض fin-modeler غير مؤكد,fin-modeler
+cost_hosting_monthly,menu,استضافة لكل عميل,,5,SAR/month,launch-plan 0-40 للموقع كله موزع غير مؤكد,systems-supervisor
+support_minutes_monthly,menu,تعديلات المنيو (حتى 4 بالشهر),,30,min/month,افتراض fin-modeler غير مؤكد,fin-modeler
+risk_damage_rate,menu,تالف شرائح الطاولات سنوياً (menu_tag_damage_rate_yr),,0.20,ratio/yr,fin-risk.md غير مؤكد,fin-risk
+risk_monthly_churn,menu,الإلغاء الشهري (churn_monthly_menu),,0.03,ratio/month,fin-risk.md غير مؤكد,fin-risk
+risk_churn_max,menu,أعلى إلغاء في حساسية fin-risk,,0.08,ratio/month,fin-risk.md غير مؤكد,fin-risk
+price_host_setup_per_unit,host_bundle,رسوم تجهيز وحدة المضيف,,149,SAR/unit,fin-pricing.md نطاق 99-199 غير مؤكد,fin-pricing
+price_host_monthly_per_unit,host_bundle,اشتراك شهري للوحدة (1-4 وحدات),,49,SAR/unit/month,fin-pricing.md نطاق 39-69 غير مؤكد,fin-pricing
+host_volume_discount_pct,host_bundle,خصم 5 وحدات فأكثر,,0.20,ratio,fin-pricing.md غير مؤكد,fin-pricing
+host_volume_threshold_units,host_bundle,عدد الوحدات اللي يبدأ منها الخصم,,5,units,fin-pricing.md غير مؤكد,fin-pricing
+cost_chip,host_bundle,شرائح وستاندات الوحدة (واي فاي ودليل وتقييم),,60,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
+cost_shipping,host_bundle,شحن وتوصيل للوحدة,,10,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
+labor_minutes,host_bundle,تجهيز صفحة الدليل والتركيب,,120,min/unit,افتراض fin-modeler غير مؤكد,fin-modeler
+cost_hosting_monthly,host_bundle,استضافة لكل وحدة,,3,SAR/unit/month,افتراض fin-modeler غير مؤكد,systems-supervisor
+whatsapp_msg_cost,host_bundle,تكلفة رسالة WhatsApp Business API,,0.2,SAR/msg,افتراض غير مؤكد؛ fin-risk: يُراجع في صفحة أسعار Meta الرسمية,systems-supervisor
+whatsapp_msgs_per_unit_month,host_bundle,عدد الرسائل لكل وحدة بالشهر,,20,msg/month,fin-risk.md غير مؤكد,fin-risk
+risk_damage_rate,host_bundle,التالف أو الفقد سنوياً (host_tag_damage_rate_yr),,0.25,ratio/yr,fin-risk.md غير مؤكد,fin-risk
+risk_monthly_churn,host_bundle,الإلغاء الشهري (churn_monthly_host),,0.06,ratio/month,fin-risk.md غير مؤكد,fin-risk
+risk_churn_max,host_bundle,أعلى إلغاء في حساسية fin-risk,,0.15,ratio/month,fin-risk.md غير مؤكد,fin-risk
+labor_cost_per_hour,all,قيمة ساعة العمل,,25,SAR/hour,افتراض fin-modeler غير مؤكد (fin-risk: يحدده المالك),owner
+replacement_shipping_cost,all,توصيل البديل,,15,SAR/time,افتراض fin-modeler غير مؤكد (fin-risk تركه فاضي),fin-risk
+replacement_labor_min,all,وقت برمجة وتركيب البديل,,20,min,fin-risk.md غير مؤكد,fin-risk
+dead_on_arrival_rate,all,شرائح تالفة من المورد,,0.03,ratio,fin-risk.md غير مؤكد,nfc-engineer
+refund_rate_setup,all,نسبة العملاء اللي يرجعون ويستردون,,0.05,ratio,fin-risk.md غير مؤكد,fin-risk
+refund_setup_nonrecoverable,all,الجزء اللي يضيع من التكلفة عند الإرجاع,,1.0,ratio,fin-risk.md غير مؤكد,fin-risk
+payment_fee_pct,all,عمولة بوابة الدفع,,0.025,ratio,افتراض fin-modeler غير مؤكد (fin-risk: يُطلب من المحاسب),accountant
+payment_failure_rate,all,نسبة الدفعات الشهرية المتأخرة,,0.05,ratio/month,fin-risk.md غير مؤكد,fin-risk
+bad_debt_share,all,الجزء اللي ما يتحصل من المتأخر,,0.30,ratio,fin-risk.md غير مؤكد,fin-risk
+fixed_monthly,all,تكاليف ثابتة شهرية (دومين وأدوات، بدون استضافة: الاستضافة محسوبة لكل عميل),,100,SAR/month,افتراض fin-modeler غير مؤكد,accountant
+fixed_startup,all,تكاليف تأسيس لمرة (عينات وسجل),,1500,SAR,launch-plan عينات 250-600 + سجل غير مؤكد,legal-advisor
+mkt_review_low,ref,أقل سعر ستاند بالسوق (مرجع فقط),,40,SAR,fin-pricing.md غير مؤكد,fin-pricing
+mkt_review_high,ref,أعلى سعر ستاند بالسوق (مرجع فقط),,99,SAR,fin-pricing.md غير مؤكد,fin-pricing
+mkt_menu_monthly_low,ref,أقل منيو شهري بالسوق (مرجع فقط),,8,SAR/month,fin-pricing.md غير مؤكد,fin-pricing
+mkt_menu_monthly_high,ref,أعلى منيو شهري بالسوق (مرجع فقط),,99,SAR/month,fin-pricing.md غير مؤكد,fin-pricing
+mkt_host_monthly_ref,ref,مرجع دليل رقمي عالمي (مرجع فقط),,30,SAR/month,fin-pricing.md غير مؤكد,fin-pricing
+free_replacement_share,review_stand,الأساسي: استبدال مجاني لعيب المصنع خلال 30 يوم فقط (نسبة التالف اللي تدخل تحت الضمان),,0.10,ratio,fin-risk.md سياسة 30 يوم + fin-pricing.md؛ النسبة افتراض fin-modeler غير مؤكد,fin-risk
+free_replacement_share_brand,review_stand,هوية وباقة 5: الاستبدال المجاني الأوسع,,0.50,ratio,fin-risk.md 0.50 غير مؤكد,fin-risk
+design_minutes_brand,review_stand,دقائق تصميم هوية المحل للستاند (مرة للعميل),,60,min/client,افتراض fin-modeler غير مؤكد,website-design
+pack5_units,review_stand,عدد الستاندات في باقة الفروع,,5,units,fin-pricing.md غير مؤكد,fin-pricing
+free_replacement_share,menu,استبدال مجاني لشرائح المنيو,,0.50,ratio,fin-risk.md غير مؤكد,fin-risk
+free_replacement_share,host_bundle,استبدال مجاني لشرائح المضيف (حد 1 بديل سنوياً),,0.50,ratio,fin-risk.md غير مؤكد,fin-risk
+design_minutes,menu,تصميم المنيو (داخل رسوم التجهيز),,120,min/client,افتراض fin-modeler غير مؤكد,website-design
+wa_platform_monthly,host_bundle,اشتراك منصة/مزود WhatsApp API الشهري (ثابت لكل الخدمة),,50,SAR/month,افتراض fin-modeler غير مؤكد ؛ يُراجع عند مزود حقيقي,systems-supervisor
+cac_per_client,all,تكلفة جلب عميل واحد (زيارة وعينات وإعلان),,40,SAR/client,افتراض fin-modeler غير مؤكد,sales
+install_delivery,all,توصيل أو زيارة التركيب لكل عميل,,20,SAR/client,افتراض fin-modeler غير مؤكد,nfc-engineer
