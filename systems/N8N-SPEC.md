@@ -78,7 +78,7 @@
 | `client_id` | String | = `client` في links.json |
 | `place` | String | |
 | `dest` | String | |
-| `type` | String | `public` / `door`. ناقص في links.json = `public` (`links-cli.js` سطر 57) |
+| `type` | String | `public` / `door` / `emergency` (ستاند طوارئ الوحدة، وجهته دليل الوحدة + `#emergency`؛ ما ينعد مثل door، وما له `ref`). ناقص في links.json = `public` (`links-cli.js` سطر 57) |
 | `status` | String | `active` / `cancelled` |
 | `programmed` | Date | |
 
@@ -351,3 +351,9 @@
 - معالجة معرّف الضيف في تليجرام لحظياً على n8n Cloud (خارج المملكة) حتى بدون حفظ: هل يكفي، أو يلزم ذكره في الإشعار قبل الزر (بند 21 أ)؟ لين الرد: روابط تليجرام في دليل الوحدة **ما تنحط**.
 - رسائل العملاء تبقى في محادثة البوت عند صاحب المشروع: هل تنطبق عليها مدة 7/30 يوم مثل الواتساب؟
 - Telegram Trigger يسجل webhook عند النشر فقط (**غير مؤكد** سلوكه وهو غير منشور).
+
+
+## 8. نتيجة تجربة قناة التليجرام (GM-048، 2026-09-28)
+- `CHANNEL.channel = telegram` في n8n (قرار صاحب المشروع).
+- **اكتشاف:** نداء `owner-notify` من workflow ثاني وهو غير منشور يفشل: «Workflow is not active and cannot be executed» (n8n يشغّل النسخة المنشورة من الـ sub-workflow). **النتيجة: get-channel وowner-notify وclient-send لازم تنشر قبل ما يشتغل أي workflow آخر.** نشرها ما يفتح رابط عام، والقرار لصاحب المشروع (GM-006).
+- عشان كذا انجربت عقد التليجرام نفسها (نفس الإعدادات) في نسخة مؤقتة وتأرشفت: (1) تنبيه معلومة وصل ✅، (2) موافقة بزر ✅ → `approved = true` (المستجيب = `owner_telegram_chat_id` بس)، (3) بدون ضغط لمدة دقيقة → `approved = false` ✅.

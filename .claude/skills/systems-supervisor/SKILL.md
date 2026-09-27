@@ -55,6 +55,10 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 
 - **تليجرام (GM-047، المواصفة §7):** «LT telegram inbound» يحوّل رسائل العملاء لصاحب المشروع بوسم `#c<chat_id>` وردّه (Reply) يرجع للعميل، بدون أي حفظ. روابط الوحدة `?start=co_/mt_<ref>` = code+place بس. `owner-notify` فيه قناة telegram (موافقة بأزرار داخل المحادثة). `website/config.js` (يملكه مصمم الموقع، ما نعدله): `telegram` = يوزر البوت بدون @، `telegramChannel` = يوزر القناة بدون @، فاضيين لين يفتحهم صاحب المشروع (الفاضي يخفي الرابط). الروابط: `https://t.me/<telegram>`، `https://t.me/<telegram>?start=co_<ref>` / `mt_<ref>`، `https://t.me/<telegramChannel>`. روابط تليجرام في دليل الوحدة تحتاج إشعار قبل الزر (loyer بند 34). حذف 7/30 أسبوعي (Gmail + تليجرام) في LAUNCH-RUNBOOK. البوت ما يحذف من جهة الضيف بعد 48 ساعة (Bot API deleteMessage).
 
+- **ستاند الطوارئ (type `emergency`):** شريحة لكل وحدة مضيف، رابطها `/t/<code>/` ووجهتها دليل الوحدة + `#emergency` (ما فيه صفحة مستقلة). `links-cli.js add ... --type emergency` (بدون ref)، ما ينعد مثل door. الـ anchor ينحفظ في صفحة الكود و`_redirects` وتحويل JS (مع `?src`): `node systems/shortlinks/test-anchor.js`. حفظ `#` داخل `_redirects` في Cloudflare غير مؤكد (فحص curl في الـ runbook).
+- **n8n: الـ sub-workflows ما تنادى إلا إذا كانت منشورة** («Workflow is not active and cannot be executed»). يعني get-channel وowner-notify وclient-send لازم تنشر قبل أي workflow يعتمد عليها. نشرها ما يفتح رابط عام (Execute Workflow Trigger)، بس القرار لصاحب المشروع. الاختبار قبل النشر = نسخة مؤقتة فيها نفس العقد، وتنأرشف بعده.
+- **تليجرام مجرّب (2026-09-28):** CHANNEL = telegram. تنبيه وصل، موافقة بزر = approved true، انتهاء المهلة = approved false.
+
 ## دروس
 - المشكّك لقى ثغرات (خطف الروابط الملغاة، XSS، حقن `_redirects`) بعد ما المختبِر أعطى PASS: لا تكتفِ بالمختبِر، شغّل المدقق والمشكّك على أي كود يولد صفحات أو تحويلات.
 - إذا `sys-architect` مو متاح كنوع وكيل، شغّل وكيل عام بتعليمات `.claude/agents/sys-architect.md`.
