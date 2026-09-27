@@ -1,0 +1,51 @@
+/* قوالب الطباعة (أداة داخلية): الستاند وملصقات المضيف. كل المقاسات بالمليمتر من print/dims.js، والعناصر تنحط بـ JS.
+   الوجه أبيض، والنص والباركود أسود K100 (الموجز §6). بدون ظل ولا حركة. المعاينة (.p-screen) ما تنطبع. */
+@page { margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: var(--lt-font-brand); color: #000000; background: var(--lt-bg); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+/* الورقة بالمقاس الحقيقي */
+.p-sheets { display: flex; flex-wrap: wrap; justify-content: center; gap: 12mm; padding: 10mm; }
+.p-sheet { position: relative; overflow: hidden; background: #FFFFFF; outline: 1px solid var(--lt-border); }
+.p-el { position: absolute; margin: 0; }
+.p-center { left: 0; right: 0; text-align: center; }
+.p-logo-box { display: flex; align-items: center; justify-content: center; }
+.p-logo { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.p-mono .p-logo { filter: brightness(0); }
+/* بدون شعار (GM-027، والتقييم 1 بند 6): اسم المحل شعار كتابي، Readex Pro 600 بالحبر (في الحفر أسود)، بدون لوح،
+   داخل صندوق الشعار، سطرين بالكثير. الحجم من fitName في print.js */
+.p-name { display: block; width: 100%; margin: 0; text-align: center; color: var(--lt-ink); font-weight: 600; line-height: 1.25; text-wrap: balance; }
+.p-mono .p-name { color: #000000; }
+/* بدون overflow: hidden (التقييم 1 بند 5): كان يقص نقاط الياء تحت السطر فتطلع «فى». العرض ينضبط بـ fitText/overflowsP بدل القص */
+.p-title { font-weight: 600; line-height: 1.2; white-space: nowrap; }
+.p-line { line-height: 1.2; white-space: nowrap; }
+.p-mark { display: block; overflow: visible; }   /* علامة اللمس: مسار touch-mark.svg (web-illustrator) inline. الدائرة تلمس حد الـ viewBox،
+   وبدون overflow: visible ينقص طرفها اليمين لما يتقرّب مربع الـ SVG للبكسل (بان في الرسم المكبّر ×4) */
+.p-qr-svg { display: block; }
+/* ملصقات المضيف: الاثنين جنب بعض في صفحة وحدة */
+.p-pair { display: flex; align-items: flex-start; }
+
+/* حدود الأمان (زر في المعاينة): هامش الأمان، ومنطقة الشعار، وملصق الشريحة، ومنطقة الباركود مع مسافته الهادئة */
+.p-guide { position: absolute; display: none; pointer-events: none; border: 0.2mm dashed var(--lt-muted); }
+.p-guide--chip { border-radius: 50%; }
+.show-safe .p-guide { display: block; }
+
+/* المعاينة على الشاشة بس */
+.p-screen { font-family: var(--lt-font-ui); color: var(--lt-text); }
+.p-bar { max-width: 720px; margin: 0 auto; padding: 16px 20px 0; }
+.p-bar-h { margin: 0 0 8px; font-size: 17px; font-weight: 600; }
+.p-bar-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.p-bar-acts button { min-height: 48px; padding: 0 16px; border: 1px solid var(--lt-border); border-radius: var(--lt-radius-m); background: var(--lt-surface); color: var(--lt-text); font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
+.p-bar-acts button:active { background: var(--lt-surface-2); }
+.p-bar-acts button:focus-visible { outline: 3px solid var(--lt-text); outline-offset: 3px; }
+.p-warn { margin: 12px 0 0; padding: 12px 16px 12px 16px; padding-inline-start: 32px; border: 1px solid var(--lt-border); border-radius: var(--lt-radius-m); background: var(--lt-surface); font-size: 14px; line-height: 1.5; }
+.p-note { max-width: 720px; margin: 8px auto 0; padding: 0 20px; font-size: 13px; color: var(--lt-muted); }
+
+@media print {
+  body { background: #FFFFFF; }
+  .p-screen, .p-guide { display: none !important; }
+  .p-sheets { display: block; padding: 0; }
+  .p-sheet { outline: 0; page-break-after: always; break-after: page; }
+  .p-sticker { page-break-after: auto; break-after: auto; }
+}

@@ -1,0 +1,18 @@
+/* حركة «لمسة تاب» (web-motion). الحركة الوحيدة في الموقع: لحظة وحدة في بطل الرئيسية، مرة وحدة عند التحميل، CSS بدون JS.
+   الموجز الفني §9 (web-art-director.md):
+   1) الجوال يقرب 20px على اتجاه ميلانه: 600ms.
+   2) من 520ms الشاشة تنكشف من فوق لتحت: 450ms. المجموع 970ms.
+   المنحنى cubic-bezier(.16,1,.3,1)، ويتحرك transform و clip-path بس.
+   الرسمة website/assets/illustrations/hero-counter.svg (web-illustrator) inline في index.html:
+   .hc-phone-move = الجوال (داخل #hc-phone المايل 13°، فـ translateY على اتجاه ميلانه)،
+   و .fo-screen = div الشاشة داخل foreignObject الجوال (web-builder). الاثنين موجودين في البطل بس.
+   العنوان والنص والزر ومشهد باب الشقة ما يتحركون. الوضع الافتراضي = آخر لقطة (fill: backwards)،
+   فمع prefers-reduced-motion: reduce، أو بدون هذا الملف، تطلع الصورة النهائية ثابتة.
+   ينربط في index.html بس. الشرح: work/2026-09-27-brand-identity/web-motion.md */
+@media (prefers-reduced-motion:no-preference){
+  .hc-phone-move{animation:lt-approach 600ms cubic-bezier(.16,1,.3,1) backwards}
+  .hc-phone-move .fo-screen,.hc-phone-move foreignObject>div{animation:lt-reveal 450ms cubic-bezier(.16,1,.3,1) 520ms backwards}
+}
+@keyframes lt-approach{from{transform:translateY(20px)}}
+@keyframes lt-reveal{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+@media print{.hc-phone-move,.hc-phone-move .fo-screen,.hc-phone-move foreignObject>div{animation:none!important}}

@@ -5,80 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
-<title>دليل الوحدة</title><link rel="icon" href="data:,">
-<link rel="stylesheet" href="../../assets/site.css">
-<style>
-.jump{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.jump a{min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);text-decoration:none;font-weight:700;padding:6px}
-.card{scroll-margin-top:12px}
-ul.rules{margin:0;padding-inline-start:22px}
-.confirm{margin-top:10px;padding:12px;border:1px dashed var(--line);border-radius:12px}
-</style>
+<title>دليل الوحدة</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../assets/brand/tokens.css">
+<link rel="stylesheet" href="../../assets/brand/components.css">
+<link rel="stylesheet" href="../../assets/client.css">
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<main>
-<span class="tag" id="demo" hidden>عرض تجريبي — وحدة مثال وليست حقيقية</span>
-<h1>أهلاً بك في <span id="unit"></span></h1>
-<nav class="jump" aria-label="أقسام الدليل">
-<a href="#wifi">الواي فاي</a><a href="#ac">التكييف</a><a href="#rules">شروط الإقامة</a><a href="#fix">بلاغ صيانة</a><a href="#out" style="grid-column:1/-1">التشيك أوت</a>
-</nav>
-
-<section class="card" id="wifi">
-<h2>الواي فاي</h2>
-<div class="row"><div><div class="k">اسم الشبكة</div><div class="v" id="ssid"></div></div><button class="copy" type="button" data-copy="ssid">نسخ</button></div>
-<div class="row"><div><div class="k">كلمة المرور</div><div class="v" id="pw"></div></div><button class="copy" type="button" data-copy="pw">نسخ</button></div>
-<p class="status" id="st" role="status" aria-live="polite"></p>
-</section>
-
-<section class="card" id="ac">
-<h2>التكييف</h2>
-<p id="actext" style="margin:0"></p>
-</section>
-
-<section class="card" id="rules">
-<h2>شروط الإقامة</h2>
-<ul class="rules" id="rulelist"></ul>
-</section>
-
-<section class="card" id="fix">
-<h2>بلاغ صيانة</h2>
-<button class="btn" type="button" id="fixbtn">بلّغ عن عطل</button>
-<p class="status" id="fixst" role="status" aria-live="polite"></p>
-</section>
-
-<section class="card" id="out">
-<h2>التشيك أوت</h2>
-<button class="btn" type="button" id="outbtn">سجّل خروجك</button>
-<div class="confirm" id="outconfirm" hidden>
-<p style="margin-top:0">متأكد إنك طلعت؟ نبلغ المضيف بخروجك.</p>
-<button class="btn" type="button" id="outyes">نعم، طلعت</button>
-<button class="btn alt" type="button" id="outno">لا، رجوع</button>
-</div>
-<p class="status" id="outst" role="status" aria-live="polite"></p>
-</section>
-
-<footer data-company>[اسم الشركة]</footer>
-</main>
+<body class="c">
+<!-- صفحة زبون (قالب): الهيكل بس، والصفحة كلها يبنيها render.js من data.js. نسخة العرض: demo/rental-guide/ -->
+<div id="app"><noscript><p class="c-main">ما قدرنا نفتح الصفحة. فعّل JavaScript من إعدادات المتصفح، وافتحها من جديد.</p></noscript></div>
 <script src="../../config.js"></script>
 <script src="../../assets/app.js"></script>
+<script src="../../assets/shop-color.js"></script>
+<script src="../../assets/client.js"></script>
 <script src="data.js"></script>
-<script>
-(function(){
-var D=window.GUIDE_DATA||{},w=D.wifi||{},$=function(i){return document.getElementById(i)};
-$('demo').hidden=!D.demo;
-$('unit').textContent=D.unit||'';
-$('ssid').textContent=w.ssid||'';$('pw').textContent=w.password||'';
-$('actext').textContent=D.ac||'';
-var ul=$('rulelist');(D.rules||[]).forEach(function(r){var li=document.createElement('li');li.textContent=r;ul.appendChild(li);});
-[].forEach.call(document.querySelectorAll('[data-copy]'),function(b){
-  b.addEventListener('click',function(){copyText($(b.getAttribute('data-copy')).textContent,$('st'));});
-});
-// placeholder: قناة الإشعار غير مبنية (work/2026-09-27-short-links/result.md)
-$('fixbtn').addEventListener('click',function(){$('fixst').textContent='عرض تجريبي: يرسل البلاغ للمضيف في النسخة الحقيقية.';});
-$('outbtn').addEventListener('click',function(){$('outconfirm').hidden=false;$('outbtn').hidden=true;$('outyes').focus();});
-$('outno').addEventListener('click',function(){$('outconfirm').hidden=true;$('outbtn').hidden=false;$('outbtn').focus();});
-$('outyes').addEventListener('click',function(){$('outconfirm').hidden=true;$('outbtn').hidden=false;$('outst').textContent='عرض تجريبي: في النسخة الحقيقية يوصل إشعار للمضيف.';});
-})();
-</script>
+<script src="render.js"></script>
 </body>
 </html>

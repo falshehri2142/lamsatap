@@ -1,0 +1,77 @@
+/* نظام صفحات الزبون (البيئة ب، موجز المدير الفني §5، GM-023 و GM-025).
+   فوق brand/components.css: الأزرار (.lt-btn و --shop و --secondary) واللوحة والصف (.lt-panel و .lt-row) و«بواسطة» (.lt-by).
+   الترتيب: tokens.css ← components.css ← client.css ← style.css حق القالب. متغيرات --shop* من محرك اللون (assets/shop-color.js).
+   هنا بس اللي يخص صفحة الزبون: الأساس، والثيم المحايد، ورأس الهوية، وصندوق الواي فاي، وطبقة العرض.
+   ولا تيل ولا زعفران ولا لون من ألوان لمسة تاب (GM-025)، إلا طبقتنا في نسخ العرض (الشريط فوق و«لصاحب المحل»).
+   بدون ظل ولا حركة (GM-011). كل شي تحت .c (body في صفحة الزبون، أو صندوق الشاشة المصغرة في الرئيسية). */
+
+/* الثيم المحايد (§5.4): بدون brand. الزر وضغطه ولمسه يرجعون للحبر من components.css لو --shop فاضي */
+:root {
+  --shop-line: var(--lt-text);
+  --shop-tint: var(--lt-surface-2);
+  --c-plate: var(--lt-inverse);     /* لوح الشعار أبيض بالوضعين (§5.3): --lt-inverse أبيض ثابت في tokens.css */
+}
+
+/* الأساس. التركيز حبر والتحديد محايد في صفحة الزبون، مو تيل (GM-023، و web-brand.md «قرارات من ملاحظات الفحص») */
+.c {
+  --lt-focus: var(--lt-text);
+  --lt-selection: var(--lt-border);
+  --lt-on-selection: var(--lt-text);
+  margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: var(--lt-font-ui); font-size: 16px; line-height: 1.6;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-wrap: anywhere;
+}
+.c *, .c *::before, .c *::after { box-sizing: border-box; }
+.c :focus-visible { outline: 3px solid var(--lt-focus); outline-offset: 3px; }
+.c [hidden] { display: none !important; }
+:where(.c) p { margin: 0; text-wrap: pretty; }
+:where(.c) a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+.c-main { max-width: var(--lt-column-client); margin: 0 auto; padding: 0 var(--lt-space-20) var(--lt-space-48); }
+.c-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* سلّم الخط (§5.5): خط الجهاز، والأوزان 400 و 600 و 700. القواعد العامة بـ :where (بدون وزن) عشان المكوّنات تغلبها */
+:where(.c) h1 { margin: 0 0 var(--lt-space-16); font-size: 28px; line-height: 1.25; font-weight: 700; text-wrap: balance; }
+:where(.c) h2 { margin: var(--lt-section-client) 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
+.c-sub { font-size: 14px; line-height: 1.45; color: var(--lt-muted); }
+.c-label { font-size: 13px; line-height: 1.3; font-weight: 600; color: var(--lt-muted); }
+.c-stack { display: flex; flex-direction: column; gap: var(--lt-space-12); }
+.c-stack > .lt-btn { margin: 0; }
+
+/* صف نص بس (التكييف، والعنوان، والشروط): 16/1.6 بدون وزن */
+.lt-row.c-row-text { display: block; font-size: 16px; line-height: 1.6; font-weight: 400; }
+
+/* رأس الهوية (§5.3): شعار المحل أو اسمه (GM-027)، في النص. ما ينمط ولا ينقص ولا ينلوّن */
+.c-id { display: flex; align-items: center; justify-content: center; margin: 28px 0 var(--lt-space-20); }
+.c-logo { display: block; width: auto; height: auto; max-width: 180px; max-height: 56px; object-fit: contain; }
+.c-id--sm .c-logo { max-width: 128px; max-height: 40px; }
+/* لما بعده ترحيب h1 (دليل الوحدة): صندوق 40px (التقييم 1 بند 10)، والعرض بنفس نسبة 180×56 (128).
+   بدون تصغير العرض ما يتغير شي في الشعار العريض: شعار «شقق المثال» 211×40 يوقفه العرض 180 على 34px في الحالتين */
+.c-id-name { font-size: 22px; line-height: 1.3; font-weight: 700; text-align: center; }
+.c-id--sm .c-id-name { font-size: 17px; }   /* الاسم بدون شعار بنفس المنطق: أصغر من الترحيب 28 بوضوح */
+@media (prefers-color-scheme: dark) {
+  /* أغلب الشعارات مرسومة للأبيض: الملف الفاتح على لوح أبيض، إلا لو فيه brand.logoDark (يطلع بدون لوح) */
+  .c-plate { box-sizing: content-box; padding: var(--lt-space-8) var(--lt-space-12); border-radius: 12px; background: var(--c-plate); }
+}
+
+/* الأيقونات 20px، currentColor (§3.3) */
+.c-ico { flex: none; width: 20px; height: 20px; }
+
+/* سطر الحالة (aria-live). فاضي = بدون مساحة، ويبقى في الصفحة عشان قارئ الشاشة يعلن اللي ينكتب فيه */
+.c-status { margin-top: var(--lt-space-8); font-size: 14px; line-height: 1.45; color: var(--lt-muted); }
+.c-status:empty { margin: 0; }
+
+/* صندوق الواي فاي: الوحيد الملوّن بلون المحل الخفيف (§5.7) */
+.c-wifi { padding: var(--lt-space-20); border-radius: var(--lt-radius-m); background: var(--shop-tint); }
+.c-wifi .c-label { color: var(--lt-text); }
+.c-wifi-v { margin: 2px 0 14px; font-size: 17px; line-height: 1.4; font-weight: 600; text-align: right; -webkit-user-select: all; user-select: all; }
+.c-pw { margin: 2px 0 var(--lt-space-16); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 24px; line-height: 1.3; font-weight: 600; text-align: right; -webkit-user-select: all; user-select: all; }
+.c-wifi-open { font-size: 17px; line-height: 1.4; font-weight: 600; }
+
+/* طبقة لمسة تاب في نسخ العرض بس (§5.6): شريط بلون الفعل بعرض الشاشة فوق، وقسم «لصاحب المحل» آخر الصفحة */
+.c-demo { background: var(--lt-action); color: var(--lt-on-action); }
+.c-demo-in { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-12); max-width: var(--lt-column-client); min-height: 64px; margin: 0 auto; padding: var(--lt-space-8) var(--lt-space-20); font-size: 14px; line-height: 1.4; font-weight: 600; }
+.c-owner { margin-top: var(--lt-space-48); padding: var(--lt-space-24) var(--lt-space-20); border-radius: var(--lt-radius-m); background: var(--lt-surface-2); color: var(--lt-text); }
+:where(.c-owner) h2 { margin: 0 0 var(--lt-space-8); }
+.c-owner > p { margin-bottom: var(--lt-space-16); }
+.c-owner > .c-owner-back { margin: var(--lt-space-8) 0 0; }
+
+@media (prefers-reduced-motion: reduce) { .c * { scroll-behavior: auto !important; transition: none !important; } }

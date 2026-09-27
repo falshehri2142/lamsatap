@@ -1,0 +1,149 @@
+/* رموز هوية «لمسة تاب — LamsaTap». الشرح في brand/README.md، والمكوّنات الجاهزة في brand/components.css.
+   المصدر هنا فقط. الموقع ياخذ نسخة مطابقة في website/assets/brand/tokens.css (والخط في fonts/ جنبه).
+   المرجع: الموجز الفني (work/2026-09-27-brand-identity/web-art-director.md، الأقسام 3.1 و3.2 و3.4 و4.1) و GM-020.
+   التباين مفحوص (WCAG): الرقم جنب كل لون = نسبة التباين على الخلفية المذكورة. */
+
+/* خط الهوية: Readex Pro (رخصة OFL، الملف fonts/OFL.txt)، مقصوص للعربي واللاتيني الأساسي، وزن متغير 160–700.
+   ما ينزل إلا إذا استُخدم --lt-font-brand في الصفحة. */
+@font-face {
+  font-family: "Readex Pro";
+  src: url("fonts/readex-pro-arabic-latin.woff") format("woff");
+  font-weight: 160 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* ===== الألوان الثابتة ===== */
+  --lt-teal: #0B7A75;          /* تيل لمسة: الأبيض عليه 5.18 */
+  --lt-teal-deep: #075E5A;     /* تيل غامق: نص الروابط وحلقة التركيز في الفاتح (7.13 على الرملي). ما يصير خلفية (GM-026) */
+  --lt-teal-soft: #E3F3F1;     /* تيل خفيف: التحديد وخلفيات خفيفة */
+  --lt-teal-light: #3FC1B6;    /* تيل الوضع الداكن في الموقع بس (مو مطبوع ولا إعلان) */
+  --lt-saffron: #F2A93B;       /* زعفران: نقطة الشعار بس (GM-020). ولا نص ولا تعبئة ولا تحديد */
+  --lt-saffron-light: #F5B85A;
+  --lt-ink: #14201F;           /* الحبر: النص، والفعل الأساسي */
+  --lt-slate: #56625F;         /* نص ثانوي */
+  --lt-sand-50: #FAF7F2;       /* الخلفية الرملية */
+  --lt-sand-100: #F3EEE6;
+  --lt-sand-200: #E4DCD0;      /* الحدود */
+
+  /* ===== الأسطح والنص (فاتح) ===== */
+  --lt-bg: var(--lt-sand-50);
+  --lt-surface: #FFFFFF;
+  --lt-surface-2: var(--lt-sand-100);
+  --lt-border: var(--lt-sand-200);  /* الحدود 1px بس، ولا 2px في أي مكان (إلا حلقة التركيز 3px) */
+  --lt-text: var(--lt-ink);         /* 15.64 على الرملي، 16.72 على الأبيض */
+  --lt-muted: var(--lt-slate);      /* 5.94 على الرملي، 6.35 على الأبيض */
+
+  /* ===== الفعل الأساسي (GM-020): كل الأزرار الأساسية، ومنها الواتساب. ولا تعبئة زر بالتيل ===== */
+  --lt-action: var(--lt-ink);       /* خلفية الزر: الأبيض عليه 16.72 */
+  --lt-on-action: #FFFFFF;          /* نص الزر وأيقونته */
+  --lt-action-press: #2A3B38;       /* الضغط والـ hover: الأبيض عليه 11.79 */
+  --lt-on-action-press: var(--lt-sand-200); /* زر معكوس على شريط لون الفعل (شريط العرض) وقت الضغط: الحبر عليه 12.30 */
+
+  /* ===== التيل في أماكنه بس: الروابط، والشريط الأخير، وعلامات الصح، والتركيز، والتحديد ===== */
+  --lt-link: var(--lt-teal-deep);   /* الرابط المستقل: 7.13 على الرملي، 7.61 على الأبيض، 6.59 على السطح 2 */
+  --lt-band: var(--lt-teal);        /* الشريط الأخير (بالوضعين): الأبيض عليه 5.18 */
+  --lt-on-band: #FFFFFF;
+  --lt-focus-on-band: #FFFFFF;      /* حلقة التركيز فوق الشريط: 5.18 */
+  --lt-check: var(--lt-teal);       /* علامة الصح (بالوضعين): 4.85 على الرملي، 3.54 على خلفية الداكن */
+  --lt-inverse: #FFFFFF;            /* الزر المعكوس على الشريط التيل (بالوضعين) */
+  --lt-on-inverse: var(--lt-ink);   /* 16.72 */
+  --lt-inverse-press: var(--lt-sand-200); /* 12.30 */
+  --lt-focus: var(--lt-teal-deep);  /* حلقة التركيز 3px بمسافة 3px: 7.13 على الرملي */
+  --lt-selection: var(--lt-teal-soft); /* تحديد النص (مو زعفران): الحبر عليه 14.61 */
+  --lt-on-selection: var(--lt-text);
+
+  /* ===== أسماء قديمة: الموقع يستخدمها الحين (منها تعبئة زر بالتيل وتحديد زعفراني في site.css)، وتتشال بعد ما
+     ينقل web-builder الصفحات للأدوار فوق. لا تستخدمها في شي جديد. الرابط = --lt-link، مو --lt-primary-strong ===== */
+  --lt-primary: var(--lt-teal);
+  --lt-primary-strong: var(--lt-teal-deep);
+  --lt-primary-press: #054A47;
+  --lt-on-primary: #FFFFFF;
+  --lt-primary-soft: var(--lt-teal-soft);
+  --lt-accent: var(--lt-saffron);
+  --lt-on-accent: var(--lt-ink);
+  --lt-wa: var(--lt-action);
+  --lt-on-wa: var(--lt-on-action);
+  --lt-wa-press: var(--lt-action-press);
+
+  /* ===== الخطوط: صفحات الشركة بخط الهوية، صفحات الزبون بخط الجهاز ===== */
+  --lt-font-brand: "Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+  --lt-font-ui: system-ui, -apple-system, "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
+
+  /* ===== المسافات: وحدة 4px، والاسم = القيمة ===== */
+  --lt-space-4: 4px;
+  --lt-space-8: 8px;
+  --lt-space-12: 12px;
+  --lt-space-16: 16px;
+  --lt-space-20: 20px;
+  --lt-space-24: 24px;
+  --lt-space-32: 32px;
+  --lt-space-40: 40px;
+  --lt-space-48: 48px;
+  --lt-space-64: 64px;
+  --lt-space-80: 80px;
+  --lt-space-96: 96px;
+  --lt-space-128: 128px;
+
+  /* ===== الشبكة والإيقاع ===== */
+  --lt-container: 1200px;           /* حاوية الموقع */
+  --lt-grid-gap: 24px;              /* فاصل أعمدة الشبكة (12 عمود من 1024) */
+  --lt-column-client: 560px;        /* عمود صفحات الزبون */
+  --lt-gutter: 20px;                /* الحافة الجانبية: 20 تحت 768، و32 من 768، و48 من 1024 (تحت) */
+  --lt-section: 72px;               /* بين أقسام الموقع: 72 جوال، 96 تابلت، 128 كمبيوتر (تحت) */
+  --lt-section-client: 32px;        /* بين أقسام صفحات الزبون */
+  --lt-tap-min: 48px;               /* أقل هدف لمس */
+  --lt-hairline: 1px;               /* سماكة كل الحدود والخطوط الشعرية */
+
+  /* ===== الزوايا: 8 للصغير، 14 للأزرار واللوحات، 22 لبلاطات الرئيسية. ولا ظل في الموقع كله ===== */
+  --lt-radius-s: 8px;
+  --lt-radius-m: 14px;
+  --lt-radius-l: 22px;
+  --lt-radius-pill: 999px;          /* قديم: ما يُستخدم في الجديد */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --lt-gutter: 32px;
+    --lt-section: 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --lt-gutter: 48px;
+    --lt-section: 128px;
+  }
+}
+
+/* ===== الوضع الداكن ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lt-bg: #0E1615;
+    --lt-surface: #152120;
+    --lt-surface-2: #1C2B29;
+    --lt-border: #2A3B38;
+    --lt-text: #ECF2F0;               /* 16.19 على الخلفية، 14.58 على السطح */
+    --lt-muted: #A3B2AE;              /* 8.33 على الخلفية، 7.51 على السطح */
+
+    --lt-action: #ECF2F0;             /* خلفية الزر: #0E1615 عليه 16.19 */
+    --lt-on-action: #0E1615;
+    --lt-action-press: #A3B2AE;       /* 8.33 */
+    --lt-on-action-press: #2A3B38;    /* زر شريط العرض وقت الضغط: #ECF2F0 عليه 10.40 */
+
+    --lt-link: var(--lt-teal-light);  /* 8.32 على الخلفية، 7.49 على السطح، 6.67 على السطح 2 */
+    --lt-focus: #6AD6CC;              /* 10.58 على الخلفية */
+    --lt-selection: #123A37;          /* #ECF2F0 عليه 10.99 */
+
+    --lt-primary: var(--lt-teal-light);
+    --lt-primary-strong: #6AD6CC;
+    --lt-primary-press: var(--lt-teal-light);
+    --lt-on-primary: #062522;
+    --lt-primary-soft: #123A37;
+    --lt-accent: var(--lt-saffron-light);
+    --lt-on-accent: #1A1206;
+  }
+}

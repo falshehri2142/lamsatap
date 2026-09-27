@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>قالب الستاند (للطباعة)</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../website/assets/brand/tokens.css">
+<link rel="stylesheet" href="../print.css">
+</head>
+<body>
+<!-- أداة داخلية للطباعة (GM-023 بند 3). العميل من ?client=<اسم> (ملف clients/<اسم>.js)، ونسخة الحفر بـ &mono=1.
+     المقاسات من print/dims.js. الطباعة: المقاس الفعلي 100%، بدون هوامش، بدون ترويسة ولا تذييل. الشرح: print/README.md -->
+<div class="p-screen"><div class="p-bar" id="p-bar"></div>
+<p class="p-note">المعاينة بالمقاس الحقيقي. اطبع بمقاس 100% بدون هوامش، وقِس بالمسطرة قبل الطباعة الكبيرة.</p></div>
+<div class="p-sheets" id="p-sheets"></div>
+<script src="../../website/config.js"></script>
+<script src="../dims.js"></script>
+<script src="../../website/vendor/qrcode-generator.js"></script>
+<script src="../print.js"></script>
+<script src="stand.js"></script>
+</body>
+</html>

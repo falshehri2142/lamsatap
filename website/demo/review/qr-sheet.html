@@ -3,44 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
 <meta name="robots" content="noindex">
-<title>ورقة الباركود — عرض ستاند التقييم (تجريبية)</title><link rel="icon" href="data:,">
+<title>لمسة تاب — ورقة باركود العرض (تجريبية)</title>
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/brand/tokens.css">
+<link rel="stylesheet" href="../../assets/brand/components.css">
 <style>
-@page{size:A4;margin:15mm}
-*{box-sizing:border-box}
-body{margin:0;background:#e9ecf1;color:#111;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
-.page{width:210mm;min-height:297mm;max-width:100%;margin:16px auto;background:#fff;padding:20mm 15mm;text-align:center}
-h1{font-size:28px;margin:0 0 6mm}
-#qr{width:110mm;max-width:100%;margin:0 auto}
-#qr svg{width:100%;height:auto;display:block}
-.lines p{font-size:20px;margin:6mm 0 0}
-.url{direction:ltr;font-family:monospace;font-size:14px;color:#333;word-break:break-all;margin-top:8mm}
-.warn{margin-top:10mm;font-size:14px;color:#6b4a00;border:1px dashed #b58900;padding:3mm;border-radius:3mm}
-.err{color:#b00020}
-@media print{body{background:#fff}.page{margin:0;width:auto;min-height:0;padding:0}.noprint{display:none}}
+/* ورقة الباركود لصاحب المحل (الموجز §4.5، web-copy §4): A4 عمودي، هوامش 20mm، وكل الألوان من tokens.
+   ورقة مطبوعة، فألوانها ثابتة بالوضعين: الورق أبيض (--lt-inverse)، والنص حبر، والثانوي رمادي الهوية.
+   الباركود أسود #000000 على أبيض (K100 أحد في الطباعة من الأسود المركّب). */
+@page { size: A4; margin: 20mm; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--lt-sand-50); color: var(--lt-ink); font-family: var(--lt-font-brand); font-size: 14pt; line-height: 1.5; }
+.q-page { width: 210mm; min-height: 297mm; max-width: 100%; margin: 12mm auto; padding: 20mm; background: var(--lt-inverse); }
+.q-logo { display: block; width: auto; height: 12mm; }
+.q-h { margin: 12mm 0 10mm; font-size: 28pt; line-height: 1.25; font-weight: 600; text-wrap: balance; }
+.q-code { width: 100mm; max-width: 100%; margin: 0 auto; }
+.q-code svg { display: block; width: 100%; height: auto; }
+.q-lines { margin-top: 10mm; text-align: center; }
+.q-lines p { margin: 0 0 2mm; font-size: 14pt; }
+.q-url { margin: 6mm 0 0; direction: ltr; text-align: center; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10pt; color: var(--lt-slate); word-break: break-all; }
+.q-foot { margin: 12mm 0 0; padding-top: 4mm; border-top: var(--lt-hairline) solid var(--lt-sand-200); font-size: 9pt; color: var(--lt-slate); }
+.q-err { font-size: 12pt; }
+@media print {
+  body { background: var(--lt-inverse); }
+  .q-page { width: auto; min-height: 0; margin: 0; padding: 0; }
+}
 </style>
 </head>
 <body>
-<div class="page">
-<h1>امسح وشوف وش يشوفه زبونك</h1>
-<div id="qr" role="img" aria-label="باركود QR لرابط صفحة العرض"></div>
-<div class="lines">
+<main class="q-page">
+<img class="q-logo" src="../../assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt>
+<h1 class="q-h">امسح واعرف كيف يشتغل ستاند التقييم</h1>
+<div class="q-code" id="qr" role="img" aria-label="باركود QR لرابط صفحة العرض"></div>
+<div class="q-lines">
 <p>امسح الباركود بكاميرا جوالك.</p>
-<p>تفتح لك صفحة مثال لستاند تقييم قوقل.</p>
+<p>تنفتح لك صفحة تشرح ستاند تقييم قوقل.</p>
 </div>
-<p class="url" id="url"></p>
-<p class="warn">ورقة تجريبية — الرابط يتغير لما يجي الدومين.</p>
-</div>
+<p class="q-url" id="url"></p>
+<p class="q-foot">نسخة تجريبية: الرابط يتغير يوم الإطلاق.</p>
+</main>
 <script src="../../config.js"></script>
+<script src="../../assets/app.js"></script>
 <script src="config.js"></script>
 <script src="../../vendor/qrcode-generator.js"></script>
 <script>
-(function(){
-var u=window.DEMO_URL||'';document.getElementById('url').textContent=u;
-var box=document.getElementById('qr');
-if(!u||typeof qrcode!=='function'){box.innerHTML='<p class="err">تعذر توليد الباركود (تأكد من config.js ووجود vendor/qrcode-generator.js).</p>';return;}
-var q=qrcode(0,'M');q.addData(u);q.make();
-box.innerHTML=q.createSvgTag({cellSize:8,margin:4,scalable:true});
+// الباركود يفتح صفحة شرح الستاند (demo/review/). الرابط من config.js (domain) عن طريق demo/review/config.js
+(function () {
+  var u = window.DEMO_URL || '', box = document.getElementById('qr');
+  document.getElementById('url').textContent = u;
+  if (!u || typeof qrcode !== 'function') {
+    box.innerHTML = '<p class="q-err">تعذّر توليد الباركود. تأكد من config.js ووجود vendor/qrcode-generator.js.</p>';
+    return;
+  }
+  var q = qrcode(0, 'M'); q.addData(u); q.make();
+  var n = q.getModuleCount(), m = 4, t = n + 2 * m, d = '';
+  for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) d += 'M' + (c + m) + ' ' + (r + m) + 'h1v1h-1z';
+  box.innerHTML = '<svg viewBox="0 0 ' + t + ' ' + t + '" shape-rendering="crispEdges" aria-hidden="true" focusable="false">' +
+    '<rect width="' + t + '" height="' + t + '" fill="#FFFFFF"/><path fill="#000000" d="' + d + '"/></svg>';
 })();
 </script>
 </body>

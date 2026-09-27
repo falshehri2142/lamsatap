@@ -5,48 +5,41 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
-<title>مثال: ستاند تقييم قوقل</title><link rel="icon" href="data:,">
+<title>ستاند تقييم قوقل — لمسة تاب</title>
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/brand/tokens.css">
+<link rel="stylesheet" href="../../assets/brand/components.css">
+<link rel="stylesheet" href="../../assets/site.css">
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--text:#16181d;--muted:#4b5260;--line:#dfe3ea;--btn:#1a56db;--btnt:#fff;--tag:#fff4d6;--tagt:#6b4a00}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#1a1d24;--text:#eef0f4;--muted:#b4bac6;--line:#2c313b;--btn:#5b8def;--btnt:#0b0d12;--tag:#3a2f10;--tagt:#ffdf8a}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
-main{max-width:480px;margin:0 auto;padding:20px 16px 32px}
-.tag{display:inline-block;background:var(--tag);color:var(--tagt);border-radius:8px;padding:4px 10px;font-size:14px;font-weight:600}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 20px;margin-top:14px;text-align:center}
-h1{font-size:26px;margin:8px 0 4px}
-.sub{color:var(--muted);margin:0 0 24px}
-.btn{display:block;width:100%;min-height:56px;border:0;border-radius:14px;background:var(--btn);color:var(--btnt);font-family:inherit;font-weight:700;font-size:20px;line-height:1.2;cursor:pointer;padding:18px}
-.btn:focus-visible{outline:3px solid var(--text);outline-offset:3px}
-#note{margin-top:16px;padding:14px;border-radius:12px;border:1px dashed var(--line);text-align:right;color:var(--muted)}
-#note[hidden]{display:none}
-.owner{margin-top:28px;padding:18px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
-.owner h2{font-size:17px;color:var(--text);margin:0 0 6px}
-.owner p{margin:0 0 6px}
+/* صفحة شرح ستاند التقييم لصاحب المحل (web-copy §2.5)، بطبقتنا. الستاند الحقيقي يفتح صفحة التقييم في قوقل مباشرة،
+   فما فيه صفحة تقييم للزبون ولا نحاكي واجهة قوقل. وهذي الصفحة اللي يفتحها باركود ورقة QR. */
+.r-page { max-width: 640px; padding-block: var(--lt-space-48) var(--lt-space-64); }
+.r-page .s-lead { margin-top: var(--lt-space-16); }
+.r-fig { margin: var(--lt-space-40) 0; }
+.r-page .s-small { margin-top: var(--lt-space-24); }
+.r-page .s-body { margin-top: var(--lt-space-8); }
+.r-page .s-acts { margin-top: var(--lt-space-32); }
 </style>
 </head>
 <body>
-<main>
-<span class="tag">عرض تجريبي — محل مثال وليس محلاً حقيقياً</span>
-<section class="card">
-<h1>مقهى المثال</h1>
-<p class="sub">شكراً لزيارتك. رأيك يهمنا ويساعد غيرك.</p>
-<button class="btn" id="go" type="button">قيّمنا على قوقل</button>
-<div id="note" hidden role="status">
-هذا عرض تجريبي. في النسخة الحقيقية يفتح هذا الزر صفحة تقييم محلك في قوقل مباشرة.
+<div class="s-wrap">
+<header class="s-head"><a href="../../index.html"><picture><source srcset="../../assets/brand/lamsatap-horizontal-dark.svg" media="(prefers-color-scheme: dark)"><img class="s-logo" src="../../assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt></picture></a></header>
+<main class="r-page">
+<h1 class="s-h2">ستاند يفتح صفحة تقييمك في قوقل</h1>
+<p class="s-lead">زبونك يقرّب جواله أو يمسح الباركود، وتنفتح له صفحة تقييم محلك في قوقل مباشرة.</p>
+<!-- مكان رسمة الستاند بهوية المحل (web-illustrator، website/assets/illustrations/). تنحط هنا داخل:
+     <figure class="r-fig">...</figure> ، والباركود في الرسمة ما ينقرى (الموجز §7). -->
+<p class="s-small">يطلب التقييم من كل زبائنك، بدون أي مقابل.</p>
+<p class="s-body">يجي داخل حزمة المحل الكامل، مع المنيو والواي فاي والروابط.</p>
+<div class="s-acts">
+<a class="lt-btn lt-btn--fit" data-wa="demoReview" hidden><span>أبغى ستاند تقييم لمحلي</span></a>
+<a class="lt-link" href="../../index.html">رجوع لموقع <span data-company>لمسة تاب</span></a>
 </div>
-</section>
-<section class="owner" aria-label="لصاحب المحل">
-<h2>لصاحب المحل</h2>
-<p>هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود.</p>
-<p>الستاند فيه شريحة NFC وباركود QR، والاثنين يفتحون نفس الصفحة.</p>
-<p data-company>[اسم الشركة]</p>
-</section>
 </main>
+</div>
 <script src="../../config.js"></script>
 <script src="../../assets/app.js"></script>
-<script>
-document.getElementById('go').addEventListener('click',function(){var n=document.getElementById('note');n.hidden=false;n.focus&&n.setAttribute('tabindex','-1');n.focus();});
-</script>
 </body>
 </html>

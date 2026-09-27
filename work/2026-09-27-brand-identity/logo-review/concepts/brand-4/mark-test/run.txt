@@ -1,0 +1,12 @@
+C:\Users\TechTroniX\AppData\Local\Programs\Python\Python312\python.exe C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\elegant-mclean-8e29f3\work\2026-09-27-brand-identity\logo-review\mark-test\mark_test.py --color C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\elegant-mclean-8e29f3\work\2026-09-27-brand-identity\logo-review\concepts\brand-4\brand-4-icon-ink.svg --mono C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\elegant-mclean-8e29f3\work\2026-09-27-brand-identity\logo-review\concepts\brand-4\brand-4-icon-mono.svg --color-dark C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\elegant-mclean-8e29f3\work\2026-09-27-brand-identity\logo-review\concepts\brand-4\brand-4-icon.svg --touch 0.7500,0.4375 --out C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\elegant-mclean-8e29f3\work\2026-09-27-brand-identity\logo-review\concepts\brand-4\mark-test
+
+مسارات ملف اللون الواحد: 1 مسار، 2 شكل، منحنيات 6، خطوط مستقيمة 4
+تداخل المسارات (نفس الملف بتعبئة even-odd): فرق 0.00% من الحبر -> ناجح
+أجزاء الحبر المنفصلة: 2، الفراغات المقفلة داخله: 0  (الملف فيه حاشية فاضية حول الحبر)
+أنحف جزء في الحبر: 30.8% من طول الرمز = 1.85mm على 6mm، 3.69mm على 12mm، 9.23mm على 30mm
+أضيق فراغ (بين جزئين أو داخل الشكل): 14.8% من طول الرمز = 0.89mm على 6mm، 1.77mm على 12mm، 4.43mm على 30mm
+أصغر مقاس يخلي أنحف جزء وأضيق فراغ 0.3mm أو أكثر: 2.0mm (أطول ضلع). المطلوب 6mm -> ناجح
+أكبر رمز داخل ملصق دائري 25mm بحاشية 2mm: 19.2mm (أطول ضلع)
+أكبر رمز داخل ملصق دائري 30mm بحاشية 2mm: 23.7mm (أطول ضلع)
+weak-spots.png: الدائرة الحمراء = أنحف جزء في الحبر، والزرقاء = أضيق فراغ (مكان أول تغيّر في الشكل)
+الصور في C:\Users\TechTroniX\Desktop\NFC\.claude\worktrees\elegant-mclean-8e29f3\work\2026-09-27-brand-identity\logo-review\concepts\brand-4\mark-test
