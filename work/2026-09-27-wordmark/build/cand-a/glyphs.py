@@ -186,17 +186,26 @@ def _terminal(Eo, Ei, t_corner, tilt_deg, R_out, R_in, body=+1):
     n_o = Eo.normal(t_corner)
     tl = math.radians(tilt_deg)
     rot = lambda v: np.array([v[0] * math.cos(tl) - v[1] * math.sin(tl), v[0] * math.sin(tl) + v[1] * math.cos(tl)])
-    dcut = -n_o
-    for _ in range(80):
-        hits = [h for h in line_ellipse_hits(p_out, rot(dcut), Ei) if h[0] > 0]
+    from scipy.optimize import brentq
+
+    def gap(psi):     # (direction of the mean normal) - psi, for the cut leaving p_out at angle psi
+        d = np.array([math.cos(psi), math.sin(psi)])
+        hits = [h for h in line_ellipse_hits(p_out, d, Ei) if h[0] > 0]
         if not hits:
-            raise ValueError("terminal cut misses the inner edge")
-        s_in, t_in = hits[0]
-        new = -unit(n_o + Ei.normal(t_in))
-        if np.linalg.norm(new - dcut) < 1e-13:
-            break
-        dcut = new
-    dcut = rot(dcut)
+            return None
+        m = -unit(n_o + Ei.normal(hits[0][1]))
+        return (math.atan2(m[1], m[0]) - psi + math.pi) % TAU - math.pi
+
+    psi0 = math.atan2(-n_o[1], -n_o[0])
+    grid = np.linspace(psi0 - 0.9, psi0 + 0.9, 361)
+    vals = [gap(p) for p in grid]
+    roots = [brentq(lambda p: gap(p), grid[i], grid[i + 1], xtol=1e-15) for i in range(len(grid) - 1)
+             if vals[i] is not None and vals[i + 1] is not None and vals[i] * vals[i + 1] < 0
+             and abs(vals[i]) < 0.5 and abs(vals[i + 1]) < 0.5]
+    if not roots:
+        raise ValueError("terminal cut misses the inner edge")
+    psi = min(roots, key=lambda p: abs(p - psi0))
+    dcut = rot(np.array([math.cos(psi), math.sin(psi)]))
     s_in, t_in = [h for h in line_ellipse_hits(p_out, dcut, Ei) if h[0] > 0][0]
     p_in = p_out + s_in * dcut
     if body > 0:

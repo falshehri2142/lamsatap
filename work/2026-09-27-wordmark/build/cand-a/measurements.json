@@ -1,0 +1,122 @@
+{
+ "H": "cap height; all values below are in H",
+ "raster_runs": {
+  "L_stem_at_0.6H": [
+   0.3
+  ],
+  "M_stems_and_V_at_0.3H": [
+   0.275,
+   0.29,
+   0.275
+  ],
+  "T_stem_at_0.4H": [
+   0.2
+  ],
+  "P_stem_and_bowl_at_0.6H": [
+   0.2,
+   0.213
+  ],
+  "A_heavy_legs_horizontal_at_0.55H": [
+   0.309,
+   0.309
+  ],
+  "A_light_legs_horizontal_at_0.55H": [
+   0.209,
+   0.209
+  ]
+ },
+ "stems": {
+  "LAMSA": 0.3,
+  "TAP": 0.2,
+  "ratio": 0.6667,
+  "M_LAMSA": 0.275,
+  "A_legs_LAMSA": 0.29,
+  "A_legs_TAP": 0.195,
+  "S_spine": 0.265
+ },
+ "horizontals": {
+  "L_foot": 0.235,
+  "A_bar": 0.22,
+  "S_top_bottom": 0.215,
+  "T_bar": 0.175,
+  "A2_bar": 0.175,
+  "P_bowl": 0.175
+ },
+ "corner_radius": {
+  "LAMSA": 0.07,
+  "TAP": 0.045,
+  "inner_LAMSA": 0.022,
+  "inner_TAP": 0.014
+ },
+ "widths": {
+  "0L": 0.78,
+  "1A": 1.0825,
+  "2M": 1.1,
+  "3S": 0.87,
+  "4A": 1.0825,
+  "5T": 0.79,
+  "6A": 1.05,
+  "7P": 0.81
+ },
+ "gaps": {
+  "L|A": 0.128,
+  "A|M": 0.135,
+  "M|S": 0.118,
+  "S|A": 0.169,
+  "A|T": 0.21,
+  "T|A": 0.209,
+  "A|P": 0.157
+ },
+ "seam_A|T": 0.21,
+ "counters": {
+  "A_LAMSA": {
+   "width": 0.244,
+   "height": 0.312,
+   "incircle": 0.1828
+  },
+  "A_TAP": {
+   "width": 0.384,
+   "height": 0.48,
+   "incircle": 0.27
+  },
+  "P_TAP": {
+   "width": 0.4,
+   "height": 0.36,
+   "incircle": 0.3588
+  },
+  "S_apertures": [
+   0.207,
+   0.207
+  ],
+  "S_counter_slits": [
+   0.166,
+   0.164
+  ]
+ },
+ "symbol": {
+  "cell": "c = side/4",
+  "bridge_at_star_tips": 0.12,
+  "tip_round_radius": 0.0082,
+  "notch_corner_out": 0.06,
+  "notch_corner_in": 0.02
+ },
+ "word_width": 8.0662,
+ "stacked": {
+  "symbol_over_word_width": 0.58,
+  "gap_symbol_to_cap_line": 0.72,
+  "symbol_centre_offset": 0.0,
+  "since_cap": 0.52,
+  "since_stem": 0.104,
+  "gap_baseline_to_since_cap": 0.4,
+  "since_width_over_word": 0.7387
+ },
+ "horizontal": {
+  "symbol_height": 2.0,
+  "gap_symbol_to_word": 0.6,
+  "symbol_centre_minus_cap_centre": 0.0
+ },
+ "avatar": {
+  "symbol_side_over_circle": 0.64,
+  "colours": "sand symbol on teal circle"
+ }
+}

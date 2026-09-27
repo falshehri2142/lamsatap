@@ -43,7 +43,7 @@ SHAPE = dict(
     A_alpha=20.5, A_bar_mid=240,                      # heavy A: leg angle from vertical, crossbar centre
     A2_alpha=21.5, A2_bar_mid=262.5,                  # light A: same structure; crossbar top level with the heavy A's
     M_alpha=31.6, M_shoulder=297,                     # M: diagonal angle (owner's 31.6), flat top of each stem
-    S_o=18, S_spine=21, S_counter=240, S_term=32,     # S: overshoot, spine angle, counter half-width, terminal angle
+    S_o=18, S_spine=18, S_counter=220, S_term=30,     # S: overshoot, spine angle, counter half-width, terminal angle
     P_bowl=290, P_curve=370)                          # P: bowl bottom, where the bowl's curve starts
 # gaps = shortest distance between neighbouring outlines. Owner's measured gaps (true cap height):
 # L|A 0.128  A|M 0.135  M|S 0.118  S|A 0.169  A|T 0.190  T|A 0.189  A|P 0.137.
@@ -54,8 +54,8 @@ GAPS = [128, 135, 118, 169, 210, 209, 157]
 SINCE_CAP = 0.52
 LS = dict(stem=200, bar=175, R=45, r=14, n_diag=185, o_side=205, o_top=175,
           s_top=175, s_bot=175, s_side1=205, s_side2=205, s_spine=190)
-SINCE = dict(wS=760, o=15, spS=24, aS=195, tuS=34, wN=820, nFlat=20, wC=840, tC=34, wE=660, wEm=600, wEt=640,
-             w2=740, xf2=20, t2=160, ry2=305, w0=840, w6=780, ry6=330, a6=60, asc6=190,
+SINCE = dict(wS=760, o=15, spS=18, aS=190, tuS=30, wN=820, nFlat=20, wC=860, tC=32, wE=660, wEm=600, wEt=640,
+             w2=760, xf2=20, t2=160, ry2=300, w0=860, w6=800, ry6=335, a6=60, asc6=190,
              track=550, space=1300)            # box gaps in SINCE units (owner: 0.55 x its cap; word space 1.3 x)
 
 # lockups (decision.md "النسخ والأحجام")
@@ -65,7 +65,7 @@ SINCE_GAP = 0.40          # word baseline -> SINCE cap line, x H (owner's refere
 HORIZ_SYMBOL = 2.0        # symbol height, x H
 HORIZ_GAP = 0.6           # symbol -> word, x H
 SYMBOL = dict(bridge=0.12, r_out=0.06, r_in=0.02)   # star-tip bridge and notch corner radii, in cells
-AVATAR_SYMBOL = 0.60      # symbol side / circle diameter
+AVATAR_SYMBOL = 0.64      # symbol side / circle diameter
 
 
 # ------------------------------------------------------------------ build
@@ -197,7 +197,7 @@ def measure():
     gl = word_glyphs()
     xs = layout_word(gl)
     out = {"H": "cap height; all values below are in H"}
-    k = 0.5                                                 # raster: 0.5 px per unit (H = 500 px)
+    k = 1.0                                                 # raster: 1 px per unit (H = 1000 px)
     m = {}
     names = ["L", "A", "M", "S", "A", "T", "A", "P"]
     # stems and strokes from the raster, at fixed heights
@@ -206,7 +206,7 @@ def measure():
         row = int(round((g.ymax - y) * k + 10))
         return [round(v / H, 4) for v in LY.run_widths(cov > 0.5, row, k)]
     m["L_stem_at_0.6H"] = runs(gl[0], 600)
-    m["M_strokes_at_0.9H"] = runs(gl[2], 900)
+    m["M_stems_and_V_at_0.3H"] = runs(gl[2], 300)
     m["T_stem_at_0.4H"] = runs(gl[5], 400)
     m["P_stem_and_bowl_at_0.6H"] = runs(gl[7], 600)
     m["A_heavy_legs_horizontal_at_0.55H"] = runs(gl[1], 550)
@@ -260,8 +260,29 @@ def measure():
                          notch_corner_in=SYMBOL["r_in"])
     word_w = xs[-1] + gl[-1].xmax
     out["word_width"] = round(word_w / H, 4)
-    out["stacked"] = dict(symbol_over_word_width=STACK_SYMBOL, gap=STACK_GAP, since_cap=SINCE_CAP, since_gap=SINCE_GAP)
-    out["horizontal"] = dict(symbol=HORIZ_SYMBOL, gap=HORIZ_GAP)
+
+    # lockups, measured on the placed ink (not on the parameters)
+    def box(items, role):
+        P = np.concatenate([p for it in items if it.role in role for p in it.pts(1.0)], 0)
+        return P[:, 0].min(), P[:, 1].min(), P[:, 0].max(), P[:, 1].max()
+    items, _ = compose("stacked", True)
+    sx0, sy0, sx1, sy1 = box(items, ("symbol",))
+    wx0, wy0, wx1, wy1 = box(items, ("lamsa", "tap"))
+    nx0, ny0, nx1, ny1 = box(items, ("since",))
+    since_i = [it for it in items if it.role == "since"]
+    out["stacked"] = dict(symbol_over_word_width=round((sx1 - sx0) / (wx1 - wx0), 4),
+                          gap_symbol_to_cap_line=round((sy0 - H) / H, 4),
+                          symbol_centre_offset=round(((sx0 + sx1) / 2 - (wx0 + wx1) / 2) / H, 4),
+                          since_cap=round(1000 * since_i[1].s / H, 4),                  # the I is exactly cap high
+                          since_stem=round(LS["stem"] * since_i[1].s / H, 4),
+                          gap_baseline_to_since_cap=round((0 - (since_i[1].dy + SINCE_CAP * 1000)) / H, 4),
+                          since_width_over_word=round((nx1 - nx0) / (wx1 - wx0), 4))
+    items, _ = compose("horizontal")
+    sx0, sy0, sx1, sy1 = box(items, ("symbol",))
+    wx0, wy0, wx1, wy1 = box(items, ("lamsa", "tap"))
+    out["horizontal"] = dict(symbol_height=round((sy1 - sy0) / H, 4), gap_symbol_to_word=round((wx0 - sx1) / H, 4),
+                             symbol_centre_minus_cap_centre=round(((sy0 + sy1) / 2 - H / 2) / H, 4))
+    out["avatar"] = dict(symbol_side_over_circle=AVATAR_SYMBOL, colours="sand symbol on teal circle")
     return out
 
 
@@ -306,10 +327,7 @@ def previews(files):
         w, h = vb(svg)
         lw = 1000
         lh = lw * h / w
-        pad = 100
-        W, Hh = 1200, int(round(lh + 2 * pad))
-        page = svg_page(svg.replace('viewBox', f'width="{lw}" height="{lh:.2f}" viewBox', 1), W, Hh, SAND)
-        page = page.replace('<svg width', '<svg style="position:absolute;left:100px;top:100px" width', 1)
+        W, Hh = 1200, int(round(lh + 200))
         shoot_html(_abs_page(svg, W, Hh, SAND, 100, 100, lw, lh), W, Hh, HERE / out)
     # horizontal: 600 px wide canvas, logo 540 px wide
     svg = files["horizontal-light.svg"]
@@ -322,11 +340,11 @@ def previews(files):
     items, _ = compose("symbol")
     ssvg, sw, sh = to_svg(items, AVATAR_COLOURS, unit=2.5, title="avatar")
     side = 40 * AVATAR_SYMBOL
-    html = (f'<!doctype html><html><body style="margin:0;background:{SAND};width:40px;height:40px;overflow:hidden">'
-            f'<div style="position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:{TEAL}"></div>'
-            f'<div style="position:absolute;left:{(40 - side) / 2}px;top:{(40 - side) / 2}px">'
-            f'{ssvg.replace("<svg ", f"<svg width=\"{side}\" height=\"{side}\" style=\"display:block\" ", 1)}</div>'
-            f'</body></html>')
+    inner = ssvg.replace("<svg ", '<svg width="%.3f" height="%.3f" style="display:block" ' % (side, side), 1)
+    html = ('<!doctype html><html><body style="margin:0;background:%s;width:40px;height:40px;overflow:hidden">'
+            '<div style="position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%%;background:%s"></div>'
+            '<div style="position:absolute;left:%.3fpx;top:%.3fpx">%s</div></body></html>'
+            % (SAND, TEAL, (40 - side) / 2, (40 - side) / 2, inner))
     shoot_html(html, 40, 40, HERE / "preview-symbol-40-teal-circle.png")
     # wordmark at cap height 9 px
     svg = files["wordmark-light.svg"]
