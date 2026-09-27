@@ -782,24 +782,59 @@ def _bands(profile, min_gap):
 
 
 def latin_band(ink):
+    """السطر اللاتيني وين ما كان: حروفه أجزاء صغيرة منفصلة على خط قاعدة واحد جنب بعض.
+    الرمز (أكبر جزء، أو أي جزء أطول من نص الملف) ينشال، والحروف تتجمع حسب أسفلها (خط القاعدة)،
+    والسطر = أوطى مجموعة فيها 4 حروف أو أكثر متجاورة، ومعها الحرف النازل تحت السطر (مثل p).
+    يرجع (أول صف، آخر صف، أول عمود، آخر عمود، قناع حروف السطر بس) أو None."""
     H, W = ink.shape
-    cols = _bands(ink.sum(0), max(3, int(0.01 * W)))
-    stacked = len(_bands(ink.sum(1), max(2, int(0.004 * H)))) >= 2  # الكامل: الرمز فوق والنص تحت
-    if len(cols) > 1 and not stacked:  # الأفقي: نشيل عمود الرمز (على طرف الملف، بطوله تقريباً ومربع)
-        def is_symbol(c0, c1):
-            rows = np.nonzero(ink[:, c0:c1].any(1))[0]
-            h = rows[-1] - rows[0] + 1
-            return (c0 <= 2 or c1 >= W - 2) and h >= 0.9 * H and 0.8 <= (c1 - c0) / h <= 1.25
-        cols = [c for c in cols if not is_symbol(*c)] or cols
-    x0, x1 = (cols[0][0], cols[-1][1]) if not stacked else (0, W)
-    rows = _bands(ink[:, x0:x1].sum(1), max(2, int(0.004 * H)))
-    if len(rows) < 2:
+    n, lab_, st, _ = cv2.connectedComponentsWithStats(ink.astype(np.uint8), connectivity=8)
+    comps = [(i, *(int(st[i, k]) for k in range(5))) for i in range(1, n) if st[i, 4] >= 20]  # i, x, y, w, h, area
+    if len(comps) < 4:
         return None
-    r0, r1 = rows[-1]
-    if r1 - r0 > 0.5 * H:
+    biggest = max(c[5] for c in comps)
+    small = [c for c in comps if c[4] < 0.5 * H and c[5] < biggest]
+    if len(small) < 2:
         return None
-    cs = np.nonzero(ink[r0:r1, x0:x1].any(0))[0]
-    return r0, r1, x0 + cs[0], x0 + cs[-1] + 1
+    tol = max(2.0, 0.12 * float(np.median([c[4] for c in small])))
+    small.sort(key=lambda c: c[2] + c[4])
+    groups, cur = [], [small[0]]
+    for c in small[1:]:
+        if (c[2] + c[4]) - (cur[-1][2] + cur[-1][4]) <= tol:
+            cur.append(c)
+        else:
+            groups.append(cur)
+            cur = [c]
+    groups.append(cur)
+
+    def longest_run(g):  # الحروف المتجاورة بس (يشيل جزء بعيد على نفس الخط)
+        g = sorted(g, key=lambda c: c[1])
+        hl = float(np.median([c[4] for c in g]))
+        runs, run = [], [g[0]]
+        for c in g[1:]:
+            if c[1] - (run[-1][1] + run[-1][3]) <= 1.5 * hl:
+                run.append(c)
+            else:
+                runs.append(run)
+                run = [c]
+        runs.append(run)
+        return max(runs, key=len)
+    lines = [longest_run(g) for g in groups]
+    good = [ln for ln in lines if len(ln) >= 4] or [ln for ln in lines if len(ln) >= 2]
+    if not good:
+        return None
+    line = max(good, key=lambda ln: float(np.median([c[2] + c[4] for c in ln])))
+    hl = float(np.median([c[4] for c in line]))
+    x0, x1 = min(c[1] for c in line), max(c[1] + c[3] for c in line)
+    y0, y1 = min(c[2] for c in line), max(c[2] + c[4] for c in line)
+    for c in small:  # حرف نازل أو طالع على نفس السطر
+        if c in line:
+            continue
+        if x0 - hl <= c[1] and c[1] + c[3] <= x1 + 1.5 * hl and c[2] < y1 and c[2] + c[4] > y0 and c[2] >= y0 - 0.5 * hl:
+            line.append(c)
+    x0, x1 = min(c[1] for c in line), max(c[1] + c[3] for c in line)
+    y0, y1 = min(c[2] for c in line), max(c[2] + c[4] for c in line)
+    mask = np.isin(lab_[y0:y1, x0:x1], [c[0] for c in line])
+    return y0, y1, x0, x1, mask
 
 
 def check_latin(rep, svg, kind, out, tag, dpi=1200):
@@ -813,10 +848,10 @@ def check_latin(rep, svg, kind, out, tag, dpi=1200):
     if not band:
         rep.add("8", f"السطر اللاتيني في {label}", "ما قدرت أحدد السطر (آخر سطر نص)", "SKIP")
         return
-    r0, r1, c0, c1 = band
+    r0, r1, c0, c1, letters = band
     p = max(64, r1 - r0)
     sub = np.zeros((r1 - r0 + 2 * p, c1 - c0 + 2 * p), bool)
-    sub[p:-p, p:-p] = ink[r0:r1, c0:c1]
+    sub[p:-p, p:-p] = letters
     mm = 25.4 / dpi
     Ld = min_line(sub, 0)
     lc = Ld["value"]
@@ -861,25 +896,31 @@ ROLE_RE = re.compile(r"^(?P<prefix>.*?)[-_](?P<kind>icon|mark|symbol|logo|horizo
 
 
 def roles_in(folder):
-    groups = {}
+    """يجمع ملفات كل مفهوم حسب البادئة، ويفضّل الاسم الدقيق (مثل -horizontal-mono على -horizontal-ar-mono)."""
+    groups, rank = {}, {}
+    skip = ("white", "fullbleed", "dark", "light", "ink", "circle", "avatar", "favicon", "-ar")
     for f in sorted(pathlib.Path(folder).rglob("*.svg")):
         m = ROLE_RE.match(f.stem)
         if not m:
             continue
         pre, kind, rest = m.group("prefix"), m.group("kind").lower(), m.group("rest").lower()
-        g = groups.setdefault(str(f.parent / pre), {})
-        mono = "mono" in rest and "white" not in rest
+        key = str(f.parent / pre)
+        role = None
         if kind in ("icon", "mark", "symbol"):
-            if mono:
-                g.setdefault("mono", f)
-            elif rest == "":
-                g["icon"] = f
-            elif not any(w in rest for w in ("mono", "white", "fullbleed", "dark", "circle", "avatar", "favicon")):
-                g.setdefault("icon", f)
-        elif kind == "logo" and mono:
-            g.setdefault("full_mono", f)
-        elif kind == "horizontal" and mono:
-            g.setdefault("horizontal_mono", f)
+            role = "mono" if "mono" in rest else "icon"
+        elif kind == "logo" and "mono" in rest:
+            role = "full_mono"
+        elif kind == "horizontal" and "mono" in rest:
+            role = "horizontal_mono"
+        if role is None or "white" in rest:
+            continue
+        exact = rest in ("", "-mono", "_mono")
+        if not exact and any(w in rest for w in skip):
+            continue
+        r = 0 if exact else 1
+        if r < rank.get((key, role), 9):
+            groups.setdefault(key, {})[role] = f
+            rank[(key, role)] = r
     return {k: v for k, v in groups.items() if v}
 
 
