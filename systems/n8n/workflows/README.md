@@ -12,11 +12,14 @@
 | `tap-import.js` | LT (و) tap totals import | `2gTrHuXErO13A5FJ` | مبني؛ Webhook بـ header auth (credential «LamsaTap tap import»)؛ مصدر العد (Function + D1) ما انبنى |
 | `door-report.js` | LT (أ) door report | `vFwm5pET4Ft199rk` | مبني؛ لصاحب المشروع بس (code + place)، التحويل يدوي (GM-017)؛ النشر بعد بند 23 |
 | `invoice-payment.js` | LT (ج) invoice and payment | `hQOihebIag7aRUmK` | مبني؛ نموذجين («أصدر فاتورة»، «سجّل دفعة»)؛ ولا كتابة قبل الموافقة |
+| `telegram-inbound.js` | LT telegram inbound | `mocsmio6hCqQAMvk` | مبني (GM-047)؛ credential «Telegram LamsaTap bot»؛ رسائل العملاء ⇄ صاحب المشروع بدون حفظ، وروابط الوحدة code+place بس |
 | `sales-followup.js` | LT (هـ) sales follow-up | `q6pJoS9H7pmdLrds` | مبني؛ 09:00 + نموذج (credential «LamsaTap forms» Basic Auth) |
 
 الـ credentials ينشئها صاحب المشروع بنفسه في n8n: «Gmail LamsaTap» (احتياط)، «WhatsApp LamsaTap» (بعد تفعيل Cloud API، §4.1 في المواصفة).
 
 ## اختبار
+- `node systems/n8n/workflows/test-telegram.js`: تصنيف رسائل البوت (9 PASS).
+- (تليجرام) انجرب بـ test_workflow برسالة عميل مع تثبيت عقد التليجرام: نجح.
 - `node systems/n8n/workflows/test-invoice-payment.js`: رقم الفاتورة، القيد المتوازن، الدفعة الجزئية/الكاملة، النقد، والرفض (11 PASS).
 - (ج2) انجرب في n8n بفاتورة غير موجودة: نجح وراح لمسار «ما انسجلت» بدون كتابة.
 - `node systems/n8n/workflows/test-door-report.js`: حذف أرقام الجوال من نص البلاغ (7 حالات PASS).
