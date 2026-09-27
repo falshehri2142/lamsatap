@@ -47,8 +47,8 @@
 ### Logo (GM-041 / GM-042)
 - **Files:** `website/assets/brand/logo-horizontal.svg`, `logo-stack.svg` and `logo-stack-since.svg` (ink #14201F), plus the favicon set.
 - **Never** recolour, redraw or edit them.
-- **Header:** 32px mobile, 40px desktop. Header is 64/80, sticky.
-- **Footer:** stacked version. The "since" version only at ≥160px width.
+- **Header:** 32px mobile, 40px desktop. Header is 64/80, sticky. Clear space around the logo: 16 mobile, 20 desktop.
+- **Footer:** stacked version. The "since" version only at ≥160px width. Clear space: 40 around the 120w stack, 48 around the 160w since-stack.
 - **Visual language derived from the logo:** see art direction §11. The QR modules in the intro share the rounded-square language of the symbol's four pieces.
 
 ### Typography
@@ -56,7 +56,10 @@
 - **Scale:**
   - h1: 72 desktop, 52 tablet, 40 mobile.
   - Body: 16px minimum, line-height ≥1.5.
-- **Weight contrast echoes the wordmark** (LAMSA heavy / TAP light). Example: a price figure is heavy and its unit is light.
+- **Weight contrast echoes the wordmark** (700 vs 400), **only** for "a number and its meaning": price figure and unit, the 5-unit figure, step numbers.
+- **Headlines:** one weight, 500.
+- **Icons:** 1.75 rounded stroke, no fill.
+- **The four-point star never appears outside the logo:** alone it reads as an "AI sparkle".
 - **Avoid:**
   - All-caps eyebrow labels.
   - Single-word colour accents in headlines.
@@ -67,9 +70,13 @@
 - **Container:** 1200px.
 - **Gutter:** 20 (<768), 32 (≥768), 48 (≥1024).
 - **Section spacing:** 72 mobile, 96 tablet, 128 desktop.
-- **Radius:** 8 / 14 / 22 / pill.
-  - Pill is for company-page buttons only.
-  - Revisit after §11 (logo corner language).
+- **Radius, from the logo (§11 «لغة الشعار في الموقع», art direction line ~2568):**
+  - Cards and in-layout photos: 8.
+  - Buttons: 14.
+  - 22 is for client pages only.
+  - **No pill (999) on company pages**, because the logo has no pill.
+  - The doors are two pieces of the symbol: one big outer corner at 25% of the door's width (max 120px desktop, 88px mobile), other corners 8. On desktop the big corners are top-right and top-left; on mobile they are mirrored.
+  - QR modules: rounded squares with a corner of 6% of the module side.
 
 ### Motion (dial 9 = complex, but every moment has meaning)
 - **Engine:** GSAP 3.15 core + ScrollTrigger from `website/vendor/gsap/`, on company pages only. Client pages never load GSAP (GM-011).
@@ -92,15 +99,15 @@
 
 ## Component Specs (company pages)
 - **Primary button:**
-  - Ink pill, white label, 44px minimum height.
+  - Ink, radius 14 (not a pill, §11), white label, 44px minimum height.
   - Press feedback is scale 0.97–1.
   - The label says exactly what happens, e.g. «… على واتساب».
   - The approved risk line sits under every plan button: «أسبوعين ببلاش · ما عجبك؟ نشيل العتاد، بدون دفع مقدم ولا التزام في التجربة».
 - **Header WhatsApp:**
-  - An outlined pill, not filled, so each screen keeps one primary action.
+  - Outlined, radius 14, not filled, so each screen keeps one primary action.
   - Hidden while `config.js` has no number.
 - **Cards:**
-  - White on sand, 1px border, radius 22, no shadow.
+  - White on sand, 1px border, radius 8, no shadow.
   - Hover changes only the border or a small lift of 2px or less, with no layout shift.
 - **Photos:** two layers:
   - B&W bottom and colour top.
@@ -151,6 +158,7 @@
 - [ ] **Performance:**
   - [ ] Image `width`/`height` are set, CLS is under 0.1, the LCP image is prioritised, and below-fold images are lazy.
   - [ ] There are no external requests (check the network log).
+- [ ] **Logo consistency:** §11's 10-point checklist (GM-036), including: no radius 999 on company pages, no star outside the logo, and the QR scans at 3 sizes.
 - [ ] **Brand:**
   - [ ] The logo files are unchanged (hash matches `brand/logo/v1.0.0/MANIFEST.txt`).
   - [ ] Accent usage follows the rules above.
