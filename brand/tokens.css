@@ -13,10 +13,11 @@
   font-display: swap;
 }
 
-/* Figtree للاتيني والأرقام في صفحات الشركة بس (الاتجاه 2 §6). **مو مفعّل**: الملف ما نزل للحين (ينتظر موافقة صاحب
-   المشروع). بعد التنزيل: web-brand يقصّه لـ fonts/figtree-latin.woff ويتأكد إن فيه tnum، ثم يشيل التعليق عن هذا
-   البلوك ويحط "LT Latin" أول --lt-font-latin و --lt-font-brand. لو ما فيه tnum: يطيح Figtree ونكمل بـ Readex.
-   (مفعّل قبل ما يوصل الملف = طلب 404 في كل صفحة فيها حرف لاتيني.)
+/* Figtree للاتيني والأرقام في صفحات الشركة بس (الاتجاه 2 §6)، باسم "LT Latin" أول --lt-font-brand و --lt-font-latin.
+   unicode-range يخلي المتصفح ياخذ منه اللاتيني والأرقام والرموز بس، والعربي والمسافة من Readex (المسافة برا المدى عمداً).
+   الملف مقصوص بـ brand/src/build_figtree.py: وزن 400 إلى 700، WOFF، ورخصته fonts/OFL-Figtree.txt (OFL 1.1).
+   فيه الأرقام الجدولية (tnum): font-variant-numeric: tabular-nums للسعر والوقت. بدون preload (الخط الحرج Readex).
+   صفحات الزبون ما تستخدم --lt-font-brand (خط الجهاز، GM-023)، فما ينزل فيها. */
 @font-face {
   font-family: "LT Latin";
   src: url("fonts/figtree-latin.woff") format("woff");
@@ -25,7 +26,6 @@
   font-display: swap;
   unicode-range: U+0021-007E, U+00A1-00FF, U+2013-2014, U+2018-201D, U+2026, U+20AC;
 }
-*/
 
 :root {
   color-scheme: light dark;
@@ -44,8 +44,8 @@
   --lt-sand-200: #E4DCD0;      /* الحدود */
 
   /* ===== الخطوط: صفحات الشركة بخط الهوية، صفحات الزبون بخط الجهاز ===== */
-  --lt-font-brand: "Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
-  --lt-font-latin: "Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif; /* اللاتيني والأرقام في صفحات الشركة: Readex لين يتفعّل Figtree ("LT Latin" فوق) */
+  --lt-font-brand: "LT Latin", "Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif; /* اللاتيني والأرقام Figtree، والعربي والمسافة Readex */
+  --lt-font-latin: "LT Latin", "Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif; /* نفس الترتيب، لعنصر لاتيني بس */
   --lt-font-ui: system-ui, -apple-system, "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
 
   /* ===== المسافات: وحدة 4px، والاسم = القيمة ===== */

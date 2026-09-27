@@ -115,7 +115,7 @@
     return '<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">' + title + '</h2>' +
       '<p>' + line + '</p>' +
       '<a class="lt-btn" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a>' +
-      '<p class="c-owner-back"><a class="lt-link" href="' + esc(home) + '">رجوع لموقع <span data-company>' + esc(companyName()) + '</span></a></p></section>';
+      '<p class="c-owner-back"><a class="lt-link" href="' + esc(home) + '"><span>رجوع لموقع <span data-company>' + esc(companyName()) + '</span></span></a></p></section>';   // النص في span واحد: .lt-link مرن (inline-flex) ويشيل المسافة قبل الاسم
   };
   // «بواسطة لمسة تاب» (components.css: .lt-by): نص بس، ويطلع بس لو poweredBy: true (GM-023). بدون رمز (GM-022)
   w.cBy = function (on) {

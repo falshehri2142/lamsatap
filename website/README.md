@@ -1,7 +1,7 @@
 # website/ (GM-006: تجهيز فقط، بدون نشر)
 
 ## المحتوى
-- `index.html` الرئيسية (صفحة الشركة، تنفهرس في البحث). الشاشات المصغرة والمشهدين فيها يولّدهم `tools/build-home-minis.cjs` (تحت).
+- `index.html` الرئيسية (صفحة الشركة، تنفهرس في البحث)، على «الاتجاه 2» (`work/2026-09-27-brand-identity/web-art-director.md`) ونصوص web-copy «الاتجاه 2». الجوالات والمشهد والصور فيها يولّدهم `tools/build-home-minis.cjs` (تحت).
 - `config.js` الإعداد المشترك (المصدر الوحيد):
   - `domain`: الدومين (مؤقت `https://example.com`). منه يتولد رابط `canonical` و`og:url` في الرئيسية، ورابط باركود ورقة QR.
   - `companyName` و`companyNameEn`: اسم الشركة في كل الصفحات، وسكربت الشعار `brand/src/build_logo.py` يقرأه من هنا.
@@ -9,7 +9,8 @@
   - `waText`: رسائلنا الجاهزة لرقم الشركة (web-copy §2.6، ورسائل الدليل من `systems/architecture.md` §8). `{unitRef}` ينعوض بمرجع الوحدة، ولازم يبقى في رسائل الدليل (`checkout` و`maintenance` و`contact`).
   - `emergency`: أرقام الطوارئ الوطنية لدليل الوحدة، بمصادرها في تعليق الملف (web-ux ر4-2). 911 مؤكد في أربع مناطق بس (مكة المكرمة والمدينة والرياض والشرقية).
 - `assets/app.js`: أدوات مشتركة لكل الصفحات (اسم الشركة، أزرار الواتساب، النسخ، canonical).
-- **موقعنا (البيئة أ):** `assets/site.css` (الأساس وسلّم الخط، موجز المدير الفني §3 و§4) و`assets/home.css` (الرئيسية) و`assets/motion.css` (web-motion: الحركة الوحيدة في الموقع، رسمة البطل مرة وحدة، **في `index.html` بس**).
+- **موقعنا (البيئة أ، صفحات الشركة):** `assets/site.css` (سلّم الخط، والأزرار الكبسولة، والرأس بالكلمة، والتذييل، «الاتجاه 2» §3) و`assets/home.css` (الرئيسية). لوحات الحبر بـ `.lt-ink` من `assets/brand/tokens.css`. الحركة الوحيدة: العبارة المتبدلة في h1 (`home.css` و`app.js`، §3.8). `assets/motion.css` (حركة البطل القديمة) ما تنربط في أي صفحة الحين.
+- `assets/images/`: صور الرئيسية الأربع (WebP بعرض 800 و1600)، وسجلها `CREDITS.md` (الملف والمصدر والمصوّر والرخصة والحجم). الأصول في `brand/photos/originals/`، والتحويل بـ `tools/convert-images.py`.
 - **صفحات الزبون (البيئة ب، بهوية المحل، GM-023):** `assets/client.css` و`assets/client.js` (الهوية، اللوحات، صندوق الواي فاي، طبقة العرض)، و`assets/shop-color.js` (محرك لون المحل، الموجز §5.2).
 - `templates/<القالب>/` (menu، links، wifi، rental-guide): قالب لعميل جديد. كل قالب:
   - `index.html` هيكل خفيف بس (`<div id="app">`)، وأيقونة المتصفح `data:,` (مو رمزنا).
@@ -28,15 +29,19 @@
 - خادم محلي: `npx serve website` أو `python -m http.server -d website 8000` ثم `http://localhost:8000/`.
 - زر «انسخ» يستخدم `navigator.clipboard` على https و localhost، ومن `file://` يرجع لطريقة `execCommand` القديمة.
 
-## الشاشات المصغرة في الرئيسية
-- الرئيسية ما تشغّل `render.js` (ثابتة وأخف). الشاشات داخل الجوالات HTML حقيقي من نفس دوال القوالب ونفس بيانات العرض (الموجز §4.4: «اللي تشوفه هو اللي يطلع»).
-- **بعد أي تعديل** في `templates/*/render.js` أو `demo/*/data.js` أو `demo/_brands/` أو `assets/client.js` أو `assets/shop-color.js` أو رسومات `assets/illustrations/`، شغّل من جذر المشروع:
+## الشاشات المصغرة والصور في الرئيسية
+- الرئيسية ما تشغّل `render.js` (ثابتة وأخف). الشاشات داخل الجوالات HTML حقيقي من نفس دوال القوالب ونفس بيانات العرض («الاتجاه 2» §4: المنتج نفسه هو الرسمة).
+- **بعد أي تعديل** في `templates/*/render.js` أو `demo/*/data.js` أو `demo/_brands/` أو `assets/client.js` أو `assets/shop-color.js` أو `assets/brand/tokens.css` أو رسومات `assets/illustrations/`، أو لما تنضاف صورة في `assets/images/`، شغّل من جذر المشروع:
   `node tools/build-home-minis.cjs`
-- السكربت يكتب بين العلامات `<!-- @@... -->` في `index.html`: الشاشات، والمشهدين inline بالنص البديل من web-copy §5، وألوان المحلين من محرك اللون.
+- السكربت يكتب بين العلامات `<!-- @@... -->` في `index.html`:
+  - جوال البطل (الدليل)، وجوالات الأمثلة الأربع: `phone-frame.svg` inline والشاشة داخل خانته، وكل نسخة ببادئة id مختلفة. الشاشة عليها `.lt-page`، فترجع لألوان صفحة الزبون حتى لو الجوال على لوحة الحبر.
+  - مشهد الكاونتر (`hero-counter.svg`) بمنيوه في «كيف نشتغل»، بالنص البديل من web-copy «الاتجاه 2» ج6.
+  - الصور الأربع بـ `srcset` و`sizes` و`width` و`height` (لو ملفاتها موجودة)، وألوان المحلين من محرك اللون.
+- صورة جديدة: `python tools/convert-images.py <الأصلية> <الاسم>` ثم السكربت فوق، وسجّلها في `assets/images/CREDITS.md`.
 
 ## الواتساب لما الرقم فاضي (قرار GM-010 و web-ux ر4-4)
 - كل أزرار واتساب الشركة **تختفي** (`hidden`) في كل الصفحات. ولا زر معطّل ولا باهت.
-- في الرئيسية بس، مكان زر البطل، سطر نص: «رقم التواصل على واتساب ينضاف قريباً.» والشريط الأخير «تبغى تبدأ؟» يختفي كامل.
+- في الرئيسية («الاتجاه 2» §3.5): الزر الثاني في زوج البطل والخاتمة («افتح دليل تجريبي») يبقى بشكل الأساسي، ويصير ثانوي بس لما يكون فيه رقم (`data-wa-second` في `app.js`). وسطر «رقم التواصل على واتساب ينضاف قريباً.» يطلع في «تبغى تكلّم أحد منا؟» بس. والخاتمة تطلع دايماً.
 - دليل وحدة عميل (`demo: false`): قسم «الخروج والصيانة» كله (مع التواصل) ما يطلع بدون رقم الشركة و`unitRef` صحيح.
 - الرابط: `https://wa.me/<أرقام بس>?text=<الرسالة مرمّزة>`. شكله **غير مؤكد** من صفحة واتساب الرسمية، ولازم يتجرّب بآيفون وأندرويد قبل الإطلاق.
 
@@ -116,10 +121,11 @@
 - النسخ هنا (كلها مطابقة للمصدر بايت ببايت):
   - `assets/brand/tokens.css` ← `brand/tokens.css`
   - `assets/brand/components.css` ← `brand/components.css` (الأزرار `.lt-btn` بأنواعها، والرابط `.lt-link`، واللوحة `.lt-panel` والصف `.lt-row`، و«بواسطة» `.lt-by`)
-  - `assets/brand/lamsatap-horizontal.svg` و`-dark.svg` ← `brand/logo/` (رأس الرئيسية 174×48، وورقة QR). الشعار الحالي مؤقت لين يوصل الرمز الجديد (GM-026)
-  - `assets/brand/lamsatap-icon.svg` و`favicon.svg` ← `brand/logo/lamsatap-icon.svg`
-  - `assets/brand/apple-touch-icon.png` ← `brand/logo/png/lamsatap-icon-180.png`
-  - `favicon.ico` (جذر `website/`) ← `brand/logo/favicon.ico`
+  - الأيقونة المؤقتة (الاتجاه 2 §3.7، الشعار موقوف): مربع حبر ونقطة رملي، بدون حرف ولا زعفران. تتبدل يوم يتقرر الشعار:
+    - `assets/brand/favicon.svg` ← `brand/icons/app-icon-temp.svg`
+    - `assets/brand/apple-touch-icon.png` ← `brand/icons/png/app-icon-temp-180.png`
+    - `favicon.ico` (جذر `website/`) ← `brand/icons/app-icon-temp.ico`
+  - `assets/brand/lamsatap-horizontal.svg` و`-dark.svg` و`lamsatap-icon.svg`: ملفات الشعار القديم، **ما تستخدمها أي صفحة** (الشعار موقوف). رأس الصفحات الثلاث (الرئيسية، وشرح التقييم، وورقة QR) كلمة «لمسة تاب» نص
   - `assets/brand/fonts/readex-pro-arabic-latin.woff` و`OFL.txt` ← `brand/fonts/`
 - ترتيب الربط: `tokens.css` ← `components.css` ← (`site.css` و`home.css` لموقعنا، أو `client.css` و`style.css` حق القالب لصفحات الزبون). ولا لون مكتوب باليد في صفحة.
 - الخط: الرئيسية وصفحة الشرح وورقة QR بـ `--lt-font-brand`. صفحات الزبون (القوالب ونسخ العرض) بـ `--lt-font-ui` بس، فملف الخط ما ينزل عندها.
