@@ -1,21 +1,18 @@
-/* حركة «لمسة تاب» (web-motion): الحركة الوحيدة في الموقع. رسمة البطل في الرئيسية، مرة وحدة عند التحميل، CSS بدون JS.
-   القصة خلال 1.2 ثانية: الجوال يقرب من الستاند على خط النقاط، ثم النقاط تطلع وحدة ورا الثانية من الستاند للجوال،
-   ثم الصفحة تنفتح في شاشة الجوال.
-   الرسمة brand/illustrations/tap-hero.svg (web-brand)، inline داخل .hero في index.html.
-   ما يتحرك غير #th-phone و #th-dot-1..3 و #th-page. مربع الشعار (#th-symbol) والستاند ما يتحركون أبداً.
-   transform و opacity بس. الحركة تنتهي على الرسمة الثابتة نفسها (fill: backwards).
-   مع prefers-reduced-motion: reduce، أو بدون هذا الملف، تطلع الرسمة النهائية ثابتة مباشرة.
+/* حركة «لمسة تاب» (web-motion). الحركة الوحيدة في الموقع: لحظة وحدة في بطل الرئيسية، مرة وحدة عند التحميل، CSS بدون JS.
+   الموجز الفني §9 (web-art-director.md):
+   1) الجوال يقرب 20px على اتجاه ميلانه: 600ms.
+   2) من 520ms الشاشة تنكشف من فوق لتحت: 450ms. المجموع 970ms.
+   المنحنى cubic-bezier(.16,1,.3,1)، ويتحرك transform و clip-path بس.
+   الرسمة website/assets/illustrations/hero-counter.svg (web-illustrator) inline في index.html:
+   .hc-phone-move = الجوال (داخل #hc-phone المايل 13°، فـ translateY على اتجاه ميلانه)،
+   و .fo-screen = div الشاشة داخل foreignObject الجوال (web-builder). الاثنين موجودين في البطل بس.
+   العنوان والنص والزر ومشهد باب الشقة ما يتحركون. الوضع الافتراضي = آخر لقطة (fill: backwards)،
+   فمع prefers-reduced-motion: reduce، أو بدون هذا الملف، تطلع الصورة النهائية ثابتة.
    ينربط في index.html بس. الشرح: work/2026-09-27-brand-identity/web-motion.md */
 @media (prefers-reduced-motion:no-preference){
-  .hero #th-phone{animation:lt-phone 480ms cubic-bezier(.2,.7,.3,1) backwards}
-  .hero #th-dot-1,.hero #th-dot-2,.hero #th-dot-3{animation:lt-show 160ms ease-out backwards}
-  .hero #th-dot-1{animation-delay:420ms}
-  .hero #th-dot-2{animation-delay:520ms}
-  .hero #th-dot-3{animation-delay:620ms}
-  .hero #th-page{animation:lt-page 420ms cubic-bezier(.2,.7,.3,1) 780ms backwards}
+  .hc-phone-move{animation:lt-approach 600ms cubic-bezier(.16,1,.3,1) backwards}
+  .hc-phone-move .fo-screen,.hc-phone-move foreignObject>div{animation:lt-reveal 450ms cubic-bezier(.16,1,.3,1) 520ms backwards}
 }
-/* الجوال: يبدأ 30 وحدة لورا على خط النقاط (من #th-dot-1 إلى #th-dot-3 في رسمة 15:49)، ويظهر خلال أول 40% وهو يقرب */
-@keyframes lt-phone{from{opacity:0;transform:translate(-28px,-12px)}40%{opacity:1}to{opacity:1;transform:none}}
-@keyframes lt-show{from{opacity:0}}
-@keyframes lt-page{from{opacity:0;transform:translateY(10px)}}
-@media print{.hero #th-phone,.hero #th-dot-1,.hero #th-dot-2,.hero #th-dot-3,.hero #th-page{animation:none!important}}
+@keyframes lt-approach{from{transform:translateY(20px)}}
+@keyframes lt-reveal{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+@media print{.hc-phone-move,.hc-phone-move .fo-screen,.hc-phone-move foreignObject>div{animation:none!important}}

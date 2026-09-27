@@ -26,7 +26,7 @@
     // ملصق الشريحة: النقطة في نص الملصق (مركزها مركز الشريحة)، وتحتها «قرّب جوالك هنا»
     var dotY = H.nfcH / 2 - 3;
     var nfc = '<section class="' + cls + '" aria-label="ملصق الشريحة" style="width:' + mm(H.nfcW) + ';height:' + mm(H.nfcH) + '">' + guide() +
-      '<span class="p-el p-dot" style="top:' + mm(dotY - H.dotD / 2) + ';left:' + mm(H.nfcW / 2 - H.dotD / 2) + ';width:' + mm(H.dotD) + ';height:' + mm(H.dotD) + ';background:' + dotColor(brand, mono) + '"></span>' +
+      touchMark(dotColor(brand, mono), H.dotD, mm(dotY - H.dotD / 2), mm(H.nfcW / 2 - H.dotD / 2)) +
       '<p class="p-el p-line p-center" style="top:' + mm(dotY + H.dotD / 2 + 3) + ';font-size:' + H.touchPt + 'pt;font-weight:600">قرّب جوالك هنا</p></section>';
 
     // ملصق الباركود: الهوية فوق، ثم العنوان، ثم الباركود بمسافته الهادئة، ثم «امسح الباركود»

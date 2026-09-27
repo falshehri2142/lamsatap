@@ -34,6 +34,13 @@
     return (1.05 / (lum(c) + 0.05)) >= 3 ? c : BLACK;
   };
 
+  // علامة مكان اللمس (GM-027): نقطة مصمتة. المسار نفسه من website/assets/illustrations/touch-mark.svg (web-illustrator)،
+  // inline عشان تاخذ لون المحل (currentColor). في الحفر أسود مثل touch-mark-engrave.svg
+  w.touchMark = function (color, sizeMM, top, left) {
+    return '<svg class="p-el p-mark" viewBox="0 0 14 14" width="' + sizeMM + 'mm" height="' + sizeMM + 'mm" style="top:' + top + ';left:' + left + ';color:' + color +
+      '" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 7a7 7 0 1 0 14 0a7 7 0 1 0 -14 0Z"/></svg>';
+  };
+
   // الشعار: ملف محلي بس (SVG أو PNG). بدونه: اسم المحل شعار كتابي على لوح رملي بالحبر (GM-027)
   w.localLogo = function (p) {
     p = s(p);

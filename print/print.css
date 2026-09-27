@@ -20,7 +20,7 @@ body { font-family: var(--lt-font-brand); color: #000000; background: var(--lt-b
 .p-mono .p-plate-t { color: #000000; }
 .p-title { font-weight: 600; line-height: 1.2; white-space: nowrap; overflow: hidden; }
 .p-line { line-height: 1.2; white-space: nowrap; }
-.p-dot { border-radius: 50%; }
+.p-mark { display: block; }   /* علامة اللمس: مسار touch-mark.svg (web-illustrator) inline */
 .p-qr-svg { display: block; }
 /* ملصقات المضيف: الاثنين جنب بعض في صفحة وحدة */
 .p-pair { display: flex; align-items: flex-start; }

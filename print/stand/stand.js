@@ -39,7 +39,7 @@
       // العنوان سطر واحد
       (title ? '<p class="p-el p-title p-center" id="p-title" style="top:' + mm(D.titleTop) + ';margin:0 auto;width:' + mm(D.titleW) + ';font-size:' + D.titlePt + 'pt">' + escP(title) + '</p>' : '') +
       // نقطة اللمس (GM-027): نقطة مصمتة بس، مركزها مركز الشريحة
-      '<span class="p-el p-dot" style="top:' + mm(D.chipY - D.dotD / 2) + ';left:' + mm(D.sheetW / 2 - D.dotD / 2) + ';width:' + mm(D.dotD) + ';height:' + mm(D.dotD) + ';background:' + dotColor(brand, mono) + '"></span>' +
+      touchMark(dotColor(brand, mono), D.dotD, mm(D.chipY - D.dotD / 2), mm(D.sheetW / 2 - D.dotD / 2)) +
       '<p class="p-el p-line p-center" style="top:' + mm(D.touchTop) + ';font-size:' + D.touchPt + 'pt;font-weight:600">قرّب جوالك هنا</p>' +
       '<p class="p-el p-line p-center" style="top:' + mm(D.qrLineTop - (+D.baseCover || 0)) + ';font-size:' + D.qrLinePt + 'pt;font-weight:500">أو امسح الباركود</p>' +
       (qr ? '<div class="p-el" style="top:' + mm(quietTop) + ';left:' + mm(D.sheetW / 2 - qr.totalMM / 2) + '">' + qr.html + '</div>' : '');

@@ -9,7 +9,7 @@
 :root {
   --shop-line: var(--lt-text);
   --shop-tint: var(--lt-surface-2);
-  --c-plate: #FFFFFF;               /* لوح الشعار أبيض بالوضعين (§5.3). مو لون هوية */
+  --c-plate: var(--lt-inverse);     /* لوح الشعار أبيض بالوضعين (§5.3): --lt-inverse أبيض ثابت في tokens.css */
 }
 
 /* الأساس. التركيز حبر والتحديد محايد في صفحة الزبون، مو تيل (GM-023، و web-brand.md «قرارات من ملاحظات الفحص») */
