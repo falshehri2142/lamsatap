@@ -53,6 +53,8 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 - **الـ workflows (مبنية، غير منشورة، 2026-09-27)**: 9 في مجلد «LamsaTap workflows (unpublished)». الكود والمعرّفات والإعدادات في `systems/n8n/workflows/` (README). الاختبارات: `node systems/n8n/workflows/test-*.js systems/n8n/workflows`. قبل التشغيل: صاحب المشروع يعبّي `CHANNEL` وينشئ credentials (Gmail، Basic Auth للنماذج، Header Auth للعدّاد، واتساب بعد التفعيل). (أ) ما يُنشر قبل بند 23 وrate limit في Cloudflare.
 - طريقة البناء: SDK → `validate_workflow` → `create_workflow_from_code` بمشروع `ozjVZ1kj1pRXQydY` ومجلد `qnVr7m13MSO5AzVk` → `update_workflow` للإعدادات (حفظ التنفيذ none، Asia/Riyadh). التجربة بـ `test_workflow` مع تثبيت (pin) أي عقدة ترسل أو تكتب؛ سجل التنفيذ ما ينحفظ، فالمنطق يُختبر محلياً بـ test-*.js.
 
+- **تليجرام (GM-047، المواصفة §7):** «LT telegram inbound» يحوّل رسائل العملاء لصاحب المشروع بوسم `#c<chat_id>` وردّه (Reply) يرجع للعميل، بدون أي حفظ. روابط الوحدة `?start=co_/mt_<ref>` = code+place بس. `owner-notify` فيه قناة telegram (موافقة بأزرار داخل المحادثة). `website/config.js`: حقلي `telegram` و`telegramChannel` (روابط كاملة، مؤقتاً `https://t.me/lamsatap`) يملكهم مصمم الموقع — ما نعدل الملف. روابط تليجرام في دليل الوحدة تنتظر رد loyer.
+
 ## دروس
 - المشكّك لقى ثغرات (خطف الروابط الملغاة، XSS، حقن `_redirects`) بعد ما المختبِر أعطى PASS: لا تكتفِ بالمختبِر، شغّل المدقق والمشكّك على أي كود يولد صفحات أو تحويلات.
 - إذا `sys-architect` مو متاح كنوع وكيل، شغّل وكيل عام بتعليمات `.claude/agents/sys-architect.md`.
@@ -69,3 +71,4 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 قيود الاستخدام: القرارات والإرسال والدفع لصاحب المشروع دايماً، مهما قالت المهارة؛ ولا أداة أو كونيكتور خارجي غير المعتمد عندنا.
 - أي حساب يعتمد على بيانات قبل انتظار موافقة (أرقام قيود، مراجع، مجاميع) لازم يُعاد بعد الموافقة: الانتظار ممكن يطول وتتغير البيانات.
 - heredoc في Bash هنا ياكل الشرطات المائلة: أي كود فيه regex أكتبه بأداة Write، مو heredoc.
+- update_workflow ما يقبل credential بالاسم لو ما هو موجود: أضف العقدة بدون credentials وصاحب المشروع يربطها.
