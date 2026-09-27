@@ -91,6 +91,7 @@ done
 curl -sI "$BASE/t/<code>" | head -5              # بدون شرطة أخيرة
 curl -sI "$BASE/t/<code>/?src=nfc" | head -5     # هل Location فيه src؟ (غير مؤكد في التوثيق)
 curl -sI "$BASE/t/demo03/" | head -5             # ملغى -> /t/inactive/
+curl -sI "$BASE/t/<emergency-code>/" | grep -i location   # لازم ينتهي بـ #emergency (هل _redirects في Cloudflare يحفظ # داخل الوجهة: غير مؤكد؛ لو انقص، صفحة الكود الاحتياطية تحفظه)
 curl -s -o /dev/null -w '%{http_code}\n' "$BASE/t/nosuchcode/"   # 404
 curl -s -o /dev/null -w '%{http_code}\n' "$BASE/links.txt"        # لازم 404
 curl -s "$BASE/_redirects" | head -3              # لازم ما يطلع محتوى الملف (سطور /t/...)

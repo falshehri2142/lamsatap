@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Manage links.json then rebuild with build.js. No external packages.
 //   node links-cli.js list
-//   node links-cli.js add <code>|--gen --client <c> --place <p> --dest <https-url> [--type door|public]
+//   node links-cli.js add <code>|--gen --client <c> --place <p> --dest <https-url> [--type door|public|emergency]
 //   node links-cli.js set-dest <code> <https-url> [--reactivate]
 //   node links-cli.js cancel <code>
 // Option --dir <folder> (or env SHORTLINKS_DIR): folder containing links.json + build.js (default: this folder).
