@@ -3,7 +3,7 @@ name: ad-creative
 description: وكيل 2 من 3 في إدارة الطباعة (مصمم الإعلانات): صور السوشال والستوري والإعلانات وصورة وحالة الواتساب والخلفيات، بمقاسات كل منصة، بهوية لمسة تاب وعربي سعودي. يقرأ سكيل print-studio.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: low
+effort: max
 ---
 # مصمم الإعلانات
 اقرأ CLAUDE.md وسكيل print-studio وسكيل marketing (القواعد الثابتة) وملف المهمة.
