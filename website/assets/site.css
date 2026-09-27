@@ -1,8 +1,8 @@
-:root{--bg:#f6f7f9;--card:#fff;--text:#16181d;--muted:#4b5260;--line:#dfe3ea;--btn:#1a56db;--btnt:#fff;--tag:#fff4d6;--tagt:#6b4a00;--ph:#e6eaf2}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#1a1d24;--text:#eef0f4;--muted:#b4bac6;--line:#2c313b;--btn:#5b8def;--btnt:#0b0d12;--tag:#3a2f10;--tagt:#ffdf8a;--ph:#262b35}}
+/* الألوان من brand/tokens.css (نسخة: assets/brand/tokens.css، تُربط قبل هذا الملف). الوضع الداكن يجي من tokens.css نفسه. */
+:root{--bg:var(--lt-bg);--card:var(--lt-surface);--text:var(--lt-text);--muted:var(--lt-muted);--line:var(--lt-border);--btn:var(--lt-primary);--btnt:var(--lt-on-primary);--tag:var(--lt-primary-soft);--tagt:var(--lt-primary-strong);--ph:var(--lt-surface-2)}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;font-size:16px;line-height:1.6;overflow-wrap:anywhere}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--lt-font-ui);font-size:16px;line-height:1.6;overflow-wrap:anywhere}
 main{max-width:520px;margin:0 auto;padding:20px 16px 32px}
 a{color:var(--btn)}
 .tag{display:inline-block;background:var(--tag);color:var(--tagt);border-radius:8px;padding:4px 10px;font-size:14px;font-weight:600}
@@ -13,7 +13,7 @@ h2{font-size:20px;margin:0 0 8px}
 .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;border:0;border-radius:14px;background:var(--btn);color:var(--btnt);font-family:inherit;font-weight:700;font-size:18px;line-height:1.3;cursor:pointer;padding:12px 16px;text-decoration:none;margin-top:10px}
 .btn.alt{background:transparent;color:var(--text);border:2px solid var(--line)}
 .btn[disabled],.btn[aria-disabled=true]{opacity:.6;cursor:not-allowed}
-.btn:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--text);outline-offset:3px}
+.btn:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--lt-focus);outline-offset:3px}
 .row{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
 .row:last-child{border-bottom:0}
 .row .k{font-size:14px;color:var(--muted)}
@@ -21,5 +21,7 @@ h2{font-size:20px;margin:0 0 8px}
 .copy{min-height:44px;min-width:72px;border-radius:10px;border:2px solid var(--btn);background:transparent;color:var(--text);font-family:inherit;font-weight:700;font-size:16px;cursor:pointer;flex:none}
 .status{min-height:1.6em;color:var(--muted);font-size:14px;margin:6px 0 0}
 footer{text-align:center;color:var(--muted);font-size:14px;margin-top:28px}
+footer.by{display:flex;align-items:center;justify-content:center;gap:6px}
+footer.by img{flex:none}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}

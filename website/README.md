@@ -29,3 +29,10 @@
 3. استبدل `[السعر المعتمد]` بالأسعار المعتمدة في `services/` فقط.
 4. صاحب المشروع يرفع المجلد على الاستضافة (المقترح Cloudflare Pages، `work/2026-09-27-short-links/result.md`).
 5. اطبع `demo/review/qr-sheet.html` وامسحه بكاميرا جوال من الورقة المطبوعة قبل التوزيع.
+
+## الهوية (لمسة تاب — LamsaTap، GM-008)
+- المصدر الوحيد: `brand/` في جذر المشروع (`tokens.css`، `fonts/`، `logo/`). أي تعديل يصير هناك أول، ثم يُنسخ نسخة مطابقة هنا (لأن `website/` ينرفع لحاله).
+- النسخ هنا: `assets/brand/tokens.css`، `assets/brand/fonts/readex-pro-arabic-latin.woff` + `OFL.txt`، `assets/brand/lamsatap-horizontal.svg` و`-dark.svg`، `lamsatap-icon.svg`، `favicon.svg` (= `lamsatap-icon-small.svg`)، `apple-touch-icon.png` (= `png/lamsatap-icon-180.png`)، و`favicon.ico` في جذر `website/`.
+- كل صفحة تربط `tokens.css` قبل `site.css`. متغيرات `site.css` (`--bg --text --btn`...) تاخذ قيمها من `--lt-*`، والداكن من `tokens.css`.
+- الخط: الرئيسية و`qr-sheet.html` بـ `--lt-font-brand`. صفحات الزبون (القوالب و`demo/review/index.html`) بـ `--lt-font-ui` فقط، فما ينزل ملف الخط عندها.
+- صفحات الزبون فيها سطر «بواسطة لمسة تاب» (الاسم من `companyName` في `config.js`).

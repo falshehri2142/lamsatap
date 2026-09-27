@@ -1,0 +1,17 @@
+/* موجة «لمسة تاب» (web-motion). تنربط في الرئيسية فقط (index.html)، ولا تنربط في القوالب ولا demo ولا ورقة QR.
+   القرار: لا حركة على الشعار ولا حلقة حول نقطته (web-brand)، ولا حركة في صفحات الاستخدام (GM-011):
+   رد الضغط هناك تغيير لون فوري في brand/components.css.
+   الموجة: حلقة زعفرانية وحدة مقفلة تطلع من نقطة الضغط على أزرار الرئيسية (data-motion="wave") وتختفي خلال 400ms.
+   span ثابت (fixed) يحطه motion.js: ما يغيّر مقاس شي ولا يسبب تمرير، ولا يلمس ستايل الزر نفسه.
+   مع prefers-reduced-motion: reduce ما تطلع. الشرح: work/2026-09-27-brand-identity/web-motion.md */
+.lt-wave{display:none}
+@media (prefers-reduced-motion:no-preference){
+  .lt-wave{display:block;position:fixed;z-index:2147483000;box-sizing:border-box;width:96px;height:96px;margin:-48px 0 0 -48px;border:2px solid var(--lt-accent,#F2A93B);border-radius:50%;pointer-events:none;animation:lt-grow 400ms cubic-bezier(.2,.7,.3,1) both,lt-fade 400ms ease-in both}
+}
+/* الداكن: خط غامق رفيع على جانبي الحلقة، عشان تبين فوق الزر الفاتح (#6AD6CC) مو بس حوله */
+@media (prefers-reduced-motion:no-preference) and (prefers-color-scheme:dark){
+  .lt-wave{box-shadow:0 0 0 1px rgba(6,37,34,.7),inset 0 0 0 1px rgba(6,37,34,.7)}
+}
+@keyframes lt-grow{from{transform:scale(.2)}to{transform:scale(1)}}
+@keyframes lt-fade{from{opacity:.9}to{opacity:0}}
+@media print{.lt-wave{display:none!important}}

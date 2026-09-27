@@ -4,5 +4,6 @@
 window.SITE = {
   domain: "https://example.com",
   companyName: "لمسة تاب",
+  companyNameEn: "LamsaTap",
   whatsapp: ""
 };

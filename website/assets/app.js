@@ -3,7 +3,7 @@
   var S=window.SITE||{};
   window.fillCompany=function(){
     var els=document.querySelectorAll('[data-company]');
-    for(var i=0;i<els.length;i++)els[i].textContent=S.companyName||'[اسم الشركة]';
+    for(var i=0;i<els.length;i++)els[i].textContent=S.companyName||'لمسة تاب';
   };
   window.fillWhatsapp=function(){
     var num=String(S.whatsapp||'').replace(/\D/g,'');

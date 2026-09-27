@@ -1,0 +1,92 @@
+/* رموز هوية «لمسة تاب — LamsaTap» (GM-008). الشرح في brand/README.md، والمكوّنات الجاهزة (زر الواتساب) في brand/components.css.
+   المصدر هنا فقط. الموقع ياخذ نسخة مطابقة في website/assets/brand/tokens.css (والخط في fonts/ جنبه).
+   التباين مفحوص (WCAG): الأرقام بين الأقواس = نسبة التباين على الخلفية المذكورة.
+   صفحات الاستخدام (GM-011): الزر الرئيسي خلفيته --lt-primary-strong ونصه --lt-on-primary (7.61 فاتح، 9.34 داكن). */
+
+/* خط الهوية: Readex Pro (رخصة OFL، الملف fonts/OFL.txt)، مقصوص للعربي واللاتيني الأساسي، وزن متغير 160–700.
+   ما ينزل إلا إذا استُخدم --lt-font-brand في الصفحة. */
+@font-face {
+  font-family: "Readex Pro";
+  src: url("fonts/readex-pro-arabic-latin.woff") format("woff");
+  font-weight: 160 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* الألوان الثابتة */
+  --lt-teal: #0B7A75;          /* تيل لمسة: الأساسي (أبيض عليه 5.18) */
+  --lt-teal-deep: #075E5A;     /* تيل غامق: خلفية الرمز والضغط (أبيض عليه 7.61) */
+  --lt-teal-soft: #E3F3F1;     /* خلفية خفيفة (تيل عليها 4.53) */
+  --lt-teal-light: #3FC1B6;    /* الأساسي في الوضع الداكن */
+  --lt-saffron: #F2A93B;       /* زعفران: النقطة والتعبئة فقط، النص عليه غامق (8.37). ممنوع نص زعفراني على فاتح (2.00) */
+  --lt-saffron-light: #F5B85A; /* الزعفران في الوضع الداكن */
+  --lt-ink: #14201F;           /* الحبر: النص الأساسي (15.64 على الرملي) */
+  --lt-slate: #56625F;         /* نص ثانوي (5.94 على الرملي) */
+  --lt-sand-50: #FAF7F2;       /* الخلفية الرملية */
+  --lt-sand-100: #F3EEE6;
+  --lt-sand-200: #E4DCD0;      /* الحدود */
+
+  /* الأدوار: الوضع الفاتح */
+  --lt-bg: var(--lt-sand-50);
+  --lt-surface: #FFFFFF;
+  --lt-surface-2: var(--lt-sand-100);
+  --lt-border: var(--lt-sand-200);
+  --lt-text: var(--lt-ink);
+  --lt-muted: var(--lt-slate);
+  --lt-primary: var(--lt-teal);         /* نص تيل على --lt-surface-2 = 4.48 (أقل من 4.5): هناك استخدم --lt-primary-strong */
+  --lt-primary-strong: var(--lt-teal-deep);
+  --lt-primary-press: #054A47;          /* الزر الرئيسي وقت الضغط (أبيض عليه 10.11) */
+  --lt-on-primary: #FFFFFF;
+  --lt-primary-soft: var(--lt-teal-soft);
+  --lt-accent: var(--lt-saffron);
+  --lt-on-accent: var(--lt-ink);
+  --lt-focus: var(--lt-teal-deep);
+
+  /* الخطوط: صفحات الشركة بخط الهوية، صفحات الزبون بخط الجهاز (أسرع عند الطاولة) */
+  --lt-font-brand: "Readex Pro", system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+  --lt-font-ui: system-ui, -apple-system, "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
+
+  /* المسافات (مضاعفات 4) */
+  --lt-space-1: 4px;
+  --lt-space-2: 8px;
+  --lt-space-3: 12px;
+  --lt-space-4: 16px;
+  --lt-space-5: 24px;
+  --lt-space-6: 32px;
+  --lt-space-7: 48px;
+  --lt-space-8: 64px;
+
+  /* أقل هدف لمس (زر، رابط، زر نسخ): 48px */
+  --lt-tap-min: 48px;
+
+  /* الزوايا والظل */
+  --lt-radius-s: 8px;
+  --lt-radius-m: 14px;
+  --lt-radius-l: 22px;
+  --lt-radius-pill: 999px;
+  --lt-shadow: 0 1px 2px rgba(20, 32, 31, .06), 0 4px 14px rgba(20, 32, 31, .06);
+}
+
+/* الأدوار: الوضع الداكن */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lt-bg: #0E1615;
+    --lt-surface: #152120;
+    --lt-surface-2: #1C2B29;
+    --lt-border: #2A3B38;
+    --lt-text: #ECF2F0;              /* 16.19 على الخلفية */
+    --lt-muted: #A3B2AE;             /* 7.51 على السطح */
+    --lt-primary: var(--lt-teal-light); /* 8.32 على الخلفية */
+    --lt-primary-strong: #6AD6CC;    /* --lt-on-primary عليه 9.34 */
+    --lt-primary-press: var(--lt-teal-light); /* الزر الرئيسي وقت الضغط: 7.34 */
+    --lt-on-primary: #062522;        /* 7.34 على الأساسي */
+    --lt-primary-soft: #123A37;      /* الأساسي عليها 5.64 */
+    --lt-accent: var(--lt-saffron-light);
+    --lt-on-accent: #1A1206;         /* 10.49 */
+    --lt-focus: #6AD6CC;
+    --lt-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 14px rgba(0, 0, 0, .25);
+  }
+}
