@@ -3,7 +3,8 @@
 يرسم الرمز المرشح بمقاسه الحقيقي على: ستاند A6 (وجه رملي ووجه تيل)، حفر ليزر (خشب فاتح، جوز، أكريليك شفاف)،
 ملصقات دائرية 30 و25mm، والشاشة من 16 لين 64px. ويطلع تقرير قياسات يصلح لأي رمز:
 تداخل المسارات، أنحف جزء وأضيق فراغ (كنسبة من طول الرمز وبالـ mm على أصغر مقاس)، وأكبر مقاس يدخل في الملصق الدائري.
-الرسم محاكاة تقريبية للمواد (مو صورة حرق حقيقي)؛ أرقام الانتشار (0.1mm) تتأكد بعينة من المورد.
+الرسم محاكاة تقريبية للمواد (مو صورة حرق حقيقي). حد الحفر 0.3mm قاعدة web-qa المبدئية (logo-review/web-qa.md)، غير مؤكدة لين عينة المورد.
+القياس: «أنحف جزء» و«أضيق فراغ» = أول مكان ينقسم فيه الحبر أو ينسد فيه الفراغ لما ننحته أو ننشره (مو أطراف الخطوط).
 
 التشغيل (أي مجلد):
   python mark_test.py --color mark.svg --mono mark-mono.svg --out <مجلد> [--color-dark mark-dark.svg] [--touch 0.5,0.8] [--min-mm 6]
@@ -35,7 +36,7 @@ BROWSERS = [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
             r"C:\Program Files\Google\Chrome\Application\chrome.exe"]
 # ألوان الهوية المعتمدة (GM-020) + ألوان المواد في المحاكاة
 DEEP, SAND, INK, MUTED = "#075E5A", "#FAF7F2", "#14201F", "#56625F"
-SPREAD_MM = 0.1  # انتشار الحرق أو الحبر من كل جهة (رقم عمل، غير مؤكد لين عينة المورد)
+MIN_FEATURE_MM = 0.3  # أرفع خط وأضيق فراغ في الحفر (قاعدة web-qa المبدئية، غير مؤكدة لين عينة المورد)
 
 
 def shot(html, out, w, h, scale=1):
@@ -329,11 +330,11 @@ def measure(mono, out_dir, min_mm):
             rep.append(f"{name}: {v * 100:.1f}% من طول الرمز = {at_mm}")
         else:
             rep.append(f"{name}: ما تغير شكل الرمز لين 40% من طوله")
-    need = 2 * SPREAD_MM + 0.3  # أنحف جزء وأضيق فراغ لازم يتحملون انتشار 0.1mm من كل جهة ويبقى 0.3mm
     worst = min(v for v in (t, g) if v) if (t or g) else None
     if worst:
-        rep.append(f"أصغر مقاس يتحمل انتشار {SPREAD_MM}mm من كل جهة ويبقى 0.3mm: {need / worst:.1f}mm (أطول ضلع). "
-                   f"المطلوب {min_mm:g}mm -> " + ("ناجح" if need / worst <= min_mm else "راسب"))
+        need = MIN_FEATURE_MM / worst
+        rep.append(f"أصغر مقاس يخلي أنحف جزء وأضيق فراغ {MIN_FEATURE_MM}mm أو أكثر: {need:.1f}mm (أطول ضلع). "
+                   f"المطلوب {min_mm:g}mm -> " + ("ناجح" if need <= min_mm else "راسب"))
     iy, ix = np.nonzero(m)
     cy, cx = (iy.min() + iy.max()) / 2, (ix.min() + ix.max()) / 2
     rho = float(np.sqrt((ix - cx) ** 2 + (iy - cy) ** 2).max() / L)
