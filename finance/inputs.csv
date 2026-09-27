@@ -30,7 +30,7 @@ whatsapp_msgs_per_unit_month,host_bundle,عدد الرسائل لكل وحدة �
 risk_damage_rate,host_bundle,التالف أو الفقد سنوياً (host_tag_damage_rate_yr),,0.25,ratio/yr,fin-risk.md غير مؤكد,fin-risk
 risk_monthly_churn,host_bundle,الإلغاء الشهري (churn_monthly_host),,0.06,ratio/month,fin-risk.md غير مؤكد,fin-risk
 risk_churn_max,host_bundle,أعلى إلغاء في حساسية fin-risk,,0.15,ratio/month,fin-risk.md غير مؤكد,fin-risk
-labor_cost_per_hour,all,قيمة ساعة العمل,,25,SAR/hour,افتراض fin-modeler غير مؤكد (fin-risk: يحدده المالك),owner
+labor_cost_per_hour,all,قيمة ساعة العمل,25,25,SAR/hour,قرار صاحب المشروع 2026-09-27 (عبر المدير العام),owner
 replacement_shipping_cost,all,توصيل البديل,,15,SAR/time,افتراض fin-modeler غير مؤكد (fin-risk تركه فاضي),fin-risk
 replacement_labor_min,all,وقت برمجة وتركيب البديل,,20,min,fin-risk.md غير مؤكد,fin-risk
 dead_on_arrival_rate,all,شرائح تالفة من المورد,,0.03,ratio,fin-risk.md غير مؤكد,nfc-engineer
@@ -56,7 +56,7 @@ design_minutes,menu,تصميم المنيو (داخل رسوم التجهيز),,
 wa_platform_monthly,host_bundle,اشتراك منصة/مزود WhatsApp API الشهري (ثابت لكل الخدمة),,50,SAR/month,افتراض fin-modeler غير مؤكد ؛ يُراجع عند مزود حقيقي,systems-supervisor
 cac_per_client,all,تكلفة جلب عميل واحد (زيارة وعينات وإعلان),,40,SAR/client,افتراض fin-modeler غير مؤكد,sales
 install_delivery,all,توصيل أو زيارة التركيب لكل عميل,,20,SAR/client,افتراض fin-modeler غير مؤكد,nfc-engineer
-price_shop_annual,shop_bundle,حزمة المحل الكامل سنوي مقدم (العتاد والتركيب مشمول),,990,SAR/yr,fin-pricing.md نطاق 790-1190 غير مؤكد,fin-pricing
+price_shop_annual,shop_bundle,حزمة المحل الكامل سنوي مقدم (العتاد والتركيب مشمول),,1199,SAR/yr,مقترح المحلل المالي بعد GM-007 (بانتظار الاعتماد) غير مؤكد,fin-pricing
 price_shop_renewal,shop_bundle,تجديد السنة الثانية,,790,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing
 shop_stands_included,shop_bundle,ستاندات مشمولة (تقييم + واي فاي/روابط),,2,units,fin-pricing.md غير مؤكد,fin-pricing
 cost_stand_unit,shop_bundle,ستاند جاهز بشريحة (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الصفحة كانت تعرض «نفد من المخزون» في 2026-09-27؛ شمول الضريبة غير واضح),nfc-engineer
@@ -65,7 +65,7 @@ shop_tags_included,shop_bundle,شرائح طاولات مشمولة,,10,units,fi
 cost_tag_unit,shop_bundle,شريحة أو ستاند طاولة صغير مع الشحن,,15,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
 labor_minutes,shop_bundle,إدخال المنيو وتركيب ستاندين (180+60) بدون التصميم,,240,min/client,fin-pricing.md غير مؤكد (fin-risk قدّر 120),fin-modeler
 cost_hosting_monthly,shop_bundle,استضافة لكل محل (5 صفحات),,5,SAR/month,fin-pricing.md غير مؤكد,systems-supervisor
-support_minutes_monthly,shop_bundle,تعديلات ودعم شهري,,30,min/month,fin-pricing.md غير مؤكد,fin-modeler
+support_minutes_monthly,shop_bundle,دعم شهري: تحديث منيو مرتين بالشهر (الزيادة إضافة مدفوعة),,20,min/month,حد التحديثين: قرار صاحب المشروع 2026-09-27؛ 10 دقائق للتحديث غير مؤكد,owner
 wa_msgs_cost_monthly,shop_bundle,رسائل واتساب شهرية,,0,SAR/month,لا يوجد في الحزمة,fin-modeler
 units_per_client,shop_bundle,وحدات لكل عميل,,1,units,تعريف,fin-modeler
 price_review_sub_annual,review_sub,ستاند التقييم اشتراك سنوي مع تركيب (الستاند مجاني),,149,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing

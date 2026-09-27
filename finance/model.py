@@ -209,7 +209,8 @@ REF_KEYS = ("mkt_review_low", "mkt_review_high", "mkt_menu_monthly_low", "mkt_me
             "mkt_host_monthly_ref", "review_commodity_low", "review_commodity_high", "mkt_menu_annual_low",
             "mkt_host_unit_low", "mkt_host_unit_high")
 # fin-risk worst case (rule 5) + host commit collected at the low end
-W = {"risk_early_cancel_rate": 0.25, "risk_nonrenew_rate": 0.6, "labor_cost_per_hour": 50, "cac_per_client": 80,
+W = {"risk_early_cancel_rate": 0.25, "risk_nonrenew_rate": 0.6, "cac_per_client": 80,  # ساعة العمل ثابتة 25 بقرار صاحب المشروع
+    
      "lite_cac_per_client": 80, "risk_defect_rate": 0.08, "risk_damage_replace_rate_yearly": 0.2,
      "prices_include_vat": 1, "risk_host_unit_churn_monthly": 0.10, "host_commit_collect_rate": 0.5}
 
@@ -563,7 +564,7 @@ for b in BUNDLES:
 
 # ---------- worst case GO/NO-GO (fin-risk rule 5) ----------
 print(f"\n## أسوأ حالة للحزم الجديدة وقرار GO/NO-GO{tg(True)}")
-print("أسوأ حالة fin-risk: إلغاء بدري 25%، عدم تجديد 60%، ساعة 50، جلب 80، تالف 8%، كسر 20%، السعر شامل الضريبة، "
+print("أسوأ حالة fin-risk: إلغاء بدري 25%، عدم تجديد 60%، ساعة 25 (قرار صاحب المشروع)، جلب 80، تالف 8%، كسر 20%، السعر شامل الضريبة، "
       "المضيف إيقاف 10% شهرياً وتحصيل الالتزام 50%. **القاعدة تحكم على profit_2yr** (ربح العميل المتوقع مع التجديد، "
       "fin-risk قاعدة 5)، وحكم y1 يُعرض للشفافية.")
 for b in BUNDLES:
