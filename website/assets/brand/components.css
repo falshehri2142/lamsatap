@@ -4,8 +4,9 @@
    المبدأ (GM-011): العملية قبل الزخرفة. بدون ظل ولا تدرج ولا حركة؛ رد الضغط فوري بتغيير اللون فقط. */
 
 /* ===== 1) زر الواتساب: الـ CTA الأول في كل صفحة (GM-010) =====
-   لون الهوية + فقاعة محادثة خاصة فينا (brand/icons/chat.svg، تنحط inline عشان تاخذ لون النص)
-   + كلمة «واتساب» اسم بنفس خط الزر. ممنوع شعار واتساب، ولونه الأخضر، و«واتساب» كفعل («واتسبنا»).
+   لون الحبر (GM-020: مو التيل، لأن تيلنا الغامق شبه تيل واتساب) + فقاعة محادثة خاصة فينا
+   (brand/icons/chat.svg، تنحط inline عشان تاخذ لون النص) + كلمة «واتساب» اسم بنفس خط الزر.
+   ممنوع شعار واتساب، ولونه الأخضر أو التيل، و«واتساب» كفعل («واتسبنا»).
    لو رقم الواتساب فاضي في config.js: الزر ما يطلع أبداً (hidden)، مو زر معطّل.
 
    <a class="lt-wa" href="https://wa.me/<رقم>?text=<رسالة مرمّزة>">
@@ -14,10 +15,12 @@
    </a>
 
    زر واتساب ثاني في نفس الشاشة (مثل «بلاغ صيانة» تحت «تم الخروج»): class="lt-wa lt-wa--quiet".
-   التباين (WCAG): فاتح: خلفية #075E5A ونص أبيض 7.61، عند الضغط #054A47 10.11.
-                   داكن: خلفية #6AD6CC ونص #062522 9.34، عند الضغط #3FC1B6 7.34.
-                   الهادي: نص #075E5A على الرملي 7.13 (داكن #6AD6CC 10.58)، إطاره 4.85 (داكن 8.32).
-                   وقت اللمس (لون الضغط + لون اللمس فوقه) أقل رقم 4.99، ما ينزل تحت 4.5.
+   التباين (WCAG، المتغيرات في tokens.css):
+     الفاتح: خلفية --lt-wa #14201F ونص أبيض 16.72، وقت الضغط --lt-wa-press #3B4A47 والأبيض 9.31.
+     الداكن: خلفية --lt-wa #ECF2F0 ونص #14201F 14.75، وقت الضغط --lt-wa-press #BFCCC8 والحبر 10.10.
+     الهادي: إطار ونص بلون --lt-text (15.64 على الرملي، 16.19 على الداكن)، وقت الضغط --lt-surface-2 (14.48، داكن 12.98).
+     حلقة التركيز --lt-focus على خلفية الصفحة: 7.13 فاتح، 10.58 داكن.
+     وقت اللمس (لون الضغط + لون اللمس فوقه) أقل رقم 7.41.
    رد الضغط هنا ملك الهوية: لا تحط عليه opacity ولا -webkit-tap-highlight-color: transparent من ملف ثاني. */
 .lt-wa {
   display: flex;
@@ -31,8 +34,8 @@
   padding: 12px 20px;
   border: 2px solid transparent;   /* نفس المقاس للنوعين، ويبين الإطار في وضع التباين العالي بويندوز */
   border-radius: var(--lt-radius-m);
-  background: var(--lt-primary-strong);
-  color: var(--lt-on-primary);
+  background: var(--lt-wa);
+  color: var(--lt-on-wa);
   font-family: inherit;
   font-size: 18px;
   font-weight: 700;
@@ -41,12 +44,12 @@
   text-decoration: none;
   cursor: pointer;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, .18); /* رد الضغط في آيفون: سفاري ما يطبّق :active بشكل مضمون */
+  -webkit-tap-highlight-color: rgba(255, 255, 255, .14); /* رد الضغط في آيفون: سفاري ما يطبّق :active بشكل مضمون */
 }
 .lt-wa[hidden] { display: none; }   /* display:flex فوق يغلب [hidden] حق المتصفح، فلازم هذا السطر */
-.lt-wa:active { background: var(--lt-primary-press); }
+.lt-wa:active { background: var(--lt-wa-press); }
 @media (hover: hover) {
-  .lt-wa:hover { background: var(--lt-primary-press); }
+  .lt-wa:hover { background: var(--lt-wa-press); }
 }
 .lt-wa:focus-visible {
   outline: 3px solid var(--lt-focus);
@@ -59,15 +62,16 @@
 }
 .lt-wa--quiet {
   background: transparent;
-  border-color: var(--lt-primary);
-  color: var(--lt-primary-strong);
-  -webkit-tap-highlight-color: rgba(0, 0, 0, .10); /* أخف: عشان النص ما ينزل تحت 4.5 وقت اللمس */
+  border-color: var(--lt-text);
+  color: var(--lt-text);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .08);
 }
-.lt-wa--quiet:active { background: var(--lt-primary-soft); }
+.lt-wa--quiet:active { background: var(--lt-surface-2); }
 @media (hover: hover) {
-  .lt-wa--quiet:hover { background: var(--lt-primary-soft); }
+  .lt-wa--quiet:hover { background: var(--lt-surface-2); }
 }
 @media (prefers-color-scheme: dark) {
+  .lt-wa { -webkit-tap-highlight-color: rgba(0, 0, 0, .14); }          /* الزر فاتح في الداكن: اللمس يغمّقه */
   .lt-wa--quiet { -webkit-tap-highlight-color: rgba(255, 255, 255, .10); } /* الأسود ما يبين على خلفية داكنة */
 }
 .lt-wa + .lt-wa { margin-block-start: 12px; }
