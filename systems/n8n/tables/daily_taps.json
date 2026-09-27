@@ -1,0 +1,26 @@
+{
+  "table": "daily_taps",
+  "key": "code+day+src",
+  "source": "systems/tap-counter.md (public only)",
+  "writer": "workflow (f)",
+  "columns": [
+    {
+      "name": "code",
+      "type": "String",
+      "note": "public units only"
+    },
+    {
+      "name": "day",
+      "type": "Date"
+    },
+    {
+      "name": "src",
+      "type": "String",
+      "note": "nfc|qr|other"
+    },
+    {
+      "name": "count",
+      "type": "Number"
+    }
+  ]
+}

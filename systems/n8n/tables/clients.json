@@ -1,0 +1,43 @@
+{
+  "table": "clients",
+  "key": "client_id",
+  "source": "clients/<client>/ + links.json client",
+  "writer": "owner (manual) / sales",
+  "columns": [
+    {
+      "name": "client_id",
+      "type": "String"
+    },
+    {
+      "name": "name",
+      "type": "String"
+    },
+    {
+      "name": "kind",
+      "type": "String",
+      "note": "restaurant|cafe|shop|host"
+    },
+    {
+      "name": "district",
+      "type": "String"
+    },
+    {
+      "name": "whatsapp",
+      "type": "String",
+      "note": "client/host business number only, never a guest; seed leaves empty"
+    },
+    {
+      "name": "status",
+      "type": "String",
+      "note": "active|cancelled"
+    },
+    {
+      "name": "created",
+      "type": "Date"
+    },
+    {
+      "name": "notes",
+      "type": "String"
+    }
+  ]
+}

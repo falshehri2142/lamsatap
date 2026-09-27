@@ -1,0 +1,81 @@
+{
+  "table": "subscriptions",
+  "key": "subscription_id",
+  "source": "finance/README.md bundles + legal/register.md item 18",
+  "writer": "owner approves; workflow (b) writes reminder_*_sent only",
+  "columns": [
+    {
+      "name": "subscription_id",
+      "type": "String"
+    },
+    {
+      "name": "client_id",
+      "type": "String"
+    },
+    {
+      "name": "bundle",
+      "type": "String",
+      "note": "shop_bundle|review_sub|host_free_hw"
+    },
+    {
+      "name": "variant",
+      "type": "String",
+      "note": "review_sub: with_install|no_install; else empty"
+    },
+    {
+      "name": "period",
+      "type": "String",
+      "note": "annual|monthly"
+    },
+    {
+      "name": "units",
+      "type": "Number"
+    },
+    {
+      "name": "start_date",
+      "type": "Date"
+    },
+    {
+      "name": "end_date",
+      "type": "Date"
+    },
+    {
+      "name": "price_sar",
+      "type": "Number",
+      "note": "from services/ approved price only; empty until approved"
+    },
+    {
+      "name": "renewal_price_sar",
+      "type": "Number",
+      "note": "if > price_sar, notify before increase (legal item 18)"
+    },
+    {
+      "name": "status",
+      "type": "String",
+      "note": "active|awaiting_renewal|expired|cancelled"
+    },
+    {
+      "name": "renewal_confirmed",
+      "type": "Boolean",
+      "note": "explicit client confirmation only; never auto"
+    },
+    {
+      "name": "renewal_confirmed_at",
+      "type": "Date",
+      "note": "date of last explicit confirmation; kept after renewal"
+    },
+    {
+      "name": "renewal_confirmed_ref",
+      "type": "String",
+      "note": "reply:<date> or payment:<invoice_no>; no phone numbers"
+    },
+    {
+      "name": "reminder_30_sent",
+      "type": "Boolean"
+    },
+    {
+      "name": "reminder_7_sent",
+      "type": "Boolean"
+    }
+  ]
+}

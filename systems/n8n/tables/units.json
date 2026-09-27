@@ -1,0 +1,43 @@
+{
+  "table": "units",
+  "key": "code",
+  "source": "systems/shortlinks/links.json",
+  "writer": "links-cli.js only (seed mirror); n8n reads",
+  "columns": [
+    {
+      "name": "code",
+      "type": "String"
+    },
+    {
+      "name": "ref",
+      "type": "String",
+      "note": "door only: random >=12 chars, not unit name/address; public empty; never overwritten on re-import"
+    },
+    {
+      "name": "client_id",
+      "type": "String",
+      "note": "links.json client"
+    },
+    {
+      "name": "place",
+      "type": "String"
+    },
+    {
+      "name": "dest",
+      "type": "String"
+    },
+    {
+      "name": "type",
+      "type": "String",
+      "note": "door|public; missing => public"
+    },
+    {
+      "name": "status",
+      "type": "String"
+    },
+    {
+      "name": "programmed",
+      "type": "Date"
+    }
+  ]
+}
