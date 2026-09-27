@@ -7,7 +7,7 @@
   R.menu = function (D, o) {
     D = D || {}; o = o || {};
     var p = o.p || '', demo = D.demo === true && !o.mini, name = str(D.name), h = [];
-    var brand = Object.assign({ name: name }, D.brand || {});
+    var brand = cBrand(D.brand, name);
     var secs = (Array.isArray(D.sections) ? D.sections : []).filter(function (s) { return s && Array.isArray(s.items) && s.items.length; });
     var sid = function (s, i) { var x = String(s.id || '').replace(/[^\w-]/g, ''); return p + 's' + i + (x ? '-' + x : ''); };
 
@@ -31,8 +31,8 @@
         })) + '</section>');
     });
     // صفحة عميل: واتساب المحل زر أساسي آخر المنيو. العرض: قسم «لصاحب المحل» حقنا
-    if (!D.demo && !o.mini) { var wa = cShopWa(D, 'c-btn', 'تواصل معنا على الواتساب'); if (wa) h.push('<div class="m-wa">' + wa + '</div>'); }
-    if (demo) h.push(cOwner('زبونك', 'أبغى منيو مثل هذا لمطعمي', 'demoMenu'));
+    if (!D.demo && !o.mini) { var wa = cShopWa(D, 'c-btn'); if (wa) h.push('<div class="m-wa">' + wa + '</div>'); }
+    if (demo) h.push(cOwner('لصاحب المحل', 'هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود. ونسويها بشعار محلك وألوانه.', 'أبغى منيو مثله لمحلي', 'demoMenu'));
 
     return {
       title: (name ? name + ' — ' : '') + 'المنيو',

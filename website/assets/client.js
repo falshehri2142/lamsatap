@@ -1,18 +1,19 @@
 // أدوات صفحات الزبون (البيئة ب، موجز المدير الفني §5). ينربط بعد app.js و shop-color.js وقبل render.js.
 // بدون أي طلب خارجي ولا fetch()، ويشتغل من file://.
 (function (w, d) {
-  // الأيقونات: مجموعة وحدة، currentColor، خط دائري (§3.3). المحادثة من brand/icons/chat.svg.
-  // الباقي مؤقت مني لين يسلّم web-illustrator مجموعته (website/assets/illustrations/)، وينحط مكانه هنا.
+  // الأيقونات (موجز §3.3): شبكة 20، خط 1.75، أطراف دائرية، currentColor. المسارات من مجموعة web-illustrator
+  // (work/2026-09-27-brand-identity/illustrations-src/build_illustrations.py) لين يعتمدها web-brand. inline عشان تاخذ لون النص.
   var ICONS = {
-    chat: '<path d="M7 4h10a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4v3.5L12.5 17H7a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z"/><circle cx="8" cy="10.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="10.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="10.5" r="1.3" fill="currentColor" stroke="none"/>',
-    call: '<path d="M6.6 3.5h2.6l1.5 4.2-2 1.4a11 11 0 0 0 6.2 6.2l1.4-2 4.2 1.5v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/>',
-    copy: '<rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2.5"/><path d="M15.5 8.5V6.5A2.5 2.5 0 0 0 13 4H6.5A2.5 2.5 0 0 0 4 6.5V13a2.5 2.5 0 0 0 2.5 2.5h2"/>',
-    location: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10" r="2.3"/>',
-    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
-    chevron: '<path d="M14.5 6l-6 6 6 6"/>'  // سهم التقدّم في RTL يأشر يسار
+    chat: '<path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/>',
+    call: '<path d="M6.2 2.8 8.4 3.6 9.2 6.9 7.5 8.4Q8.9 11.1 11.6 12.5L13.1 10.8 16.4 11.6 17.2 13.8Q17.2 16.9 14.4 17.2 4.6 16.6 2.8 5.6 3.1 2.8 6.2 2.8z"/>',
+    copy: '<rect x="7.5" y="7.5" width="9.5" height="9.5" rx="2.2"/><path d="M12.5 4.8V4.7A1.7 1.7 0 0 0 10.8 3H4.7A1.7 1.7 0 0 0 3 4.7v6.1a1.7 1.7 0 0 0 1.7 1.7h.1"/>',
+    location: '<path d="M10 17.6S15.6 12.6 15.6 8.3A5.6 5.6 0 0 0 4.4 8.3C4.4 12.6 10 17.6 10 17.6z"/><circle cx="10" cy="8.3" r="2.1"/>',
+    arrow: '<path d="M16 10H4M8.8 5.2 4 10l4.8 4.8"/>',
+    chevron: '<path d="M12 5 7 10l5 5"/>',   // في RTL يأشر يسار (التقدّم)
+    check: '<path d="M4.2 10.4 8.2 14.3 15.8 6"/>'
   };
   w.cIcon = function (name, cls) {
-    return '<svg class="' + (cls || 'c-ico') + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || '') + '</svg>';
+    return '<svg class="' + (cls || 'c-ico') + '" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || '') + '</svg>';
   };
 
   // المسار لازم يكون محلي ونسبي (GM-006: ولا طلب خارجي). رابط من برّا أو صيغة غريبة = ما ينقرى، ويطلع الاسم
@@ -20,6 +21,9 @@
     p = str(p);
     return /^(?![a-z][a-z0-9+.-]*:)(?![\\/])[^\s"'<>]+\.(svg|png|webp)$/i.test(p) ? p : '';
   }
+
+  // هوية المحل من data.js: brand، والاسم الفاضي ياخذ اسم الصفحة (المحل أو الوحدة)
+  w.cBrand = function (b, name) { b = Object.assign({}, b || {}); if (!str(b.name)) b.name = str(name); return b; };
 
   // رأس الهوية (§5.3): شعار المحل، أو اسمه كشعار كتابي بالثيم المحايد (GM-027). small = 40px (دليل الوحدة لو لزم)
   w.cIdentity = function (brand, small) {
@@ -83,11 +87,12 @@
     p = p || '';
     var pw = String((wf || {}).password == null ? '' : wf.password);
     cCopy($(p + 'wifi-copy'), function () { return pw; }, $(p + 'wifi-st'),
-      'تم النسخ. اختر الشبكة من إعدادات الواي فاي والصق كلمة المرور.', 'ما قدرنا ننسخ. اكتب كلمة المرور يدوياً.');
+      'تم النسخ. اختر الشبكة من إعدادات الواي فاي، والصق كلمة المرور.', 'ما قدرنا ننسخ. اكتب كلمة المرور يدوياً.');
   };
 
-  // واتساب المحل في صفحة العميل: الزر بلون المحل مع أيقونة المحادثة (GM-023). cls = c-btn أو c-btn2
+  // واتساب المحل في صفحة العميل: الزر بلون المحل مع أيقونة المحادثة (GM-023). cls = c-btn أو c-btn2. النص «كلّمنا على واتساب» (web-copy 2.0)
   w.cShopWa = function (D, cls, label) {
+    label = label || 'كلّمنا على واتساب';
     var href = waHref(D.whatsapp, str(D.waText) || 'السلام عليكم، عندي استفسار');
     return href ? '<a class="' + cls + '" href="' + esc(href) + '">' + cIcon('chat') + '<span>' + esc(label) + '</span></a>' : '';
   };
@@ -98,10 +103,13 @@
     return '<aside class="c-demo" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي · ' + esc(label) + '</span>' +
       '<a class="c-demo-btn" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a></div></aside>';
   };
-  w.cOwner = function (who, cta, key) {
-    return '<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">لصاحب المحل</h2>' +
-      '<p>هذي الصفحة اللي يشوفها ' + who + ' لما يقرّب جواله من الشريحة أو يمسح الباركود.</p>' +
-      '<a class="lt-wa" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a></section>';
+  // آخر العرض (web-copy 2.0 و ر5-2): العنوان والسطر والزر حسب الصفحة، ورابط الرجوع لموقعنا
+  w.cOwner = function (title, line, cta, key) {
+    var home = (w.ASSETS || '../../assets/').replace(/assets\/$/, '') + 'index.html';
+    return '<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">' + title + '</h2>' +
+      '<p>' + line + '</p>' +
+      '<a class="lt-wa" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a>' +
+      '<p class="c-owner-back"><a href="' + esc(home) + '">رجوع لموقع <span data-company>' + esc(companyName()) + '</span></a></p></section>';
   };
   // «بواسطة لمسة تاب»: نص بس، ويطلع بس لو poweredBy: true (GM-023). بدون رمز (GM-022)
   w.cBy = function (on) {

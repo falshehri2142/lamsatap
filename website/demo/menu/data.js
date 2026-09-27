@@ -1,6 +1,8 @@
 // مثال للعرض فقط: مقهى وهمي. الأصناف والأسعار والسعرات أرقام مثال، مو من محل حقيقي.
 window.MENU_DATA = {
   demo: true,
+  brand: (window.DEMO_BRANDS || {}).cafe,   // هوية المحل: الشعار واللون (demo/_brands/brands.js)
+  poweredBy: true,
   name: "مقهى المثال",
   note: "مثال للعرض: الأصناف والأسعار والسعرات هنا مو حقيقية.",
   whatsapp: "",

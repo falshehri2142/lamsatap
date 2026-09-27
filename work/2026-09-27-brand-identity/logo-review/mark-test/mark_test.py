@@ -48,6 +48,7 @@ def shot(html, out, w, h, scale=1):
         page = pathlib.Path(tmp) / "p.html"
         page.write_text(html, encoding="utf-8")
         subprocess.run([browser, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--allow-file-access-from-files",
+                        "--blink-settings=preferredColorScheme=1",  # فاتح دايماً، مهما كان ثيم ويندوز
                         f"--force-device-scale-factor={scale}", f"--window-size={w},{h}", f"--user-data-dir={tmp}",
                         f"--screenshot={out}", page.as_uri()], check=True, capture_output=True, timeout=120)
 
@@ -251,16 +252,25 @@ def topo(mask):
 
 def first_change(mask, erode, L, limit=0.4):
     """أول نصف قطر يغيّر شكل الرمز (عدد الأجزاء أو الفراغات) لما ننحت الحبر (erode) أو ننشره (dilate).
+    النحت والنشر بمسافة إقليدية دقيقة (distance transform)، والبحث ثنائي (نفترض إن التغيير ما يرجع).
     يرجع (نصف القطر، القناع قبل التغيير، القناع بعده)."""
-    base, prev = topo(mask), mask
-    op = cv2.erode if erode else cv2.dilate
-    for r in range(1, int(L * limit)):
-        k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * r + 1, 2 * r + 1))
-        cur = op(mask.astype(np.uint8), k) > 0
-        if topo(cur) != base:
-            return r, prev, cur
-        prev = cur
-    return None, None, None
+    base = topo(mask)
+    src = mask if erode else ~mask
+    d = cv2.distanceTransform(src.astype(np.uint8), cv2.DIST_L2, cv2.DIST_MASK_PRECISE)
+
+    def op(r):
+        return d > r if erode else (mask | (d <= r))
+
+    lo, hi = 0, int(L * limit)
+    if topo(op(hi)) == base:
+        return None, None, None
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if topo(op(mid)) != base:
+            hi = mid
+        else:
+            lo = mid
+    return hi, op(lo), op(hi)
 
 
 def spots(before, after, erode, most=12):

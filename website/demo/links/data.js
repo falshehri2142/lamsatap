@@ -1,6 +1,8 @@
 // مثال للعرض فقط: مقهى وهمي. الروابط على example.com (نطاق محجوز للأمثلة)، وفي العرض الأزرار ما تفتح.
 window.LINKS_DATA = {
   demo: true,
+  brand: (window.DEMO_BRANDS || {}).cafe,
+  poweredBy: true,
   name: "مقهى المثال",
   tagline: "قهوة مختصة في جدة (مثال للعرض)",
   whatsapp: "",

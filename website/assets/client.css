@@ -26,14 +26,14 @@ html:has(> body.c) { scrollbar-color: var(--lt-muted) transparent; }
 .c ::selection { background: var(--lt-border); color: var(--lt-text); }
 .c :focus-visible { outline: 3px solid var(--lt-text); outline-offset: 3px; }
 .c [hidden] { display: none !important; }
-.c p { margin: 0; text-wrap: pretty; }
-.c a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+:where(.c) p { margin: 0; text-wrap: pretty; }
+:where(.c) a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
 .c-main { max-width: 560px; margin: 0 auto; padding: 0 20px 48px; }
 .c-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* سلّم الخط (§5.5): خط الجهاز، ثلاثة أوزان 400 و 600 و 700 */
-.c h1 { margin: 0 0 16px; font-size: 28px; line-height: 1.25; font-weight: 700; text-wrap: balance; }
-.c h2 { margin: 32px 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
+/* سلّم الخط (§5.5): خط الجهاز، ثلاثة أوزان 400 و 600 و 700. القواعد العامة بـ :where (بدون وزن) عشان المكوّنات تغلبها */
+:where(.c) h1 { margin: 0 0 16px; font-size: 28px; line-height: 1.25; font-weight: 700; text-wrap: balance; }
+:where(.c) h2 { margin: 32px 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
 .c-sub { font-size: 14px; line-height: 1.45; color: var(--lt-muted); }
 .c-label { font-size: 13px; line-height: 1.3; font-weight: 600; color: var(--lt-muted); }
 .c-num { font-variant-numeric: tabular-nums; unicode-bidi: isolate; }
@@ -100,6 +100,8 @@ a.c-row:active, button.c-row:active { background: var(--lt-surface-2); }
 .c-owner { margin-top: 48px; padding: 24px 20px; border-radius: var(--lt-radius-m); background: var(--lt-surface-2); color: var(--lt-text); }
 .c-owner h2 { margin: 0 0 8px; }
 .c-owner p { margin-bottom: 16px; }
+.c-owner .c-owner-back { margin: 8px 0 0; }
+.c-owner-back a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 600; }
 
 /* «بواسطة لمسة تاب»: نص بس (GM-022)، ويطلع بس لو poweredBy: true (GM-023) */
 .c-by { margin-top: 40px; text-align: center; font-size: 13px; line-height: 1.4; color: var(--lt-muted); }

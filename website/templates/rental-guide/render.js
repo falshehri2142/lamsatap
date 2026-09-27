@@ -10,7 +10,7 @@
     D = D || {}; o = o || {};
     var S = w.SITE || {}, p = o.p || '', mini = !!o.mini, demo = D.demo === true;
     var num = waNum(S.whatsapp), ref = str(D.unitRef), unit = str(D.unit), co = esc(companyName());
-    var brand = Object.assign({ name: unit }, D.brand || {});
+    var brand = cBrand(D.brand, unit);
     var hasRef = function (k) { return waText(k).indexOf('{unitRef}') > -1; };
     // دليل عميل: القسم يطلع بس مع رقم الشركة ومرجع وحدة 12 حرف أو أكثر، والرسائل فيها {unitRef} (ر3-2 «حماية»)
     var live = !demo && !!num && ref.length >= 12 && hasRef('checkout') && hasRef('maintenance');
@@ -24,7 +24,7 @@
     };
     var h = [];
 
-    h.push(cIdentity(brand, o.smallId));
+    h.push(cIdentity(brand, o.smallId || unit.length > 40));
     h.push('<h1>' + (unit ? 'أهلاً في ' + esc(unit) : 'أهلاً وسهلاً') + '</h1>');
 
     // 1) الواي فاي: أول شي بدون أي ضغطة
@@ -45,7 +45,7 @@
         '<button class="c-btn2" type="button" id="' + id('out-no') + '">لا، رجوع</button></div></div></div>');
       h.push(waBtn('fix', 'c-btn2', 'بلاغ صيانة', 'maintenance') + '</div>');
       var ask = still || hasRef('contact');
-      h.push('<p class="c-label g-contact-h">تواصل مع مشغّل الخدمة</p>' + cPanel([
+      h.push('<p class="c-label g-contact-h">تواصل مع مشغّل خدمة الوحدة</p>' + cPanel([
         ask ? (still ? cRow({ tag: 'button', attrs: ' id="' + id('ask') + '"', icon: 'chat', text: 'استفسار على واتساب', chevron: true })
                      : cRow({ tag: 'a', attrs: ' id="' + id('ask') + '" href="' + esc(waHref(num, waText('contact', ref))) + '"', icon: 'chat', text: 'استفسار على واتساب', chevron: true })) : '',
         still ? cRow({ tag: 'button', attrs: ' id="' + id('call') + '"', icon: 'call', text: 'اتصل بنا', chevron: true })
@@ -84,7 +84,7 @@
 
     // 7) سياسة الخصوصية: placeholder. ما ينرفع دليل عميل قبل ما تنكتب ويتغير الرابط (بند 21 أ)
     h.push('<p class="c-sub g-privacy" id="' + id('privacy-policy') + '">سياسة الخصوصية: ما انكتبت للحين.</p>');
-    if (demo && !mini) h.push(cOwner('ضيفك', 'أبغى دليل مثل هذا لوحداتي', 'demoGuide'));
+    if (demo && !mini) h.push(cOwner('للمضيف', 'هذي الصفحة اللي يشوفها ضيفك لما يقرّب جواله من الشريحة أو يمسح الباركود. ونسويها بشعارك وألوانك.', 'أبغى دليل مثله لوحداتي', 'demoGuide'));
 
     return {
       title: (unit ? unit + ' — ' : '') + 'دليل الوحدة',
@@ -118,7 +118,7 @@
         'انفتح واتساب؟ اكتب المشكلة واضغط «إرسال».');
       say($p('ask'), 'out-st', 'عرض تجريبي: في النسخة الحقيقية يفتح واتساب برسالة جاهزة فيها مرجع الوحدة، والضيف يكتب سؤاله.',
         'انفتح واتساب؟ اكتب سؤالك واضغط «إرسال».');
-      say($p('call'), 'out-st', 'عرض تجريبي: في النسخة الحقيقية يتصل برقم ' + companyName() + '.', '');
+      say($p('call'), 'out-st', 'عرض تجريبي: في النسخة الحقيقية يتصل الضيف بمشغّل خدمة الوحدة.', '');
     }
     cCopy($p('addr-copy'), function () { return addr; }, $p('addr-st'), 'تم نسخ العنوان.', 'ما قدرنا ننسخ. اكتب العنوان يدوياً.');
     say($p('map'), 'addr-st', 'عرض تجريبي: في النسخة الحقيقية يفتح موقع العمارة في الخرائط.', '');

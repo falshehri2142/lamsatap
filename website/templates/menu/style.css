@@ -5,7 +5,7 @@
 .m-tabs-in::-webkit-scrollbar { display: none; }
 /* من 600px الشريط داخل العمود، بدون هوامش سالبة (ما يطلع برّا العمود على 1440) */
 @media (min-width: 600px) { .m-tabs { margin: 12px 0 0; } .m-tabs-in { padding: 0; } }
-.m-tabs a { flex: none; display: flex; align-items: center; min-height: 48px; padding: 0 12px; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--lt-muted); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
+.m-tabs a { flex: none; display: flex; align-items: center; justify-content: center; min-width: 48px; min-height: 48px; padding: 0 12px; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--lt-muted); font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0, 0, 0, .06); }
 .m-tabs a[aria-current="true"] { color: var(--lt-text); border-bottom-color: var(--shop-line); }
 @media (hover: hover) { .m-tabs a:hover { color: var(--lt-text); } }
 /* تلاشي 24px على الطرف اللي فيه باقي (RTL: البداية يمين، والنهاية يسار) */

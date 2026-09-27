@@ -1,6 +1,8 @@
 // مثال للعرض فقط: شقة وعمارة وهمية. الحي حقيقي (الشاطئ، شمال جدة) بدون رقم وحدة ولا دور.
 window.GUIDE_DATA = {
   demo: true,
+  brand: (window.DEMO_BRANDS || {}).flats,  // هوية المضيف: شقق المثال
+  poweredBy: true,
   unit: "شقة المثال",
   unitRef: "DEMO7Q2K9D4X",
   wifi: { ssid: "Mithal-Guest", password: "Mithal@2026" },

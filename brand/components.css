@@ -78,14 +78,16 @@ html { caret-color: var(--lt-text); scrollbar-color: var(--lt-muted) transparent
   block-size: 20px;
   flex: none;
 }
-.lt-btn + .lt-btn,
-.lt-wa + .lt-wa { margin-block-start: 12px; }
+.lt-btn:not(.lt-btn--compact) + .lt-btn:not(.lt-btn--compact),
+.lt-wa + .lt-wa { margin-block-start: 12px; }  /* الأزرار فوق بعض. المختصرة جنب بعض ما تاخذ مسافة */
 
 .lt-btn--shop {
   --btn-bg: var(--shop, var(--lt-action));
   --btn-fg: var(--on-shop, var(--lt-on-action));
   --btn-press: var(--shop-press, var(--lt-action-press));
-  --btn-hl: var(--shop-hl, rgba(0, 0, 0, .12)); /* محرك اللون: أسود 12% لو النص أبيض، وأبيض 20% لو النص حبر */
+  /* لون اللمس من محرك اللون (--shop-hl). بدونه (الثيم المحايد): نفس الأساسي، أبيض 14% على الحبر، وأسود 14%
+     على الفاتح في الداكن، لأن الأسود فوق الحبر أو الأبيض فوق الفاتح ما يبين */
+  --btn-hl: var(--shop-hl, rgba(255, 255, 255, .14));
 }
 .lt-btn--secondary,
 .lt-wa--quiet {
@@ -153,7 +155,7 @@ html { caret-color: var(--lt-text); scrollbar-color: var(--lt-muted) transparent
 .lt-link:focus-visible {
   outline: 3px solid var(--lt-focus);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: var(--lt-radius-s);
 }
 .lt-link-icon {
   inline-size: 16px;
@@ -166,10 +168,14 @@ html { caret-color: var(--lt-text); scrollbar-color: var(--lt-muted) transparent
      <a class="lt-row" href="...">
        <svg class="lt-row-icon">…</svg>                      (اختياري: يا كل صفوف اللوحة فيها أيقونة، يا ولا واحد)
        <span class="lt-row-body"><span class="lt-row-title">اسم الصنف</span><span class="lt-row-sub">وصف · السعرات: 120</span></span>
-       <span class="lt-row-end">18</span>                     (القيمة، أو سهم .lt-row-chevron يأشر لاتجاه القراءة)
+       <span class="lt-row-end lt-row-end--value">18</span>   (القيمة، أو سهم .lt-row-chevron يأشر لاتجاه القراءة)
      </a>
    </div>
-   الصف كله ينضغط (رابط أو زر)، والضغط السطح 2 فوراً. الخط الشعري بين الصفوف يبدأ بعد 16px من جهة البداية.
+   .lt-row-end            قيمة ثانوية (400، لون ثانوي).
+   .lt-row-end--value     قيمة مهمة (الموجز 5.5 و5.7): السعر، ووقت الخروج، وأرقام الطوارئ: 17/600 حبر، وأرقام متساوية،
+                          ومعزولة الاتجاه، وأقل عرض 4.5em.
+   الصف كله ينضغط (رابط أو زر)، والضغط السطح 2 فوراً. الخط الشعري بين الصفوف يبدأ بعد 16px من جهة البداية،
+   وما ينحسب الصف المخفي (hidden): أول صف ظاهر ما فوقه خط.
    صف بدون فعل (معلومة بس): <div class="lt-row">. */
 .lt-panel {
   box-sizing: border-box;
@@ -201,7 +207,7 @@ html { caret-color: var(--lt-text); scrollbar-color: var(--lt-muted) transparent
   text-align: start;
   text-decoration: none;
 }
-.lt-row + .lt-row::before {
+.lt-row:not([hidden]) ~ .lt-row::before {
   content: "";
   position: absolute;
   inset-block-start: 0;
@@ -223,6 +229,14 @@ button.lt-row:active { background: var(--lt-surface-2); }
 .lt-row:focus-visible {
   outline: 3px solid var(--lt-focus);
   outline-offset: -3px;                     /* داخل الصف، عشان overflow اللوحة ما يقصها */
+}
+.lt-panel > .lt-row:first-child {           /* زوايا أول وآخر صف مع زاوية اللوحة، فحلقة التركيز تمشي معها */
+  border-start-start-radius: calc(var(--lt-radius-m) - 1px);
+  border-start-end-radius: calc(var(--lt-radius-m) - 1px);
+}
+.lt-panel > .lt-row:last-child {
+  border-end-start-radius: calc(var(--lt-radius-m) - 1px);
+  border-end-end-radius: calc(var(--lt-radius-m) - 1px);
 }
 .lt-row[hidden],
 .lt-panel[hidden] { display: none; }
@@ -251,6 +265,13 @@ button.lt-row:active { background: var(--lt-surface-2); }
   font-weight: 400;
   font-variant-numeric: tabular-nums;
 }
+.lt-row-end--value {
+  min-inline-size: 4.5em;
+  color: var(--lt-text);
+  font-weight: 600;
+  text-align: end;
+  unicode-bidi: isolate;
+}
 .lt-row-chevron {
   inline-size: 16px;
   block-size: 16px;
@@ -277,7 +298,7 @@ button.lt-row:active { background: var(--lt-surface-2); }
 @media (prefers-color-scheme: dark) {
   .lt-btn,
   .lt-wa { --btn-hl: rgba(0, 0, 0, .14); }
-  .lt-btn--shop { --btn-hl: var(--shop-hl, rgba(0, 0, 0, .12)); }
+  .lt-btn--shop { --btn-hl: var(--shop-hl, rgba(0, 0, 0, .14)); }
   .lt-btn--secondary,
   .lt-wa--quiet { --btn-hl: rgba(255, 255, 255, .08); }
   .lt-btn--on-band { --btn-hl: rgba(0, 0, 0, .08); }

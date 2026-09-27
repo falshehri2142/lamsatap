@@ -8,7 +8,7 @@
   R.links = function (D, o) {
     D = D || {}; o = o || {};
     var p = o.p || '', demo = D.demo === true && !o.mini, name = str(D.name), rows = [];
-    var brand = Object.assign({ name: name }, D.brand || {});
+    var brand = cBrand(D.brand, name);
     var ok = function (u) { return /^https:\/\/[^\s"'<>]+$/.test(u); };
     var still = D.demo === true || o.mini;   // العرض والشاشة المصغرة: الصفوف ما تفتح شي
     var row = function (label, href) {
@@ -21,11 +21,11 @@
       var label = str(k && k.label), url = str(k && k.url);
       if (label && (still || ok(url))) rows.push(row(label, url));
     });
-    var h = cIdentity(brand) + '<h1 class="c-sr">' + esc(name || 'روابطنا') + '</h1>' +
+    var h = cIdentity(brand) + '<h1 class="c-sr">' + esc(name ? 'روابط ' + name : 'روابطنا') + '</h1>' +
       (str(D.tagline) ? '<p class="c-sub l-tag">' + esc(D.tagline) + '</p>' : '') +
       (rows.length ? cPanel(rows, ' aria-label="الروابط"') : '') +
       '<p class="c-status" id="' + p + 'st" role="status" aria-live="polite"></p>' +
-      (demo ? cOwner('زبونك', 'أبغى صفحة روابط مثل هذي لمحلي', 'demoLinks') : '');
+      (demo ? cOwner('لصاحب المحل', 'هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود. ونسويها بشعار محلك وألوانه.', 'أبغى صفحة روابط مثلها لمحلي', 'demoLinks') : '');
     return {
       title: name || 'روابطنا',
       bar: demo ? cDemoBar(name || 'محل مثال', 'demoLinks') : '',

@@ -5,50 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
-<title>مثال: ستاند تقييم قوقل</title>
-<link rel="icon" href="../../favicon.ico" sizes="32x32">
-<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
+<title>قيّمنا</title>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="../../assets/brand/tokens.css">
 <link rel="stylesheet" href="../../assets/brand/components.css">
-<link rel="stylesheet" href="../../assets/site.css">
-<style>
-/* صفحة التقييم تبقى زي ما هي (web-ux ر3-4): زر واحد للكل، ولا زر ثاني جنبه. زر البيع داخل «لصاحب المحل» بس */
-main{max-width:480px}
-.rv{margin-top:12px;padding:28px 20px;border:1px solid var(--line);border-radius:16px;background:var(--card);text-align:center}
-.rv h1{font-size:26px;margin:8px 0 4px}
-.sub{color:var(--muted);margin:0 0 24px}
-.rv .btn{margin:0;font-size:20px}
-#note{margin-top:16px;padding:14px;border-radius:12px;border:1px dashed var(--line);text-align:right;color:var(--muted)}
-.owner{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
-.owner h2{font-size:17px;color:var(--text);margin:0 0 6px}
-.owner p{margin:0 0 6px}
-.owner .lt-wa{margin-top:16px}
-</style>
+<link rel="stylesheet" href="../../assets/client.css">
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<main>
-<div class="demo-bar"><span>عرض تجريبي: محل مثال</span></div>
-<section class="rv" aria-labelledby="rv-h">
-<h1 id="rv-h">مقهى المثال</h1>
-<p class="sub">شكراً لزيارتك. رأيك يهمنا ويساعد غيرك.</p>
-<button class="btn" id="go" type="button">قيّمنا على قوقل</button>
-<div id="note" hidden role="status">
-هذا عرض تجريبي. في النسخة الحقيقية يفتح هذا الزر صفحة تقييم محلك في قوقل مباشرة.
-</div>
-</section>
-<section class="owner" aria-labelledby="owner-h">
-<h2 id="owner-h">لصاحب المحل</h2>
-<p>هذي الصفحة اللي يشوفها زبونك لما يقرّب جواله من الستاند أو يمسح الباركود.</p>
-<p>الستاند فيه شريحة NFC وباركود QR، والاثنين يفتحون نفس الصفحة.</p>
-<a class="lt-wa" data-wa="demoReview" hidden><span>أبغى ستاند تقييم مثل هذا لمحلي</span></a>
-</section>
-<p class="lt-by"><img src="../../assets/brand/lamsatap-icon.svg" width="16" height="16" alt=""><span>بواسطة <span data-company>لمسة تاب</span></span></p>
-</main>
+<body class="c">
+<!-- نسخة العرض: الهيكل نفسه، والمنطق والتنسيق من هذا المجلد، والبيانات من data.js هنا (demo: true). -->
+<div id="app"><noscript><p class="c-main">ما قدرنا نفتح الصفحة. فعّل JavaScript من إعدادات المتصفح، وافتحها من جديد.</p></noscript></div>
 <script src="../../config.js"></script>
 <script src="../../assets/app.js"></script>
-<script>
-document.getElementById('go').addEventListener('click',function(){var n=document.getElementById('note');n.hidden=false;n.setAttribute('tabindex','-1');n.focus();});
-</script>
+<script src="../../assets/shop-color.js"></script>
+<script src="../../assets/client.js"></script>
+<script src="../_brands/brands.js"></script>
+<script src="data.js"></script>
+<script src="render.js"></script>
 </body>
 </html>

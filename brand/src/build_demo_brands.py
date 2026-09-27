@@ -116,29 +116,32 @@ def bean(color):
         left.append(R(x - dy / k * w, y + dx / k * w))
         right.append(R(x + dy / k * w, y - dx / k * w))
     crease = "M" + "L".join(f"{num(x)} {num(y)}" for x, y in left + right[::-1]) + "Z"
-    return f'<path fill="{color}" fill-rule="evenodd" d="{body}{crease}"/>'
+    xs = [x for x, _ in pts]
+    return f'<path fill="{color}" fill-rule="evenodd" d="{body}{crease}"/>', (min(xs), max(xs))
 
 
 def door(color):
-    """باب بقوس: قوس ممتلئ ومقبض دائري مفرّغ (evenodd)."""
-    x0, x1, top, bot = 11, 45, 2, 54
+    """باب بقوس: قوس ممتلئ بنسبة باب (1:2، مو مربع عريض يشبه شاهد قبر أو محراب) ومقبض دائري مفرّغ (evenodd)."""
+    x0, x1, top, bot = 15, 41, 2, 54
     r = (x1 - x0) / 2
     body = f"M{x0} {bot}V{top + r}A{r} {r} 0 0 1 {x1} {top + r}V{bot}Z"
-    kx, ky, kr = x0 + 7.5, 33, 3.2
+    kx, ky, kr = x0 + 6.5, 32, 2.8
     knob = f"M{num(kx - kr)} {ky}a{kr} {kr} 0 1 0 {num(2 * kr)} 0a{kr} {kr} 0 1 0 {num(-2 * kr)} 0Z"
-    return f'<path fill="{color}" fill-rule="evenodd" d="{body}{knob}"/>'
+    return f'<path fill="{color}" fill-rule="evenodd" d="{body}{knob}"/>', (x0, x1)
 
 
-def logo(name, symbol_svg, text_color):
-    """الرمز يمين (بداية القراءة) والاسم يساره، في النص عمودياً. الإطار مقصوص على الشعار."""
+def logo(name, symbol, text_color):
+    """الرمز يمين (بداية القراءة) والاسم يساره، في النص عمودياً، وبينهم GAP من حبر الرمز.
+    الإطار مقصوص على الشعار."""
+    symbol_svg, (sx0, sx1) = symbol
     t = Text(name, W_NAME, split_dots=False)
     x0, y0, x1, y1 = t.bbox
     s = TEXT_H / (y1 - y0)
     tw = (x1 - x0) * s
-    W = tw + GAP + H
+    W = tw + GAP + (sx1 - sx0)
     base = (H - TEXT_H) / 2 + y1 * s               # حبر الاسم في النص عمودياً
     body = t.svg(0, base, s, text_color, text_color)
-    body += f'<g transform="translate({num(tw + GAP)} 0)">{symbol_svg}</g>'
+    body += f'<g transform="translate({num(tw + GAP - sx0)} 0)">{symbol_svg}</g>'
     title = html.escape(name)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {num(W)} {H}" width="{num(W)}" height="{H}" '
             f'role="img" aria-label="{title}"><title>{title}</title>{body}</svg>\n')
