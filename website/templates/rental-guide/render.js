@@ -2,7 +2,7 @@
 // المواصفة: موجز المدير الفني §5.7 (دليل الوحدة) فوق web-ux ر3-2 و ر4-3. الإشعار حرفياً من legal/register.md بند 21.
 // ممنوع في الصفحة (GM-003، systems/architecture.md §8): رقم المضيف أو العاملة، رمز الباب أو مكان المفتاح،
 // رابط حجز أو دفع، أي حقل يجمع بيانات الضيف، وأي وقت في رسائل الواتساب.
-// العرض (demo:true، ر4-1): أي زر يطلع برا الصفحة (واتساب، اتصال، خرائط) يكتب سطر حالة بدل ما يفتح، إلا زر البيع حقنا.
+// العرض (demo:true، ر4-1): أي زر يطلع برا الصفحة (واتساب، اتصال، خرائط، تقييم) يكتب سطر حالة بدل ما يفتح، إلا زر البيع حقنا.
 (function (w) {
   var R = w.LT_RENDER = w.LT_RENDER || {};
 
@@ -75,7 +75,18 @@
     if (rules.length) h.push('<section aria-labelledby="' + id('rules-h') + '"><h2 id="' + id('rules-h') + '">شروط الإقامة</h2>' +
       cPanel(rules.map(function (x) { return cRow({ cls: 'c-row-text', html: esc(x) }); })) + '</section>');
 
-    // 6) الطوارئ: أرقام وطنية من config.js بمصدرها (ر4-2). مو أحمر. في العرض صفوف بدون روابط
+    // 6) التقييم (اختياري): رابط المضيف لصفحة كتابة التقييم، لأن باقة المضيف فيها «تقييم» (services/pricing.md).
+    //    فاضي أو مو https = القسم كله ما يطلع. زر واحد للكل: بدون سؤال «راضي؟» قبله، وبدون أي مقابل (legal/register.md بند 4 و5 و6).
+    //    النص ثابت هنا، مو من data.js، عشان ما ينكتب فيه شرط أو مقابل. صف مثل «قيّمنا في قوقل» في صفحة الروابط: بدون أيقونة، ومعه سهم.
+    //    مكانه قبل الطوارئ: مو من شغلات الباب (content-priority)، والطوارئ تبقى آخر قسم ثابت (web-ux ر4-3).
+    //    الشاشة المصغرة في موقعنا تعرض أول الصفحة بس، فما يطلع فيها (ولا يزيد حجم الرئيسية).
+    var rv = str(D.reviewUrl);
+    if (!mini && /^https:\/\/[^\s"'<>]+$/.test(rv)) h.push('<section aria-labelledby="' + id('rv-h') + '"><h2 id="' + id('rv-h') + '">التقييم</h2>' + cPanel([
+      still ? cRow({ tag: 'button', attrs: ' id="' + id('rv') + '"', title: 'قيّم إقامتك', chevron: true })
+            : cRow({ tag: 'a', attrs: ' id="' + id('rv') + '" href="' + esc(rv) + '" target="_blank" rel="noopener"', title: 'قيّم إقامتك', chevron: true })
+    ]) + (still ? '<p class="c-status" id="' + id('rv-st') + '" role="status" aria-live="polite"></p>' : '') + '</section>');
+
+    // 7) الطوارئ: أرقام وطنية من config.js بمصدرها (ر4-2). مو أحمر. في العرض صفوف بدون روابط
     var sos = (Array.isArray(S.emergency) ? S.emergency : []).filter(function (e) { return e && str(e.label) && waNum(e.number); });
     if (sos.length) h.push('<section aria-labelledby="' + id('sos-h') + '"><h2 id="' + id('sos-h') + '">الطوارئ</h2>' +
       cPanel(sos.map(function (e, i) {
@@ -83,7 +94,7 @@
         return still ? cRow(r) : cRow(Object.assign(r, { tag: 'a', attrs: ' href="tel:' + n + '"' }));
       })) + (demo ? '<p class="c-sub g-demo-note">عرض تجريبي: الأرقام هنا للعرض، والضغط ما يتصل.</p>' : '') + '</section>');
 
-    // 7) سياسة الخصوصية: placeholder. ما ينرفع دليل عميل قبل ما تنكتب ويتغير الرابط (بند 21 أ)
+    // 8) سياسة الخصوصية: placeholder. ما ينرفع دليل عميل قبل ما تنكتب ويتغير الرابط (بند 21 أ)
     h.push('<p class="c-sub g-privacy" id="' + id('privacy-policy') + '">سياسة الخصوصية: ما انكتبت للحين.</p>');
     if (demo && !mini) h.push(cOwner('للمضيف', 'هذي الصفحة اللي يشوفها ضيفك لما يقرّب جواله من الشريحة أو يمسح الباركود. ونسويها بشعارك وألوانك.', 'أبغى دليل مثله لوحداتي', 'demoGuide'));
 
@@ -123,6 +134,7 @@
     }
     cCopy($p('addr-copy'), function () { return addr; }, $p('addr-st'), 'تم نسخ العنوان.', 'ما قدرنا ننسخ. اكتب العنوان يدوياً.');
     say($p('map'), 'addr-st', 'عرض تجريبي: في النسخة الحقيقية يفتح موقع العمارة في الخرائط.', '');
+    say($p('rv'), 'rv-st', 'عرض تجريبي: في النسخة الحقيقية يفتح صفحة التقييم اللي يحددها المضيف.', '');
   }
 
   if (!w.LT_NO_MOUNT && document.getElementById('app')) {
