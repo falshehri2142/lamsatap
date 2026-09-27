@@ -59,7 +59,7 @@ install_delivery,all,توصيل أو زيارة التركيب لكل عميل,,
 price_shop_annual,shop_bundle,حزمة المحل الكامل سنوي مقدم (العتاد والتركيب مشمول),,1199,SAR/yr,مقترح المحلل المالي بعد GM-007 (بانتظار الاعتماد) غير مؤكد,fin-pricing
 price_shop_renewal,shop_bundle,تجديد السنة الثانية,,790,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing
 shop_stands_included,shop_bundle,ستاندات مشمولة (تقييم + واي فاي/روابط),,2,units,fin-pricing.md غير مؤكد,fin-pricing
-cost_stand_unit,shop_bundle,ستاند جاهز بشريحة (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الصفحة كانت تعرض «نفد من المخزون» في 2026-09-27؛ شمول الضريبة غير واضح),nfc-engineer
+cost_stand_unit,shop_bundle,ستاند جاهز بشريحة (mego-store، بديل البريدي النافد),59,59,SAR/unit,mego-store مؤكد من صفحة المورد ومتوفر 2026-09-27 engineering/host-unit-and-stand-alternatives.md (الشحن غير مذكور؛ الضريبة غير واضحة),nfc-engineer
 cost_shipping,shop_bundle,شحن الستاند من المورد,,6,SAR/unit,غير مؤكد (review-stand-kit.md),nfc-engineer
 shop_tags_included,shop_bundle,شرائح طاولات مشمولة,,10,units,fin-pricing.md غير مؤكد,fin-pricing
 cost_tag_unit,shop_bundle,شريحة أو ستاند طاولة صغير مع الشحن,,15,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
@@ -70,7 +70,7 @@ wa_msgs_cost_monthly,shop_bundle,رسائل واتساب شهرية,,0,SAR/month
 units_per_client,shop_bundle,وحدات لكل عميل,,1,units,تعريف,fin-modeler
 price_review_sub_annual,review_sub,ستاند التقييم اشتراك سنوي مع تركيب (الستاند مجاني),,149,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing
 price_review_sub_lite_annual,review_sub,ستاند التقييم اشتراك سنوي بلا تركيب (شحن فقط),,99,SAR/yr,fin-pricing.md غير مؤكد؛ fin-risk: أقل حد ~99 صافي,fin-pricing
-cost_stand_unit,review_sub,ستاند جاهز بشريحة (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الصفحة كانت تعرض «نفد من المخزون» في 2026-09-27؛ شمول الضريبة غير واضح),nfc-engineer
+cost_stand_unit,review_sub,ستاند جاهز بشريحة (mego-store، بديل البريدي النافد),59,59,SAR/unit,mego-store مؤكد من صفحة المورد ومتوفر 2026-09-27 engineering/host-unit-and-stand-alternatives.md (الشحن غير مذكور؛ الضريبة غير واضحة),nfc-engineer
 cost_shipping,review_sub,شحن الستاند من المورد,,6,SAR/unit,غير مؤكد (fin-risk قدّر 10),nfc-engineer
 labor_minutes,review_sub,برمجة وتركيب الستاند,,60,min/client,fin-pricing.md ساعة؛ fin-risk نص ساعة؛ غير مؤكد,fin-modeler
 lite_labor_minutes,review_sub,برمجة وتغليف بلا زيارة (الخيار بلا تركيب),,15,min/client,افتراض fin-modeler غير مؤكد,fin-modeler
@@ -84,9 +84,9 @@ price_host_monthly_per_unit_5plus,host_free_hw,المضيف لكل وحدة شه
 host_annual_months_charged,host_free_hw,الدفع السنوي = 12 شهر بسعر كم شهر,,10,months,fin-pricing.md غير مؤكد,fin-pricing
 host_min_commit_months,host_free_hw,التزام أدنى للدفع الشهري,,6,months,fin-pricing.md 6؛ fin-risk 3؛ غير مؤكد,fin-pricing
 price_host_setup_free_hw,host_free_hw,رسوم تجهيز,,0,SAR/unit,fin-pricing.md العتاد مجاني,fin-pricing
-cost_chip,host_free_hw,شرائح وستاندات الوحدة,,60,SAR/unit,افتراض fin-modeler غير مؤكد (fin-risk قدّر 15),nfc-engineer
-cost_shipping,host_free_hw,شحن وتوصيل للوحدة,,10,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
-labor_minutes,host_free_hw,تجهيز الدليل والتركيب لكل وحدة,,120,min/unit,افتراض fin-modeler غير مؤكد (fin-risk قدّر 30),fin-modeler
+cost_chip,host_free_hw,عتاد الوحدة: on-metal 45×45 + بطاقة PVC (€3.08) + احتياط 1/10,,15,SAR/unit,€3.08 مؤكد ومتوفر (Shop NFC، host-unit-and-stand-alternatives.md)؛ ×4.4 وطباعة البطاقة والاحتياط غير مؤكدة,nfc-engineer
+cost_shipping,host_free_hw,شحن وجمارك للوحدة,,3,SAR/unit,الشحن العادي مجاني (shopnfc.com/en/content/1-delivery)؛ الجمارك على المستلم غير مؤكدة,nfc-engineer
+labor_minutes,host_free_hw,تركيب الوحدة (~25) + تجهيز صفحة الدليل (30),,55,min/unit,تركيب 20-25 دقيقة تقدير المهندس (host-unit-and-stand-alternatives.md)؛ تجهيز الدليل 30 افتراض؛ غير مؤكد,nfc-engineer
 cost_hosting_monthly,host_free_hw,استضافة لكل وحدة,,3,SAR/unit/month,افتراض fin-modeler غير مؤكد,systems-supervisor
 support_minutes_monthly,host_free_hw,دعم شهري للوحدة,,0,min/month,افتراض fin-modeler غير مؤكد,fin-modeler
 wa_msgs_cost_monthly,host_free_hw,رسائل واتساب للوحدة شهرياً (20 رسالة × 0.2),,4,SAR/unit/month,20 رسالة من host_bundle/whatsapp_msgs_per_unit_month (fin-risk.md السابق) × 0.2 ريال افتراض fin-modeler؛ غير مؤكد (يُراجع في أسعار Meta),systems-supervisor
