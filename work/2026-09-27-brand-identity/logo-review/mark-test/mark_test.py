@@ -1,17 +1,18 @@
 """اختبار أي رمز على الستاند والملصق والحفر (web-illustrator، 2026-09-27).
 
-يرسم الرمز المرشح بمقاسه الحقيقي على: ستاند A6 (وجه رملي ووجه تيل)، حفر ليزر (خشب فاتح، جوز، أكريليك شفاف)،
+يرسم الرمز المرشح بمقاسه الحقيقي على: قالب الستاند A6 المعتمد (موجز المدير الفني، القسم 6)، حفر ليزر (خشب فاتح، جوز، أكريليك شفاف)،
 ملصقات دائرية 30 و25mm، والشاشة من 16 لين 64px. ويطلع تقرير قياسات يصلح لأي رمز:
 تداخل المسارات، أنحف جزء وأضيق فراغ (كنسبة من طول الرمز وبالـ mm على أصغر مقاس)، وأكبر مقاس يدخل في الملصق الدائري.
 الرسم محاكاة تقريبية للمواد (مو صورة حرق حقيقي). حد الحفر 0.3mm قاعدة web-qa المبدئية (logo-review/web-qa.md)، غير مؤكدة لين عينة المورد.
 القياس: «أنحف جزء» و«أضيق فراغ» = أول مكان ينقسم فيه الحبر أو ينسد فيه الفراغ لما ننحته أو ننشره (مو أطراف الخطوط).
 
 التشغيل (أي مجلد):
-  python mark_test.py --color mark.svg --mono mark-mono.svg --out <مجلد> [--color-dark mark-dark.svg] [--touch 0.5,0.8] [--min-mm 6]
+  python mark_test.py --color mark.svg --mono mark-mono.svg --out <مجلد> [--color-dark mark-dark.svg] [--touch 0.5,0.8] [--min-mm 6] [--stand-mm 18]
   --color       الرمز الملون بدون خلفية (للطباعة والشاشة)
   --mono        نسخة لون واحد: حبر غامق على شفاف (للحفر والطباعة بلون واحد). نفس الملف اللي ينرسل للمورد
-  --color-dark  (اختياري) نسخة الرمز للخلفية الداكنة (وجه الستاند التيل، الملصق التيل)
+  --color-dark  (اختياري) نسخة الرمز للخلفية الداكنة (الملصق التيل، والشاشة الداكنة)
   --touch u,v   (اختياري) مكان عنصر «المس هنا» داخل الرمز (0 إلى 1 من عرضه وطوله): ينحط فوق مركز الشريحة بالضبط
+  --stand-mm    مقاس الرمز على الستاند (أطول ضلع، الافتراضي 18 = علامة اللمس في الموجز)
   --min-mm      أصغر مقاس مطبوع أو محفور للرمز (أطول ضلع، الافتراضي 6)
 يحتاج: Microsoft Edge أو Chrome، و numpy و opencv-python و Pillow.
 """
@@ -128,30 +129,35 @@ def fake_qr(x, y, s, seed=7):
 
 # ---------- المشاهد ----------
 
-def scene_stand(color, dark, touch):
+def scene_stand(color, mono, touch, size_mm):
+    """قالب الستاند المعتمد في موجز المدير الفني (web-art-director.md، القسم 6): وجه أبيض A6، خانة شعار المحل
+    70×18mm من 12 لين 30mm، ومنطقة الشريحة دائرة 30mm مركزها 62mm، والباركود 32mm من 90 لين 122mm."""
     K = 3.2  # px لكل mm
     W, H = mm(105, K), mm(148, K)
-    out = [FILTERS, f'<rect width="1000" height="560" fill="#E9E3D8"/><rect y="560" width="1000" height="200" fill="#8C6644"/>']
-    for i, (face, uri, txt, sub) in enumerate(((SAND, color, INK, MUTED), (DEEP, dark, "#fff", "#CFE3E0"))):
+    out = [FILTERS, '<filter id="shop" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" '
+                    'values="0 0 0 0 .122 0 0 0 0 .231 0 0 0 0 .341 0 0 0 1 0"/></filter>',
+           '<rect width="1000" height="560" fill="#E9E3D8"/><rect y="560" width="1000" height="200" fill="#8C6644"/>']
+    for i, (uri, flt) in enumerate(((color, ""), (mono, 'filter="url(#shop)"'))):
         x, y = 70 + i * 460, 560 - H - mm(10, K)
-        chip = (x + W / 2, y + mm(29, K))  # مركز الشريحة: 29mm من فوق
-        bw, bh = fit(uri, mm(30, K))
+        chip = (x + W / 2, y + mm(62, K))
+        bw, bh = fit(uri, mm(size_mm, K))
         u, v = touch if touch else (.5, .5)
-        mx, my = chip[0] - u * bw, chip[1] - v * bh
         out += [f'<ellipse cx="{x + W / 2}" cy="{y + H + mm(12, K)}" rx="{W * .62}" ry="{mm(4, K)}" fill="#000" opacity=".18" filter="url(#soft)"/>',
-                f'<rect x="{x}" y="{y}" width="{W}" height="{H}" rx="{mm(2, K)}" fill="{face}"/>', image(uri, mx, my, bw, bh),
-                f'<circle cx="{chip[0]}" cy="{chip[1]}" r="{mm(14, K)}" fill="none" stroke="#E4572E" stroke-width="1.4" stroke-dasharray="5 4"/>',
+                f'<rect x="{x}" y="{y}" width="{W}" height="{H}" rx="{mm(2, K)}" fill="#FFFFFF" stroke="#E4DCD0"/>',
+                f'<rect x="{x + mm(17.5, K)}" y="{y + mm(12, K)}" width="{mm(70, K)}" height="{mm(18, K)}" rx="{mm(2, K)}" fill="#E4DCD0"/>',
+                f'<text x="{x + W / 2}" y="{y + mm(41, K)}" text-anchor="middle" font-family="RX" font-weight="600" font-size="{mm(6.35, K)}" fill="#000">المنيو</text>',
+                image(uri, chip[0] - u * bw, chip[1] - v * bh, bw, bh, flt),
+                f'<circle cx="{chip[0]}" cy="{chip[1]}" r="{mm(15, K)}" fill="none" stroke="#E4572E" stroke-width="1.4" stroke-dasharray="5 4"/>',
                 f'<circle cx="{chip[0]}" cy="{chip[1]}" r="2.2" fill="#E4572E"/>',
-                f'<text x="{x + W / 2}" y="{y + mm(62, K)}" text-anchor="middle" font-family="RX" font-weight="600" font-size="{mm(7, K)}" fill="{txt}">قرّب جوالك هنا</text>',
-                f'<text x="{x + W / 2}" y="{y + mm(69, K)}" text-anchor="middle" font-family="RX" font-size="{mm(4, K)}" fill="{sub}">أو امسح الرمز</text>']
-        qs = mm(34, K)
-        qx, qy = x + (W - qs) / 2, y + H - qs - mm(14, K)
-        out += [f'<rect x="{qx - mm(3, K)}" y="{qy - mm(3, K)}" width="{qs + mm(6, K)}" height="{qs + mm(6, K)}" rx="{mm(3, K)}" fill="#fff"/>',
-                fake_qr(qx, qy, qs),
-                f'<rect x="{x - mm(8, K)}" y="{y + H - mm(2, K)}" width="{W + mm(16, K)}" height="{mm(14, K)}" rx="{mm(1.5, K)}" fill="#DCE7E6" fill-opacity=".75" stroke="#fff"/>']
-    cap = ('<div style="direction:rtl;font:15px RX;color:#14201F;padding:6px 16px">وجه رملي (يسار) ووجه تيل غامق (يمين)، الرمز 30mm. '
-           'المتقطع الأحمر = هوائي الشريحة 28mm، والنقطة الحمراء مركزه. لو عنصر «المس هنا» مو فوق النقطة الحمراء، الستاند يكذب.</div>')
-    return page(f'<svg width="1000" height="760" viewBox="0 0 1000 760">{"".join(out)}</svg>{cap}'), 1000, 800
+                f'<text x="{x + W / 2}" y="{y + mm(85, K)}" text-anchor="middle" font-family="RX" font-weight="600" font-size="{mm(3.88, K)}" fill="#000">قرّب جوالك هنا</text>']
+        qs = mm(32, K)
+        out += [fake_qr(x + (W - qs) / 2, y + mm(90, K), qs),
+                f'<text x="{x + W / 2}" y="{y + mm(131, K)}" text-anchor="middle" font-family="RX" font-weight="500" font-size="{mm(3.53, K)}" fill="#000">أو امسح الباركود</text>',
+                f'<rect x="{x - mm(8, K)}" y="{y + H - mm(2, K)}" width="{W + mm(16, K)}" height="{mm(14, K)}" rx="{mm(1.5, K)}" fill="#14201F"/>']
+    cap = (f'<div style="direction:rtl;font:15px RX;color:#14201F;padding:6px 16px">قالب الستاند من موجز المدير الفني: الرمز {size_mm:g}mm في منطقة الشريحة '
+           '(المتقطع الأحمر 30mm، والنقطة الحمراء مركزها 62mm من فوق). يسار: الملف الملون، ويمين: ملف اللون الواحد بلون محل عرض #1F3B57. '
+           'لو عنصر «المس هنا» مو فوق النقطة الحمراء، الستاند يكذب.</div>')
+    return page(f'<svg width="1000" height="760" viewBox="0 0 1000 760">{"".join(out)}</svg>{cap}'), 1000, 820
 
 
 def scene_engrave(mono):
@@ -358,6 +364,7 @@ def main():
     ap.add_argument("--color-dark")
     ap.add_argument("--touch")
     ap.add_argument("--min-mm", type=float, default=6)
+    ap.add_argument("--stand-mm", type=float, default=18)
     ap.add_argument("--out", required=True)
     o = ap.parse_args()
     for stream in (sys.stdout, sys.stderr):  # الرسائل العربية في طرفية ويندوز
@@ -371,7 +378,7 @@ def main():
     for path in (o.color, o.mono, o.color_dark or o.color):
         ASPECT[pathlib.Path(path).resolve().as_uri()] = aspect(path)
     rep, rho = measure(o.mono, out, o.min_mm)
-    for name, (html, w, h) in {"stand": scene_stand(color, dark, touch), "engrave": scene_engrave(mono),
+    for name, (html, w, h) in {"stand": scene_stand(color, mono, touch, o.stand_mm), "engrave": scene_engrave(mono),
                                "stickers": scene_stickers(color, dark, mono, rho)}.items():
         shot(html, out / f"{name}.png", w, h)
     html, w, h = scene_sizes(color, dark)

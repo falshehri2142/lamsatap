@@ -1,4 +1,3 @@
-/* صفحة الروابط: قائمة أزرار بإطار بدون بطاقة حولها (web-ux ر3-4). */
-.tagline{margin:0 0 4px;color:var(--muted)}
-.links{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
-.links .btn,.links .lt-wa{margin:0}
+/* صفحة الروابط: لوحة مجمّعة وحدة (client.css). هنا سطر التعريف بس. */
+.l-tag { margin: -8px 0 20px; text-align: center; font-size: 15px; }
+.l-tag + .c-panel, .c-id + .c-sr + .c-panel { margin-top: 0; }

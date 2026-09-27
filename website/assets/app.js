@@ -1,4 +1,4 @@
-// أدوات مشتركة خفيفة لكل صفحات website/: اسم الشركة، أزرار الواتساب، وضع العرض، النسخ.
+// أدوات مشتركة خفيفة لكل صفحات website/: اسم الشركة، أزرار الواتساب، النسخ، canonical.
 // بدون أي طلب خارجي ولا fetch()، وكل شي يشتغل من file://.
 (function (d, w) {
   var S = w.SITE || {}, NAME = 'لمسة تاب';
@@ -109,56 +109,7 @@
     });
   };
 
-  // سطر «بواسطة لمسة تاب» (components.css: .lt-by)، الرمز 16px
-  w.byLine = function () {
-    var p = d.createElement('p');
-    p.className = 'lt-by';
-    p.innerHTML = '<img src="' + w.ASSETS + 'brand/lamsatap-icon.svg" width="16" height="16" alt=""><span>بواسطة <span data-company>' + esc(companyName()) + '</span></span>';
-    return p;
-  };
-
-  // ===== للقوالب (templates/<القالب>/render.js، ونفسها لنسخ العرض في demo/<القالب>/) =====
-  // يحط الصفحة في <main id="app">، وسطر «بواسطة» آخرها، وأيقونة المحادثة على أزرار الواتساب
-  w.mount = function (html) {
-    var app = $('app');
-    app.innerHTML = html;
-    app.appendChild(byLine());
-    all('.lt-wa:not([data-wa])', app).forEach(waIcon);
-    return app;
-  };
-  // وضع العرض (web-ux ر3-5): شريط رفيع فوق فيه زر «أبغى مثله» الصغير، وزر كبير آخر الصفحة، والاثنين لرقم الشركة.
-  // الاسم المقروء للزر الصغير = نصه الظاهر (WCAG 2.5.3)، ووصفه = نص الزر الكبير (aria-describedby)
-  w.demoBar = function (label, key) {
-    return '<div class="demo-bar"><span>' + esc(label) + '</span><a class="lt-wa" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a></div>';
-  };
-  w.demoEnd = function (who, cta, key) {
-    return '<div class="demo-end"><p>هذي الصفحة اللي يشوفها ' + who + ' لما يقرّب جواله من الشريحة أو يمسح الباركود.</p><a class="lt-wa" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a></div>';
-  };
-  // واتساب المحل في صفحة عميل (demo:false): رقمه ورسالته من data.js. بدون رقم ما يطلع شي
-  w.shopWa = function (D, cls, label) {
-    var href = waHref(D.whatsapp, str(D.waText) || 'السلام عليكم، عندي استفسار');
-    return href ? '<a class="' + cls + '" href="' + esc(href) + '"><span>' + esc(label) + '</span></a>' : '';
-  };
-  // صندوق الواي فاي: نفسه في دليل الوحدة وصفحة الواي فاي (web-ux ر3-2 بند 2)
-  w.wifiBox = function (wf, withHeading) {
-    wf = wf || {};
-    var ssid = str(wf.ssid), pw = String(wf.password == null ? '' : wf.password), x;
-    if (!ssid && !pw.trim()) return '';
-    x = withHeading ? '<section class="wifi" aria-labelledby="wifi-h"><h2 id="wifi-h">الواي فاي</h2>' : '<section class="wifi" aria-label="الواي فاي">';
-    if (ssid) x += '<p class="lbl">الشبكة</p><p class="val" dir="ltr" translate="no">' + esc(ssid) + '</p>';
-    if (pw.trim()) {
-      x += '<p class="lbl">كلمة المرور</p><p class="pw" dir="ltr" translate="no">' + esc(pw) + '</p>' +
-        '<button class="btn" type="button" id="wifi-copy">انسخ كلمة المرور</button>' +
-        '<p class="status" id="wifi-st" role="status" aria-live="polite"></p>';
-    } else x += '<p class="open">الشبكة مفتوحة، بدون كلمة مرور.</p>';
-    return x + '</section>';
-  };
-  w.bindWifi = function (wf) {
-    var b = $('wifi-copy'), pw = String((wf || {}).password == null ? '' : wf.password);
-    if (b) bindCopy(b, function () { return pw; }, $('wifi-st'),
-      'تم النسخ. اختر الشبكة من إعدادات الواي فاي والصق كلمة المرور.',
-      'ما قدرنا ننسخ. اكتب كلمة المرور يدوياً.');
-  };
+  // أدوات صفحات الزبون (الهوية، اللوحات، الواي فاي، طبقة العرض) في assets/client.js
 
   // سفاري آيفون ما يطبّق :active (لون الضغط) إلا إذا الصفحة فيها مستمع touchstart
   d.addEventListener('touchstart', function () {}, { passive: true });

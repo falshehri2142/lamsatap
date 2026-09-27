@@ -1,33 +1,16 @@
-/* دليل الوحدة: أقسام بدون بطاقات، عنوان وبعده المحتوى، وخط فاصل رفيع بين الأقسام (web-ux ر3-2 و ر4-3).
-   الصندوق الملوّن الوحيد هو الواي فاي (site.css). بدون ظل ولا حركة (GM-011).
-   الإيقاع: 36px بين الأقسام (مع الخط)، و8px تحت العنوان: القسم ينقرى بنظرة وما فيه فراغات كبيرة. */
-.sec{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
-.wifi + .sec{margin-top:24px;border-top:0;padding-top:0}
-.sec .val{margin-bottom:12px}
-.notice{margin:0 0 12px;font-size:15px;line-height:1.7;color:var(--muted)}
-.acts{display:flex;flex-direction:column;gap:12px}
-.acts > .lt-wa,.acts > .confirm{margin:0}
-.confirm{padding:16px;border:1px solid var(--line);border-radius:var(--lt-radius-m);background:var(--card)}
-.confirm p{margin:0 0 12px}
-.confirm-h{font-weight:700}
-.confirm .steps{margin:-8px 0 12px;padding-inline-start:22px}
-.confirm .btn{margin-top:12px}
-.ask-h{margin:16px 0 8px;font-size:15px;color:var(--muted)}
-/* صف زرين ثانويين جنب بعض: 48px على الأقل وبينهم 8px (touch-target-size و touch-spacing) */
-.pair{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.ask-h + .pair{margin-top:0}
-.pair > *{flex:1 1 140px;margin:0}
-.pair .btn,.pair .lt-wa{min-height:var(--lt-tap-min);min-block-size:var(--lt-tap-min);padding:8px 12px;gap:6px;font-size:16px}
-.pair .lt-wa-icon{inline-size:20px;block-size:20px}
-.pre{margin:0;white-space:pre-line}
-.rules{margin:0;padding-inline-start:22px}
-.rules li + li{margin-top:4px}
-/* الطوارئ: لون عادي مو أحمر (destructive-emphasis)، والاسم مع كل رقم (color-not-only) */
-.sos-main{margin:0;font-variant-numeric:tabular-nums}
-.sos-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
-.sos-btn{flex-direction:column;gap:0;margin:0;padding:8px 4px;font-size:15px;line-height:1.35}
-.sos-btn span + span{font-size:18px;font-variant-numeric:tabular-nums}
-.is-demo{cursor:default}
-.btn.alt.is-demo:active{background:transparent}
-.sos-note{margin:8px 0 0;font-size:14px;color:var(--muted)}
-.privacy{margin:20px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+/* دليل الوحدة (موجز المدير الفني §5.7): لوحات مجمّعة بدل جدار الأزرار، والصندوق الملوّن الوحيد هو الواي فاي.
+   الترتيب: الهوية ← «أهلاً في» ← الواي فاي ← الخروج والصيانة والتواصل ← التكييف ← العنوان ← الشروط ← الطوارئ ← الخصوصية. */
+.g-notice { margin: 12px 0; font-size: 14px; line-height: 1.6; }
+.g-contact-h { margin: 24px 0 8px; }
+.g-confirm { padding: 0; }
+.g-confirm-h { padding: 14px 16px 6px; font-size: 17px; line-height: 1.4; font-weight: 600; }
+.g-steps { margin: 0; padding: 0; list-style: none; }
+.g-steps li { position: relative; padding: 10px 16px; font-size: 16px; line-height: 1.5; }
+.g-steps li + li::before { content: ""; position: absolute; top: 0; inset-inline-start: 16px; inset-inline-end: 0; border-top: 1px solid var(--lt-border); }
+.g-confirm-b { padding: 14px 16px 16px; border-top: 1px solid var(--lt-border); }
+.g-confirm-b p { margin-bottom: 12px; }
+.g-pre { white-space: pre-line; }
+.g-sos.is-first .c-row-t { font-weight: 700; }
+.g-sos .c-row-v { font-variant-numeric: tabular-nums; }
+.g-demo-note { margin-top: 8px; }
+.g-privacy { margin-top: 32px; }
