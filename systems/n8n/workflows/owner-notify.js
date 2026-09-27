@@ -1,3 +1,7 @@
+// NOTE (GM-047): the live workflow also has route keys telegram_info / telegram_approval
+// -> 'Telegram owner notice' (sendMessage, HTML-escaped text) and 'Telegram owner approval'
+// (sendAndWait approval, chatApproval=true, approverIds=owner_telegram_chat_id). Added with update_workflow;
+// credential 'Telegram LamsaTap bot' is assigned by the owner.
 import { workflow, node, trigger, sticky, newCredential, switchCase, expr } from '@n8n/workflow-sdk';
 
 const calledBy = trigger({
