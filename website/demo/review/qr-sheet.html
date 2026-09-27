@@ -5,12 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>لمسة تاب — ورقة الباركود — عرض ستاند التقييم (تجريبية)</title>
-<link rel="icon" href="../../favicon.ico" sizes="32x32"><link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
 <link rel="stylesheet" href="../../assets/brand/tokens.css">
+<link rel="stylesheet" href="../../assets/brand/components.css">
 <style>
+/* ورقة الباركود للطباعة: الشعار الأفقي فوق (brand/README.md)، والباركود أسود على أبيض بدون ألوان عشان ينقرى */
 @page{size:A4;margin:15mm}
 *{box-sizing:border-box}
-body{margin:0;background:#e9ecf1;color:#111;font:16px/1.6 var(--lt-font-brand)}
+body{margin:0;background:#e9ecf1;color:#111;font-family:var(--lt-font-brand);font-size:16px;line-height:1.6}
 .page{width:210mm;min-height:297mm;max-width:100%;margin:16px auto;background:#fff;padding:20mm 15mm;text-align:center}
 .logo{display:block;height:18mm;width:auto;margin:0 auto 8mm}
 h1{font-size:28px;margin:0 0 6mm}
@@ -25,7 +29,7 @@ h1{font-size:28px;margin:0 0 6mm}
 </head>
 <body>
 <div class="page">
-<img class="logo" src="../../assets/brand/lamsatap-horizontal.svg" width="141" height="48" alt="لمسة تاب — LamsaTap">
+<img class="logo" src="../../assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt>
 <h1>امسح وشوف وش يشوفه زبونك</h1>
 <div id="qr" role="img" aria-label="باركود QR لرابط صفحة العرض"></div>
 <div class="lines">
@@ -36,6 +40,7 @@ h1{font-size:28px;margin:0 0 6mm}
 <p class="warn">ورقة تجريبية — الرابط يتغير لما يجي الدومين.</p>
 </div>
 <script src="../../config.js"></script>
+<script src="../../assets/app.js"></script>
 <script src="config.js"></script>
 <script src="../../vendor/qrcode-generator.js"></script>
 <script>

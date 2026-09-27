@@ -1,0 +1,4 @@
+/* صفحة الروابط: قائمة أزرار بإطار بدون بطاقة حولها (web-ux ر3-4). */
+.tagline{margin:0 0 4px;color:var(--muted)}
+.links{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.links .btn,.links .lt-wa{margin:0}

@@ -1,6 +1,7 @@
-/* رموز هوية «لمسة تاب — LamsaTap» (GM-008). الشرح في brand/README.md.
+/* رموز هوية «لمسة تاب — LamsaTap» (GM-008). الشرح في brand/README.md، والمكوّنات الجاهزة (زر الواتساب) في brand/components.css.
    المصدر هنا فقط. الموقع ياخذ نسخة مطابقة في website/assets/brand/tokens.css (والخط في fonts/ جنبه).
-   التباين مفحوص (WCAG): الأرقام بين الأقواس = نسبة التباين على الخلفية المذكورة. */
+   التباين مفحوص (WCAG): الأرقام بين الأقواس = نسبة التباين على الخلفية المذكورة.
+   صفحات الاستخدام (GM-011): الزر الرئيسي خلفيته --lt-primary-strong ونصه --lt-on-primary (7.61 فاتح، 9.34 داكن). */
 
 /* خط الهوية: Readex Pro (رخصة OFL، الملف fonts/OFL.txt)، مقصوص للعربي واللاتيني الأساسي، وزن متغير 160–700.
    ما ينزل إلا إذا استُخدم --lt-font-brand في الصفحة. */
@@ -35,8 +36,9 @@
   --lt-border: var(--lt-sand-200);
   --lt-text: var(--lt-ink);
   --lt-muted: var(--lt-slate);
-  --lt-primary: var(--lt-teal);
+  --lt-primary: var(--lt-teal);         /* نص تيل على --lt-surface-2 = 4.48 (أقل من 4.5): هناك استخدم --lt-primary-strong */
   --lt-primary-strong: var(--lt-teal-deep);
+  --lt-primary-press: #054A47;          /* الزر الرئيسي وقت الضغط (أبيض عليه 10.11) */
   --lt-on-primary: #FFFFFF;
   --lt-primary-soft: var(--lt-teal-soft);
   --lt-accent: var(--lt-saffron);
@@ -57,6 +59,9 @@
   --lt-space-7: 48px;
   --lt-space-8: 64px;
 
+  /* أقل هدف لمس (زر، رابط، زر نسخ): 48px */
+  --lt-tap-min: 48px;
+
   /* الزوايا والظل */
   --lt-radius-s: 8px;
   --lt-radius-m: 14px;
@@ -75,7 +80,8 @@
     --lt-text: #ECF2F0;              /* 16.19 على الخلفية */
     --lt-muted: #A3B2AE;             /* 7.51 على السطح */
     --lt-primary: var(--lt-teal-light); /* 8.32 على الخلفية */
-    --lt-primary-strong: #6AD6CC;
+    --lt-primary-strong: #6AD6CC;    /* --lt-on-primary عليه 9.34 */
+    --lt-primary-press: var(--lt-teal-light); /* الزر الرئيسي وقت الضغط: 7.34 */
     --lt-on-primary: #062522;        /* 7.34 على الأساسي */
     --lt-primary-soft: #123A37;      /* الأساسي عليها 5.64 */
     --lt-accent: var(--lt-saffron-light);

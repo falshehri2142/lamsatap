@@ -6,54 +6,20 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
 <title>المنيو</title>
-<link rel="icon" href="../../favicon.ico" sizes="32x32"><link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
 <link rel="stylesheet" href="../../assets/brand/tokens.css">
+<link rel="stylesheet" href="../../assets/brand/components.css">
 <link rel="stylesheet" href="../../assets/site.css">
-<style>
-.tabs{position:sticky;top:0;z-index:2;background:var(--bg);display:flex;gap:8px;overflow-x:auto;padding:10px 0;margin:10px 0 0;scrollbar-width:none}
-.tabs a{flex:none;min-height:44px;display:flex;align-items:center;padding:0 16px;border-radius:22px;border:2px solid var(--line);color:var(--text);text-decoration:none;font-weight:700;white-space:nowrap}
-section.sec{scroll-margin-top:70px;margin-top:18px}
-.item{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}
-.ph{flex:none;width:72px;height:72px;border-radius:12px;background:var(--ph);display:flex;align-items:center;justify-content:center;color:var(--muted)}
-.item .t{flex:1;min-width:0}
-.item h3{font-size:17px;margin:0}
-.item p{margin:2px 0 0;color:var(--muted);font-size:14px}
-.item .p{font-weight:700;white-space:nowrap}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-<span class="tag" id="demo" hidden>عرض تجريبي — محل مثال وليس محلاً حقيقياً</span>
-<h1 id="name"></h1>
-<p class="muted" id="note" hidden></p>
-<nav class="tabs" id="tabs" aria-label="أقسام المنيو"></nav>
-<div id="list"></div>
-<footer class="by"><img src="../../assets/brand/favicon.svg" width="18" height="18" alt=""> بواسطة <span data-company>لمسة تاب</span></footer>
-</main>
+<!-- هيكل فقط: الصفحة كلها يبنيها render.js من data.js. نسخة العرض: demo/menu/ -->
+<main id="app"><noscript><p>فعّل JavaScript في المتصفح عشان تفتح الصفحة.</p></noscript></main>
 <script src="../../config.js"></script>
 <script src="../../assets/app.js"></script>
 <script src="data.js"></script>
-<script>
-(function(){
-var D=window.MENU_DATA||{sections:[]},e=window.esc;
-document.getElementById('demo').hidden=!D.demo;
-document.getElementById('name').textContent=D.name||'';
-document.title=(D.name?D.name+' — ':'')+'المنيو';
-if(D.note){var n=document.getElementById('note');n.textContent=D.note;n.hidden=false;}
-var ph='<svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3v4M12 3v4"/></svg>';
-var t='',l='';
-(D.sections||[]).forEach(function(s,i){
-  var id='s-'+String(s.id||i).replace(/[^\w-]/g,'');
-  t+='<a href="#'+id+'">'+e(s.title)+'</a>';
-  l+='<section class="sec" id="'+id+'"><h2>'+e(s.title)+'</h2>';
-  (s.items||[]).forEach(function(it){
-    l+='<div class="item"><div class="ph">'+ph+'</div><div class="t"><h3>'+e(it.name)+'</h3>'+(it.desc?'<p>'+e(it.desc)+'</p>':'')+'</div>'+(it.price?'<div class="p">'+e(it.price)+'</div>':'')+'</div>';
-  });
-  l+='</section>';
-});
-document.getElementById('tabs').innerHTML=t;
-document.getElementById('list').innerHTML=l;
-})();
-</script>
+<script src="render.js"></script>
 </body>
 </html>

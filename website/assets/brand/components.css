@@ -1,0 +1,94 @@
+/* مكوّنات هوية «لمسة تاب» الجاهزة (web-brand). تنربط بعد tokens.css.
+   web-builder ينسخ الملف كما هو إلى website/assets/brand/components.css (نفس طريقة tokens.css).
+   القرارات والمصادر: work/2026-09-27-brand-identity/web-brand.md
+   المبدأ (GM-011): العملية قبل الزخرفة. بدون ظل ولا تدرج ولا حركة؛ رد الضغط فوري بتغيير اللون فقط. */
+
+/* ===== 1) زر الواتساب: الـ CTA الأول في كل صفحة (GM-010) =====
+   لون الهوية + فقاعة محادثة خاصة فينا (brand/icons/chat.svg، تنحط inline عشان تاخذ لون النص)
+   + كلمة «واتساب» اسم بنفس خط الزر. ممنوع شعار واتساب، ولونه الأخضر، و«واتساب» كفعل («واتسبنا»).
+   لو رقم الواتساب فاضي في config.js: الزر ما يطلع أبداً (hidden)، مو زر معطّل.
+
+   <a class="lt-wa" href="https://wa.me/<رقم>?text=<رسالة مرمّزة>">
+     <svg class="lt-wa-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4h10a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4v3.5L12.5 17H7a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="10.5" r="1.3" fill="currentColor"/><circle cx="12" cy="10.5" r="1.3" fill="currentColor"/><circle cx="16" cy="10.5" r="1.3" fill="currentColor"/></svg>
+     <span>كلّمنا على واتساب</span>
+   </a>
+
+   زر واتساب ثاني في نفس الشاشة (مثل «بلاغ صيانة» تحت «تم الخروج»): class="lt-wa lt-wa--quiet".
+   التباين (WCAG): فاتح: خلفية #075E5A ونص أبيض 7.61، عند الضغط #054A47 10.11.
+                   داكن: خلفية #6AD6CC ونص #062522 9.34، عند الضغط #3FC1B6 7.34.
+                   الهادي: نص #075E5A على الرملي 7.13 (داكن #6AD6CC 10.58)، إطاره 4.85 (داكن 8.32).
+                   وقت اللمس (لون الضغط + لون اللمس فوقه) أقل رقم 4.99، ما ينزل تحت 4.5.
+   رد الضغط هنا ملك الهوية: لا تحط عليه opacity ولا -webkit-tap-highlight-color: transparent من ملف ثاني. */
+.lt-wa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 56px;            /* أكبر من أقل هدف لمس 48px */
+  margin: 0;
+  padding: 12px 20px;
+  border: 2px solid transparent;   /* نفس المقاس للنوعين، ويبين الإطار في وضع التباين العالي بويندوز */
+  border-radius: var(--lt-radius-m);
+  background: var(--lt-primary-strong);
+  color: var(--lt-on-primary);
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .18); /* رد الضغط في آيفون: سفاري ما يطبّق :active بشكل مضمون */
+}
+.lt-wa[hidden] { display: none; }   /* display:flex فوق يغلب [hidden] حق المتصفح، فلازم هذا السطر */
+.lt-wa:active { background: var(--lt-primary-press); }
+@media (hover: hover) {
+  .lt-wa:hover { background: var(--lt-primary-press); }
+}
+.lt-wa:focus-visible {
+  outline: 3px solid var(--lt-focus);
+  outline-offset: 3px;
+}
+.lt-wa-icon {
+  inline-size: 24px;
+  block-size: 24px;
+  flex: none;
+}
+.lt-wa--quiet {
+  background: transparent;
+  border-color: var(--lt-primary);
+  color: var(--lt-primary-strong);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .10); /* أخف: عشان النص ما ينزل تحت 4.5 وقت اللمس */
+}
+.lt-wa--quiet:active { background: var(--lt-primary-soft); }
+@media (hover: hover) {
+  .lt-wa--quiet:hover { background: var(--lt-primary-soft); }
+}
+@media (prefers-color-scheme: dark) {
+  .lt-wa--quiet { -webkit-tap-highlight-color: rgba(255, 255, 255, .10); } /* الأسود ما يبين على خلفية داكنة */
+}
+.lt-wa + .lt-wa { margin-block-start: 12px; }
+
+/* ===== 2) سطر «بواسطة لمسة تاب» =====
+   حضورنا الوحيد في صفحات الزبون (GM-010 و GM-011): سطر صغير هادي آخر الصفحة، بدون رابط بيع.
+   <p class="lt-by"><img src="<مسار>/lamsatap-icon.svg" width="16" height="16" alt=""><span>بواسطة <span data-company>لمسة تاب</span></span></p>
+   الرمز هنا بأصغر حجم مسموح (16px). النص الثانوي: 5.94 على الرملي (داكن 8.33). */
+.lt-by[hidden] { display: none; }
+.lt-by {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 24px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--lt-muted);
+}
+.lt-by img {
+  inline-size: 16px;
+  block-size: 16px;
+  flex: none;
+}

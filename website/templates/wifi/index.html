@@ -6,41 +6,20 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
 <title>الواي فاي</title>
-<link rel="icon" href="../../favicon.ico" sizes="32x32"><link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
 <link rel="stylesheet" href="../../assets/brand/tokens.css">
+<link rel="stylesheet" href="../../assets/brand/components.css">
 <link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-<span class="tag" id="demo" hidden>عرض تجريبي — محل مثال وليس محلاً حقيقياً</span>
-<h1>الواي فاي</h1>
-<p class="muted" id="place"></p>
-<section class="card">
-<div class="row"><div><div class="k">اسم الشبكة</div><div class="v" id="ssid"></div></div><button class="copy" type="button" data-copy="ssid">نسخ</button></div>
-<div class="row"><div><div class="k">كلمة المرور</div><div class="v" id="pw"></div></div><button class="copy" type="button" data-copy="pw">نسخ</button></div>
-<p class="status" id="st" role="status" aria-live="polite"></p>
-</section>
-<section class="card muted">
-<p style="margin-top:0">آيفون ما يتصل بالشبكة من الشريحة، فيفتح هالصفحة: انسخ كلمة المرور وادخلها في إعدادات الواي فاي.</p>
-<p style="margin-bottom:0">في أندرويد ممكن يتصل الجوال باللمسة إذا انبرمجت الشريحة لذلك.</p>
-</section>
-<footer class="by"><img src="../../assets/brand/favicon.svg" width="18" height="18" alt=""> بواسطة <span data-company>لمسة تاب</span></footer>
-</main>
+<!-- هيكل فقط: الصفحة كلها يبنيها render.js من data.js. نسخة العرض: demo/wifi/ -->
+<main id="app"><noscript><p>فعّل JavaScript في المتصفح عشان تفتح الصفحة.</p></noscript></main>
 <script src="../../config.js"></script>
 <script src="../../assets/app.js"></script>
 <script src="data.js"></script>
-<script>
-(function(){
-var D=window.WIFI_DATA||{};
-document.getElementById('demo').hidden=!D.demo;
-document.getElementById('place').textContent=D.place||'';
-document.getElementById('ssid').textContent=D.ssid||'';
-document.getElementById('pw').textContent=D.password||'';
-var st=document.getElementById('st');
-[].forEach.call(document.querySelectorAll('[data-copy]'),function(b){
-  b.addEventListener('click',function(){copyText(document.getElementById(b.getAttribute('data-copy')).textContent,st);});
-});
-})();
-</script>
+<script src="render.js"></script>
 </body>
 </html>

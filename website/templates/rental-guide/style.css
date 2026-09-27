@@ -1,0 +1,25 @@
+/* دليل الوحدة: أقسام بدون بطاقات، عنوان وبعده المحتوى، وخط فاصل رفيع بين الأقسام (web-ux ر3-2).
+   الصندوق الملوّن الوحيد هو الواي فاي (site.css). بدون ظل ولا حركة (GM-011). */
+.sec{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.wifi + .sec{border-top:0;padding-top:0}
+.sec .val{margin-bottom:16px}
+.notice{margin:0 0 16px;font-size:15px;line-height:1.7;color:var(--muted)}
+.acts{display:flex;flex-direction:column;gap:12px}
+.acts > .lt-wa,.acts > .confirm{margin:0}
+.confirm{padding:16px;border:1px solid var(--line);border-radius:var(--lt-radius-m);background:var(--card)}
+.confirm p{margin:0 0 12px}
+.confirm-h{font-weight:700}
+.confirm .steps{margin:-8px 0 12px;padding-inline-start:22px}
+.confirm .btn{margin-top:12px}
+.alt-line{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.tel{display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding:0 4px;font-weight:700;font-variant-numeric:tabular-nums;unicode-bidi:isolate;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
+.pre{margin:0;white-space:pre-line}
+.pair{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.pair .btn{flex:1 1 150px;margin:0;font-size:16px}
+.rules{margin:0;padding-inline-start:22px}
+.rules li + li{margin-top:6px}
+.sos{list-style:none;margin:0;padding:0}
+.sos li{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line)}
+.sos li:last-child{border-bottom:0}
+.sos a{display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding:0 8px;font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;-webkit-tap-highlight-color:rgba(0,0,0,.1)}
+.privacy{margin:28px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
