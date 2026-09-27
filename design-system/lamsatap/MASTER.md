@@ -106,6 +106,13 @@
 - **Header WhatsApp:**
   - Outlined, radius 14, not filled, so each screen keeps one primary action.
   - Hidden while `config.js` has no number.
+- **Telegram secondary link (GM-047):**
+  - A plain text link «أو كلمنا على تليجرام» next to or under every primary WhatsApp button.
+  - Ink colour, underlined, 44px tap area.
+  - It is never a second button, to keep primary-action.
+  - The footer carries the Telegram channel link.
+  - The URLs come from `config.js` (`telegram`, `telegramChannel`); the link is hidden if empty.
+- **Response promise (GM-046):** «خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم» is a trust line near the contact actions.
 - **Cards:**
   - White on sand, 1px border, radius 8, no shadow.
   - Hover changes only the border or a small lift of 2px or less, with no layout shift.
