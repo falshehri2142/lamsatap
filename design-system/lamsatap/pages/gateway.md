@@ -18,3 +18,8 @@ Overrides MASTER.md for the home page only. Source: `web-art-director.md` «ال
   - **No prices.** No «خدمات ثانية» section (GM-043).
   - No second QR section below the intro.
 - **SEO:** the h1 is the promise. The canonical is the root of the placeholder domain.
+
+## GM-049 override
+- **Doors:** the images are crops of the product mockups. Door 1 is the stand on the table; door 2 is the sign beside the door.
+- **Hospitality photos:** not the door heroes any more.
+- **Intro QR:** stays real and scannable (owner's request).

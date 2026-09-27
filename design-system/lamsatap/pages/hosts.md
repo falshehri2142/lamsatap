@@ -20,3 +20,9 @@ Overrides MASTER.md for this page. Sources:
 - **FAQ:** 8 or fewer, including the renewal-trust answer (7 days before for monthly, 30 days for yearly).
 - **WhatsApp:** `host`, `hostTrial` and `portfolio` messages from `config.js`.
 - **Guest privacy:** the host's number is never shown to guests. Check-out goes to us as a WhatsApp message.
+
+## GM-049 override (wins over the lines above)
+- **Hero:** a clean product mockup of our checkout sign (in the spirit of the owner's sign, `brand-source/real-work/`), mounted on a light wall beside an apartment door, with a phone tapping its touch zone.
+  - Frame, bell/touch zone, a FAKE non-decodable QR, and four features from approved copy only.
+  - A demo property name; never AWA HOME.
+- **Hospitality photo (H1 hallway):** only a light mood background, or removed.

@@ -21,3 +21,8 @@ Overrides MASTER.md for this page. Sources:
   - No VAT wording.
 - **FAQ:** 8 or fewer, including the renewal-trust answer (explicit confirmation, reminder 30 days before).
 - **WhatsApp:** `shop` and `shopTrial` messages from `config.js`.
+
+## GM-049 override (wins over the lines above)
+- **Hero:** a clean product mockup of our review stand plus the menu on a café table, with a phone tapping the stand.
+  - A FAKE non-decodable QR, and a demo café name.
+- **Hospitality photos (R1 dallah, R2 phone-stand):** only light mood backgrounds, or removed.
