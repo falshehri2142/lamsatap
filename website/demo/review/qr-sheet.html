@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ورقة الباركود — عرض ستاند التقييم (تجريبية)</title>
+<style>
+@page{size:A4;margin:15mm}
+*{box-sizing:border-box}
+body{margin:0;background:#e9ecf1;color:#111;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+.page{width:210mm;min-height:297mm;max-width:100%;margin:16px auto;background:#fff;padding:20mm 15mm;text-align:center}
+h1{font-size:28px;margin:0 0 6mm}
+#qr{width:110mm;max-width:100%;margin:0 auto}
+#qr svg{width:100%;height:auto;display:block}
+.lines p{font-size:20px;margin:6mm 0 0}
+.url{direction:ltr;font-family:monospace;font-size:14px;color:#333;word-break:break-all;margin-top:8mm}
+.warn{margin-top:10mm;font-size:14px;color:#6b4a00;border:1px dashed #b58900;padding:3mm;border-radius:3mm}
+.err{color:#b00020}
+@media print{body{background:#fff}.page{margin:0;width:auto;min-height:0;padding:0}.noprint{display:none}}
+</style>
+</head>
+<body>
+<div class="page">
+<h1>امسح وشوف وش يشوفه زبونك</h1>
+<div id="qr" role="img" aria-label="باركود QR لرابط صفحة العرض"></div>
+<div class="lines">
+<p>امسح الباركود بكاميرا جوالك.</p>
+<p>تفتح لك صفحة مثال لستاند تقييم قوقل.</p>
+</div>
+<p class="url" id="url"></p>
+<p class="warn">ورقة تجريبية — الرابط يتغير لما يجي الدومين.</p>
+</div>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+(function(){
+var u=window.DEMO_URL||'';document.getElementById('url').textContent=u;
+var box=document.getElementById('qr');
+if(!u||typeof qrcode!=='function'){box.innerHTML='<p class="err">تعذر توليد الباركود (تأكد من config.js والاتصال بالإنترنت).</p>';return;}
+var q=qrcode(0,'M');q.addData(u);q.make();
+box.innerHTML=q.createSvgTag({cellSize:8,margin:4,scalable:true});
+})();
+</script>
+</body>
+</html>
