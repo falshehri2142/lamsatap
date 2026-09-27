@@ -14,7 +14,7 @@
 }
 
 /* Figtree للاتيني والأرقام في صفحات الشركة بس (الاتجاه 2 §6)، باسم "LT Latin" أول --lt-font-brand و --lt-font-latin.
-   unicode-range يخلي المتصفح ياخذ منه اللاتيني والأرقام والرموز بس، والعربي والمسافة من Readex (المسافة برا المدى عمداً).
+   unicode-range يخلي المتصفح ياخذ منه اللاتيني والأرقام والرموز بس، والعربي والمسافة و«» من Readex (برا المدى عمداً: «» بمقاسها العربي، «التقييم 2» القرار 3).
    الملف مقصوص بـ brand/src/build_figtree.py: وزن 400 إلى 700، WOFF، ورخصته fonts/OFL-Figtree.txt (OFL 1.1).
    السماكة مطابقة لـ Readex: وزن 400 هنا = تصميم Figtree 550 (جذع «l» 103 في الخطين)، عشان الأرقام ما تطلع أنحف من العربي.
    فيه الأرقام الجدولية (tnum): font-variant-numeric: tabular-nums للسعر والوقت. بدون preload (الخط الحرج Readex).
@@ -25,7 +25,7 @@
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0021-007E, U+00A1-00FF, U+2013-2014, U+2018-201D, U+2026, U+20AC;
+  unicode-range: U+0021-007E, U+00A1-00AA, U+00AC-00BA, U+00BC-00FF, U+2013-2014, U+2018-201D, U+2026, U+20AC;
 }
 
 :root {

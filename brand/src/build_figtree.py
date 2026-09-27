@@ -10,7 +10,8 @@
      بسماكة Readex 400 (103 و103)، و500 (122 و122)، و600 (144 و142). بدون المطابقة الأرقام تطلع أنحف من العربي
      اللي جنبها في نفس السطر. للنسخة الحرفية (تصميم 400 إلى 700 بدون مطابقة): --no-match
   2) القص (pyftsubset نفسه، fontTools.subset): المدى تحت **بدون المسافة** (U+0020 و U+00A0)، عشان المسافة بين الكلمات
-     العربية تبقى من Readex. الميزات: kern,liga,calt,tnum,lnum,case,ccmp,locl,mark,mkmk، ومعها rvrn: الخط يبدّل
+     العربية تبقى من Readex، و**بدون «»** (U+00AB و U+00BB، «التقييم 2» القرار 3): التنصيص داخل النص العربي يجي من
+     Readex بمقاسه العربي (حق Figtree أعرض: 46.97 مقابل 39.09 بمقاس 40). الميزات: kern,liga,calt,tnum,lnum,case,ccmp,locl,mark,mkmk، ومعها rvrn: الخط يبدّل
      شكل «$» في الأوزان الثقيلة (FeatureVariations)، وبدونها يطلع «$» الثقيل بشكل الخفيف.
      الصيغة WOFF، لأن brotli مو موجود (نفس Readex).
   3) الفحص: tnum موجود، والأرقام 0-9 تتحول لأرقام بعرض واحد في الأوزان 400 و500 و600 و700، والأرقام بدون tnum
@@ -36,8 +37,10 @@ LICENSE = ROOT / "brand" / "fonts" / "source" / "OFL-Figtree.txt"
 OUT = ROOT / "brand" / "fonts" / "figtree-latin.woff"
 SITE = ROOT / "website" / "assets" / "brand" / "fonts"
 
-# نفس unicode-range في @font-face "LT Latin" (tokens.css). بدون U+0020 و U+00A0.
-RANGES = [(0x21, 0x7E), (0xA1, 0xFF), (0x2013, 0x2014), (0x2018, 0x201D), (0x2026, 0x2026), (0x20AC, 0x20AC)]
+# نفس unicode-range في @font-face "LT Latin" (tokens.css). بدون المسافة (U+0020 و U+00A0) و«» (U+00AB و U+00BB).
+RANGES = [(0x21, 0x7E), (0xA1, 0xAA), (0xAC, 0xBA), (0xBC, 0xFF), (0x2013, 0x2014), (0x2018, 0x201D),
+          (0x2026, 0x2026), (0x20AC, 0x20AC)]
+KEEP_OUT = {0x20: "المسافة", 0xA0: "المسافة الثابتة", 0xAB: "«", 0xBB: "»"}   # لازم تجي من Readex
 UNICODES = [c for a, b in RANGES for c in range(a, b + 1)]
 FEATURES = ["kern", "liga", "calt", "tnum", "lnum", "case", "ccmp", "locl", "mark", "mkmk", "rvrn"]
 WEIGHTS = (400, 500, 600, 700)
@@ -129,9 +132,12 @@ def check():
     cmap = font.getBestCmap()
     missing = [f"U+{c:04X}" for c in UNICODES if c not in cmap]
     print("من المدى وما هو في الخط الأصلي أصلاً:", ", ".join(missing) or "ولا شي")
-    if 0x20 in cmap or 0xA0 in cmap:
-        print("غلط: المسافة داخل الملف")
+    inside = [name for c, name in KEEP_OUT.items() if c in cmap]
+    if inside:
+        print("غلط: داخل الملف وهي لازم تجي من Readex:", "، ".join(inside))
         ok = False
+    else:
+        print("برا الملف (تجي من Readex):", "، ".join(KEEP_OUT.values()))
     tnum = lookup_map(font, "tnum")
     if "tnum" not in feats or not all(cmap.get(ord(d)) in tnum for d in DIGITS):
         print("غلط: tnum ناقص أو ما يغطي الأرقام 0-9. Figtree يطيح ونكمل بـ Readex")
