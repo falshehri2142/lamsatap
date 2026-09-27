@@ -42,7 +42,7 @@ const stripPhones = node({
     parameters: {
       mode: 'runOnceForEachItem',
       language: 'javaScript',
-      jsCode: "let t = String($json.problem || '');\nt = t.replace(/[\\u0660-\\u0669]/g, d => String(d.charCodeAt(0) - 0x660)).replace(/[\\u06F0-\\u06F9]/g, d => String(d.charCodeAt(0) - 0x6F0)).replace(/[\\uFF10-\\uFF19]/g, d => String(d.charCodeAt(0) - 0xFF10));\nt = t.replace(/\\d(?:[^\\p{L}\\n]{0,3}\\d)+/gu, m => (m.replace(/\\D/g, '').length >= 7 ? '[رقم محذوف]' : m));\nt = t.slice(0, 300);\nreturn { json: { ref: $json.ref, request: $json.request, problem: t } };"
+      jsCode: "let t = String($json.problem || '');\nt = t.replace(/[\\u0660-\\u0669]/g, d => String(d.charCodeAt(0) - 0x660)).replace(/[\\u06F0-\\u06F9]/g, d => String(d.charCodeAt(0) - 0x6F0)).replace(/[\\uFF10-\\uFF19]/g, d => String(d.charCodeAt(0) - 0xFF10));\nt = t.replace(/\\d(?:[^\\p{L}]{0,6}\\d)+/gu, m => (m.replace(/\\D/g, '').length >= 7 ? '[رقم محذوف]' : m));\nt = t.slice(0, 300);\nreturn { json: { ref: $json.ref, request: $json.request, problem: t } };"
     }
   },
   output: [{ ref: 'abcd1234efgh5678', request: 'checkout', problem: '' }]
