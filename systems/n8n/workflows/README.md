@@ -37,3 +37,8 @@
 كل الـ workflows: Save failed/successful production executions = none، Save manual executions = false، Timezone = Asia/Riyadh.
 الـ sub-workflows (get-channel، owner-notify، client-send): callerPolicy = workflowsFromSameOwner.
 (أ) door report: `onlyRunIf` على الـ Webhook (ref من 12-32 حرف/رقم وطلب checkout/maintenance) — موجود في الكود كمان.
+
+## تليجرام (2026-09-28)
+- الـ credential اللي أنشأه صاحب المشروع اسمه **«Telegram account»** (`0432qINokSfkjuq4`)، مربوط بكل عقد التليجرام في «LT telegram inbound» و«LT owner-notify». (الاسم في كود `*.js` = «Telegram LamsaTap bot»؛ عند إعادة البناء اربط «Telegram account».)
+- `owner_telegram_chat_id` انحط في عقدة `CHANNEL` داخل n8n (الرقم ما ينكتب في git). `channel` باقي `email` لين يقرر صاحب المشروع يحوّل التنبيهات لتليجرام.
+- مساعد رقم المحادثة «LT telegram chat id helper (one-time)» (`GBqHFgkP5XBD6Wyf`) انستخدم مرة وتأرشف.
