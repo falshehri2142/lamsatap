@@ -3,7 +3,7 @@ price_review_basic,review_stand,سعر ستاند التقييم الأساسي 
 price_review_brand,review_stand,ستاند بهوية المحل (مرجع),,129,SAR/unit,fin-pricing.md نطاق 119-149 غير مؤكد,fin-pricing
 price_review_pack5,review_stand,باقة 5 ستاندات هوية (مرجع),,499,SAR/pack,fin-pricing.md غير مؤكد,fin-pricing
 cost_chip,review_stand,ملصق NTAG213 من Shop NFC (احتياط لأن شريحة الستاند الجاهز نوعها غير معروف),,2.95,SAR/unit,سعر المورد €0.67 مؤكد من الصفحة (review-stand-kit.md)؛ التحويل ×4.4 ريال لليورو غير مؤكد؛ الشحن والجمارك غير مؤكدة,nfc-engineer
-cost_stand_print,review_stand,ستاند تقييم جاهز بشريحة 14×12×5 سم (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الهوية المطبوعة غير مؤكدة),nfc-engineer
+cost_stand_print,review_stand,ستاند تقييم جاهز بشريحة 14×12×5 سم (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الصفحة كانت تعرض «نفد من المخزون» في 2026-09-27؛ شمول الضريبة غير واضح),nfc-engineer
 cost_shipping,review_stand,شحن من المورد للقطعة,,6,SAR/unit,غير مؤكد: الشحن للسعودية ما تأكد عند أي مورد (review-stand-kit.md),nfc-engineer
 labor_minutes,review_stand,دقائق البرمجة والتركيب,,60,min/unit,launch-plan/financial-analysis.md ساعة تقريباً غير مؤكد,fin-modeler
 risk_damage_rate,review_stand,نسبة التالف سنوياً (review_stand_damage_rate_yr),,0.15,ratio/yr,fin-risk.md غير مؤكد,fin-risk
@@ -56,3 +56,59 @@ design_minutes,menu,تصميم المنيو (داخل رسوم التجهيز),,
 wa_platform_monthly,host_bundle,اشتراك منصة/مزود WhatsApp API الشهري (ثابت لكل الخدمة),,50,SAR/month,افتراض fin-modeler غير مؤكد ؛ يُراجع عند مزود حقيقي,systems-supervisor
 cac_per_client,all,تكلفة جلب عميل واحد (زيارة وعينات وإعلان),,40,SAR/client,افتراض fin-modeler غير مؤكد,sales
 install_delivery,all,توصيل أو زيارة التركيب لكل عميل,,20,SAR/client,افتراض fin-modeler غير مؤكد,nfc-engineer
+price_shop_annual,shop_bundle,حزمة المحل الكامل سنوي مقدم (العتاد والتركيب مشمول),,990,SAR/yr,fin-pricing.md نطاق 790-1190 غير مؤكد,fin-pricing
+price_shop_renewal,shop_bundle,تجديد السنة الثانية,,790,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing
+shop_stands_included,shop_bundle,ستاندات مشمولة (تقييم + واي فاي/روابط),,2,units,fin-pricing.md غير مؤكد,fin-pricing
+cost_stand_unit,shop_bundle,ستاند جاهز بشريحة (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الصفحة كانت تعرض «نفد من المخزون» في 2026-09-27؛ شمول الضريبة غير واضح),nfc-engineer
+cost_shipping,shop_bundle,شحن الستاند من المورد,,6,SAR/unit,غير مؤكد (review-stand-kit.md),nfc-engineer
+shop_tags_included,shop_bundle,شرائح طاولات مشمولة,,10,units,fin-pricing.md غير مؤكد,fin-pricing
+cost_tag_unit,shop_bundle,شريحة أو ستاند طاولة صغير مع الشحن,,15,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
+labor_minutes,shop_bundle,إدخال المنيو وتركيب ستاندين (180+60) بدون التصميم,,240,min/client,fin-pricing.md غير مؤكد (fin-risk قدّر 120),fin-modeler
+cost_hosting_monthly,shop_bundle,استضافة لكل محل (5 صفحات),,5,SAR/month,fin-pricing.md غير مؤكد,systems-supervisor
+support_minutes_monthly,shop_bundle,تعديلات ودعم شهري,,30,min/month,fin-pricing.md غير مؤكد,fin-modeler
+wa_msgs_cost_monthly,shop_bundle,رسائل واتساب شهرية,,0,SAR/month,لا يوجد في الحزمة,fin-modeler
+units_per_client,shop_bundle,وحدات لكل عميل,,1,units,تعريف,fin-modeler
+price_review_sub_annual,review_sub,ستاند التقييم اشتراك سنوي مع تركيب (الستاند مجاني),,149,SAR/yr,fin-pricing.md غير مؤكد,fin-pricing
+price_review_sub_lite_annual,review_sub,ستاند التقييم اشتراك سنوي بلا تركيب (شحن فقط),,99,SAR/yr,fin-pricing.md غير مؤكد؛ fin-risk: أقل حد ~99 صافي,fin-pricing
+cost_stand_unit,review_sub,ستاند جاهز بشريحة (متجر البريدي),25,25,SAR/unit,مؤكد من صفحة المورد 2026-09-27 engineering/review-stand-kit.md (بدون الشحن؛ الصفحة كانت تعرض «نفد من المخزون» في 2026-09-27؛ شمول الضريبة غير واضح),nfc-engineer
+cost_shipping,review_sub,شحن الستاند من المورد,,6,SAR/unit,غير مؤكد (fin-risk قدّر 10),nfc-engineer
+labor_minutes,review_sub,برمجة وتركيب الستاند,,60,min/client,fin-pricing.md ساعة؛ fin-risk نص ساعة؛ غير مؤكد,fin-modeler
+lite_labor_minutes,review_sub,برمجة وتغليف بلا زيارة (الخيار بلا تركيب),,15,min/client,افتراض fin-modeler غير مؤكد,fin-modeler
+lite_delivery,review_sub,شحن للعميل بدل زيارة التركيب,,15,SAR/client,افتراض fin-modeler غير مؤكد,fin-modeler
+cost_hosting_monthly,review_sub,استضافة وتحويل الرابط,,1,SAR/month,fin-pricing.md ~12/سنة غير مؤكد,systems-supervisor
+support_minutes_monthly,review_sub,دعم شهري,,0,min/month,افتراض fin-modeler غير مؤكد,fin-modeler
+wa_msgs_cost_monthly,review_sub,رسائل واتساب شهرية,,0,SAR/month,لا يوجد,fin-modeler
+units_per_client,review_sub,وحدات لكل عميل,,1,units,تعريف,fin-modeler
+price_host_monthly_per_unit_free_hw,host_free_hw,المضيف لكل وحدة شهرياً 1-4 وحدات (العتاد مشمول),,49,SAR/unit/month,fin-pricing.md نطاق 39-69 غير مؤكد,fin-pricing
+price_host_monthly_per_unit_5plus,host_free_hw,المضيف لكل وحدة شهرياً 5+ وحدات,,39,SAR/unit/month,fin-pricing.md غير مؤكد,fin-pricing
+host_annual_months_charged,host_free_hw,الدفع السنوي = 12 شهر بسعر كم شهر,,10,months,fin-pricing.md غير مؤكد,fin-pricing
+host_min_commit_months,host_free_hw,التزام أدنى للدفع الشهري,,6,months,fin-pricing.md 6؛ fin-risk 3؛ غير مؤكد,fin-pricing
+price_host_setup_free_hw,host_free_hw,رسوم تجهيز,,0,SAR/unit,fin-pricing.md العتاد مجاني,fin-pricing
+cost_chip,host_free_hw,شرائح وستاندات الوحدة,,60,SAR/unit,افتراض fin-modeler غير مؤكد (fin-risk قدّر 15),nfc-engineer
+cost_shipping,host_free_hw,شحن وتوصيل للوحدة,,10,SAR/unit,افتراض fin-modeler غير مؤكد,nfc-engineer
+labor_minutes,host_free_hw,تجهيز الدليل والتركيب لكل وحدة,,120,min/unit,افتراض fin-modeler غير مؤكد (fin-risk قدّر 30),fin-modeler
+cost_hosting_monthly,host_free_hw,استضافة لكل وحدة,,3,SAR/unit/month,افتراض fin-modeler غير مؤكد,systems-supervisor
+support_minutes_monthly,host_free_hw,دعم شهري للوحدة,,0,min/month,افتراض fin-modeler غير مؤكد,fin-modeler
+wa_msgs_cost_monthly,host_free_hw,رسائل واتساب للوحدة شهرياً (20 رسالة × 0.2),,4,SAR/unit/month,20 رسالة من host_bundle/whatsapp_msgs_per_unit_month (fin-risk.md السابق) × 0.2 ريال افتراض fin-modeler؛ غير مؤكد (يُراجع في أسعار Meta),systems-supervisor
+wa_platform_monthly,host_free_hw,منصة WhatsApp API ثابت للخدمة,,50,SAR/month,افتراض fin-modeler غير مؤكد,systems-supervisor
+units_per_client,host_free_hw,وحدات لكل مضيف (الشريحة 1-4),,1,units,افتراض أسوأ لتوزيع الجلب غير مؤكد,fin-modeler
+risk_host_unit_churn_monthly,host_free_hw,مضيف يوقف وحدات شهرياً,,0.05,ratio/month,fin-risk.md نطاق 0.02-0.10 غير مؤكد,fin-risk
+risk_early_cancel_rate,all,يلغي ويسترد خلال نافذة الاسترداد (نخسر العتاد والجلب),,0.10,ratio,fin-risk.md نطاق 0-0.40 غير مؤكد,fin-risk
+risk_nonrenew_rate,all,عدم تجديد السنة الثانية,,0.40,ratio,fin-risk.md نطاق 0.20-0.60 غير مؤكد,fin-risk
+risk_defect_rate,all,تالف أول تركيب يُستبدل,,0.03,ratio,fin-risk.md نطاق 0.01-0.08 غير مؤكد,fin-risk
+vat_rate,all,ضريبة القيمة المضافة,,0.15,ratio,fin-risk.md 15% (حد التسجيل غير مؤكد يرجع للمستشار القانوني),legal-advisor
+prices_include_vat,all,1 لو السعر المعلن شامل الضريبة و0 لو قبلها,,0,flag,قرار مفتوح (fin-pricing قبل الضريبة؛ fin-risk يطلب الحالتين) غير مؤكد,owner
+review_commodity_low,ref,أرخص ستاند تقييم دفعة وحدة MEMOREIS (نفد من المخزون),,45,SAR,memoreis.sa عبر saudi-market.md؛ المنتج نفد من المخزون حسب التقرير؛ السعر غير مؤكد التوفر,fin-pricing
+review_commodity_high,ref,ستاند تقييم لتين شامل الضريبة,,92,SAR,lateen.sa عبر saudi-market.md,fin-pricing
+mkt_menu_annual_low,ref,منيو QR بوابة الوسائط سنوي,,198,SAR/yr,store.wasaet.sa عبر saudi-market.md,fin-pricing
+mkt_host_unit_low,ref,TapStay 3.90$ للوحدة شهرياً,,15,SAR/unit/month,global-models.md؛ السعر غير مؤكد في التقرير والتحويل ×3.75 غير مؤكد,fin-pricing
+mkt_host_unit_high,ref,Touch Stay 12.50$ شهرياً,,47,SAR/unit/month,global-models.md → touchstay.com/pricing-new؛ غير مؤكد (ما انفتحت الصفحة) والتحويل ×3.75 غير مؤكد,fin-pricing
+design_minutes,shop_bundle,تصميم المنيو (نفس بند menu),,120,min/client,افتراض fin-modeler غير مؤكد (مثل menu/design_minutes),website-design
+risk_damage_replace_rate_yearly,shop_bundle,كسر أو فقد أثناء الاشتراك سنوياً,,0.10,ratio/yr,fin-risk.md نطاق 0.05-0.20 غير مؤكد,fin-risk
+risk_damage_replace_rate_yearly,host_free_hw,كسر أو فقد أثناء الاشتراك سنوياً,,0.10,ratio/yr,fin-risk.md نطاق 0.05-0.20 غير مؤكد,fin-risk
+risk_recovery_rate,shop_bundle,نسبة العتاد اللي نسترجعه عند الإلغاء,,0,ratio,fin-risk.md 0 أو 0.5 غير مؤكد,fin-risk
+risk_recovery_cost,shop_bundle,تكلفة مشوار الاسترجاع,,40,SAR/time,fin-risk.md نطاق 25-60 غير مؤكد,fin-risk
+risk_defect_labor_min,all,وقت استبدال القطعة التالفة أو المكسورة (الحزم الجديدة),,30,min,fin-risk.md 0.5 ساعة غير مؤكد,fin-risk
+lite_cac_per_client,review_sub,جلب عميل رقمي للخيار بلا تركيب,,0,SAR/client,fin-pricing.md «جلب رقمي ~0» غير مؤكد,sales
+host_volume_threshold_units,host_free_hw,وحدات مضيف الشريحة 5+ (لتوزيع الجلب),,5,units,fin-pricing.md غير مؤكد,fin-pricing
+host_commit_collect_rate,host_free_hw,نسبة تحصيل باقي الالتزام من وحدة توقف بدري,,0.8,ratio,افتراض fin-modeler غير مؤكد (حساسية 0.5/0.8/1.0),fin-risk
