@@ -1,10 +1,12 @@
-LamsaTap logo v1.0.0 (GM-032/033/039; star restored: tips closed as in the owner drawing, TIP_GAP 0.0)
-Primary: black and white (black on light, white on dark). Colour versions are secondary.
+LamsaTap logo v1.0.0 (GM-032/033/039/041/042; star restored, tips closed as in the owner drawing)
+Primary: black/ink on light. Web files use ink #14201F to match the site; print mono uses #000000. Marketing: white on teal (social/).
+Rasters fixed 2026-09-27: rendered at 1:1 with the build script renderer; apple-touch-icon is a solid square.
 Build: brand/src/build_logo_v1.py
 
-958b45a26707ad9972dc6f454f0565ee341f484f121e64785268c89ff647a83d  avatar-32.png
+e8a8845bb2f1fbf69f5e127a7ab42df35590b661065789c6cd17a3bd107223e6  USAGE.md
+f9a922c472ab2d81e838d9d7f30b1730af1b5592083fde895768b824143edcb6  avatar-32.png
 0ea509b9558a25f1cdf6ab99cada405eee7f26a7df66e38caee5c5d2b2f23bf7  avatar-sand-on-teal.svg
-f390ee9b792ee275b941c6e367e2c68072ee655b51ad35288e86d6ef325bf840  avatar-white-on-ink-512.png
+3857422bacb7dea41fc520cb4dbab315d285f3e38f8d87fd6f930a6b4a454052  avatar-white-on-ink-512.png
 c90a6f5d54fb63e6dd8df8578221d89cd7cda760cdc2685dbee8c296bf5bd899  avatar-white-on-ink.svg
 c90a6f5d54fb63e6dd8df8578221d89cd7cda760cdc2685dbee8c296bf5bd899  favicon.svg
 be100a461a485493fde16823f39c2355be9ac15e538702c84c9332ddbaad28b5  horizontal-black.svg
@@ -32,9 +34,14 @@ e6fa0ff15bf042f7a09446fc68aa3bee77e013b93f44c0c8f609c12baf2186fb  symbol-light.s
 d7cac536169e44fa9aa1365de11b86e3747d54f19a01d872acc7ff18c4d85ec4  wordmark-light.svg
 bf3ddd960275686b2e16b7db5d079f3d6dc3eeb91fb731290e96076c634b4fc4  wordmark-teal.svg
 bf3ddd960275686b2e16b7db5d079f3d6dc3eeb91fb731290e96076c634b4fc4  wordmark-white.svg
-318040a4a79e6438d4c002c4a740759ef0454ec628ba83180c990b58c6366a9e  web/apple-touch-icon.png
-dad048fbffe27dfa1ac958be4684c6fa2a5dc0654d908cab52ec6645bc97eb96  web/favicon.ico
+61261f125f1beb3142d9c2b651afb400db7241e03d298088aec1de08e9815622  social/avatar-white-on-teal-1024.png
+d2493ea220cdb2a20286a79914c2e6c8a45583e59eebd3f22edf1a74aac0c0c6  social/avatar-white-on-teal-512.png
+6509667fd18d9f33b276e3b50f12d5569016f1c146e48eecc11a599bf23b03dd  social/avatar-white-on-teal.svg
+007c162afd99156ad63a78e0e80e435e250164a31f505a5a83aebe4310a44917  social/horizontal-teal.svg
+e7703562d061c51d5014a697f0716865281c54929b9b005ac561d5dbf1062776  social/stacked-teal.svg
+601c07b4feeb36b18ee487b14596093d148de99fd00901d2eb0e4d311da7877e  web/apple-touch-icon.png
+253a3d41c7f0a9604fa2452f1448ee0cc0d71ab629e46b7011227e587f745ffc  web/favicon.ico
 c90a6f5d54fb63e6dd8df8578221d89cd7cda760cdc2685dbee8c296bf5bd899  web/favicon.svg
-be100a461a485493fde16823f39c2355be9ac15e538702c84c9332ddbaad28b5  web/logo-horizontal.svg
-ba7e213cd359cb3cf46b69a1b1eb200590de5234f2c08ba5ac9895824d8d1c22  web/logo-stack-since.svg
-489f8ff7c686c47a2caf907873409c0a1218dd6d4ed299d7fcc3ed91e62a7400  web/logo-stack.svg
+e67bdd6c3b4a349021340e3c6dcae24a73ccc964a63249b93a0ad1a0cc1d3c9c  web/logo-horizontal.svg
+49861004469377efb1085bc4df73fcf8bd61fef884c0a8682715e3525c5a618e  web/logo-stack-since.svg
+60fd1d1c552e0427f346c5c7d79ec427d1e1002aa66f2760ce3b051f65cee82a  web/logo-stack.svg
