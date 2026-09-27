@@ -1,137 +1,165 @@
-/* الرئيسية (الموجز §4.4، web-copy §1): البطل ← بلاطة المضيف ← بلاطة المحل ← الإضافات ← كيف نشتغل ← الالتزامات ← الشريط الأخير ← الذيل.
-   فوق site.css. ولا ظل، ولا حد 2px، والجوالات «أشياء مادية» بألوانها الثابتة بالوضعين (الموجز §7). */
+/* الرئيسية (الاتجاه 2 §4، web-art-director.md): لوحة حبر (الرأس، البطل، الأمثلة) ← رملي (المضيفين، المحلات،
+   كيف نشتغل، الاشتراك، الأسئلة) ← لوحة حبر (الخاتمة، التذييل). فوق site.css. ولا ظل، ولا حد 2px.
+   الحركة الوحيدة بدون ضغط: العبارة المتبدلة في h1 (§3.8). ولا دخول للجوال، ولا ظهور مع النزول. */
 
-/* خفّة التحميل (ملاحظة web-motion على الجوال الضعيف):
-   - الأقسام تحت أول شاشة ما تنرسم لين تقرب من الشاشة (content-visibility). بدون أي حركة ولا ظهور متدرج: تنرسم كاملة قبل ما توصلها،
-     وتبقى في شجرة قارئ الشاشة وفي البحث داخل الصفحة. الارتفاع التقديري للتمرير بس (auto يحفظ الحقيقي بعد أول رسم).
-   - الشاشات المصغرة صناديق بمقاس ثابت ومعزولة (contain: strict)، فتخطيطها ما يأثر على باقي الصفحة. */
-#host, #shop, .h-extras, #how, #trust, #start, .h-foot-wrap { content-visibility: auto; contain-intrinsic-size: auto 800px; }
-.mini, .fan-screen, .fo-screen { contain: strict; }
+/* خفة التحميل: الأقسام تحت أول شاشة ما تنرسم لين تقرب (بدون أي ظهور متدرج)، والشاشات المصغرة معزولة */
+#host, #shop, #how, #pricing, #faq, .h-close, .h-foot-wrap { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+.mini, .fo-screen { contain: strict; }
 
-/* الرأس: الزر المختصر بس من 1024 */
-.h-headwa { display: none !important; }
-@media (min-width: 1024px) { .h-headwa:not([hidden]) { display: inline-flex !important; } }
+/* ===== الصور (§5): الخانة جاهزة بالقص، والصورة تنحط بعد إذن التنزيل. لين توصل: تعبئة السطح 2 (بدون أي نص فوقها) ===== */
+.h-photo { position: relative; overflow: hidden; background: var(--lt-surface-2); }
+.h-photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.h-photo--hero img { object-position: 30% 50%; }   /* الموضوع (دلة وفناجين وتمر) في النص اليسار، واليمين هادي */
+.h-photo--host img, .h-photo--shop img, .h-photo--close img { object-position: 50% 50%; }
+/* تدرج الحبر على حافة الصورة اللي جهة النص (§4 و§5.2) */
+.h-photo--hero::after, .h-photo--close::after { content: ""; position: absolute; pointer-events: none; }
 
-/* 1) البطل: الجوال عمود وحد، ومن 1024 عمودين (النص يمين والمشهد يسار) */
-.h-hero { display: grid; gap: var(--lt-space-32); padding-top: var(--lt-space-24); }
-.h-lead { margin-top: var(--lt-space-16); }
-.h-cta { margin-top: 28px; }
-.h-trust { margin-top: var(--lt-space-12); font-size: 15px; line-height: 1.5; color: var(--lt-muted); }
-.h-scene { display: flex; justify-content: center; }
-@media (min-width: 1024px) {
-  /* من آخر مسرح البطل لأول بلاطة المضيف 96 بالضبط (التقييم 1 بند 2): بدون حشوة تحت البطل، والبلاطة تبعد 96 بدل 128،
-     عشان البلاطة تطل في أول شاشة (900) على 1440 */
-  .h-hero { grid-template-columns: 1fr 1fr; align-items: center; gap: var(--lt-grid-gap); padding: var(--lt-space-96) 0 0; }
-  .h-hero + #host { margin-top: var(--lt-space-96); }
-  /* لو النص أطول من المشهد (1024 إلى 1279)، المشهد ينزل لآخر البطل عشان الـ 96 تنقاس من آخر المسرح نفسه */
-  .h-hero .h-scene { align-self: end; }
-  .h-lead { margin-top: var(--lt-space-20); }
-}
-
-/* المشاهد (web-illustrator): inline، والشاشة الحقيقية داخل خانتها (tools/build-home-minis.cjs). على 390 من حافة لحافة، ومن 1024 بزاوية 22 */
-.h-scene { margin-inline: calc(-1 * var(--lt-gutter)); }
-.h-scene-svg { display: block; width: 100%; height: auto; }
-.h-door { overflow: hidden; border-radius: var(--lt-radius-m); }
-@media (min-width: 1024px) {
-  .h-scene { margin-inline: 0; overflow: hidden; border-radius: var(--lt-radius-l); }
-  .h-scene-svg { max-width: 600px; margin-inline: auto; }
-  .h-door { border-radius: var(--lt-radius-l); }
-}
-/* العناوين داخل الشاشة المصغرة صارت div (الرئيسية فيها h1 وحدة)، وتاخذ نفس شكل صفحة الزبون (الموجز §5.5) */
+/* ===== الجوالات: phone-frame.svg inline والشاشة الحقيقية داخل خانته (tools/build-home-minis.cjs) ===== */
+.h-phone-svg { display: block; width: 100%; height: auto; overflow: visible; }
+/* حافة 1px للجوال على الحبر وفي الداكن (web-illustrator §4، والتقييم 1: الإطار الحبر كان يذوب) */
+.lt-ink .h-phone-svg .pf-edge { stroke: var(--lt-border); stroke-width: 1; }
+@media (prefers-color-scheme: dark) { .h-phone-svg .pf-edge { stroke: var(--lt-border); stroke-width: 1; } }
+/* العناوين داخل الشاشة المصغرة صارت div (الرئيسية فيها h1 وحدة)، وتاخذ نفس شكل صفحة الزبون */
 .mini [data-h="1"] { margin: 0 0 16px; font-size: 28px; line-height: 1.25; font-weight: 700; }
 .mini [data-h="2"] { margin: 32px 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; }
 .mini { pointer-events: none; }
+/* شريط الحالة: الكاميرا فوق الشاشة، فالمحتوى ينزل 28px عشان ما تغطي الهوية (مثل متصفح الجوال) */
+.h-phone-svg .mini > .c-main { padding-top: 28px; }
 
-/* 2 و 3) البلاطات: الجوال: العنوان ← السطر ← المشهد ← الباقي. من 1024: عمودين 5 إلى 7، والمحل معكوس */
-.h-tile { display: grid; gap: var(--lt-space-24); }
-.h-tile-scene { display: flex; justify-content: center; }
-.h-price { margin-top: var(--lt-space-24); font-size: 17px; font-weight: 600; line-height: 1.4; }
-.h-elig { margin-top: var(--lt-space-4); }
-.h-acts { margin-top: var(--lt-space-24); }
-.h-acts .lt-btn { flex: 1 1 100%; }
-@media (min-width: 1024px) {
-  .h-tile { grid-template-columns: 5fr 7fr; grid-template-areas: "text scene" "more scene"; column-gap: var(--lt-space-64); row-gap: var(--lt-space-24); align-items: start; }
-  .h-tile-text { grid-area: text; }
-  .h-tile-more { grid-area: more; }
-  .h-tile-scene { grid-area: scene; align-self: center; }
-  .h-tile--rev { grid-template-columns: 7fr 5fr; grid-template-areas: "scene text" "scene more"; }
-  .h-acts .lt-btn { flex: 0 1 auto; }
+/* ===== 2) البطل ===== */
+.h-hero { position: relative; overflow-x: clip; padding-block: var(--lt-space-24); }   /* الحشوة تحت = نزول الجوال 24 عن الصورة (بدون هامش يطلع برّا القسم) */
+.h-h1 { max-width: 11em; }
+.h-rot, .h-h1-fixed { display: block; }
+/* العبارات فوق بعض في خانة grid وحدة: العرض عرض أطول وحدة، فما فيه قفز (content-jumping) */
+.h-rot { display: grid; }
+.h-rot-i { grid-area: 1 / 1; opacity: 0; }
+.h-rot-i:last-child { opacity: 1; }   /* بدون JS، ومع تقليل الحركة، وبعد أي تفاعل: العبارة الأخيرة ثابتة */
+/* 1.6 ثانية لكل عبارة، وتلاشي متقاطع 300ms ease-out، وتقف عند 3.8 ثانية بدون دوران (§3.8) */
+@media (prefers-reduced-motion: no-preference) {
+  .js .h-rot:not(.is-end) .h-rot-i:nth-child(1) { animation: h-rot-1 1.9s ease-out both; }
+  .js .h-rot:not(.is-end) .h-rot-i:nth-child(2) { animation: h-rot-2 2.2s ease-out 1.6s both; }
+  .js .h-rot:not(.is-end) .h-rot-i:nth-child(3) { animation: h-rot-3 .3s ease-out 3.5s both; }
 }
+@keyframes h-rot-1 { 0%, 84.21% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes h-rot-2 { 0% { opacity: 0; } 13.64%, 86.36% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes h-rot-3 { from { opacity: 0; } to { opacity: 1; } }
+.h-lead { margin-top: var(--lt-space-16); }
+.h-pair { margin-top: var(--lt-space-32); }
+.h-risk { margin-top: var(--lt-space-16); color: var(--lt-muted); font-size: 15px; font-weight: 500; line-height: 1.5; }
 
-/* مروحة جوالات المحل (web-illustrator §4، والتقييم 1 بند 1): الإطار phone-frame.svg، والشاشة HTML بنسب الخانة، والكاميرا فوقها.
-   - الأمامي (المنيو) على اليسار، واللي وراه يطلعون لليمين ومرفوعين عنه بـ --lift. في RTL محتوى الشاشة على اليمين،
-     فالجزء المستور من كل جوال ورا (يساره) فاضي تقريباً، وأعلى شاشته (الهوية والصندوق أو الصفوف) يبين.
-   - التداخل --ov من عرض الجوال اللي ورا: 30% (على 1440 الحد 30%، التقييم 1)، والمجموعة في نص الخانة (--g عرضها).
-   - من 768 ثلاثة (المنيو 240، وكل واحد وراه أصغر 10%، الموجز §4.4)، وتحتها جوالين. بدون ظل: حافة 3px بلون البلاطة. */
-.h-fan { --p1: 200; --p2: 180; --p3: 0; --ov: .3; --lift: 56px;
-  --g: calc((var(--p1) + (var(--p2) + var(--p3)) * (1 - var(--ov))) * 1px);
-  position: relative; min-height: 476px; }
-.fan-phone { --pw: 200; position: absolute; top: 0; width: calc(var(--pw) * 1px); aspect-ratio: 240 / 500; border-radius: calc(var(--pw) * 33.3 / 240 * 1px); outline: 3px solid var(--lt-surface); }
-.fan-frame { display: block; width: 100%; height: auto; }
-.fan-screen { position: absolute; left: 4.17%; top: 2%; width: 91.67%; height: 96%; overflow: hidden; border-radius: calc(var(--pw) * 23.3 / 240 * 1px); background: var(--lt-bg); }
-.fan-screen .mini { position: absolute; left: 0; top: 0; width: 390px; height: 851px; transform: scale(calc(var(--pw) * 220 / 240 / 390)); transform-origin: 0 0; }
-.fan-cam { position: absolute; left: 48.13%; top: 3.24%; width: 3.75%; aspect-ratio: 1; border-radius: 50%; background: var(--lt-ink); }
-.fan-phone--1 { --pw: var(--p1); z-index: 3; top: var(--lift); left: calc(50% - var(--g) / 2); }
-.fan-phone--2 { --pw: var(--p2); z-index: 2; top: 0; left: calc(50% - var(--g) / 2 + (var(--p1) - var(--p2) * var(--ov)) * 1px); }
-.fan-phone--3 { display: none; }
-/* الشاشات الصغيرة جداً (أقل من 380): جوالين أصغر عشان ما يطلعون برّا البلاطة */
-@media (max-width: 379px) { .h-fan { --p1: 172; --p2: 155; min-height: 414px; } }
+/* الجوال (تحت 768): الصورة 4:5 من حافة لحافة وفوقها تدرج 72px، والجوال 46% على يمينها وينزل 24 عن حافتها */
+.h-hero-media { position: relative; margin-top: var(--lt-space-40); }
+.h-photo--hero { aspect-ratio: 4 / 5; }
+.h-photo--hero::after { top: 0; left: 0; right: 0; height: 72px; background: linear-gradient(to bottom, var(--lt-bg), transparent); }
+.h-phone { display: block; }
+.h-phone--hero { position: absolute; right: var(--lt-gutter); bottom: -24px; width: 46%; }
+/* 768 إلى 1023: الصورة 16:9 والجوال 36%. الجوال أطول من الصورة، فالمسافة فوقها تكبر بنفس النسبة عشان ما يغطي الأزرار */
 @media (min-width: 768px) {
-  .h-fan { --p1: 240; --p2: 216; --p3: 194; --lift: 64px; min-height: 628px; }
-  .fan-phone--1 { top: calc(2 * var(--lift)); }
-  .fan-phone--2 { top: var(--lift); }
-  .fan-phone--3 { display: block; --pw: var(--p3); z-index: 1; top: 0; left: calc(50% - var(--g) / 2 + (var(--p1) + var(--p2) * (1 - var(--ov)) - var(--p3) * var(--ov)) * 1px); }
+  .h-hero-media { margin-top: calc(18.75vw + 8px); }
+  .h-photo--hero { aspect-ratio: 16 / 9; }
+  .h-phone--hero { width: 36%; }
 }
-/* 1024 إلى 1279: خانة المشهد ضيقة (429px على 1024)، فالجوالات أصغر (200) والتداخل 36% عشان تدخل */
-@media (min-width: 1024px) and (max-width: 1279px) { .h-fan { --p1: 200; --p2: 180; --p3: 162; --ov: .36; --lift: 56px; min-height: 530px; } }
-
-/* صفوف صفحات المحل: الاسم 17/600، ورابط «شوف» على الطرف الثاني (لمس 48) */
-.h-pages { list-style: none; padding: 0; }
-.h-pages li { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-16); min-height: 56px; font-size: 17px; font-weight: 600; line-height: 1.4; }
-.h-pages li + li { border-top: var(--lt-hairline) solid var(--lt-border); }
-.h-policy { margin-top: var(--lt-space-16); }
-
-/* 4) سطر الإضافات: على الخلفية، ورابطين مستقلين */
-.h-extras { margin-top: var(--lt-space-48); }
-.h-extras-t { color: var(--lt-muted); }
-.h-extras-l { display: flex; flex-wrap: wrap; gap: 0 var(--lt-space-24); margin-top: var(--lt-space-8); }
-
-/* 5) كيف نشتغل: رقم 28 تيل ← عنوان 20/600 ← جملة 17 ثانوي. الجوال: خط عمودي على جهة البداية. من 1024: 3 أعمدة وخط فوق الأرقام */
-.h-steps { list-style: none; padding: 0; margin-top: var(--lt-space-32); display: grid; gap: var(--lt-space-32); }
-.h-steps li { position: relative; padding-inline-start: var(--lt-space-32); }
-.h-steps li::before { content: ""; position: absolute; top: 6px; bottom: calc(-1 * var(--lt-space-32)); inset-inline-start: 7px; border-inline-start: var(--lt-hairline) solid var(--lt-border); }
-.h-steps li:last-child::before { bottom: 0; }
-.h-step-n { display: block; margin-bottom: var(--lt-space-8); color: var(--lt-teal); font-size: 28px; line-height: 1; font-weight: 600; font-variant-numeric: tabular-nums; }
-.h-step-t { margin-top: var(--lt-space-4); color: var(--lt-muted); }
+/* 1024 وفوق: النص 6 أعمدة يمين، والصورة يسار تنزف لحافة الشاشة بارتفاع 640، وعلى حافتها جهة النص تدرج 120px.
+   الجوال 280px داخل الصورة، على بعد 48 من التدرج، وفي نصها طولياً. الزر في البطل 56 وحشوه 28 ونصه 17 */
 @media (min-width: 1024px) {
-  .h-steps { grid-template-columns: repeat(3, 1fr); gap: var(--lt-grid-gap); padding-top: var(--lt-space-24); border-top: var(--lt-hairline) solid var(--lt-border); }
-  .h-steps li { padding-inline-start: 0; }
-  .h-steps li::before { display: none; }
+  .h-hero { padding-block: 0; }
+  .h-hero-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: 640px; }
+  .h-hero-text { grid-column: 1 / span 6; padding-block: var(--lt-space-64); }
+  .h-hero-media { position: absolute; top: 0; bottom: 0; left: 0; right: calc(50% + var(--lt-grid-gap) / 2); margin: 0; }
+  .h-photo--hero { position: absolute; inset: 0; aspect-ratio: auto; }
+  .h-photo--hero::after { top: 0; bottom: 0; left: auto; right: 0; width: 120px; height: auto; background: linear-gradient(to left, var(--lt-bg), transparent); }
+  .h-phone--hero { right: 168px; bottom: auto; top: 50%; width: 280px; transform: translateY(-50%); }
+  .h-hero .lt-btn:not(.lt-btn--compact) { min-block-size: 56px; padding-inline: 28px; font-size: 17px; }
 }
 
-/* 6) الالتزامات: شريط بعرض الشاشة بلون السطح 2، حشوة 72 جوال و 96 كمبيوتر. قائمة، ومن 1024 2×2. بدون أيقونات ولا بطاقات */
-.h-trust-band { margin-top: var(--lt-section); padding: 72px 0; background: var(--lt-surface-2); }
-.h-commits { list-style: none; padding: 0; margin-top: var(--lt-space-32); display: grid; }
-.h-commits li { padding: var(--lt-space-20) 0; }
-.h-commits li + li { border-top: var(--lt-hairline) solid var(--lt-border); }
-.h-commit-t { margin-top: var(--lt-space-4); color: var(--lt-muted); }
+/* ===== 3) الأمثلة: 4 بطاقات (صف على الكمبيوتر، و2×2 تحته). البطاقة: جوال بعرضها الداخلي لين 220، ثم h3، ثم سطر، ثم رابط ===== */
+.h-ex { padding-block: var(--lt-space-48) var(--lt-section); }
+.h-ex-lead { margin-top: var(--lt-space-16); }
+.h-ex-list { list-style: none; padding: 0; margin-top: var(--lt-space-40); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-space-12); }
+.h-ex-card { display: flex; flex-direction: column; padding: var(--lt-space-12); }
+.h-ex-phone { width: 100%; max-width: 220px; margin: 0 auto var(--lt-space-16); }
+.h-ex-t { margin-top: var(--lt-space-8); color: var(--lt-muted); }
+.h-ex-card .lt-link { margin-top: auto; padding-top: var(--lt-space-8); }
+.h-ex-review { max-width: 36em; margin-top: var(--lt-space-32); color: var(--lt-muted); }
+@media (min-width: 768px) {
+  .h-ex-list { gap: var(--lt-space-16); }
+  .h-ex-card { padding: var(--lt-space-24); }
+}
 @media (min-width: 1024px) {
-  .h-trust-band { padding: var(--lt-space-96) 0; }
-  .h-commits { grid-template-columns: 1fr 1fr; column-gap: var(--lt-space-64); }
-  .h-commits li:nth-child(2) { border-top: 0; }
+  .h-ex { padding-top: var(--lt-space-96); }
+  .h-ex-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--lt-grid-gap); }
 }
 
-/* 7) الشريط الأخير: التيل بالوضعين، والنص أبيض (5.18)، وكل شي في النص. حشوة 72 جوال و 128 كمبيوتر */
-.h-band { padding: 72px 0; background: var(--lt-band); color: var(--lt-on-band); text-align: center; }
-.h-band .s-h2 { color: var(--lt-on-band); }
-.h-band-t { max-width: 30em; margin: var(--lt-space-16) auto var(--lt-space-32); font-size: 18px; line-height: 1.7; }
-.h-band .lt-btn { margin-inline: auto; }
-@media (min-width: 1024px) { .h-band { padding: var(--lt-space-128) 0; } }
+/* ===== 4 و 5) للمضيفين وللمحلات (رملي): الجوال الصورة 3:2 من حافة لحافة ثم النص. الكمبيوتر: الصورة 5 أعمدة 4:5 والنص 6 ===== */
+.h-aud-grid { display: grid; gap: var(--lt-space-32); }
+.h-photo--aud { aspect-ratio: 3 / 2; margin-inline: calc(-1 * var(--lt-gutter)); }
+.h-steps3 { list-style: none; padding: 0; margin-top: var(--lt-space-32); }
+.h-steps3 li { padding-block: var(--lt-space-16); }
+.h-steps3 li + li { border-top: var(--lt-hairline) solid var(--lt-border); }   /* بين الخطوات خط 1px */
+.h-steps3-k { margin-bottom: var(--lt-space-4); }                               /* عنوان صغير 14/500 (تسلسل حقيقي) */
+.h-aud-acts { margin-top: var(--lt-space-24); }
+@media (min-width: 1024px) {
+  .h-aud-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
+  .h-aud-text { grid-column: 1 / span 6; grid-row: 1; }
+  .h-photo--aud { grid-column: 8 / span 5; grid-row: 1; aspect-ratio: 4 / 5; margin-inline: 0; }
+  .h-aud--rev .h-aud-text { grid-column: 7 / span 6; }
+  .h-aud--rev .h-photo--aud { grid-column: 1 / span 5; }
+}
 
-/* 8) الذيل: الجوال تحت بعض، ومن 1024 صف واحد بثلاث مناطق */
-.h-foot { display: grid; gap: var(--lt-space-24); margin-top: 0; }
-.h-foot-id p { margin-top: var(--lt-space-4); }
-.h-foot-id .s-logo { margin-bottom: var(--lt-space-12); }
-.h-foot-links { display: flex; flex-wrap: wrap; gap: 0 var(--lt-space-24); }
-.h-foot-links a { display: inline-flex; align-items: center; min-height: var(--lt-tap-min); color: var(--lt-muted); }
-@media (min-width: 1024px) { .h-foot { grid-template-columns: 1fr auto auto; align-items: end; } }
+/* ===== 6) كيف نشتغل: الخطوات الثلاث .s-steps في site.css (نفسها في صفحة شرح التقييم)، وتحتها المشهد و«اللي ما نسويه» ===== */
+.h-how-more { margin-top: var(--lt-space-64); display: grid; gap: var(--lt-space-40); }
+.h-scene { margin-inline: calc(-1 * var(--lt-gutter)); }
+.h-scene-svg { display: block; width: 100%; height: auto; }
+.h-dont { padding-top: var(--lt-space-24); border-top: var(--lt-hairline) solid var(--lt-border); }   /* قائمة مفتوحة، بدون صندوق */
+.h-dont-list { list-style: none; padding: 0; margin-top: var(--lt-space-16); display: grid; gap: var(--lt-space-12); }
+@media (min-width: 1024px) {
+  .h-how-more { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
+  .h-scene { grid-column: 1 / span 7; margin-inline: 0; }
+  .h-dont { grid-column: 9 / span 4; }
+}
+
+/* ===== 7) الاشتراك: بطاقتين بيض، 8px وحد 1px. الاسم ← وش فيها ← السعر 28 بأرقام جدولية ← زر الباقة ===== */
+.h-plans { margin-top: var(--lt-space-40); display: grid; gap: var(--lt-space-16); }
+.h-plan { display: flex; flex-direction: column; padding: var(--lt-space-24); }
+.h-plan-list { margin-top: var(--lt-space-20); }
+.h-plan-p { margin-top: var(--lt-space-32); font-size: 28px; line-height: 1.2; font-weight: 500; }
+.h-plan-per, .h-plan-elig { margin-top: var(--lt-space-4); }
+.h-plan-btn { margin-top: var(--lt-space-24); }
+@media (min-width: 768px) {
+  .h-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-grid-gap); }
+  .h-plan-btn { align-self: flex-start; inline-size: auto; }
+}
+@media (min-width: 1024px) { .h-plan { padding: var(--lt-space-40); } }
+
+/* ===== 8) الأسئلة: <details> بدون حركة. صف السؤال 56 و17/500، وتحته خط 1px، و+ تصير − بدون دوران ===== */
+.h-faq-grid { display: grid; gap: var(--lt-space-48); margin-top: var(--lt-space-32); }
+.h-qs { border-top: var(--lt-hairline) solid var(--lt-border); }
+.h-q { border-bottom: var(--lt-hairline) solid var(--lt-border); }
+.h-q summary { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-16); min-height: 56px; padding-block: var(--lt-space-12); font-size: 17px; font-weight: 500; line-height: 1.4; list-style: none; cursor: pointer; touch-action: manipulation; }
+.h-q summary::-webkit-details-marker { display: none; }
+.h-q summary::after { content: ""; flex: none; width: 16px; height: 16px; background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat, linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; }
+.h-q[open] summary::after { background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat; }
+.h-q-a { max-width: 36em; padding-bottom: var(--lt-space-20); }
+.h-ask { padding-top: var(--lt-space-24); border-top: var(--lt-hairline) solid var(--lt-border); }
+.h-ask-t { margin-top: var(--lt-space-8); color: var(--lt-muted); }
+.h-ask .lt-btn, .h-ask [data-wa-empty] { margin-top: var(--lt-space-20); }
+@media (min-width: 768px) { .h-ask .lt-btn { inline-size: auto; } }
+@media (min-width: 1024px) {
+  .h-faq-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: start; }
+  .h-qs { grid-column: 1 / span 7; }
+  .h-ask { grid-column: 9 / span 4; }
+}
+
+/* ===== 9) الخاتمة (حبر): الجوال الصورة 16:9 فوق من حافة لحافة وتحتها تدرج جهة النص. الكمبيوتر مثل البطل بدون جوال ===== */
+.h-close { position: relative; overflow-x: clip; }
+.h-photo--close { aspect-ratio: 16 / 9; }
+.h-photo--close::after { left: 0; right: 0; bottom: 0; height: 72px; background: linear-gradient(to top, var(--lt-bg), transparent); }
+.h-close-grid { padding-block: var(--lt-space-40) var(--lt-space-64); }
+@media (min-width: 1024px) {
+  .h-close-media { position: absolute; top: 0; bottom: 0; left: 0; right: calc(50% + var(--lt-grid-gap) / 2); }
+  .h-photo--close { position: absolute; inset: 0; aspect-ratio: auto; }
+  .h-photo--close::after { top: 0; bottom: 0; left: auto; right: 0; width: 120px; height: auto; background: linear-gradient(to left, var(--lt-bg), transparent); }
+  .h-close-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: 640px; padding-block: 0; }
+  .h-close-text { grid-column: 1 / span 6; padding-block: var(--lt-space-64); }
+  .h-close .lt-btn:not(.lt-btn--compact) { min-block-size: 56px; padding-inline: 28px; font-size: 17px; }
+}

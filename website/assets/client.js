@@ -103,8 +103,9 @@
 
   // طبقة لمسة تاب في نسخ العرض (§5.6): شريط بلون الفعل فوق، وقسم آخر الصفحة، والزرين لرقم الشركة.
   // اسم الزر المختصر = نصه الظاهر (WCAG 2.5.3)، ووصفه = نص الزر الكبير (aria-describedby)
+  // «عرض تجريبي» بس، بدون نقطة وسطى ولا اسم المحل: الاسم موجود في رأس الصفحة (الاتجاه 2 §3.3). label باقي للتوافق وما يُستخدم
   w.cDemoBar = function (label, key) {
-    return '<aside class="c-demo" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي · ' + esc(label) + '</span>' +
+    return '<aside class="c-demo" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي</span>' +
       (key ? '<a class="lt-btn lt-btn--compact lt-btn--on-bar" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a>' : '') +
       '</div></aside>';
   };

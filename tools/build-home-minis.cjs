@@ -1,7 +1,12 @@
-// يولّد الشاشات المصغرة في الرئيسية (website/index.html) من صفحات العرض الحقيقية (الموجز الفني §4.4):
+// يولّد الشاشات المصغرة والصور في الرئيسية (website/index.html) حسب «الاتجاه 2» §4 و§5 (web-art-director.md):
+// - جوال البطل: دليل الوحدة الحقيقي داخل phone-frame.svg.
+// - الأمثلة الأربع: الدليل، والمنيو، والواي فاي، والروابط، كل وحدة داخل جوال.
+// - «كيف نشتغل»: مشهد hero-counter.svg ومنيوه المصغر.
+// - الصور الأربع (ص1 إلى ص4): تنحط بس لو ملفاتها موجودة في website/assets/images/ (بعد إذن التنزيل والتحويل).
 // نفس دوال render.js ونفس بيانات demo/ ونفس classes، فاللي يشوفه الزائر هو اللي يطلع. الرئيسية ما تشغّل render.js (ثابتة، أخف).
 // التشغيل (من جذر المشروع): node tools/build-home-minis.cjs
-// أعد تشغيله بعد أي تعديل في templates/*/render.js أو demo/*/data.js أو demo/_brands/ أو assets/client.js أو محرك اللون.
+// أعد تشغيله بعد أي تعديل في templates/*/render.js أو demo/*/data.js أو demo/_brands/ أو assets/client.js أو محرك اللون،
+// أو assets/brand/tokens.css، أو لما تنضاف صورة في assets/images/.
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const W = path.join(__dirname, '..', 'website');
 const read = (f) => fs.readFileSync(path.join(W, f), 'utf8');
@@ -35,31 +40,91 @@ function tame(html) {
     .replace(/ (href|target|rel|type)="[^"]*"/g, '')
     .replace(/(src|srcset)="\.\.\/_brands\//g, '$1="demo/_brands/');
 }
-// الشاشة: صفحة بعرض 390. style = مكانها وتصغيرها (في مشهد: داخل الخانة من الزاوية 0 0، ملاحظة web-illustrator §7 عن RTL)
-const mini = (cls, html, style) => '<div class="c mini ' + cls + '" inert' + (style ? ' style="' + style + '"' : '') + '><div class="c-main">' + tame(html) + '</div></div>';
-const out = {
-  'mini:menu2': mini('mini--cafe', R.menu(menu, { mini: true, p: 'mf-' }).html),
-  'mini:wifi': mini('mini--cafe', R.wifi(ctx.WIFI_DATA, { mini: true, p: 'mw-' }).html),
-  'mini:links': mini('mini--cafe', R.links(ctx.LINKS_DATA, { mini: true, p: 'ml-' }).html)
+// الشاشة: صفحة بعرض 390. style = مكانها وتصغيرها داخل الخانة من الزاوية 0 0 (ملاحظة web-illustrator §7 عن RTL)
+// .lt-page (tokens.css): الشاشة ترجع لأدوار الصفحة حتى لو جوالها على لوحة الحبر (صفحة الزبون فاتحة في الفاتح)
+const mini = (cls, html, style) => '<div class="c mini lt-page ' + cls + '" inert' + (style ? ' style="' + style + '"' : '') + '><div class="c-main">' + tame(html) + '</div></div>';
+const shots = {
+  guide: (p) => (st) => mini('mini--flats', R.guide(guide, { mini: true, p }).html, st),
+  menu: (p) => (st) => mini('mini--cafe', R.menu(menu, { mini: true, p }).html, st),
+  wifi: (p) => (st) => mini('mini--cafe', R.wifi(ctx.WIFI_DATA, { mini: true, p }).html, st),
+  links: (p) => (st) => mini('mini--cafe', R.links(ctx.LINKS_DATA, { mini: true, p }).html, st)
 };
 
-// المشاهد (website/assets/illustrations/، web-illustrator.md §2 و §3): inline، والشاشة داخل foreignObject بعد الخانة مباشرة
-// (قبل دائرة الكاميرا، فتبقى الكاميرا فوق). النص البديل من web-copy.md §5 (مرجع النصوص)
-function scene(file, slotId, alt, screenHtml) {
-  let svg = fs.readFileSync(path.join(W, 'assets/illustrations', file), 'utf8').trim();
-  const slot = svg.match(new RegExp('<rect id="' + slotId + '" x="([-\\d.]+)" y="([-\\d.]+)" width="([\\d.]+)" height="([\\d.]+)" rx="([\\d.]+)"[^>]*/>'));
-  if (!slot) throw new Error('slot not found: ' + slotId);
+// الشاشة داخل خانة رسمة: foreignObject بعد الخانة مباشرة (قبل الكاميرا، فتبقى الكاميرا فوق)
+function slotFill(svg, slotRe, screenHtml) {
+  const slot = svg.match(slotRe);
+  if (!slot) throw new Error('slot not found: ' + slotRe);
   const [tag, x, y, w, h, rx] = slot, k = (+w / 390), H = Math.ceil(+h / k);
   const fo = '<foreignObject x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"><div class="fo-screen" style="position:relative;overflow:hidden;width:100%;height:100%;border-radius:' + rx + 'px">' +
     screenHtml('position:absolute;left:0;top:0;width:390px;height:' + H + 'px;transform:scale(' + k.toFixed(5) + ');transform-origin:0 0') + '</div></foreignObject>';
-  const slotTag = slotId === 'hc-slot-menu' ? tag.replace(/fill="#FFFFFF"/, 'fill="#14201F"') : tag;
-  svg = svg.replace(tag, slotTag + fo).replace(/(<title id="[^"]*">)[^<]*(<\/title>)/, (m, a, b) => a + alt + b);
+  return { tag, fo };
+}
+const rectRe = (id) => new RegExp('<rect id="' + id + '" x="([-\\d.]+)" y="([-\\d.]+)" width="([\\d.]+)" height="([\\d.]+)" rx="([\\d.]+)"[^>]*/>');
+
+// مشهد (website/assets/illustrations/، web-illustrator.md §2): inline، والنص البديل من web-copy «الاتجاه 2» ج6
+function scene(file, slotId, alt, screenHtml) {
+  let svg = fs.readFileSync(path.join(W, 'assets/illustrations', file), 'utf8').trim();
+  const { tag, fo } = slotFill(svg, rectRe(slotId), screenHtml);
+  svg = svg.replace(tag, tag + fo).replace(/(<title id="[^"]*">)[^<]*(<\/title>)/, (m, a, b) => a + alt + b);
   return svg.replace(/^<svg /, '<svg class="h-scene-svg" ');
 }
-out['scene:hero'] = scene('hero-counter.svg', 'hc-slot-menu', 'جوال يلمس ستاند «مقهى المثال» على كاونتر القهوة، وعلى شاشته منيو المقهى.',
-  (st) => mini('mini--cafe', R.menu(menu, { mini: true, p: 'mh-' }).html, st));
-out['scene:host'] = scene('host-door.svg', 'hd-slot-guide', 'جوال يلمس ملصق الشريحة جنب باب «شقق المثال»، وعلى شاشته دليل الوحدة.',
-  (st) => mini('mini--flats', R.guide(guide, { mini: true, p: 'mg-' }).html, st));
+// جوال (phone-frame.svg، web-illustrator §4): زخرفي (aria-hidden)، بدون title ولا id مكرر.
+// تنسيق حافته في الداكن وعلى الحبر في home.css (.pf-edge)
+const frame = fs.readFileSync(path.join(W, 'assets/illustrations/phone-frame.svg'), 'utf8').trim();
+function phone(screenHtml) {
+  const { tag, fo } = slotFill(frame, rectRe('pf-slot-screen'), screenHtml);
+  return frame.replace(tag, tag.replace(/ id="[^"]*"/, '') + fo)
+    .replace(/<title[^>]*>[^<]*<\/title>/, '').replace(/<style>[\s\S]*?<\/style>/, '')
+    .replace(/ (role|aria-labelledby|data-slot|data-slot-radius)="[^"]*"/g, '')
+    .replace(/^<svg /, '<svg class="h-phone-svg" aria-hidden="true" focusable="false" ');
+}
+
+// الصور (§5.3): WebP (أو JPEG) بعرضين 800 و1600 في assets/images/. بدون ملف: الخانة تبقى فاضية بتعبئتها
+const IMGS = {
+  'hero-hospitality': { sizes: '(min-width: 1024px) 50vw, 100vw', hero: true },
+  'host-entry': { sizes: '(min-width: 1024px) 40vw, 100vw' },
+  'shop-counter': { sizes: '(min-width: 1024px) 40vw, 100vw' },
+  'touch-moment': { sizes: '(min-width: 1024px) 50vw, 100vw' }
+};
+// المقاس من رأس الملف نفسه (WebP: VP8 و VP8L و VP8X، و JPEG: SOF)، عشان width و height صح (image-dimension)
+function dims(file) {
+  const b = fs.readFileSync(file);
+  if (b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
+    const c = b.toString('ascii', 12, 16);
+    if (c === 'VP8X') return { w: 1 + b.readUIntLE(24, 3), h: 1 + b.readUIntLE(27, 3) };
+    if (c === 'VP8 ') return { w: b.readUInt16LE(26) & 0x3fff, h: b.readUInt16LE(28) & 0x3fff };
+    if (c === 'VP8L') { const v = b.readUInt32LE(21); return { w: 1 + (v & 0x3fff), h: 1 + ((v >> 14) & 0x3fff) }; }
+  }
+  for (let i = 2; i < b.length - 9;) {
+    if (b[i] !== 0xFF) { i++; continue; }
+    const m = b[i + 1], len = b.readUInt16BE(i + 2);
+    if (m >= 0xC0 && m <= 0xCF && m !== 0xC4 && m !== 0xC8 && m !== 0xCC) return { w: b.readUInt16BE(i + 7), h: b.readUInt16BE(i + 5) };
+    i += 2 + len;
+  }
+  throw new Error('unknown image format: ' + file);
+}
+function img(name) {
+  const cfg = IMGS[name];
+  for (const ext of ['webp', 'jpg']) {
+    const f = (wd) => path.join(W, 'assets/images', name + '-' + wd + '.' + ext);
+    if (!fs.existsSync(f(800)) || !fs.existsSync(f(1600))) continue;
+    const a = dims(f(800)), b = dims(f(1600)), u = (wd) => 'assets/images/' + name + '-' + wd + '.' + ext;
+    return '<img src="' + u(800) + '" srcset="' + u(800) + ' ' + a.w + 'w, ' + u(1600) + ' ' + b.w + 'w" sizes="' + cfg.sizes + '" width="' + b.w + '" height="' + b.h +
+      '" alt=""' + (cfg.hero ? ' fetchpriority="high"' : ' loading="lazy" decoding="async"') + '>';
+  }
+  return '';
+}
+
+// كل نسخة ببادئة id مختلفة (§4)
+const out = {
+  'phone:hero': phone(shots.guide('hg-')),
+  'phone:ex-guide': phone(shots.guide('eg-')),
+  'phone:ex-menu': phone(shots.menu('em-')),
+  'phone:ex-wifi': phone(shots.wifi('ew-')),
+  'phone:ex-links': phone(shots.links('el-')),
+  'scene:counter': scene('hero-counter.svg', 'hc-slot-menu', 'جوال يلمس ستاند «مقهى المثال» على كاونتر القهوة، وعلى شاشته منيو المقهى.', shots.menu('mh-'))
+};
+for (const n of Object.keys(IMGS)) out['img:' + n] = img(n);
 site.emergency = sos;
 
 // ألوان المحلين من محرك اللون، على صندوق الشاشة المصغرة (فاتح وداكن)
@@ -69,6 +134,8 @@ for (const [cls, b] of [['mini--cafe', ctx.DEMO_BRANDS.cafe], ['mini--flats', ct
   const t = ctx.shopColors(b);
   style += '.' + cls + '{' + vars(t.light) + '}@media (prefers-color-scheme:dark){.' + cls + '{' + vars(t.dark) + '}}';
 }
+// تنسيق قالبي الروابط والواي فاي صغير، فينحط هنا بدل ملفين زيادة
+for (const f of ['templates/links/style.css', 'templates/wifi/style.css']) style += read(f).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*\n\s*/g, '');
 out['minis-style'] = '<style>' + style + '</style>';
 
 // نكتبها بين العلامات في index.html
@@ -79,5 +146,7 @@ for (const [k, v] of Object.entries(out)) {
   html = html.replace(re, (m, a, b) => a + v + b);
 }
 fs.writeFileSync(path.join(W, 'index.html'), html);
-console.log('minis written:', Object.keys(out).map((k) => k + ' ' + out[k].length + 'B').join(', '));
-console.log('index.html:', Buffer.byteLength(html), 'bytes');
+// الميزانية (§4): الصفحة تحت 90KB بدون الخطوط والصور، وإلا المشهد يصير <img> بدون المنيو اللي داخله
+const size = Buffer.byteLength(html);
+console.log('written:', Object.keys(out).map((k) => k + ' ' + Buffer.byteLength(out[k]) + 'B').join(', '));
+console.log('index.html:', size, 'bytes' + (size > 90 * 1024 ? '  (فوق 90KB: المشهد لازم يصير <img>، §4)' : ''));

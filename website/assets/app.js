@@ -63,6 +63,20 @@
     });
     all('[data-wa-empty]').forEach(function (el) { el.hidden = !!num; });
     all('[data-wa-only]').forEach(function (el) { el.hidden = !num; });
+    // زوج الأزرار (الاتجاه 2 §3.5): الزر الثاني ثانوي بس لما زر الواتساب ظاهر. بدون رقم يبقى بشكل الأساسي، عشان ما يبان ناقص
+    all('[data-wa-second]').forEach(function (el) { el.classList.toggle('lt-btn--secondary', !!num); });
+  };
+
+  // العبارة المتبدلة في h1 (الاتجاه 2 §3.8): التوقيت في home.css (CSS بس، وتقف عند 3.8 ثانية).
+  // أي تمرير أو تركيز أو لمس داخل البطل يقفز للعبارة الأخيرة على طول (interruptible)
+  w.bindRotator = function () {
+    var rot = d.querySelector('.h-rot'), hero = rot && rot.closest('section');
+    if (!hero) return;
+    function end() {
+      rot.classList.add('is-end');
+      ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { hero.removeEventListener(t, end); });
+    }
+    ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { hero.addEventListener(t, end, { passive: true }); });
   };
 
   // canonical و og:url من config.domain (بس للصفحة اللي عليها <html data-canonical="<المسار>">، يعني الرئيسية)
@@ -116,5 +130,5 @@
   // سفاري آيفون ما يطبّق :active (لون الضغط) إلا إذا الصفحة فيها مستمع touchstart
   d.addEventListener('touchstart', function () {}, { passive: true });
 
-  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); fillCanonical(); });
+  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); fillCanonical(); bindRotator(); });
 })(document, window);
