@@ -56,6 +56,8 @@
 - **ملفات ممنوع تلمسها:** ملفات الشعار، و`motion.*`، و`tokens.css` و`components.css`، و`web-copy.md` و`web-art-director.md`.
 
 ## الفحص قبل ما ترد
+- **شرط المدير العام (GM-043):** ما يبقى أي رابط أو canonical أو نص يشير لـ `shops/`. افحص بـ `grep -rn "shops" website/ tools/`، ولازم النتيجة تطلع صفر، إلا أسماء متغيرات داخلية لو فيه سبب.
+
 - `node "$HOME/.claude/tools/ui-probe.cjs" --serve website <path> --out <scratch> --widths 1440,390`. شغّله على الصفحات الثلاث وأمثلة الخدمات وصفحتي review، ومرة ثانية مع `--reduced-motion`.
 - المطلوب: صفر أخطاء، وصفر تمرير أفقي، وصفر تباين ضعيف، وصفر صور مكسورة.
 - **رد بـ:**
