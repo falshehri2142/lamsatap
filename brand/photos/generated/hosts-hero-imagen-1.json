@@ -1,0 +1,16 @@
+{
+  "file": "hosts-hero-imagen-1.webp",
+  "model": "google/imagen4-ultra",
+  "input": {
+    "prompt": "The entrance area inside a modern furnished apartment. A flat light warm-white wall beside a light wooden apartment front door with a simple metal handle. On the wall next to the door, at chest height, hangs ONE EMPTY thin light-oak picture frame (A4 landscape) holding a BLANK plain white insert with nothing printed on it, facing the camera straight-on. Clean floor, one small green plant. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+    "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+    "aspect_ratio": "16:9",
+    "seed": ""
+  },
+  "taskId": "1136f236b4b85956e69716fd12a3f37d",
+  "creditsConsumed": 12.0,
+  "createTime": 1790555388945,
+  "completeTime": 1790555396383,
+  "approved": "GM-058/GM-060; owner confirmed in chat 2026-09-28; reduced 6-image set within the 80-credit balance",
+  "source": "kie.ai generated (GM-058)"
+}
