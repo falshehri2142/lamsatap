@@ -151,6 +151,9 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 /* حالات الروابط النصية (GM-055، AD-19): التحويم يثخّن الخط، والضغط خلفية الرملي الثاني */
 @media (hover: hover) and (pointer: fine) { .s-tg-link:hover, .s-tg-note a:hover { text-decoration-thickness: 2px; } }
 .s-tg-link:active, .s-tg-note a:active { background: var(--lt-surface-2); }
+/* لما الواتساب فاضي (app.js: .s-tg.is-solo): رابط التليجرام يصير الفعل الأساسي بشكل زر الحبر، بنص أبيض (تباين 16.72) */
+.s-tg.is-solo .s-tg-link.lt-btn { color: var(--lt-on-action); text-decoration: none; }
+.s-tg.is-solo .s-tg-link.lt-btn:active { background: var(--lt-action-press); }
 .s-tg-note { font-size: 13px; line-height: 1.6; color: var(--lt-muted); }   /* 13px رمادي: 5.94 على الرملي و 5.50 على الرملي الثاني (AA) */
 .s-tg-note a { padding-block: 14px; color: var(--lt-link); }   /* رابط داخل جملة: الحشو يكبّر منطقة الضغط بدون ما يغيّر السطر */
 

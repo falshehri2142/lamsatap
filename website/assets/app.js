@@ -75,7 +75,20 @@
   w.tgUser = function (v) { v = str(v).replace(/^@/, ''); return /^[A-Za-z0-9_]{5,32}$/.test(v) ? v : ''; };
   w.fillTelegram = function () {
     var bot = tgUser(S.telegram), ch = tgUser(S.telegramChannel), wa = !!waNum(S.whatsapp);
-    all('[data-tg]').forEach(function (el) { el.hidden = !bot || (el.getAttribute('data-tg') === 'with-wa' && !wa); });
+    // لما الواتساب فاضي والبوت موجود: مجموعة with-wa ما تختفي (مراجعة المدير الفني: لازم طريقة تواصل ظاهرة)، بل تصير هي الفعل:
+    // تنشال «أو» من أول السطر، والرابط ياخذ شكل الزر الأساسي، والإشعار يبقى تحته (بند 34). ولما يجي الرقم ترجع ثانوية.
+    all('[data-tg]').forEach(function (el) {
+      var withWa = el.getAttribute('data-tg') === 'with-wa', solo = withWa && !wa;
+      el.hidden = !bot;
+      el.classList.toggle('is-solo', !!(bot && solo));
+      var line = el.querySelector('.s-tg-line'), first = line && line.firstChild;
+      if (first && first.nodeType === 3) {
+        if (first.__or == null) first.__or = first.textContent;
+        first.textContent = solo ? '' : first.__or;
+      }
+      var link = el.querySelector('[data-tg-link]');
+      if (link) link.classList.toggle('lt-btn', !!(bot && solo));
+    });
     all('[data-tg-link]').forEach(function (a) {
       if (bot) { a.href = 'https://t.me/' + bot; a.hidden = false; } else { a.removeAttribute('href'); a.hidden = true; }
     });
