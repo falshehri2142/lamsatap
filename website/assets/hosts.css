@@ -95,18 +95,17 @@
 }
 
 /* ===== 4) القصة المثبّتة (رملي): الجوال المشهد فوق (36svh) والخطوات تحته، والكمبيوتر الخطوات يمين 5 أعمدة والمشهد يسار ينزف للحافة.
-   العنصر المثبّت (.p-story-pin) لازم يدخل في الشاشة. الجوال (.p-story-hand) مكانه الثابت يمين اللوحة (AD-27)،
-   و motion.js يحسب منه لين الهدف (.p-touch على مركز منطقة اللمس في خانة اللوحة: --tx و --ty من scenes.css) ===== */
+   العنصر المثبّت (.p-story-pin) لازم يدخل في الشاشة. GM-054 (والمدير الفني r2 §5 بند 2): المشهد المولّد المعتمد host-door-frame
+   (16:9) بطبقتين، cover حول x 46% عشان حافة الباب (43.5%) والبرواز (x من 54.6% لين 69.5%) يبانون في كل قص. **ولا جوال فوق الصورة**:
+   جوال الدليل في الدليل الحي بس. المسح يمشي على .p-story-photo (motion.js story) ===== */
 .p-story { overflow-x: clip; }
 .p-story-grid { display: grid; gap: var(--lt-space-24); }
 .p-story-media { position: relative; order: -1; height: clamp(240px, 36svh, 360px); margin-inline: calc(-1 * var(--lt-gutter)); overflow: hidden; background: var(--lt-surface-2); }
+.p-story-photo { position: absolute; inset: 0; overflow: hidden; }
+.p-story-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 46% 45%; }
 .p-story-steps { list-style: none; padding: 0; display: grid; gap: var(--lt-space-16); margin-top: var(--lt-space-24); }   /* تحت h2 داخل الكتلة المثبّتة (AD-15، زي المطاعم) */
 .p-story-steps .s-h3 { font-size: 18px; }
 .p-story-steps p { max-width: 36em; margin-top: var(--lt-space-4); font-size: 15px; line-height: 1.6; color: var(--lt-muted); }
-.p-touch { position: absolute; left: var(--tx, 50%); top: var(--ty, 50%); width: 1px; height: 1px; pointer-events: none; }
-/* مكانه الثابت = نهاية الحركة (AD-27): مكان خطوة 3 يمين اللوحة (data-story-near="right")، فبدون JS وتقليل الحركة والشاشات القصيرة
-   ما يغطي وجه اللوحة. motion.js يحسب اللمس والابتعاد من هالمكان، فالحركة نفسها ما تتغير */
-.p-story-hand { position: absolute; z-index: 2; left: 76%; top: 50%; width: clamp(84px, 22%, 160px); translate: -50% -50%; pointer-events: none; }
 @media (min-width: 768px) {
   .p-story-media { height: clamp(320px, 44svh, 480px); margin-inline: 0; border-radius: var(--lt-radius-s); }
   .p-story-steps .s-h3 { font-size: 20px; }
@@ -119,7 +118,6 @@
   .p-story-steps .s-h3 { font-size: 24px; }
   .p-story-steps p { font-size: 17px; margin-top: var(--lt-space-8); }
   /* المشهد 7 أعمدة، وينزف لحافة الشاشة اليسار (الحاوية 1200 والحافة 48) */
-  .p-story-hand { left: 80%; }   /* 1024: 76% كان يلمس حافة اللوحة (تغطية 7.7%) */
   .p-story-media { order: 0; grid-column: 6 / -1; grid-row: 1; height: clamp(440px, 100svh - 200px, 640px); margin-inline-end: calc(-1 * (var(--lt-gutter) + max(0px, (100vw - var(--lt-container) - 2 * var(--lt-gutter)) / 2))); border-radius: 0; }
 }
 
@@ -132,7 +130,8 @@
 .p-demo-media { display: grid; gap: var(--lt-space-32); justify-items: center; }
 .p-demo-phone { width: min(240px, 64vw); }
 .p-table { width: 100%; max-width: 560px; }
-@media (min-width: 768px) { .p-demo-text .p-demo-open { display: inline-flex; inline-size: auto; } }
+/* من 768 على قد نصه، نفس أزرار .s-cta (impeccable 7): 280 أقل شي وحشوة 32 */
+@media (min-width: 768px) { .p-demo-text .p-demo-open { display: inline-flex; inline-size: auto; min-inline-size: 280px; padding-inline: var(--lt-space-32); } }
 @media (min-width: 1024px) {
   .p-demo-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
   .p-demo-text { grid-column: 1 / span 4; }
@@ -144,31 +143,47 @@
   .p-demo-qr figcaption { font-size: 15px; font-weight: 500; color: var(--lt-muted); }
 }
 
-/* مشهد الطاولة داخل الشقة (إضافة صاحب المشروع بعد GM-050): جدار أبيض دافي، وسطح طاولة رملي، وثلاث خانات ستاند من scenes.css
-   (.lt-slot--stand: وجه A6 100:150 في حامل أكريليك، وقاعدته stand-base.svg). عرض المسرح 640mm، فالستاند 100mm = 15.6%.
-   لما توصل صور الطباعة (assets/print/wifi-stand.png وأخواتها، وتنكتب في print-art.js) الخانة تاخذ نسبة الصورة.
-   الترتيب في المسرح (LTR): دليل الضيف يسار، الطوارئ وسط، الواي فاي يمين، عشان الأسماء تحته تنقرى بنفس الترتيب من اليمين */
-.lt-scene.p-table-scene { border-radius: var(--lt-radius-s); background: linear-gradient(to bottom, var(--lt-surface) 0%, var(--lt-bg) 60%); box-shadow: inset 0 0 0 var(--lt-hairline) var(--lt-border); }
-.lt-scene[data-scene="hosts-table"] .lt-scene-stage { --stage-mm: 640; }
-.p-table-top { position: absolute; left: 0; right: 0; top: 64%; bottom: 0; z-index: 0;
-  background: linear-gradient(to bottom, var(--lt-surface-2) 0%, var(--lt-bg) 72%, var(--lt-border) 72.5%, var(--lt-surface-2) 100%);
-  box-shadow: inset 0 var(--lt-hairline) 0 var(--lt-border); }
-.p-table .p-stand { --y: 85%; }   /* أعلى من .lt-slot--stand في scenes.css (ينحمّل بعد هذا الملف) */
-.p-table .p-stand--guide { --x: 17%; }
-.p-table .p-stand--sos { --x: 50%; }
-.p-table .p-stand--wifi { --x: 83%; }
-.p-table-names { list-style: none; padding: 0; margin-top: var(--lt-space-12); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--lt-space-8); text-align: center; font-size: 14px; line-height: 1.45; font-weight: 500; color: var(--lt-muted); }
+/* مشهد الطاولة داخل الشقة (إضافة صاحب المشروع بعد GM-050، و AD-36): المشهد المولّد المعتمد scene-hosts-table (16:9، كونسول و3 ستاندات)
+   بطبقتين في .s-photo (site.css) بنسبة 4:3 وزاوية 8 (داخل التخطيط)، cover بالنص: يبان من x 12.5% لين 87.5% من الصورة، والكروت الثلاثة
+   كلها داخله. المسح يلوّنه مرة وحدة لما يدخل (data-scan="tint"). خط 1px (::after) عشان الجدار الأبيض ما يذوب في خلفية القسم البيضاء.
+   الخانات على الكروت البيضاء نفسها. مقاسات المدير الفني من الصورة 1600×900 (ومقاسي بالبكسل يطابقها ±0.4%): دليل الضيف x 26.0–35.0%،
+   والطوارئ x 45.0–54.2%، والواي فاي x 63.8–72.7%، والثلاث y 42.7–67.2%. في القص: x' = (x − 12.5) / 75، فدليل الضيف 18.0% بعرض 12.0%،
+   والطوارئ 43.333% بعرض 12.267%، والواي فاي 68.4% بعرض 11.867%. الخانة فاضية (بدون وجه أبيض مرسوم، فيبان كرت الصورة نفسه) لين
+   توصل صورة الطباعة: scenes.js يحطها contain داخل مستطيل الكرت (العرض والطول هنا ثابتين، فنسبة الصورة ما تحرّكه) */
+.p-table-scene { --photo-ratio: 4 / 3; }
+.p-table-scene::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; box-shadow: inset 0 0 0 var(--lt-hairline) var(--lt-border); pointer-events: none; }
+.p-table-scene > .lt-slot { --ax: 0; --ay: 0; top: 42.7%; height: 24.5%; aspect-ratio: auto; }
+.p-table-scene > .p-slot--guide { left: 18%; width: 12%; }
+.p-table-scene > .p-slot--sos { left: 43.333%; width: 12.267%; }
+.p-table-scene > .p-slot--wifi { left: 68.4%; width: 11.867%; }
+.p-table-scene > .lt-slot > .lt-slot-face { background: none; box-shadow: none; }
+/* الأسماء تحت كروتها: RTL، فالأول (الواي فاي) يمين. 3 أعمدة بعرض المسافة بين مراكز الكروت (24.86%)، والحشو يجيب المراكز على
+   74.3% و49.5% و24.6% من اليسار (الكروت: 74.3% و49.5% و24.0%) */
+.p-table-names { list-style: none; padding: 0; padding-inline: 13.24% 12.18%; margin-top: var(--lt-space-12); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center; font-size: 14px; line-height: 1.45; font-weight: 500; color: var(--lt-muted); }
+.p-table-names > li { padding-inline: var(--lt-space-4); text-wrap: balance; }
 
-/* ===== 6) الباقة (رملي ثاني): «في الباقة» ثم مفتاح «شهري / سنوي» (.s-period) ثم البطاقتين (.s-plans و .s-plan--stack من site.css)
-   ثم «اللي ما نسويه» بنمط المطاعم (AD-15). «خصم المحافظ» انشال (web-copy «مفتاح الأسعار» أ) ===== */
+/* ===== 6) الباقة (رملي ثاني): صف علامات الصح (بدون عنوان صغير فوقه، impeccable 8)، ثم بطاقة «1 إلى 4 وحدات» (.s-plan من site.css:
+   من 1024 عرض 12 عمود بنصين زي حزمة المطاعم، وش فيها يمين، والمفتاح والسعر والزر يسار)، ثم شريط «5 وحدات أو أكثر» (.p-strip،
+   impeccable 3): إطار حبر 1px وزاوية 8، بدون خلفية ولا ظل (أهدى من البطاقة)، ونصينه على نفس خط نصين البطاقة فالسعرين فوق بعض،
+   وسعره 36 (أصغر من البطاقة). ثم «اللي ما نسويه» بنمط المطاعم (AD-15). «خصم المحافظ» انشال (web-copy «مفتاح الأسعار» أ) ===== */
 .p-plan-lead { margin-top: var(--lt-space-16); }
 .p-incl { margin-top: var(--lt-space-32); }
-.p-incl-h { font-size: 15px; line-height: 1.4; font-weight: 500; color: var(--lt-muted); }
-.p-incl-list { margin-top: var(--lt-space-12); }
-.p-plans-wrap { margin-top: var(--lt-space-32); }
-.p-plans { margin-top: var(--lt-space-24); }
+.p-plans-wrap { display: grid; gap: var(--lt-space-16); margin-top: var(--lt-space-24); }
+.p-plan-card .s-plan-what > .s-h3 { font-size: 24px; }
 .p-plan-elig { margin-top: var(--lt-space-4); }
 .p-plan-same { max-width: 30em; margin-top: var(--lt-space-16); }
+.p-strip { display: grid; gap: var(--lt-space-24); padding: var(--lt-space-24); border: var(--lt-hairline) solid var(--lt-text); border-radius: var(--lt-radius-s); }
+.p-strip .s-h3 { font-size: 20px; }
+.p-strip .s-plan-head { justify-content: flex-start; }   /* الشارة جنب الاسم، مو في نص الشريط العريض */
+.p-strip-buy { display: grid; align-content: start; gap: var(--lt-space-8); }
+.p-strip-buy .s-cta { margin-top: var(--lt-space-16); }
+@media (min-width: 1024px) {
+  .p-plan-card .s-plan-what > .s-h3 { font-size: 28px; }
+  .p-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; }
+  .p-strip-what, .p-strip-buy { padding: var(--lt-space-32) var(--lt-space-40); }
+  .p-strip .s-h3 { font-size: 22px; }
+  .p-strip .s-price-fig { font-size: 36px; }
+}
 .p-dont { margin-top: var(--lt-space-48); padding-top: var(--lt-space-32); border-top: var(--lt-hairline) solid var(--lt-border); }
 .p-dont-list { list-style: none; padding: 0; margin-top: var(--lt-space-16); display: grid; gap: var(--lt-space-12); }
 .p-dont-list li { display: flex; align-items: flex-start; gap: var(--lt-space-8); }

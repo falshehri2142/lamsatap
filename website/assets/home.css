@@ -57,6 +57,19 @@ a.h-open-qr:active { scale: .98; }   /* الحلقة على حافة الفرا�
   .h-doors [data-audience="hosts"] .s-door-photo { --dp: 30% 50%; --dz: 1.15; --do: 60% 42%; }
 }
 
-/* ===== كيف نشتغل (أبيض، #how): الخطوات الثلاث .s-steps (site.css) ===== */
+/* ===== كيف نشتغل (أبيض، #how): العنوان والخطوات الثلاث .s-steps (site.css)، والستاند الثابت بباركوده الحقيقي (impeccable 6،
+   «الاتجاه 3» §3 صف 4). الستاند مكوّن tools/stand.cjs (stand.css): وجه A6 على مسرح رملي ثاني وأرضية، بعرض 200 / 240.
+   الجوال: الخطوات ثم الستاند تحتها. من 1024: الخطوات يمين (7 أعمدة، فوق بعض والرقم جنب النص) والستاند يسار (5 أعمدة) في نص الارتفاع.
+   المسرح داخل التخطيط، فزاويته 8 (§11.1) ===== */
+.h-how-grid { display: grid; gap: var(--lt-space-40); }
+.h-how-stand .lt-stand-stage { border-radius: var(--lt-radius-s); }
+@media (min-width: 1024px) {
+  .h-how-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
+  .h-how-main { grid-column: 1 / span 7; }
+  .h-how-stand { grid-column: 8 / span 5; }
+  .h-how .s-steps { grid-template-columns: minmax(0, 1fr); gap: var(--lt-space-32); }
+  .h-how .s-steps > li { display: grid; grid-template-columns: var(--lt-space-64) minmax(0, 1fr); column-gap: var(--lt-space-8); align-items: start; }
+  .h-how .s-step-n { grid-row: 1 / span 2; margin-bottom: 0; }
+}
 
 /* ===== اسأل إنسان (رملي): اللوح .s-ask.lt-lift (site.css) ===== */

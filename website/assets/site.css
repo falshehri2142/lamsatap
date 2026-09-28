@@ -134,16 +134,20 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 @media (min-width: 768px) { .s-acts > .lt-btn { inline-size: auto; } }
 
 /* ===== 3) مجموعة التواصل .s-cta (GM-046 و GM-047، web-copy «التواصل في الصفحات الثلاث»): بالترتيب
-   الزر الأساسي ← سطر المخاطرة (لو زر طلب) ← «أو كلّمنا على تليجرام» ← إشعار المحامي. كل سطر صغير تحت اللي يشرحه.
-   - [data-wa="<مفتاح>"]: زر الواتساب، يختفي لو الرقم فاضي. [data-wa-empty]: سطر يطلع بداله. [data-wa-only]: يطلع مع الرقم بس.
-   - .s-risk[data-wa-only]: سطر المخاطرة المعتمد، يختفي مع الزر (§5).
-   - .s-tg[data-tg="with-wa"]: رابط التليجرام وإشعاره، يطلعون بس لما رقم الواتساب ويوزر التليجرام موجودين (web-copy «أ»: «أو» تحتاج شي قبلها).
-     [data-tg] بدون قيمة: يطلع مع يوزر التليجرام بس. الرابط [data-tg-link] ينبني https://t.me/<telegram> في app.js.
+   الزر ← سطر المخاطرة (لو زر طلب) ← «أو كلّمنا على تليجرام» ← إشعار المحامي. كل سطر صغير تحت اللي يشرحه.
+   - [data-wa="<مفتاح>"]: زر الواتساب، يختفي لو الرقم فاضي.
+   - «فيه تواصل» = رقم واتساب أو بوت تليجرام (app.js، AD-34 و AD-35): [data-wa-empty] («ينضاف قريباً») يطلع بس لما ما فيه ولا قناة،
+     و [data-wa-only] (سطر المخاطرة) يطلع مع أي قناة، و [data-wa-second] (الزر الثاني، مثل «افتح منيو تجريبي») يصير ثانوي مع أي قناة.
+   - .s-tg[data-tg="with-wa"]: «أو كلّمنا على تليجرام» وإشعاره تحت زر الواتساب. لما الواتساب فاضي والبوت موجود (.is-solo): «أو» تنشال،
+     والرابط يصير زر الواتساب اللي يحل محله بالضبط: معبّى، أو بإطار لو المجموعة data-tg-rank="secondary" (الشريط، و«اسأل إنسان»).
+     والمجموعة تذوب في .s-cta (display: contents) عشان سطر المخاطرة يجي تحت الزر وفوق الإشعار، نفس ترتيب وضع الإطلاق (AD-35).
+     [data-tg] بدون قيمة: يطلع مع يوزر التليجرام بس، ويبقى رابط نصي. الرابط [data-tg-link] ينبني https://t.me/<telegram> في app.js.
+   - العرض (impeccable 7، AD-34 بند 4): تحت 768 الأزرار عرض كامل. من 768 الزر على قد نصه (280 بالكثير أقل شي، وحشوة 32)، والمجموعة
+     عمود بعرض أعرض زر فيها، والأسطر تحته (المخاطرة والإشعار) تلتف على نفس العرض (width: 0 و min-width: 100%، فما توسّع العمود).
    - رابط «سياسة الخصوصية» داخل الإشعار: a[data-link="privacy"]، يختفي لو links.privacy فاضي. ===== */
 .s-cta { display: grid; justify-items: start; gap: var(--lt-space-8); }
 .s-cta:not(:has(> :not([hidden]))) { display: none; }   /* كل اللي فيها مخفي (بدون رقم واتساب): ولا مسافة فاضية (AD-16) */
 .s-cta > .lt-btn { margin: 0 0 var(--lt-space-4); }
-@media (min-width: 768px) { .s-cta > .lt-btn { inline-size: auto; } }
 .s-risk { max-width: 36em; font-size: 14px; line-height: 1.55; font-weight: 500; color: var(--lt-muted); }
 .s-tg { display: grid; gap: var(--lt-space-4); max-width: 36em; }
 .s-tg-line { font-size: 15px; line-height: 1.5; color: var(--lt-muted); }
@@ -151,10 +155,19 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 /* حالات الروابط النصية (GM-055، AD-19): التحويم يثخّن الخط، والضغط خلفية الرملي الثاني */
 @media (hover: hover) and (pointer: fine) { .s-tg-link:hover, .s-tg-note a:hover { text-decoration-thickness: 2px; } }
 .s-tg-link:active, .s-tg-note a:active { background: var(--lt-surface-2); }
-/* لما الواتساب فاضي (app.js: .s-tg.is-solo): رابط التليجرام يصير الفعل الأساسي بشكل زر الحبر، بنص أبيض (تباين 16.72) */
-.s-tg.is-solo .s-tg-link.lt-btn { color: var(--lt-on-action); text-decoration: none; }
-.s-tg.is-solo .s-tg-link.lt-btn:active { background: var(--lt-action-press); }
+/* التليجرام البديل (app.js: .s-tg.is-solo): المجموعة تذوب في .s-cta، وسطر الرابط أول (فوق سطر المخاطرة)، والرابط زر بألوان رتبته
+   (--btn-fg و --btn-press من components.css و .lt-btn--secondary): معبّى نصه أبيض (16.72)، وبإطار نصه حبر */
+.s-tg.is-solo { display: contents; }
+.s-tg.is-solo > .s-tg-line { order: -1; display: grid; justify-self: stretch; margin-bottom: var(--lt-space-4); }
+.s-tg.is-solo .s-tg-link.lt-btn { color: var(--btn-fg); text-decoration: none; }
+.s-tg.is-solo .s-tg-link.lt-btn:active { background: var(--btn-press); }
 .s-tg-note { font-size: 13px; line-height: 1.6; color: var(--lt-muted); }   /* 13px رمادي: 5.94 على الرملي و 5.50 على الرملي الثاني (AA) */
+@media (min-width: 768px) {
+  .s-cta > .lt-btn, .s-tg.is-solo .s-tg-link.lt-btn { inline-size: auto; min-inline-size: 280px; padding-inline: var(--lt-space-32); }
+  .s-cta:has(> .lt-btn:not([hidden]), > .s-tg.is-solo) { width: fit-content; max-width: 100%; justify-items: stretch; }
+  .s-cta:has(> .lt-btn:not([hidden]), > .s-tg.is-solo) > :is(.s-risk, .s-small, .s-tg:not(.is-solo)),
+  .s-cta:has(> .lt-btn:not([hidden]), > .s-tg.is-solo) > .s-tg.is-solo > .s-tg-note { width: 0; min-width: 100%; max-width: none; }
+}
 .s-tg-note a { padding-block: 14px; color: var(--lt-link); }   /* رابط داخل جملة: الحشو يكبّر منطقة الضغط بدون ما يغيّر السطر */
 
 /* سطر بعلامة صح (سطر الثقة، ومحتوى الباقة): الصح 20px بلمسة الصفحة (--lt-check: حبر في البوابة، ولمسة الجمهور في صفحته) */
@@ -231,7 +244,7 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 /* ===== 9) الباقة (§5 و§10 و§11.3): <article class="s-card s-plan"> فيها .s-plan-what (الاسم، و«وش فيها» بعلامات صح) و .s-plan-buy
    (السعر، ثم .s-cta بالزر وسطر المخاطرة والتليجرام). من 1024 نصين: يمين وش فيها، ويسار السعر والزر، وبينهم خط 1px.
    السعر: .s-price فيه .s-price-fig (Figtree 700، 36 / 44، أرقام جدولية) و .s-price-unit (17/400)، وسطر .s-price-note رمادي 15/500.
-   .s-plan--stack: البطاقة فوق بعض دايماً (بطاقتين جنب بعض في .s-plans من 1024، صفحة المضيفين)، والسعر والزر تحت بخط 1px فوقهم.
+   المضيفين: نفس البطاقة («1 إلى 4 وحدات»)، وتحتها شريط «5 وحدات أو أكثر» (.p-strip في hosts.css، impeccable 3).
    مفتاح الأسعار (web-copy «مفتاح الأسعار»، مرجع صاحب المشروع brief-gm040.md): .s-period فيه .s-switch (radiogroup، المنطق في app.js
    initPriceSwitch) وسطر صغير تحت الخيار الثاني (.s-period-note). يطلع مع JS بس (.js)، وبدونه البطاقات على الحالة الأولى وسطر .s-nojs.
    المؤشر (.s-switch-thumb) ينزلق بـ transform، والرقم يتدحرج بالخانات (.s-roll-*، transform بس). تقليل الحركة: تبديل مباشر ===== */
@@ -266,9 +279,6 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .s-roll-col { transition: transform .6s var(--m-out, cubic-bezier(.16, 1, .3, 1)); }
 }
 .s-plan-buy > .s-period { margin-bottom: var(--lt-space-16); }
-/* بطاقتين جنب بعض (المضيفين) */
-.s-plans { display: grid; gap: var(--lt-space-16); }
-.s-plan.s-plan--stack { display: flex; flex-direction: column; }
 .s-plan-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--lt-space-8) var(--lt-space-16); }
 /* الشارة: حقيقة معتمدة بس (مثل «سعر أقل للوحدة»)، مربع صغير باللمسة ونص حبر 14/500، وزاوية 8 (مو كبسولة) */
 .s-badge { display: inline-flex; align-items: center; gap: var(--lt-space-8); padding: var(--lt-space-4) var(--lt-space-12); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-bg); font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--lt-text); }
@@ -279,9 +289,7 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .s-plan-buy { border-inline-start: var(--lt-hairline) solid var(--lt-border); }
   .s-price-fig { font-size: 44px; }
   /* الزر مخفي (بدون رقم واتساب): السعر يتوسط عمودياً في عموده، بدل فراغ تحته (AD-16) */
-  .s-plan:not(.s-plan--stack) .s-plan-buy:not(:has(.s-cta > :not([hidden]))) { align-content: center; }
-  .s-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-grid-gap); align-items: stretch; }
-  .s-plan--stack .s-plan-buy { margin-top: auto; border-inline-start: 0; border-top: var(--lt-hairline) solid var(--lt-border); }
+  .s-plan .s-plan-buy:not(:has(.s-cta > :not([hidden]))) { align-content: center; }
 }
 
 /* ===== 10) الأسئلة: <div class="s-faq" data-accordion> وفيها <details class="s-q"><summary>…</summary><div class="s-q-a"><p>…</p></div></details>.

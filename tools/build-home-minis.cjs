@@ -25,7 +25,9 @@
 //                        و target="<خانة طباعة>" (يحط data-story-target على الخانة، هدف جوال القصة) و pulse="true" (ومعه data-pulse)
 //   scenes               في <head>: <link> لـ assets/scenes.css و <script defer> لـ assets/mockups/print-art.js و assets/scenes.js (الموجود منها بس)
 //   scenes-css           نفسه بدون السكربتات
-//   stand:review         ستاند التقييم (tools/stand.cjs بمقاسات print/dims.js وباركود حقيقي) في صفحة الشرح
+//   stand:review         ستاند التقييم (tools/stand.cjs بمقاسات print/dims.js وباركود حقيقي): صفحة الشرح، و«كيف نشتغل» في البوابة
+//                        (impeccable 6)، والعرض الحي في المطاعم (impeccable 5). pulse="true" يحط data-pulse على نقطة اللمس
+//                        (motion.js pulses(): تنبض مرة وحدة لما يطلع الستاند، المطاعم بس، «الاتجاه 3» §10)
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const W = path.join(__dirname, '..', 'website');
@@ -265,7 +267,8 @@ function resolve(key, page, rel, o) {
   if (kind === 'qr' && DEMOS.includes(name)) return qrSvg(DOMAIN + '/demo/' + name + '/', '');
   if (key === 'stand:review') {
     // «مقهى المثال» ولونه من demo/_brands/brands.js، والباركود يودّي لصفحة الشرح (نفس رابط ورقة QR في demo/review/config.js)
-    return standHtml({ dims: ctx.PRINT_DIMS.stand, qrcode: ctx.qrcode, title: 'قيّمنا في قوقل', logo: rel + 'demo/_brands/cafe.svg', color: ctx.DEMO_BRANDS.cafe.color, url: DOMAIN + '/demo/review/' });
+    const html = standHtml({ dims: ctx.PRINT_DIMS.stand, qrcode: ctx.qrcode, title: 'قيّمنا في قوقل', logo: rel + 'demo/_brands/cafe.svg', color: ctx.DEMO_BRANDS.cafe.color, url: DOMAIN + '/demo/review/' });
+    return o.pulse === 'true' ? html.replace('<span class="lt-stand-dot"', '<span class="lt-stand-dot" data-pulse') : html;
   }
   if (kind === 'phone') {
     const shot = name.split('-')[0];

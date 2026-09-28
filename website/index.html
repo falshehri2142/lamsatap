@@ -26,6 +26,8 @@
 <link rel="stylesheet" href="assets/brand/components.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/home.css">
+<!-- ستاند التقييم الثابت في «كيف نشتغل» (impeccable 6، «الاتجاه 3» §3 صف 4): مكوّن tools/stand.cjs، وتنسيقه هنا -->
+<link rel="stylesheet" href="assets/stand.css">
 <!-- @@scenes: تنسيق مشاهد المنتج وسكربت خانات الطباعة (GM-049/050، assets/scenes.css). يولّده tools/build-home-minis.cjs --><link rel="stylesheet" href="assets/scenes.css"><script src="assets/mockups/print-art.js" defer></script><script src="assets/scenes.js" defer></script><!-- /@@scenes -->
 <!-- الحركة (web-motion.md «النظام 2»): صفحات الشركة بس، وصفحات الزبون ما تحمّلها (GM-011). GSAP 3.15 و ScrollTrigger محليين (vendor/gsap/LICENSE.md) -->
 <link rel="stylesheet" href="assets/motion.css">
@@ -100,20 +102,27 @@
 </div>
 </section>
 
-<!-- 4) كيف نشتغل (أبيض، #how): web-copy ج6 بالحرف. الخطوات تظهر بالترتيب (data-reveal="stagger") -->
+<!-- 4) كيف نشتغل (أبيض، #how): web-copy ج6 بالحرف، والعنوان يتجمّع مع التمرير (AD-28). اسم القناة في الخطوة 1 من config
+     (AD-35، impeccable 1): [data-channel-name] يصير «تليجرام» لما الواتساب فاضي والبوت موجود (app.js).
+     الستاند الثابت بباركوده الحقيقي (impeccable 6، «الاتجاه 3» §3 صف 4): @@stand:review (tools/stand.cjs، يفتح صفحة الشرح).
+     1440: الخطوات يمين (7 أعمدة) والستاند يسار (5). الجوال: الستاند تحت الخطوات (home.css) -->
 <section class="s-band s-band--white h-how" id="how" aria-labelledby="how-h">
-<div class="s-wrap">
+<div class="s-wrap h-how-grid">
+<div class="h-how-main">
 <h2 class="s-h2" id="how-h" data-words="gather">كيف نشتغل</h2>
 <ol class="s-steps">
-<li><span class="s-step-n" aria-hidden="true">1</span><h3 class="s-h3">نتفاهم على واتساب</h3><p class="s-step-t">ترسل لنا نوع محلك أو عدد وحداتك، ونقترح لك الباقة.</p></li>
+<li><span class="s-step-n" aria-hidden="true">1</span><h3 class="s-h3">نتفاهم على <span data-channel-name>واتساب</span></h3><p class="s-step-t">ترسل لنا نوع محلك أو عدد وحداتك، ونقترح لك الباقة.</p></li>
 <li><span class="s-step-n" aria-hidden="true">2</span><h3 class="s-h3">نجهّز كل شي بهويتك</h3><p class="s-step-t">الصفحة والعتاد بشعارك وألوانك، والشريحة والباركود على نفس الرابط.</p></li>
 <li><span class="s-step-n" aria-hidden="true">3</span><h3 class="s-h3">نركّب عندك</h3><p class="s-step-t">نركّب حالياً في جدة، ونجرّب كل شريحة قبل التسليم.</p></li>
 </ol>
 </div>
+<div class="h-how-stand"><!-- @@stand:review --><figure class="lt-stand-stage" aria-hidden="true" inert><div class="lt-stand" data-qr-url="https://example.com/demo/review/"><img class="lt-stand-logo" src="demo/_brands/cafe.svg" alt="" style="top:calc(12 * var(--mm));left:calc(20 * var(--mm));width:calc(60 * var(--mm));height:calc(16 * var(--mm))"><p class="lt-stand-line" style="top:calc(34 * var(--mm));font-size:calc(6.35 * var(--mm));font-weight:600">قيّمنا في قوقل</p><span class="lt-stand-dot" style="top:calc(55 * var(--mm));left:calc(43 * var(--mm));width:calc(14 * var(--mm));height:calc(14 * var(--mm));background:#7A3E2B"></span><p class="lt-stand-line" style="top:calc(80 * var(--mm));font-size:calc(3.881 * var(--mm));font-weight:600">قرّب جوالك هنا</p><p class="lt-stand-line" style="top:calc(97 * var(--mm));font-size:calc(3.528 * var(--mm));font-weight:500">أو امسح الباركود</p><svg class="lt-stand-qr" viewBox="0 0 29 29" shape-rendering="crispEdges" focusable="false" style="top:calc(110 * var(--mm));left:calc(35 * var(--mm));width:calc(30 * var(--mm));height:calc(30 * var(--mm))"><path fill="currentColor" d="M0 0h7v1h-7zM8 0h1v1h-1zM10 0h2v1h-2zM15 0h2v1h-2zM18 0h1v1h-1zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h2v1h-2zM16 1h1v1h-1zM19 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h2v1h-2zM11 2h2v1h-2zM15 2h2v1h-2zM19 2h2v1h-2zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h2v1h-2zM12 3h1v1h-1zM16 3h2v1h-2zM20 3h1v1h-1zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h5v1h-5zM14 4h3v1h-3zM18 4h2v1h-2zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM15 5h2v1h-2zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM9 7h1v1h-1zM12 7h2v1h-2zM15 7h2v1h-2zM19 7h1v1h-1zM0 8h1v1h-1zM3 8h7v1h-7zM11 8h3v1h-3zM17 8h3v1h-3zM21 8h1v1h-1zM24 8h1v1h-1zM26 8h3v1h-3zM0 9h4v1h-4zM5 9h1v1h-1zM7 9h2v1h-2zM10 9h2v1h-2zM13 9h1v1h-1zM16 9h4v1h-4zM21 9h1v1h-1zM23 9h2v1h-2zM26 9h2v1h-2zM0 10h1v1h-1zM2 10h1v1h-1zM6 10h1v1h-1zM8 10h2v1h-2zM12 10h2v1h-2zM15 10h2v1h-2zM21 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM0 11h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM7 11h3v1h-3zM11 11h1v1h-1zM13 11h1v1h-1zM16 11h2v1h-2zM19 11h2v1h-2zM22 11h1v1h-1zM25 11h1v1h-1zM28 11h1v1h-1zM0 12h8v1h-8zM10 12h2v1h-2zM13 12h1v1h-1zM15 12h2v1h-2zM20 12h1v1h-1zM22 12h2v1h-2zM28 12h1v1h-1zM0 13h2v1h-2zM4 13h1v1h-1zM7 13h2v1h-2zM11 13h4v1h-4zM16 13h1v1h-1zM20 13h1v1h-1zM22 13h7v1h-7zM0 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM13 14h1v1h-1zM16 14h5v1h-5zM23 14h2v1h-2zM26 14h1v1h-1zM28 14h1v1h-1zM1 15h5v1h-5zM7 15h4v1h-4zM12 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM0 16h2v1h-2zM3 16h1v1h-1zM5 16h3v1h-3zM9 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h2v1h-2zM23 16h1v1h-1zM25 16h1v1h-1zM0 17h1v1h-1zM2 17h2v1h-2zM8 17h4v1h-4zM13 17h2v1h-2zM16 17h5v1h-5zM24 17h1v1h-1zM26 17h2v1h-2zM0 18h4v1h-4zM6 18h3v1h-3zM15 18h1v1h-1zM17 18h1v1h-1zM19 18h1v1h-1zM22 18h4v1h-4zM28 18h1v1h-1zM0 19h6v1h-6zM8 19h1v1h-1zM12 19h1v1h-1zM14 19h3v1h-3zM21 19h1v1h-1zM25 19h2v1h-2zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM10 20h2v1h-2zM13 20h2v1h-2zM16 20h2v1h-2zM20 20h8v1h-8zM8 21h1v1h-1zM14 21h3v1h-3zM20 21h1v1h-1zM24 21h2v1h-2zM0 22h7v1h-7zM8 22h2v1h-2zM11 22h2v1h-2zM14 22h3v1h-3zM19 22h2v1h-2zM22 22h1v1h-1zM24 22h2v1h-2zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h2v1h-2zM12 23h1v1h-1zM14 23h2v1h-2zM17 23h4v1h-4zM24 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h2v1h-2zM13 24h3v1h-3zM19 24h7v1h-7zM27 24h2v1h-2zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM8 25h1v1h-1zM10 25h2v1h-2zM13 25h1v1h-1zM15 25h4v1h-4zM23 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM15 26h1v1h-1zM18 26h2v1h-2zM21 26h1v1h-1zM23 26h2v1h-2zM26 26h3v1h-3zM0 27h1v1h-1zM6 27h1v1h-1zM11 27h2v1h-2zM21 27h1v1h-1zM23 27h4v1h-4zM28 27h1v1h-1zM0 28h7v1h-7zM8 28h2v1h-2zM12 28h4v1h-4zM19 28h4v1h-4zM24 28h1v1h-1z"/></svg></div></figure><!-- /@@stand:review --></div>
+</div>
 </section>
 
 <!-- 5) اسأل إنسان (رملي، web-copy «التواصل» ب، ورسالة home). المكان الوحيد لوعد الرد في البوابة (GM-046).
-     الزر يختفي لين ينحط رقم الواتساب، وسطر «ينضاف قريباً» يطلع بداله. رابط التليجرام وإشعار المحامي مع الزر بس (data-tg="with-wa") -->
+     الزر يختفي لين ينحط رقم الواتساب. لما الواتساب فاضي والبوت موجود: التليجرام يصير الزر الأساسي (app.js، data-tg="with-wa")،
+     وهنا يبقى معبّى لأن ما بعده زر (AD-34 بند 3). سطر «ينضاف قريباً» يطلع بس لما ما فيه ولا قناة ([data-wa-empty]) -->
 <section class="s-band h-ask" aria-labelledby="ask-h">
 <div class="s-wrap">
 <div class="s-ask lt-lift">
