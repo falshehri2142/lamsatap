@@ -10,7 +10,8 @@
 # الاستخدام:
 #   python tools/kie-image.py price  work/2026-09-28-kie-scenes/plan.json     (بدون شبكة: التكلفة المتوقعة)
 #   python tools/kie-image.py credits                                          (الرصيد بس)
-#   python tools/kie-image.py generate work/2026-09-28-kie-scenes/plan.json --approved "GM-058 <تاريخ الموافقة>" [--only <id>]
+#   python tools/kie-image.py generate work/2026-09-28-kie-scenes/plan.json --approved "GM-058 <تاريخ الموافقة>" [--only <id>] [--skip a,b]
+#   python tools/kie-image.py fetch      (يكمّل تنزيل مهام خلصت بعدين، بدون أي صرف)
 # قاعدة: ولا توليد بدون --approved، والموافقة من صاحب المشروع عن طريق المدير العام (GM-057 و GM-058).
 import argparse, json, pathlib, subprocess, sys, time, urllib.error, urllib.request
 
@@ -72,38 +73,69 @@ def cmd_price(plan):
     print(f"المجموع: {tc} credit ≈ ${tu:.2f}")
 
 
-def cmd_generate(plan, out_dir, only, approved):
+def save_result(d, task, job_id, body, out_dir, approved, idx=1):
+    urls = json.loads(d.get("resultJson") or "{}").get("resultUrls", [])
+    for k, u in enumerate(urls):
+        ext = pathlib.Path(u.split("?")[0]).suffix or ".png"
+        f = out_dir / f"{job_id}-{idx}{'-' + str(k + 1) if len(urls) > 1 else ''}{ext}"
+        urllib.request.urlretrieve(u, f)  # الملف كما هو: ما نشيل علامة مائية ولا بيانات وصفية (رد المحامي)
+        meta = {"file": f.name, "model": d.get("model") or body.get("model"), "input": body.get("input"), "taskId": task,
+                "creditsConsumed": d.get("creditsConsumed"), "createTime": d.get("createTime"),
+                "completeTime": d.get("completeTime"), "approved": approved, "source": "kie.ai generated (GM-058)"}
+        f.with_suffix(".json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"  نزلت {f}", flush=True)
+
+
+def cmd_generate(plan, out_dir, only, approved, skip):
+    """يرسل كل المهام أول، وبعدين ينتظرها مع بعض (أسرع لما طابور موديل بطيء)، ويحفظ المعرّفات في tasks.json."""
     if not approved:
         raise SystemExit("ممنوع التوليد بدون --approved (موافقة صاحب المشروع عن طريق المدير العام)")
     key = load_key()
     out_dir.mkdir(parents=True, exist_ok=True)
+    log = out_dir / "tasks.json"
+    tasks = json.loads(log.read_text(encoding="utf-8")) if log.exists() else []
+    pending = []
     for job in plan["jobs"]:
-        if only and job["id"] != only:
+        if (only and job["id"] != only) or job["id"] in skip:
             continue
         for i in range(job.get("count", 1)):
             body = {"model": job["model"], "input": dict(job["input"])}
-            if "seed" in body["input"] and i:
+            if body["input"].get("seed") and i:
                 body["input"]["seed"] = f"{body['input']['seed']}-{i}"
             task = call("POST", "/jobs/createTask", key, body)["data"]["taskId"]
             print(f"{job['id']}#{i + 1}: مهمة {task}", flush=True)
-            for _ in range(120):
-                time.sleep(5)
-                d = call("GET", f"/jobs/recordInfo?taskId={task}", key)["data"]
-                if d.get("state") in ("success", "fail"):
-                    break
-            if d.get("state") != "success":
-                print(f"  فشلت: {d.get('state')} {d.get('failMsg', '')}")
-                continue
-            urls = json.loads(d.get("resultJson") or "{}").get("resultUrls", [])
-            for k, u in enumerate(urls):
-                ext = pathlib.Path(u.split("?")[0]).suffix or ".png"
-                f = out_dir / f"{job['id']}-{i + 1}{'-' + str(k + 1) if len(urls) > 1 else ''}{ext}"
-                urllib.request.urlretrieve(u, f)
-                meta = {"file": f.name, "model": job["model"], "input": body["input"], "taskId": task,
-                        "creditsConsumed": d.get("creditsConsumed"), "approved": approved,
-                        "source": "kie.ai generated (GM-058)"}
-                f.with_suffix(".json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
-                print(f"  نزلت {f}")
+            rec = {"task": task, "job": job["id"], "idx": i + 1, "body": body, "approved": approved, "done": False}
+            tasks.append(rec); pending.append(rec)
+            log.write_text(json.dumps(tasks, ensure_ascii=False, indent=2), encoding="utf-8")
+    wait_all(pending, key, out_dir, log, tasks)
+
+
+def wait_all(pending, key, out_dir, log, tasks, minutes=25):
+    for _ in range(minutes * 12):
+        if not pending:
+            break
+        time.sleep(5)
+        for rec in list(pending):
+            d = call("GET", f"/jobs/recordInfo?taskId={rec['task']}", key)["data"]
+            if d.get("state") == "success":
+                save_result(d, rec["task"], rec["job"], rec["body"], out_dir, rec["approved"], rec["idx"])
+                rec["done"] = True; pending.remove(rec)
+            elif d.get("state") == "fail":
+                print(f"  {rec['job']}#{rec['idx']} فشلت: {d.get('failMsg', '')}", flush=True)
+                rec["done"] = "fail"; pending.remove(rec)
+        log.write_text(json.dumps(tasks, ensure_ascii=False, indent=2), encoding="utf-8")
+    for rec in pending:
+        print(f"  {rec['job']}#{rec['idx']} لسا ما خلصت (مهمة {rec['task']}). بعدين: python tools/kie-image.py fetch", flush=True)
+
+
+def cmd_fetch(out_dir):
+    """يكمّل تنزيل أي مهمة في tasks.json خلصت بعد ما انتهى الانتظار (ما يرسل مهام جديدة ولا يصرف رصيد)."""
+    key = load_key()
+    log = out_dir / "tasks.json"
+    tasks = json.loads(log.read_text(encoding="utf-8")) if log.exists() else []
+    pending = [t for t in tasks if t.get("done") is False]
+    print(f"مهام معلقة: {len(pending)}")
+    wait_all(pending, key, out_dir, log, tasks, minutes=10)
 
 
 def main():
@@ -111,20 +143,24 @@ def main():
         if hasattr(st, "reconfigure"):
             st.reconfigure(encoding="utf-8", errors="replace")
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["price", "credits", "generate"])
+    ap.add_argument("cmd", choices=["price", "credits", "generate", "fetch"])
     ap.add_argument("plan", nargs="?")
     ap.add_argument("--out", default="brand/photos/generated")
     ap.add_argument("--only")
     ap.add_argument("--approved", default="")
+    ap.add_argument("--skip", default="", help="أسماء مهام مفصولة بفاصلة ما تنرسل (خلصت قبل)")
     a = ap.parse_args()
     if a.cmd == "credits":
         print("الرصيد:", call("GET", "/chat/credit", load_key())["data"], "credit")
+        return
+    if a.cmd == "fetch":
+        cmd_fetch(pathlib.Path(a.out))
         return
     plan = json.loads(pathlib.Path(a.plan).read_text(encoding="utf-8"))
     if a.cmd == "price":
         cmd_price(plan)
     else:
-        cmd_generate(plan, pathlib.Path(a.out), a.only, a.approved)
+        cmd_generate(plan, pathlib.Path(a.out), a.only, a.approved, set(x for x in a.skip.split(',') if x))
 
 
 if __name__ == "__main__":
