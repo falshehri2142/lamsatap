@@ -1,6 +1,6 @@
 {
   "tool": "print/export.cjs",
-  "date": "2026-09-28T01:23:45.584Z",
+  "date": "2026-09-28T11:22:32.223Z",
   "node": "v24.18.0",
   "url": "print/host-signs/index.html?client=example-flats&sign=checkout&bleed=1",
   "options": {
@@ -82,7 +82,7 @@
       100,
       150
     ],
-    "readyMs": 326,
+    "readyMs": 318,
     "readySignal": "1",
     "readyNotes": [],
     "sheets": [
@@ -119,7 +119,8 @@
   },
   "templateWarnings": [
     "لون الطباعة (CMYK أو Pantone) ناقص. اطلب بروفة قبل الطباعة.",
-    "تأكيد الخروج: باركود تجريبي (example.com). الحقيقي نفس رابط الشريحة /t/<code>/ من systems/shortlinks."
+    "تأكيد الخروج: باركود تجريبي (example.com). الحقيقي نفس رابط الشريحة /t/<code>/ من systems/shortlinks.",
+    "تأكيد الخروج: الأبيض في الملف = بدون حبر. اطلب من المطبعة طبقة أبيض كاملة (flood white) على اللوح كله، وطبقتين لو ملصق الشريحة يبان (print/README.md، «الطباعة» بند 4)."
   ],
   "templateReport": {
     "client": "example-flats",

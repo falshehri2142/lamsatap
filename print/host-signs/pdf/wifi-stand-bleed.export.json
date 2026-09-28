@@ -1,6 +1,6 @@
 {
   "tool": "print/export.cjs",
-  "date": "2026-09-28T01:23:52.468Z",
+  "date": "2026-09-28T11:22:39.415Z",
   "node": "v24.18.0",
   "url": "print/host-signs/index.html?client=example-flats&sign=wifi&bleed=1",
   "options": {
@@ -82,7 +82,7 @@
       100,
       150
     ],
-    "readyMs": 325,
+    "readyMs": 322,
     "readySignal": "1",
     "readyNotes": [],
     "sheets": [

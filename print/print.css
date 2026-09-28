@@ -81,12 +81,13 @@ body { font-family: var(--lt-font-brand); color: #000000; background: var(--lt-b
 .s-card.is-tight .s-row:last-child { padding-bottom: 0; }
 .s-row-txt { min-width: 0; flex: 1 1 auto; }
 .s-card .s-ar, .s-card .s-en { text-wrap: balance; }   /* لو السطر انكسر، ينقسم نصين متقاربين */
-.s-row--num .s-row-txt { white-space: nowrap; }
+/* صف الرقم: كل سطر في التسمية ما ينكسر. nowrap على .s-row-txt بس ما كان يكفي: text-wrap: balance فوق يرجّع الالتفاف للسطر نفسه
+   (الاثنين يكتبون نفس الخاصية text-wrap-mode)، فانكسر «المضيف · Host» وقياس fitSign ما شاف الكسر (فحص ما قبل الطباعة جولة 2 بند 31).
+   الحين لو التسمية والرقم ما دخلوا: الرقم يصغر لين 9pt، وبعدها منع (print.js) */
+.s-row--num .s-row-txt, .s-card .s-row--num .s-ar, .s-card .s-row--num .s-en { white-space: nowrap; }
 .s-ar { font-weight: 600; line-height: 1.2; color: #000000; }   /* الحجم من dims.js (sign.rowPt) */
 .s-ar-val { font-weight: 700; margin-inline-start: 1.2mm; }
 .s-en { font-weight: 500; line-height: 1.2; color: var(--lt-slate); text-align: right; }   /* نفس حافة السطر العربي فوقه */
-/* صف رقم المضيف: الاسمين في سطر واحد («المضيف · Host») عشان البطاقة تساع 5 أرقام */
-.s-ar-en { font-weight: 500; color: var(--lt-slate); }
 .s-row--head { flex-direction: column; align-items: stretch; gap: 0; }
 .s-ic { flex: 0 0 auto; display: block; color: #000000; overflow: visible; }
 .s-row--num { justify-content: space-between; }
@@ -103,7 +104,7 @@ body { font-family: var(--lt-font-brand); color: #000000; background: var(--lt-b
 .s-row--note { justify-content: center; font-weight: 500; color: var(--lt-slate); }
 .s-by { color: var(--lt-slate); }
 /* نسخة الحفر: كل شي أسود، والبطاقة خط بدون تعبئة (التعبئة تنحفر مساحة كاملة) */
-.p-mono .s-title-en, .p-mono .s-touch-en, .p-mono .s-cap-en, .p-mono .s-en, .p-mono .s-ar-en, .p-mono .s-lab, .p-mono .s-val-en, .p-mono .s-row--note, .p-mono .s-by { color: #000000; }
+.p-mono .s-title-en, .p-mono .s-touch-en, .p-mono .s-cap-en, .p-mono .s-en, .p-mono .s-lab, .p-mono .s-val-en, .p-mono .s-row--note, .p-mono .s-by { color: #000000; }
 .p-mono .s-card { background: transparent; box-shadow: inset 0 0 0 0.25mm #000000; }
 .p-mono .s-row { border-top-color: #000000; }
 .p-mono .s-card.is-dense .s-row { border-top-color: transparent; }

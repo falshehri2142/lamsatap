@@ -84,7 +84,11 @@
         ];
       }
       if (k === 'emergency') {
-        var src = Array.isArray((w.SITE || {}).emergency) ? w.SITE.emergency : [], rows = [], use911 = C.unified911 !== false;
+        // 911 بس لو ملف الوحدة يقول true صريح، لأنه مؤكد في أربع مناطق بس (المصادر فوق). الحقل ناقص = منع، عشان ما ينطبع رقم مو لمنطقة الوحدة
+        // (قبل كان الناقص يطبع 911. ملاحظة فحص ما قبل الطباعة جولة 2)
+        var src = Array.isArray((w.SITE || {}).emergency) ? w.SITE.emergency : [], rows = [], use911 = C.unified911 === true;
+        if (C.unified911 !== true && C.unified911 !== false)
+          warn.push(blockMsg('الطوارئ: unified911 ناقص في ملف الوحدة. اكتب true لو الوحدة في منطقة مكة المكرمة (جدة) أو المدينة أو الرياض أو الشرقية، وإلا false.'));
         src.forEach(function (e) {
           var n = str(e && e.number).replace(/\D/g, ''), ar = str(e && e.label);
           if (!n || !ar) return;
@@ -92,15 +96,18 @@
           if (n === '911' && !use911) return;
           rows.push({ num: n, ar: ar, en: OFFICIAL[n], strong: n === '911' });
         });
-        if (!use911) warn.push('بدون 911: الوحدة برّا مناطق الرقم الموحد (unified911: false).');
+        if (C.unified911 === false) warn.push('بدون 911: الوحدة برّا مناطق الرقم الموحد (unified911: false).');
         if (!rows.length) warn.push(blockMsg('ما فيه أرقام طوارئ: website/config.js (emergency) فاضي.'));
+        // رقم المضيف: اختياري في إضافة صاحب المشروع، يكتبه المضيف بنفسه وما ينحفظ في n8n (GM-017). بس GM-003 يمنع ظهور أرقام المضيف للضيف.
+        // لين يقرر المدير العام: أي رقم هنا يمنع التصدير في كل الحالات، مع 911 وبدونه (فحص ما قبل الطباعة جولة 2 بند 31: قبل كان المنع
+        // بالصدفة، بس لما البطاقة ما تساع). الصف يبان في المعاينة بس، عشان المدير العام يشوف شكله وقت القرار
         var hp = str(C.hostPhone);
         if (hp) {
+          warn.push(blockMsg('رقم المضيف: GM-003 يمنع ظهوره للضيف، والتصدير ممنوع لين قرار المدير العام. للطباعة الحين: خلّ hostPhone فاضي في ملف الوحدة.'));
           if (!/^\+?[0-9 ]{8,16}$/.test(hp)) warn.push(blockMsg('رقم المضيف شكله غلط: أرقام بس، ومسافات لو تبي.'));
-          // إضافة صاحب المشروع: اختياري ويكتبه المضيف بنفسه، وما ينحفظ في n8n (GM-017). وشرط GM-003 يقول أرقام المضيف ما تطلع للضيف
-          warn.push('رقم المضيف بينطبع للضيف. GM-003 يمنع ظهوره، وإضافة صاحب المشروع تسمح به اختيارياً: بموافقة المضيف المكتوبة بس، وقرار المدير العام قبل أول طباعة.');
-          // الاسمين في سطر واحد «المضيف · Host»: البطاقة تساع 5 أرقام بدون ما تنقص مسافة السطر الإنجليزي
-          rows.push({ num: hp, ar: 'المضيف', en: 'Host', inline: true });
+          // صف عادي بسطرين مثل باقي الأرقام. كان سطر واحد «المضيف · Host» عشان يوفّر سطر، بس ما عاد يكفي 5 صفوف، وكان ينكسر أو يدخل
+          // في الرقم (فحص ما قبل الطباعة جولة 2 بند 31). بدون 911 (4 صفوف) يدخل مثل المثال. مع 911 (5 صفوف) البطاقة ما تساع، فمكانه يتصمم بعد القرار
+          rows.push({ num: hp, ar: 'المضيف', en: 'Host' });
         }
         return rows;
       }
@@ -118,6 +125,8 @@
       if (!url) warn.push(blockMsg(sg.nav + ': الرابط ناقص في ملف الوحدة (urls.' + k + ').'));
       else if (!/^https:\/\//.test(url)) warn.push(blockMsg(sg.nav + ': الرابط لازم يبدأ بـ https://'));
       else if (/example\.com/.test(url)) warn.push(sg.nav + ': باركود تجريبي (example.com). الحقيقي نفس رابط الشريحة /t/<code>/ من systems/shortlinks.');
+      // ملف المطبعة للوحة الأكريليك: الأبيض في الملف = بدون حبر، وعلى أكريليك شفاف يطلع شفاف (فحص ما قبل الطباعة جولة 2 بند 40). تذكير وقت التصدير
+      if (sg.variant === 'door' && bleed && !mono) warn.push(sg.nav + ': الأبيض في الملف = بدون حبر. اطلب من المطبعة طبقة أبيض كاملة (flood white) على اللوح كله، وطبقتين لو ملصق الشريحة يبان (print/README.md، «الطباعة» بند 4).');
       var r = signSheet({
         sign: sg.data, label: sg.label, variant: sg.variant, brand: brand, mono: mono, bleed: bleed, marks: marks, mirror: mirror,
         title: sg.title, titleEn: sg.titleEn, url: url, card: rowsFor(k),

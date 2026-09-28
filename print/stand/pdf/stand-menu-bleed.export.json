@@ -1,6 +1,6 @@
 {
   "tool": "print/export.cjs",
-  "date": "2026-09-28T01:24:18.878Z",
+  "date": "2026-09-28T11:23:05.964Z",
   "node": "v24.18.0",
   "url": "print/stand/index.html?client=example-nologo&bleed=1",
   "options": {
@@ -98,7 +98,7 @@
       100,
       150
     ],
-    "readyMs": 322,
+    "readyMs": 319,
     "readySignal": "1",
     "readyNotes": [],
     "sheets": [

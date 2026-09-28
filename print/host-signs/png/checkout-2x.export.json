@@ -1,6 +1,6 @@
 {
   "tool": "print/export.cjs",
-  "date": "2026-09-28T01:23:48.097Z",
+  "date": "2026-09-28T11:22:34.941Z",
   "node": "v24.18.0",
   "url": "print/host-signs/index.html?client=example-flats&sign=checkout",
   "options": {
@@ -72,7 +72,7 @@
       100,
       150
     ],
-    "readyMs": 317,
+    "readyMs": 311,
     "readySignal": "1",
     "readyNotes": [],
     "sheets": [

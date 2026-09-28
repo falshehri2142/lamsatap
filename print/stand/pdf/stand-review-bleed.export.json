@@ -1,6 +1,6 @@
 {
   "tool": "print/export.cjs",
-  "date": "2026-09-28T01:24:12.447Z",
+  "date": "2026-09-28T11:22:59.370Z",
   "node": "v24.18.0",
   "url": "print/stand/index.html?client=example-cafe&purpose=review&bleed=1",
   "options": {
@@ -82,7 +82,7 @@
       100,
       150
     ],
-    "readyMs": 327,
+    "readyMs": 319,
     "readySignal": "1",
     "readyNotes": [],
     "sheets": [

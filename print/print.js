@@ -175,8 +175,7 @@
   // صف في بطاقة المعلومات:
   //   {icon, ar, en, value}      صف فيه أيقونة وسطرين (ميزة أو محتوى)
   //   {label, labelEn, value, valueDir, valueEn}   خانة: التسمية ثم القيمة (الواي فاي، وقت الخروج). القيمة ltr إلا لو valueDir: 'rtl'
-  //   {num, ar, en, strong}      رقم اتصال (الطوارئ): الاسم جهة البداية والرقم جهة النهاية
-  //   {num, ar, en, inline}      نفسه، والاسمين في سطر واحد «المضيف · Host» (صف رقم المضيف، عشان البطاقة تساع 5 أرقام)
+  //   {num, ar, en, strong}      رقم اتصال (الطوارئ): الاسم جهة البداية (عربي، وتحته الإنجليزي، وكل سطر ما ينكسر) والرقم جهة النهاية
   //   {head, ar, en}             سطر عنوان للبطاقة بدون أيقونة (مثل «كلمة المرور جاهزة للنسخ»)
   //   {note}                     سطر صغير آخر البطاقة (بواسطة)
   // السطر الإنجليزي تحت العربي بمسافة sign.enGap في كل الأوضاع (نقاط الحروف العربية تنزل تحت حد السطر)
@@ -184,8 +183,7 @@
     var en = function (t) { return t ? '<p class="s-en" dir="ltr" lang="en" style="font-size:' + S.rowEnPt + 'pt;margin-top:' + S.enGap + 'mm">' + escP(t) + '</p>' : ''; };
     var ar = function (t, extra) { return '<p class="s-ar" style="font-size:' + S.rowPt + 'pt">' + escP(t) + (extra || '') + '</p>'; };
     if (r.num) {
-      var txt = r.inline ? ar(r.ar, r.en ? ' · <span class="s-ar-en" dir="ltr" lang="en" style="font-size:' + S.rowEnPt + 'pt">' + escP(r.en) + '</span>' : '') : ar(r.ar) + en(r.en);
-      return '<div class="s-row s-row--num' + (r.strong ? ' is-strong' : '') + '"><div class="s-row-txt">' + txt + '</div>' +
+      return '<div class="s-row s-row--num' + (r.strong ? ' is-strong' : '') + '"><div class="s-row-txt">' + ar(r.ar) + en(r.en) + '</div>' +
         '<p class="s-num" dir="ltr" style="font-size:' + (r.strong ? S.sosPt : S.sosPt2) + 'pt">' + escP(r.num) + '</p></div>';
     }
     if (r.label) {
@@ -401,7 +399,7 @@
     return { warn: warn, report: rep };
   };
 
-  // صفحة الطباعة: مقاس الورقة (ومع النزف وعلامات القص في ملف المطبعة)
+  // صفحة الطباعة: مقاس الورقة. في ملف المطبعة (bleed=1) + النزف بدون علامات (106×156)، والعلامات بس مع marks=1 (116×166)
   w.setPageSize = function (wMM, hMM) {
     var pg = d.getElementById('p-page') || d.head.appendChild(d.createElement('style'));
     pg.id = 'p-page';
