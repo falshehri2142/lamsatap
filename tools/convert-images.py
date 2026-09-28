@@ -32,6 +32,10 @@ LAYERS = {
     'restaurant-counter':     ('shop-counter.jpg',           'warm',  False, None),                   # R3: مشهد العرض الحي للمطاعم
     'host-hallway-door':      ('host-hallway-door.jpg',      'light', True,  None),                   # H1: بطل المضيفين وبابهم
     'host-door-closeup':      ('host-hallway-door.jpg',      'light', False, (36, 39, 72, 73, 4 / 5)),  # H2: قصة المضيفين، الباب واللوحة (4:5)
+    # GM-054/058: مشاهد المنتج المولّدة (kie.ai، مكبّرة 2560×1440)، مكانها brand/photos/generated/
+    'scene-restaurants':      ('../generated/restaurants-hero-imagen-1-upscaled-1.webp', 'warm',  True,  None),  # طاولة كافيه وستاند فاضي
+    'scene-hosts-door':       ('../generated/hosts-hero-imagen-1-upscaled-1.webp',       'light', True,  None),  # باب شقة وبرواز فاضي
+    'scene-hosts-table':      ('../generated/hosts-table-imagen-1-upscaled-1.webp',      'light', False, None),  # كونسول و3 ستاندات
 }
 # حدود «الاتجاه 3» §4 بالـKB، للـ1600: (الأبيض والأسود، اللون). والـ800 نصها.
 LIMITS = {True: (180, 180), False: (120, 160)}
