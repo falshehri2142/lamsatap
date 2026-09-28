@@ -1,0 +1,195 @@
+{
+  "tool": "print/export.cjs",
+  "date": "2026-09-28T11:22:46.060Z",
+  "node": "v24.18.0",
+  "url": "print/host-signs/index.html?client=example-flats&sign=emergency&bleed=1",
+  "options": {
+    "check": false,
+    "pdf": true,
+    "png": null,
+    "transparent": false,
+    "social": false,
+    "bleed": true,
+    "bleedParam": "bleed=1",
+    "selector": ".p-sheet",
+    "only": null,
+    "pdfFix": true
+  },
+  "errors": [],
+  "warnings": [],
+  "files": [
+    {
+      "kind": "pdf",
+      "file": "print/host-signs/pdf/emergency-stand-bleed.pdf",
+      "want": [
+        106,
+        156
+      ],
+      "ok": true,
+      "checks": [
+        "ok page size 106 x 156 mm (want 106 x 156 mm, tolerance 0.01 mm)",
+        "ok TrimBox 100 x 150 mm (want 100 x 150 mm, the trim size); BleedBox 106 x 156 mm"
+      ],
+      "chromeMM": [
+        [
+          105.83,
+          155.96
+        ]
+      ],
+      "sizeFixed": true,
+      "bytes": 99315,
+      "version": "1.4",
+      "pages": 1,
+      "pageMM": [
+        [
+          106,
+          156
+        ]
+      ],
+      "trimMM": [
+        [
+          100,
+          150
+        ]
+      ],
+      "fonts": {
+        "Type3": 14
+      },
+      "fontFiles": 0,
+      "type3BitmapFonts": 0,
+      "images": [],
+      "producer": "Skia/PDF m153",
+      "tagged": true,
+      "bleedBoxMM": [
+        [
+          106,
+          156
+        ]
+      ]
+    }
+  ],
+  "browser": "Chrome/153.0.8010.53 (Chrome)",
+  "page": {
+    "title": "لوحات الوحدة (للطباعة)",
+    "lang": "ar",
+    "dir": "rtl",
+    "cssSize": "106mm 156mm",
+    "mm": [
+      106,
+      156
+    ],
+    "withoutBleedMM": [
+      100,
+      150
+    ],
+    "readyMs": 323,
+    "readySignal": "1",
+    "readyNotes": [],
+    "sheets": [
+      {
+        "name": "emergency-stand",
+        "sign": "emergency-stand",
+        "mm": [
+          106,
+          156
+        ],
+        "cssPx": [
+          400.63,
+          589.59
+        ],
+        "radius": "0px",
+        "trimMM": [
+          100,
+          150
+        ],
+        "trimInsetMM": [
+          3,
+          3,
+          3.01,
+          3
+        ],
+        "bleedMM": [
+          3,
+          3,
+          3.01,
+          3
+        ]
+      }
+    ]
+  },
+  "templateWarnings": [
+    "لون الطباعة (CMYK أو Pantone) ناقص. اطلب بروفة قبل الطباعة.",
+    "الطوارئ: باركود تجريبي (example.com). الحقيقي نفس رابط الشريحة /t/<code>/ من systems/shortlinks."
+  ],
+  "templateReport": {
+    "client": "example-flats",
+    "signs": [
+      {
+        "sign": "emergency-stand",
+        "variant": "stand",
+        "url": "https://example.com/t/EXAMPLESOS01/",
+        "pageMM": [
+          106,
+          156
+        ],
+        "trimMM": [
+          100,
+          150
+        ],
+        "chipCenterMM": [
+          50,
+          62
+        ],
+        "chipZoneMM": [
+          30,
+          30
+        ],
+        "qr": {
+          "modules": 29,
+          "moduleMM": 1.034,
+          "quietMM": 4.14,
+          "totalMM": 38.28
+        },
+        "fit": {
+          "minTextPt": 9,
+          "textOutsideSafe": [],
+          "dotCenterMM": [
+            50,
+            62
+          ],
+          "dotDiameterMM": 20,
+          "qrBoxMM": [
+            3.86,
+            105.86,
+            42.13,
+            144.14
+          ],
+          "cardMM": [
+            44,
+            95.5,
+            92,
+            140
+          ],
+          "cardMode": "tighter"
+        }
+      }
+    ]
+  },
+  "fonts": {
+    "faces": [
+      {
+        "family": "Readex Pro",
+        "weight": "160 700",
+        "style": "normal",
+        "status": "loaded"
+      }
+    ],
+    "drawn": [
+      {
+        "family": "Readex Pro",
+        "custom": true,
+        "glyphs": 352
+      }
+    ]
+  }
+}

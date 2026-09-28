@@ -1,0 +1,1729 @@
+{
+ "note": "State of print run wf_1bb6bab4-eb8 after the internet outage (2026-09-28). Keys = agent outputs.",
+ "tool": {
+  "usage": "node print/export.cjs --url \"<مسار القالب?query>\" --out <مجلد> [--pdf] [--png 2x,300dpi] [--transparent] [--bleed] [--social] [--sign-names] [--param k=v] [--only a,b] [--check]\n\nأمثلة:\n- ملصقات المضيف: node print/export.cjs --url \"print/host-stickers/index.html?client=example-flats\" --out <dir> --pdf --png 2x,300dpi --transparent\n- صور الموقع: node print/export.cjs --url \"print/host-signs/index.html?client=example-flats\" --out print/renders --png 2x --transparent --sign-names\n  يطلع checkout@2x.png و wifi-stand@2x.png و emergency-stand@2x.png و guest-guide-stand@2x.png.\n- ملف المطبعة: ... --bleed --pdf --png 300dpi\n  يحط bleed=1، ويفحص صندوق القص .s-trim وصندوق النزف .s-art، ويكتب TrimBox و BleedBox في PDF.\n- نسخة الحفر: --param mono=1\n- السوشال: --social (المقاس بكسل بالضبط، RGB).\n- فحص بدون تصدير: --check\n\nنتيجة الأمر: 0 نجح، 1 خطأ في الصفحة أو فحص فشل (ولا يصدّر شي لو الصفحة فيها خطأ)، 2 خطأ في الأمر.\nالقياسات كلها في <name>.export.json.\nبدون npm: Node 22 أو أحدث، و Chrome أو Edge عن طريق DevTools protocol، وسيرفر على 127.0.0.1 لجذر المشروع.",
+  "tested": true,
+  "testEvidence": "قياسات حقيقية (Node v24.18، ويندوز)، وتأكدت منها بكود ثاني: pypdf strict و Pillow، وعارض PDF حق كروم (PDFium).\n\nملصقات المضيف (--pdf --png 2x,300dpi --transparent):\n- PDF: كروم طلّعه 99.82×69.85mm، والأداة صححته لـ MediaBox 283.4646×198.4252pt = 100.000×70.000mm.\n- الصور تطابق mm×96÷25.4×الدقة:\n  - 45×45mm: ‏340×340 و531×531.\n  - 45×70mm: ‏340×529 و531×827.\n- كلها RGBA، و pHYs ‏192/300 dpi.\n- الزوايا alpha 255، لأن الملصقات مربعة بيضاء. قناة الشفافية موجودة، والمنطقة الشفافة برّا الورقة.\n\nلوحات مصمم الطباعة (host-signs، قراءة بس):\n- 4 أوراق بأسماء data-sign.\n- PDF ‏4 صفحات: كروم طلّع 99.82×149.94، وانصححت لـ 100.000×150.000mm.\n- لوحة الباب checkout@2x ‏756×1134: زواياها alpha 0,0,0,0 (مدوّرة 4mm، وأول بكسل كامل على بعد حوالي 3.84mm).\n- وضع المطبعة:\n  - 4 صفحات 116.000×166.000mm (كروم طلّع 116.08×166.12).\n  - TrimBox ‏100×150 على 8mm، و BleedBox ‏106×156 على 5mm.\n  - صورة 300dpi ‏1370×1961، وعلامات القص على خط القص (شفتها بعيني).\n\nصفحة سوشال تجريبية: 1080×1080 و1080×1920 RGB، والحواف مضبوطة على البكسل.\n\nحالات الفشل (كلها exit 1):\n- طلب برّا المشروع: انمنع.\n- ملف عميل ناقص: 404.\n- ورقة مقاسها يتبع عرض النافذة: انرفضت.\n- رابط موقع بدل مسار: exit 2.\n\nالفحص المستقل:\n- 118 قطعة PNG، ولا CRC غلط.\n- نص PDF عربي حقيقي وينسخ.\n- ولا عملية متصفح ولا بروفايل مؤقت باقي.\n\nشفت الصور بعيني: ملصق الباركود 300dpi، ملصق الشريحة 2x، لوحة الباب على خلفية غامقة.\nالمخرجات وصفحات التجربة انحذفت بعد الفحص، وبقى log.txt.",
+  "browser": "Chrome 153.0.8010.53 headless=new (الافتراضي)، و Edge 154.0.4258.37 عن طريق --browser. الاثنين انجرّبوا.",
+  "problems": [
+   "وضع المطبعة في print/print.js كان فيه خطأ: .s-art على slug (8mm) بدل slug − b (5mm)، فصندوق القص جا على 11/11/5/5mm وعلامات القص على 8mm. الأداة رفضت التصدير. مصمم الطباعة صلحه، وتأكدت: التصدير الحقيقي نجح وصناديقه صحيحة.",
+   "نسخة الحفر (mono=1): الشعار يطلع صورة نقطية داخل PDF (441×90 في الملصقات، و432×87 في لوحة الباب، حوالي 300dpi) بسبب filter: brightness(0) في print/print.css. الحفر يبي SVG فكتور: القرار عند مصمم الطباعة.",
+   "الخط في كل PDF نوعه Type3 (مسارات فكتور، والنص ينسخ)، لأن Readex Pro ملف متغير. جربت نسخة ثابتة: طلعت TrueType مضمّن. قبول المطبعة لـ Type3: غير مؤكد. ولو رفضته، يلزم نسخة ثابتة في brand/ (ملك مصمم الموقع).",
+   "كروم يقرّب مقاس صفحة PDF (حوالي ±0.2mm). الأداة تصححه وتتأكد منه، و --no-pdf-fix يلغي التصحيح.",
+   "PDF يطلع RGB مو CMYK، والبروفة لازمة. والأداة تطلّع PNG بس، بدون WebP أو AVIF.",
+   "انجرّبت على ويندوز بس، وماك ولينكس غير مؤكد. وقاعدة الفحص الثلاثي (fact-checker و reality-tester و skeptic) ما انشغلت من داخل هالوكيل، لأن ما عندي أداة تشغّل وكلاء. سويت فحص مستقل بنفسي، ومرحلة فاحص ما قبل الطباعة بعدي.",
+   "ما عدّلت سكيل print-studio (مو من ملفاتي). يحتاج سطر عن print/EXPORT.md وقت الدمج."
+  ],
+  "tool": "print/export.cjs (الشرح في print/EXPORT.md، وملاحظاتي في work/2026-09-28-host-signs/ad-creative.md، وسجل التجربة في work/2026-09-28-host-signs/export-test/log.txt). ما سويت commit."
+ },
+ "signs": {
+  "design": {
+   "decisions": "جولة الإصلاح خلصت: البنود الست كلها انصلحت في الملفات، وملاحظات مراجعة التصدير بعد. قست كل شي قبل وبعد، والتفاصيل في work/2026-09-28-host-signs/print-designer.md القسم 12.\n\nالقرارات الأساسية ما تغيرت:\n1) لوحة الباب: أكريليك 100×150 طولي، زواياه 4mm، بدون برواز، ومطبوع من الخلف. وراه ملصق on-metal ‏45×45 مركزه 62mm، ويثبت بشريط VHB (خيار ب).\n2) الطاولة: ستاند A6 منفصل لكل فعل (الواي فاي، الطوارئ، دليل الوحدة)، ونفس حامل JST.\n3) وجه ستاند المطاعم (التقييم والمنيو): نفس اللغة، ونفس القيم الهندسية في dims.stand.\n\nاللي تغيّر في جولة الإصلاح:\n- ss03 انشال من .s-val وبقى \"zero\". جربته بكلمة مرور فيها IlI1O0o: حرف I بشرطتين، والصفر بنقطة. وصححت التعليق في print.css وCREDITS.md وsigns.js.\n- مسافة السطر الإنجليزي تحت العربي تجي من dims.js:\n  - titleEnGap: ‏3mm\n  - touchEnGap: ‏0.2mm\n  - capEnGap: ‏0.6mm\n  - enGap: ‏0.9mm في كل أوضاع البطاقة.\n  أقل مسافة حبر كانت 0.07mm («الدفاع المدني») و0.20mm («أو امسح الباركود»)، والحين 0.89mm (المطلوب 0.5 أو أكثر). ونقاط «الواي» عن «Wi-Fi» صارت 1.91mm.\n- النقطة صارت ø20، وهذا أعلى المسموح (12 إلى 20 في موجز المدير الفني §6). حبر الباركود على حبر النقطة صار 1.4 إلى 1.5، وكان 1.7 إلى 1.9.\n- طول البطاقة من محتواها:\n  - الخروج والمنيو: بطول مربع الباركود بالضبط (110 إلى 140).\n  - التقييم (صف واحد): بطول محتواه، وفي نص ارتفاع الباركود.\n  - الطويلة: من 95.5 إلى 140.\n  - «بلمسة أو بالباركود» انشالت من بطاقة التقييم، لأنها تكرار ثالث لنفس المعنى.\n- ملف المطبعة: &bleed=1 يطلع صفحة 106×156 بدون علامات، و&marks=1 يضيف علامات قص سماكتها 0.1mm (116×166)، و&mirror=1 يطلع نسخة معكوسة للأكريليك. قريت الملفات بـ pypdf: MediaBox ‏106×156، وTrimBox ‏100×150 على بعد 3mm.\n- stand.js: كل وجه له رابطه (url، وurls.<الغرض> للوجه الثاني). لو &purpose= لغرض ما له رابط:\n  - ما ينطبع باركود، ويطلع مكانه مربع أحمر «الباركود ناقص».\n  - سطر «أو امسح الباركود» يختفي.\n  - التصدير يتمنع.\n  وجه المنيو انصدّر من example-nologo (EXAMPLE456).\n- نسخة الحفر: «12 PM» صار أسود.\n- أي غلط يخرّب القطعة يطلع بخط عريض يبدأ بـ «لازم يتصلح قبل الطباعة»، ومعه console.error، فأداة التصدير ترفض الصفحة (جربتها). والأمثلة كلها ما فيها ولا منع.\n- معاينة الجوال على 390px: الورقة كانت مقصوصة، والحين كاملة. ui-probe رجع صفر أخطاء على 1440 و390.\n- README قسم «الطباعة: أي ملف لأي مطبعة»:\n  - الستاندات عند الإيثار: png/<القطعة>@300dpi.png ‏(1181×1772)، ونكتب لهم «بدون قص وبدون تعديل ألوان».\n  - الأكريليك: pdf/checkout-bleed.pdf، ونكتب للمطبعة: قص R4، وطباعة من الخلف بطبقة أبيض، وعكس الصورة.\n  - الأوامر كلها بـ print/export.cjs.\n- أعدت التصدير بأداة print/export.cjs بنفس أوامر خطوة التصدير، وكلها OK:\n  - 5 صور للموقع.\n  - 6 ملفات PDF.\n  - 6 صور 2x، و7 صور 300dpi.\n  وأعدت كتابة print/renders/SIZES.md من قياس جديد بسكربت خطوة التصدير. كل صورة للموقع 756×1134 RGBA بنسبة 2:3، ونفس ملف الطباعة 2x بالبايت. خطوة التصدير تعيدها لو مراجعة impeccable غيّرت شي.\n\nكل الروابط من جذر المشروع.",
+   "files": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\print.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\print.css",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\dims.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\signs.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\index.html",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\clients\\example-flats.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\clients\\example-studio.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\stand.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\index.html",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\README.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\CREDITS.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\work\\2026-09-28-host-signs\\print-designer.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\checkout-sign.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\wifi-stand.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\emergency-stand.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\guest-guide-stand.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\restaurant-stand.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\SIZES.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\checkout-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\wifi-stand-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\emergency-stand-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\guest-guide-stand-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\checkout@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\checkout@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\wifi-stand@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\wifi-stand@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\emergency-stand@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\emergency-stand@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\guest-guide-stand@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\guest-guide-stand@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\pdf\\stand-review-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\pdf\\stand-menu-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-review@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-review@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-menu@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-menu@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-menu-back@300dpi.png"
+   ],
+   "exportTargets": [
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=checkout&render=1",
+     "outDir": "print/renders",
+     "name": "checkout-sign.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=wifi&render=1",
+     "outDir": "print/renders",
+     "name": "wifi-stand.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=emergency&render=1",
+     "outDir": "print/renders",
+     "name": "emergency-stand.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=guide&render=1",
+     "outDir": "print/renders",
+     "name": "guest-guide-stand.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/stand/index.html?client=example-cafe&purpose=review&render=1",
+     "outDir": "print/renders",
+     "name": "restaurant-stand.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=checkout",
+     "outDir": "print/host-signs",
+     "name": "checkout",
+     "kind": "print-sheet"
+    },
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=wifi",
+     "outDir": "print/host-signs",
+     "name": "wifi-stand",
+     "kind": "print-sheet"
+    },
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=emergency",
+     "outDir": "print/host-signs",
+     "name": "emergency-stand",
+     "kind": "print-sheet"
+    },
+    {
+     "url": "print/host-signs/index.html?client=example-flats&sign=guide",
+     "outDir": "print/host-signs",
+     "name": "guest-guide-stand",
+     "kind": "print-sheet"
+    },
+    {
+     "url": "print/stand/index.html?client=example-cafe&purpose=review",
+     "outDir": "print/stand",
+     "name": "stand-review",
+     "kind": "print-sheet"
+    },
+    {
+     "url": "print/stand/index.html?client=example-nologo",
+     "outDir": "print/stand",
+     "name": "stand-menu",
+     "kind": "print-sheet"
+    }
+   ],
+   "copyTable": [
+    {
+     "piece": "الكل (6 قطع)",
+     "ar": "قرّب جوالك هنا",
+     "en": "Tap your phone here",
+     "source": "work/2026-09-27-brand-identity/web-copy.md §3؛ الإنجليزي ترجمة حسب sales/host-track.md:111 و work/2026-09-28-host-signs/goal.md («عربي أول، وإنجليزي ثاني قصير»)"
+    },
+    {
+     "piece": "الكل (6 قطع)",
+     "ar": "أو امسح الباركود",
+     "en": "or scan the code",
+     "source": "web-copy.md §3"
+    },
+    {
+     "piece": "checkout-sign (الباب)",
+     "ar": "تأكيد الخروج",
+     "en": "Check-out",
+     "source": "goal.md بند 1، و management/decision-register.md GM-049/GM-050 («لوحة تأكيد الخروج»)؛ Check-out = «تشيك أوت» في sales/host-track.md:43 و website/config.js"
+    },
+    {
+     "piece": "checkout-sign (الباب)",
+     "ar": "واضغط «تم الخروج»",
+     "en": "then press «تم الخروج»",
+     "source": "زر صفحة الخروج «تم الخروج» في web-copy.md §2.2 (الصفحة عربي للحين، فالإنجليزي ينقل اسم الزر)"
+    },
+    {
+     "piece": "checkout-sign (اختياري)",
+     "ar": "وقت الخروج · 12 الظهر",
+     "en": "Check-out · 12 PM",
+     "source": "التسمية web-copy.md §2.2؛ الوقت من ملف المضيف (المثال من website/demo/rental-guide/data.js)"
+    },
+    {
+     "piece": "checkout-sign (لو poweredBy: true)",
+     "ar": "بواسطة لمسة تاب",
+     "en": "",
+     "source": "web-copy.md §2.0، و GM-023"
+    },
+    {
+     "piece": "wifi-stand",
+     "ar": "الواي فاي",
+     "en": "Wi-Fi",
+     "source": "web-copy.md §2.3 (h1)"
+    },
+    {
+     "piece": "wifi-stand",
+     "ar": "كلمة المرور جاهزة للنسخ",
+     "en": "Password ready to copy",
+     "source": "marketing/telegram-plan.md §5 م3"
+    },
+    {
+     "piece": "wifi-stand",
+     "ar": "الشبكة · كلمة المرور (والقيم من ملف الوحدة)",
+     "en": "Network · Password",
+     "source": "web-copy.md §2.3 (التسميات)"
+    },
+    {
+     "piece": "wifi-stand (شبكة بدون كلمة مرور)",
+     "ar": "الشبكة مفتوحة، بدون كلمة مرور.",
+     "en": "Open network, no password",
+     "source": "web-copy.md §2.3"
+    },
+    {
+     "piece": "emergency-stand",
+     "ar": "الطوارئ",
+     "en": "Emergency",
+     "source": "web-copy.md §2.2 (h2)؛ الإنجليزي من https://my.gov.sa/en/emergency-contact"
+    },
+    {
+     "piece": "emergency-stand",
+     "ar": "الطوارئ الموحد 911",
+     "en": "Unified emergency",
+     "source": "website/config.js؛ رسمي: https://my.gov.sa/en/emergency-contact و https://www.spa.gov.sa/N2412238 و https://www.spa.gov.sa/N2586249 و https://998.gov.sa/ (فتحتها 2026-09-28)"
+    },
+    {
+     "piece": "emergency-stand",
+     "ar": "الإسعاف 997",
+     "en": "Ambulance",
+     "source": "website/config.js؛ رسمي: https://my.gov.sa/en/emergency-contact و https://www.srca.gov.sa/ (2026-09-28)"
+    },
+    {
+     "piece": "emergency-stand",
+     "ar": "الدفاع المدني 998",
+     "en": "Civil Defense",
+     "source": "website/config.js؛ رسمي: https://my.gov.sa/en/emergency-contact و https://www.srca.gov.sa/ و https://998.gov.sa/ (2026-09-28)"
+    },
+    {
+     "piece": "emergency-stand",
+     "ar": "الشرطة 999",
+     "en": "Police",
+     "source": "website/config.js؛ رسمي: https://my.gov.sa/en/emergency-contact و https://www.srca.gov.sa/ (2026-09-28)"
+    },
+    {
+     "piece": "emergency-stand (اختياري، فاضي في المثال، والتصدير ممنوع لو انكتب للحين)",
+     "ar": "المضيف + رقمه",
+     "en": "Host",
+     "source": "إضافة صاحب المشروع في goal.md؛ يتعارض مع GM-003 وينتظر قرار"
+    },
+    {
+     "piece": "guest-guide-stand",
+     "ar": "دليل الوحدة",
+     "en": "Guest guide",
+     "source": "web-copy.md §2.2 و §3؛ «دليل الضيف» في marketing/telegram-plan.md م4"
+    },
+    {
+     "piece": "guest-guide-stand",
+     "ar": "التكييف",
+     "en": "AC",
+     "source": "web-copy.md §1.2 ميزة 2، و telegram-plan م4"
+    },
+    {
+     "piece": "guest-guide-stand",
+     "ar": "وقت الخروج",
+     "en": "Check-out time",
+     "source": "web-copy.md §1.2 ميزة 2"
+    },
+    {
+     "piece": "guest-guide-stand",
+     "ar": "الشروط",
+     "en": "House rules",
+     "source": "web-copy.md §1.2 ميزة 2، و telegram-plan م4"
+    },
+    {
+     "piece": "guest-guide-stand (بند بديل)",
+     "ar": "العنوان",
+     "en": "Address",
+     "source": "web-copy.md §1.2 ميزة 2، و telegram-plan م4"
+    },
+    {
+     "piece": "restaurant-stand (stand-review)",
+     "ar": "قيّمنا في قوقل",
+     "en": "Review us on Google",
+     "source": "web-copy.md §3 (نص عادي، بدون شعار قوقل ولا G ولا نجوم)"
+    },
+    {
+     "piece": "restaurant-stand (stand-review) و stand-menu",
+     "ar": "بدون تطبيق",
+     "en": "No app needed",
+     "source": "sales/host-track.md:42، و web-copy.md §1.6، ومسموحة في goal.md"
+    },
+    {
+     "piece": "stand-menu",
+     "ar": "المنيو",
+     "en": "Menu",
+     "source": "web-copy.md §3"
+    },
+    {
+     "piece": "stand-menu",
+     "ar": "بالأسعار والسعرات",
+     "en": "Prices and calories",
+     "source": "web-copy.md §1.3 صف 2"
+    },
+    {
+     "piece": "stand (الأغراض الثانية)",
+     "ar": "الواي فاي / تابعنا",
+     "en": "Wi-Fi / Follow us",
+     "source": "web-copy.md §3"
+    },
+    {
+     "piece": "خلف ستاندات الطاولة (لو poweredBy: true)",
+     "ar": "بواسطة لمسة تاب",
+     "en": "",
+     "source": "web-copy.md §2.0 و §3، و GM-023 (9pt، أقل حد)"
+    },
+    {
+     "piece": "حالة غلط بس (وجه بدون رابط)، مو نص للعميل",
+     "ar": "الباركود ناقص",
+     "en": "",
+     "source": "print/print.js: نص داخلي للأداة داخل مربع أحمر، والتصدير ممنوع في هالحالة، فما يوصل لأي ملف طباعة"
+    }
+   ],
+   "uncertain": [
+    "كل قيم التصميم في print/dims.js تحت sign اقتراح مني، وتنجرّب بأول عينة: العنوان 30pt، والنقطة ø20، وصندوق الهوية 36×8.5mm، والبطاقة، ومسافات السطر الإنجليزي.",
+    "لوح الأكريليك: السعر، والطباعة من الخلف مع طبقة أبيض، وهل المطبعة تعكس الصورة بنفسها أو تبي ملف معكوس (&mirror=1 جاهز)، والزاوية 4mm، والسماكة، وهل تقبل خطوط Type3.",
+    "اتجاه ملصق on-metal خلف الأكريليك (طبقة الفرايت جهة الجدار)، وتثبيت اللوح بـ VHB بدون ما يميل فوق الملصق. يُجرّب على باب حديد (المهندس).",
+    "قراءة الشريحة من ورا الأكريليك والورق، وقراءة الباركود المطبوع: 3 من 3 بآيفون وأندرويد ما انجرّبت.",
+    "هل قاعدة حامل JST المائل تغطي أسفل الورقة (stand.baseCover).",
+    "مقاس ورق الإيثار الفعلي: 100×150 أو 4×6 إنش (101.6×152.4)، وهل يقصون أو يعدلون الصورة.",
+    "الألوان RGB بدون بروفة CMYK: الأسود لازم ينطبع K100 بس عشان نص 9pt والباركود.",
+    "رقم المضيف على ستاند الطوارئ يتعارض مع GM-003 وينتظر قرار المدير العام. ولو انعتمد، ما يدخل في البطاقة الحالية: 5 أرقام بسطرين ما تساعها بطاقة عرضها 48mm، فالقالب يمنع التصدير لين نصمم مكانه.",
+    "شريحتين ظهر لظهر في ستاند واحد ممكن الجوال يقرأ الغلط منها: ما انجرّب. سبب إضافي بس، مو الأساسي.",
+    "وضوح لوحة الباب من مترين على جدار 120 إلى 140cm: تقدير.",
+    "الرملي الفاتح للبطاقة على ورق الصور (تباينه مع الأبيض 1.15) ممكن يطلع باهت في البروفة.",
+    "رقم 911 برّا مناطق مكة المكرمة والمدينة والرياض والشرقية (فيه unified911: false للوحدة).",
+    "صفحة خروج مستقلة وصفحة طوارئ بزر اتصال مو موجودة للحين. الخروج الحين قسم داخل website/templates/rental-guide.",
+    "اقتراح إن ستاندات الوحدة الثلاثة تنسجل type: door (بدون عدّ لمسات)، مثل legal/register.md بند 20. القرار عند loyer ومشرف الشبكة.",
+    "ورق الصور ما ينطبع من الخلف. فسطر «بواسطة» خلف الستاند يحتاج ورقة ثانية ورا الأولى في الحامل.",
+    "الصفحة العربية للمنصة الوطنية (my.gov.sa/ar/content/93) ترجع 403 من جهازنا. الأسماء العربية أخذناها من أرشيفها 2025-04-02، والأرقام نفسها مؤكدة اليوم من الصفحة الإنجليزية الرسمية ومن الهلال الأحمر والدفاع المدني.",
+    "مسافة الحبر بين سطر اللمس وسطره الإنجليزي تطلع 0.91 أو 1.18mm حسب تقريب كروم للبكسل على الشاشة. الاثنين فوق الحد (0.5)، والقيمة الحقيقية في الطباعة ما انقاست إلا من الصور."
+   ]
+  },
+  "impeccable": {
+   "verdict": "ship",
+   "fixes": [],
+   "strengths": [
+    "disposition: ship. ما لقيت أي إصلاح لازم، وما فيه ولا صف مخالف أو ناقص في المقارنة. المراجعة انكتبت في work/2026-09-28-host-signs/impeccable-review.md، والقصاصات في work/2026-09-28-host-signs/review-scratch/.",
+    "مدخلات ناقصة: ما فيه PRODUCT.md ولا مجلد .impeccable. وما فيه عقد impeccable بخمس كتل ولا seed key، لأن الاتجاه جاي من goal.md وقرارات المدير، فحكمت عليه ببنود goal.md. وصورة AWA مرجع للنقد، مو comp معتمد.",
+    "الأدلة سليمة: الخمس صور في print/renders مقاسها 756×1134 (يعني 100×150mm بـ 2x)، وما فيها مناطق فاضية، وكل صورة تطابق اسمها. ونسخ 300dpi مقاسها 1181×1772. قريت الباركود بـ OpenCV من الخمس ومن وجه المنيو، وكلها example.com/t/EXAMPLE… (وهمي).",
+    "الهندسة مضبوطة بالقياس على 300dpi: النقطة ø19.98 ومركزها 62.15mm فوق مركز الشريحة. الباركود 29.97mm من 110 لين 140mm، وبعده عن الحافة 8.13mm. البطاقة تبدأ مع حبر «أو امسح الباركود» (95.6 مقابل 95.43mm)، وتخلص مع الباركود (139.88mm).",
+    "الهوية صحيحة: اللي فوق العنوان شعار العميل apartments.svg بلونه #1F3B57، ووجه المنيو بدون شعار فالاسم نص بالحبر والنقطة سودا. وما فيه شعار لمسة تاب ولا زعفران ولا تيل، و«بواسطة» ما تطلع إلا على خلف ستاند العميل اللي مفعّل عنده poweredBy: true.",
+    "كل عيوب لوحة AWA راحت: لا «إشعار فوري للمضيف»، ولا AWA HOME، ولا موجات حول النقطة، ولا أيقونات داخل دواير، ولا برواز معدن. ولا شي من المرفوضات: لا kicker ولا ظل صلب ولا نص متدرج ولا شريط جانبي ولا رموز Unicode مكان الأيقونات (الأيقونات SVG بسماكة خط وحدة).",
+    "النصوص سليمة: العربي أول، والإنجليزي تحته 9pt أو أكثر، واتجاه الكتابة صح في الأسطر المخلوطة («then press «تم الخروج»» و«12 الظهر · 12 PM»، شيّكتها بقصاصة مكبرة). التباين: الرمادي 6.35 على الأبيض و5.5 على الرملي، والنقطة 11.53 و8.23.",
+    "تحسينات اختيارية، مو شرط: (1) أرقام الطوارئ 13 و15pt، يعني ارتفاع الرقم تقريباً 3.6mm، تنقرا من قريب بس، ولو كبّرنا 911 تصير هي البطل. (2) بطاقة «بدون تطبيق» في وجه التقييم لحالها صغيرة وجالسة في نص ارتفاع الباركود. (3) الأكريليك متعامل معه كأنه ورق، أبيض كله. (4) مسافة النقطة عن «قرّب جوالك هنا» 6.9mm، قريبة من مسافة السطر عن «أو امسح الباركود» 7.5mm. هذي الأخيرة ما تنصلح، لأن ملصق الشريحة من 47 لين 77mm لازم ما يكون فيه إلا النقطة (dims.js sign.touchTop).",
+    "لازم يبقى: نفس الهيكل: عنوان عربي كبير، ونقطة مصمتة ø20 على 62mm، و«قرّب جوالك هنا»، وباركود 30mm بديل ثاني جنب بطاقة رملية. وهوية العميل بس، والنص أسود K، وبدون زخرفة.",
+    "هالحكم للتصميم بس: ملفات PDF والنزف والعكس ما فتحتها، وهذي عند فحص ما قبل الطباعة."
+   ]
+  },
+  "export": {
+   "websitePng": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\checkout-sign.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\wifi-stand.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\emergency-stand.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\guest-guide-stand.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\renders\\restaurant-stand.png"
+   ],
+   "printPng": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\checkout@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\checkout@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\wifi-stand@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\wifi-stand@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\emergency-stand@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\emergency-stand@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\guest-guide-stand@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\png\\guest-guide-stand@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-review@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-review@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-menu@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-menu@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\png\\stand-menu-back@300dpi.png"
+   ],
+   "socialPng": [],
+   "pdfs": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\checkout-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\wifi-stand-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\emergency-stand-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\host-signs\\pdf\\guest-guide-stand-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\pdf\\stand-review-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\stand\\pdf\\stand-menu-bleed.pdf"
+   ],
+   "visualIssues": []
+  },
+  "prepressRound2": {
+   "verdict": "FAIL",
+   "rows": [
+    {
+     "item": "print/renders/",
+     "check": "5 صور بالأسماء المطلوبة + SIZES.md بس",
+     "result": "PASS",
+     "evidence": "ls: checkout-sign، wifi-stand، emergency-stand، guest-guide-stand، restaurant-stand + SIZES.md. ولا ملف زايد ولا .export.json"
+    },
+    {
+     "item": "صور الموقع الخمس",
+     "check": "المقاس = mm×96/25.4×2، و RGBA، والشفافية",
+     "result": "PASS",
+     "evidence": "كلها 756×1134 RGBA 8bit، و pHYs 7559 (191.9986dpi) = 100.013×150.02mm، والـ CRC سليم. الباب: الزوايا alpha 0 بنصف قطر 3.952 لين 3.956mm (0.081% شفاف). الستاندات ورقة كاملة alpha 255"
+    },
+    {
+     "item": "print/renders/SIZES.md",
+     "check": "أرقامه = قياسي من الملفات؟",
+     "result": "PASS",
+     "evidence": "المقاس والدقة و100.01×150.02mm والنسبة 2:3 (0.6667 و1.5000) والزوايا وروابط الباركود وأول 16 من SHA-256 (c2c2cf7c، 3d5bc295، b47d8004، 00725b50، 699d232d) كلها طابقت. ملاحظة صياغة بس على سطر 34"
+    },
+    {
+     "item": "الملفات حديثة (مو قديمة عن القالب)",
+     "check": "إعادة تصدير لمجلد مؤقت ومقارنة",
+     "result": "PASS",
+     "evidence": "الخمس صور بأوامر SIZES.md = نفس البايت. wifi-stand@300dpi و stand-menu@300dpi و stand-menu-back@300dpi = نفس البايت. PDF الطوارئ والمنيو: نفس محتوى الصفحات (التاريخ بس يختلف)"
+    },
+    {
+     "item": "صور 300dpi (7)",
+     "check": "المقاس = mm×300/25.4",
+     "result": "PASS",
+     "evidence": "1181×1772 RGB مع sRGB، و pHYs 11811 (299.9994dpi) = 99.992×150.03mm"
+    },
+    {
+     "item": "حواف ملونة LCD",
+     "check": "بكسل ملون حول النص الأسود والباركود",
+     "result": "PASS",
+     "evidence": "في الـ 17 صورة: أعلى chroma في شريط العنوان وسطر اللمس 12 لين 13 (= الرمادي والحبر نفسهم)، وفي الباركود 0"
+    },
+    {
+     "item": "مقاس صفحة PDF (بند 7 جولة 1)",
+     "check": "MediaBox = القص + 2×النزف",
+     "result": "PASS",
+     "evidence": "pypdf strict: الست ملفات 106.000×156.000mm، والمنيو صفحتين نفس المقاس"
+    },
+    {
+     "item": "صناديق PDF وعلامات القص",
+     "check": "TrimBox وBleedBox، وبدون علامات في الملف الافتراضي",
+     "result": "PASS",
+     "evidence": "TrimBox 100×150 على 3.000mm من كل جهة، و BleedBox 106×156. الخطوط المرسومة بس أيقونات 0.367mm، ما فيه علامات قص"
+    },
+    {
+     "item": "الرسم داخل PDF",
+     "check": "النقطة والباركود والبطاقة والشفافية",
+     "result": "PASS",
+     "evidence": "النقطة ø19.997 مركزها (50.026، 62.032). الباركود 30.001mm من (7.918، 109.882) ومربعه الأبيض 38.278 (4.14mm هادئة). ولا SMask ولا شفافية ولا blend"
+    },
+    {
+     "item": "mirror=1 و marks=1",
+     "check": "صدّرتها بأمر README لمجلد مؤقت وقستها",
+     "result": "PASS",
+     "evidence": "mirror: 106×156 وTrimBox في النص والرسم معكوس (النقطة من قدّام 50.23mm). marks: 116×166 وTrimBox على 8mm وعرض العلامات 0.100mm (LW 0.1 في ExtGState)"
+    },
+    {
+     "item": "الخطوط في PDF",
+     "check": "مضمّنة أو محوّلة لمسارات",
+     "result": "غير مؤكد",
+     "evidence": "Type3 بس (12 لين 16 في الملف): حروف فكتور داخل الملف (CharProcs)، 0 Type3 بصور، 0 خط غير مضمّن، 0 صورة نقطية في الملوّن، والنص انرسم بـ Readex Pro بس. قبول مطبعة الأكريليك لـ Type3 غير مؤكد"
+    },
+    {
+     "item": "CMYK",
+     "check": "لون الملف",
+     "result": "غير مؤكد",
+     "evidence": "PDF: DeviceRGB بس (rg/RG) وبدون OutputIntent. PNG: sRGB. ما ينحسب PASS: يحتاج بروفة CMYK من المطبعة"
+    },
+    {
+     "item": "أقل خط",
+     "check": "9pt أو أكثر",
+     "result": "PASS",
+     "evidence": "أقل خط 9.00pt في الـ 32 صفحة اللي فتحتها (والأخلاف)"
+    },
+    {
+     "item": "منطقة الأمان 8mm",
+     "check": "كل نص داخلها",
+     "result": "PASS",
+     "evidence": "DOM: أقرب نص يسار 10.18، فوق 12.0، يمين 10.5، تحت 12.6mm (سطر الخلف 8.1). صور 300dpi: أقرب حبر 8.13mm من كل جهة، والخلف 8.17"
+    },
+    {
+     "item": "نقاط الحروف ما تنقص",
+     "check": "ولا قص",
+     "result": "PASS",
+     "evidence": "overflow بس على img و svg، وكل سطر متصوّر لحاله بـ 8x كامل"
+    },
+    {
+     "item": "الحبر بين العربي والإنجليزي تحته (بند 16 جولة 1)",
+     "check": "0.5mm أو أكثر",
+     "result": "PASS",
+     "evidence": "أقلها في الأمثلة 0.86mm («الدفاع المدني / Civil Defense»)، ومن ملف التسليم نفسه 0.85 (300dpi) و0.93 (2x). «أو امسح الباركود» 0.99 لين 1.02، وسطر اللمس 0.91 لين 1.15. أضيق حالة 0.60mm (ملف وهمي unified911: false). كانت 0.10 و0.20"
+    },
+    {
+     "item": "قيم الواي فاي (بند 30 جولة 1)",
+     "check": "I و l و 0 و O تتفرق",
+     "result": "PASS",
+     "evidence": "font-feature-settings المحسوبة \"zero\" بس. رسم IlI1O0o-2026 و Il1-O0-Guest: I بشرطتين، l خط، 1 بعلم، 0 بنقطة"
+    },
+    {
+     "item": "النقطة على مركز الشريحة",
+     "check": "الفرق ±3mm (dims.js dotTol)",
+     "result": "PASS",
+     "evidence": "DOM (49.996، 61.998) ø19.996. صور 300dpi (50.02، 62.17) ø19.96. PDF (50.026، 62.032)"
+    },
+    {
+     "item": "الباركود",
+     "check": "30mm أو أكثر + 4 وحدات هادئة",
+     "result": "PASS",
+     "evidence": "29 وحدة × 1.0345 = 30.00 في DOM، و30.001 في PDF، و29.97 في صور 300dpi (تقريب بكسل، داخل ±0.5). الهادئة 4.13 لين 4.14mm وفيها 0 بكسل مو أبيض. الباركود يتقرا من الـ 17 صورة: كله example.com"
+    },
+    {
+     "item": "الفراغ بين الشريحة والباركود",
+     "check": "10mm أو أكثر",
+     "result": "PASS",
+     "evidence": "الستاند 105.862 − 77 = 28.86mm. الباب (on-metal 45×45) 105.862 − 84.5 = 21.36mm. ومن PDF 28.74 و21.24"
+    },
+    {
+     "item": "منطقة الشريحة ومركزها 62mm",
+     "check": "الستاند: ما فيها غير النقطة",
+     "result": "PASS",
+     "evidence": "داخل ø30 (47 لين 77) ما فيه غير النقطة. الباب (45×45 من 39.5 لين 84.5) فوقه حبر نص بس، والممنوع المعدن والفويل (engineering/stand-dimensions.md:8)"
+    },
+    {
+     "item": "المعدن",
+     "check": "ولا معدن ولا فويل ولا برواز عند الشريحة",
+     "result": "PASS",
+     "evidence": "ولا لون معدني ولا برواز، والتثبيت VHB (خيار ب في engineering/host-unit-and-stand-alternatives.md). القراءة من ورا الأكريليك غير مؤكد لين العينة"
+    },
+    {
+     "item": "سبب المقاس",
+     "check": "مكتوب",
+     "result": "PASS",
+     "evidence": "work/2026-09-28-host-signs/print-designer.md §1 و§2 (التكلفة، الوضوح، مكان الشريحة، بدون برواز)"
+    },
+    {
+     "item": "هوية العميل: الألوان والشعار",
+     "check": "ولا تيل ولا زعفران ولا شعار لمسة تاب",
+     "result": "PASS",
+     "evidence": "عدّ البكسل بالضبط في الخمس صور: 0 لكل ألوان التيل والزعفران الستة في brand/tokens.css. الموجود الرملي والرمادي (الثيم المحايد GM-027) ولون العميل #1F3B57 أو #7A3E2B. القوالب ما تنادي brand/logo. الوضع الداكن نفس الألوان"
+    },
+    {
+     "item": "«بواسطة لمسة تاب»",
+     "check": "مع poweredBy:true بس",
+     "result": "PASS",
+     "evidence": "example-flats و example-cafe (false): ولا سطر. example-studio (true): آخر بطاقة الباب + 3 أخلاف. example-nologo (true): الخلف"
+    },
+    {
+     "item": "علامة اللمس",
+     "check": "نقطة مصمتة بلا موجات (GM-027)",
+     "result": "PASS",
+     "evidence": "مسار دائرة fill بلا stroke، ولا حلقات ولا أقواس"
+    },
+    {
+     "item": "مصادر النصوص",
+     "check": "كل سطر ظاهر له ملف في المشروع",
+     "result": "PASS",
+     "evidence": "60 سطر ظاهر لقيتها كلها: web-copy.md (سطر 80، 102، 159، 202، 243، 245، 259-261، 283-290، 362-368)، sales/host-track.md:42 و:43 و:111، marketing/telegram-plan.md:74 و:81، website/config.js:33، website/demo/rental-guide/data.js:8-9"
+    },
+    {
+     "item": "ممنوعات",
+     "check": "إشعار فوري، G، نجوم، أسعار، أرقام مخترعة",
+     "result": "PASS",
+     "evidence": "نص DOM و PDF: صفر «فوري» و«تلقائي» و«إشعار» و instant و notif و ® و ★ و G و AWA و«ريال». «Review us on Google» نص عادي"
+    },
+    {
+     "item": "باركود وأسماء وهمية",
+     "check": "example.com، وبلا AWA HOME ولا محل حقيقي",
+     "result": "PASS",
+     "evidence": "كل الباركودات example.com/t/EXAMPLE…، والأسماء كلها «المثال»، والشبكة Mithal-Guest"
+    },
+    {
+     "item": "أرقام الطوارئ",
+     "check": "من مصدر رسمي",
+     "result": "PASS",
+     "evidence": "OFFICIAL في signs.js (911 و997 و998 و999) نفسه من الجولة 1 ومصادره فتحتها اليوم. 911 برّا مناطق مكة والمدينة والرياض والشرقية غير مؤكد"
+    },
+    {
+     "item": "رقم المضيف على ستاند الطوارئ (GM-003)",
+     "check": "التصدير ممنوع لين قرار المدير العام؟",
+     "result": "FAIL",
+     "evidence": "ملف وهمي unified911: false + hostPhone: البطاقة 4 صفوف، 0 منع، 0 console.error، فالرقم ينطبع ويتصدّر، وصف «المضيف · Host» ينكسر («Host ·» تحت). عكس جدول النصوص («والتصدير ممنوع لو انكتب للحين») و print/README.md:120، و print/README.md:83 يحطه مع تنبيهات العلم. المنع الحين بالصدفة لما البطاقة ما تساع (مع 911 بس)"
+    },
+    {
+     "item": "وجه المنيو (بند 33 جولة 1)",
+     "check": "باركود كل وجه = رابط شريحته",
+     "result": "PASS",
+     "evidence": "example-cafe&purpose=menu: منع عريض + مربع «الباركود ناقص» + بدون سطر الباركود، و export.cjs --check رجع exit 1. example-nologo: EXAMPLE456 في PNG و PDF. ملف فيه urls.menu: EXAMPLE124 بدون منع. رابطين متشابهين: منع"
+    },
+    {
+     "item": "نسخة الحفر (بند 32 جولة 1)",
+     "check": "كل شي أسود",
+     "result": "PASS",
+     "evidence": "ألوان النص المحسوبة في mono=1 كلها #000000 حتى «12 PM»"
+    },
+    {
+     "item": "ملفات العملاء القديمة",
+     "check": "example-cafe و example-nologo و mono و host-stickers تشتغل",
+     "result": "PASS",
+     "evidence": "example-cafe، example-nologo، card=0، الحفر، النزف، host-stickers (والحفر): 0 خطأ، 0 طلب فاشل أو برّا الجهاز، والخط Readex Pro بس"
+    },
+    {
+     "item": "تنبيهات تمنع التصدير",
+     "check": "تطلع وقت الغلط",
+     "result": "PASS",
+     "evidence": "رابط ناقص، http، رابطين متشابهين، نص مؤقت، اسم طويل نازل على العنوان، بطاقة ما تساع: كلها console.error. والأمثلة الحقيقية 0 منع"
+    },
+    {
+     "item": "أوامر README (بند 34 جولة 1)",
+     "check": "تطلع الملفات المكتوبة",
+     "result": "PASS",
+     "evidence": "7 أوامر كلها exit 0: wifi-stand@300dpi.png، stand-menu@300dpi.png و stand-menu-back@300dpi.png، checkout-bleed.pdf، العكس، العلامات، الحفر. وبدون &render=1 نفس البايت مثل ما يقول README"
+    },
+    {
+     "item": "معاينة الجوال",
+     "check": "ui-probe على 1440 و390",
+     "result": "PASS",
+     "evidence": "الصفحتين: errors 0، overflowX 0، clipped 0، lowContrast 0، tinyText 0، smallTargets 0، والورقة كاملة على 390"
+    },
+    {
+     "item": "print/dims.js",
+     "check": "كل رقم بمصدره",
+     "result": "PASS",
+     "evidence": "كل مفتاح في sign و door و press معه مصدره أو «مني» (غير مؤكد). dotD 20 داخل 12 لين 20 (web-art-director.md:628)"
+    },
+    {
+     "item": "print/CREDITS.md",
+     "check": "كل أيقونة وصورة وخط",
+     "result": "PASS",
+     "evidence": "5 أيقونات = ICON في print.js. check و location ونقطة اللمس نفس ملفات الموقع حرفياً. qrcode-generator 1.4.4 MIT و Readex Pro OFL، وتصحيح ss03"
+    },
+    {
+     "item": "README: تعليمات لوحة الأكريليك",
+     "check": "التعليمات تطلّع اللوح صح",
+     "result": "FAIL",
+     "evidence": "«مع طبقة أبيض ورا الألوان» (print/README.md:102) تنفهم أبيض تحت الحبر بس: الخلفية ومربعات الباركود البيضا ومسافته الهادئة تطلع أكريليك شفاف، والملصق والجدار يبانون من وراها، والباركود ممكن ما يتقرا"
+    },
+    {
+     "item": "print/EXPORT.md و export.cjs --help",
+     "check": "يطابقون الواقع",
+     "result": "FAIL",
+     "evidence": "EXPORT.md:4 «(نزف وعلامات قص)»، و:32 «نزف 3mm وعلامات قص (bleed=1 في القالب)»، و:88 «الصفحة = القص + النزف + علامات القص»، و export.cjs:47 «(bleed and crop marks)». الواقع: bleed=1 صفحة 106×156 بدون علامات، والعلامات بس مع --param marks=1"
+    },
+    {
+     "item": "website/ والأقسام الثانية",
+     "check": "ما أحد كتب فيها",
+     "result": "PASS",
+     "evidence": "git status لـ website و brand و engineering و services و sales و marketing و management و legal و systems: فاضي. وفحصي ما غيّر شي في print/"
+    },
+    {
+     "item": "وين تودّي لمسة لوحة الباب",
+     "check": "صفحة فيها «تم الخروج» أول شي",
+     "result": "غير مؤكد",
+     "evidence": "صفحة خروج مستقلة ما هي موجودة، والزر داخل website/templates/rental-guide (مثل الجولة 1)"
+    },
+    {
+     "item": "رقم المضيف: القرار نفسه",
+     "check": "GM-003 ضد إضافة صاحب المشروع",
+     "result": "غير مؤكد",
+     "evidence": "ينتظر قرار المدير العام (البند اللي فوق عن منع التصدير لين القرار)"
+    }
+   ],
+   "mustFix": [
+    "print/host-signs/signs.js (سطر 97 لين 104): لو hostPhone مو فاضي، حط warn.push(blockMsg('رقم المضيف: GM-003 يمنع ظهوره للضيف، والتصدير ممنوع لين قرار المدير العام.')) في كل الحالات (مع 911 وبدونه)، مو بس لما البطاقة ما تساع. وصحّح print/README.md:83 (شيل «رقم المضيف» من تنبيهات العلم) و:120، وجدول النصوص في work/2026-09-28-host-signs/print-designer.md. الاختبار: ملف وهمي unified911: false + رقم ← لازم console.error و export.cjs --check يرجع exit 1.",
+    "print/README.md قسم «الطباعة» بند 4 (سطر 102): بدل «مع طبقة أبيض ورا الألوان» اكتب «مع طبقة أبيض كاملة (flood white) تغطي اللوح كله 100×150، مو بس ورا الحبر: الخلفية ومربعات الباركود البيضا ومسافته الهادئة لازم تطلع أبيض مطبوع»، وأضف «لو ملصق الشريحة يبان من ورا الأبيض: طبقتين أبيض».",
+    "print/EXPORT.md (سطر 4 و32 و88) و print/export.cjs (سطر 47، نص --help): وضع المطبعة = نزف 3mm (الصفحة 106×156 للقطعة 100×150) بدون علامات قص، والعلامات بس مع --param marks=1 (116×166)، والعكس --param mirror=1."
+   ],
+   "openForOwner": [
+    "بروفة CMYK من المطبعة: الملفات RGB بدون OutputIntent، والأسود لازم ينطبع K100 بس عشان نص 9pt والباركود.",
+    "مطبعة الأكريليك: تقبل خطوط Type3؟ تطبع أبيض كامل على كل اللوح (ومرتين لو الملصق يبان)؟ تقص زوايا R4 بدون خط قص في الملف، ولا تبي مسار قص (CutContour)؟ تعكس الصورة عندها ولا تبي mirror=1؟ والسماكة والسعر.",
+    "ملصق on-metal 45×45 ورا لوح الأكريليك: لاصقه وطبقة الفرايت جهة الجدار أو الباب (engineering/host-unit-and-stand-alternatives.md:30)، وشريط VHB أسمك من الملصق عشان اللوح ما يميل، والقراءة 3/3 بآيفون وأندرويد من ورا اللوح على باب حديد.",
+    "الإيثار: يقبلون PNG؟ ورقتهم 100×150 ولا 4×6 إنش (101.6×152.4)؟ «بدون قص وبدون تعديل ألوان». وورقة 150mm تدخل حامل JST A6 (148mm)؟",
+    "حامل JST: كم تغطي قاعدته من تحت (stand.baseCover)؟ الباركود يخلص على 140mm (10mm من الحافة)، و«بواسطة» في الخلف على 8.2mm.",
+    "أول عينة مطبوعة: قِس مركز النقطة 62±3mm والباركود 30mm (في صورة 300dpi 29.97 بتقريب البكسل)، وامسح الباركود 3/3 من 20 لين 40cm، و10/10 تحت إضاءة المطعم، ومن ورا الأكريليك (اللمعة).",
+    "قراءة الشريحة من ورا ورقة الستاند والحامل، ومن ورا الأكريليك: 3/3 بآيفون وأندرويد.",
+    "البطاقة الرملية #F3EEE6 على ورق الصور (تباينها مع الأبيض 1.15، وخطوطها 1.18): ممكن تختفي في الطباعة.",
+    "لوحة الباب: وضوحها من مترين على ارتفاع 120 لين 140cm على الجدار."
+   ]
+  }
+ },
+ "b2b": {
+  "visitSheets": {
+   "decisions": "ورقتين A5، تصميم واحد لكل وحدة، في print/visit-sheet/ (index.html?sheet=restaurant|host، والورقة section.p-sheet عليها data-sign=visit-restaurant و visit-host). هالجولة طبّقت مراجعة impeccable: البند 1 لي وطبقته كامل بدون رفض، والبنود 2 إلى 5 لمصمم الإعلانات وما لمست ملفاتها. رسمت من جديد وشفت الصور، والتفاصيل في قسم «مراجعة impeccable» في work/2026-09-28-host-signs/print-designer-b2b.md.\n1) المقاس: A5 ‏148×210mm، نزف 3mm (&bleed=1 = 154×216)، علامات قص اختيارية (&bleed=1&marks=1 = 164×226)، هامش أمان 10.583mm (--lt-space-40).\n2) الهوية (GM-042): brand/logo/v1.0.0/horizontal-black.svg كما هو، عرضه 28.28mm. Readex Pro بأوزان 400 و500 و600 بس. بدون زعفران، والتيل لعلامات الصح بس.\n3) الشبكة: الكلام يمين، والأشياء يسار (المنتج والسعر والباركود على هامش الأمان). الرأس والعنوان وأعلى المسرح في نفس المكان بالورقتين (38.98mm)، والزيادة تتوزع تحت.\n4) العنوان: 26pt سطر واحد: «يسهّل على عملائك يقيّمون» (sales/pitch.md:20)، و«دليل وحدتك، في جوال ضيفك».\n5) المسرح (الجديد في هالجولة): قاعدة وحدة للمنتجين. المنتج شي مقفول بحد 0.25mm بلون --lt-slate داخل حافته، وفوقه وتحته رملي 4.233mm (--lt-space-16). فارتفاع المسرح = المنتج + 8.467mm، وأعلى المنتج في الورقتين على نفس الخط (43.21mm).\n - المطاعم: وجه ستاند التقييم الحقيقي (signSheet، «مقهى المثال» الوهمي) مصغّر ×0.55، يعني 55×52.525mm، ومقفول عند 95.5mm من أعلاه (بداية منطقة الباركود). بين آخر حبر في سطر اللمس (88.13) و95.5 ما فيه شي في الستاند الحقيقي، فالصورة هي الستاند بالضبط، والحد السفلي تحت سطر اللمس بـ 4mm. المسرح 60.992mm، واللي تحت القص ينشال من الصفحة، فيبقى باركود واحد بس.\n - المضيف: ملصق الشريحة 45×45 بمقاسه الحقيقي على مسرح 53.467mm (كان 48.683mm والرملي حوله 1.86mm). الزيادة 4.784mm انأخذت من الفراغين تحت المسرح: أقل فراغ صار 4.233mm (كان 6.35)، فصارت فراغات المضيف 4.95mm، والمطاعم 6.97mm.\n - الحد مرسوم SVG مو CSS. جربت: Chrome يحوّل border أو outline بسماكة 0.25mm لبكسل كامل (0.265mm، وسماكته في PDF بكسل)، والـ SVG يطلع 0.25mm بالضبط.\n - فحص جديد يمنع التصدير لو الرملي فوق المنتج أو تحته مو 4.233mm (±0.05)، أو حافته مو على هامش الأمان.\n - بدائل رسمتها ورفضتها: القفل عند 92.5 (سطر اللمس يصير فوق الحد بـ 2.35mm بس)، والحد الأسود (صندوق ثقيل ينافس خطوط التعليق). وبدائل حسبتها ورفضتها: القفل عند 100.8 (يطلع أبيض فاضي مكان سطر «أو امسح الباركود»، يعني ستاند مو موجود)، وستاند عرضه 59.2mm (فراغات المطاعم تنزل بدون داعي).\n6) العرض: كل رقم من services/pricing.md بالحرف وشرطه جنبه، بدون تغيير.\n7) التواصل بدون تغيير: باركود 30mm وهمي وفوقه «كلّمنا على واتساب»، وبطاقة رملية بزاوية 3mm فيها التجربة 14pt، و«بدون دفع مقدم، حسب شروط التجربة المتفق عليها.»، وواتساب وتليجرام وهميين، ووعد الرد كامل، و capSnap ‏3mm.\nالفحص بعد الإصلاح (صور وPDF في scratchpad/vs-imp/final، بأداة print/export.cjs نفسها):\n- مسح صورة 300dpi عند x=12mm: في المطاعم رملي، ثم حد، ثم أبيض من 43.43 لين 95.33، ثم حد، ثم رملي من 95.67 لين 99.99 (قبل كان الأبيض متصل من 43.18 لين 99.91). في المضيف رملي 4.15mm مع الحد فوق وتحت (قبل 1.86mm).\n- لون الحد (86,98,95) = #56625F، وتباينه 5.50 على الرملي و6.35 على الأبيض (قبل تقريباً 1.16).\n- PDF: ‏154×216، وTrimBox ‏148×210 على 3mm، وBleedBox ‏154×216 (pypdf). ومع العلامات 164×226. صفر صور نقطية، والخط Type3، والحد خط متجه.\n- PNG: ‏300dpi ‏1748×2480، و2x ‏1119×1587. والنسخة الأخيرة نفس الجولة الأولى بالبايت، لأن اللي تغير بعدها تعليقات بس.\n- باركود واحد في كل ورقة (OpenCV)، ونص PDF ما فيه «or scan the code» ولا «أو امسح».\n- أصغر نص 9pt، وولا نص برّا هامش الأمان.\n- ui-probe على 1440 و390، فاتح وداكن: errors 0، overflowX 0، lowContrast 0، tinyText 0.\n- النصوص ما تغيرت، ومصادرها تحققت سطر سطر.\nملاحظة: الـ commit ‏3c78efe اللي صار وسط الشغل من الجلسة المشرفة، مو مني. ما سويت commit.",
+   "files": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\index.html",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\visit.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\visit.css",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\visit-dims.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\content.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\README.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\CREDITS.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\work\\2026-09-28-host-signs\\print-designer-b2b.md"
+   ],
+   "exportTargets": [
+    {
+     "url": "print/visit-sheet/index.html?sheet=restaurant",
+     "outDir": "print/visit-sheet",
+     "name": "visit-restaurant",
+     "kind": "print-sheet"
+    },
+    {
+     "url": "print/visit-sheet/index.html?sheet=host",
+     "outDir": "print/visit-sheet",
+     "name": "visit-host",
+     "kind": "print-sheet"
+    }
+   ],
+   "copyTable": [
+    {
+     "piece": "الثنتين (الرأس)",
+     "ar": "لمسة تاب + example.com (الدومين وهمي)",
+     "en": "",
+     "source": "website/config.js (companyName و domain)؛ brand/README.md «كتابة الاسم»"
+    },
+    {
+     "piece": "الثنتين (فوق الباركود)",
+     "ar": "كلّمنا على واتساب",
+     "en": "",
+     "source": "work/2026-09-27-brand-identity/web-copy.md §1.0 و§1.1 (سطر 52 و62)، و brand/README.md «زر الواتساب: الكتابة»"
+    },
+    {
+     "piece": "الثنتين (البطاقة)",
+     "ar": "بدون دفع مقدم، حسب شروط التجربة المتفق عليها.",
+     "en": "",
+     "source": "services/pricing.md:23 («بدون دفع مقدم») + .claude/skills/marketing/SKILL.md:48 (الصياغة قبل اعتماد شروط التجربة)"
+    },
+    {
+     "piece": "الثنتين (البطاقة)",
+     "ar": "واتساب +966 5X XXX XXXX",
+     "en": "",
+     "source": "التسمية: web-copy.md سطر 16 («واتساب» اسم بدون «ال»). الرقم وهمي لين الإطلاق (GM-006، website/config.js whatsapp)"
+    },
+    {
+     "piece": "الثنتين (البطاقة)",
+     "ar": "تليجرام @XXXXXXXX",
+     "en": "",
+     "source": "management/whatsapp-channel.md (GM-047). المعرّف وهمي؛ المقترح lamsatap_support (marketing/telegram-plan.md:47)"
+    },
+    {
+     "piece": "الثنتين (البطاقة)",
+     "ar": "رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل",
+     "en": "",
+     "source": ".claude/skills/marketing/SKILL.md:57، marketing/telegram-plan.md:37، GM-046 و GM-047 (بالحرف)"
+    },
+    {
+     "piece": "الثنتين (الشروط)",
+     "ar": "الأسعار بدون ضريبة لأن الشركة مو مسجلة فيها.",
+     "en": "",
+     "source": "sales/pitch.md:24 (بالحرف)، و services/pricing.md:4"
+    },
+    {
+     "piece": "المطاعم (العنوان)",
+     "ar": "يسهّل على عملائك يقيّمون",
+     "en": "",
+     "source": "sales/pitch.md:20"
+    },
+    {
+     "piece": "المطاعم (تعليق على شعار المحل)",
+     "ar": "الستاند بهوية محلك، مو إعلان لنا / من أول يوم في التجربة.",
+     "en": "",
+     "source": "sales/pitch.md:65 / sales/pitch.md:14"
+    },
+    {
+     "piece": "المطاعم (تعليق على النقطة)",
+     "ar": "هذي النقطة هي مكان اللمسة / عميلك يحط جواله عليها أو يمسح الباركود، ويطلع له رابط تقييم محلك في قوقل.",
+     "en": "",
+     "source": "sales/pitch.md:60 (الجملة الوحيدة عن النقطة، مقسومة عند النقطتين)"
+    },
+    {
+     "piece": "المطاعم (العرض)",
+     "ar": "حزمة المحل الكامل / اشتراك سنة",
+     "en": "",
+     "source": "services/pricing.md:6 / sales/pitch.md:48"
+    },
+    {
+     "piece": "المطاعم (السعر)",
+     "ar": "1,211 ريال / سنة / التجديد 798 ريال / سنة",
+     "en": "",
+     "source": "services/pricing.md:9 و:10"
+    },
+    {
+     "piece": "المطاعم (وش فيها)",
+     "ar": "ستاند تقييم قوقل / منيو إلكتروني",
+     "en": "",
+     "source": "services/pricing.md:11"
+    },
+    {
+     "piece": "المطاعم (وش فيها)",
+     "ar": "كلمة مرور الواي فاي / روابط حساباتك",
+     "en": "",
+     "source": "بندي pricing.md:11 («واي فاي» و«صفحة روابط») بأسمائهم الأوضح في web-copy.md §1.3 صف 3 و4 (سطر 103 و104)"
+    },
+    {
+     "piece": "المطاعم (وش فيها)",
+     "ar": "العتاد والتركيب علينا طول الاشتراك",
+     "en": "",
+     "source": "الصياغة المعتمدة sales/pitch.md:56 (GM-007) = بند services/pricing.md:11"
+    },
+    {
+     "piece": "المطاعم (وش فيها)",
+     "ar": "تحديث المنيو مرتين بالشهر (الزيادة 25 ريال للتحديث)",
+     "en": "",
+     "source": "services/pricing.md:11 (بالحرف)"
+    },
+    {
+     "piece": "المطاعم (البطاقة)",
+     "ar": "جرّبه أسبوعين ببلاش",
+     "en": "",
+     "source": "sales/objections.md:6 (بالحرف)، و services/pricing.md:23"
+    },
+    {
+     "piece": "المطاعم (صورة الستاند المصغّر)",
+     "ar": "مقهى المثال / قيّمنا في قوقل / قرّب جوالك هنا",
+     "en": "Review us on Google / Tap your phone here",
+     "source": "قالب print/stand نفسه (print/stand/stand.js و clients/example-cafe.js، web-copy §3). نص عادي بدون شعار قوقل ولا G ولا نجوم"
+    },
+    {
+     "piece": "المضيف (العنوان)",
+     "ar": "دليل وحدتك، في جوال ضيفك",
+     "en": "",
+     "source": "«دليل وحدتك»: sales/host-track.md:110. «في جوال ضيفك»: عنوان الموقع web-copy.md §1.1 سطر 60. المعنى: sales/host-track.md:42"
+    },
+    {
+     "piece": "المضيف (تعليق على النقطة)",
+     "ar": "هذي النقطة هي مكان اللمسة / ضيفك يحط جواله عليها أو يمسح الباركود، ويطلع له رابط دليل وحدتك.",
+     "en": "",
+     "source": "sales/host-track.md:110 (مقسومة عند النقطتين)"
+    },
+    {
+     "piece": "المضيف (تعليق على حافة الملصق)",
+     "ar": "نركّب في كل وحدة شريحة وباركود / والعتاد والتركيب علينا طول الاشتراك.",
+     "en": "",
+     "source": "sales/host-track.md:42 / sales/host-track.md:98 (GM-007)"
+    },
+    {
+     "piece": "المضيف (العرض)",
+     "ar": "باقة المضيف / اشتراك شهري لكل وحدة / للمضيف المرخّص من وزارة السياحة",
+     "en": "",
+     "source": "services/pricing.md:13 / web-copy.md §1.2 سطر 84 / web-copy.md §1.2 سطر 85 و sales/host-track.md:30 و GM-017"
+    },
+    {
+     "piece": "المضيف (جدول الأسعار)",
+     "ar": "الشهري للوحدة / السنوي للوحدة / 1–4 وحدات 49.5 و544.5 ريال / 5 وحدات فأكثر 39.5 و434.5 ريال",
+     "en": "",
+     "source": "services/pricing.md:14-17 (عناوين الأعمدة مختصرة من سطر 14)"
+    },
+    {
+     "piece": "المضيف (تحت الجدول)",
+     "ar": "الشهري فيه التزام 6 أشهر، والسنوي بسعر 11 شهر.",
+     "en": "",
+     "source": "sales/host-track.md:5 (بالحرف)، و services/pricing.md:14 و:18؛ لازم مع السعر الشهري (marketing/telegram-plan.md:94)"
+    },
+    {
+     "piece": "المضيف (وش فيها)",
+     "ar": "دليل الضيف: الواي فاي، والتكييف، والشروط، والعنوان",
+     "en": "",
+     "source": "services/pricing.md:19 («دليل الضيف (واي فاي، تكييف، شروط، عنوان)»)"
+    },
+    {
+     "piece": "المضيف (وش فيها)",
+     "ar": "ضيفك يرسل «تم الخروج» أو «بلاغ صيانة»، ونبلغك",
+     "en": "",
+     "source": "web-copy.md §1.2 ميزة 3 (سطر 81) = services/pricing.md:19؛ «ونبلغك» بدون «فوراً» (GM-017)"
+    },
+    {
+     "piece": "المضيف (وش فيها)",
+     "ar": "رابط للتقييم",
+     "en": "",
+     "source": "sales/host-track.md:43، و services/pricing.md:19 («تقييم»)"
+    },
+    {
+     "piece": "المضيف (الشروط)",
+     "ar": "سعر 5 وحدات فأكثر على كل وحداتك.",
+     "en": "",
+     "source": "services/pricing.md:17 («على كل وحدات العميل»)"
+    },
+    {
+     "piece": "المضيف (البطاقة)",
+     "ar": "نجربها لك في وحدة من وحداتك / أسبوعين ببلاش",
+     "en": "",
+     "source": "sales/host-track.md:45 (بالحرف، سطرين)"
+    },
+    {
+     "piece": "المضيف (صورة ملصق الشريحة)",
+     "ar": "قرّب جوالك هنا",
+     "en": "",
+     "source": "قالب print/host-stickers (web-copy §3)"
+    }
+   ],
+   "uncertain": [
+    "كل «مني» في print/visit-sheet/visit-dims.js لسا ما انجرّب على ورق: العنوان 26pt، ورملي المسرح 4.233mm، وتصغير الستاند ×0.55 وقصه عند 95.5mm، وحد المنتج 0.25mm، وأقل فراغ تحت المسرح 4.233mm، وعمود التعليقات 63.5mm، وخطوط التعليق 0.2mm، والبطاقة ومسافاتها، و capSnap ‏3mm. تنجرّب بأول بروفة مطبوعة.",
+    "حد المنتج 0.25mm بالرمادي #56625F ينطبع بأربع ألوان. في الأوفست، لو تسجيل الألوان مو مضبوط، ممكن يطلع بحواف ملونة. يتشيك في بروفة CMYK (نفس خطر النص الرمادي 9pt اللي موجود من قبل).",
+    "الورقة تبيّن وجه الستاند لين بداية منطقة الباركود بس. تعليق النقطة يقول «أو يمسح الباركود»، وباركود الستاند مو ظاهر في الصورة. هذا مقصود عشان يكون في الورقة باركود واحد بس (باركودنا).",
+    "فراغات المضيف تحت المسرح 4.95mm، والمطاعم 6.97mm. القاعدة وحدة للورقتين، بس المضيف فيه محتوى أكثر. لو المدير العام يبيهم متساوين: يا نصغّر ملصق المضيف عن مقاسه الحقيقي، يا نكبّر الستاند لين 59.2mm.",
+    "عنوان المضيف مركّب من مصدرين (sales/host-track.md:110 + web-copy §1.1). لو المدير العام يبيه حرفي من مصدر واحد: «دليل كل وحدة، عند بابها» (web-copy §1.2) يدخل بنفس الحجم، بس «عند بابها» يتعارض مع اتجاه GM-050 (الدليل على الطاولة).",
+    "«رقمك ما يظهر للضيف» (web-copy §1.2) ما دخلت الورقة، لأن رقم المضيف على ستاند الطوارئ ينتظر قرار المدير العام (GM-003).",
+    "عتاد المضيف في الورقة = ملصق الشريحة 45×45 (المعتمد في pricing.md:19). لو دخلت لوحات GM-050 الباقة بعد حساب المالي، تتغير صورة المنتج وتعليق «نركّب في كل وحدة شريحة وباركود».",
+    "شروط التجربة لسا مسودة (legal/terms.md)، فكتبنا «حسب شروط التجربة المتفق عليها» بدل «بدون أي التزام». و sales/pitch.md نفسه مسودة لين يراجعه المحلل والمستشار ولين شراء الدومين. والمستشار القانوني يراجع نصوص الورقة قبل الطباعة (GM-028).",
+    "ما لقيت مصدر يقول هل رقم السجل التجاري لازم على المطبوعات الإعلانية (legal/register.md بند 15 عن البيع أونلاين بس). ما حطيته، والقرار للمستشار القانوني.",
+    "رابط الباركود الحقيقي يجهزه مشرف الشبكة: رابط قصير /t/<code>/ يحوّل لواتساب الشركة برسالة الباقة ومعها رمز حملة. وتوفر معرّف التليجرام غير مؤكد (marketing/telegram-plan.md §4).",
+    "الطباعة: نوع الورق (مطفي تقريباً 250 إلى 300 جرام)، وبروفة CMYK (الملف RGB، والنص الأسود لازم K100 بس)، والرملي #F3EEE6 ممكن يبهت على الأبيض (عشانه صار حد المنتج رمادي غامق)، وهل المطبعة تقبل خط Type3.",
+    "قراءة الباركود من الورقة المطبوعة 3 من 3 بآيفون وأندرويد ما انجرّبت. جربتها من الصورة بس (OpenCV).",
+    "نص صورة الستاند المصغّر صغير (أصغره 4.95pt، «Tap your phone here»). هذي صورة للمنتج مو نص للقراءة، وقاعدة 9pt تنطبق على نص الورقة بس.",
+    "الستاند المصغّر يترسم من print/print.js، والملف ينعدل بالتوازي (تلميع لوحات GM-050). أي تعديل هناك يطلع هنا لحاله، ولو نزل نص من الستاند تحت خط القص (95.5mm) القالب يمنع التصدير. فالتصدير النهائي لازم يكون بعد ما تخلص تعديلات اللوحات.",
+    "Readex Pro ما فيه أرقام بعرض ثابت (tnum)، فأرقام جدول المضيف متناسبة العرض. أعرضها متقارب، فما يبان فرق.",
+    "ما تنطبع ولا تتوزع قبل الإطلاق والسجل التجاري (GM-002 و GM-006). وفحص SAIP للشعار لازم قبل أي طباعة بكمية (brand/logo/v1.0.0/USAGE.md)."
+   ]
+  },
+  "telegram": {
+   "decisions": "طبقت إصلاحات مراجعة impeccable الأربعة اللي لي. إصلاح ورقة الزيارة لمصمم الطباعة، وما لمسته.\n\n1) م4 وم5 كانت تبيّن عتاد مو في الباقة (ستاند الدليل ولوحة الباب، عتاد GM-050). قصيتهم من جديد على العتاد المعتمد بدل ما أوقفهم:\n- م4: جوال الضيف على أول دليل الوحدة (هوية «شقق المثال»، و«أهلاً في شقة المثال»، وصندوق الواي فاي بزر النسخ). الجوال على 580.\n- م5: ملصق الشريحة on-metal 45×45 نفسه، من print/host-stickers:\n  - المصدر 600dpi (1063 بكسل) بعرض 510 في الصورة، وما فيه باركود.\n  - فوقه على خط القطع 490، وتحته على خط الشعار 1000.\n- السبب:\n  - الباقة «شريحة الوحدة + ملصق الباركود» (services/pricing.md سطر 19).\n  - والخطة سطر 77 تقول وعود المضيفين من خانة «تشمل» بس.\n  - الحين العتاد نفسه اللي في ورقة زيارة المضيف (content.js سطر 86: chip).\n  - ونصوص منشورات المضيفين («ملصق» في سطر 81 و86 و91) صارت صحيحة.\n- القطع القديمة sign-guide وsign-checkout باقية في src/ بدون استخدام: تنحذف بعد فحص ما قبل الطباعة، أو ترجع لو دخل عتاد GM-050 الباقة.\n- م3: رفضت اقتراح «ملصق طاولة» بالدليل:\n  - عتاد حزمة المحل ستاند بشعار المحل (pricing.md سطر 11، وpitch.md سطر 24)، والقالب فيه وجه واي فاي (stand.js سطر 10 لين 13).\n  - وما فيه ملصق طاولة معتمد للمطاعم (stand-dimensions.md §3 و§4).\n  - فالصورة باقية ستاند، ونص المنشور (سطر 74) هو اللي يتعدل عند مدير الإعلانات.\n\n2) الـ kicker: شلت دور .lead من القالب. الحين العنوان أول في الست كلها، وتحته سطر الجواب.\n- م1 العنوان سطر 61 كامل، وتحته سطر 62. وم4 سطر 80 كامل عنوان وحد، وتحته سطر 81.\n- الحجم 70px للست كلها (وزن 600، سطر 1.4)، وسطر الجواب 40px:\n  - م1 بـ 88 تطلع 3 أسطر، والقطعة تنزل لـ 631. والستاند لازم يبدأ بين 480 و505، عشان يبان «Tap your phone here» (563) وما يبان «أو امسح الباركود» (611) ولا الباركود (703).\n  - بـ 76 ينكسر «المنيو / الورقي» و«1 / الليل». بـ 70 أعرض سطر 890 من 920.\n- كسر الأسطر مكتوب عند حد العبارة. وdata-lines ينبّه لو سطر انكسر زيادة.\n- سطر م4 فيه «ملصق في الشقة»، لأن العتاد صار ملصق فعلاً.\n- م2 صار له سطر جواب من سطر 68، عشان تكمل قاعدة الست.\n- م4: الجوال على 580، فتحت السطر 79 وبين العنوان والسطر 56 (قاعدة التقارب).\n\n3) سطر م5: رجعت سطر 86 حرفياً وكامل: «يقرّب جواله من الملصق ويضغط زر التشيك أوت، وتوصلنا الرسالة ونبلغك من جوال الشركة، عشان تجهز التنظيف.»\n- صار صحيح لأن القطعة الحين الملصق المعتمد، فما احتاج موافقة على «اللوحة».\n- وصياغة web-copy اللي اقترحها المراجع مقطوعة من نصها الأصلي، مو مقطع متصل.\n\n4) خط جوال م6 (وم4): ستايل ينحط داخل الـ iframe وقت التصوير، يثبت كل النص على Readex Pro، والصفحة تنتظر الخط ينزل.\n- Readex Pro الخط الوحيد المحفوظ في المشروع، وقاعدة الواجهات بند 8 تمنع إضافة خط، فمو Noto.\n- والصفحة نفسها ما تغيّرت.\n\nالفحص على الصور النهائية:\n- export.cjs --social: نجحت 9 من 9، وصفر خطأ أو تنبيه.\n- التثبيت والمربعة وصورة القناة نفس الملفات القديمة بالبايت.\n- التصدير مرتين طلع نفس البايت.\n- CDP داخل الـ iframe: 911 حرف كلها Readex Pro، وصفر خط نظام. قبل التثبيت: Segoe UI 912 وConsolas 11.\n- سكربت مستقل:\n  - تباين الأبيض 5.18، وأقل قيمة 4.76 (المربعة، ما تغيّرت).\n  - أقل مسافة حبر بين سطرين 14.8 في العناوين و13.0 في سطر الجواب.\n  - كل النص داخل هامش 80.\n  - ولا باركود ينقرى، والقطع الأصلية تنقرى (الفحص يشتغل). وصفر زعفران.\n  - 16 سطر كلها مقطع حرفي من مصدرها.\n- اختبار عكسي: الفحص الجديد طلّع تنبيه لكل غلط (kicker، وسطر زايد، والخط).\n- ui-probe: صفر خطأ.\n- impeccable detect: 9 ملاحظات، نفس الكاذبة من قبل.\n- شفت الست بعيني، وبحجم 360 مثل الجوال.\n\nجربت م6 على زر «بلاغ صيانة» وتركته: يبان طرف زر «تم الخروج» مقصوص فوق الشاشة.",
+   "files": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\index.html",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\README.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-avatar.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-pinned.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-square.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m1-menu.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m2-review.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m3-wifi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m4-guide.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m5-checkout.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m6-maintenance.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram.export.json",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand.html",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\clients\\cafe-menu.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\clients\\cafe-wifi.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-menu.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-wifi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-review.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\sticker-chip.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\sign-guide.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\sign-checkout.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\CREDITS.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\work\\2026-09-28-host-signs\\ad-creative-telegram.md"
+   ],
+   "exportTargets": [
+    {
+     "url": "print/social/telegram/src/stand.html?client=cafe-menu&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "stand-menu.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/social/telegram/src/stand.html?client=cafe-wifi&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "stand-wifi.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/stand/index.html?client=example-cafe&purpose=review&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "stand-review.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/host-stickers/index.html?client=example-flats&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "sticker-chip.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=avatar",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-avatar.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=pinned",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-pinned.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=square",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-square.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m1-menu",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m1-menu.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m2-review",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m2-review.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m3-wifi",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m3-wifi.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m4-guide",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m4-guide.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m5-checkout",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m5-checkout.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m6-maintenance",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m6-maintenance.png",
+     "kind": "social-px"
+    }
+   ],
+   "copyTable": [
+    {
+     "piece": "telegram-pinned + telegram-square (العنوان)",
+     "ar": "منيو، تقييم، واي فاي بلمسة",
+     "source": "marketing/telegram-plan.md §6 (سطر 108)"
+    },
+    {
+     "piece": "telegram-pinned + telegram-square (نقطة البيع، كاملة)",
+     "ar": "رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل",
+     "source": "marketing/telegram-plan.md §3 (سطر 37)، GM-046/047"
+    },
+    {
+     "piece": "telegram-m1-menu (العنوان)",
+     "ar": "زبونك جالس، والمنيو الورقي عند الطاولة الثانية.",
+     "source": "marketing/telegram-plan.md §5 م1 (سطر 61، كامل)"
+    },
+    {
+     "piece": "telegram-m1-menu (سطر الجواب)",
+     "ar": "يقرّب جواله من الستاند أو يمسح الباركود، والمنيو قدامه.",
+     "source": "marketing/telegram-plan.md §5 م1 (سطر 62، مقطع متصل)"
+    },
+    {
+     "piece": "telegram-m2-review (العنوان)",
+     "ar": "تبغى الزبون يلقى صفحة تقييمك بسهولة؟",
+     "source": "marketing/telegram-plan.md §5 م2 (سطر 67)"
+    },
+    {
+     "piece": "telegram-m2-review (سطر الجواب، جديد)",
+     "ar": "ستاند على الكاشير يفتح صفحة تقييم محلك على قوقل مباشرة.",
+     "source": "marketing/telegram-plan.md §5 م2 (سطر 68، أول جملة). «قوقل» نص عادي: ولا شعار ولا G ولا نجوم"
+    },
+    {
+     "piece": "telegram-m3-wifi (العنوان)",
+     "ar": "«وش باسوورد الواي فاي؟»",
+     "source": "marketing/telegram-plan.md §5 م3 (سطر 73)"
+    },
+    {
+     "piece": "telegram-m3-wifi (سطر الجواب)",
+     "ar": "كلمة المرور جاهزة للنسخ",
+     "source": "marketing/telegram-plan.md §5 م3 (سطر 74، آخر الجملة). والزر «انسخ كلمة المرور» في web-copy.md §2.3"
+    },
+    {
+     "piece": "telegram-m4-guide (العنوان، حجم واحد)",
+     "ar": "ضيفك وصل الساعة 1 الليل وما يدري وين المكيف ولا كلمة الواي فاي؟",
+     "source": "marketing/telegram-plan.md §5 م4 (سطر 80، كامل)"
+    },
+    {
+     "piece": "telegram-m4-guide (سطر الجواب)",
+     "ar": "ملصق في الشقة يفتح دليل الضيف: الواي فاي، والتكييف، والشروط، والعنوان.",
+     "source": "marketing/telegram-plan.md §5 م4 (سطر 81 بدون «بلمسة جوال أو بالباركود.»). «ملصق» يطابق العتاد المعتمد: services/pricing.md سطر 19"
+    },
+    {
+     "piece": "telegram-m5-checkout (العنوان)",
+     "ar": "الضيف طالع؟",
+     "source": "marketing/telegram-plan.md §5 م5 (سطر 86)"
+    },
+    {
+     "piece": "telegram-m5-checkout (سطر الجواب، الجملة كاملة)",
+     "ar": "يقرّب جواله من الملصق ويضغط زر التشيك أوت، وتوصلنا الرسالة ونبلغك من جوال الشركة، عشان تجهز التنظيف.",
+     "source": "marketing/telegram-plan.md §5 م5 (سطر 86، باقي الجملة حرفياً). GM-017: يوصلنا ونبلغك من جوال الشركة، مو «يوصلك مباشرة»"
+    },
+    {
+     "piece": "telegram-m6-maintenance (العنوان)",
+     "ar": "المكيف وقف؟",
+     "source": "marketing/telegram-plan.md §5 م6 (سطر 91)"
+    },
+    {
+     "piece": "telegram-m6-maintenance (سطر الجواب)",
+     "ar": "بلاغ صيانة جاهز، ويوصلنا ونحوّله لك",
+     "source": "marketing/telegram-plan.md §5 م6 (سطر 91، مقطع متصل)، GM-017"
+    },
+    {
+     "piece": "نصوص القطع نفسها (مو مني): الستاندات م1 لين م3",
+     "ar": "المنيو / قيّمنا في قوقل / الواي فاي، وقرّب جوالك هنا",
+     "en": "Menu / Review us on Google / Wi-Fi / Tap your phone here",
+     "source": "قوالب Task A: print/stand/stand.js، ومصادرها في work/2026-09-28-host-signs/print-designer.md"
+    },
+    {
+     "piece": "نص القطعة (مو مني): ملصق الشريحة م5",
+     "ar": "قرّب جوالك هنا",
+     "source": "print/host-stickers/stickers.js (web-copy.md §3)"
+    },
+    {
+     "piece": "نصوص القطعة (مو مني): شاشة الجوال م4 وم6",
+     "ar": "أهلاً في شقة المثال، والشبكة، وكلمة المرور، وانسخ كلمة المرور، والخروج والصيانة، ووقت الخروج، وسطر الإشعار، وتم الخروج، وبلاغ صيانة",
+     "source": "الصفحة الحقيقية website/demo/rental-guide (web-copy.md §2.2 و§2.3). الشبكة وكلمة المرور وهمية من website/demo/rental-guide/data.js"
+    }
+   ],
+   "uncertain": [
+    "مقاسات التليجرام الرسمية كلها غير مؤكدة: 1024 للصورة، و1280×720 للتثبيت، و1080 للمربعة والمنشورات. المؤكد بس من core.telegram.org: نسخ الصورة 640 و160، وتصغير الصور لـ 1280 أو 2560، وحد الإرسال 10MB والعرض + الارتفاع ≤ 10000. وكذلك غير مؤكد: العرض الدائري، وطريقة عرض المنشور داخل القناة، وإن الصور تنعرض بعرض 360 تقريباً في الجوال (تقدير مني).",
+    "نص منشور م3 (telegram-plan.md سطر 74) يقول «ملصق على الطاولة»، والصورة ستاند المحل (عتاد حزمة المحل المعتمد). يتعدل النص عند مدير الإعلانات قبل النشر. و«أندرويد يتصل باللمسة» في نفس السطر بدون مصدر في engineering/، يتأكد منه مهندس NFC.",
+    "شاشة الجوال في م4 وم6 مثبتة على Readex Pro، والضيف الحقيقي يشوف خط جواله (صفحة الزبون بخط الجهاز). لو حسم مصمم الموقع خط ثابت لصفحات الزبون، تنعاد الصورتين بأمر واحد. وأي تغيير في website/ يغيّر الصورتين وقت التصدير الجاي.",
+    "سطر الإشعار في صفحة العرض (م6) ينكسر «لمسة / تاب» على عرض 390. هذا من الصفحة نفسها، ويحتاج قرار من مصمم الموقع، مو من صورتنا.",
+    "حجم الملصق في م5: 510px، يعني 11.3px لكل مليمتر، والستاندات في م1 لين م3 على 6.4. ما فيه شي في الصورة يبيّن المقاس. الملصق الحقيقي 45×45mm (engineering/stand-dimensions.md §4)، ونص المنشور يقول «ملصق».",
+    "عتاد GM-050 (ستاند الدليل ولوحة الباب): لو حسب المالي تكلفته ودخل الباقة، ترجع م4 وم5 القديمة ويتعدل نص المنشورات. قطعها sign-guide وsign-checkout باقية في src/: تنحذف بعد ما يعدّي البديل فحص ما قبل الطباعة، أو ترجع إذا دخل العتاد الباقة.",
+    "مرة وحدة، تصدير قطعة stand-menu فشل بخطأ «isMono is not defined» في print/stand/stand.js. إعادة نفس الأمر نجحت بنفس البايت. السبب غير مؤكد، ويمكن ملفات print/ كانت تتعدل من فريق ثاني وقتها.",
+    "«مقهى المثال» و«شقق المثال» وهمية. أي ستاند عميل حقيقي في إعلاننا يحتاج موافقته الكتابية. وبحث SAIP للشعار قبل أي طباعة بكمية (USAGE.md).",
+    "الفحص الثلاثي (ui-fact-checker وui-reality-tester وui-skeptic) ما انشغل من داخل هذا الوكيل، لأن ما عندي أداة تشغّل وكلاء. وimpeccable critique ناقص (single-context)، وما فيه PRODUCT.md ولا .impeccable/. يعتمد على فاحص ما قبل الطباعة بعدي.",
+    "ما عدلت .claude/skills/print-studio/SKILL.md، لأنه مو من ملفات هذي الخطوة. يحتاج سطر عن print/social/telegram/ وقت الدمج (GM-005)."
+   ]
+  },
+  "impeccable": {
+   "verdict": "fix-first",
+   "fixes": [
+    {
+     "piece": "visit-restaurant A5 sheet (hero stage). Same fix applies to the chip on visit-host.",
+     "owner": "print-designer",
+     "problem": "The mini review stand is cropped exactly on the sand stage's bottom edge, so it has no bottom edge. Its white runs straight into the white page below. Its side hairline is almost invisible against the sand. The result is that the sheet's hero reads as a white notch in the band, not as a physical stand. The host chip has the opposite problem: it is squeezed into its stage with only 1.86mm of sand above and below it. The two sisters use different stage rules.",
+     "fix": "End the stand crop 4mm above the stage bottom, matching the 4.2mm inset above it. Sand then runs under a closed bottom edge. After scaling, draw the product outline at least 0.25mm wide in a tone darker than sand-200, so the object survives a pale sand print. Give the host chip the same 4mm sand inset on all sides by growing the host stage from the flexible gaps below it. Keep the one-QR rule: the stand's own QR stays cropped out.",
+     "evidence": "Source: the builder's own capture at scratchpad/vs-designer/final/visit-restaurant@300dpi.png. The 2x version is byte-identical to vs-designer/v9, captured at 05:13, after the last source edit at 05:12. The named exports print/visit-sheet/png and print/visit-sheet/pdf do not exist yet. Column scan at 300dpi: the sand stage runs from 38.95 to 93.81mm. At x=12mm the white is continuous from 43.18 to 99.91mm, with no edge at 93.81. The stand's side outline samples (250,249,247), against sand (243,238,230) and white (255): about 1.16:1 edge contrast. Host: the stage runs from 38.95 to 87.46mm and the chip from 40.81 to 85.60mm. Crop: work/2026-09-28-host-signs/review-scratch/r-stage.png."
+    },
+    {
+     "piece": "Telegram m4-guide and m5-checkout (and m3-wifi)",
+     "owner": "ad-creative",
+     "problem": "m4 and m5 advertise GM-050 hardware (the guest-guide table stand and the door checkout sign) that is not in the approved host package. The host visit sheet from the same round shows the chip sticker as the hardware, so one offer is sold with two different products. m3's approved caption says «ملصق على الطاولة» but its image shows a stand, so image and caption disagree.",
+     "fix": "Hold m4 and m5 from publishing until GM-050 hardware is priced into services/pricing.md. If they must go out first, re-cut them in one of two ways: on the approved chip sticker (print/host-stickers), or on the guest's phone view as m6 does (website/demo/rental-guide opened on «دليل الضيف» for m4, and on «الخروج والصيانة» with «تم الخروج» for m5). For m3, make the image and the caption agree: either marketing edits the caption, or the piece becomes the table sticker.",
+     "evidence": "services/pricing.md:19 lists the package as «شريحة الوحدة + ملصق الباركود». goal.md:12 says the cost of GM-050 hardware is computed before it enters the package. Visit-host shows the 45x45 chip (content.js:86). marketing/telegram-plan.md:74 says «ملصق على الطاولة». The designer's own note flags this as open («قبل النشر: تدخل الباقة، أو تتبدل صورة م4 وم5»). Seen in telegram-m4-guide.png («شقق المثال / دليل الوحدة») and telegram-m5-checkout.png (rounded door sign «تأكيد الخروج»)."
+    },
+    {
+     "piece": "Telegram m1-menu and m4-guide (headline block)",
+     "owner": "ad-creative",
+     "problem": "Both posts put a small 40px weight-400 lead-in above an 88px headline. That is the kicker pattern the craft floor bans outright. The eye-first line is also a dependent fragment that starts with «و»: «والمنيو قدامه.» and «وما يدري وين المكيف ولا كلمة الواي فاي؟». Their siblings m3, m5 and m6 put the headline first with the support line under it, so the series breaks its own grammar twice.",
+     "fix": "m1: use «زبونك جالس، والمنيو الورقي عند الطاولة الثانية.» (telegram-plan.md:61) as the 88px headline, with «يقرّب جواله من الستاند أو يمسح الباركود، والمنيو قدامه.» (:62) as the 40px line under it. m4: set the full sentence from :80 as one headline at a single size and weight (about 72-76px, balanced, no size step inside the sentence). Under it, use «دليل الضيف: الواي فاي، والتكييف، والشروط، والعنوان.» (:81 without «ملصق في الشقة»). Remove the .lead above-headline role from the template.",
+     "evidence": "print/social/telegram/index.html:77-78 (.tg-post .lead at 40px with margin-bottom, placed above the headline). Seen in telegram-m1-menu.png (lead-in at y≈100-130 above «والمنيو قدامه.» at y≈190-265) and telegram-m4-guide.png («ضيفك وصل الساعة 1 الليل» above the 2-line headline). m3, m5 and m6 are headline-first. Source sentences: marketing/telegram-plan.md:61-62 and :80-81."
+    },
+    {
+     "piece": "Telegram m5-checkout (support line)",
+     "owner": "ad-creative",
+     "problem": "The support line «وتوصلنا الرسالة ونبلغك من جوال الشركة، عشان تجهز التنظيف.» starts with «و» and refers to «الرسالة» without ever saying who sends it or how. The trigger clause was cut from the approved sentence to avoid the word «ملصق», so the post's one mechanism, a guest tap that sends a checkout message, is missing from its text.",
+     "fix": "Restore the trigger with sourced copy. Either marketing approves line 86 with «اللوحة» in place of «الملصق» («يقرّب جواله من اللوحة ويضغط زر التشيك أوت، وتوصلنا الرسالة…»), or use the approved web-copy §1.2 feature 3 wording «ضيفك يرسل «تم الخروج»، ونبلغك», the same line visit-host uses (content.js:115). Keep «من جوال الشركة» (GM-017).",
+     "evidence": "marketing/telegram-plan.md:86: «الضيف طالع؟ يقرّب جواله من الملصق ويضغط زر التشيك أوت، وتوصلنا الرسالة ونبلغك من جوال الشركة، عشان تجهز التنظيف.» The image, telegram-m5-checkout.png, keeps only «الضيف طالع؟» plus the «وتوصلنا…» remainder. The copy table admits the cut («صورنا ما فيها الكلمة»)."
+    },
+    {
+     "piece": "Telegram m6-maintenance (phone screen)",
+     "owner": "ad-creative",
+     "problem": "The phone screen renders in the exporting machine's system font, Segoe UI on this Windows export. The image therefore changes with whoever exports it. The phone-framed mock also shows a Windows typeface that no guest phone would display, next to Readex Pro everywhere else in the series.",
+     "fix": "At capture time, pin the iframe's font to a face bundled in the project: inject a style into the same-origin iframe, either Readex Pro or the open Android default Noto Sans Arabic. Record the choice in print/social/telegram/README.md. Alternatively, have the website designer decide the client pages' face so the capture matches the real page.",
+     "evidence": "website/assets/client.css:20 sets the body font to var(--lt-font-ui), a system stack. The designer's own note says «بخط الجهاز (في التصدير على ويندوز: Segoe UI)». Crop work/2026-09-28-host-signs/review-scratch/tg-m6-phone.png shows the Segoe UI Arabic letterforms in «الخروج والصيانة», «تم الخروج» and «بلاغ صيانة»."
+    }
+   ],
+   "strengths": [
+    "Every price is verbatim from services/pricing.md with its condition next to it. The 6-month commitment line sits directly under the monthly tier, and the tax line is present. The sales promise is written in full on both sheets and on the pinned and square images. Contacts are unmistakably fake: +966 5X XXX XXXX, @XXXXXXXX and example.com.",
+    "The two A5 sheets share one grid: same header, a single-line 26pt H1, and the stage top at 38.95mm on both. Each sheet has one QR. They use Readex Pro 400/500/600 only and the black logo per USAGE.md. There is no saffron and no Google logo, G or stars. The minimum sheet text is 9pt.",
+    "The Telegram ground is exactly #0B7A75 (sampled as 11,122,117) and the official logo files are used unaltered. m1-m6 share a fixed right-axis grid, and the fake QR stays below the crop edge. The piece shadow is a soft offset lift (about 100px left against 45px right and top), not a zero-offset halo.",
+    "Review record appended in Arabic to work/2026-09-28-host-signs/impeccable-review.md (disposition: fix). Crops are in work/2026-09-28-host-signs/review-scratch/. Nothing was rendered by the reviewer; the visit-sheet evidence is the builder's own capture from after the last source edit, because print/visit-sheet/png and print/visit-sheet/pdf do not exist yet."
+   ]
+  },
+  "export": {
+   "websitePng": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\png\\visit-restaurant@2x.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\png\\visit-host@2x.png"
+   ],
+   "printPng": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\png\\visit-restaurant@300dpi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\png\\visit-host@300dpi.png"
+   ],
+   "socialPng": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-avatar.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-pinned.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-square.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m1-menu.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m2-review.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m3-wifi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m4-guide.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m5-checkout.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m6-maintenance.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-menu.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-wifi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-review.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\sticker-chip.png"
+   ],
+   "pdfs": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\pdf\\visit-restaurant-bleed.pdf",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\visit-sheet\\pdf\\visit-host-bleed.pdf"
+   ],
+   "visualIssues": [
+    "ورقة المضيف (print/visit-sheet، visit-host@2x و@300dpi والـ PDF): نقطتين الياء في «شهري» (سطر «اشتراك شهري لكل وحدة») لاصقة في شدة «خّ» ونقطتها في «المرخّص» بالسطر اللي تحته. المسافة 0.27mm (3.2px في 300dpi)، عند 117.6mm من يسار القص و108.1mm من فوق، والسطرين يبانون كتلة نقاط وحدة. باقي أزواج الأسطر 0.60mm أو أكثر في المضيف، و0.85mm أو أكثر في المطاعم (قستها بعزل كل سطر لحاله). الشدة من المصدر (web-copy.md:85)، فالحل مسافة أكثر من 0.8mm بين .vs-pkg-sub و.vs-pkg-elig، أو كسر ثاني للسطر. القرار لمصمم الطباعة.",
+    "ورقة المضيف (أخف من اللي فوق): في البطاقة، نقطتين «في» (سطر «نجربها لك في وحدة من وحداتك»، 14pt) فوق نقاط «ش» في «ببلاش» بالسطر اللي تحته بـ 0.60mm، فتطلع خمس نقاط فوق بعض. تنقرا، بس هذي ثاني أضيق مسافة في الورقة.",
+    "print/social/telegram/png/telegram-m6-maintenance.png: في الجوال، أقوى شي الزر الكحلي المعبّى «تم الخروج»، و«بلاغ صيانة» (موضوع المنشور) زر ثانوي تحته، فبعرض 360 العين تروح للخروج أول. وفوق الأزرار فقرة خصوصية رمادية 4 أسطر (تقريباً 7px بعرض 360)، فيها زحمة، وتكسر اسمنا «لمسة / تاب» على سطرين. كلها من الصفحة الحقيقية website/demo/rental-guide، فالحل يا في تأطير الشاشة على «بلاغ صيانة» (الجولة اللي قبل جربته وتركته لأن طرف «تم الخروج» ينقص فوق)، يا عند مصمم الموقع.",
+    "تناسق (خفيف): نقطة ملصق الشريحة كحلي #1F3B57 في telegram-m5-checkout.png (من print/host-stickers، «شقق المثال»)، وأسود في visit-host (content.js فيه demo.host بدون لون، وهذا مقصود). الثنتين صح حسب GM-027، بس نفس المنتج طلع بلونين في جولة وحدة."
+   ]
+  },
+  "prepressRound1": {
+   "verdict": "FAIL",
+   "rows": [
+    {
+     "item": "1. ملفات ورقة الزيارة",
+     "check": "موجودة وحديثة",
+     "result": "PASS",
+     "evidence": "pdf/visit-restaurant-bleed.pdf و visit-host-bleed.pdf و png/visit-*@2x.png و @300dpi.png. انصدّرت 06:15 و06:26 بعد آخر تعديل على القالب (05:52). بأوامر README: الـ PDF نفس محتوى الصفحة (SHA المحتوى نفسه، والفرق 10 بايت تاريخ بس)، وصور 300dpi نفس البايت."
+    },
+    {
+     "item": "2. مقاس صفحة PDF",
+     "check": "MediaBox = القص + 2×النزف",
+     "result": "PASS",
+     "evidence": "الملفين 154.000×216.000mm، صفحة وحدة، PDF-1.4، مقروءة بـ pypdf 6.19 strict."
+    },
+    {
+     "item": "3. صناديق PDF",
+     "check": "TrimBox و BleedBox",
+     "result": "PASS",
+     "evidence": "TrimBox 148×210 على 3.000mm من كل جهة، و BleedBox 154×216. نسخة العلامات (--param marks=1): 164×226، TrimBox على 8mm، والعلامات 0.100mm."
+    },
+    {
+     "item": "4. الرسم داخل PDF",
+     "check": "سماكة الخطوط والألوان والباركود",
+     "result": "PASS",
+     "evidence": "حد المنتج 0.250mm #56625F، خطوط التعليق 0.200mm أسود، علامات الصح 0.315mm تيل. مربع الباركود 30.001mm من (10.68، 169.41)، ومربعه الأبيض 38.278mm. باركود واحد في كل ملف. ولا شفافية ولا SMask، والدمج Normal."
+    },
+    {
+     "item": "5. الخطوط والصور في PDF",
+     "check": "مضمّنة أو محوّلة، وبدون صور نقطية",
+     "result": "غير مؤكد",
+     "evidence": "0 صورة نقطية. الخط Type3 بس (30 في المطاعم و24 في المضيف)، حروف فكتور، 0 خط غير مضمّن، 0 Type3 بصور. قبول المطبعة لـ Type3 غير مؤكد."
+    },
+    {
+     "item": "6. CMYK",
+     "check": "لون الملف",
+     "result": "غير مؤكد",
+     "evidence": "PDF: DeviceRGB بس (rg/RG) وبدون OutputIntent. PNG: sRGB. ما يُعتبر PASS، يحتاج بروفة CMYK."
+    },
+    {
+     "item": "7. نص PDF",
+     "check": "ما فيه باركود الستاند المصغّر ولا سطره",
+     "result": "PASS",
+     "evidence": "النص المستخرج ما فيه «أو امسح» ولا «or scan». من الستاند المصغّر بس: قيّمنا في قوقل، Review us on Google، قرّب جوالك هنا، Tap your phone here."
+    },
+    {
+     "item": "8. صور 300dpi",
+     "check": "المقاس = mm×300/25.4",
+     "result": "PASS",
+     "evidence": "1748×2480 RGB، pHYs 299.9994 = 147.998×209.974mm، CRC سليم (قريته بنفسي)، sRGB."
+    },
+    {
+     "item": "9. صور 2x",
+     "check": "المقاس والشفافية",
+     "result": "PASS",
+     "evidence": "1119×1587، pHYs 191.9986. RGBA بس alpha=255 في كل بكسل (ولا وعد بشفافية للورقة). فرق 0 بكسل عن إعادة التصدير."
+    },
+    {
+     "item": "10. تكميل حافة الورقة (edgeFill الجديد في export.cjs)",
+     "check": "الأعمدة المكمّلة صح، وملفات Task A ما تغيّرت",
+     "result": "PASS",
+     "evidence": "عمود في 2x وعمودين في 300dpi منسوخة من العمود قبلها (رملي في صفوف المسرح وأبيض بالباقي). أعدت 5 ملفات Task A بالأداة المعدّلة: wifi-stand و checkout-sign و wifi-stand@300dpi و stand-menu@300dpi و stand-menu-back@300dpi كلها نفس SHA-256."
+    },
+    {
+     "item": "11. حواف ملونة (LCD)",
+     "check": "بكسل ملون حول النص",
+     "result": "PASS",
+     "evidence": "أعلى chroma في مناطق النص 12-13 (= الرمادي والرملي نفسهم)، وفي الباركود 0، في الأربع صور."
+    },
+    {
+     "item": "12. منطقة الأمان 10.583mm",
+     "check": "كل نص داخلها",
+     "result": "PASS",
+     "evidence": "قياس DOM: أقرب نص يمين 137.42، يسار 10.58، فوق 11.05، تحت 196.86mm. تقرير القالب نفسه: 0 نص برّا."
+    },
+    {
+     "item": "13. أقل خط",
+     "check": "9pt أو أكثر",
+     "result": "PASS",
+     "evidence": "نص الورقة أقله 9.00pt. صورة المنتج (الستاند المصغّر) أقلها 4.95pt وهي صورة منتج مو نص الورقة، وسطر الملصق 9pt."
+    },
+    {
+     "item": "14. الخط المرسوم والصفحة",
+     "check": "خط الهوية بس وبدون أخطاء",
+     "result": "PASS",
+     "evidence": "CSS.getPlatformFontsForNode: Readex Pro بس (1374 و1568 حرف)، ولا خط نظام. 0 خطأ console و0 طلب فاشل أو برّا الجهاز في 13 وضع (عادي، نزف، علامات، طباعة، render، داكن)."
+    },
+    {
+     "item": "15. نقاط الحروف والسطر اللي تحتها",
+     "check": "أقل مسافة حبر 0.5mm (نفس جولات signs)",
+     "result": "FAIL",
+     "evidence": "ورقة المضيف: نقطتين الياء في «شهري» (سطر «اشتراك شهري لكل وحدة») فوق شدة «المرخّص» = 0.00mm، الحبر متلامس (10 بكسل مشترك بـ 10x عند 117.6 و107.9mm، كل سطر مرسوم لحاله). الباقي فوق 0.5: «نجربها لك…»/«أسبوعين ببلاش» 0.54، «نركّب…»/«والعتاد…» 0.77، والمطاعم «هذي النقطة…»/«عميلك…» 0.50mm على الحد."
+    },
+    {
+     "item": "16. مسافات visit.css",
+     "check": "القيم المكتوبة تنطبق فعلاً",
+     "result": "FAIL",
+     "evidence": ".vs-sheet p, .vs-sheet h1 { margin: 0 } (سطر 7) أقوى من .vs-pkg-elig (46، 0.8mm) و .vs-price-renew (51، 1.058mm) و .vs-trial-note (82، 0.8mm)، والمحسوب في المتصفح 0px للثلاث. محاكاة بقاعدة أقوى: «شهري»/«المرخّص» 0.92mm، فراغات المضيف 4.55mm (≥4.233)، المطاعم 6.04mm، صفر منع."
+    },
+    {
+     "item": "17. المسرح والمنتج",
+     "check": "رملي 4.233mm فوق وتحت، وحد مقفول",
+     "result": "PASS",
+     "evidence": "DOM: الرملي 4.23 و4.24mm، أعلى المنتج 43.21mm بالورقتين. مسح عمود x=12mm في 300dpi (المطاعم): رملي 38.95→43.01، حد 43.18–43.27، أبيض →95.25، حد 95.42–95.51، رملي 95.68→99.91. الحد #56625F تباينه 5.50 على الرملي و6.35 على الأبيض."
+    },
+    {
+     "item": "18. الستاند المصغّر",
+     "check": "نفس الستاند الحقيقي",
+     "result": "PASS",
+     "evidence": "مواضع العناصر نفس print/stand (example-cafe، review) لين 0.01mm: الشعار 12.56، العنوان 24.00، النقطة 52–72، سطر اللمس 78.50–88.23mm. القص 95.5، وما بقى s-cap ولا s-card ولا s-qr. مركز النقطة (38.08، 77.30) = 43.21 + 62×0.55."
+    },
+    {
+     "item": "19. ملصق الشريحة في ورقة المضيف",
+     "check": "45×45 بمقاسه",
+     "result": "PASS",
+     "evidence": "45.00×45.00mm، النقطة ø14.00 على 19.50mm من فوق الملصق (نفس print/host-stickers و dims.js host)، والحد 0.25mm داخل الحافة."
+    },
+    {
+     "item": "20. الباركود",
+     "check": "30mm أو أكثر + 4 وحدات هادئة",
+     "result": "PASS",
+     "evidence": "29 وحدة × 1.034 = 30.00mm، الهادئة 4.14mm بيضاء، المربع على شبكة الأمان (10.58، 199.41). قريته بـ OpenCV من 2x و300dpi وعارض PDF: https://example.com/t/EXAMPLEVISITR/ و EXAMPLEVISITH. باركود واحد بكل ورقة."
+    },
+    {
+     "item": "21. البطاقة والباركود",
+     "check": "البطاقة برّا المسافة الهادئة",
+     "result": "PASS",
+     "evidence": "بين مربع الباركود والبطاقة 6.35mm (> 4.14). زاوية البطاقة 3mm وتخلص على الأمان (137.42، 199.42). سطر الباركود على خط أعلى البطاقة بالمطاعم (capSnap 1.31mm)."
+    },
+    {
+     "item": "22. تنبيهات تمنع التصدير",
+     "check": "تشتغل وقت الضغط",
+     "result": "PASS",
+     "evidence": "نسخ مؤقتة من content.js: محتوى زايد بالمضيف = 3 console.error (الأداة ترفض). عنوان طويل = 22pt ثم سطرين ثم منع. سطر تجربة طويل = 12pt وسطرين مع تنبيه. sheet=nope = منع."
+    },
+    {
+     "item": "23. شعارنا في الورقة",
+     "check": "الأسود للوثائق، الملف كما هو (GM-042)",
+     "result": "PASS",
+     "evidence": "brand/logo/v1.0.0/horizontal-black.svg، والـ 42 ملف في MANIFEST.txt طابقت SHA-256. 28.28×5.29mm (≥21mm). بدون filter ولا ظل ولا شفافية ولا تدوير، ولا ®."
+    },
+    {
+     "item": "24. ألوان الورقة",
+     "check": "من tokens.css وبلا زعفران",
+     "result": "PASS",
+     "evidence": "DOM و PDF: #000000 و #FFFFFF و #56625F و #F3EEE6، والتيل #0B7A75 على علامات الصح بس (6 و3). #7A3E2B (مقهى المثال) داخل صورة المنتج بس. 0 بكسل زعفران في الأربع صور."
+    },
+    {
+     "item": "25. هوية العميل داخل صورة المنتج",
+     "check": "بدون شعارنا",
+     "result": "PASS",
+     "evidence": "الستاند بهوية «مقهى المثال» الوهمية، بدون شعارنا ولا «بواسطة». الملصق بدون اسم ونقطته سوداء (GM-027)."
+    },
+    {
+     "item": "26. ممنوعات الرسم",
+     "check": "أثر نقاط، حلقات، موجات، حرف، دفع، رموز وطنية",
+     "result": "PASS",
+     "evidence": "خطوط التعليق مستقيمة بدون نقاط، النقطة مصمتة بلا حلقة، ولا أيقونة واي فاي أو دفع أو علم، ولا شعار قوقل ولا G ولا نجوم."
+    },
+    {
+     "item": "27. مصادر نصوص الورقة",
+     "check": "كل سطر له ملف",
+     "result": "PASS",
+     "evidence": "41 فحص نص على سطره، كلها موجودة: sales/pitch.md (14،20،24،48،56،60،65)، sales/host-track.md (5،42،43،45،98،110)، sales/objections.md:6، services/pricing.md (6،9،10،11،13،16،17،23)، web-copy (52،60،81،84،85،103،104)، marketing/telegram-plan.md:37، .claude/skills/marketing/SKILL.md (48،57)."
+    },
+    {
+     "item": "28. الأسعار",
+     "check": "بالحرف ومعها شروطها",
+     "result": "PASS",
+     "evidence": "1,211 و798 و25 ريال، و49.5 و544.5 و39.5 و434.5 ريال، و«الشهري فيه التزام 6 أشهر، والسنوي بسعر 11 شهر.»، و«سعر 5 وحدات فأكثر على كل وحداتك.»، و«الأسعار بدون ضريبة…» بالورقتين."
+    },
+    {
+     "item": "29. وعد الرد",
+     "check": "كامل (GM-046/047)",
+     "result": "PASS",
+     "evidence": "«رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل» سطرين عند الفاصلة، بالورقتين."
+    },
+    {
+     "item": "30. التواصل",
+     "check": "وهمي وواضح (GM-006)",
+     "result": "PASS",
+     "evidence": "+966 5X XXX XXXX و @XXXXXXXX و example.com، والقالب ينبّه عليهم. ولا AWA HOME ولا اسم حقيقي."
+    },
+    {
+     "item": "31. ممنوعات الكلام",
+     "check": "فوري، هدية، بدون أي التزام، ادفع",
+     "result": "PASS",
+     "evidence": "ولا وحدة. التجربة «بدون دفع مقدم، حسب شروط التجربة المتفق عليها.»، والمضيف «ونبلغك» بدون «فوراً» (GM-017)."
+    },
+    {
+     "item": "32. visit-dims.js",
+     "check": "كل رقم بمصدره",
+     "result": "PASS",
+     "evidence": "كل مفتاح معه مصدره أو «مني». تحققت: --lt-space-* في brand/tokens.css، 21mm في work/2026-09-27-wordmark/decision.md:37، «3×3 سم» و DENSO في engineering/stand-dimensions.md:7 و:9، cardR في print/dims.js:98."
+    },
+    {
+     "item": "33. مقاسات برّا visit-dims.js",
+     "check": "كل مقاس منه مثل ما مكتوب",
+     "result": "FAIL",
+     "evidence": "visit.css:1 و README.md:14 يقولون كل المقاسات في visit-dims.js بمصدرها، بس visit.css فيه 9 قيم mm بدون مصدر (سطر 14،46،48،51،56،66،82، و84 مرتين)، و visit.js:155 فيه −8mm. وثلاث منها ميتة (بند 16)."
+    },
+    {
+     "item": "34. print/CREDITS.md",
+     "check": "كل صورة وأيقونة",
+     "result": "PASS",
+     "evidence": "الورقة: الشعار الأسود، cafe.svg، check، نقطة touchMark، qrcode-generator، Readex Pro (ومسجّل إن clock انشالت). التليجرام: ملفات social الثلاث، القطع من القوالب، صفحة rental-guide، إطار الجوال CSS."
+    },
+    {
+     "item": "35. README ورقة الزيارة: أوامر الصور",
+     "check": "الأمر المكتوب يطلّع نفس الملفات",
+     "result": "FAIL",
+     "evidence": "أمر README (--png 300dpi,2x --sign-names) يطلّع 2x RGB وملف قياس visit-sheet.export.json. المسلّم 2x RGBA (--transparent) وملفات قياس visit-*-2x.export.json و visit-*-300dpi.export.json، يعني أوامر ثانية. البكسلات نفسها."
+    },
+    {
+     "item": "36. print/EXPORT.md و export.cjs --help",
+     "check": "يطابقون الواقع",
+     "result": "FAIL",
+     "evidence": "print/EXPORT.md:4 و:32 و:88 و print/export.cjs:47 للحين «نزف وعلامات قص». الواقع: --bleed = 154×216 بدون علامات، والعلامات بس مع --param marks=1 (164×226). مفتوح من جولة 2 signs (إصلاح 3). سطر edgeFill الجديد (106) صحيح."
+    },
+    {
+     "item": "37. معاينة الجوال",
+     "check": "1440 و390، فاتح وداكن",
+     "result": "PASS",
+     "evidence": "ui-probe: errors 0، overflowX 0، clipped 0، lowContrast 0، tinyText 0، brokenImages 0. الورقة تتصغّر وتساع 390."
+    },
+    {
+     "item": "38. الهندسة",
+     "check": "معدن، مكان الشريحة، سبب المقاس",
+     "result": "PASS",
+     "evidence": "ورق بدون شريحة. المنتج في الصورة هو العتاد المعتمد (ستاند A6 engineering/stand-dimensions.md §3، وملصق on-metal 45×45 §4)، ولا لون معدني ولا فويل. سبب A5 مكتوب (print-designer-b2b.md القرار 1، GM-051)."
+    },
+    {
+     "item": "39. مقاسات صور التليجرام",
+     "check": "بالبكسل بالضبط",
+     "result": "PASS",
+     "evidence": "1024² و1280×720 و1080² (7 صور)، RGB بدون شفافية، CRC سليم، 20–241KB. حدود core.telegram.org (فتحتها اليوم): 10MB، العرض+الارتفاع ≤ 10000، النسبة ≤ 20، والتصغير لـ 1280 (y) أو 2560 (w)."
+    },
+    {
+     "item": "40. إعادة تصدير التليجرام",
+     "check": "نفس الملفات",
+     "result": "PASS",
+     "evidence": "أمر README الأخير: 9 من 9 نفس SHA-256. القطع في src/ بأوامرها: 4 من 4 نفس SHA-256."
+    },
+    {
+     "item": "41. صورة القناة",
+     "check": "الملف الرسمي وتساع الدائرة",
+     "result": "PASS",
+     "evidence": "فرق 0 بكسل عن brand/logo/v1.0.0/social/avatar-white-on-teal-1024.png. أبعد بكسل في الرمز على 0.821 من نصف القطر. التليجرام يحفظ 160 و640 (TDLib chatPhotoInfo)."
+    },
+    {
+     "item": "42. الشعار في صور التليجرام",
+     "check": "ملفات social كما هي بلا ظل (GM-042)",
+     "result": "PASS",
+     "evidence": "horizontal-teal.svg و stacked-teal.svg (hash مطابق)، بدون ظل ولا filter ولا شفافية. التدرج التيلي خلفية بس (USAGE.md)."
+    },
+    {
+     "item": "43. نص الصور",
+     "check": "الهامش 80، 40px أو أكثر، التباين",
+     "result": "PASS",
+     "evidence": "كل النص داخل 80px (أقربه 80 يمين، 85 فوق، 87 تحت في التثبيت). 40–104px، وزن 600 و400، تباعد 0. أقل تباين للأبيض 4.70 (عنوان المربعة فوق الضوء)، 4.90 التثبيت، والمنشورات 5.04–5.18."
+    },
+    {
+     "item": "44. الخط في الصور",
+     "check": "Readex Pro حتى في شاشة الجوال",
+     "result": "PASS",
+     "evidence": "الصور: Readex Pro بس (1382 حرف). شاشات الجوال (iframe): Readex Pro بس (3444 حرف). خط النظام بس في عناوين المعاينة .p-screen اللي ما تنصدّر."
+    },
+    {
+     "item": "45. نصوص صور التليجرام",
+     "check": "مقطع حرفي من الخطة",
+     "result": "PASS",
+     "evidence": "16 من 16 مقطع متصل من marketing/telegram-plan.md (37،61،62،67،68،73،74،80،81،86،91،108). ولا سعر، ونقطة البيع كاملة في التثبيت والمربعة."
+    },
+    {
+     "item": "46. الباركود في الصور",
+     "check": "مغطى (GM-049)",
+     "result": "PASS",
+     "evidence": "0 باركود مقروء في التسع. القطع الأصلية تنقرى (EXAMPLEMENU2 و EXAMPLEWIFI2 و EXAMPLE123)، يعني الفحص يشتغل. باركود الستاند يبدأ على 1193 وسطره على 1101، والصورة 1080."
+    },
+    {
+     "item": "47. الحبر بين أسطر الصور",
+     "check": "ما فيه تلاصق",
+     "result": "PASS",
+     "evidence": "أقل مسافة 12.67px (سطر الجواب في م1) و15.06px (عنوان م4)، يعني تقريباً 4px على جوال 360."
+    },
+    {
+     "item": "48. ممنوعات التسويق في الصور",
+     "check": "زعفران، G، نجوم، موجات، دفع",
+     "result": "PASS",
+     "evidence": "0 بكسل زعفران، النقطة مصمتة، ولا G ولا نجوم. «Review us on Google» نص عادي داخل صورة الستاند."
+    },
+    {
+     "item": "49. العتاد في الصور",
+     "check": "المعتمد بس",
+     "result": "PASS",
+     "evidence": "المطاعم: ستاند المحل (services/pricing.md:11). المضيف: ملصق الشريحة وشاشة الضيف (:19). ولا لوحات GM-050."
+    },
+    {
+     "item": "50. «مباشرة» في م2",
+     "check": "ولا وعد غلط",
+     "result": "غير مؤكد",
+     "evidence": "السطر حرفي من marketing/telegram-plan.md:68، بس sales/pitch.md:62-63 تمنع «تفتح مباشرة» لأن الآيفون يطلع إشعار أول، و web-copy §2.5 يكتبها ومعها «بدون أي صفحة قبلها». يحسمها مدير الإعلانات."
+    },
+    {
+     "item": "51. حافة صور التليجرام",
+     "check": "ولا شي مهم في آخر 80px",
+     "result": "غير مؤكد",
+     "evidence": "نص المنشور والشعار داخل الهامش، بس سطر اللمس في صورة الستاند (م1–م3) وأزرار الجوال (م4 وم6) داخل آخر 80px تحت. هل القناة تقص المنشور: غير مؤكد."
+    },
+    {
+     "item": "52. ملفات العملاء القديمة",
+     "check": "تشتغل",
+     "result": "PASS",
+     "evidence": "8 صفحات (example-cafe، example-nologo، الحفر، منيو example-nologo، host-stickers، host-signs، src/stand.html مرتين): 0 خطأ و0 طلب فاشل."
+    },
+    {
+     "item": "53. الأقسام الثانية وملفات التسليم",
+     "check": "ما أحد كتب فيها، وفحصي ما غيّر شي",
+     "result": "PASS",
+     "evidence": "git status لـ website و brand و engineering و services و sales و marketing و management و legal و systems فاضي. ملفات التسليم نفس SHA-256 قبل فحصي وبعده. الجدول مضاف في work/2026-09-28-host-signs/print-prepress.md."
+    }
+   ],
+   "mustFix": [
+    "print/visit-sheet/visit.css سطر 46 و51 و82: القواعد .vs-pkg-elig (0.8mm) و .vs-price-renew (1.058mm) و .vs-trial-note (0.8mm) تخسر قدام .vs-sheet p, .vs-sheet h1 { margin: 0 } (سطر 7)، فمسافتها المحسوبة 0px. النتيجة: في ورقة المضيف نقطتين الياء في «شهري» لاصقة في شدة «المرخّص» (مسافة الحبر 0.00mm عند 117.6، 107.9mm، والمطلوب 0.5mm أو أكثر). خلها تنطبق (مثلاً .vs-sheet .vs-pkg-elig، أو inline من visit-dims.js). جربتها: المسافة تصير 0.92mm، وفراغات المضيف 4.55mm (≥4.233)، والمطاعم 6.04mm، وصفر منع. بعدها صدّر الملفين PDF والأربع صور من جديد وقِس الحبر.",
+    "print/visit-sheet/visit.css سطر 1 و print/visit-sheet/README.md سطر 14 يقولون كل المقاسات في visit-dims.js بمصدرها، بس visit.css فيه 9 قيم mm بدون مصدر (سطر 14، 46، 48، 51، 56، 66، 82، و84 مرتين) و visit.js:155 فيه −8mm. انقلها لـ visit-dims.js ومعها مصدرها أو «مني»، أو صحّح الجملتين.",
+    "print/visit-sheet/README.md قسم «التصدير»: أمر الصور المكتوب (--png 300dpi,2x --sign-names) يطلّع 2x RGB وملف قياس visit-sheet.export.json، والمسلّم 2x RGBA من --transparent --name visit-<الورقة>-2x و300dpi من --name visit-<الورقة>-300dpi. اكتب الأوامر اللي انستخدمت فعلاً، أو صدّر بأمر README وامسح ملفات القياس الأربعة القديمة.",
+    "print/EXPORT.md سطر 4 و32 و88، و print/export.cjs سطر 47 (نص --help): للحين يقولون --bleed = نزف وعلامات قص. الواقع: --bleed = نزف 3mm بدون علامات (ورقة الزيارة 154×216)، والعلامات بس مع --param marks=1 (164×226)، والعكس بـ --param mirror=1. مفتوح من جولة 2 signs (إصلاح 3)."
+   ],
+   "openForOwner": [
+    "بروفة CMYK من المطبعة: الملفات RGB بدون OutputIntent. الأسود (النص والباركود وخطوط التعليق 0.2mm) لازم ينطبع K100 بس، وشيّك على حد المنتج 0.25mm والنص الرمادي #56625F بحجم 9pt لأنهم أربع ألوان ويتأثرون بتسجيل الألوان.",
+    "اسأل المطبعة: تقبل خطوط Type3 في PDF (24 لين 30 في كل ملف)؟ لو لا نطلع نسخة بخط ثابت TrueType (print/EXPORT.md).",
+    "الورق: مطفي 250 لين 300 جرام؟ وهل الرملي #F3EEE6 يبان على الورق الأبيض.",
+    "أول بروفة: قِس القص 148×210 والباركود 30mm بالمسطرة (±0.5mm)، وامسح الباركود المطبوع 3 من 3 بآيفون وأندرويد من 20 لين 40cm.",
+    "التليجرام: المقاس المعتمد لكل استخدام (1024 و1280×720 و1080) وهل القناة تقص المنشور، يتأكد منها وقت إنشاء القناة. المؤكد بس الحدود التقنية من core.telegram.org (10MB، والعرض+الارتفاع ≤ 10000).",
+    "بحث SAIP للشعار قبل أي طباعة بكمية (brand/logo/v1.0.0/USAGE.md)."
+   ]
+  },
+  "telegramFixDone": {
+   "decisions": "جولة إصلاح فحص ما قبل الطباعة (visit sheets + telegram). الفاحص قال إن صور التليجرام ما فيها شي مانع.\n\nاللي لي من القائمة: الإصلاح 4، وملاحظتين (م6، ولون نقطة الملصق).\nالإصلاحات 1 و2 و3 وملاحظتين النقاط («شهري»/«المرخّص» و«في»/«ببلاش») كلها في print/visit-sheet/، وهذي ملك مصمم الطباعة. هو يعدلها الحين بنفس الوقت (git status: visit.css وvisit.js وvisit-dims.js وcontent.js وREADME.md). ما لمستها عشان ما نتعارض.\n\n1) م6: الزر الكحلي «تم الخروج» كان أقوى شي في الجوال، وفوقه فقرة خصوصية زحمة تكسر «لمسة / تاب».\n- الشاشة الحين على زر «بلاغ صيانة» (data-at=\"#fix\"، 28px من فوق). هو أول شي فيها، وتحته «تواصل مع مشغّل خدمة الوحدة» وقسم «التكييف» ونصه.\n- «تم الخروج» والفقرة صاروا برّا الشاشة من فوق.\n- الفراغ بين الزرين 12px بس (قسته على 701.6 و713.6 بعرض 390). عشان كذا أعلى الشاشة (.screen-top) صار بلون الصفحة نفسها #FAF7F2، مكان شريط حالة الجوال، وطوله 22px يعني لين نص الفراغ.\n  - طرف «تم الخروج» يخلص على 15.6، يعني تحت الغطا.\n  - الغطا برّا الـ iframe، والصفحة نفسها ما تغيّرت.\n- الكحلي في م6 كان 35,960 بكسل وصار 0.\n- الزر صار من 548 لين 627. قبل كان من 935 لين 1013، وطرفه داخل آخر 80px.\n- التغيير داخل الشاشة بس. بكسلات النص نفسها ما تغيّرت، والتباين 5.18.\n- فحص جديد في index.html يطلّع تنبيه لو: المقصود مو كامل في الشاشة، أو فيه شي مقصوص فوق، أو طرف الزر اللي فوقه يبان، أو فيه زر معبّى ثاني (data-none).\n  - جربته بـ 3 نسخ غلط: كل وحدة طلّعت تنبيه، والنسخة الصح صفر تنبيه.\n- اللي ما سويته:\n  - ما خبيت الزر بستايل داخل الصفحة، لأن هذا تغيير في المنتج نفسه.\n  - ما حطيت إصبع ولا حلقة: الحلقات ممنوعة، وcanvas-design تقول نقّح الموجود.\n  - ما نزلت الجوال، لأن خط 490 للنص القصير.\n\n2) لون نقطة الملصق: م5 باقية كحلي.\n- القالب يعطي النقطة لون المضيف لو تباينه 3 أو أكثر، وإلا أسود (dotColor في print/print.js). ولون «شقق المثال» #1F3B57.\n- نفس المضيف في م4 كحلي (33,006 بكسل). لو صارت م5 سوداء، نفس المضيف يطلع بلونين.\n- ومصمم الطباعة في نفس الجولة غيّر demo.host في content.js لـ «شقق المثال» #1F3B57 (شفته في git diff). يعني بعد تصديره، الكحلي في الاثنين.\n\n3) الإصلاح 4: توثيق --bleed.\n- أداة التصدير شغل مصمم الإعلانات، ومصمم الطباعة ممنوع يعدلها (print-gm059.js سطر 214).\n- عدلت print/EXPORT.md (سطر 4 و32 و88 وجدول الخيارات)، وفي print/export.cjs نص --help (سطر 47) وتعليق ورسالة خطأ. الحين مكتوب:\n  - --bleed = نزف 3mm بدون علامات: 106×156، وورقة الزيارة 154×216.\n  - العلامات بـ --param marks=1: ‏116×166، وورقة الزيارة 164×226.\n  - العكس بـ --param mirror=1، في host-signs وstand بس.\n- وأضفت أمرين جداد مجربين. المنطق ما تغيّر.\n- تأكدت بالتشغيل وقريت الملفات بـ pypdf:\n  - المقاسات كلها مثل فوق، وTrimBox على 3mm (و8mm مع العلامات).\n  - العكس مصفوفة x بالسالب، وورقة الزيارة ما تنعكس.\n  - node --check سليم، و--check يرجع OK.\n\nالفحص على الصور النهائية:\n- export.cjs --social بأمر README: نجحت 9 من 9، وصفر خطأ وصفر تنبيه.\n  - م6 بس اللي تغيّرت (SHA من ae596790 لـ da36fc06). الثمان الباقية والقطع الأربع نفس البايت.\n  - صدّرتها مرتين وطلعت نفس البايت.\n- داخل الجوالين: 911 حرف كلها Readex Pro، وصفر خط نظام.\n- سكربت مستقل:\n  - 16 من 16 سطر مقطع حرفي من الخطة.\n  - صفر باركود مقروء، والقطع الأصلية تنقرى 3 من 3.\n  - صفر زعفران، وصورة القناة فرقها 0.\n- ui-probe على 1440 و390: صفر خطأ. impeccable detect: نفس الـ 9 الكاذبة من قبل.\n- شفت م6 بعيني: كاملة، ومقربة على أعلى الشاشة، وقبل وبعد بعرض 360، واختبار التغبيش، والست جنب بعض.",
+   "files": [
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\index.html",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\README.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-avatar.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-pinned.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-square.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m1-menu.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m2-review.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m3-wifi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m4-guide.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m5-checkout.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram-m6-maintenance.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\png\\telegram.export.json",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand.html",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\clients\\cafe-menu.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\clients\\cafe-wifi.js",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-menu.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-wifi.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\stand-review.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\sticker-chip.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\sign-guide.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\social\\telegram\\src\\sign-checkout.png",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\CREDITS.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\EXPORT.md",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\print\\export.cjs",
+    "C:\\Users\\TechTroniX\\Desktop\\NFC\\.claude\\worktrees\\agitated-lehmann-31349b\\work\\2026-09-28-host-signs\\ad-creative-telegram.md"
+   ],
+   "exportTargets": [
+    {
+     "url": "print/social/telegram/src/stand.html?client=cafe-menu&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "stand-menu.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/social/telegram/src/stand.html?client=cafe-wifi&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "stand-wifi.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/stand/index.html?client=example-cafe&purpose=review&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "stand-review.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/host-stickers/index.html?client=example-flats&render=1",
+     "outDir": "print/social/telegram/src",
+     "name": "sticker-chip.png",
+     "kind": "print-transparent"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=avatar",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-avatar.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=pinned",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-pinned.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=square",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-square.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m1-menu",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m1-menu.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m2-review",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m2-review.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m3-wifi",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m3-wifi.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m4-guide",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m4-guide.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m5-checkout",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m5-checkout.png",
+     "kind": "social-px"
+    },
+    {
+     "url": "print/social/telegram/index.html?img=m6-maintenance",
+     "outDir": "print/social/telegram/png",
+     "name": "telegram-m6-maintenance.png",
+     "kind": "social-px"
+    }
+   ],
+   "copyTable": [
+    {
+     "piece": "telegram-pinned + telegram-square (العنوان)",
+     "ar": "منيو، تقييم، واي فاي بلمسة",
+     "source": "marketing/telegram-plan.md §6 (سطر 108)"
+    },
+    {
+     "piece": "telegram-pinned + telegram-square (نقطة البيع، كاملة)",
+     "ar": "رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل",
+     "source": "marketing/telegram-plan.md §3 (سطر 37)، GM-046/047"
+    },
+    {
+     "piece": "telegram-m1-menu (العنوان)",
+     "ar": "زبونك جالس، والمنيو الورقي عند الطاولة الثانية.",
+     "source": "marketing/telegram-plan.md §5 م1 (سطر 61، كامل)"
+    },
+    {
+     "piece": "telegram-m1-menu (سطر الجواب)",
+     "ar": "يقرّب جواله من الستاند أو يمسح الباركود، والمنيو قدامه.",
+     "source": "marketing/telegram-plan.md §5 م1 (سطر 62، مقطع متصل)"
+    },
+    {
+     "piece": "telegram-m2-review (العنوان)",
+     "ar": "تبغى الزبون يلقى صفحة تقييمك بسهولة؟",
+     "source": "marketing/telegram-plan.md §5 م2 (سطر 67)"
+    },
+    {
+     "piece": "telegram-m2-review (سطر الجواب)",
+     "ar": "ستاند على الكاشير يفتح صفحة تقييم محلك على قوقل مباشرة.",
+     "source": "marketing/telegram-plan.md §5 م2 (سطر 68، أول جملة). «قوقل» نص عادي: ولا شعار ولا G ولا نجوم. كلمة «مباشرة» غير مؤكد: sales/pitch.md سطر 62 و63 يمنعها في جملة النقطة، ويحسمها مدير الإعلانات"
+    },
+    {
+     "piece": "telegram-m3-wifi (العنوان)",
+     "ar": "«وش باسوورد الواي فاي؟»",
+     "source": "marketing/telegram-plan.md §5 م3 (سطر 73)"
+    },
+    {
+     "piece": "telegram-m3-wifi (سطر الجواب)",
+     "ar": "كلمة المرور جاهزة للنسخ",
+     "source": "marketing/telegram-plan.md §5 م3 (سطر 74، آخر الجملة). والزر «انسخ كلمة المرور» في web-copy.md §2.3"
+    },
+    {
+     "piece": "telegram-m4-guide (العنوان، حجم واحد)",
+     "ar": "ضيفك وصل الساعة 1 الليل وما يدري وين المكيف ولا كلمة الواي فاي؟",
+     "source": "marketing/telegram-plan.md §5 م4 (سطر 80، كامل)"
+    },
+    {
+     "piece": "telegram-m4-guide (سطر الجواب)",
+     "ar": "ملصق في الشقة يفتح دليل الضيف: الواي فاي، والتكييف، والشروط، والعنوان.",
+     "source": "marketing/telegram-plan.md §5 م4 (سطر 81 بدون «بلمسة جوال أو بالباركود.»). «ملصق» يطابق العتاد المعتمد: services/pricing.md سطر 19"
+    },
+    {
+     "piece": "telegram-m5-checkout (العنوان)",
+     "ar": "الضيف طالع؟",
+     "source": "marketing/telegram-plan.md §5 م5 (سطر 86)"
+    },
+    {
+     "piece": "telegram-m5-checkout (سطر الجواب، الجملة كاملة)",
+     "ar": "يقرّب جواله من الملصق ويضغط زر التشيك أوت، وتوصلنا الرسالة ونبلغك من جوال الشركة، عشان تجهز التنظيف.",
+     "source": "marketing/telegram-plan.md §5 م5 (سطر 86، باقي الجملة حرفياً). GM-017: يوصلنا ونبلغك من جوال الشركة، مو «يوصلك مباشرة»"
+    },
+    {
+     "piece": "telegram-m6-maintenance (العنوان)",
+     "ar": "المكيف وقف؟",
+     "source": "marketing/telegram-plan.md §5 م6 (سطر 91)"
+    },
+    {
+     "piece": "telegram-m6-maintenance (سطر الجواب)",
+     "ar": "بلاغ صيانة جاهز، ويوصلنا ونحوّله لك",
+     "source": "marketing/telegram-plan.md §5 م6 (سطر 91، مقطع متصل)، GM-017"
+    },
+    {
+     "piece": "نصوص القطع نفسها (مو مني): الستاندات م1 لين م3",
+     "ar": "المنيو / قيّمنا في قوقل / الواي فاي، وقرّب جوالك هنا",
+     "en": "Menu / Review us on Google / Wi-Fi / Tap your phone here",
+     "source": "قوالب Task A: print/stand/stand.js، ومصادرها في work/2026-09-28-host-signs/print-designer.md"
+    },
+    {
+     "piece": "نص القطعة (مو مني): ملصق الشريحة م5",
+     "ar": "قرّب جوالك هنا",
+     "source": "print/host-stickers/stickers.js (web-copy.md §3)"
+    },
+    {
+     "piece": "نصوص القطعة (مو مني): شاشة الجوال م4",
+     "ar": "شقق المثال، وأهلاً في شقة المثال، والشبكة، وكلمة المرور، وانسخ كلمة المرور",
+     "source": "الصفحة الحقيقية website/demo/rental-guide (web-copy.md §2.2 و§2.3). الهوية من website/demo/_brands/brands.js (flats)، والشبكة وكلمة المرور وهمية من website/demo/rental-guide/data.js سطر 8"
+    },
+    {
+     "piece": "نصوص القطعة (مو مني): شاشة الجوال م6 (بعد الإصلاح)",
+     "ar": "بلاغ صيانة، وتواصل مع مشغّل خدمة الوحدة، واستفسار على واتساب، واتصل بنا، والتكييف، ونص التكييف: «الريموت في درج الطاولة جنب السرير. اضغط زر التشغيل، وخلّه على وضع التبريد و23 درجة.»",
+     "source": "الصفحة الحقيقية website/demo/rental-guide: التسميات من web-copy.md §2.2 (سطر 250 لين 254)، ونص التكييف وهمي من website/demo/rental-guide/data.js سطر 11. «تم الخروج» وسطر الإشعار ما عاد يطلعون في الصورة"
+    }
+   ],
+   "uncertain": [
+    "مقاسات التليجرام الرسمية غير مؤكدة: 1024 للصورة، و1280×720 للتثبيت، و1080 للمربعة والمنشورات. وكذلك غير مؤكد: العرض الدائري، وطريقة عرض المنشور في القناة، وعرض 360 تقريباً في الجوال (تقدير مني). المؤكد بس من core.telegram.org: نسخ الصورة 640 و160، وتصغير الصور لـ 1280 أو 2560، وحد 10MB، والعرض + الارتفاع ≤ 10000.",
+    "أعلى شاشة م6 (22px بلون الصفحة) مكانه شريط حالة الجوال. طوله الحقيقي يختلف حسب الجهاز (غير مؤكد)، وأنا أخذته من نص الفراغ بين الزرين، مو من مواصفات جهاز.",
+    "«مباشرة» في سطر م2 (بند 50 عند الفاحص): السطر حرفي من الخطة سطر 68، والكلمة نفسها في CLAUDE.md وweb-copy بمعنى «بدون صفحة قبل قوقل». بس sales/pitch.md سطر 62 و63 يمنعها في جملة النقطة، لأن الآيفون يطلع إشعار أول. يحسمها مدير الإعلانات. لو انشالت، يصير السطر «ستاند على الكاشير يفتح / صفحة تقييم محلك على قوقل»، وهو مقطع متصل من نفس السطر.",
+    "نص منشور م3 (الخطة سطر 74) فيه «ملصق على الطاولة»، والصورة ستاند المحل المعتمد. يتعدل عند مدير الإعلانات قبل النشر. و«أندرويد يتصل باللمسة» ما له مصدر في engineering/، ويتأكد منه مهندس NFC.",
+    "شاشة الجوال في م4 وم6 مثبتة على Readex Pro، والضيف الحقيقي يشوف خط جواله. وأي تغيير في website/ يغيّر الصورتين في التصدير الجاي. والفحص الجديد ينبّه لو «بلاغ صيانة» ما بان كامل، أو بان زر معبّى ثاني، أو شي مقصوص فوق الشاشة.",
+    "صفحة الدليل نفسها (مصمم الموقع): فقرة الخصوصية تكسر «لمسة / تاب» على سطرين بعرض 390. ما عاد تطلع في م6، بس الصفحة للحين فيها الكسر. الحل عند مصمم الموقع، مثلاً white-space: nowrap على [data-company].",
+    "توحيد لون نقطة الملصق يعتمد على تصدير ورقة الزيارة الجاي من مصمم الطباعة (demo.host صار «شقق المثال» #1F3B57 في content.js). يتأكد منه فاحص ما قبل الطباعة، مو من طرفي.",
+    "الإصلاحات 1 و2 و3 (ورقة الزيارة) ملك مصمم الطباعة، وهي تنعدل بنفس الوقت. ما فحصتها.",
+    "حجم الملصق في م5 510px، يعني 11.3px لكل مليمتر، والستاندات على 6.4. الملصق الحقيقي 45×45mm (engineering/stand-dimensions.md §4).",
+    "عتاد GM-050 (ستاند الدليل ولوحة الباب): لو دخل الباقة، ترجع م4 وم5 القديمة ويتعدل نص المنشورات. وsign-guide وsign-checkout باقية في src/، وتنحذف بعد PASS الجولة 2 (GM-051).",
+    "مرة وحدة في جولة قبل، تصدير stand-menu فشل بخطأ «isMono is not defined»، وإعادة نفس الأمر نجحت. السبب غير مؤكد.",
+    "«مقهى المثال» و«شقق المثال» وهمية. أي ستاند عميل حقيقي في إعلاننا يحتاج موافقته الكتابية. وقبل أي طباعة بكمية لازم بحث SAIP للشعار (USAGE.md).",
+    "الفحص الثلاثي (ui-fact-checker وui-reality-tester وui-skeptic) ما انشغل من داخل هذا الوكيل، لأن ما عندي أداة تشغّل وكلاء. بعدي مراجعة impeccable وفحص ما قبل الطباعة الجولة 2.",
+    "ما عدلت .claude/skills/print-studio/SKILL.md لأنه مو من ملفات هذي الخطوة. يحتاج سطر عن print/social/telegram/ وتوثيق --bleed وقت الدمج (GM-005)."
+   ]
+  }
+ }
+}
