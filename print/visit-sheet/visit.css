@@ -19,20 +19,23 @@
 .vs-h1 { flex: none; font-weight: 600; color: #000000; white-space: nowrap; }
 .vs-h1.is-wrap { white-space: normal; text-wrap: balance; }
 
-/* المسرح: شريط رملي من نزف لنزف، والمنتج جهة البداية، والتعليقات جهة النهاية بخطوط رفيعة */
+/* المسرح: شريط رملي من نزف لنزف، والمنتج جهة النهاية (يسار) مقفول وحوله رملي فوق وتحت، والتعليقات جهة البداية بخطوط رفيعة */
 .vs-stage { flex: none; position: relative; overflow: hidden; background: var(--lt-sand-100); }
 .vs-prod { position: absolute; }
-.vs-prod--stand { transform-origin: 0 0; }
-/* وجه الستاند: نفس s-sheet حق print/print.css، بس مو ورقة. حد المنتج خط شعري (outline، مو ظل)، وسماكته بعد التصغير من visit.js */
-.vs-stand { position: relative; overflow: hidden; background: #FFFFFF; outline: 0.25mm solid var(--lt-sand-200); }
-.vs-chip { position: relative; background: #FFFFFF; outline: 0.25mm solid var(--lt-sand-200); }
+/* صندوق القص: الستاند كامل داخله، والصندوق بطول خط القص (visit.js)، فيطلع وجه الستاند بحد سفلي مقفول */
+.vs-prod--stand { transform-origin: 0 0; overflow: hidden; background: #FFFFFF; }
+/* وجه الستاند: نفس s-sheet حق print/print.css، بس مو ورقة */
+.vs-stand { position: relative; overflow: hidden; background: #FFFFFF; }
+.vs-chip { position: relative; background: #FFFFFF; }
 .vs-chip-line { font-weight: 600; color: #000000; }
+/* حد المنتج: خط SVG داخل حافته (السماكة من visit-dims.js prodLine)، بلون الرمادي الثانوي من tokens.css. مو ظل ولا outline */
+.vs-edge { stroke: var(--lt-slate); }
 .vs-note { position: absolute; text-align: right; }
 .vs-note-t { font-weight: 600; line-height: 1.35; color: #000000; text-wrap: balance; }
 .vs-note-b { font-weight: 400; line-height: 1.5; color: var(--lt-slate); text-wrap: pretty; }
 .vs-leaders { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
 
-/* العرض: رأس (اسم الباقة جهة البداية، والسعر جهة النهاية)، ثم خط شعري، ثم وش فيها، ثم الشروط */
+/* العرض: رأس (اسم الباقة جهة البداية، والسعر جهة النهاية)، ثم فراغ headGap (بدون خط شعري)، ثم وش فيها، ثم الشروط */
 .vs-offer { flex: none; }
 .vs-offer-head { display: flex; align-items: flex-start; justify-content: space-between; }
 /* اسم الباقة ياخذ الباقي ويلتف لو ضاق (سطر الأهلية سطرين متوازنين)، والسعر أو الجدول بعرضه. بينهم colGap من visit-dims.js */

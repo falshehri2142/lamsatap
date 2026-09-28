@@ -8,11 +8,12 @@
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="../../../brand/tokens.css">
 <!--
-  صور قناة وحساب التليجرام (marketing/telegram-plan.md §5 و§6، GM-047، GM-051). مصمم الإعلانات، 2026-09-28.
+  صور قناة وحساب التليجرام (marketing/telegram-plan.md §5 و§6، GM-047، GM-051). مصمم الإعلانات، 2026-09-28 (بعد مراجعة impeccable).
   هويتنا التسويقية: الشعار أبيض على تيل #0B7A75 (GM-042، brand/logo/v1.0.0/USAGE.md). الملفات كما هي: بدون ظل ولا تدرج عليها، وبدون ®.
   ?img=<الاسم> يعرض صورة وحدة، وبدونه كل الصور للمعاينة. كل صورة .p-sheet باسم data-sign="telegram-<الاسم>".
   التصدير والمقاسات ومصدر كل نص: print/social/telegram/README.md، والملاحظات: work/2026-09-28-host-signs/ad-creative-telegram.md.
-  الفحص (fit) في آخر الصفحة: أي نص برّا الهامش أو فوق القطعة أو الشعار، أو نقطة بيع ناقصة، يطلع تنبيه (.p-warn) وتقرير window.PRINT_REPORT.
+  الفحص (fit) في آخر الصفحة: أي نص برّا الهامش أو قريب من القطعة أو الشعار، أو نقطة بيع ناقصة، أو شاشة جوال بغير خط الهوية،
+  يطلع تنبيه (.p-warn) وتقرير window.PRINT_REPORT.
 -->
 <style>
 /* ===== الألوان: من brand/tokens.css بس، ولا لون مخترع (قاعدة الواجهات GM-055 بند 2) ===== */
@@ -22,10 +23,15 @@
   --on-field: #FFFFFF;                                       /* كل النص أبيض كامل، بدون شفافية، عشان التباين يبقى 5.18 */
   --glow: color-mix(in srgb, #FFFFFF 7%, var(--lt-teal));    /* ضوء خفيف: نفس التيل مع 7% أبيض، ورا القطعة بس (مو ورا النص) */
   --shade: color-mix(in srgb, var(--lt-teal) 35%, var(--lt-ink)); /* لون الظل: تيل الهوية مع الحبر، مو رمادي (GM-055 بند 4) */
+  /* الارتفاع درجتين (GM-055 بند 4: «أساس، ومرفوع، وعائم»): القطعة الواقفة أو اللي باليد عائمة، والملصق اللي على الجدار مرفوع شوي (سماكته 1mm تقريباً) */
   --lift: 0 1px 1px color-mix(in srgb, var(--shade) 16%, transparent),
           0 4px 8px color-mix(in srgb, var(--shade) 14%, transparent),
           0 16px 32px color-mix(in srgb, var(--shade) 18%, transparent),
           0 40px 80px color-mix(in srgb, var(--shade) 26%, transparent);
+  --lift-low: 0 1px 1px color-mix(in srgb, var(--shade) 18%, transparent),
+              0 2px 4px color-mix(in srgb, var(--shade) 14%, transparent),
+              0 8px 16px color-mix(in srgb, var(--shade) 16%, transparent),
+              0 20px 40px color-mix(in srgb, var(--shade) 18%, transparent);
   --m: var(--lt-space-80);                                   /* الهامش من كل حافة: 80 (سلّم المسافات) */
 }
 * { box-sizing: border-box; }
@@ -68,22 +74,33 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
 .tg-square .head { font-size: 104px; }
 
 /* ===== 4) المنشورات 1080×1080 =====
-   نفس الشبكة للست: النص من فوق على محور اليمين، والقطعة تحته على نفس المحور، والشعار الصغير توقيع تحت يسار (نهاية القراءة).
-   القطعة ورقة Task A (2x، 756×1134) بعرض 640: تطلع من حافة الصورة تحت، والظاهر 590 من 960 (61.5%) = لين تحت «Tap your phone here»،
-   والباركود الوهمي يبدأ 64.4% تحت الحافة (GM-049: الباركود مغطى). */
+   نفس القواعد للست (مراجعة impeccable: ولا سطر صغير فوق العنوان، يعني ولا kicker):
+   - العنوان أول دايماً: 70px وزن 600، سؤال أو مشكلة بصوت الزبون أو الضيف. وتحته سطر الجواب 40px وزن 400. كلهم على محور اليمين من فوق.
+     حجم واحد للست (قسته): جملة م1 وم4 الكاملة بـ 88 تطلع 3 و4 أسطر وتنزل على القطعة. و70 أكبر حجم ينكسر فيه كل عنوان عند حد العبارة:
+     «زبونك جالس، والمنيو الورقي» 890px و«ضيفك وصل الساعة 1 الليل» 862px من 920 (بـ 76: 966 و936، يعني تنكسر «المنيو / الورقي» و«1 / الليل»).
+   - كسر الأسطر مكتوب (<br>) عند حد العبارة، وdata-lines عدد الأسطر المتوقع: لو سطر انكسر زيادة يطلع تنبيه.
+   - القطعة تحتهم على نفس المحور، وتبدأ من 490 (خط واحد للقطع)، إلا لو النص طويل: تنزل لين يصير بينها وبين آخر حبر 48px (م4).
+   - كل قطعة بوضعها الطبيعي: الستاند واقف (طالع من حافة الصورة تحت، والظاهر 61.5% بس عشان الباركود الوهمي يبقى تحت الحافة، GM-049)،
+     والجوال باليد (طالع من الحافة)، والملصق على الجدار (كامل، وتحته على نفس خط الشعار: 80 من تحت).
+   - الشعار الصغير توقيع تحت يسار (نهاية القراءة). */
 .tg-post { background: radial-gradient(60% 60% at 70% 100%, var(--glow) 0%, var(--field) 100%); }
 .tg-post .copy { position: absolute; top: var(--m); right: var(--m); width: 920px; text-align: right; }
-.tg-post .head { font-size: 88px; }
-.tg-post .lead, .tg-post .sub { font-size: 40px; }
-.tg-post .lead { margin-bottom: var(--lt-space-8); }
-.tg-post .sub { margin-top: var(--lt-space-20); }
+.tg-post .head { font-size: 70px; }
+.tg-post .sub { font-size: 40px; margin-top: var(--lt-space-20); }
 .tg-post .logo { height: 44px; width: auto; left: var(--m); bottom: var(--m); }
 .obj { position: absolute; right: var(--m); top: 490px; width: 640px; }
 .obj > img { width: 100%; height: auto; box-shadow: var(--lift); }
-.obj.is-plate > img { border-radius: 25.4px; }   /* لوحة الباب: زاويتها الشفافة في الـ PNG 3.95 إلى 3.96mm (print/renders/SIZES.md) × 6.4px/mm، فالظل يمشي على نفس الدوران */
+/* ستاند Task A (2x، 756×1134) بعرض 640: الظاهر 590 من 960 (61.5%) = لين تحت «Tap your phone here»، والباركود الوهمي يبدأ 64.4% تحت الحافة */
 
-/* الجوال (م6): صفحة دليل الوحدة الحقيقية (نسخة العرض website/demo/rental-guide) بعرض الجوال 390، مكبّرة ×1.4 */
+/* الملصق (م5): ملصق الشريحة on-metal 45×45 من print/host-stickers (600dpi، 1063×1063) بعرض 510.
+   فوقه على خط القطع (490) وتحته على خط الشعار (1000)، يعني 80 من تحت مثل الهامش. ظله درجة «مرفوع» لأنه لاصق على الجدار */
+.obj.is-sticker { width: 510px; }
+.obj.is-sticker > img { box-shadow: var(--lift-low); }
+
+/* الجوال (م4 وم6): صفحة دليل الوحدة الحقيقية (نسخة العرض website/demo/rental-guide) بعرض الجوال 390، مكبّرة ×1.4.
+   خط الشاشة مثبت على Readex Pro (من ملفات المشروع) وقت فتح الصفحة، لأن صفحة الزبون بخط الجهاز (--lt-font-ui)، فالصورة كانت تتغير حسب جهاز التصدير */
 .obj.is-phone { width: 418px; transform: scale(1.4); transform-origin: 100% 0; }
+.obj.is-phone.is-low { top: 560px; }   /* م4: آخر حبر في النص على 507 (قسته)، و507 + 48 = 555، قرّبته لـ 560 */
 .phone { width: 418px; padding: 14px; border-radius: 62px; background: var(--lt-ink);
   box-shadow: var(--lift), inset 0 0 0 1.5px color-mix(in srgb, #FFFFFF 14%, transparent); }
 .phone .screen { width: 390px; height: 844px; border-radius: 48px; overflow: hidden; background: var(--lt-sand-50); }
@@ -130,84 +147,92 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
   </section>
 
   <!-- 4) المنشورات الأولى م1 لين م6 (telegram-plan §5). كل سطر مقطع حرفي متصل من نص المنشور المعتمد، بدون أسعار (§6).
-       القطعة من قوالب Task A نفسها (src/، أوامرها في README.md)، بهوية العميل الوهمي. -->
+       القطع من القوالب نفسها (src/، أوامرها في README.md): المطاعم ستاند المحل (العتاد المعتمد في services/pricing.md:11)،
+       والمضيفين ملصق الشريحة أو شاشة الضيف (المعتمد في services/pricing.md:19: «شريحة الوحدة + ملصق الباركود»، والوعود من خانة «تشمل» بس، الخطة سطر 77). -->
 
-  <!-- م1 المنيو (#مطاعم): §5 م1، الجملة «يقرّب جواله من الستاند أو يمسح الباركود، والمنيو قدامه.» مقسومة على سطرين -->
+  <!-- م1 المنيو (#مطاعم): العنوان سطر 61 كامل، وتحته من سطر 62 «يقرّب جواله من الستاند أو يمسح الباركود، والمنيو قدامه.» -->
   <section data-img="m1-menu">
     <p class="p-screen">telegram-m1-menu · 1080×1080 · #مطاعم</p>
     <div class="p-sheet tg-w1080 tg-post" data-sign="telegram-m1-menu">
       <div class="copy">
-        <p class="t-line lead">يقرّب جواله من الستاند أو يمسح الباركود،</p>
-        <h2 class="t-head head">والمنيو قدامه.</h2>
+        <h2 class="t-head head" data-lines="2">زبونك جالس، والمنيو الورقي <br>عند الطاولة الثانية.</h2>
+        <p class="t-line sub" data-lines="2">يقرّب جواله من الستاند <br>أو يمسح الباركود، والمنيو قدامه.</p>
       </div>
       <div class="obj"><img src="src/stand-menu.png" width="756" height="1134" alt=""></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
   </section>
 
-  <!-- م2 تقييم قوقل (#مطاعم): §5 م2، السطر الأول حرفي. ثلاث أسطر بدون سطر ثاني: بسطرين ما يدخل (961px في 920)، والستاند نفسه يقول «قيّمنا في قوقل».
-       «قوقل» نص عادي على ستاند العميل: ولا شعار ولا G ولا نجوم، ولا وعد بتقييمات أكثر -->
+  <!-- م2 تقييم قوقل (#مطاعم): العنوان سطر 67 كامل، وتحته أول جملة سطر 68.
+       «قوقل» نص عادي: ولا شعار ولا G ولا نجوم، ولا وعد بتقييمات أكثر (الخطة §3) -->
   <section data-img="m2-review">
     <p class="p-screen">telegram-m2-review · 1080×1080 · #مطاعم</p>
     <div class="p-sheet tg-w1080 tg-post" data-sign="telegram-m2-review">
       <div class="copy">
-        <h2 class="t-head head">تبغى الزبون يلقى صفحة تقييمك بسهولة؟</h2>
+        <h2 class="t-head head" data-lines="2">تبغى الزبون يلقى <br>صفحة تقييمك بسهولة؟</h2>
+        <p class="t-line sub" data-lines="2">ستاند على الكاشير يفتح <br>صفحة تقييم محلك على قوقل مباشرة.</p>
       </div>
       <div class="obj"><img src="src/stand-review.png" width="756" height="1134" alt=""></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
   </section>
 
-  <!-- م3 الواي فاي (#مطاعم): §5 م3، السؤال حرفي بعلامتيه، و«كلمة المرور جاهزة للنسخ» مقطع من الجملة الثانية -->
+  <!-- م3 الواي فاي (#مطاعم): السؤال سطر 73 حرفي بعلامتيه، و«كلمة المرور جاهزة للنسخ» آخر سطر 74.
+       القطعة وجه الواي فاي في ستاند المحل (عتاد حزمة المحل، pricing.md:11)، مو ملصق: ما فيه ملصق طاولة معتمد للمطاعم (engineering/stand-dimensions.md §3 و§4).
+       فنص المنشور تحت الصورة («ملصق على الطاولة»، سطر 74) هو اللي يتعدل عند مدير الإعلانات -->
   <section data-img="m3-wifi">
     <p class="p-screen">telegram-m3-wifi · 1080×1080 · #مطاعم</p>
     <div class="p-sheet tg-w1080 tg-post" data-sign="telegram-m3-wifi">
       <div class="copy">
-        <h2 class="t-head head">«وش باسوورد الواي فاي؟»</h2>
-        <p class="t-line sub">كلمة المرور جاهزة للنسخ</p>
+        <h2 class="t-head head" data-lines="1">«وش باسوورد الواي فاي؟»</h2>
+        <p class="t-line sub" data-lines="1">كلمة المرور جاهزة للنسخ</p>
       </div>
       <div class="obj"><img src="src/stand-wifi.png" width="756" height="1134" alt=""></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
   </section>
 
-  <!-- م4 دليل الشقة (#مضيفين): §5 م4، الجملة الأولى كاملة حرفياً، مقسومة على سطرين -->
+  <!-- م4 دليل الشقة (#مضيفين): العنوان سطر 80 كامل بحجم واحد، وتحته سطر 81 بدون آخر جملة («بلمسة جوال أو بالباركود.»).
+       «ملصق في الشقة» صحيح الحين: العتاد المعتمد ملصق (pricing.md:19). القطعة شاشة الضيف على أول الدليل (الترحيب والواي فاي) -->
   <section data-img="m4-guide">
     <p class="p-screen">telegram-m4-guide · 1080×1080 · #مضيفين</p>
     <div class="p-sheet tg-w1080 tg-post" data-sign="telegram-m4-guide">
       <div class="copy">
-        <p class="t-line lead">ضيفك وصل الساعة 1 الليل</p>
-        <h2 class="t-head head">وما يدري وين المكيف ولا كلمة الواي فاي؟</h2>
+        <h2 class="t-head head" data-lines="3">ضيفك وصل الساعة 1 الليل <br>وما يدري وين المكيف <br>ولا كلمة الواي فاي؟</h2>
+        <p class="t-line sub" data-lines="2">ملصق في الشقة يفتح دليل الضيف: <br>الواي فاي، والتكييف، والشروط، والعنوان.</p>
       </div>
-      <div class="obj"><img src="src/sign-guide.png" width="756" height="1134" alt=""></div>
+      <div class="obj is-phone is-low"><div class="phone"><div class="screen">
+        <iframe src="../../../website/demo/rental-guide/index.html" data-at=".c-id" title="صفحة دليل الوحدة (نسخة العرض) على هوية المضيف والترحيب والواي فاي" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+      </div></div></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
   </section>
 
-  <!-- م5 التشيك أوت (#مضيفين): §5 م5، «الضيف طالع؟» حرفي، والثاني مقطع متصل. توصلنا ونبلغك من جوال الشركة (GM-017)، مو «توصلك مباشرة» -->
+  <!-- م5 التشيك أوت (#مضيفين): سطر 86 كامل: «الضيف طالع؟» عنوان، والباقي سطر الجواب حرفياً («يقرّب جواله من الملصق ويضغط زر التشيك أوت، …»).
+       القطعة ملصق الشريحة نفسه (print/host-stickers، شقق المثال). يوصلنا ونبلغك من جوال الشركة (GM-017)، مو «يوصلك مباشرة» -->
   <section data-img="m5-checkout">
     <p class="p-screen">telegram-m5-checkout · 1080×1080 · #مضيفين</p>
     <div class="p-sheet tg-w1080 tg-post" data-sign="telegram-m5-checkout">
       <div class="copy">
-        <h2 class="t-head head">الضيف طالع؟</h2>
-        <p class="t-line sub">وتوصلنا الرسالة ونبلغك من جوال الشركة، <br>عشان تجهز التنظيف.</p>
+        <h2 class="t-head head" data-lines="1">الضيف طالع؟</h2>
+        <p class="t-line sub" data-lines="3">يقرّب جواله من الملصق ويضغط زر التشيك أوت، <br>وتوصلنا الرسالة ونبلغك من جوال الشركة، <br>عشان تجهز التنظيف.</p>
       </div>
-      <div class="obj is-plate"><img src="src/sign-checkout.png" width="756" height="1134" alt=""></div>
+      <div class="obj is-sticker"><img src="src/sticker-chip.png" width="1063" height="1063" alt=""></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
   </section>
 
-  <!-- م6 بلاغ الصيانة (#مضيفين): §5 م6، «المكيف وقف؟» حرفي، والثاني مقطع متصل. يوصلنا ونحوّله لك (GM-017).
-       ما فيه لوحة صيانة في Task A: البلاغ زر في صفحة دليل الوحدة، فالقطعة هنا الصفحة الحقيقية على جوال -->
+  <!-- م6 بلاغ الصيانة (#مضيفين): «المكيف وقف؟» سطر 91 حرفي، والثاني مقطع متصل منه. يوصلنا ونحوّله لك (GM-017).
+       القطعة شاشة الضيف على «الخروج والصيانة»، وفيها زر «بلاغ صيانة» -->
   <section data-img="m6-maintenance">
     <p class="p-screen">telegram-m6-maintenance · 1080×1080 · #مضيفين</p>
     <div class="p-sheet tg-w1080 tg-post" data-sign="telegram-m6-maintenance">
       <div class="copy">
-        <h2 class="t-head head">المكيف وقف؟</h2>
-        <p class="t-line sub">بلاغ صيانة جاهز، ويوصلنا ونحوّله لك</p>
+        <h2 class="t-head head" data-lines="1">المكيف وقف؟</h2>
+        <p class="t-line sub" data-lines="1">بلاغ صيانة جاهز، ويوصلنا ونحوّله لك</p>
       </div>
       <div class="obj is-phone"><div class="phone"><div class="screen">
-        <iframe src="../../../website/demo/rental-guide/index.html" title="صفحة دليل الوحدة (نسخة العرض) على قسم الخروج والصيانة" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+        <iframe src="../../../website/demo/rental-guide/index.html" data-at="الخروج والصيانة" title="صفحة دليل الوحدة (نسخة العرض) على قسم الخروج والصيانة" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
       </div></div></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
@@ -223,18 +248,39 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
   var PROMISE = 'رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل';
   var HEAD = 'منيو، تقييم، واي فاي بلمسة';   // telegram-plan §6
   var MIN_PX = 40;                          // أصغر نص في الصور
+  var GAP = 48;                             // أقل فراغ بين آخر حبر في النص والقطعة
+  var FONT = 'Readex Pro';                  // خط الهوية، وهو الخط الوحيد المحفوظ في المشروع (brand/fonts/)
 
-  // الجوال: صفحة دليل الوحدة مفتوحة على «الخروج والصيانة» (بعد ما تبني render.js الصفحة)
+  // الجوال: صفحة دليل الوحدة (نسخة العرض). بعد ما تبني render.js الصفحة:
+  // 1) نثبّت خط الشاشة على Readex Pro، لأن صفحة الزبون بخط الجهاز (tokens.css --lt-font-ui، وكلمة المرور ui-monospace)،
+  //    فالصورة كانت تطلع بخط جهاز التصدير (Segoe UI وConsolas على ويندوز). الخط نفسه معرّف في website/assets/brand/tokens.css داخل الصفحة.
+  // 2) نمرّر الصفحة للمكان المطلوب (data-at: محدد CSS مثل .c-id = هوية المضيف، أو نص عنوان h2)، ويبعد 28px عن حافة الشاشة فوق.
+  //    الشريط «عرض تجريبي» اللي فوق الصفحة ما يبان: هو طبقة العرض حقتنا، مو من صفحة الضيف.
   var frames = [].map.call(d.querySelectorAll('.phone iframe'), function (f) {
+    var at = f.getAttribute('data-at') || '.c-id';
     return new Promise(function (res) {
       var tries = 0;
       (function find() {
         var w = f.contentWindow, fd = f.contentDocument;
         var real = fd && w && w.location.href !== 'about:blank' && fd.readyState === 'complete';
-        var h = real ? [].filter.call(fd.querySelectorAll('h2'), function (x) { return x.textContent.trim() === 'الخروج والصيانة'; })[0] : null;
-        if (!h) { if (tries++ < 200) return setTimeout(find, 50); return res({ ok: false }); }
-        w.scrollTo({ top: h.getBoundingClientRect().top + w.scrollY - 28, behavior: 'instant' });
-        res({ ok: true, scrollY: Math.round(w.scrollY) });
+        var h = real ? (/^[.#a-z]/i.test(at) ? fd.querySelector(at) : [].filter.call(fd.querySelectorAll('h2'), function (x) { return x.textContent.trim() === at; })[0]) : null;
+        if (!h) { if (tries++ < 200) return setTimeout(find, 50); return res({ ok: false, at: at }); }
+        var pin = fd.createElement('style');
+        pin.id = 'tg-font-pin';
+        pin.textContent = '*, *::before, *::after { font-family: "' + FONT + '" !important; }';
+        fd.head.appendChild(pin);
+        Promise.all(['400', '600', '700'].map(function (wt) { return fd.fonts.load(wt + ' 16px "' + FONT + '"', 'أهلاً Mithal@2026'); }))
+          .then(function () { return fd.fonts.ready; })
+          .then(function () {
+            w.scrollTo({ top: h.getBoundingClientRect().top + w.scrollY - 28, behavior: 'instant' });
+            // كل عنصر فيه نص في الشاشة: خطه المحسوب لازم يكون خط الهوية
+            var fams = {};
+            [].forEach.call(fd.body.querySelectorAll('*'), function (el) {
+              var own = [].some.call(el.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim(); });
+              if (own) fams[getComputedStyle(el).fontFamily] = (fams[getComputedStyle(el).fontFamily] || 0) + 1;
+            });
+            res({ ok: true, at: at, scrollY: Math.round(w.scrollY), fonts: fams, loaded: fd.fonts.check('600 16px "' + FONT + '"') });
+          }, function () { res({ ok: false, at: at, error: 'font' }); });
       })();
     });
   });
@@ -253,6 +299,9 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
       var lr = logo ? rect(logo, base) : null, orr = obj ? rect(obj, base) : null;
       if (lr) rep.logo = [px(lr.l), px(lr.t), px(lr.r), px(lr.b)];
       if (orr) rep.object = [px(orr.l), px(orr.t), px(orr.r), px(orr.b)];
+      // ولا سطر فوق العنوان في المنشورات (مراجعة impeccable: kicker ممنوع): أول نص في .copy لازم يكون العنوان
+      var first = sh.querySelector('.tg-post .copy > *');
+      if (first && !first.classList.contains('t-head')) warn.push(name + ': فيه سطر فوق العنوان (kicker): ' + norm(first.textContent));
       [].forEach.call(sh.querySelectorAll('.t-head, .t-line'), function (el) {
         // صناديق السطور نفسها (حبر النص تقريباً)، مو عرض الحاوية
         var rg = d.createRange(); rg.selectNodeContents(el);
@@ -262,10 +311,11 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
         var lines = Math.round(el.getBoundingClientRect().height / lhPx);
         // صندوق السطور بدون نص الفراغ بين السطور (half-leading) فوق وتحت: أقرب لحدود الحرف نفسه
         var hl = (lhPx - size) / 2; box = { l: box.l, t: box.t + hl, r: box.r, b: box.b - hl };
-        rep.text.push({ text: norm(el.textContent), px: size, weight: getComputedStyle(el).fontWeight, lines: lines, box: [px(box.l), px(box.t), px(box.r), px(box.b)] });
+        rep.text.push({ text: norm(el.textContent), px: size, weight: cs.fontWeight, lines: lines, box: [px(box.l), px(box.t), px(box.r), px(box.b)] });
         if (size < MIN_PX) warn.push(name + ': نص أصغر من ' + MIN_PX + 'px (' + size + '): ' + norm(el.textContent));
+        if (el.hasAttribute('data-lines') && +el.getAttribute('data-lines') !== lines) warn.push(name + ': السطر انكسر ' + lines + ' أسطر بدل ' + el.getAttribute('data-lines') + ': ' + norm(el.textContent));
         if (box.l < M - 0.5 || box.r > W - M + 0.5 || box.t < M - 0.5 || box.b > H - M + 0.5) warn.push(name + ': نص برّا الهامش 80px: ' + norm(el.textContent));
-        if (orr && box.b > orr.t - 48 && box.l < orr.r && orr.l < box.r) warn.push(name + ': النص قريب من القطعة (أقل من 48px) أو فوقها: ' + norm(el.textContent));
+        if (orr && box.b > orr.t - GAP && box.l < orr.r && orr.l < box.r) warn.push(name + ': النص قريب من القطعة (أقل من ' + GAP + 'px) أو فوقها: ' + norm(el.textContent));
         if (lr && hit(box, { l: lr.l - 24, t: lr.t - 24, r: lr.r + 24, b: lr.b + 24 })) warn.push(name + ': النص لاصق في الشعار: ' + norm(el.textContent));
       });
       var pr = sh.querySelector('[data-copy="promise"]');
@@ -274,15 +324,21 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
       if (hd && norm(hd.textContent) !== HEAD) warn.push(name + ': العنوان مو حرفي: ' + norm(hd.textContent));
       if (lr && orr && hit(lr, orr)) warn.push(name + ': الشعار فوق القطعة');
       if (lr && (lr.l < M - 0.5 || lr.r > W - M + 0.5 || lr.t < M - 0.5 || lr.b > H - M + 0.5)) warn.push(name + ': الشعار برّا الهامش 80px');
+      // القطعة ما تطلع برّا الهامش يمين أو يسار أو فوق (تحت مسموح: الستاند والجوال طالعين من الحافة)
+      if (orr && (orr.l < M - 0.5 || orr.r > W - M + 0.5 || orr.t < M - 0.5)) warn.push(name + ': القطعة برّا الهامش 80px');
       sheets.push(rep);
     });
-    phones.forEach(function (p, i) { if (!p.ok) warn.push('الجوال ' + (i + 1) + ': ما انفتحت صفحة دليل الوحدة على «الخروج والصيانة»'); });
+    phones.forEach(function (p, i) {
+      if (!p.ok) { warn.push('الجوال ' + (i + 1) + ': ما انفتحت صفحة دليل الوحدة على «' + p.at + '»' + (p.error ? ' (الخط)' : '')); return; }
+      var other = Object.keys(p.fonts).filter(function (f) { return f.replace(/["']/g, '') !== FONT; });
+      if (other.length || !p.loaded) warn.push('الجوال ' + (i + 1) + ': شاشة فيها خط غير ' + FONT + ': ' + (other.join('، ') || 'الخط ما نزل'));
+    });
     var ul = d.getElementById('p-warn');
     if (warn.length) { ul.innerHTML = warn.map(function (x) { var li = d.createElement('li'); li.textContent = x; return li.outerHTML; }).join(''); ul.hidden = false; }
     window.PRINT_REPORT = { page: 'print/social/telegram', promise: PROMISE, phones: phones, sheets: sheets, warnings: warn };
   }
 
-  Promise.all(['400', '600'].map(function (w) { return d.fonts.load(w + ' 40px "Readex Pro"', 'منيو'); }))
+  Promise.all(['400', '600'].map(function (w) { return d.fonts.load(w + ' 40px "' + FONT + '"', 'منيو'); }))
     .then(function () { return Promise.all([].map.call(d.images, function (im) { return im.decode().catch(function () {}); })); })
     .then(function () { return Promise.all(frames); })
     .then(function (phones) { return d.fonts.ready.then(function () { return phones; }); })

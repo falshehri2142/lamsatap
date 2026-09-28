@@ -81,18 +81,22 @@
     var qr = qrSvg(qrUrl, V.qrSize, V.qrQuiet);
     if (!qr) warn.push(blockMsg(S.nav + ': تعذّر توليد الباركود. تأكد من website/vendor/qrcode-generator.js.'));
     if (/EXAMPLE/.test(C.contact.qrCode[k]) || /example\.com/i.test(qrUrl)) warn.push(S.nav + ': الباركود وهمي (' + qrUrl + '). الحقيقي رابط قصير /t/<code>/ يحوّل لواتساب الشركة برسالة الباقة (مشرف الشبكة، systems/shortlinks).');
-    var stageW = W + 2 * b, stageH = V.stageH[S.product];   // المسرح من نزف لنزف: إحداثياته = إحداثيات القص + b. ارتفاعه حسب المنتج
 
-    // الشبكة: المنتج جهة النهاية (يسار، نفس عمود السعر والباركود تحت)، والتعليقات جهة البداية (يمين، نفس عمود الكلام)، وخط كل تعليق يمشي مع القراءة لين المنتج
-    var prod = '', stand = null;
+    // الشبكة: المنتج جهة النهاية (يسار، نفس عمود السعر والباركود تحت)، والتعليقات جهة البداية (يمين، نفس عمود الكلام)، وخط كل تعليق يمشي مع القراءة لين المنتج.
+    // المسرح (قاعدة واحدة للمنتجين): المنتج مقفول، وحوله رملي stagePad فوق وتحت، فارتفاع المسرح = المنتج الظاهر + stagePad × 2
+    var prod = '', stand = null, prodH;
     if (S.product === 'stand') {
       stand = standProduct(S, demo);
-      prod = '<div class="vs-prod vs-prod--stand" role="img" aria-label="وجه ستاند تقييم بشعار «' + esc(demo.name) + '»، والنقطة مكان اللمس" style="width:100mm;height:150mm">' + stand.html + '</div>';
+      // صندوق القص: الستاند كامل (100×150) داخل صندوق بطول خط القص يقص الباقي، وبعدين يتصغّر كله (visit.js تحت، بعد نزول الخط)
+      var crop = PD.sign ? PD.sign.footTop - V.standCropGap : 0;
+      prodH = crop * V.standScale;
+      prod = '<div class="vs-prod vs-prod--stand" role="img" aria-label="وجه ستاند تقييم بشعار «' + esc(demo.name) + '»، والنقطة مكان اللمس" style="width:100mm;height:' + mm(crop) + '">' + stand.html + '</div>';
     } else {
-      var ch = PD.host ? PD.host.nfcH * V.chipScale : 45;
+      prodH = (PD.host ? PD.host.nfcH : 45) * V.chipScale;
       prod = '<div class="vs-prod vs-prod--chip" role="img" aria-label="ملصق الشريحة 45×45 بمقاسه الحقيقي، والنقطة مكان اللمس" style="left:' + mm(V.safe + b) +
-        ';top:' + mm((stageH - ch) / 2) + '">' + chipProduct(demo) + '</div>';
+        ';top:' + mm(V.stagePad) + '">' + chipProduct(demo) + '</div>';
     }
+    var stageW = W + 2 * b, stageH = prodH + 2 * V.stagePad;   // المسرح من نزف لنزف: إحداثياته = إحداثيات القص + b
     var notes = S.notes.map(function (n, i) {
       return '<div class="vs-note" data-at="' + n.at + '" data-i="' + i + '" style="left:' + mm(W - V.safe - V.noteW + b) + ';width:' + mm(V.noteW) + ';top:0">' +
         '<p class="vs-note-t" style="' + pt(V.noteTitlePt) + '">' + esc(n.t) + '</p>' +
@@ -197,19 +201,18 @@
       rep.trialPt = Array.isArray(B.S.trial) ? V.trialPt : fitLine('.vs-trial', V.trialPt, V.trialMinPt, 'سطر التجربة');
       if (Array.isArray(B.S.trial) && overflowsP(el.querySelector('.vs-trial'))) warn.push(blockMsg(B.S.nav + ': سطر من التجربة أعرض من عمودها.'));
 
-      // 2) المنتج: الستاند يضبط خطه بقياسه الحقيقي (fitSign) قبل التصغير، وبعدين يتصغّر ويتقص عند حافة المسرح.
+      // 2) المنتج: الستاند يضبط خطه بقياسه الحقيقي (fitSign) قبل التصغير، وبعدين يتصغّر، وصندوقه يقصه عند خط القص (حد سفلي مقفول، والرملي تحته).
       //    اللي تحت خط القص (سطر الباركود والباركود والبطاقة) ينشال من الصفحة قبل القياس، فما يطلع في PDF
-      var stageEl = el.querySelector('.vs-stage'), prodEl = el.querySelector('.vs-prod');
+      var stageEl = el.querySelector('.vs-stage'), prodEl = el.querySelector('.vs-prod'), boxEl = prodEl;
       if (B.stand && B.stand.r) {
         var sEl = prodEl.querySelector('.vs-stand');
         [].forEach.call(sEl.querySelectorAll('.p-guide, .s-cap, .s-card, .s-qr, .s-qr-miss'), function (x) { x.parentNode.removeChild(x); });
         var fs = fitSign(sEl, B.stand.r);
         fs.warn.forEach(function (x) { warn.push(B.S.nav + ' (الستاند المصغّر): ' + x); });
-        var crop = PD.sign.footTop - V.standCropGap, sc = (B.stageH - V.stagePad) / crop;
+        var crop = PD.sign.footTop - V.standCropGap, sc = V.standScale;
         prodEl.style.left = mm(V.safe + B.b);
         prodEl.style.top = mm(V.stagePad);
         prodEl.style.transform = 'scale(' + sc.toFixed(5) + ')';
-        sEl.style.outlineWidth = mm(V.prodLine / sc);
         var small = 99, lowest = 0;
         [].forEach.call(sEl.querySelectorAll('p'), function (p) {
           if (!p.textContent.trim()) return;
@@ -218,14 +221,28 @@
         });
         if (lowest > crop + 0.01) warn.push(blockMsg(B.S.nav + ': نص من الستاند نازل تحت خط القص (' + r2(lowest) + 'mm من أعلاه، والقص ' + crop + 'mm).'));
         if (sEl.querySelector('.p-qr-svg')) warn.push(blockMsg(B.S.nav + ': باركود الستاند المصغّر لسا في الصفحة.'));
-        rep.product = { kind: 'stand-review', scale: +sc.toFixed(4), widthMM: r2(100 * sc), cropAtStandMM: crop, visibleMM: r2(crop * sc), lowestTextInStandMM: r2(lowest), smallestTextPt: r2(small) };
+        rep.product = { kind: 'stand-review', scale: +sc.toFixed(4), widthMM: r2(100 * sc), cropAtStandMM: crop, visibleMM: r2(crop * sc), lowestTextInStandMM: r2(lowest),
+          innerBottomMM: r2((crop - lowest) * sc), smallestTextPt: r2(small) };
       } else {
+        boxEl = prodEl.querySelector('.vs-chip') || prodEl;
         rep.product = { kind: 'chip-45', scale: V.chipScale };
       }
 
       // 3) التعليقات: سطر عنوان كل تعليق على نفس ارتفاع مكانه في المنتج، وخط رفيع من آخر سطر العنوان (يساره) لين المكان
       var sr = stageEl.getBoundingClientRect(), sl = function (r) { return { l: (r.left - sr.left) * PX_MM, t: (r.top - sr.top) * PX_MM, r: (r.right - sr.left) * PX_MM, b: (r.bottom - sr.top) * PX_MM }; };
       var svg = stageEl.querySelector('.vs-leaders'), paths = '', leaders = [], prevBottom = -1;
+
+      // 3أ) حد المنتج: خط SVG بسماكة prodLine داخل حافته (مقاسه الخارجي = مقاس المنتج)، قبل خطوط التعليق فيطلعون فوقه.
+      //     والفحص: المنتج مقفول وحوله رملي stagePad فوق وتحت بالضبط، وحافته على هامش الأمان (قاعدة المسرح الواحدة)
+      var pb = sl(boxEl.getBoundingClientRect()), lw = V.prodLine, n3 = function (v) { return (+v).toFixed(3); };
+      paths += '<rect class="vs-edge" x="' + n3(pb.l + lw / 2) + '" y="' + n3(pb.t + lw / 2) + '" width="' + n3(pb.r - pb.l - lw) + '" height="' + n3(pb.b - pb.t - lw) +
+        '" fill="none" stroke-width="' + lw + '"/>';
+      var inset = { top: pb.t, bottom: B.stageH - pb.b };
+      if (Math.abs(inset.top - V.stagePad) > 0.05 || Math.abs(inset.bottom - V.stagePad) > 0.05) warn.push(blockMsg(B.S.nav + ': المنتج مو في نص المسرح (الرملي فوقه ' + r2(inset.top) + 'mm وتحته ' + r2(inset.bottom) + 'mm، والمطلوب ' + r2(V.stagePad) + 'mm).'));
+      if (Math.abs(pb.l - (V.safe + B.b)) > 0.05) warn.push(blockMsg(B.S.nav + ': حافة المنتج مو على هامش الأمان (' + r2(pb.l - B.b) + 'mm).'));
+      rep.product.boxMM = { left: r2(pb.l - B.b), top: r2(pb.t), width: r2(pb.r - pb.l), height: r2(pb.b - pb.t) };
+      rep.product.insetMM = { top: r2(inset.top), bottom: r2(inset.bottom) };
+      rep.product.edge = { widthMM: lw, color: getComputedStyle(svg).getPropertyValue('--lt-slate').trim() || V.color.edge };
       [].forEach.call(stageEl.querySelectorAll('.vs-note'), function (note) {
         var at = note.getAttribute('data-at'), tgt = null, x2, y;
         // x2 = حافة المكان جهة التعليق (يمين المنتج)، و y = نص ارتفاعه
