@@ -2,3 +2,8 @@ publish/
 
 systems/n8n/seed/out/
 __pycache__/
+
+# Secrets (GM-057/GM-058): local only, never committed
+.env
+.env.*
+!.env.example
