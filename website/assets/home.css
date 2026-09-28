@@ -1,48 +1,24 @@
-/* الرئيسية (البوابة، GM-040): الرأس والبداية من «الاتجاه 3» (web-art-director.md)، والباقي أقسام «الاتجاه 2» لين المطوّر يوزعها
-   على الصفحات الثلاث. فوق site.css. ولا ظل، ولا حد 2px. الحركة كلها في motion.css و motion.js (web-motion.md «النظام 2»). */
+/* البوابة index.html (GM-040 و GM-043، web-art-director.md «الاتجاه 3» §3 و§10): فوق site.css (المكوّنات المشتركة فيه).
+   الترتيب: الرأس ← البداية (أبيض) ← البابين (رملي) ← كيف نشتغل (أبيض) ← اسأل إنسان (رملي) ← التذييل (رملي ثاني).
+   بدون أسعار، وبدون «خدمات ثانية». الحركة كلها في motion.css و motion.js (web-motion.md «النظام 2»). ولا ظل بيد (العمق من site.css)، ولا حد 2px. */
 
-/* خفة التحميل: الأقسام تحت أول شاشة ما تنرسم لين تقرب (بدون أي ظهور متدرج)، والشاشات المصغرة معزولة */
-#host, #shop, #how, #pricing, #faq, .h-close, .h-foot-wrap { content-visibility: auto; contain-intrinsic-size: auto 800px; }
-.mini, .fo-screen { contain: strict; }
-
-/* ===== الصور (§5): الخانة جاهزة بالقص، والصورة تنحط بعد إذن التنزيل. لين توصل: تعبئة السطح 2 (بدون أي نص فوقها) ===== */
-.h-photo { position: relative; overflow: hidden; background: var(--lt-surface-2); }
-.h-photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
-/* object-position من photos.md (المدير الفني): الموضوع يبان، واليمين الهادي يروح تحت الجوال والتدرج */
-.h-photo--shop img { object-position: 50% 65%; }    /* يبيّن سطح الكاونتر أكثر */
-.h-photo--host img { object-position: 50% 55%; }
-.h-photo--close img { object-position: 35% 55%; }   /* 16:9 تحت 1024 */
-@media (min-width: 1024px) { .h-photo--close img { object-position: 0% 55%; } }      /* لوحة الكمبيوتر */
-/* تدرج الحبر على حافة الصورة اللي جهة النص (§4 و§5.2) */
-.h-photo--close::after { content: ""; position: absolute; pointer-events: none; }
-
-/* ===== الجوالات: phone-frame.svg inline والشاشة الحقيقية داخل خانته (tools/build-home-minis.cjs) ===== */
-.h-phone-svg { display: block; width: 100%; height: auto; overflow: visible; }
-/* حافة 1px للجوال على الحبر وفي الداكن (web-illustrator §4، والتقييم 1: الإطار الحبر كان يذوب) */
-.lt-ink .h-phone-svg .pf-edge { stroke: var(--lt-border); stroke-width: 1; }
-@media (prefers-color-scheme: dark) { .h-phone-svg .pf-edge { stroke: var(--lt-border); stroke-width: 1; } }
-/* العناوين داخل الشاشة المصغرة صارت div (الرئيسية فيها h1 وحدة)، وتاخذ نفس شكل صفحة الزبون */
-.mini [data-h="1"] { margin: 0 0 16px; font-size: 28px; line-height: 1.25; font-weight: 700; }
-.mini [data-h="2"] { margin: 32px 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; }
-.mini { pointer-events: none; }
-/* شريط الحالة: الكاميرا فوق الشاشة، فالمحتوى ينزل 28px عشان ما تغطي الهوية (مثل متصفح الجوال) */
-.h-phone-svg .mini > .c-main { padding-top: 28px; }
-
-/* ===== 1) الرأس ثابت فوق (web-art-director.md «الاتجاه 3» §1): شعار البداية يطير له. تحته خط 1px دايماً،
-   و scroll-padding-top بارتفاعه عشان الروابط الداخلية ما تختفي تحته. (المطوّر يعمّمه على الصفحات الثلاث) ===== */
-html { scroll-padding-top: 88px; }
-.s-top { position: sticky; top: 0; z-index: 30; background: var(--lt-bg); border-bottom: var(--lt-hairline) solid var(--lt-border); }
-
-/* ===== 2) البداية «باركودنا هو شعارنا» (GM-040 §1، «الاتجاه 3» §3؛ الحركة في motion.js و web-motion.md «النظام 2»).
+/* ===== البداية «باركودنا هو شعارنا» (GM-040 §1، «الاتجاه 3» §3؛ من web-motion، والحركة في motion.js).
    هذي الحالة النهائية الثابتة (بدون JS، ومع تقليل الحركة، وآخر التسلسل): الوعد جنب الفن على الكمبيوتر وفوقه على الجوال،
-   والفن: الباركود الحقيقي (--qm = وحدة الباركود بالبكسل)، ووسطه الرمز، وتحته LAMSATAP بعرضه، وتحتها السطر. خلفية القسم أبيض ===== */
+   والفن: الباركود الحقيقي (--qm = وحدة الباركود بالبكسل)، ووسطه الرمز، وتحته LAMSATAP بعرضه، وتحتها السطر. خلفية القسم أبيض.
+   الباركود نفسه رابط للمثال (بديل الكيبورد والضغط، قرار جولة التجهيز) ===== */
 .h-open { --qm: 6px; position: relative; overflow-x: clip; background: var(--lt-surface); }   /* الوحدة: الباركود المرئي 37 × 6 = 222 (المدير الفني: 220) */
 .h-open-grid { display: grid; gap: var(--lt-space-32); padding-block: var(--lt-space-40) var(--lt-space-48); }
-.h-open-h1 { max-width: 11em; font-size: 40px; line-height: 1.2; font-weight: 500; }
+.h-open-h1 { max-width: 11em; font-size: 40px; line-height: 1.2; font-weight: var(--lt-weight-heading, 500); }
 .h-open-lead { margin-top: var(--lt-space-16); }
+.h-open-trust { margin-top: var(--lt-space-20); font-size: 16px; line-height: 1.6; font-weight: 500; }
 .h-open-art { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 calc(-1 * var(--lt-gutter)); min-height: 440px; }
-.h-open-qr { position: relative; color: var(--lt-text); }
+.h-open-qr { position: relative; display: block; color: var(--lt-text); text-decoration: none; }
 .h-open-qr svg { position: relative; z-index: 1; display: block; width: calc(var(--qv, 45) * var(--qm)); height: auto; }
+a.h-open-qr:focus-visible { outline-offset: 0; }
+/* حالات رابط الباركود (GM-055، AD-19): transform بس (لون الباركود ما يتغير عشان يبقى ينقرى). تقليل الحركة: بدون انتقال */
+@media (prefers-reduced-motion: no-preference) { a.h-open-qr { transition: scale .15s ease-out; } }
+@media (hover: hover) and (pointer: fine) { a.h-open-qr:hover { scale: 1.02; } }
+a.h-open-qr:active { scale: .98; }   /* الحلقة على حافة الفراغ الهادئ، ما تغطي الوحدات */
 /* الرمز والكلمة: نافذتين على ملف الشعار الأفقي نفسه (logo-horizontal.svg، بدون تعديل): الرمز 0..200 والكلمة 260..1068.75 × 47.4..152.4 */
 .h-open-sym { position: absolute; z-index: 2; display: block; overflow: hidden; }
 .h-open-sym img { position: absolute; left: 0; top: 0; width: auto; height: 100%; max-width: none; }
@@ -55,105 +31,32 @@ html { scroll-padding-top: 88px; }
   .h-open { --qm: 7px; }
   .h-open-h1 { font-size: 52px; }
 }
-/* 1024 وفوق: النص يمين 5 أعمدة في نص الارتفاع، والفن يسار 7 أعمدة ينزف لحافة الشاشة بارتفاع الشاشة ناقص الرأس. ولا زر معبّى: الباركود هو الفعل */
+/* 1024 وفوق: النص يمين 5 أعمدة في نص الارتفاع، والفن يسار 7 أعمدة ينزف لحافة الشاشة بارتفاع 86svh (قرار المدير الفني AD-18، يعدّل §3:
+   كان الشاشة ناقص الرأس، فكانت الأعمدة السبعة فراغ أبيض بعد ما يوصل الشعار، والحين «وش عندك؟» يبان تحت أول شاشة).
+   ولا زر معبّى: الباركود هو الفعل */
 @media (min-width: 1024px) {
   .h-open { --qm: 9px; }   /* 37 × 9 = 333 (المدير الفني: 320)، والوحدة عدد صحيح عشان الحواف حادة */
-  .h-open-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: clamp(560px, calc(100svh - 81px), 1000px); padding-block: 0; }
+  .h-open-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: clamp(560px, 86svh, 1000px); padding-block: 0; }
   .h-open-text { grid-column: 1 / span 5; grid-row: 1; }
-  .h-open-h1 { font-size: 72px; line-height: 1.15; }
-  .h-open-art { grid-column: 6 / span 7; grid-row: 1; align-self: stretch; margin: 0; margin-inline-end: calc(-1 * max(var(--lt-gutter), (100vw - var(--lt-container)) / 2)); min-height: clamp(560px, calc(100svh - 81px), 1000px); }
+  .h-open-h1 { font-size: 72px; line-height: 1.12; }
+  .h-open-trust { font-size: 17px; }
+  .h-open-art { grid-column: 6 / span 7; grid-row: 1; align-self: stretch; margin: 0; margin-inline-end: calc(-1 * max(var(--lt-gutter), (100vw - var(--lt-container)) / 2)); min-height: clamp(560px, 86svh, 1000px); }
   .h-open-scan { display: block; }
   .h-open-try, .h-open-alt { display: none; }
 }
 
-/* ===== 3) الأمثلة: 4 بطاقات (صف على الكمبيوتر، و2×2 تحته). البطاقة: جوال بعرضها الداخلي لين 220، ثم h3، ثم سطر، ثم رابط ===== */
-.h-ex { padding-block: var(--lt-space-48) var(--lt-section); }
-.h-ex-lead { margin-top: var(--lt-space-16); }
-.h-ex-list { list-style: none; padding: 0; margin-top: var(--lt-space-40); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-space-12); }
-.h-ex-card { display: flex; flex-direction: column; padding: var(--lt-space-12); }
-.h-ex-phone { width: 100%; max-width: 220px; margin: 0 auto var(--lt-space-16); }
-.h-ex-t { margin-top: var(--lt-space-8); color: var(--lt-muted); }
-.h-ex-card .lt-link { margin-top: auto; padding-top: var(--lt-space-8); }
-.h-ex-review { max-width: 36em; margin-top: var(--lt-space-32); color: var(--lt-muted); }
+/* ===== البابين (رملي): h2 «وش عندك؟» ثم .s-doors (site.css). الباب الأول يمين على الكمبيوتر وفوق على الجوال ===== */
+.h-doors .s-h2 { max-width: none; }
+/* قص صورة كل باب (site.css .s-door-photo، AD-14 و§5 بند 4: البابين نفس النوع ونفس المعالجة، والمنتج كامل).
+   المطاعم (restaurant-cafe-stand): الستاند x من 37% لين 57% و y من 27% لين 82%، والكوب لين 82%. المضيفين (host-door-frame): البرواز
+   x من 55% لين 70% و y من 21% لين 55%، وحافة الباب 43.5%. الجوال 16:9 (الصورة كاملة، مقرّبة)، ومن 768 الخانة 4:3 */
+.h-doors [data-audience="restaurants"] .s-door-photo { --dp: 50% 50%; --dz: 1.3; --do: 58% 55%; }
+.h-doors [data-audience="hosts"] .s-door-photo { --dp: 50% 50%; --dz: 1.35; --do: 57% 40%; }
 @media (min-width: 768px) {
-  .h-ex-list { gap: var(--lt-space-16); }
-  .h-ex-card { padding: var(--lt-space-24); }
-}
-@media (min-width: 1024px) {
-  .h-ex { padding-top: var(--lt-space-96); }
-  .h-ex-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--lt-grid-gap); }
+  .h-doors [data-audience="restaurants"] .s-door-photo { --dp: 88% 50%; --dz: 1.15; --do: 50% 55%; }
+  .h-doors [data-audience="hosts"] .s-door-photo { --dp: 30% 50%; --dz: 1.15; --do: 60% 42%; }
 }
 
-/* ===== 4 و 5) للمضيفين وللمحلات (رملي): الجوال الصورة 3:2 من حافة لحافة ثم النص. الكمبيوتر: الصورة 5 أعمدة 4:5 والنص 6 ===== */
-.h-aud-grid { display: grid; gap: var(--lt-space-32); }
-.h-photo--aud { aspect-ratio: 3 / 2; margin-inline: calc(-1 * var(--lt-gutter)); }
-.h-steps3 { list-style: none; padding: 0; margin-top: var(--lt-space-32); }
-.h-steps3 li { padding-block: var(--lt-space-16); }
-.h-steps3 li + li { border-top: var(--lt-hairline) solid var(--lt-border); }   /* بين الخطوات خط 1px */
-.h-steps3-k { margin-bottom: var(--lt-space-4); }                               /* عنوان صغير 14/500 (تسلسل حقيقي) */
-.h-aud-acts { margin-top: var(--lt-space-24); }
-@media (min-width: 1024px) {
-  .h-aud-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
-  .h-aud-text { grid-column: 1 / span 6; grid-row: 1; }
-  .h-photo--aud { grid-column: 8 / span 5; grid-row: 1; aspect-ratio: 4 / 5; margin-inline: 0; }
-  .h-aud--rev .h-aud-text { grid-column: 7 / span 6; }
-  .h-aud--rev .h-photo--aud { grid-column: 1 / span 5; }
-}
+/* ===== كيف نشتغل (أبيض، #how): الخطوات الثلاث .s-steps (site.css) ===== */
 
-/* ===== 6) كيف نشتغل: الخطوات الثلاث .s-steps في site.css (نفسها في صفحة شرح التقييم)، وتحتها المشهد و«اللي ما نسويه» ===== */
-.h-how-more { margin-top: var(--lt-space-64); display: grid; gap: var(--lt-space-40); }
-.h-scene { margin-inline: calc(-1 * var(--lt-gutter)); }
-.h-scene-svg { display: block; width: 100%; height: auto; }
-.h-dont { padding-top: var(--lt-space-24); border-top: var(--lt-hairline) solid var(--lt-border); }   /* قائمة مفتوحة، بدون صندوق */
-.h-dont-list { list-style: none; padding: 0; margin-top: var(--lt-space-16); display: grid; gap: var(--lt-space-12); }
-@media (min-width: 1024px) {
-  .h-how-more { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
-  .h-scene { grid-column: 1 / span 7; margin-inline: 0; }
-  .h-dont { grid-column: 9 / span 4; }
-}
-
-/* ===== 7) الاشتراك: بطاقتين بيض، 8px وحد 1px. الاسم ← وش فيها ← السعر 28 بأرقام جدولية ← زر الباقة ===== */
-.h-plans { margin-top: var(--lt-space-40); display: grid; gap: var(--lt-space-16); }
-.h-plan { display: flex; flex-direction: column; padding: var(--lt-space-24); }
-.h-plan-list { margin-top: var(--lt-space-20); }
-.h-plan-p { margin-top: var(--lt-space-32); font-size: 28px; line-height: 1.2; font-weight: 500; }
-.h-plan-per, .h-plan-elig { margin-top: var(--lt-space-4); }
-.h-plan-btn { margin-top: var(--lt-space-24); }
-@media (min-width: 768px) {
-  .h-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-grid-gap); }
-  .h-plan-btn { align-self: flex-start; inline-size: auto; }
-}
-@media (min-width: 1024px) { .h-plan { padding: var(--lt-space-40); } }
-
-/* ===== 8) الأسئلة: <details> بدون حركة. صف السؤال 56 و17/500، وتحته خط 1px، و+ تصير − بدون دوران ===== */
-.h-faq-grid { display: grid; gap: var(--lt-space-48); margin-top: var(--lt-space-32); }
-.h-qs { border-top: var(--lt-hairline) solid var(--lt-border); }
-.h-q { border-bottom: var(--lt-hairline) solid var(--lt-border); }
-.h-q summary { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-16); min-height: 56px; padding-block: var(--lt-space-12); font-size: 17px; font-weight: 500; line-height: 1.4; list-style: none; cursor: pointer; touch-action: manipulation; }
-.h-q summary::-webkit-details-marker { display: none; }
-.h-q summary::after { content: ""; flex: none; width: 16px; height: 16px; background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat, linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; }
-.h-q[open] summary::after { background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat; }
-.h-q-a { max-width: 36em; padding-bottom: var(--lt-space-20); }
-.h-ask { padding-top: var(--lt-space-24); border-top: var(--lt-hairline) solid var(--lt-border); }
-.h-ask-t { margin-top: var(--lt-space-8); color: var(--lt-muted); }
-.h-ask .lt-btn, .h-ask [data-wa-empty] { margin-top: var(--lt-space-20); }
-@media (min-width: 768px) { .h-ask .lt-btn { inline-size: auto; } }
-@media (min-width: 1024px) {
-  .h-faq-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: start; }
-  .h-qs { grid-column: 1 / span 7; }
-  .h-ask { grid-column: 9 / span 4; }
-}
-
-/* ===== 9) الخاتمة (حبر): الجوال الصورة 16:9 فوق من حافة لحافة وتحتها تدرج جهة النص. الكمبيوتر مثل البطل بدون جوال ===== */
-.h-close { position: relative; overflow-x: clip; }
-.h-photo--close { aspect-ratio: 16 / 9; }
-.h-photo--close::after { left: 0; right: 0; bottom: 0; height: 72px; background: linear-gradient(to top, var(--lt-bg), transparent); }
-.h-close-grid { padding-block: var(--lt-space-40) var(--lt-space-64); }
-@media (min-width: 1024px) {
-  .h-close-media { position: absolute; top: 0; bottom: 0; left: 0; right: calc(50% + var(--lt-grid-gap) / 2); }
-  .h-photo--close { position: absolute; inset: 0; aspect-ratio: auto; }
-  .h-photo--close::after { top: 0; bottom: 0; left: auto; right: 0; width: 120px; height: auto; background: linear-gradient(to left, var(--lt-bg), transparent); }
-  .h-close-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: 640px; padding-block: 0; }
-  .h-close-text { grid-column: 1 / span 6; padding-block: var(--lt-space-64); }
-  .h-close .lt-btn:not(.lt-btn--compact) { min-block-size: 56px; padding-inline: 28px; font-size: 17px; }
-}
+/* ===== اسأل إنسان (رملي): اللوح .s-ask.lt-lift (site.css) ===== */

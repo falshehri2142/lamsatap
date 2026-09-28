@@ -1,0 +1,183 @@
+/* صفحة المطاعم والكافيهات restaurants/index.html (GM-043، data-audience="restaurants")، فوق site.css (المكوّنات المشتركة فيه).
+   المراجع: design-system/lamsatap/pages/restaurants.md (يغلب MASTER.md)، و web-art-director.md «الاتجاه 3» §5 و§10 و§11،
+   و web-copy.md «الاتجاه 3» (المطاعم)، و web-motion.md «النظام 2» (الجدول)، ومشاهد المنتج GM-049/050 (scenes.css).
+   الترتيب والخلفيات: الرأس رملي ← البطل رملي ← المشاكل أبيض ← القصة رملي ← العرض الحي أبيض ← الباقة رملي ثاني ← الأسئلة رملي
+   ← الخاتمة أبيض ← التذييل رملي ثاني.
+   ولا لون بيد هنا (كله من tokens.css)، ولا ظل بيد (العمق من site.css وتوكنز web-brand، GM-055)، ولا حد 2px، ولا كبسولة. اللمسة (--lt-accent) للأيقونات والعلامات بس، ولا نص ملون.
+   الحركة كلها في motion.css و motion.js: هنا بس تخطيط الحالة النهائية، وتخطيط البطل المتوسع تحت html.mh.
+   ولا content-visibility ولا z-index على قسم مثبّت (البطل والقصة) (web-motion.md «تنبيهين للمطوّر»). */
+
+/* أيقونة 24 باللمسة القوية، خط 1.75 وبدون تعبئة (§11.3) */
+.r-ico { display: block; flex: none; width: 24px; height: 24px; color: var(--lt-accent); }
+
+/* ===== 2) البطل المتوسع (data-expand) =====
+   الحالة النهائية الثابتة (بدون JS، تقليل الحركة، الشاشة الأقصر من 640): الجوال النص فوق والصورة تحته 4:5 من حافة لحافة،
+   والكمبيوتر النص يمين (5 أعمدة) والصورة يسار تنزف لحافة الشاشة بارتفاع الشاشة ناقص الرأس (§5).
+   الصورة (AD-14، §5 بند 1): المشهد المولّد المعتمد restaurant-cafe-stand (طاولة كافيه، وستاند أكريليك بكرت أبيض، وكابتشينو) بطبقتين
+   داخل .r-hero-photo، والقص بنقطة تركيز لكل مقاس (--fx و --fy). الستاند في الصورة الأصلية (1600×900): x من 37.3% لين 56.9%، و y من 27%
+   لين 82%، والكوب x لين 82%. القواعد (المدير الفني §5 بند 4): الستاند كامل في الخانة، ومن 768 بينه وبين اللوح 64px أو أكثر.
+   تحت .mh: الصورة تبدأ مكبّرة 1.12 حول --so (motion.js يرجعها 1)، و --so محسوبة عشان الستاند في نص البطاقة وحافته العليا ظاهرة.
+   الستاند 55% من طول الصورة، فالبطاقة الصغيرة (47.5% من طول الشاشة) ما تقدر تحتويه كامل أول إطار (ملاحظة لـ web-motion، AD-26). */
+.r-hero { position: relative; background: var(--lt-bg); }
+.r-hero-wrap { padding-block: var(--lt-space-40) var(--lt-space-40); }
+.r-hero-lead { margin-top: var(--lt-space-16); }
+.r-hero-cta { margin-top: var(--lt-space-32); }
+.r-hero-cta > .r-hero-demo { margin: 0; }
+.r-hero-cta > .s-tg + .r-hero-demo, .r-hero-cta > .s-risk + .r-hero-demo { margin-top: var(--lt-space-8); }
+.r-hero-media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; max-height: 78svh; background: var(--lt-surface-2); }
+.r-hero-photo { --fx: 44%; --fy: 50%; position: absolute; inset: 0; overflow: hidden; }
+.r-hero-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--fx) var(--fy); }
+@media (min-width: 768px) {
+  .r-hero-wrap { padding-block: var(--lt-space-64) var(--lt-space-48); }
+  .r-hero-media { aspect-ratio: 4 / 3; }
+  .r-hero-photo { --fx: 50%; }
+}
+@media (min-width: 1024px) {
+  /* --r-in: عرض الحاوية الداخلي، و --r-5: خمس أعمدة من 12 (الفاصل 24). المشهد من حافة الشاشة اليسار لين قبل عمود النص بفاصل */
+  .r-hero { --r-in: min(var(--lt-container), 100% - 2 * var(--lt-gutter)); display: flex; align-items: center; min-height: clamp(560px, calc(100svh - 81px), 1000px); }
+  .r-hero-wrap { width: 100%; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); padding-block: var(--lt-space-64); }
+  .r-hero-sheet { grid-column: 1 / span 5; }
+  .r-hero-media { position: absolute; top: 0; bottom: 0; left: 0; aspect-ratio: auto; max-height: none;
+    right: calc((100% - var(--r-in)) / 2 + (var(--r-in) - 11 * var(--lt-grid-gap)) * 5 / 12 + 5 * var(--lt-grid-gap)); }
+  .r-hero-photo { --fx: 62%; }   /* الستاند والكوب كاملين في خانة الصورة (1024 لين 1920) */
+}
+
+/* مع الحركة (html.mh، motion.css يعطي القسم 100svh و overflow: hidden): المشهد يعبّي القسم كله (motion.js يقصه للبطاقة ثم يوسعه)،
+   واللوح (.r-hero-sheet) فوقه أبيض بحد 1px وزاوية 8: تحت على الجوال، ويمين في نص الارتفاع على الكمبيوتر. يطلع بعد التوسع */
+.mh .r-hero { display: block; min-height: 0; }
+.mh .r-hero-media { position: absolute; inset: 0; aspect-ratio: auto; max-height: none; }
+.mh .r-hero-media > .r-hero-photo { --fx: 46%; --fy: 50%; --so: 50% -73%; transform: scale(1.12); transform-origin: var(--so); }   /* يبدأ مكبّر، و motion.js يرجعه 1 مع التوسع */
+.mh .r-hero-wrap { position: absolute; inset: 0; z-index: 2; display: flex; align-items: flex-end; padding-block: var(--lt-space-20); pointer-events: none; }
+.mh .r-hero-sheet { width: 100%; padding: var(--lt-space-24); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-surface); pointer-events: auto; }
+.mh .r-hero-sheet .s-h1 { font-size: 34px; }
+.mh .r-hero-sheet .s-lead { font-size: 16px; }
+.mh .r-hero-cta { margin-top: var(--lt-space-20); }
+.mh [data-expand-sheet]:focus-within { opacity: 1 !important; }   /* التركيز بالكيبورد قبل ما يطلع اللوح: يبان على طول */
+@media (min-width: 768px) {
+  .mh .r-hero-sheet { max-width: 34rem; padding: var(--lt-space-32); }
+  .mh .r-hero-sheet .s-h1 { font-size: 44px; }
+  .mh .r-hero-media > .r-hero-photo { --fx: 45%; --so: 50% -40.5%; }
+}
+@media (min-width: 1024px) {
+  .mh .r-hero-wrap { display: flex; align-items: center; padding-block: var(--lt-space-40); }
+  .mh .r-hero-sheet { width: calc((100% - 11 * var(--lt-grid-gap)) * 5 / 12 + 4 * var(--lt-grid-gap)); max-width: none; padding: var(--lt-space-40); }
+  .mh .r-hero-sheet .s-h1 { font-size: 56px; }
+  .mh .r-hero-sheet .s-lead { font-size: 18px; }
+  /* الستاند يسار اللوح بـ 64px أو أكثر (AD-30 على المطاعم): الصورة على يمينها */
+  .mh .r-hero-media > .r-hero-photo { --fx: 100%; --so: -32% -48%; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .mh .r-hero-media > .r-hero-photo { --fx: 72%; --so: -55% -51%; }
+}
+/* الشاشات العريضة: الصورة تتقيد بالعرض، فاللوح يروح لحافة الشاشة بعرضه على 1440 (486) عشان الستاند ما يروح تحته */
+@media (min-width: 1600px) {
+  .mh .r-hero-wrap { max-width: none; }
+  .mh .r-hero-sheet { width: 486px; }
+  .mh .r-hero-media > .r-hero-photo { --so: 23% -50%; }
+}
+
+/* ===== 3) المشاكل (أبيض): ثلاث مواقف، بينها خط 1px أفقي على الجوال وعمودي من 1024 ===== */
+.r-probs { list-style: none; padding: 0; margin-top: var(--lt-space-32); display: grid; }
+.r-probs > li { display: grid; gap: var(--lt-space-16); align-content: start; padding-block: var(--lt-space-24); }
+.r-probs > li + li { border-top: var(--lt-hairline) solid var(--lt-border); }
+.r-prob-t { max-width: 18em; font-size: 20px; line-height: 1.45; font-weight: 500; }
+@media (min-width: 1024px) {
+  .r-probs { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--lt-space-48); }
+  .r-probs > li { padding: var(--lt-space-8) var(--lt-space-32); }
+  .r-probs > li:first-child { padding-inline-start: 0; }
+  .r-probs > li + li { border-top: 0; border-inline-start: var(--lt-hairline) solid var(--lt-border); }
+  .r-prob-t { font-size: 22px; }
+}
+
+/* ===== 4) القصة المثبّتة (رملي، data-story): الجوال المشهد فوق والنص تحته، والكمبيوتر النص يمين (5) والمشهد يسار ينزف للحافة (7).
+   المشهد 4:3 دايماً (نفس نسبة المسرح، فما ينقص منه شي). جوال القصة في الزاوية اليمين تحت، بعيد عن الستاند والمنيو.
+   الشريط (.h-story-rail من motion.js) على بداية القائمة ===== */
+.r-story-grid { display: grid; gap: var(--lt-space-32); }
+.r-story-media { position: relative; order: -1; aspect-ratio: 4 / 3; margin-inline: calc(-1 * var(--lt-gutter)); background: var(--lt-surface-2); }
+.r-story-media > .lt-scene { position: absolute; inset: 0; }
+.r-story-phone { position: absolute; z-index: 4; right: 5%; bottom: -7%; width: 24%; }
+.r-story-phone .h-phone-svg { display: block; width: 100%; height: auto; }
+.r-steps { list-style: none; padding: 0; margin-top: var(--lt-space-24); display: grid; gap: var(--lt-space-20); }
+.r-steps p { max-width: 32em; margin-top: var(--lt-space-4); color: var(--lt-muted); }
+@media (min-width: 768px) {
+  .r-story-media { margin-inline: 0; overflow: visible; }
+  .r-story-phone { width: 20%; }
+}
+/* 768 لين 1023 (AD-33، §11.6 بند 6): المشهد داخل التخطيط، فزاويته 8 ومقصوص فيها مثل المضيفين، والجوال برّا القص (أخو المشهد، مو ولده) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .r-story-media > .lt-scene { overflow: hidden; border-radius: var(--lt-radius-s); }
+}
+@media (min-width: 1024px) {
+  .r-story-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
+  .r-story-text { grid-column: 1 / span 5; grid-row: 1; }
+  .r-story-media { grid-column: 6 / span 7; grid-row: 1; order: 0; margin-inline-start: var(--lt-space-24);
+    margin-inline-end: calc(-1 * max(var(--lt-gutter), (100vw - var(--lt-container)) / 2)); }
+  .r-story-phone { right: -2%; bottom: -6%; width: 21%; }
+  .r-steps { margin-top: var(--lt-space-32); gap: var(--lt-space-24); }
+}
+
+/* ===== 5) العرض الحي (أبيض): الجوال فوق ثم البطاقات على الجوال. الكمبيوتر: العنوان والبطاقات يمين (5)، والجوال والباركود يسار ===== */
+.r-demo-grid { display: grid; gap: var(--lt-space-32); }
+.r-demo-lead { margin-top: var(--lt-space-12); }
+.r-demo-media { display: flex; align-items: flex-end; justify-content: center; gap: var(--lt-space-40); }
+.r-demo-phone { width: min(260px, 68vw); }
+.r-demo-phone .h-phone-svg { display: block; width: 100%; height: auto; }
+.r-demo-qr { display: none; }
+.r-cards { list-style: none; padding: 0; display: grid; gap: var(--lt-space-12); }
+.r-card { display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: var(--lt-space-16); row-gap: var(--lt-space-4); padding: var(--lt-space-20) var(--lt-space-24); }
+.r-card > .r-ico { grid-row: 1 / span 3; margin-top: 2px; }
+.r-card-t { color: var(--lt-muted); }
+.r-card > .lt-link { justify-self: start; }
+.r-review { max-width: 36em; margin-top: var(--lt-space-24); color: var(--lt-muted); }
+.r-review .lt-link { color: var(--lt-link); }
+@media (min-width: 1024px) {
+  .r-demo-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); row-gap: var(--lt-space-40); align-items: start; }
+  .r-demo-head { grid-column: 1 / span 5; grid-row: 1; }
+  .r-demo-body { grid-column: 1 / span 5; grid-row: 2; }
+  .r-demo-media { grid-column: 7 / span 6; grid-row: 1 / span 2; align-self: center; justify-content: center; }
+  .r-demo-phone { width: 280px; }
+  .r-demo-qr { display: flex; flex-direction: column; align-items: center; gap: var(--lt-space-8); color: var(--lt-text); }
+  .r-demo-qr svg { display: block; width: 120px; height: 120px; }
+  .r-demo-qr figcaption { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--lt-muted); }
+}
+
+/* ===== 6) الباقة (رملي ثاني): «في الحزمة» ثم البطاقة (.s-plan من site.css، وفيها مفتاح «السنة الأولى / التجديد» .s-period فوق السعر)
+   ثم سطر ستاند التقييم لأي نشاط ثم «اللي ما نسويه» ===== */
+.r-plan-lead { margin-top: var(--lt-space-12); }
+.r-incl { display: grid; gap: var(--lt-space-12); margin-top: var(--lt-space-32); }
+.r-incl-t { font-size: 15px; line-height: 1.4; font-weight: 500; color: var(--lt-muted); }
+.r-plan { margin-top: var(--lt-space-24); }
+.r-plan .s-plan-what > .s-h3 { font-size: 24px; }
+.r-any { max-width: 40em; margin-top: var(--lt-space-24); font-size: 15px; line-height: 1.6; font-weight: 500; color: var(--lt-muted); }
+.r-any-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--lt-link); text-decoration: underline; }
+@media (hover: hover) and (pointer: fine) { .r-any-link:hover { text-decoration-thickness: 2px; } }   /* AD-19 */
+.r-any-link:active { background: var(--lt-surface); }
+.r-dont { margin-top: var(--lt-space-48); padding-top: var(--lt-space-32); border-top: var(--lt-hairline) solid var(--lt-border); }
+.r-dont-list { list-style: none; padding: 0; margin-top: var(--lt-space-16); display: grid; gap: var(--lt-space-12); }
+.r-dont-list li { display: flex; align-items: flex-start; gap: var(--lt-space-8); }
+.r-dont-i { flex: none; width: 20px; height: 20px; margin-top: .3em; color: var(--lt-muted); }
+@media (min-width: 768px) {
+  .r-incl-list { display: flex; flex-wrap: wrap; gap: var(--lt-space-12) var(--lt-space-32); }
+}
+@media (min-width: 1024px) {
+  .r-plan .s-plan-what > .s-h3 { font-size: 28px; }
+  .r-dont-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--lt-grid-gap); }
+}
+
+/* ===== 7) الأسئلة (رملي) و«اسأل إنسان» جنبها من 1024 (7 أعمدة للأسئلة، و4 للوح). اللوح .s-ask.lt-lift من site.css بعمود واحد هنا ===== */
+.r-faq-grid { display: grid; gap: var(--lt-space-40); margin-top: var(--lt-space-32); }
+.r-ask .s-ask-t { margin-top: var(--lt-space-4); }
+@media (min-width: 1024px) {
+  .r-faq-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: start; margin-top: var(--lt-space-40); }
+  .r-faq-grid > .s-faq { grid-column: 1 / span 7; }
+  .r-faq-grid > .r-ask { grid-column: 9 / span 4; position: sticky; top: 104px; grid-template-columns: minmax(0, 1fr); padding: var(--lt-space-32); }
+  .r-faq-grid > .r-ask > .s-ask-head, .r-faq-grid > .r-ask > .s-cta { grid-column: auto; }
+  .r-faq-grid > .r-ask > .s-cta { margin-top: var(--lt-space-12); }
+}
+
+/* ===== 8) الخاتمة (أبيض): العنوان 34 / 44 / 60 (§5)، بوزن 500 ===== */
+.r-close-h { max-width: 14em; font-size: 34px; line-height: 1.2; font-weight: var(--lt-weight-heading, 500); }
+.r-close-lead { margin-top: var(--lt-space-16); }
+.r-close-cta { margin-top: var(--lt-space-32); }
+@media (min-width: 768px) { .r-close-h { font-size: 44px; line-height: 1.15; } }
+@media (min-width: 1024px) { .r-close-h { font-size: 60px; line-height: 1.1; } }

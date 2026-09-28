@@ -1,51 +1,74 @@
 # website/ (GM-006: تجهيز فقط، بدون نشر)
 
-## المحتوى
-- `index.html` الرئيسية (صفحة الشركة، تنفهرس في البحث)، على «الاتجاه 2» (`work/2026-09-27-brand-identity/web-art-director.md`) ونصوص web-copy «الاتجاه 2». الجوالات والمشهد والصور فيها يولّدهم `tools/build-home-minis.cjs` (تحت).
-- `config.js` الإعداد المشترك (المصدر الوحيد):
-  - `domain`: الدومين (مؤقت `https://example.com`). منه يتولد رابط `canonical` و`og:url` في الرئيسية، ورابط باركود ورقة QR.
-  - `companyName` و`companyNameEn`: اسم الشركة في كل الصفحات، وسكربت الشعار `brand/src/build_logo.py` يقرأه من هنا.
-  - `whatsapp`: رقم الشركة (أرقام بصيغة دولية بدون +، وأي رمز ثاني ينشال تلقائياً). **فاضي الحين عمداً.**
-  - `waText`: رسائلنا الجاهزة لرقم الشركة. صفحات الشركة من web-copy «الاتجاه 3» (`home` و`shop` و`shopTrial` و`reviewAny` و`host` و`hostTrial` و`portfolio`)، ونسخ العرض من web-copy §2.6، ورسائل الدليل من `systems/architecture.md` §8. `{unitRef}` ينعوض بمرجع الوحدة، ولازم يبقى في رسائل الدليل (`checkout` و`maintenance` و`contact`).
-  - `emergency`: أرقام الطوارئ الوطنية لدليل الوحدة، بمصادرها في تعليق الملف (web-ux ر4-2). 911 مؤكد في أربع مناطق بس (مكة المكرمة والمدينة والرياض والشرقية).
-- `assets/app.js`: أدوات مشتركة لكل الصفحات (اسم الشركة، أزرار الواتساب، النسخ، canonical).
-- **موقعنا (البيئة أ، صفحات الشركة):** `assets/site.css` (سلّم الخط، والأزرار الكبسولة، والرأس بالكلمة، والتذييل، «الاتجاه 2» §3) و`assets/home.css` (الرئيسية). لوحات الحبر بـ `.lt-ink` من `assets/brand/tokens.css`. الحركة الوحيدة: العبارة المتبدلة في h1 (`home.css` و`app.js`، §3.8). `assets/motion.css` (حركة البطل القديمة) ما تنربط في أي صفحة الحين.
-- `assets/images/`: صور الرئيسية الأربع (WebP بعرض 800 و1600)، وسجلها `CREDITS.md` (الملف والمصدر والمصوّر والرخصة والحجم). الأصول في `brand/photos/originals/`، والتحويل بـ `tools/convert-images.py`.
-- **صفحات الزبون (البيئة ب، بهوية المحل، GM-023):** `assets/client.css` و`assets/client.js` (الهوية، اللوحات، صندوق الواي فاي، طبقة العرض)، و`assets/shop-color.js` (محرك لون المحل، الموجز §5.2).
-- `templates/<القالب>/` (menu، links، wifi، rental-guide): قالب لعميل جديد. كل قالب:
-  - `index.html` هيكل خفيف بس (`<div id="app">`)، وأيقونة المتصفح `data:,` (مو رمزنا).
-  - `render.js` المنطق كله (يبني الصفحة من البيانات، والرئيسية تستخدمه للشاشات المصغرة).
-  - `style.css` تنسيق القالب.
-  - `data.js` البيانات: placeholders للعميل الجديد، و`demo: false`، و`brand` فاضي، و`poweredBy: false`.
-- `demo/<القالب>/` (menu، links، wifi، rental-guide): نسخ العرض بمحلات وهمية (`demo/_brands/`: «مقهى المثال» و«شقق المثال»). نفس هيكل القالب، وتاخذ `render.js` و`style.css` من `templates/<القالب>/` (بدون تكرار منطق)، وبياناتها في `data.js` حقها (`demo: true`).
-- `demo/review/`: صفحة شرح ستاند التقييم لصاحب المحل (بهويتنا)، لأن الستاند الحقيقي يفتح صفحة التقييم في قوقل **مباشرة** (ما فيه صفحة تقييم للزبون). و`qr-sheet.html` ورقة الباركود للطباعة (الباركود يفتح صفحة الشرح).
-- `assets/illustrations/` (web-illustrator): مشهد البطل، ومشهد باب الشقة، وإطار الجوال، وعلامة اللمس، والأيقونات.
-- `vendor/qrcode-generator.js`: نسخة محلية من `qrcode-generator@1.4.4` (MIT، Kazuhiko Arase، المصدر https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js).
+## الصفحات
+**صفحات الشركة** (فاتحة دايماً: `<html data-lt-scheme="light">` و`<meta name="color-scheme" content="only light">`، GM-038):
+- `index.html` **البوابة** (GM-040 وGM-043، «الاتجاه 3» في `work/2026-09-27-brand-identity/web-art-director.md` §3 و§10، والنصوص web-copy «الاتجاه 3»):
+  البداية «باركودنا هو شعارنا» ← البابين («عندي مطعم أو كافيه» و«عندي شقق أو إيجار قصير») ← كيف نشتغل ← اسأل إنسان ← التذييل. بدون أسعار.
+- `restaurants/index.html` (`data-audience="restaurants"`) و`hosts/index.html` (`data-audience="hosts"`): صفحتي الجمهور، كل وحدة بباقتها بس.
+- `demo/review/index.html` (شرح ستاند التقييم) و`demo/review/qr-sheet.html` (ورقة الباركود للطباعة).
+- الروابط كلها `index.html` صريحة، فتشتغل من `file://` ومن الخادم.
+
+**صفحات الزبون** (بهوية المحل، GM-023، ووضعها الداكن يتبع الجهاز، وبدون GSAP GM-011): `templates/<القالب>/` و`demo/<القالب>/` (menu و links و wifi و rental-guide).
+
+## الملفات المشتركة
+- `config.js` الإعداد المشترك (المصدر الوحيد، ولا قيمة منه تنكتب داخل الصفحات):
+  - `domain`: الدومين (مؤقت `https://example.com`). منه `canonical` و`og:url`، ورابط باركود البداية وباركود الستاند وورقة QR.
+  - `companyName` و`companyNameEn`: اسم الشركة في كل الصفحات.
+  - `whatsapp`: رقم الشركة (أرقام بصيغة دولية بدون +). **فاضي عمداً** = كل أزرار واتساب الشركة مخفية.
+  - `telegram`: يوزر بوت الشركة بدون @ (الحين `lamsatap_bot`). الرابط `https://t.me/<telegram>`. فاضي = رابط «أو كلّمنا على تليجرام» يختفي.
+  - `telegramChannel`: يوزر القناة بدون @ (للتذييل «قناتنا على تليجرام»). **فاضي** = الرابط مخفي.
+  - `links.privacy` و`links.terms`: روابط السياسات الكاملة (`https://…`). **فاضية** = روابطها مخفية (ومنها «سياسة الخصوصية» آخر إشعار التليجرام).
+  - `waText`: الرسائل الجاهزة. صفحات الشركة: `home` (البوابة) و`shop` و`shopTrial` و`reviewAny` (المطاعم) و`host` و`hostTrial` و`portfolio` (المضيفين).
+  - `emergency`: أرقام الطوارئ الوطنية لدليل الوحدة، بمصادرها في تعليق الملف.
+- `assets/app.js`: اسم الشركة (`data-company`)، وأزرار الواتساب (`data-wa="<مفتاح>"`، و`data-wa-empty` و`data-wa-only`)، والتليجرام (`data-tg` و`data-tg-link` و`data-tg-channel`)، والسياسات (`data-link="privacy|terms"`)، و`canonical` (`<html data-canonical="/…/">`)، والنسخ.
+- `assets/site.css`: **مكوّنات صفحات الشركة الثلاث** (الرأس الثابت، والأزرار، ومجموعة التواصل، والبابين، والصور بطبقتين، والمشهد، والباقة، والأسئلة، و«اسأل إنسان»، والتذييل). الشرح والـ classes في تعليقات الملف نفسه.
+- `assets/home.css`: تخطيط البوابة بس. وكل صفحة جمهور ملف CSS لحالها.
+- `assets/motion.css` و`assets/motion.js` (web-motion): الحركة على صفحات الشركة بس، بـ GSAP 3.15 محلي في `vendor/gsap/`.
+- `assets/scenes.css` و`assets/scenes.js` و`assets/mockups/` (مشاهد المنتج، GM-049/050): الخلفية بطبقتين، وخانات صور الطباعة، والجوال اللي يلمس.
+  صور قسم الطباعة: رئيس القسم ينسخها لـ `assets/print/<الاسم>.png` ويكتب سطرها في `assets/mockups/print-art.js`، وقبلها مستطيل أبيض نظيف.
+- `assets/images/`: صور الطبقتين (`<الخانة>-bw-*` و`-color-*`)، وسجلها `CREDITS.md`. التحويل بـ `tools/convert-images.py`.
+  - بطل المطاعم وبابها `restaurant-cafe-stand-*`، وبطل المضيفين وبابهم `host-door-frame-*`: من المشاهد المولّدة المعتمدة في
+    `brand/photos/generated/` (`restaurants-hero-imagen-1-upscaled-1.webp` و`hosts-hero-imagen-1-upscaled-1.webp`، AD-14). انعملت بدوال
+    `tools/convert-images.py` نفسها (warm و light، حد البطل 180KB) من سكربت مؤقت، لأن `LAYERS` ما فيها أسطرها للحين. وصورة المضيفين
+    فاتحة جداً (أغمق 1% = L* 56)، فخطوة الظلال في `color_layer` انتخطت لها (الخطوة تفترض أغمق 1% تحت 50، وإلا تغمّق الصورة كلها).
+    **الباقي:** سطرين في `LAYERS` وحماية الخطوة في الأداة نفسها، وسطر الملفات المشتقة في `CREDITS.md`. الأصلين ما فيهم EXIF ولا XMP ولا ICC
+    (انفحص بـ Pillow)، فما انشال شي. سطر «الصور توضيحية» في تذييل الصفحات الثلاث. صورة اليد بشعارنا (`restaurant-hand-phone-*`) ما تنستخدم.
+- `assets/brand/`: نسخ مطابقة من `brand/` (التوكنز والمكوّنات والخطوط وملفات الشعار v1.0.0 بالحبر). **ملفات الشعار ما تنعدل أبداً.**
+- `vendor/qrcode-generator.js`: `qrcode-generator@1.4.4` (MIT). و`vendor/gsap/` (رخصة GSAP Standard No Charge).
 
 لا خطوط خارجية ولا CDN ولا `fetch()`. كل الملفات تنقرأ بـ `<script src>`، فتشتغل من `file://`.
 
 ## الفتح محلياً
 - دبل كلك على `website/index.html`، أو
-- خادم محلي: `npx serve website` أو `python -m http.server -d website 8000` ثم `http://localhost:8000/`.
-- زر «انسخ» يستخدم `navigator.clipboard` على https و localhost، ومن `file://` يرجع لطريقة `execCommand` القديمة.
+- خادم محلي: `python -m http.server -d website 8123` ثم `http://localhost:8123/`.
 
-## الشاشات المصغرة والصور في الرئيسية
-- الرئيسية ما تشغّل `render.js` (ثابتة وأخف). الشاشات داخل الجوالات HTML حقيقي من نفس دوال القوالب ونفس بيانات العرض («الاتجاه 2» §4: المنتج نفسه هو الرسمة).
-- **بعد أي تعديل** في `templates/*/render.js` أو `demo/*/data.js` أو `demo/_brands/` أو `assets/client.js` أو `assets/shop-color.js` أو `assets/brand/tokens.css` أو رسومات `assets/illustrations/`، أو لما تنضاف صورة في `assets/images/`، شغّل من جذر المشروع:
-  `node tools/build-home-minis.cjs`
-- السكربت يكتب بين العلامات `<!-- @@... -->` في `index.html`:
-  - جوال البطل (الدليل)، وجوالات الأمثلة الأربع: `phone-frame.svg` inline والشاشة داخل خانته، وكل نسخة ببادئة id مختلفة. الشاشة عليها `.lt-page`، فترجع لألوان صفحة الزبون حتى لو الجوال على لوحة الحبر.
-  - مشهد الكاونتر (`hero-counter.svg`) بمنيوه في «كيف نشتغل»، بالنص البديل من web-copy «الاتجاه 2» ج6.
-  - الصور الأربع بـ `srcset` و`sizes` و`width` و`height` (لو ملفاتها موجودة)، وألوان المحلين من محرك اللون.
-- صورة جديدة: `python tools/convert-images.py <الأصلية> <الاسم>` ثم السكربت فوق، وسجّلها في `assets/images/CREDITS.md`.
-- **ستاند التقييم (مكوّن واحد، التقييم 2 القرار 2):** `tools/stand.cjs` يطلّع وجه قالب الطباعة مصغر بمقاسات `print/dims.js` نفسها، وباركود حقيقي (نفس مكتبة ورقة QR) يودّي لـ `domain` + `/demo/review/`. تنسيقه `assets/stand.css`.
-  - صفحة الشرح: علامة `@@stand:review`. و«كيف نشتغل» في الرئيسية بعدين بنفس المكوّن.
-  - السكربت يقبل صفحة وحدة: `node tools/build-home-minis.cjs demo/review/index.html`. وبدون صفحات يسوي الكل. والملف ما ينكتب إلا لو تغيّر.
+## أداة البناء `tools/build-home-minis.cjs`
+تكتب الأجزاء الثابتة بين علامات `<!-- @@<مفتاح> -->…<!-- /@@<مفتاح> -->` في `index.html` و`restaurants/index.html` و`hosts/index.html` و`demo/review/index.html` و`demo/review/qr-sheet.html`. الصفحة اللي ما انبنت تنتخطى بدون خطأ.
+- **التشغيل من جذر المشروع:** `node tools/build-home-minis.cjs` (كل الصفحات)، أو صفحة وحدة: `node tools/build-home-minis.cjs hosts/index.html`. الملف ما ينكتب إلا لو تغيّر.
+- **شغّلها بعد:** تغيير `domain` في `config.js`، أو ملفات الشعار، أو `templates/*/render.js` و`demo/*/data.js` و`demo/_brands/`، أو صورة جديدة في `assets/images/`، أو مشهد في `assets/mockups/`.
+- **العلامات** (أي صفحة تقدر تستخدم أي علامة، والمجهولة خطأ واضح. بعد المفتاح attributes اختيارية مثل `alt="…"` و`sizes="…"`):
 
-## الواتساب لما الرقم فاضي (قرار GM-010 و web-ux ر4-4)
-- كل أزرار واتساب الشركة **تختفي** (`hidden`) في كل الصفحات. ولا زر معطّل ولا باهت.
-- في الرئيسية («الاتجاه 2» §3.5): الزر الثاني في زوج البطل والخاتمة («افتح دليل تجريبي») يبقى بشكل الأساسي، ويصير ثانوي بس لما يكون فيه رقم (`data-wa-second` في `app.js`). وسطر «رقم التواصل على واتساب ينضاف قريباً.» يطلع في «تبغى تكلّم أحد منا؟» بس. والخاتمة تطلع دايماً.
-- دليل وحدة عميل (`demo: false`): قسم «الخروج والصيانة» كله (مع التواصل) ما يطلع بدون رقم الشركة و`unitRef` صحيح.
+| العلامة | وش تحط |
+|---|---|
+| `@@logo:head` | رابط شعار الرأس `logo-horizontal.svg` (البوابة نفسها شعارها ثابت عشان `data-open-logo`) |
+| `@@logo:foot` | شعار التذييل: `logo-stack.svg` بعرض 120، و`logo-stack-since.svg` من 1024 بعرض 160 |
+| `@@logo:sheet` | الشعار الأفقي في ورقة الباركود |
+| `@@qr:logo` / `@@qr:field` | باركود البداية الحقيقي (تصحيح H، ورمزنا في وسطه) / بدون رمز. للبوابة |
+| `@@qr:<مثال>` | باركود ثابت حقيقي يفتح `domain/demo/<مثال>/` (menu، rental-guide، wifi، links، review) |
+| `@@phone:<شاشة>[-<لاحقة>]` | جوال فيه شاشة مصغرة حقيقية: guide أو menu أو wifi أو links. ومعه لازم `@@minis-style` في `<head>` و`client.css` وstyle القالب |
+| `@@minis-style` | ألوان محلات العرض (فاتح بس) داخل الشاشات المصغرة |
+| `@@img:hero` | صورة البطل بطبقتين: `restaurant-dallah` للمطاعم و`host-hallway-door` للمضيفين (`HERO_PHOTO`) |
+| `@@photo:<خانة>` | صورة بطبقتين من `assets/images/` (الأبيض والأسود ثم `img[data-tint]`)، و`alt=""` افتراضي |
+| `@@scene:<اسم>` | مشهد المنتج بترميز `assets/scenes.css`: `restaurants-door` و`hosts-door` (قص البابين) و`restaurants-hero` و`hosts-hero` (البطل). بدون ملفاته: مكان فاضي فاتح |
+| `@@scenes` | في `<head>`: `scenes.css` و`print-art.js` و`scenes.js` (الموجود منها بس) |
+| `@@stand:review` | ستاند التقييم (`tools/stand.cjs`) في صفحة الشرح |
+
+- **ستاند التقييم:** `tools/stand.cjs` بمقاسات `print/dims.js` وباركود حقيقي يودّي لـ `domain/demo/review/`. تنسيقه `assets/stand.css`.
+
+## الواتساب والتليجرام لما القيم فاضية (GM-010 و GM-047، وإشعار المحامي بند 34)
+- كل أزرار واتساب الشركة **تختفي** (`hidden`)، ولا زر معطّل. وسطر «رقم التواصل على واتساب ينضاف قريباً.» يطلع في «اسأل إنسان».
+- رابط «أو كلّمنا على تليجرام» وإشعار المحامي تحته (`data-tg="with-wa"`) يطلعون **بس لما رقم الواتساب ويوزر البوت موجودين** (web-copy «الاتجاه 3»، التواصل «أ»: «أو» تحتاج زر قبلها). يعني **الحين مخفيين** لأن الرقم فاضي.
+- «سياسة الخصوصية» آخر الإشعار تطلع بس لما `links.privacy` ينكتب.
 - الرابط: `https://wa.me/<أرقام بس>?text=<الرسالة مرمّزة>`. شكله **غير مؤكد** من صفحة واتساب الرسمية، ولازم يتجرّب بآيفون وأندرويد قبل الإطلاق.
 
 ## وضع العرض ووضع العميل (`demo` في data.js)
@@ -107,45 +130,38 @@
 7. العتاد المطبوع (الستاند وملصقات المضيف): `print/README.md` في جذر المشروع.
 
 ## البحث (SEO، مهارة القسم seo-audit)
-- الرئيسية: تنفهرس (بدون `noindex`)، `lang="ar" dir="rtl"`، عنوان ووصف عربي (web-copy §1.0)، h1 وحدة، Open Graph، و`canonical` و`og:url` من `config.domain` (يولّدهم `app.js`).
+- البوابة وصفحتي الجمهور: تنفهرس، و`lang="ar" dir="rtl"`، وعنوان ووصف عربي من web-copy، وh1 وحدة، وOpen Graph، و`canonical` و`og:url` من `config.domain` (`app.js`).
 - صفحات العرض والقوالب وورقة QR وصفحة الشرح: `noindex`.
-- يوم الإطلاق يحتاج: `og:image` برابط كامل بالدومين (وصورة مشاركة من web-brand)، و`robots.txt` و`sitemap.xml` بالدومين. ما انحطت الحين لأن الدومين مؤقت.
 
-## يوم الإطلاق
-1. غيّر `domain` في `config.js` (وفي `systems/shortlinks/config.json` بنفس القيمة).
-2. عبّ `whatsapp` بعد ما يعتمده صاحب المشروع، وجرّب كل زر واتساب بآيفون وأندرويد (الرسالة العربية فيها «—» و«:» توصل صح).
-3. استبدل `[السعر المعتمد]` بالأسعار المعتمدة في `services/` فقط، و`[رقم السجل التجاري]` في الذيل.
-4. سياسة الخصوصية والشروط تنكتب قبل أول صفحة لعميل. رابطها الكامل في `config.js` (`links.privacy` و`links.terms`): الذيل ما يطلّعها إلا لما تنكتب (التقييم 2 بند 7). ورابط `#privacy-policy` في الدليل يتغير.
-5. أضف `og:image` و`robots.txt` و`sitemap.xml` (قسم البحث فوق).
-6. نسخة الإطلاق (التقييم 2، القرار 1): من جذر المشروع:
-   - `node tools/build-home-minis.cjs`: يعيد الجوالات وباركود الستاند بالدومين الجديد.
-   - `node tools/build-dist.cjs`: يطلّع `dist/` بدون تعليقات HTML وCSS وأسطر `//` في JS (فيها مراجع داخلية)، وبدون ملفات `.md`. ويفحص إن كل JS ينقرى، وإن باركود الستاند يطابق الدومين، وإن كل صفحة تحت 100KB غير مضغوط و50KB gzip (بدون الخطوط والصور). لازم يطلع «جاهز للرفع».
-   - `vendor/` ينسخ زي ما هو (نص رخصة MIT لازم يبقى).
-7. صاحب المشروع يرفع **`dist/` بس** على الاستضافة (المقترح Cloudflare Pages، `work/2026-09-27-short-links/result.md`)، مو `website/`.
-8. اطبع `demo/review/qr-sheet.html` وامسحه بكاميرا جوال من الورقة المطبوعة قبل التوزيع.
+## يوم الإطلاق: القيم اللي تتعبّى (GM-006، كل شي ثاني جاهز)
+| الحقل | وين | الحين | يوم الإطلاق |
+|---|---|---|---|
+| `domain` | `config.js` (ونفس القيمة في `systems/shortlinks/config.json`) | `https://example.com` | الدومين المعتمد (`lamsatap.sa` أو `.com`، غير مؤكد لين يحجزه صاحب المشروع) |
+| `whatsapp` | `config.js` | فاضي | رقم الشركة بعد اعتماده |
+| `telegram` | `config.js` | `lamsatap_bot` | يبقى، أو يتغير لو تغيّر البوت |
+| `telegramChannel` | `config.js` | فاضي | يوزر القناة لو انفتحت |
+| `links.privacy` و`links.terms` | `config.js` | فاضية | روابط السياسات بعد ما تنكتب ويراجعها المحامي |
+| `[رقم السجل التجاري]` | تذييل صفحات الشركة | placeholder | الرقم الرسمي |
+| صور الطباعة | `assets/print/*.png` و`assets/mockups/print-art.js` | مستطيلات بيضاء | صور قسم الطباعة (رئيس القسم ينسخها) |
+| وجه الستاند واللوحة في البطلين والبابين | الكرت الأبيض في `restaurant-cafe-stand` والبرواز في `host-door-frame` | فاضيين | يتركّب عليهم تصميم الطباعة بـ `tools/place-artwork.py` ثم تنعاد الطبقتين |
 
-## الهوية (لمسة تاب — LamsaTap، GM-008)
-- المصدر الوحيد: `brand/` في جذر المشروع. أي تعديل يصير هناك أول، ثم يُنسخ نسخة مطابقة هنا (لأن `website/` ينرفع لحاله).
-- النسخ هنا (كلها مطابقة للمصدر بايت ببايت):
-  - `assets/brand/tokens.css` ← `brand/tokens.css`
-  - `assets/brand/components.css` ← `brand/components.css` (الأزرار `.lt-btn` بأنواعها، والرابط `.lt-link`، واللوحة `.lt-panel` والصف `.lt-row`، و«بواسطة» `.lt-by`)
-  - الأيقونة المؤقتة (الاتجاه 2 §3.7، الشعار موقوف): مربع حبر ونقطة رملي، بدون حرف ولا زعفران. تتبدل يوم يتقرر الشعار:
-    - `assets/brand/favicon.svg` ← `brand/icons/app-icon-temp.svg`
-    - `assets/brand/apple-touch-icon.png` ← `brand/icons/png/app-icon-temp-180.png`
-    - `favicon.ico` (جذر `website/`) ← `brand/icons/app-icon-temp.ico`
-  - `assets/brand/lamsatap-horizontal.svg` و`-dark.svg` و`lamsatap-icon.svg`: ملفات الشعار القديم، **ما تستخدمها أي صفحة** (الشعار موقوف). رأس الصفحات الثلاث (الرئيسية، وشرح التقييم، وورقة QR) كلمة «لمسة تاب» نص
-- **خانات الشعار الجديد (GM-036، يسلمه المدير العام، وملفاته ما نلمسها):** كل خانة ملف SVG بمسار واحد في `assets/brand/`:
-  | الملف | الخانة |
-  |---|---|
-  | `logo-horizontal.svg` | الأفقي على الفاتح: رأس صفحة الشرح (الرملي)، وورقة QR (12mm) |
-  | `logo-horizontal-dark.svg` | الأفقي على الحبر: رأس الرئيسية، ورأس صفحة الشرح في الداكن |
-  | `logo-stack-dark.svg` | المكدّس على الحبر: التذييل (120px) |
-  | `logo-stack-since-dark.svg` | المكدّس مع «SINCE 2026»: التذييل من 1024 بس (160px، لأن السطر يبي 160 أو أكثر) |
-  - الأفقي بارتفاع 40 على الجوال و44 من 1024 (المدى 40 إلى 48)، والعرض من viewBox الملف. والفراغ الآمن 0.5H من ارتفاع الرأس وفراغه.
-  - لين توصل: الكلمة «لمسة تاب» نص مكانها (بدون صورة مكسورة ولا طلب 404).
-  - **يوم التسليم:** انسخ الملفات بالأسماء فوق، ثم `node tools/build-home-minis.cjs`، ثم فحص التناسق حق المدير الفني (GM-036).
-  - الأيقونة: نفس الأسماء الحالية (`assets/brand/favicon.svg` و`apple-touch-icon.png` و`favicon.ico`)، والجديدة الرمز لحاله رملي على دائرة تيل. تتبدل الملفات بس.
-  - `assets/brand/fonts/readex-pro-arabic-latin.woff` و`OFL.txt` ← `brand/fonts/`
-- ترتيب الربط: `tokens.css` ← `components.css` ← (`site.css` و`home.css` لموقعنا، أو `client.css` و`style.css` حق القالب لصفحات الزبون). ولا لون مكتوب باليد في صفحة.
-- الخط: الرئيسية وصفحة الشرح وورقة QR بـ `--lt-font-brand`. صفحات الزبون (القوالب ونسخ العرض) بـ `--lt-font-ui` بس، فملف الخط ما ينزل عندها.
-- صفحات الزبون بدون أي لون من ألوان لمسة تاب (GM-025): التركيز حبر، والتحديد محايد، وأيقونة المتصفح `data:,`.
+**الخطوات بالترتيب:**
+1. عبّ القيم فوق.
+2. `node tools/build-home-minis.cjs`: يعيد باركود البداية وباركود الستاند وورقة QR بالدومين الجديد.
+3. **فحص باركود البداية:** سطر «امسحه بجوالك» تحته يبقى، فلازم الباركود يفتح `domain/demo/rental-guide/` الحقيقي:
+   - افحصه بـ jsQR (برمجياً) على 320 و220 و120px، ولو فشل مقاس، الرمز في وسطه يصغر (المدير الفني §3). jsQR **ما انجرّب للحين** (OpenCV قراه، web-motion.md).
+   - وبعدها امسحه بكاميرا آيفون وأندرويد من الشاشة.
+   - الباركودات داخل مشاهد المنتج وصور الطباعة لازم تكون وهمية ما تنقرى (GM-049)، وتنفحص إنها ما تنفك.
+4. جرّب كل زر واتساب بآيفون وأندرويد (الرسالة العربية فيها «—» و«:» توصل صح)، ورابط التليجرام وإشعاره.
+5. أضف `og:image` برابط كامل بالدومين، و`robots.txt` و`sitemap.xml` (فيها البوابة و`restaurants/` و`hosts/`).
+6. `node tools/build-dist.cjs`: يطلّع `dist/` بدون تعليقات ولا ملفات `.md`، ولازم يطلع «جاهز للرفع».
+7. صاحب المشروع يرفع **`dist/` بس** (مو `website/`).
+8. اطبع `demo/review/qr-sheet.html` وامسحه من الورقة المطبوعة قبل التوزيع.
+
+## الهوية (لمسة تاب — LamsaTap، GM-008 و GM-041/042)
+- المصدر الوحيد: `brand/` في جذر المشروع. أي تعديل يصير هناك أول، ثم يُنسخ نسخة مطابقة هنا.
+- **الشعار v1.0.0 بالحبر #14201F** في `assets/brand/`: `logo-horizontal.svg` (الرأس 32 / 40، والبداية، وورقة QR)، و`logo-stack.svg` (التذييل 120)، و`logo-stack-since.svg` (التذييل 160 من 1024)، والأيقونات (`favicon.svg` و`apple-touch-icon.png` و`favicon.ico`). **ما تنعدل.**
+- `lamsatap-horizontal*.svg` و`lamsatap-icon.svg`: الشعار القديم، ما تستخدمه أي صفحة.
+- ترتيب الربط: `tokens.css` ← `components.css` ← (`site.css` وملف الصفحة لموقعنا، أو `client.css` و`style.css` القالب لصفحات الزبون).
+- لمسة كل جمهور من `data-audience="restaurants|hosts"` (tokens.css): أيقونات وخطوط ومؤشرات بس، ولا نص ملون ولا خلفية ملونة ولا زر ملون.
+- صفحات الزبون بدون أي لون من ألوان لمسة تاب (GM-025).

@@ -113,7 +113,15 @@ async function runtimeChecks() {
       put('R2', ok ? 'PASS' : 'FAIL', 'تشغيل «تقليل الحركة» والصفحة مفتوحة: الكل يرجع ظاهر ونهائي (390 و 1440)', out.map((x) => `${x.w}: html="${x.cls}" مخفي=[${x.bad.join('; ')}]`).join(' || '));
     }
     if (want('R3') || want('R4')) {
-      const M = `(() => { const p=document.querySelector('[data-story-phone]').getBoundingClientRect(), t=document.querySelector('[data-story-target]').getBoundingClientRect(); return { dx: Math.round((t.left+t.width/2)-(p.left+p.width/2)), dy: Math.round(t.top-(p.top+p.height*.12)) }; })()`;
+      // AD-08 (2026-09-28): الجوال مايل ومصغّر، وحافته العليا على نقطة اللمس. نقيس بُعد نقطة الهدف (وسطه وأعلاه) عن قطعة الحافة العليا
+      // (من مصفوفة transform والمكان بدونه). dx = البعد العمودي عن الخط، dy = كم برّا طرفي القطعة
+      const M = `(() => { const ph=document.querySelector('[data-story-phone]'), t=document.querySelector('[data-story-target]').getBoundingClientRect();
+        const m = new DOMMatrix(getComputedStyle(ph).transform), keep = ph.style.transform; ph.style.transform = 'none'; const r = ph.getBoundingClientRect(); ph.style.transform = keep;
+        const o = getComputedStyle(ph).transformOrigin.split(' ').map(parseFloat), W = ph.offsetWidth;
+        const at = (x, y) => { const q = m.transformPoint(new DOMPoint(x - o[0], y - o[1])); return [r.left + o[0] + q.x, r.top + o[1] + q.y]; };
+        const a = at(0, 0), b = at(W, 0), px = t.left + t.width / 2, py = t.top, ux = b[0] - a[0], uy = b[1] - a[1], len = Math.hypot(ux, uy);
+        const along = ((px - a[0]) * ux + (py - a[1]) * uy) / len, perp = ((px - a[0]) * uy - (py - a[1]) * ux) / len;
+        return { dx: Math.round(Math.abs(perp)), dy: Math.round(along < 0 ? -along : along > len ? along - len : 0) }; })()`;
       const ST = `(() => { const s = ScrollTrigger.getAll().find(x => x.pin && x.pin.hasAttribute('data-story-pin')); return s ? { start: Math.round(s.start), end: Math.round(s.end) } : null; })()`;
       await b.viewport(1440, 900); await b.media(false); await b.go(P('t-story.html'), 1500);
       const s1 = await b.ev(ST);
@@ -127,7 +135,7 @@ async function runtimeChecks() {
           await b.viewport(1200, 900); await sleep(1800); const s2 = await b.ev(ST);
           await b.ev(`scrollTo(0, ${s2.end - 5}), 1`); await sleep(1600); const c = await b.ev(M);
           const ok = Math.abs(a.dx) <= 2 && Math.abs(a.dy) <= 2 && Math.abs(c.dx) <= 2 && Math.abs(c.dy) <= 2;
-          put('R3', ok ? 'PASS' : 'FAIL', 'القصة: الجوال يوصل الهدف بالضبط، وبعد تغيير العرض 1440 → 1200 (بدون عبور 1024)', `1440: dx=${a.dx} dy=${a.dy}. بعد 1200: dx=${c.dx} dy=${c.dy}`);
+          put('R3', ok ? 'PASS' : 'FAIL', 'القصة: حافة الجوال العليا على الهدف بالضبط، وبعد تغيير العرض 1440 → 1200 (بدون عبور 1024)', `1440: dx=${a.dx} dy=${a.dy}. بعد 1200: dx=${c.dx} dy=${c.dy}`);
         }
       }
     }

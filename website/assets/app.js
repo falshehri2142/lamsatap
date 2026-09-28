@@ -1,4 +1,4 @@
-// أدوات مشتركة خفيفة لكل صفحات website/: اسم الشركة، أزرار الواتساب، النسخ، canonical.
+// أدوات مشتركة خفيفة لكل صفحات website/: اسم الشركة، أزرار الواتساب، روابط التليجرام، روابط السياسات، النسخ، canonical.
 // بدون أي طلب خارجي ولا fetch()، وكل شي يشتغل من file://.
 (function (d, w) {
   var S = w.SITE || {}, NAME = 'لمسة تاب';
@@ -67,16 +67,21 @@
     all('[data-wa-second]').forEach(function (el) { el.classList.toggle('lt-btn--secondary', !!num); });
   };
 
-  // العبارة المتبدلة في h1 (الاتجاه 2 §3.8): التوقيت في home.css (CSS بس، وتقف عند 3.8 ثانية).
-  // أي تمرير أو تركيز أو لمس داخل البطل يقفز للعبارة الأخيرة على طول (interruptible)
-  w.bindRotator = function () {
-    var rot = d.querySelector('.h-rot'), hero = rot && rot.closest('section');
-    if (!hero) return;
-    function end() {
-      rot.classList.add('is-end');
-      ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { hero.removeEventListener(t, end); });
-    }
-    ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { hero.addEventListener(t, end, { passive: true }); });
+  // التليجرام (GM-047، وإشعار المحامي بند 34): اليوزر من config.js بدون @ (telegram للبوت، telegramChannel للقناة)،
+  // والرابط ينبني https://t.me/<يوزر>. الفاضي (أو الغلط) يخفي الرابط، مثل الواتساب. ولا يوزر مكتوب داخل الصفحات.
+  // [data-tg]: مجموعة «أو كلّمنا على تليجرام» وإشعارها تحتها. تطلع بس لو يوزر البوت موجود.
+  //   [data-tg="with-wa"]: كمان لازم رقم الواتساب موجود، لأن «أو» تجي بعد زر الواتساب (web-copy «الاتجاه 3»، التواصل «أ»).
+  // [data-tg-link]: رابط محادثة البوت. [data-tg-channel]: رابط القناة (التذييل)، ويختفي لو القناة فاضية.
+  w.tgUser = function (v) { v = str(v).replace(/^@/, ''); return /^[A-Za-z0-9_]{5,32}$/.test(v) ? v : ''; };
+  w.fillTelegram = function () {
+    var bot = tgUser(S.telegram), ch = tgUser(S.telegramChannel), wa = !!waNum(S.whatsapp);
+    all('[data-tg]').forEach(function (el) { el.hidden = !bot || (el.getAttribute('data-tg') === 'with-wa' && !wa); });
+    all('[data-tg-link]').forEach(function (a) {
+      if (bot) { a.href = 'https://t.me/' + bot; a.hidden = false; } else { a.removeAttribute('href'); a.hidden = true; }
+    });
+    all('[data-tg-channel]').forEach(function (a) {
+      if (ch) { a.href = 'https://t.me/' + ch; a.hidden = false; } else { a.removeAttribute('href'); a.hidden = true; }
+    });
   };
 
   // روابط السياسات في الذيل (التقييم 2 بند 7): [data-link="privacy|terms"] يطلع بس لو رابطه https في config.js (SITE.links)،
@@ -90,7 +95,7 @@
     });
   };
 
-  // canonical و og:url من config.domain (بس للصفحة اللي عليها <html data-canonical="<المسار>">، يعني الرئيسية)
+  // canonical و og:url من config.domain (بس للصفحة اللي عليها <html data-canonical="<المسار>">: البوابة "/"، و"/restaurants/" و"/hosts/")
   w.fillCanonical = function () {
     var p = d.documentElement.getAttribute('data-canonical'), dom = str(S.domain).replace(/\/+$/, ''), url, el;
     if (p == null || !/^https:\/\//.test(dom)) return;
@@ -136,10 +141,89 @@
     });
   };
 
+  // ===== مفتاح الأسعار (web-copy «مفتاح الأسعار» أ و ب و ج و د، ومرجع صاحب المشروع brief-gm040.md) =====
+  // [data-price-switch]: role="radiogroup" فيه أزرار role="radio" لكل واحد data-value (مثل month و year، أو first و renew).
+  // النطاق: أقرب [data-price-scope] (أو الصفحة). داخله:
+  //   [data-roll]: رقم يتدحرج بالخانات، قيمته من data-<القيمة> (aria-hidden، ومكانه نص مخفي [data-swap])
+  //   [data-swap]: نصه يصير data-<القيمة> (السعر المقروء كامل، والوحدة «للوحدة بالشهر / بالسنة»). بدون aria-live (ج)
+  //   [data-when="<القيمة>"]: يطلع بس مع هالقيمة
+  // الكيبورد: الأسهم تنقل الاختيار والتركيز (RTL: اليسار = التالي)، و Home و End، والمختار بس في ترتيب Tab (roving tabindex).
+  // تقليل الحركة: الرقم يتبدل مباشر (بدون transition في site.css، وهنا بدون تدحرج). بدون JS: .s-period ما يطلع (site.css)
+  var DIG = '<span class="s-roll-col" aria-hidden="true">' + '0123456789'.split('').map(function (n) { return '<span>' + n + '</span>'; }).join('') + '</span>';
+  // AD-32 (مرجع صاحب المشروع NumberFlow): الخانة الجديدة (ما لها خانة قديمة بنفس المكان من اليمين) تدخل من تحت بالشفافية، والإخوة
+  // (الوحدة «ريال…») تنزلق من مكانها القديم لمكانها الجديد بطريقة FLIP بدل ما تنط لما الرقم يوسع أو يضيق. transform و opacity بس
+  var EASE = 'var(--m-out, cubic-bezier(.16, 1, .3, 1))';
+  function roll(el, next, anim) {
+    var prev = el.getAttribute('data-now') || el.textContent.trim(), cols = [];
+    next = String(next == null ? '' : next);
+    var sibs = anim && el.parentNode ? [].filter.call(el.parentNode.children, function (s) { return s !== el && !s.classList.contains('s-sr'); }) : [];
+    var before = sibs.map(function (s) { var r = s.getBoundingClientRect(); return [r.left, r.top]; });   // المكان الظاهر الحين (حتى لو في نص انزلاق)
+    el.setAttribute('data-now', next);
+    el.innerHTML = next.split('').map(function (ch, i) {
+      var j = prev.length - (next.length - i), pc = j < 0 ? '' : prev.charAt(j);   // نفس الخانة من اليمين (الآحاد مع الآحاد)
+      var add = anim && prev && (j < 0 || !/\d/.test(pc) && pc !== ch) ? ' data-in' : '';
+      if (!/\d/.test(ch)) return '<span class="s-roll-s"' + add + '>' + esc(ch) + '</span>';
+      cols.push([/\d/.test(pc) && anim ? +pc : +ch, +ch]);
+      return '<span class="s-roll-d"' + add + '><span class="s-roll-g">' + ch + '</span>' + DIG + '</span>';
+    }).join('');
+    var list = all('.s-roll-col', el), ins = all('[data-in]', el);
+    list.forEach(function (c, i) { c.style.transition = 'none'; c.style.transform = 'translateY(' + (-10 * cols[i][0]) + '%)'; });
+    if (!anim) return;
+    ins.forEach(function (n) { n.style.display = 'inline-block'; n.style.transition = 'none'; n.style.opacity = '0'; n.style.transform = 'translateY(55%)'; });
+    sibs.forEach(function (s, i) {
+      s.style.transition = 'none'; s.style.transform = 'none';
+      var r = s.getBoundingClientRect(), dx = before[i][0] - r.left, dy = before[i][1] - r.top;
+      s.style.transform = dx || dy ? 'translate(' + dx + 'px, ' + dy + 'px)' : '';
+    });
+    void el.offsetWidth;   // يثبت نقطة البداية قبل الانتقال
+    list.forEach(function (c, i) { c.style.transition = ''; c.style.transform = 'translateY(' + (-10 * cols[i][1]) + '%)'; });
+    ins.forEach(function (n) { n.style.transition = 'transform .6s ' + EASE + ', opacity .3s ease-out'; n.style.opacity = ''; n.style.transform = ''; });
+    sibs.forEach(function (s) { if (s.style.transform) { s.style.transition = 'transform .6s ' + EASE; s.style.transform = ''; } });
+  }
+  w.initPriceSwitch = function () {
+    var calm = !w.matchMedia || w.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    all('[data-price-switch]').forEach(function (sw) {
+      var scope = sw.closest('[data-price-scope]') || d, opts = all('[role="radio"]', sw);
+      if (!opts.length) return;
+      function set(i, anim) {
+        var k = opts[i].getAttribute('data-value');
+        opts.forEach(function (o, j) { o.setAttribute('aria-checked', j === i ? 'true' : 'false'); o.tabIndex = j === i ? 0 : -1; });
+        sw.setAttribute('data-on', String(i));
+        all('[data-roll]', scope).forEach(function (el) { var v = el.getAttribute('data-' + k); if (v != null) roll(el, v, anim && !calm); });
+        all('[data-swap]', scope).forEach(function (el) { var v = el.getAttribute('data-' + k); if (v != null) el.textContent = v; });
+        all('[data-when]', scope).forEach(function (el) { el.hidden = el.getAttribute('data-when') !== k; });
+      }
+      function cur() { for (var j = 0; j < opts.length; j++) if (opts[j].getAttribute('aria-checked') === 'true') return j; return 0; }
+      opts.forEach(function (o, i) {
+        o.addEventListener('click', function () { if (i !== cur()) set(i, true); });
+        o.addEventListener('keydown', function (e) {
+          var n = opts.length, rtl = getComputedStyle(sw).direction === 'rtl', j = null;
+          if (e.key === 'ArrowDown' || e.key === (rtl ? 'ArrowLeft' : 'ArrowRight')) j = (i + 1) % n;
+          else if (e.key === 'ArrowUp' || e.key === (rtl ? 'ArrowRight' : 'ArrowLeft')) j = (i - 1 + n) % n;
+          else if (e.key === 'Home') j = 0;
+          else if (e.key === 'End') j = n - 1;
+          else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (i !== cur()) set(i, true); return; }
+          if (j === null) return;
+          e.preventDefault(); set(j, true); opts[j].focus();
+        });
+      });
+      set(cur(), false);
+    });
+  };
+
+  // الرأس الثابت عائم وقت التمرير (GM-055): .s-top.is-stuck لما الصفحة نازلة عن أولها (الظل من --lt-elev-float في site.css)
+  w.initHeader = function () {
+    var top = d.querySelector('.s-top'), on = null, tick = false;
+    if (!top) return;
+    function upd() { tick = false; var s = (w.scrollY || w.pageYOffset || 0) > 0; if (s !== on) { on = s; top.classList.toggle('is-stuck', s); } }
+    w.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+    upd();
+  };
+
   // أدوات صفحات الزبون (الهوية، اللوحات، الواي فاي، طبقة العرض) في assets/client.js
 
   // سفاري آيفون ما يطبّق :active (لون الضغط) إلا إذا الصفحة فيها مستمع touchstart
   d.addEventListener('touchstart', function () {}, { passive: true });
 
-  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); fillLinks(); fillCanonical(); bindRotator(); });
+  d.addEventListener('DOMContentLoaded', function () { fillCompany(); fillWhatsapp(); fillTelegram(); fillLinks(); fillCanonical(); initPriceSwitch(); initHeader(); });
 })(document, window);

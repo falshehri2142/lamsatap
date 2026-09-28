@@ -1,92 +1,128 @@
-/* صفحات الشركة (الاتجاه 2 في web-art-director.md): الرئيسية وشرح ستاند التقييم. ورقة الباركود لها تنسيق طباعة لحالها.
-   الترتيب: tokens.css ← components.css ← هذا الملف. ستايل Linq بهيكل Touch Stay على هويتنا (§1 و§3):
-   - سطح رملي، ولوحتين حبر (.s-ink مع .lt-ink من tokens.css)، والعمق بالتعبئة وحد 1px، ولا ظل.
-   - العنوان كبير بوزن 500، والحجم يسوي التسلسل (§3.4). الأوزان 400 و500 و600 بس.
-   - الأزرار نوعين كبسولة: معبّى ومحدّد (§3.5). والتيل وظيفي بس: رابط، وصح، وتركيز (§3.2).
-   الألوان كلها من tokens.css (ولا لون بيد هنا). وأي شي داخل صفحة زبون مصغرة (.c) ما يتأثر (GM-023). */
+/* صفحات الشركة (فاتح دايماً، <html data-lt-scheme="light">): البوابة index.html، و restaurants/ و hosts/، وشرح ستاند التقييم.
+   المكوّنات المشتركة للصفحات الثلاث هنا. تخطيط كل صفحة في ملفها (home.css للبوابة، وملف كل صفحة جمهور).
+   المراجع: web-art-director.md «الاتجاه 3» (§1 الثوابت، §2 اللمسة، §3 البوابة، §4 الصور، §5 الباقة، §11 لغة الشعار)،
+   و design-system/lamsatap/MASTER.md، و web-brand.md (المفتاح، و data-audience، و .lt-lift، والأوزان).
+   الترتيب: tokens.css ← components.css ← هذا الملف ← ملف الصفحة. ولا لون بيد هنا (كله من tokens.css)، ولا ظل بيد (العمق GM-055 من توكنز
+   web-brand: --lt-elev-raised للبطاقات والبابين والباقة، و --lt-elev-float للرأس الثابت وقت التمرير، تحت «العمق»)، ولا حد 2px،
+   ولا كبسولة 999 (الأزرار 14، والبطاقات والصور 8). أي شي داخل صفحة زبون مصغرة (.c) ما يتأثر (GM-023).
+   ولا قاعدة داكنة هنا: صفحات الشركة فاتحة دايماً (GM-038). */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 72px; }   /* الرأس الثابت 64 + 8 (fixed-element-offset) */
 body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: var(--lt-font-brand); font-size: 16px; line-height: 1.75; font-weight: 400; letter-spacing: 0; overflow-wrap: anywhere; }
 :where(p, ul, ol, figure, h1, h2, h3, details, summary) { margin: 0; }
-:where(h1, h2, h3) { font-weight: 500; text-wrap: balance; }
+:where(h1, h2, h3) { font-weight: var(--lt-weight-heading, 500); text-wrap: balance; }
 :where(p) { text-wrap: pretty; }
 :where(a) { color: var(--lt-link); text-decoration-thickness: 1px; text-underline-offset: .3em; text-decoration-skip-ink: auto; }
 :focus-visible { outline: 3px solid var(--lt-focus); outline-offset: 3px; }
 [hidden] { display: none !important; }
 .s-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.s-nw { white-space: nowrap; }   /* كلمتين ما تنقسم بين سطرين (مثل «تقييم قوقل» في عنوان، AD-17) */
+.js .s-nojs { display: none; }   /* سطر لبدون JS بس (مثل السعر الثاني تحت السعر، web-copy «مفتاح الأسعار» د)، و .js من سكربت الرأس قبل أول رسم */
 /* رابط تخطّي للمحتوى (skip-links): يبان بس مع التركيز */
-.s-skip { position: absolute; inset-inline-start: var(--lt-space-16); top: var(--lt-space-8); z-index: 10; padding: var(--lt-space-12) var(--lt-space-16); border-radius: var(--lt-radius-s); background: var(--lt-surface); color: var(--lt-text); font-size: 16px; font-weight: 500; transform: translateY(-200%); }
+.s-skip { position: absolute; inset-inline-start: var(--lt-space-16); top: var(--lt-space-8); z-index: 50; padding: var(--lt-space-12) var(--lt-space-16); border-radius: var(--lt-radius-s); background: var(--lt-surface); color: var(--lt-text); font-size: 16px; font-weight: 500; transform: translateY(-200%); }
 .s-skip:focus-visible { transform: none; }
-@media (min-width: 1024px) { body { font-size: 17px; } }
+@media (min-width: 1024px) {
+  html { scroll-padding-top: 88px; }   /* الرأس 80 + خطه + 7 */
+  body { font-size: 17px; }
+}
 
-/* الحاوية (§4): 1200، والحواف 20 / 32 / 48 من tokens */
+/* الحاوية: 1200، والحواف 20 / 32 / 48 من tokens */
 .s-wrap { max-width: calc(var(--lt-container) + 2 * var(--lt-gutter)); margin-inline: auto; padding-inline: var(--lt-gutter); }
 
-/* سلّم الخط (§3.4): ممنوع أي حجم برّا الجدول. العنوان حده 11em والنص 36em (line-length-control) */
-.s-h1 { max-width: 11em; font-size: 36px; line-height: 1.25; font-weight: 500; }
-.s-h2 { max-width: 11em; font-size: 28px; line-height: 1.3; font-weight: 500; }
-.s-h3 { font-size: 20px; line-height: 1.35; font-weight: 600; }
+/* الأقسام (§3 و§5): كل قسم له خلفيته (أبيض / رملي / رملي ثاني)، والمسافة داخله 72 / 96 / 128 (--lt-section).
+   .s-band--white أبيض، و .s-band بدون إضافة رملي (خلفية الصفحة)، و .s-band--sand2 رملي ثاني */
+.s-band { padding-block: var(--lt-section); background: var(--lt-bg); }
+.s-band--white { background: var(--lt-surface); }
+.s-band--sand2 { background: var(--lt-surface-2); }
+.s-section { margin-top: var(--lt-section); }   /* قديم (صفحة الشرح): مسافة بدون خلفية */
+
+/* ===== سلّم الخط: h1 40 / 52 / 72 (MASTER)، والعناوين بوزن واحد 500 (§11.3). العنوان حده 11em والنص 36em ===== */
+.s-h1 { max-width: 11em; font-size: 40px; line-height: 1.2; font-weight: var(--lt-weight-heading, 500); }
+.s-h2 { max-width: 11em; font-size: 28px; line-height: 1.3; font-weight: var(--lt-weight-heading, 500); }
+.s-h3 { font-size: 20px; line-height: 1.35; font-weight: var(--lt-weight-heading, 500); }
 .s-lead { max-width: 36em; font-size: 17px; line-height: 1.7; color: var(--lt-muted); }
 .s-body { max-width: 36em; }
 .s-small { font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--lt-muted); }
-.s-num { font-variant-numeric: tabular-nums; }   /* السعر والوقت (number-tabular) */
+.s-num { font-family: var(--lt-font-latin); font-variant-numeric: tabular-nums; }   /* أرقام جدولية بـ Figtree (number-tabular) */
 @media (min-width: 768px) {
-  .s-h1 { font-size: 48px; line-height: 1.2; }
+  .s-h1 { font-size: 52px; line-height: 1.18; }
   .s-h2 { font-size: 36px; line-height: 1.25; }
   .s-h3 { font-size: 22px; }
   .s-lead { font-size: 18px; }
 }
 @media (min-width: 1024px) {
-  .s-h1 { font-size: 60px; }
+  .s-h1 { font-size: 72px; line-height: 1.12; }
   .s-h2 { font-size: 44px; }
   .s-h3 { font-size: 24px; }
   .s-lead { font-size: 20px; }
 }
 
-/* الرأس (§3.7): كلمة «لمسة تاب» نص (الشعار موقوف)، 64 على الجوال و72 من 1024، مو ثابت مع التمرير.
-   ياخذ لون السطح اللي تحته. من 1024: 4 روابط للأقسام، وعلى الجوال بدونها */
-.s-head { display: flex; align-items: center; gap: var(--lt-space-24); min-height: 64px; }
-.s-word { display: inline-flex; align-items: center; min-height: var(--lt-tap-min); color: var(--lt-text); font-size: 20px; font-weight: 600; line-height: 1.2; text-decoration: none; }
+/* ===== 1) الرأس الثابت (§1): <header class="s-top"> رملي، وتحته خط 1px دايماً. 64 على الجوال و80 من 1024.
+   الشعار logo-horizontal.svg بارتفاع 32 / 40، وفراغه 16 / 20 فوق وتحت وجنبه (§11.5).
+   الروابط الثلاث: من 1024 جنب الشعار (.s-nav--top)، وتحت 1024 صف ثاني 48 تحت الرأس (.s-nav--row)، **مو ثابت** (يمشي مع الصفحة).
+   نفس الروابط في مكانين، وواحد بس ظاهر في كل مقاس (display: none يشيل الثاني من شجرة قارئ الشاشة).
+   الكبسولة: واتساب محدد (إطار حبر، مو معبّى) عشان زر الشاشة الأساسي يبقى واحد، ومخفية لين ينحط الرقم.
+   رابط الصفحة الحالية: aria-current="page"، وتحته خط 2px بلون لمسة الصفحة (--lt-accent). ===== */
+.s-top { position: sticky; top: 0; z-index: 30; background: var(--lt-bg); border-bottom: var(--lt-hairline) solid var(--lt-border); }
+/* عائم وقت التمرير (GM-055، AD-13): app.js يحط is-stuck لما الصفحة تنزل. الظل في طبقة ::before تنقلب بالشفافية بس (مو transition على
+   box-shadow)، نفس طريقة البوابة (motion.css، وقاعدتها أقوى فتغلب هناك). الحد 1px يبقى. الظل من --lt-elev-float (توكن web-brand)،
+   ولين ينضاف في tokens.css الطبقة فاضية (none) */
+.s-top::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; box-shadow: var(--lt-elev-float); opacity: 0; }
+.s-top.is-stuck::before { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) { .s-top::before { transition: opacity .2s ease-out; } }
+.s-head { display: flex; align-items: center; gap: var(--lt-space-16); min-height: 64px; }
+.s-word { display: inline-flex; align-items: center; min-height: var(--lt-tap-min); color: var(--lt-text); font-size: 20px; font-weight: 500; line-height: 1.2; text-decoration: none; }
+.s-logo-link { display: inline-flex; flex: none; align-items: center; min-height: var(--lt-tap-min); }
+/* حالات رابط الشعار (GM-055، AD-19): الشفافية بس (ملف الشعار نفسه ما يتغير) */
+.s-logo-link .s-logo-h { transition: opacity .15s ease-out; }
+@media (hover: hover) and (pointer: fine) { .s-logo-link:hover .s-logo-h { opacity: .88; } }
+.s-logo-link:active .s-logo-h { opacity: .8; }
+.s-logo-h { display: block; width: auto; height: 32px; }
 .s-head-end { display: flex; align-items: center; gap: var(--lt-space-32); margin-inline-start: auto; }
-.s-nav { display: none; }
+.s-nav { display: flex; align-items: center; }
+.s-nav a { position: relative; display: inline-flex; align-items: center; justify-content: center; min-width: var(--lt-tap-min); min-height: var(--lt-tap-min); color: var(--lt-text); font-size: 15px; font-weight: 500; line-height: 1.3; text-decoration: none; white-space: nowrap; }
+.s-nav a:hover { text-decoration: underline; }
+.s-nav a:active { background: var(--lt-surface-2); }
+.s-nav a[aria-current="page"]::after { content: ""; position: absolute; inset-inline: 0; bottom: 6px; height: 2px; background: var(--lt-accent); }
+.s-nav a[aria-current="page"]:hover { text-decoration: none; }
+.s-nav--top { display: none; gap: var(--lt-space-32); }
+.s-nav--row .s-wrap { display: flex; align-items: center; gap: var(--lt-space-24); min-height: 48px; }
+/* كبسولة واتساب الرأس: .lt-btn.lt-btn--secondary.lt-btn--compact.s-head-wa */
+.s-head-wa:not(.c .lt-btn) { flex: none; inline-size: auto; min-block-size: 44px; padding: 0 16px; font-size: 15px; white-space: nowrap; }
+.s-head-wa .lt-btn-icon { display: none; }   /* الجوال: بدون الأيقونة عشان الشعار 171 + 16 + الكبسولة تدخل في 350 (§11.5) */
+/* الجوالات الصغيرة (360 = 320 داخل الحواف): نفس الشعار 32، والكبسولة والروابط أضيق شوي عشان ما يصير تمرير أفقي */
+@media (max-width: 379px) {
+  .s-head { gap: var(--lt-space-12); }
+  .s-head-wa:not(.c .lt-btn) { padding: 0 10px; font-size: 14px; }
+  .s-nav--row .s-wrap { gap: var(--lt-space-16); }
+  .s-nav--row a { font-size: 14px; }
+}
 @media (min-width: 1024px) {
-  .s-head { min-height: 72px; }
-  .s-word { font-size: 22px; }
-  .s-nav { display: flex; gap: var(--lt-space-24); }
-  .s-nav a { display: inline-flex; align-items: center; justify-content: center; min-width: var(--lt-tap-min); min-height: var(--lt-tap-min); color: var(--lt-text); font-size: 15px; font-weight: 500; text-decoration: none; }
-  .s-nav a:hover { text-decoration: underline; }
+  .s-head { gap: var(--lt-space-20); min-height: 80px; }
+  .s-logo-h { height: 40px; }
+  .s-nav--top { display: flex; margin-inline-start: var(--lt-space-40); }
+  .s-nav--row { display: none; }
+  .s-head-wa:not(.c .lt-btn) { min-block-size: 48px; padding: 0 20px; }
+  .s-head-wa .lt-btn-icon { display: block; }
 }
 
-/* خانات الشعار (GM-036): كل خانة ملف SVG بمسار واحد في assets/brand/ (logo-horizontal و-dark، وlogo-stack-dark و-since-dark)،
-   يسلمها المدير العام ويركّبها tools/build-home-minis.cjs مكان الكلمة. الملفات نفسها ما نلمسها.
-   - الأفقي في الرأس: ارتفاع 40 على الجوال و44 من 1024 (المدى 40 إلى 48)، والعرض من نسبة الملف (تقريباً 10.9H).
-     الفراغ الآمن 0.5H (تقريباً 10px) فوقه وتحته من ارتفاع الرأس (64 و72)، وجنبه من فراغ الرأس (24).
-   - المكدّس في التذييل: 120px، و160px من 1024 (نسخة «SINCE 2026» بس هناك، لأنها تبي 160 أو أكثر).
-   - ما ينحط فوق صورة: الرأس والتذييل على الحبر أو الرملي بس */
-.s-logo-link { display: inline-flex; align-items: center; min-height: var(--lt-tap-min); }
-.s-logo-h { display: block; width: auto; height: 40px; }
-.s-logo-stack { display: block; width: 120px; height: auto; }
-@media (min-width: 1024px) {
-  .s-logo-h { height: 44px; }
-  .s-logo-stack { width: 160px; }
-}
-
-/* الأزرار في صفحات الشركة (§3.5 و§3.6): كبسولة، 52 ارتفاع، حشو 24، ونص 16/500. الانتقال 150ms على اللون والحد بس.
-   الألوان من متغيرات components.css (الفعل الأساسي، والحبر يقلبها في .lt-ink). أزرار صفحات الزبون (.c) زي ما هي */
+/* ===== 2) الأزرار (§1 و§11.1): زاوية 14 (مو كبسولة)، 52 ارتفاع، حشو 24، نص 16/500. الانتقال 150ms على اللون والحد بس.
+   الألوان من components.css (الفعل الأساسي حبر). أزرار صفحات الزبون (.c) زي ما هي ===== */
 .lt-btn:not(.c .lt-btn) {
-  min-block-size: 52px; padding: 0 24px; border-radius: var(--lt-radius-pill); font-size: 16px; font-weight: 500; line-height: 1;
+  min-block-size: 52px; padding: 0 24px; border-radius: var(--lt-radius-m); font-size: 16px; font-weight: 500; line-height: 1.2;
   transition: background-color .15s ease-out, border-color .15s ease-out, color .15s ease-out;
 }
-/* الثانوي: شفاف بحد 1px بلون النص، والضغط السطح 2 (رملي #F3EEE6 على الرملي، و#1C2B29 على الحبر) */
-.lt-btn--secondary:not(.c .lt-btn) { --btn-bg: transparent; --btn-line: var(--lt-text); --btn-press: var(--lt-surface-2); }   /* لون اللمس في آيفون من components.css */
-/* كبسولة الرأس: المختصر نفسه (48، و15) بزاوية كبسولة */
+/* الثانوي / المحدد: شفاف بحد 1px بلون النص، والضغط السطح 2 */
+.lt-btn--secondary:not(.c .lt-btn) { --btn-bg: transparent; --btn-fg: var(--lt-text); --btn-line: var(--lt-text); --btn-press: var(--lt-surface-2); }
 .lt-btn--compact:not(.c .lt-btn) { min-block-size: 48px; padding: 0 18px; font-size: 15px; }
-/* الرابط المستقل (§3.5): 16/500 بلون --lt-link، وخط تحت 1px، وبدون سهم، ولمسه 48 */
-.lt-link:not(.c .lt-link) { font-size: 16px; font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; text-decoration-skip-ink: auto; }
+/* الرابط المستقل: 16/500 بلون --lt-link (حبر)، وخط تحت 1px، وبدون سهم، ولمسه 48 */
+.lt-link:not(.c .lt-link) { display: inline-flex; align-items: center; min-height: var(--lt-tap-min); font-size: 16px; font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; text-decoration-skip-ink: auto; }
 .lt-link:not(.c .lt-link) .lt-link-icon { display: none; }
+/* حالات الرابط (GM-055، AD-19): --lt-link = --lt-text، فتغيير اللون ما يبان. التحويم خط أثقل، والضغط خلفية الرملي الثاني (مثل .s-tg-link) */
+@media (hover: hover) and (pointer: fine) { .lt-link:not(.c .lt-link):hover { text-decoration-thickness: 2px; } }
+.lt-link:not(.c .lt-link):active { background: var(--lt-surface-2); }
 
-/* زوج الأزرار (البطل والخاتمة): فوق بعض بعرض كامل على الجوال، وجنب بعض من 768.
-   بدون رقم واتساب: الواتساب مخفي، والزر الثاني يبقى بشكل الأساسي (app.js يحطه ثانوي بس لما فيه رقم) */
+/* زوج الأزرار: فوق بعض بعرض كامل على الجوال، وجنب بعض من 768 */
 .s-pair { display: grid; gap: var(--lt-space-12); }
 .s-pair > .lt-btn { margin: 0; }
 @media (min-width: 768px) {
@@ -97,41 +133,198 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 .s-acts > .lt-btn { margin: 0; }
 @media (min-width: 768px) { .s-acts > .lt-btn { inline-size: auto; } }
 
-/* سطر بعلامة صح تيل 20px (سطر المخاطرة، وما في الباقة) */
+/* ===== 3) مجموعة التواصل .s-cta (GM-046 و GM-047، web-copy «التواصل في الصفحات الثلاث»): بالترتيب
+   الزر الأساسي ← سطر المخاطرة (لو زر طلب) ← «أو كلّمنا على تليجرام» ← إشعار المحامي. كل سطر صغير تحت اللي يشرحه.
+   - [data-wa="<مفتاح>"]: زر الواتساب، يختفي لو الرقم فاضي. [data-wa-empty]: سطر يطلع بداله. [data-wa-only]: يطلع مع الرقم بس.
+   - .s-risk[data-wa-only]: سطر المخاطرة المعتمد، يختفي مع الزر (§5).
+   - .s-tg[data-tg="with-wa"]: رابط التليجرام وإشعاره، يطلعون بس لما رقم الواتساب ويوزر التليجرام موجودين (web-copy «أ»: «أو» تحتاج شي قبلها).
+     [data-tg] بدون قيمة: يطلع مع يوزر التليجرام بس. الرابط [data-tg-link] ينبني https://t.me/<telegram> في app.js.
+   - رابط «سياسة الخصوصية» داخل الإشعار: a[data-link="privacy"]، يختفي لو links.privacy فاضي. ===== */
+.s-cta { display: grid; justify-items: start; gap: var(--lt-space-8); }
+.s-cta:not(:has(> :not([hidden]))) { display: none; }   /* كل اللي فيها مخفي (بدون رقم واتساب): ولا مسافة فاضية (AD-16) */
+.s-cta > .lt-btn { margin: 0 0 var(--lt-space-4); }
+@media (min-width: 768px) { .s-cta > .lt-btn { inline-size: auto; } }
+.s-risk { max-width: 36em; font-size: 14px; line-height: 1.55; font-weight: 500; color: var(--lt-muted); }
+.s-tg { display: grid; gap: var(--lt-space-4); max-width: 36em; }
+.s-tg-line { font-size: 15px; line-height: 1.5; color: var(--lt-muted); }
+.s-tg-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--lt-link); font-weight: 500; text-decoration: underline; }
+/* حالات الروابط النصية (GM-055، AD-19): التحويم يثخّن الخط، والضغط خلفية الرملي الثاني */
+@media (hover: hover) and (pointer: fine) { .s-tg-link:hover, .s-tg-note a:hover { text-decoration-thickness: 2px; } }
+.s-tg-link:active, .s-tg-note a:active { background: var(--lt-surface-2); }
+.s-tg-note { font-size: 13px; line-height: 1.6; color: var(--lt-muted); }   /* 13px رمادي: 5.94 على الرملي و 5.50 على الرملي الثاني (AA) */
+.s-tg-note a { padding-block: 14px; color: var(--lt-link); }   /* رابط داخل جملة: الحشو يكبّر منطقة الضغط بدون ما يغيّر السطر */
+
+/* سطر بعلامة صح (سطر الثقة، ومحتوى الباقة): الصح 20px بلمسة الصفحة (--lt-check: حبر في البوابة، ولمسة الجمهور في صفحته) */
 .s-check { display: flex; align-items: flex-start; gap: var(--lt-space-8); }
 .s-check-i { flex: none; width: 20px; height: 20px; margin-top: .3em; color: var(--lt-check); }
-.s-checks { list-style: none; padding: 0; display: grid; gap: var(--lt-space-8); }
+.s-checks { list-style: none; padding: 0; display: grid; gap: var(--lt-space-12); }
 
-/* خطوات مرقّمة (كيف نشتغل في الرئيسية، وكيف يشتغل في شرح التقييم): رقم 32/500 رمادي بأرقام جدولية (Figtree لما يوصل،
-   لأنها تسلسل حقيقي، §4 بند 6)، ثم عنوان h3، ثم جملة ثانوي. فوق بعض، ومن 1024 ثلاثة أعمدة */
-.s-steps { list-style: none; padding: 0; margin-top: var(--lt-space-40); display: grid; gap: var(--lt-space-32); }
-.s-step-n { display: block; margin-bottom: var(--lt-space-12); color: var(--lt-muted); font-size: 32px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
+/* ===== 4) خطوات مرقّمة (كيف نشتغل، وكيف يشتغل في صفحة الشرح): الرقم 44/700 حبر بأرقام جدولية (§11.3)، ثم h3 بوزن 500، ثم جملة.
+   فوق بعض، ومن 1024 ثلاثة أعمدة ===== */
+.s-steps { list-style: none; padding: 0; margin-top: var(--lt-space-40); display: grid; gap: var(--lt-space-40); }
+.s-step-n { display: block; margin-bottom: var(--lt-space-16); color: var(--lt-text); font-family: var(--lt-font-latin); font-size: 44px; font-weight: var(--lt-weight-figure, 700); line-height: 1; font-variant-numeric: tabular-nums; }
 .s-step-t { max-width: 36em; margin-top: var(--lt-space-8); color: var(--lt-muted); }
 @media (min-width: 1024px) { .s-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--lt-grid-gap); } }
 
-/* البطاقة (§3.3 و§3.6): بس لشي متوازي ينفتح أو ينختار (الأمثلة والباقتين). 8px وحد 1px، بدون ظل ولا hover */
-.s-card { border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-surface); }
+/* ===== 5) البطاقة: بيضاء، زاوية 8، وحد 1px، وظل مرفوع بطبقات خفيفة (GM-055: --lt-elev-raised من web-brand، ولين ينضاف في tokens.css
+   القيمة ما تنحسب فتصير بدون ظل). التحويم يغيّر الحد بس (بدون تغيير مقاس) ===== */
+.s-card { border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-surface); box-shadow: var(--lt-elev-raised); }
 
-/* لوحة الحبر (§3.1): الألوان من .lt-ink (tokens.css) والخلفية والنص وخط الداكن من components.css.
-   اللوحة عندنا أكثر من عنصر ورا بعض (الرأس والبطل والأمثلة، والخاتمة والتذييل)، فخط الداكن يبقى على حافتها
-   الفوق والتحت بس، ومو بين أجزائها: .s-ink-first أول جزء، و.s-ink-mid اللي بالنص، و.s-ink-last آخر جزء */
-@media (prefers-color-scheme: dark) {
-  .lt-ink.s-ink-first { border-bottom: 0; }
-  .lt-ink.s-ink-mid { border-block: 0; }
-  .lt-ink.s-ink-last { border-top: 0; }
+/* ===== 6) البابين (§3 و§11.1): <ul class="s-doors" data-doors> وفي كل <li> باب .s-door[data-door][data-audience].
+   الباب بطاقة بيضاء قطعة من الرمز: زاوية كبيرة وحدة = 25% من عرض الباب (حد 120 من 1024 و88 تحته)، والباقي 8.
+   الكمبيوتر: باب المطاعم (يمين) زاويته فوق يمين، وباب المضيفين (يسار) فوق يسار. الجوال: المطاعم فوق يمين، والمضيفين تحت يسار.
+   فوق: الوسيط (.s-door-media) 16:9 على الجوال و4:3 من 768، ينقص مع زاوية البطاقة. تحته: أيقونة 24 باللمسة، والعنوان رابط (.s-door-link)
+   وغطاؤه يغطي الباب كله، والسطر. التركيز والتحويم على البطاقة كلها. ===== */
+.s-doors { list-style: none; padding: 0; margin-top: var(--lt-space-40); display: grid; gap: var(--lt-space-16); }
+.s-doors > li { container-type: inline-size; }
+.s-door { --door-big: 88px; position: relative; display: flex; flex-direction: column; height: 100%; overflow: hidden; border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-surface); box-shadow: var(--lt-elev-raised); transition: border-color .15s ease-out; }
+.s-doors > li:first-child .s-door { border-top-right-radius: var(--door-big); }
+.s-doors > li:last-child .s-door { border-bottom-left-radius: var(--door-big); }
+@supports (width: 1cqi) { .s-door { --door-big: min(88px, 25cqi); } }
+.s-door-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--lt-surface-2); }
+.s-door-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.s-door-body { display: grid; gap: var(--lt-space-12); padding: var(--lt-space-24); }
+.s-door-icon { width: 24px; height: 24px; color: var(--lt-accent); }
+.s-door-t { font-size: 28px; line-height: 1.25; font-weight: var(--lt-weight-heading, 500); }
+.s-door-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--lt-text); text-decoration: none; }
+.s-door-link::after { content: ""; position: absolute; inset: 0; z-index: 2; }   /* الباب كله هدف ضغط */
+.s-door-line { max-width: 32em; color: var(--lt-muted); }
+.s-door:has(.s-door-link:focus-visible) { outline: 3px solid var(--lt-focus); outline-offset: 3px; }
+.s-door-link:focus-visible { outline: none; }
+@supports not selector(:has(*)) { .s-door-link:focus-visible { outline: 3px solid var(--lt-focus); outline-offset: 3px; } }
+@media (hover: hover) and (pointer: fine) { .s-door:hover { border-color: var(--lt-text); } }
+.s-door:active { border-color: var(--lt-text); }   /* اللمس (AD-19): الحد حبر وقت الضغط */
+/* صورة الباب بطبقتين (البابين، المشهدين المولّدين المعتمدين، AD-14): <div class="s-door-photo" data-scan="tint"> والطبقتين فيها.
+   القص لكل باب في ملف الصفحة (home.css): --dp نقطة التركيز (object-position)، و --dz التقريب حول --do (transform بس، فتحويم الباب
+   1.03 من motion.css بخاصية scale يمشي فوقه) */
+.s-door .s-door-media > .s-door-photo { position: absolute; inset: 0; overflow: hidden; }
+.s-door-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--dp, 50% 50%); transform: scale(var(--dz, 1)); transform-origin: var(--do, 50% 50%); }
+@media (min-width: 768px) {
+  .s-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-grid-gap); }
+  .s-door-media { aspect-ratio: 4 / 3; }
+  .s-doors > li:last-child .s-door { border-bottom-left-radius: var(--lt-radius-s); border-top-left-radius: var(--door-big); }
+  .s-door-body { padding: var(--lt-space-32); }
+}
+@media (min-width: 1024px) {
+  .s-door { --door-big: 120px; }
+  .s-door-t { font-size: 36px; line-height: 1.2; }
+}
+@supports (width: 1cqi) { @media (min-width: 1024px) { .s-door { --door-big: min(120px, 25cqi); } } }
+
+/* ===== 7) الصور بطبقتين (§4): <div class="s-photo" data-scan="tint"> وفيها الأبيض والأسود أول، وفوقها <img data-tint> الملونة
+   بنفس القص. الخانة تحدد النسبة (aspect-ratio في ملف الصفحة أو --photo-ratio)، والصور cover. داخل التخطيط زاوية 8،
+   واللي تلمس حافة الشاشة .s-photo--bleed بدون زاوية. بدون JS: الأبيض والأسود. تقليل الحركة: الملونة (motion.css) ===== */
+.s-photo { position: relative; overflow: hidden; aspect-ratio: var(--photo-ratio, 4 / 3); border-radius: var(--lt-radius-s); background: var(--lt-surface-2); }
+.s-photo--bleed { border-radius: 0; }
+.s-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-pos, 50% 50%); }
+
+/* ===== 8) المشهد (GM-049/050): علامة @@scene:<الاسم> في tools/build-home-minis.cjs تحط المشهد من assets/mockups/ لو ملفاته موجودة،
+   وإلا مكان فاضي فاتح .s-scene--ph (بدون نص، aria-hidden). الخانة (مثل .s-door-media) تحدد القص والنسبة ===== */
+.s-scene { position: relative; display: block; width: 100%; height: 100%; }
+.s-scene--ph { background: var(--lt-surface-2); box-shadow: inset 0 0 0 var(--lt-hairline) var(--lt-border); }
+.s-door-media > .s-scene { position: absolute; inset: 0; }
+.s-scene > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--scene-pos, 50% 50%); }
+
+/* ===== 9) الباقة (§5 و§10 و§11.3): <article class="s-card s-plan"> فيها .s-plan-what (الاسم، و«وش فيها» بعلامات صح) و .s-plan-buy
+   (السعر، ثم .s-cta بالزر وسطر المخاطرة والتليجرام). من 1024 نصين: يمين وش فيها، ويسار السعر والزر، وبينهم خط 1px.
+   السعر: .s-price فيه .s-price-fig (Figtree 700، 36 / 44، أرقام جدولية) و .s-price-unit (17/400)، وسطر .s-price-note رمادي 15/500.
+   .s-plan--stack: البطاقة فوق بعض دايماً (بطاقتين جنب بعض في .s-plans من 1024، صفحة المضيفين)، والسعر والزر تحت بخط 1px فوقهم.
+   مفتاح الأسعار (web-copy «مفتاح الأسعار»، مرجع صاحب المشروع brief-gm040.md): .s-period فيه .s-switch (radiogroup، المنطق في app.js
+   initPriceSwitch) وسطر صغير تحت الخيار الثاني (.s-period-note). يطلع مع JS بس (.js)، وبدونه البطاقات على الحالة الأولى وسطر .s-nojs.
+   المؤشر (.s-switch-thumb) ينزلق بـ transform، والرقم يتدحرج بالخانات (.s-roll-*، transform بس). تقليل الحركة: تبديل مباشر ===== */
+.s-plan { display: grid; gap: var(--lt-space-32); padding: var(--lt-space-24); }
+.s-plan-what .s-checks { margin-top: var(--lt-space-20); }
+.s-plan-buy { display: grid; align-content: start; gap: var(--lt-space-8); }
+.s-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--lt-space-8); line-height: 1.15; }
+.s-price-fig { font-family: var(--lt-font-latin); font-size: 36px; font-weight: var(--lt-weight-figure, 700); font-variant-numeric: tabular-nums; color: var(--lt-text); }
+.s-price-unit { font-size: 17px; font-weight: var(--lt-weight-unit, 400); color: var(--lt-text); }
+.s-price-fig { direction: ltr; unicode-bidi: isolate; line-height: 1.15; }   /* الأرقام من اليسار لليمين حتى لما تتقسم خانات */
+.s-price-note { font-size: 15px; line-height: 1.5; font-weight: 500; color: var(--lt-muted); }
+.s-plan-buy .s-cta { margin-top: var(--lt-space-16); }
+/* الخانة المتدحرجة: الشبح (.s-roll-g، مخفي) يعطي العرض والسطر، والعمود (0 لين 9) فوقه يتحرك بـ translateY، والقص clip-path (ما يغيّر السطر) */
+.s-roll-d { position: relative; display: inline-block; clip-path: inset(0); }
+.s-roll-g { visibility: hidden; }
+.s-roll-col { position: absolute; left: 0; top: 0; width: 100%; display: flex; flex-direction: column; align-items: center; }
+.s-roll-col > span { display: block; }
+/* المفتاح: إطار أبيض بحد 1px وزاوية 14، وخيارين 44، والمؤشر حبر تحت الخيار المختار (نصه أبيض) */
+.s-period { display: none; }
+.js .s-period { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--lt-space-4); width: max-content; max-width: 100%; }
+.s-switch { position: relative; grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: var(--lt-space-4); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-m); background: var(--lt-surface); }
+.s-switch-opt { position: relative; z-index: 1; min-height: 44px; padding: 0 var(--lt-space-24); border: 0; border-radius: calc(var(--lt-radius-m) - 4px); background: transparent; color: var(--lt-text); font: inherit; font-size: 15px; font-weight: 500; line-height: 1.2; white-space: nowrap; cursor: pointer; touch-action: manipulation; transition: color .15s ease-out, background-color .15s ease-out; }
+.s-switch-opt[aria-checked="true"] { color: var(--lt-on-action); cursor: default; }
+@media (hover: hover) and (pointer: fine) { .s-switch-opt[aria-checked="false"]:hover { background: var(--lt-surface-2); } }
+.s-switch-opt[aria-checked="false"]:active { background: var(--lt-surface-2); }
+.s-switch-thumb { position: absolute; z-index: 0; top: var(--lt-space-4); bottom: var(--lt-space-4); inset-inline-start: var(--lt-space-4); width: calc(50% - var(--lt-space-4)); border-radius: calc(var(--lt-radius-m) - 4px); background: var(--lt-action); pointer-events: none; }
+.s-switch[data-on="1"] .s-switch-thumb { transform: translateX(-100%); }   /* RTL: الخيار الثاني يسار */
+[dir="ltr"] .s-switch[data-on="1"] .s-switch-thumb { transform: translateX(100%); }
+.s-period-note { grid-column: 2; text-align: center; font-size: 13px; line-height: 1.5; font-weight: 500; color: var(--lt-muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .s-switch-thumb { transition: transform .32s var(--m-out, cubic-bezier(.16, 1, .3, 1)); }
+  .s-roll-col { transition: transform .6s var(--m-out, cubic-bezier(.16, 1, .3, 1)); }
+}
+.s-plan-buy > .s-period { margin-bottom: var(--lt-space-16); }
+/* بطاقتين جنب بعض (المضيفين) */
+.s-plans { display: grid; gap: var(--lt-space-16); }
+.s-plan.s-plan--stack { display: flex; flex-direction: column; }
+.s-plan-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--lt-space-8) var(--lt-space-16); }
+/* الشارة: حقيقة معتمدة بس (مثل «سعر أقل للوحدة»)، مربع صغير باللمسة ونص حبر 14/500، وزاوية 8 (مو كبسولة) */
+.s-badge { display: inline-flex; align-items: center; gap: var(--lt-space-8); padding: var(--lt-space-4) var(--lt-space-12); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-bg); font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--lt-text); }
+.s-badge::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 2px; background: var(--lt-accent); }
+@media (min-width: 1024px) {
+  .s-plan { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; }
+  .s-plan-what, .s-plan-buy { padding: var(--lt-space-40); }
+  .s-plan-buy { border-inline-start: var(--lt-hairline) solid var(--lt-border); }
+  .s-price-fig { font-size: 44px; }
+  /* الزر مخفي (بدون رقم واتساب): السعر يتوسط عمودياً في عموده، بدل فراغ تحته (AD-16) */
+  .s-plan:not(.s-plan--stack) .s-plan-buy:not(:has(.s-cta > :not([hidden]))) { align-content: center; }
+  .s-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-grid-gap); align-items: stretch; }
+  .s-plan--stack .s-plan-buy { margin-top: auto; border-inline-start: 0; border-top: var(--lt-hairline) solid var(--lt-border); }
 }
 
-/* الأقسام: بين الأقسام 72 / 96 / 128 (--lt-section) */
-.s-section { margin-top: var(--lt-section); }
+/* ===== 10) الأسئلة: <div class="s-faq" data-accordion> وفيها <details class="s-q"><summary>…</summary><div class="s-q-a"><p>…</p></div></details>.
+   صف السؤال 56 و17/500، وتحته خط 1px، و+ تصير −. الحركة (240ms) من motion.css على [data-accordion]. 8 أسئلة بالكثير ===== */
+.s-faq { border-top: var(--lt-hairline) solid var(--lt-border); }
+.s-q { border-bottom: var(--lt-hairline) solid var(--lt-border); }
+.s-q summary { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-16); min-height: 56px; padding-block: var(--lt-space-12); font-size: 17px; font-weight: 500; line-height: 1.4; list-style: none; cursor: pointer; touch-action: manipulation; }
+.s-q summary::-webkit-details-marker { display: none; }
+/* حالات السؤال (GM-055، AD-19): التحويم خط تحت النص، والضغط خلفية الرملي الثاني */
+@media (hover: hover) and (pointer: fine) { .s-q summary:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; } }
+.s-q summary:active { background: var(--lt-surface-2); }
+.s-q summary::after { content: ""; flex: none; width: 16px; height: 16px; background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat, linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; }
+.s-q[open] summary::after { background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat; }
+.s-q-a { max-width: 36em; padding-bottom: var(--lt-space-20); }
 
-/* التذييل (§3.7): داخل آخر لوحة حبر بعد خط 1px. «لمسة تاب» 20/600، وسطر، وروابط الأقسام، والحقوق. بدون سوشال */
-.s-foot { display: grid; gap: var(--lt-space-24); padding-block: var(--lt-space-48); border-top: var(--lt-hairline) solid var(--lt-border); font-size: 14px; line-height: 1.6; color: var(--lt-muted); }
-.s-foot-name { color: var(--lt-text); font-size: 20px; font-weight: 600; line-height: 1.3; }
-.s-foot-id p + p { margin-top: var(--lt-space-4); }
-.s-foot-links { display: flex; flex-wrap: wrap; gap: 0 var(--lt-space-24); }
-.s-foot-links a { display: inline-flex; align-items: center; justify-content: center; min-width: var(--lt-tap-min); min-height: var(--lt-tap-min); color: var(--lt-muted); }   /* هدف لمس 48×48 حتى للكلمة القصيرة («الأسئلة» 42px) */
+/* ===== 11) «اسأل إنسان» .s-ask (web-copy «ب»): لوح .lt-lift (رملي ثاني، حد 1px، زاوية 8) داخل الحاوية، فيه العنوان وسطر وعد الرد
+   (GM-046: خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم) و .s-cta بزر الواتساب برسالة الصفحة ===== */
+.s-ask { display: grid; gap: var(--lt-space-12); padding: var(--lt-space-32) var(--lt-space-24); }
+.s-ask-t { max-width: 36em; color: var(--lt-muted); }
+.s-ask .s-cta { margin-top: var(--lt-space-12); }
 @media (min-width: 1024px) {
-  .s-foot { grid-template-columns: 1fr auto; align-items: end; padding-block: var(--lt-space-64); }
+  .s-ask { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; padding: var(--lt-space-48); }
+  .s-ask > .s-ask-head { grid-column: 1 / span 6; }
+  .s-ask > .s-cta { grid-column: 8 / span 5; margin-top: 0; }
+}
+
+/* ===== 12) التذييل الفاتح (§3 ج10، §11.5): <footer class="s-foot-wrap"> رملي ثاني، وخط 1px فوق.
+   المكدّس logo-stack.svg بعرض 120 وحوله 40، ومن 1024 logo-stack-since.svg بعرض 160 وحوله 48 (يولّده @@logo:foot).
+   ثم «نركّب حالياً في جدة» والسجل، والروابط (الأقسام الثلاث، والسياسات [data-link]، وواتساب [data-wa]، والقناة [data-tg-channel])،
+   والحقوق. كل رابط مخفي لو قيمته فاضية في config.js ===== */
+.s-foot-wrap { background: var(--lt-surface-2); border-top: var(--lt-hairline) solid var(--lt-border); }
+.s-foot { display: grid; gap: var(--lt-space-24); padding-block: var(--lt-space-40) var(--lt-space-48); font-size: 14px; line-height: 1.6; color: var(--lt-muted); }
+.s-foot-logo { display: block; width: max-content; }
+.s-logo-stack { display: block; width: 120px; height: auto; }
+.s-foot-name { color: var(--lt-text); font-size: 20px; font-weight: 500; line-height: 1.3; }
+.s-foot-id { display: grid; gap: var(--lt-space-4); }
+.s-foot-id > :first-child { margin-bottom: var(--lt-space-40); }   /* فراغ الشعار 40 (§11.5) */
+.s-foot-note { font-size: 13px; line-height: 1.5; }   /* «الصور توضيحية»: 13px رمادي جنب سطر السجل (المدير الفني §5 بند 6) */
+.s-foot-links { display: flex; flex-wrap: wrap; gap: 0 var(--lt-space-24); }
+.s-foot-links a { display: inline-flex; align-items: center; justify-content: center; min-width: var(--lt-tap-min); min-height: var(--lt-tap-min); color: var(--lt-muted); }
+@media (hover: hover) and (pointer: fine) { .s-foot-links a:hover { color: var(--lt-text); } }   /* AD-19 */
+.s-foot-links a:active { color: var(--lt-text); background: var(--lt-border); }
+@media (min-width: 1024px) {
+  .s-foot { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--lt-space-32); padding-block: var(--lt-space-48) var(--lt-space-64); }
+  .s-logo-stack { width: 160px; }
+  .s-foot-id > :first-child { margin-bottom: var(--lt-space-48); }   /* فراغ نسخة SINCE 48 */
   .s-foot-c { grid-column: 1 / -1; }
 }
 

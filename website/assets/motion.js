@@ -1,97 +1,135 @@
 /* لمسة تاب — نظام الحركة 2 (web-motion): مكتبة «المسح» لصفحات الشركة بس (GM-039 و GM-040 و GM-043). GSAP 3.15 و ScrollTrigger محليين.
    الشرح والجدول «أي حركة، على أي attribute، في أي صفحة وقسم»: work/2026-09-27-brand-identity/web-motion.md «النظام 2».
-   القواعد (web-art-director.md «الاتجاه 2» §7 و«الاتجاه 3» §6، و ui-ux-pro-max §7):
-   - fail-open: أي خطأ في التهيئة أو وقت الحركة يرجّع كل شي لحالته النهائية الظاهرة (mm.revert وتنشال m و mh).
-   - transform و opacity و clip-path بس. ولا قراءة layout داخل الحلقات: القياس مرة وحدة وعند refresh.
+   القواعد (web-art-director.md «الاتجاه 2» §7 و«الاتجاه 3» §6، و ui-ux-pro-max §7، و skills/gsap.md):
+   - fail-open: أي خطأ في التهيئة أو وقت الحركة يرجّع كل شي لحالته النهائية الظاهرة (تنشال m و mh أول شي، وبعدها mm.revert).
+   - transform و opacity و clip-path بس. ولا قراءة layout داخل الحلقات: القياس مرة وحدة وعند refresh (داخل الدوال).
    - خط مسح واحد في الشاشة بأي لحظة (طابور)، ويمر على الوسائط بس (صور، شاشات، باركود)، ما يمر على النص أبداً.
-   - النص ظاهر من أول لحظة. بدون JS ومع تقليل الحركة: الشكل النهائي. */
+   - النص ظاهر من أول لحظة. بدون JS ومع تقليل الحركة: الشكل النهائي.
+   - أي حركة أو ScrollTrigger ينبني بعدين (IntersectionObserver، rAF، حدث، onComplete) يمر بـ later() = contextSafe، فيرجع مع matchMedia. */
 (function (w, d) {
   'use strict';
-  var H = d.documentElement, g = w.gsap, ST = w.ScrollTrigger, mm = null, junk = [], dead = false;
+  var H = d.documentElement, g = w.gsap, ST = w.ScrollTrigger, mm = null, junk = [], ios = [], offs = [], dead = false, CS = null, splits = [], moved = [];
 
   // ===== fail-open: أي خطأ = كل شي يرجع ظاهر ونهائي =====
-  // يمسح القيم المكتوبة على عناصر الحركة، فترجع لـ CSS الحالة النهائية (بعد mm.revert، وفي fail-open)
   // العناصر اللي الحركة تكتب عليها بالضبط (مو كل الأبناء: الشاشات المصغرة فيها transform خاص فيها ما ينمسح)
-  var HERO = ['[data-open-qr] svg', '[data-open-sym]', '[data-open-word]', '[data-open-cap] > *', '[data-open-logo] img',
+  var HERO = ['[data-open-qr]', '[data-open-qr] svg', '[data-open-sym]', '[data-open-word]', '[data-open-cap] > *', '[data-open-logo] img',
     '[data-reveal]', '[data-reveal="stagger"] > *', '[data-scan="reveal"]', '[data-scan="list"] > *', '[data-scan="media"]', '[data-tint]',
-    '[data-scan="check"] li svg', '[data-door]', '[data-expand-media]', '[data-expand-media] > img', '[data-expand-title] > *', '[data-expand-sheet]',
+    '[data-scan="check"] li svg', '[data-door]', '[data-expand-media]', '[data-expand-media] > *', '[data-expand-title]', '[data-expand-title] > *', '[data-expand-sheet]',
     '[data-expand-in]', '[data-expand-phone]', '[data-story-phone]', '[data-pulse]', '[data-parallax] img'].join(', ');
-  function restore() { try { if (g) g.set([].slice.call(d.querySelectorAll(HERO)), { clearProps: 'opacity,visibility,transform,clipPath' }); } catch (x) {} }
+  function restore() {
+    try { if (g) g.set([].slice.call(d.querySelectorAll(HERO)), { clearProps: 'opacity,visibility,transform,clipPath' }); } catch (x) {}
+    try { if (g && moved.length) g.set(moved, { clearProps: 'transform' }); } catch (x) {} moved = [];
+  }
+  // عناوين الكلمات (data-words): يرجع العنوان لنصه الأصلي بالحرف (بدون الأجزاء ولا aria-label المضاف)
+  function unsplit() {
+    splits.forEach(function (r) { try { r.el.innerHTML = r.html; if (!r.had) r.el.removeAttribute('aria-label'); r.el.classList.remove('m-words'); r.el.__mSplit = null;
+      if (r.band) r.band.classList.remove('m-words-band'); } catch (x) {} });
+    splits = [];
+  }
+  function unjunk() {
+    unsplit();
+    try { junk.forEach(function (n) { if (n && n.parentNode) n.parentNode.removeChild(n); }); } catch (x) {} junk = [];
+    try { ios.forEach(function (o) { o.disconnect(); }); } catch (x) {} ios = [];
+    try { offs.forEach(function (f) { f(); }); } catch (x) {} offs = [];
+    try { [].slice.call(d.querySelectorAll('[data-story].is-live, [data-story] .is-on')).forEach(function (el) { el.classList.remove('is-live', 'is-pinned', 'is-on'); }); } catch (x) {}
+    try { [].slice.call(d.querySelectorAll('.m-docked')).forEach(function (el) { el.classList.remove('m-docked'); }); } catch (x) {}
+  }
+  // FO-4: المحتوى يبان الحين (الكلاسات والقيم المكتوبة)، والإرجاع بعد setTimeout عشان ما يصير وسط حلقة refresh حق ScrollTrigger
   function fail(e) {
     if (dead) return; dead = true;
-    try { if (mm) mm.revert(); } catch (x) {}
-    restore();
-    try { junk.forEach(function (n) { if (n && n.parentNode) n.parentNode.removeChild(n); }); } catch (x) {}
-    H.classList.remove('m', 'mh');
+    H.classList.remove('m', 'mh'); restore(); unsplit();
+    setTimeout(function () { try { if (mm) mm.revert(); } catch (x) {} unjunk(); H.classList.remove('m', 'mh'); restore(); }, 0);
     if (w.console) console.warn('[motion] fail-open:', e && (e.stack || e.message || e));
   }
-  function safe(fn) { return function () { if (dead) return; try { return fn.apply(this, arguments); } catch (e) { fail(e); } }; }
+  function safe(fn) { return function guarded() { if (dead) return; try { return fn.apply(this, arguments); } catch (e) { fail(e); } }; }
+  // later: للي ينبني بعدين. يمر بـ contextSafe حق آخر تشغيل لـ matchMedia، فأي tween أو ScrollTrigger داخله يرجع مع الإرجاع (CL-1، CL-2)
+  function later(fn) { var f = CS ? CS(fn) : fn; return safe(f); }
   if (!g || !ST) { H.classList.remove('m', 'mh'); return; }
+  // FO-8: شبكة أخيرة لخطأ يطلع داخل رسم GSAP (من الدوال اللي ترجع قيم) واللي safe() ما توصله
+  w.addEventListener('error', function (ev) { if (/motion\.js|vendor\/gsap/.test((ev && ev.filename) || '')) fail(ev.error || ev.message); });
 
   try {
     g.registerPlugin(ST);
-    // إطار ثقيل (تحميل الصفحة مثلاً): الحركة تستنى بدل ما تقفز (أي إطار فوق 120ms ينحسب 16ms)، فما يضيع شي من التسلسل
+    // إطار ثقيل (تحميل الصفحة مثلاً): الحركة تستنى بدل ما تقفز (أي إطار فوق 120ms ينحسب 16ms). مقاس في web-motion.md «التركيب»
     g.ticker.lagSmoothing(120, 16);
 
-    // ===== سلّم واحد للتوقيت والتسارع (ui-ux-pro-max §7 motion-consistency، والمدير الفني «الاتجاه 2» §7) =====
-    // المزاج من data-audience على <html> أو <body>: hosts هادي (×1.25 و quint.out)، restaurants دافي فيه نبض، وبدونه محايد
+    // ===== سلّم واحد للتوقيت والتسارع (ui-ux-pro-max §7 motion-consistency، والمدير الفني «الاتجاه 2» §7 و«الاتجاه 3» §6) =====
+    // المزاج من data-audience على <body> أو <html>: hosts هادي (×1.25 و quint.out)، restaurants دافي فيه نبض، وبدونه (البوابة) محايد
     var aud = (d.body && d.body.getAttribute('data-audience')) || H.getAttribute('data-audience') || '';
     var CALM = aud === 'hosts', K = CALM ? 1.25 : 1;
     var T = { press: .15, acc: .24, draw: .24 * K, rise: .6 * K, scan: .8 * K, pulse: .4, fade: .2 * K, exit: .65 };   // الضغط والأكورديون ثابتين (CSS)
-    var OUT = CALM ? 'quint.out' : 'expo.out', IN = 'expo.in', SCAN = 'quad.inOut', MOVE = 'power2.inOut';
-    var STAG = .06, MAXG = CALM ? 3 : 4, SCRUB = .5, RISE = 20;   // المضيفين: التتابع 3 بالكثير (المدير الفني §6)
+    var OUT = CALM ? 'quint.out' : 'expo.out', IN = 'expo.in', SCAN = 'quad.inOut', MOVE = 'power2.inOut', AWAY = 'power2.in', PULSE = 'sine.inOut';
+    var STAG = .06, MAXG = CALM ? 3 : 4, SCRUB = .3, RISE = 20;   // SCRUB: المدير الفني 0.3 (قرار جولة التجهيز). المضيفين: التتابع 3 بالكثير
     var MODR = .06;   // استدارة زاوية وحدة الحقل: 6 من 100 (زوايا قطع الرمز في brand/logo/v1.0.0/symbol-black.svg). «§11» عند المدير الفني يغلبها
+    var stag = function (i) { return Math.min(i, MAXG - 1) * STAG; };   // 60ms، و4 بالكثير (3 للمضيفين): 0، 60، 120، 180، 180… (TL-9)
 
     var $ = function (s, r) { return (r || d).querySelector(s); };
     var $$ = function (s, r) { return [].slice.call((r || d).querySelectorAll(s)); };
     var clamp = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
     var vh = function () { return w.innerHeight; }, desk = function () { return w.innerWidth >= 1024; };
+    // الجزء الثابت من الرأس بس (64 / 80). صف روابط الجوال برّاه ويمشي مع الصفحة (PIN-5)
+    var headerH = function () { var hd = $('.s-top') || $('header'); return hd ? hd.offsetHeight : 0; };
     function mk(tag, cls, parent) { var e = d.createElement(tag); if (cls) e.className = cls; e.setAttribute('aria-hidden', 'true'); if (parent) parent.appendChild(e); junk.push(e); return e; }
+    function on(t, type, fn, opt) { t.addEventListener(type, fn, opt); offs.push(function () { t.removeEventListener(type, fn, opt); }); }
     // لما العنصر يدخل الشاشة فعلاً (مو حسب مكانه المحسوب): threshold نسبة الظاهر منه، و bottom كم من تحت الشاشة ما يُحسب
     function onView(el, fn, threshold, bottom) {
       if (!('IntersectionObserver' in w)) { fn(); return; }
-      var io = new IntersectionObserver(safe(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); fn(); } }); }), { threshold: threshold || 0, rootMargin: '0px 0px ' + (-(bottom || 0)) + '% 0px' });
+      var go = later(fn);
+      var io = new IntersectionObserver(later(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); go(); } }); }), { threshold: threshold || 0, rootMargin: '0px 0px ' + (-(bottom || 0)) + '% 0px' });
       io.observe(el); ios.push(io);
     }
-    var ios = [];
-    // watch: أول نداء من IntersectionObserver يقرر (بدون قراءة layout وقت التهيئة، فما نجبر تخطيط الأقسام اللي عليها content-visibility):
-    // لو العنصر تحت الشاشة وقت التحميل → hide()، ولما يدخل → show(). لو كان ظاهر أصلاً → now() (أو ولا شي)
+    // watch: أول نداء من IntersectionObserver يقرر (بدون قراءة layout وقت التهيئة):
+    // لو العنصر تحت الشاشة وقت التحميل → hide()، ولما يدخل → show(). لو كان ظاهر أصلاً → now() (أو ولا شي).
+    // FO-7: اللي ينتظر وهو داخل الشاشة لما الصفحة توصل آخرها (ما يوصل خط الدخول أبداً) يشتغل من الحارس (sentinel)
+    var waiting = [];
     function watch(el, hide, show, threshold, bottom, now) {
       if (!('IntersectionObserver' in w)) return;
-      var first = true, hidden = false;
-      var io = new IntersectionObserver(safe(function (es) { es.forEach(function (e) {
+      var first = true, hidden = false, fired = false, io;
+      var fire = later(function () { if (fired) return; fired = true; io.disconnect(); show(); });
+      io = new IntersectionObserver(later(function (es) { es.forEach(function (e) {
         if (first) { first = false;
-          if (e.boundingClientRect.top > vh() * .92) { hidden = true; if (hide) hide(); return; }
-          io.disconnect(); if (now) now(); return; }
-        if (hidden && e.isIntersecting) { io.disconnect(); show(); }
+          if (e.boundingClientRect.top > vh() * .92) { hidden = true; if (hide) hide(); waiting.push({ el: el, fire: fire, done: function () { return fired; } }); return; }
+          fired = true; io.disconnect(); if (now) now(); return; }
+        if (hidden && e.isIntersecting) fire();
       }); }), { threshold: threshold || 0, rootMargin: '0px 0px ' + (-(bottom || 0)) + '% 0px' });
       io.observe(el); ios.push(io);
     }
-    function scanTime(h) { return Math.min(.9, Math.max(.7, .7 + (h - 240) / 1800)) * K; }  // 700 إلى 900ms حسب الطول
+    function sentinel() {
+      if (!('IntersectionObserver' in w) || !d.body) return;
+      var s = mk('i', 'm-end', d.body);
+      var io = new IntersectionObserver(later(function (es) { if (!es[es.length - 1].isIntersecting) return;
+        waiting.forEach(function (it) { if (it.done()) return; var r = it.el.getBoundingClientRect(); if (r.top < vh() && r.bottom > 0) it.fire(); }); }));
+      io.observe(s); ios.push(io);
+    }
+    function scanTime(h) { return Math.min(.9, Math.max(.7, .7 + (h - 240) / 1800)) * K; }  // 700 إلى 900ms حسب الطول (المضيفين ×1.25)
     function hash(x, y, s) { var t = Math.sin(x * 127.1 + y * 311.7 + s * 74.7) * 43758.5453; return t - Math.floor(t); }  // seed ثابت
     function docTop(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
     function docLeft(el) { var x = 0; while (el) { x += el.offsetLeft; el = el.offsetParent; } return x; }
+    function offscreen(el) { var r = el.getBoundingClientRect(); return r.bottom < 0 || r.top > vh(); }
 
     // ===== خط المسح: قلبه 2px بلون --lt-accent وذيله --lt-accent-glow (توكنز web-brand حسب data-audience). البوابة بدونه: حبر =====
     function line(host, light) { return mk('i', 'm-line' + (light ? ' m-line--light' : ''), host); }
 
-    // ===== طابور المسح: خط مسح واحد بس في الشاشة، والثاني يستنى. أي لمس أو زر يكمّل الحالي على طول (interruptible) =====
+    // ===== طابور المسح: خط مسح واحد بس في الشاشة، والثاني يستنى. أي لمس أو زر يكمّل الحالي على طول (interruptible).
+    // لما يجي دور مسح وعنصره طلع من الشاشة (تمرير سريع): يكمل على طول بدون خط، عشان ما يبقى مقصوص وهو ينتظر (M20) =====
     var Q = [], running = null;
-    function queue(make) { Q.push(make); if (!running) next(); }
+    function queue(make, el) { Q.push({ f: later(make), el: el }); if (!running) next(); }
     var next = safe(function () {
-      running = null; var f = Q.shift(); if (!f) return;
-      var tl = f(); if (!tl) return next();
+      running = null; var it = Q.shift(); if (!it) return;
+      var tl = it.f(); if (!tl) return next();
       running = tl; var own = tl.eventCallback('onComplete');   // نكمّل تنظيف الحركة نفسها (شيل الخط والطبقة) وبعدها اللي بعدها
-      tl.eventCallback('onComplete', function () { if (own) own.apply(tl, arguments); next(); });
+      tl.eventCallback('onComplete', function () { if (own) own.apply(tl, arguments); if (running === tl) next(); });
+      if (it.el && offscreen(it.el)) tl.progress(1);
     });
-    ['pointerdown', 'keydown'].forEach(function (t) { w.addEventListener(t, safe(function () { if (running && !dead) running.progress(1); }), { passive: true }); });
+    function finishRunning() { if (running && !dead) running.progress(1); }
+    ['pointerdown', 'keydown'].forEach(function (t) { w.addEventListener(t, safe(finishRunning), { passive: true }); });
 
     // ===== طبقة شاشة الجوال (phone-frame.svg): غطا مطفي بلون الجوال وخط فاتح، فوق الـ svg بدون ما نرسمه من جديد =====
     function kit(box, on) {
       var root = mk('span', 'm-kit', box), scr = mk('span', 'm-kit-screen', root), cover = mk('span', 'm-kit-cover', scr), ln = line(scr, true);
       g.set(cover, { clipPath: on ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 0% 0%)' }); g.set(ln, { opacity: 0 });
       return {
-        root: root, cover: cover, line: ln,
+        root: root, cover: cover, line: ln, screen: scr,
         open: function (dur) {   // الشاشة تنفتح بالمسح من فوق لتحت
           var h = scr.offsetHeight, t = dur || scanTime(h);
           return g.timeline()
@@ -107,65 +145,115 @@
     // 0.7 → 1.3s: وحدات الوسط تتجمع على شكل الرمز، ثم يتبدل بالرمز الحقيقي (تلاشي 200ms).
     // 1.3 → 1.7s: LAMSATAP تنكشف من اليسار لليمين، والسطر يطلع. بعدها مع التمرير: القسم يتثبت 60vh (40vh على الجوال)،
     // والرمز والكلمة يطيرون ويصغرون لخانة الشعار في الرأس الثابت، والباركود يتلاشى، والوعد ثابت مكانه.
+    var OPEN_HIDDEN = '[data-open-qr] svg, [data-open-sym], [data-open-word], [data-open-cap] > *, [data-open-logo] img';
+    // AD-07: الرأس يرجع رملي بخطه وظله (motion.css .m-docked) لما يكون الشعار الحقيقي ظاهر فيه
+    function dock(on) { var hd = $('[data-open-logo]'); hd = hd && hd.closest('header'); if (hd) hd.classList.toggle('m-docked', !!on); }
+    function showOpening() { g.set($$(OPEN_HIDDEN), { opacity: 1, clipPath: 'none' }); dock(true); }   // M3: hook ناقص = الحالة النهائية، مو مخفي بدون خطأ
     function opening(c) {
-      var sec = $('[data-open]'); if (!sec || !c.tall) return;
+      var sec = $('[data-open]');
+      if (!sec) { if ($('[data-open-logo]')) showOpening(); return; }
+      if (!c.tall) return;
       var qr = $('[data-open-qr]', sec), svg = qr && $('svg', qr), sym = $('[data-open-sym]', sec), word = $('[data-open-word]', sec),
-          cap = $$('[data-open-cap] > :not(a)', sec), art = $('[data-open-art]', sec) || qr, dest = $('[data-open-logo]'), destImg = dest && $('img', dest);
-      if (!svg || !sym || !word) return;
+          cap = $$('[data-open-cap] > :not(a)', sec), btn = $$('[data-open-cap] > a', sec), art = $('[data-open-art]', sec) || qr, dest = $('[data-open-logo]'), destImg = dest && $('img', dest);
+      if (!svg || !sym || !word) { showOpening(); return; }
       var F = field(art, svg, sym), flightRef = null;
       var st = { s: 0, q: 0, x: 0 }, draw = safe(function () { F.draw(st.s, st.q, st.x); });
       var intro = g.timeline({ paused: true, onUpdate: draw, onComplete: safe(function () { introPlayed = true; F.remove(); g.set([svg, sym].concat(cap), { opacity: 1 }); g.set(word, { opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }); if (flightRef) flightRef(); }) });
-      intro.set([svg, sym].concat(cap), { opacity: 0 }, 0).set(word, { opacity: 1, clipPath: 'inset(0% 100% 0% 0%)' }, 0)
-        .to(st, { s: 1, duration: .7, ease: SCAN }, 0)                          // المسح يرتّب الحقل باركود
-        .to(st, { q: 1, duration: .4, ease: MOVE }, .7)                         // الوسط يتجمع رمز
-        .to(st, { x: 1, duration: .2, ease: MOVE }, 1.1)                        // يتبدل بالرمز الحقيقي
-        .to(sym, { opacity: 1, duration: .2, ease: MOVE }, 1.1)
-        .set(svg, { opacity: 1 }, 1.3)
-        .to(word, { clipPath: 'inset(0% 0% 0% 0%)', duration: .4, ease: MOVE }, 1.3)   // LAMSATAP من اليسار لليمين (كلمة لاتينية)
-        .fromTo(cap, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .4, ease: OUT }, 1.3);
+      intro.addLabel('scan', 0).addLabel('assemble', .7).addLabel('swap', 1.1).addLabel('word', 1.3)
+        .set([svg, sym].concat(cap), { opacity: 0 }, 'scan').set(word, { opacity: 1, clipPath: 'inset(0% 100% 0% 0%)' }, 'scan')
+        .to(st, { s: 1, duration: .7, ease: SCAN }, 'scan')                          // المسح يرتّب الحقل باركود
+        .to(st, { q: 1, duration: .4, ease: MOVE }, 'assemble')                      // الوسط يتجمع رمز
+        .to(st, { x: 1, duration: .2, ease: MOVE }, 'swap')                          // يتبدل بالرمز الحقيقي
+        .to(sym, { opacity: 1, duration: .2, ease: MOVE }, 'swap')
+        .set(svg, { opacity: 1 }, 'word')
+        .to(word, { clipPath: 'inset(0% 0% 0% 0%)', duration: .4, ease: MOVE }, 'word')   // LAMSATAP من اليسار لليمين (كلمة لاتينية)
+        .fromTo(cap, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .4, ease: OUT }, 'word');
       // أي تمرير أو لمس أو زر يكمّل التسلسل على طول، والتمرير ما ينقفل أبداً (no-blocking-animation، interruptible)
       var skip = safe(function () { if (intro.progress() < 1) intro.progress(1); });
-      ['wheel', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(function (t) { w.addEventListener(t, skip, { passive: true, once: true }); });
-      // يبدأ بعد أول رسم (إطارين)، عشان تخطيط الصفحة الأول ما ياكل أول إطارات التسلسل
-      if (w.scrollY > 4 || introPlayed) intro.progress(1); else requestAnimationFrame(function () { requestAnimationFrame(safe(function () { if (intro.progress() === 0) { draw(); intro.play(); } })); });
+      ['wheel', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(function (t) { on(w, t, skip, { passive: true, once: true }); });
+      // يبدأ بعد أول رسم (إطارين). وهو أول مهمة في طابور المسح، فما يطلع خط مسح ثاني معه (M21)
+      if (w.scrollY > 4 || introPlayed) intro.progress(1);
+      else requestAnimationFrame(function () { requestAnimationFrame(later(function () { if (intro.progress() === 0) { draw(); queue(function () { if (intro.progress() >= 1) return null; intro.play(); return intro; }); } })); });
 
-      // التثبيت والطيران للرأس (shared-element، transform بس). القياس عند refresh بس (مو داخل الحلقة)
-      if (!destImg) return;
-      var hh = function () { var hd = dest.closest('header'); return hd ? hd.offsetHeight : 0; };
-      var R = { s: {}, w: {}, d: {} };
-      var measure = safe(function () {
-        var secTop = docTop(sec), top = hh(), di = destImg.getBoundingClientRect(), vw = 1068.75;   // viewBox logo-horizontal.svg
-        // الرمز (0..200) والكلمة (260..1068.75، 47.4..152.4) داخل ملف الشعار الأفقي نفسه، فالوصول بالبكسل
+      // التثبيت والطيران للرأس (shared-element، transform بس). القياس داخل دوال القيم (بعد ما التثبيت ينفك في refresh، §2.1)
+      if (!destImg) { dock(true); return; }
+      var R = { s: {}, w: {}, d: {}, t: {}, drop: 0 }, txt = $('h1', sec);
+      txt = txt && txt.parentNode !== art && !txt.parentNode.contains(art) ? txt.parentNode : txt;   // الوعد كله (h1 وسطره وسطر الثقة)، أو h1 لحاله
+      // AD-31 (قرار المدير الفني يعدّل §3 للجوال): تحت 1024 الفن فوق بعض مع الوعد، فآخر التثبيت كان نص الشاشة فاضي تحت الوعد.
+      // الحين: القسم يتثبت وأعلى حشوته (24 من 40) تحت الرأس، و min-height الفن 380 (motion.css)، وفي النص الثاني من التثبيت الوعد
+      // ينزل بـ transform لين يتوسط المساحة بين الرأس وأول القسم اللي بعده. القاعدة: آخر التثبيت ولا فراغ أكثر من 30% من الشاشة
+      var PK = function () { return desk() ? 0 : 24; };
+      var measure = function () {
+        var secTop = docTop(sec), hb = headerH(), top = hb - PK(), di = destImg.getBoundingClientRect(), vw = 1068.75;   // viewBox logo-horizontal.svg
+        // الرمز (0..200) والكلمة (260..1068.75، 47.4..152.4) داخل ملف الشعار الأفقي نفسه (مجمّد v1.0.0)، فالوصول بالبكسل
         R.d.s = { x: di.left, y: di.top, w: di.width * 200 / vw };
         R.d.w = { x: di.left + di.width * 260 / vw, y: di.top + di.height * 47.4 / 200, w: di.width * 808.75 / vw };
-        [['s', sym], ['w', word]].forEach(function (p) { var el = p[1]; R[p[0]] = { x: docLeft(el) - w.scrollX, y: docTop(el) - secTop + top, w: el.offsetWidth }; });
-      });
+        [['s', sym], ['w', word]].concat(txt ? [['t', txt]] : []).forEach(function (p) { var el = p[1]; R[p[0]] = { x: docLeft(el) - w.scrollX, y: docTop(el) - secTop + top, w: el.offsetWidth, h: el.offsetHeight }; });
+        R.hb = hb;
+        R.drop = !desk() && txt && R.t.h ? Math.max(0, Math.round((hb + Math.min(vh(), top + sec.offsetHeight)) / 2 - (R.t.y + R.t.h / 2))) : 0;
+      };
       var layer = mk('div', 'm-fly', d.body), fly = {};
       [['s', sym], ['w', word]].forEach(function (p) {
         var cl = p[1].cloneNode(true); cl.removeAttribute('data-open-sym'); cl.removeAttribute('data-open-word'); cl.removeAttribute('style');
         $$('img', cl).forEach(function (im) { im.alt = ''; im.removeAttribute('data-company-alt'); });
         layer.appendChild(cl); fly[p[0]] = cl;
       });
-      var place = function () { ['s', 'w'].forEach(function (k) { var el = k === 's' ? sym : word; g.set(fly[k], { left: R[k].x, top: R[k].y, width: el.offsetWidth, height: el.offsetHeight }); }); };
-      measure(); place();
+      var place = function () { ['s', 'w'].forEach(function (k) { g.set(fly[k], { left: R[k].x, top: R[k].y, width: R[k].w, height: R[k].h }); }); };
+      measure(); place(); g.set([fly.s, fly.w], { transformOrigin: '0 0' });
+      // AD-05: المسار قوس (bezier مكعب) بممر بين الرأس والوعد: الرمز يطلع بدري لـ 40% من المسافة بين أسفل الرأس وأعلى الوعد، يمشي
+      // أفقي فوق الوعد (وتحت روابط الرأس)، وآخر شي يطلع لخانته. التصغير بدري (power3.out). الكلمة تمشي مع الرمز، ومكانها منه يتبدل
+      // من «تحت» (الباركود) لـ «جنب» (الشعار): الأفقي أسرع (expo.out) من العمودي، فما تركب على الرمز أبداً.
+      // على الجوال الممر ضيق والمسار لازم يعبر الوعد، فالتخفيف لـ .15 تحت (hits). كله من القياس وقيم محسوبة، ولا قراءة layout في الإطار
+      var EO = g.parseEase('power3.out'), EX = g.parseEase('expo.out'), fp = { q: 0 }, cur = { s: { x: 0, y: 0, k: 1 }, w: { x: 0, y: 0, k: 1 } }, setF = {};
+      ['s', 'w'].forEach(function (k) { setF[k] = { x: g.quickSetter(fly[k], 'x', 'px'), y: g.quickSetter(fly[k], 'y', 'px'), kx: g.quickSetter(fly[k], 'scaleX'), ky: g.quickSetter(fly[k], 'scaleY') }; });
+      var bez = function (a, c1, c2, b, t) { var u = 1 - t; return u * u * u * a + 3 * u * u * t * c1 + 3 * u * t * t * c2 + t * t * t * b; };
+      var move = function (q) {
+        var S = R.s, Wd = R.w, D = R.d, tt = txt && R.t.w ? R.t.y : NaN, e = EO(q);
+        var yc = tt > R.hb + 8 ? R.hb + (tt - R.hb) * .4 : D.s.y;
+        var sx = bez(S.x, S.x, D.s.x, D.s.x, q), sy = bez(S.y, yc, yc, D.s.y, q);
+        var rx0 = Wd.x - S.x, ry0 = Wd.y - S.y, rx1 = D.w.x - D.s.x, ry1 = D.w.y - D.s.y;
+        cur.s = { x: sx - S.x, y: sy - S.y, k: 1 + e * (D.s.w / S.w - 1) };
+        cur.w = { x: sx + rx0 + EX(q) * (rx1 - rx0) - Wd.x, y: sy + ry0 + e * (ry1 - ry0) - Wd.y, k: 1 + e * (D.w.w / Wd.w - 1) };
+        ['s', 'w'].forEach(function (k) { setF[k].x(cur[k].x); setF[k].y(cur[k].y); setF[k].kx(cur[k].k); setF[k].ky(cur[k].k); });
+      };
+      // الشفافية تنكتب من التقدّم مباشرة (مو من قيم بداية مسجّلة). TL-11: quickSetter للي يتغير كل إطار، والباقي بس لما يتبدل.
+      // AD-06: زر «افتح المثال» جزء من مجموعة الفن، فيتلاشى معها، ولما يوصل 0 يصير visibility: hidden (ما ينضغط ولا ينوصل له
+      // بالكيبورد وهو مخفي)، ويرجع مع الرجوع. قاعدة «النص ما ينخفي» للوعد بس (قرار المدير الفني)
+      var fade = g.quickSetter([svg].concat(cap, btn), 'opacity'), last = {}, dim = {};
+      // الباركود رابط (بديل الكيبورد والضغط): لما يختفي مع الفن ما يبقى رابط شفاف ينضغط أو ينوصل له بالكيبورد، مثل زر «افتح المثال»
+      var hideAt0 = btn.concat(qr && qr.tagName === 'A' ? [qr] : []);
+      // AD-31: نزول الوعد (transform بس) من نص التثبيت لآخره، بنفس منحنى الحركة
+      var EM = g.parseEase(MOVE), setDrop = txt ? g.quickSetter(txt, 'y', 'px') : null, dropNow = 0;
+      if (txt) moved.push(txt);
+      // AD-05: النسخة الطايرة تخف لين .15 طول ما مستطيلها يقطع مستطيل الوعد (على الجوال المسار لازم يعبر النص). الحساب من قيم GSAP
+      // المخزنة ومن القياس (ولا قراءة layout في الإطار)
+      var hits = function (k) {
+        var t = R.t; if (!txt || !t.w) return false;
+        var x = R[k].x + cur[k].x, y = R[k].y + cur[k].y, s = cur[k].k, ty = t.y + dropNow;
+        return x < t.x + t.w + 4 && x + R[k].w * s > t.x - 4 && y < ty + t.h + 4 && y + R[k].h * s > ty - 4;
+      };
+      var dimFly = function (k, on) { if (dim[k] === on) return; dim[k] = on; g.to(fly[k], { opacity: on ? .15 : 1, duration: on ? T.press : T.fade, ease: on ? OUT : MOVE, overwrite: 'auto' }); };
       var flightState = safe(function (p) {
         if (!introPlayed && p <= .001) return;   // التسلسل ماسك الفن لين يخلص
-        g.set([svg].concat(cap), { opacity: 1 - clamp(p / .5) });
-        g.set([sym, word], { opacity: p > .001 ? 0 : 1 });
-        g.set([fly.s, fly.w], { autoAlpha: p > .001 && p < .999 ? 1 : 0 });
-        g.set(destImg, { opacity: p >= .999 ? 1 : 0 });   // الشعار الحقيقي يظهر ونسخة الطيران تختفي بنفس اللحظة
+        move(fp.q);
+        var f = 1 - clamp(p / .5); fade(f);
+        var dr = Math.round(R.drop * EM(clamp((p - .5) / .5)) * 10) / 10;
+        if (setDrop && dr !== dropNow) { dropNow = dr; setDrop(dr); }
+        var o = p > .001 ? 0 : 1, a = p > .001 && p < .999 ? 1 : 0, l = p >= .999 ? 1 : 0, b = f > .001 ? 1 : 0;
+        if (o !== last.o) { last.o = o; g.set([sym, word], { opacity: o }); }
+        if (a !== last.a) { last.a = a; g.set([fly.s, fly.w], { visibility: a ? 'visible' : 'hidden' });
+          if (!a) { dim = {}; g.killTweensOf([fly.s, fly.w], 'opacity'); g.set([fly.s, fly.w], { opacity: 1 }); } }
+        if (a) { dimFly('s', hits('s')); dimFly('w', hits('w')); }
+        if (b !== last.b && hideAt0.length) { last.b = b; g.set(hideAt0, { visibility: b ? 'inherit' : 'hidden' }); }
+        if (l !== last.l) { last.l = l; g.set(destImg, { opacity: l }); dock(l); }   // الشعار الحقيقي يظهر ونسخة الطيران تختفي بنفس اللحظة، والرأس يرجع رملي
       });
       var tl = g.timeline({ onUpdate: function () { flightState(this.progress()); }, scrollTrigger: {
-        trigger: sec, pin: true, start: function () { return 'top top+=' + hh(); }, end: function () { return '+=' + Math.round(vh() * (desk() ? .6 : .4)); },
-        scrub: SCRUB, invalidateOnRefresh: true, refreshPriority: 3, anticipatePin: 1, onRefreshInit: safe(function () { measure(); place(); })
+        trigger: sec, pin: true, start: function () { return 'top top+=' + (headerH() - PK()); }, end: function () { return '+=' + Math.round(vh() * (desk() ? .6 : .4)); },
+        scrub: SCRUB, invalidateOnRefresh: true, refreshPriority: 3, anticipatePin: 1
       } });
-      [['s', sym], ['w', word]].forEach(function (p) {
-        var k = p[0];
-        tl.fromTo(fly[k], { x: 0, y: 0, scale: 1 }, {
-          x: function () { return R.d[k].x - R[k].x; }, y: function () { return R.d[k].y - R[k].y; }, scale: function () { return R.d[k].w / R[k].w; },
-          transformOrigin: '0 0', ease: MOVE, duration: 1, immediateRender: false }, .001);
-      });
-      flightRef = function () { flightState(tl.progress()); };   // الشعار الحقيقي يظهر ونسخة الطيران تختفي بنفس اللحظة
+      // الطيران نفسه يمشي من fp.q (0 لين 1) في move(). M10: القياس داخل دالة القيمة (التثبيت منفك وقتها)، مو في onRefreshInit
+      tl.fromTo(fp, { q: 0 }, { q: function () { measure(); place(); return 1; }, ease: 'none', duration: 1, immediateRender: false }, .001);
+      flightRef = function () { last = {}; flightState(tl.progress()); };   // الشعار الحقيقي يظهر ونسخة الطيران تختفي بنفس اللحظة
     }
 
     // ===== حقل الوحدات (canvas وحدة، بدون آلاف عناصر): عشوائي بـ seed ثابت، كثافة 45%، والوحدة = وحدة الباركود =====
@@ -255,17 +343,18 @@
       var all = one.concat(kids); if (!all.length) return;
       // اللي يدخلون مع بعض في نفس الإطار ينحسبون مجموعة وحدة (60ms بينهم، و4 بالكثير)
       var batch = [], tick = null;
-      all.forEach(function (el) { watch(el, function () { g.set(el, { opacity: 0, y: RISE }); }, function () { batch.push(el); if (!tick) tick = requestAnimationFrame(safe(function () { var b = batch; batch = []; tick = null;
-        g.to(b, { opacity: 1, y: 0, duration: T.rise, ease: OUT, stagger: { each: STAG, amount: Math.min(b.length - 1, MAXG - 1) * STAG }, overwrite: true, clearProps: 'opacity,transform' }); })); }, 0, 12); });
+      var flush = later(function () { var b = batch; batch = []; tick = null;
+        g.to(b, { opacity: 1, y: 0, duration: T.rise, ease: OUT, stagger: stag, overwrite: true, clearProps: 'opacity,transform' }); });
+      all.forEach(function (el) { watch(el, function () { g.set(el, { opacity: 0, y: RISE }); }, function () { batch.push(el); if (!tick) tick = requestAnimationFrame(flush); }, 0, 12); });
       // التركيز بالكيبورد يظهر العنصر على طول
       pending = all; if (focusBound) return; focusBound = true;
-      d.addEventListener('focusin', safe(function (e) { var t = e.target; pending.forEach(function (el) { if (el.contains(t)) g.to(el, { opacity: 1, y: 0, duration: T.press, overwrite: true }); }); }));
+      d.addEventListener('focusin', safe(function (e) { var t = e.target; pending.forEach(function (el) { if (el.contains(t) && H.classList.contains('m')) g.to(el, { opacity: 1, y: 0, duration: T.press, overwrite: true, clearProps: 'opacity,transform' }); }); }));
     }
 
     // ===== 3) المسح على الوسائط (data-scan="media" | "tint" | "phone")، و"check" بدون خط =====
     // media: الصورة أو المشهد ينكشف من فوق لتحت وخط المسح على حافته. مرة وحدة لكل تحميل، وبالطابور
     function scanMedia(el) {
-      watch(el, function () { g.set(el, { clipPath: 'inset(0% 0% 100% 0%)' }); }, function () { queue(function () { return reveal(el); }); }, 0, 35);
+      watch(el, function () { g.set(el, { clipPath: 'inset(0% 0% 100% 0%)' }); }, function () { queue(function () { return reveal(el); }, el); }, 0, 35);
     }
     function reveal(el) {
       var ln = line(el), h = el.offsetHeight, t = scanTime(h);
@@ -285,106 +374,264 @@
     function prefetch(img) { if (!img || img.loading !== 'lazy') return; onView(img.parentNode, function () { img.loading = 'eager'; }, 0, -50); }
     // المسح يبدأ بعد img.decode()، وبحد 1.5 ثانية عشان الطابور ما يعلق أبداً
     function decoded(img, fn) {
-      var done = false, go = safe(function () { if (!done) { done = true; fn(); } });
+      var done = false, go = later(function () { if (!done) { done = true; fn(); } });
       if (!img || !img.decode) return go();
       if (img.loading === 'lazy') img.loading = 'eager';
       img.decode().then(go, go); setTimeout(go, 1500);
     }
+    // مسح اللون العادي على حاوية (المسرح أو الإطار اللي فيه الطبقتين)، لما تدخل الشاشة
+    function tintWhenSeen(el) {
+      var col = $('[data-tint]', el); if (!col) return;
+      var go = function () { decoded(col, function () { queue(function () { return tintScan(el); }, el); }); };
+      watch(el, null, go, 0, 35, go);
+    }
     function scanTint(el) {
       var col = $('[data-tint]', el); if (!col) return; prefetch(col);
-      if (el.closest('[data-door], [data-expand], [data-story]')) return;   // الأبواب والبطل والقصة يحركونها بنفسهم
-      var go = function () { decoded(col, function () { queue(function () { return tintScan(el); }); }); };
-      watch(el, null, go, 0, 35, go);
+      // البابين يحركونها بنفسهم، والبطل والقصة كذلك: مربوطين بالتمرير، وعلى الشاشات القصيرة بالمسح العادي من expand() و story() (M7)
+      if (el.closest('[data-door], [data-expand], [data-story]')) return;
+      tintWhenSeen(el);
     }
     // phone: الشاشة تنفتح بالمسح مرة وحدة (المضيفين 1100ms)
     function scanPhone(el) {
-      if (!$('.fo-screen', el)) return;
+      if (!$('.fo-screen', el) || el.closest('[data-story]')) return;
       var kt = null;
       watch(el, function () { kt = kit(el, false); }, function () {
-        queue(function () { return kt.open(CALM ? 1.1 : null).eventCallback('onComplete', safe(function () { kt.root.parentNode && kt.root.parentNode.removeChild(kt.root); })); });
+        queue(function () { return kt.open(CALM ? 1.1 : null).eventCallback('onComplete', safe(function () { kt.root.parentNode && kt.root.parentNode.removeChild(kt.root); })); }, el);
       }, 0, 35);
     }
     // check: علامات الصح تنرسم وحدة بعد وحدة (clip من اليسار، مثل اتجاه رسمها)، 60ms بينها و4 بالكثير. بدون خط على النص
     function scanCheck(el) {
       var ic = $$('li svg', el); if (!ic.length) return;
       watch(el, function () { g.set(ic, { clipPath: 'inset(0% 100% 0% 0%)' }); }, function () {
-        g.to(ic, { clipPath: 'inset(0% 0% 0% 0%)', duration: T.draw, ease: OUT, stagger: { each: STAG, amount: Math.min(ic.length - 1, MAXG - 1) * STAG }, clearProps: 'clipPath' });
+        g.to(ic, { clipPath: 'inset(0% 0% 0% 0%)', duration: T.draw, ease: OUT, stagger: stag, clearProps: 'clipPath' });
       }, 0, 15);
     }
 
-    // ===== 4) البابين (data-doors و data-door، «أقوى لحظة»): لما القسم يبان 35%، الأول يرتفع 24px في 600ms والثاني بعده بـ 120ms،
-    // وبعدها مسح صورة الأول (بلمسته) ثم الثاني، واحد بعد الثاني. التحويم أو التركيز يعيد خط المسح على الصورة (بحركة من المستخدم) =====
+    // ===== 4) البابين (data-doors و data-door، «أقوى لحظة»، «الاتجاه 3» §6): لما الباب يبان 35%، يرتفع 24px في 600ms (الثاني بعده بـ 120ms
+    // لو دخلوا مع بعض)، وبعد الارتفاع: مسح صورة الأول بالدفا (المطاعم) ثم الثاني بالضوء (المضيفين)، 900ms لكل واحد، واحد بعد الثاني.
+    // المجموع 0.6 + 0.9 + 0.9 = 2.4 ثانية (الحد 2.5). على الجوال (فوق بعض) كل باب لحاله لما يدخل الشاشة.
+    // التحويم أو التركيز يعيد خط المسح على الصورة (بحركة من المستخدم) =====
     function doors() {
       $$('[data-doors]').forEach(function (wrap) {
         var ds = $$('[data-door]', wrap); if (!ds.length) return;
-        var scans = function () { ds.forEach(function (dr) { var ph = $('[data-scan="tint"]', dr) || dr, col = $('[data-tint]', ph);
-          if (col) decoded(col, function () { queue(function () { return tintScan(ph, .9 * K); }); }); }); };
-        watch(wrap, function () { g.set(ds, { opacity: 0, y: 24 }); }, function () {
-          g.to(ds, { opacity: 1, y: 0, duration: T.rise, ease: OUT, stagger: .12, clearProps: 'opacity,transform' }); scans();
-        }, .35, 0, scans);
+        var stageOf = function (dr) { return $('[data-scan="tint"]', dr); };
+        var scans = function (list, delay) {   // بعد ما تنزل كل الصور (بحد 1.5 ثانية) وبعد الارتفاع، بالترتيب: دافي ثم مضيء
+          var left = list.length + 1, go = later(function () { if (--left) return;
+            list.forEach(function (dr) { var ph = stageOf(dr); if (ph && $('[data-tint]', ph)) queue(function () { return tintScan(ph, .9 * K); }, ph); }); });
+          list.forEach(function (dr) { var ph = stageOf(dr), col = ph && $('[data-tint]', ph); if (col) decoded(col, go); else go(); });
+          if (delay) g.delayedCall(delay, go); else go();
+        };
+        var batch = [], rise = false, tick = null;
+        var flush = later(function () { var b = batch.sort(function (a, z) { return ds.indexOf(a) - ds.indexOf(z); }), up = rise; batch = []; rise = false; tick = null;
+          if (up) g.to(b, { opacity: 1, y: 0, duration: T.rise, ease: OUT, stagger: .12, clearProps: 'opacity,transform' });
+          scans(b, up ? T.rise : 0); });
+        var add = function (dr, up) { batch.push(dr); rise = rise || up; if (!tick) tick = requestAnimationFrame(flush); };
         ds.forEach(function (dr) {
-          var again = safe(function () { var ph = $('[data-scan="tint"]', dr); if (!ph || running) return; var ln = line(ph), h = ph.offsetHeight;
+          watch(dr, function () { g.set(dr, { opacity: 0, y: 24 }); }, function () { add(dr, true); }, .35, 0, function () { add(dr, false); });
+          var again = later(function () { var ph = stageOf(dr); if (!ph || running) return; var ln = line(ph), h = ph.offsetHeight;
             queue(function () { return g.timeline({ onComplete: function () { ln.parentNode && ln.parentNode.removeChild(ln); } })
-              .fromTo(ln, { y: 0, opacity: 1 }, { y: h, duration: .7 * K, ease: SCAN }).to(ln, { opacity: 0, duration: T.fade }, '>-' + T.fade); }); });
-          if (w.matchMedia('(hover: hover) and (pointer: fine)').matches) { dr.addEventListener('mouseenter', again); dr.addEventListener('focusin', again); }
+              .fromTo(ln, { y: 0, opacity: 1 }, { y: h, duration: .7 * K, ease: SCAN }).to(ln, { opacity: 0, duration: T.fade }, '>-' + T.fade); }, ph); });
+          if (w.matchMedia('(hover: hover) and (pointer: fine)').matches) { on(dr, 'mouseenter', again); on(dr, 'focusin', again); }
         });
       });
     }
 
     // ===== 5) البطل المتوسع (data-expand، GM-037) لصفحتي الجمهور: البطاقة تتوسع لين تعبّي الشاشة مع التمرير (pin و scrub)،
-    // والعنوانين يتباعدون (محسوبين RTL)، واللون ينكشف مع التوسع، وبعد التوسع الكامل يطلع اللوح والجوال =====
+    // والعنوانين يتباعدون (محسوبين RTL)، واللون ينكشف مع التوسع، وبعد التوسع الكامل يطلع اللوح والجوال.
+    // الشاشات الأقصر من 640: الحالة النهائية الثابتة (CSS الصفحة)، واللون بالمسح العادي لما يدخل الشاشة (M7) =====
     function expand(c) {
-      var sec = $('[data-expand]'); if (!sec || !c.tall) return;
+      var sec = $('[data-expand]'); if (!sec) return;
       var media = $('[data-expand-media]', sec), pic = media && media.firstElementChild, card = $('[data-expand-card]', sec), title = $('[data-expand-title]', sec),
           sheet = $('[data-expand-sheet]', sec), ins = $$('[data-expand-in]', sec), phone = $('[data-expand-phone]', sec), col = media && $('[data-tint]', media);
-      if (!media || !card) return;
+      if (!c.tall) { if (col) tintWhenSeen(col.parentNode); return; }
+      if (!media || !card) {   // M3: hook ناقص = الحالة النهائية ظاهرة، مو مقصوصة ومخفية
+        g.set([sheet, phone].concat(ins).filter(Boolean), { opacity: 1 }); if (media) g.set(media, { clipPath: 'none' }); if (pic) g.set(pic, { scale: 1 }); if (col) g.set(col, { clipPath: 'none' });
+        return;
+      }
       var dir = getComputedStyle(sec).direction === 'rtl' ? 1 : -1, halves = title ? [].slice.call(title.children) : [];
       var inset = function () { var W = sec.clientWidth, Hh = sec.clientHeight, t = card.offsetTop, l = card.offsetLeft;
-        return 'inset(' + t + 'px ' + (W - l - card.offsetWidth) + 'px ' + (Hh - t - card.offsetHeight) + 'px ' + l + 'px round 22px)'; };
+        return 'inset(' + t + 'px ' + (W - l - card.offsetWidth) + 'px ' + (Hh - t - card.offsetHeight) + 'px ' + l + 'px round 8px)'; };   // 8 مثل الصور داخل التخطيط (AD-11)
+      // AD-26 (قاعدة لأي صورة بطل، ومنها المشهد المولّد): أول إطار في البطاقة فيه المنتج في نصها، وما ينقص الشعار أبداً.
+      // data-expand-focus على [data-expand-media]: مستطيل المنتج "x1 y1 x2 y2" بالنسبة المئوية من الصورة الأصلية (أول img، مع
+      // object-fit: cover و object-position وأي تقريب على الـ img نفسها)، أو نقطة "x y"، أو selector لعنصر داخل المشهد (خانة طباعة).
+      // القياس على حالة البداية الفعلية (scale 1.12 حول transform-origin اللي في CSS الصفحة، --so)، فيركب مع أي origin:
+      // الصورة تبدأ مزاحة (x و y، transform بس) بالباقي بس، لين المنتج يصير في نص البطاقة، وترجع 0 مع التوسع.
+      // المنتج يدخل البطاقة: يتوسطها. أعرض منها: يتوسط بالعرض. أطول منها: تبان حافته العليا (16px تحت حافة البطاقة). والإزاحة محصورة بحيث
+      // الصورة المكبرة تغطي البطاقة كلها. القياس مرة لكل refresh (داخل دوال القيم)
+      var PS = 1.12, F = null, focus = media.getAttribute('data-expand-focus');
+      var shift = function () {
+        if (F) return F; F = { x: 0, y: 0 };
+        if (!focus || !pic) return F;
+        var keep = pic.style.transform; pic.style.transform = 'scale(' + PS + ')';
+        var box = null, nums = focus.trim().split(/\s+/).map(parseFloat), pr = pic.getBoundingClientRect(), cr = card.getBoundingClientRect();
+        if ((nums.length === 2 || nums.length === 4) && !nums.some(isNaN)) {
+          if (nums.length === 2) nums = nums.concat(nums);
+          var im = $('img', pic), iw = im && (im.naturalWidth || +im.getAttribute('width')), ih = im && (im.naturalHeight || +im.getAttribute('height'));
+          var lw = im && im.offsetWidth, lh = im && im.offsetHeight;
+          if (iw && ih && lw && lh) {
+            var ib = im.getBoundingClientRect(), kx = ib.width / lw, ky = ib.height / lh;   // scale و translate بس، فالتحويل خطي
+            var sc = Math.max(lw / iw, lh / ih), rw = iw * sc, rh = ih * sc, op = getComputedStyle(im).objectPosition.split(' ');
+            var pos = function (v, free) { return /%$/.test(v) ? free * parseFloat(v) / 100 : isNaN(parseFloat(v)) ? free / 2 : parseFloat(v); };
+            var ox = pos(op[0], lw - rw), oy = pos(op[1] || '50%', lh - rh);
+            box = { l: ib.left + (ox + rw * nums[0] / 100) * kx, r: ib.left + (ox + rw * nums[2] / 100) * kx,
+                    t: ib.top + (oy + rh * nums[1] / 100) * ky, b: ib.top + (oy + rh * nums[3] / 100) * ky };
+          }
+        } else {
+          var fe = null; try { fe = $(focus, pic); } catch (x) {}
+          if (fe) { var fr = fe.getBoundingClientRect(); box = { l: fr.left, r: fr.right, t: fr.top, b: fr.bottom }; }
+        }
+        pic.style.transform = keep;
+        if (!box) return F;
+        var M = 16, lim = function (v, lo, hi) { return lo > hi ? 0 : Math.max(lo, Math.min(hi, v)); };
+        var x = (cr.left + cr.right) / 2 - (box.l + box.r) / 2;
+        var y = box.b - box.t <= cr.height ? (cr.top + cr.bottom) / 2 - (box.t + box.b) / 2 : cr.top + M - box.t;
+        F.x = Math.round(lim(x, cr.right - pr.right, cr.left - pr.left));
+        F.y = Math.round(lim(y, cr.bottom - pr.bottom, cr.top - pr.top));
+        return F;
+      };
       var shown = false, content = g.timeline({ paused: true, defaults: { ease: OUT, duration: T.rise } });
       if (sheet) content.fromTo(sheet, { opacity: 0, y: RISE }, { opacity: 1, y: 0 }, 0);
-      if (ins.length) content.fromTo(ins, { opacity: 0, y: RISE }, { opacity: 1, y: 0, stagger: STAG }, .1);
+      if (ins.length) content.fromTo(ins, { opacity: 0, y: RISE }, { opacity: 1, y: 0, stagger: stag }, .1);
       if (phone) content.fromTo(phone, { opacity: 0, y: 48 }, { opacity: 1, y: 0 }, .12);
       var tl = g.timeline({ defaults: { ease: 'none' }, onUpdate: safe(function () {
         var p = tl.progress();
         if (p > .66 && !shown) { shown = true; content.timeScale(1).play(); } else if (p < .5 && shown) { shown = false; content.timeScale(1 / T.exit).reverse(); }
-      }), scrollTrigger: { trigger: sec, pin: true, start: 'top top', end: function () { return '+=' + Math.round(vh() * (desk() ? 1.3 : 1)); }, scrub: SCRUB, invalidateOnRefresh: true, refreshPriority: 2, anticipatePin: 1 } });
+      }), scrollTrigger: { trigger: sec, pin: true, start: 'top top', end: function () { return '+=' + Math.round(vh() * (desk() ? 1.3 : 1)); }, scrub: SCRUB, invalidateOnRefresh: true, refreshPriority: 2, anticipatePin: 1,
+        onRefreshInit: safe(function () { F = null; }) } });
       tl.fromTo(media, { clipPath: inset }, { clipPath: 'inset(0px 0px 0px 0px round 0px)', duration: .62, ease: MOVE }, 0);
-      if (pic) tl.fromTo(pic, { scale: 1.12 }, { scale: 1, duration: .62, ease: MOVE }, 0);
+      if (pic) tl.fromTo(pic, { scale: PS, x: function () { return shift().x; }, y: function () { return shift().y; } }, { scale: 1, x: 0, y: 0, duration: .62, ease: MOVE }, 0);
       if (col) tl.fromTo(col, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .62, ease: 'none' }, 0);
-      halves.forEach(function (hf, i) { tl.fromTo(hf, { x: 0, opacity: 1 }, { x: function () { return (i ? -dir : dir) * sec.clientWidth * .55; }, opacity: 0, duration: .42, ease: 'power2.in' }, i * .02); });
+      // AD-29: العنوان الكبير يطلع لفوق مع حافة البطاقة العليا بالضبط (نفس المدة والمنحنى وبنفس المسافة، transform بس)، فيبقى 20px
+      // فوقها طول التوسع وما يقطعها أبداً، ونصينه يتباعدون ويخفون مثل قبل
+      if (title) tl.fromTo(title, { y: 0 }, { y: function () { return -card.offsetTop; }, duration: .62, ease: MOVE }, 0);
+      halves.forEach(function (hf, i) { tl.fromTo(hf, { x: 0, opacity: 1 }, { x: function () { return (i ? -dir : dir) * sec.clientWidth * .55; }, opacity: 0, duration: .42, ease: AWAY }, i * .02); });
       tl.to({}, { duration: .38 }, .62);
+      // التركيز بالكيبورد على اللوح قبل ما يطلع: يطلع على طول (CSS الصفحة يجبر الشفافية، وهنا نكمّل الارتفاع)
+      if (sheet) on(sheet, 'focusin', safe(function () { if (!shown) { shown = true; content.progress(1); } }));
     }
 
     // ===== 6) القصة المثبّتة (data-story): ثلاث خطوات مربوطة بالتمرير، وترجع طبيعي مع الرجوع.
-    // خطوة 1: المشهد ينكشف بلون جمهوره. خطوة 2: الجوال يقرّب ويلمس ([data-story-target])، والنقطة تنبض مرة (المطاعم).
-    // خطوة 3: الشاشة تنفتح بالمسح. النص ظاهر كله، والخطوة الحالية واضحة والباقي أخف وقت التثبيت بس =====
+    // خطوة 1: المشهد ينكشف بلون جمهوره وخط المسح على حافته. خطوة 2: الجوال يقرّب ويلمس ([data-story-target])، والنقطة تنبض مرة (المطاعم).
+    // خطوة 3: الشاشة تنفتح بالمسح. النص ظاهر كله، والخطوة الحالية واضحة والباقي أخف وقت التثبيت بس.
+    // الهدف: عنصر (مثل .p-touch) = وسطه وأعلاه. خانة طباعة (.lt-slot) = نقطة اللمس فيها (--tx و --ty من scenes.css أو print-art.js) =====
+    function touchPoint(t) {
+      var r = t.getBoundingClientRect(); if (!t.classList.contains('lt-slot')) return { x: r.left + r.width / 2, y: r.top };   // نقطة أو عنصر: وسطه وأعلاه
+      var cs = getComputedStyle(t), tx = parseFloat(cs.getPropertyValue('--tx')), ty = parseFloat(cs.getPropertyValue('--ty'));
+      return { x: r.left + r.width * (isNaN(tx) ? 50 : tx) / 100, y: r.top + r.height * (isNaN(ty) ? 50 : ty) / 100 };
+    }
+    // النبض (المدير الفني §6 و§10): نقطة اللمس تكبر من 1 لـ 1.08 وترجع في 400ms، مرة وحدة لكل حدث. على خانة طباعة: حلقة على نقطة اللمس
+    // (مو رسم على اللوحة، وتختفي بعد النبض). على عنصر ثاني (نقطة جاهزة): العنصر نفسه
+    function pulseOnce(dot) {
+      if (dot.classList.contains('lt-slot')) {
+        var ring = dot.__mRing && dot.__mRing.parentNode ? dot.__mRing : (dot.__mRing = mk('span', 'm-dot', dot));
+        return g.timeline({ onComplete: function () { g.set(ring, { opacity: 0, scale: 1 }); } })
+          .fromTo(ring, { opacity: 0, scale: 1 }, { opacity: 1, duration: .1, ease: OUT }, 0)
+          .to(ring, { scale: 1.08, duration: T.pulse / 2, ease: PULSE }, 0).to(ring, { scale: 1, duration: T.pulse / 2, ease: PULSE })
+          .to(ring, { opacity: 0, duration: T.pulse * T.exit, ease: IN }, '+=.2');
+      }
+      return g.timeline().to(dot, { scale: 1.08, duration: T.pulse / 2, ease: PULSE }).to(dot, { scale: 1, duration: T.pulse / 2, ease: PULSE, clearProps: 'transform' });
+    }
     function story(c) {
       $$('[data-story]').forEach(function (sec) {
-        if (!c.tall) return;
-        var steps = $$('[data-step]', sec), n = steps.length; if (n < 2) return;
-        var pinEl = $('[data-story-pin]', sec); if (!pinEl) return;
+        var steps = $$('[data-step]', sec), n = steps.length, pinEl = $('[data-story-pin]', sec);
+        var scene = $('[data-story-scene]', sec), col = scene && $('[data-tint]', scene);
+        if (!c.tall || n < 2 || !pinEl) { if (col) tintWhenSeen(col.parentNode); return; }   // M7: الشاشات القصيرة تتلوّن بالمسح العادي
         var run = $('[data-story-run]', sec) || steps[0].parentNode;
-        var scene = $('[data-story-scene]', sec), col = scene && $('[data-tint]', scene), phone = $('[data-story-phone]', sec), target = $('[data-story-target]', sec), dot = $('[data-pulse]', sec);
+        var phone = $('[data-story-phone]', sec), target = $('[data-story-target]', sec), dot = !CALM && $('[data-pulse]', sec);
         var rail = mk('span', 'h-story-rail', run), fill = mk('b', '', rail), kt = phone && $('.fo-screen', phone) ? kit(phone, false) : null;
+        var sl = col ? line(col.parentNode) : null;   // خط المسح على المسرح (وسيط، بعيد عن النص)
         sec.classList.add('is-live');
         var cur = -1, go = function (i) { if (i === cur) return; cur = i; steps.forEach(function (li, j) { li.classList.toggle('is-on', j === i); }); };
-        var move = function () { if (!phone || !target) return { x: 0, y: 0 };
-          var pr = phone.getBoundingClientRect(), tr = target.getBoundingClientRect(), cx = g.getProperty(phone, 'x'), cy = g.getProperty(phone, 'y');
-          return { x: tr.left + tr.width / 2 - (pr.left - cx + pr.width / 2), y: tr.top - (pr.top - cy + pr.height * .12) }; };
-        var M = { x: 0, y: 0 };
+        // AD-08: اللمس بمقياس حقيقي. عرض الجوال 72mm (phone-frame.svg = phone-tap.svg) على مقياس المسرح (--stage-mm في scenes.css)،
+        // ومايل -20 إلى -30 (--rot حق الخانة محصور فيها)، وحافته العليا على نقطة اللمس من الجنب، و60% من وجه المنتج أو أكثر يبقى ظاهر
+        // (نقطة الإمساك على الحافة العليا تمشي لطرفها لين يتغطى 40% بالكثير). خطوة 3: الجوال يقرب للكاميرا (مقاسه في CSS الصفحة،
+        // وبحد 86% من طول المشهد) ويبعد عن المنتج للجنب الثاني، عدل، عشان الشاشة تنقرى. الدخول transform بس، من تحت المشهد ومقصوص فيه.
+        // الحساب مرة وحدة لكل refresh (داخل دوال القيم، بعد ما التثبيت ينفك)، والإحداثيات كلها من نفس اللحظة فالتثبيت ما يأثر
+        var face = target ? (target.classList.contains('lt-slot') ? target : target.closest('.lt-slot')) : null, stage = scene && $('.lt-scene-stage', scene);
+        var PM = 72, P = null, rad = Math.PI / 180;
+        var corners = function (L, Tp, W, Hh, q) {   // زوايا الجوال على الشاشة بعد translate(x,y) rotate(r) scale(s) من زاويته العليا
+          var c = Math.cos(q.r * rad), sn = Math.sin(q.r * rad);
+          return [[0, 0], [W, 0], [W, Hh], [0, Hh]].map(function (v) { return [L + q.x + q.s * (v[0] * c - v[1] * sn), Tp + q.y + q.s * (v[0] * sn + v[1] * c)]; });
+        };
+        var covered = function (poly, r) {   // كم من مساحة المستطيل r يغطيها المضلع (قص Sutherland-Hodgman ثم shoelace)
+          var cut = function (pts, inside, hit) { var out = []; for (var i = 0; i < pts.length; i++) { var a = pts[i], b = pts[(i + 1) % pts.length], ia = inside(a), ib = inside(b);
+            if (ia) out.push(a); if (ia !== ib) out.push(hit(a, b)); } return out; };
+          var atX = function (x) { return function (a, b) { var t = (x - a[0]) / (b[0] - a[0]); return [x, a[1] + (b[1] - a[1]) * t]; }; };
+          var atY = function (y) { return function (a, b) { var t = (y - a[1]) / (b[1] - a[1]); return [a[0] + (b[0] - a[0]) * t, y]; }; };
+          var q = cut(poly, function (v) { return v[0] >= r.left; }, atX(r.left));
+          q = cut(q, function (v) { return v[0] <= r.right; }, atX(r.right));
+          q = cut(q, function (v) { return v[1] >= r.top; }, atY(r.top));
+          q = cut(q, function (v) { return v[1] <= r.bottom; }, atY(r.bottom));
+          for (var A = 0, i = 0; i < q.length; i++) { var u = q[i], v = q[(i + 1) % q.length]; A += u[0] * v[1] - v[0] * u[1]; }
+          return Math.abs(A / 2) / Math.max(1, r.width * r.height);
+        };
+        var calc = function () {
+          if (P) return P;
+          var none = { x: 0, y: 0, r: 0, s: 1 }; P = { from: none, touch: none, near: none, cover: 0 };
+          if (!phone || !scene) return P;
+          var keep = phone.style.transform; phone.style.transform = 'none';
+          var pr = phone.getBoundingClientRect(), sr = scene.getBoundingClientRect(), W = phone.offsetWidth, Hh = phone.offsetHeight;
+          phone.style.transform = keep;
+          var L = pr.left, Tp = pr.top, touch = none, cover = 0;
+          if (target && !face && W && Hh) {   // هدف برّا خانة طباعة: الحافة العليا (نصها) على الهدف، بمقاسه وميلان -25، وبدون خطوة الابتعاد
+            var t0 = touchPoint(target), c0 = Math.cos(-25 * rad), s0 = Math.sin(-25 * rad);
+            touch = { x: t0.x - L - .5 * W * c0, y: t0.y - Tp - .5 * W * s0, r: -25, s: 1 };
+          }
+          if (face && W && Hh) {
+            var fr = face.getBoundingClientRect(), tp = touchPoint(target), fcs = getComputedStyle(face);
+            var mmv = stage ? parseFloat(getComputedStyle(stage).getPropertyValue('--stage-mm')) : NaN, sw = stage ? stage.offsetWidth : 0;
+            var s = mmv > 0 && sw ? (PM / mmv * sw) / W : 1, r = parseFloat(fcs.getPropertyValue('--rot'));
+            r = isNaN(r) ? -25 : Math.max(-30, Math.min(-20, r));
+            var c = Math.cos(r * rad), sn = Math.sin(r * rad);
+            [.5, .42, .34, .26, .18].some(function (a) {   // 14% من كل طرف زاوية مدورة، فالإمساك على الحافة المستقيمة بس
+              touch = { x: tp.x - L - s * a * W * c, y: tp.y - Tp - s * a * W * sn, r: r, s: s };
+              cover = covered(corners(L, Tp, W, Hh, touch), fr); return cover <= .4;
+            });
+            // خطوة 3: عدل، أكبر، وفي الجنب الثاني من المشهد بعيد عن الوجه
+            // الجنب: data-story-near="right" أو "left" على المشهد لو يكفي فيه الجوال (مثلاً عشان ما يغطي الباب)، وإلا الجنب الأوسع
+            var sN = Math.max(s, Math.min(1, sr.height * .86 / Hh)), hw = sN * W / 2, hh = sN * Hh / 2, fitR = sr.right - fr.right, fitL = fr.left - sr.left;
+            var pref = scene.getAttribute('data-story-near'), left = fitR >= fitL;   // left = الوجه يسار، والجوال يمين
+            if (pref === 'right' && fitR >= 2 * hw + 20) left = true; else if (pref === 'left' && fitL >= 2 * hw + 20) left = false;
+            var cx = sr.left + sr.width * (left ? .76 : .24);
+            cx = left ? Math.max(cx, fr.right + 12 + hw) : Math.min(cx, fr.left - 12 - hw);
+            cx = Math.max(sr.left + hw + 8, Math.min(sr.right - hw - 8, cx));
+            var cy = Math.max(sr.top + hh + 8, Math.min(sr.bottom - hh - 8, (sr.top + sr.bottom) / 2));
+            P.near = { x: cx - hw - L, y: cy - hh - Tp, r: 0, s: sN };
+          }
+          P.touch = touch; P.cover = cover;
+          var top = Math.min.apply(null, corners(L, Tp, W, Hh, touch).map(function (v) { return v[1]; }));
+          P.from = { x: touch.x, y: touch.y + Math.max(0, sr.bottom - top) + 4, r: touch.r, s: touch.s };   // تحت حافة المشهد بالضبط
+          if (!face) P.near = touch;   // بدون وجه منتج ما فيه شي نبعد عنه
+          return P;
+        };
+        // PIN-5: الكتلة الأقصر من الشاشة تتوسط تحت الرأس، والأطول تبدأ تحته بـ 24
+        var free = function () { return vh() - headerH(); };
+        var armed = true, fire = later(function () { if (dot && armed) { armed = false; pulseOnce(dot); } });
         var tl = g.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-          trigger: pinEl, pin: true, start: function () { return pinEl.offsetHeight < vh() - 48 ? 'center center' : 'top top+=24'; },
+          trigger: pinEl, pin: true, start: function () { var hh = headerH(); return pinEl.offsetHeight < free() - 48 ? 'center center+=' + Math.round(hh / 2) : 'top top+=' + (hh + 24); },
           end: function () { return '+=' + Math.round(vh() * (desk() ? 1.5 : 1.1)); }, scrub: SCRUB, invalidateOnRefresh: true, refreshPriority: 1, anticipatePin: 1,
-          onRefreshInit: safe(function () { if (phone) g.set(phone, { x: 0, y: 0 }); }), onRefresh: safe(function () { M = move(); }),
-          onUpdate: safe(function (s) { go(Math.min(n - 1, Math.floor(s.progress * n * .9999))); }), onToggle: safe(function (s) { sec.classList.toggle('is-pinned', s.isActive); })
+          onRefreshInit: safe(function () { P = null; }),
+          onUpdate: safe(function (s) { go(Math.min(n - 1, Math.floor(s.progress * n * .9999))); if (s.progress < .36) armed = true; }),
+          onToggle: safe(function (s) { sec.classList.toggle('is-pinned', s.isActive); if (s.isActive) finishRunning(); })   // خط واحد: أي مسح شغال يكمل
         } });
         tl.fromTo(fill, { scaleY: 0 }, { scaleY: 1, duration: 1 }, 0);
-        if (col) tl.fromTo(col, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .3, ease: SCAN }, .02);
-        if (phone) tl.fromTo(phone, { x: 0, y: function () { return vh() * .35; }, opacity: 0 }, { x: function () { return M.x; }, y: function () { return M.y; }, opacity: 1, duration: .28, ease: MOVE }, .36);
-        if (dot && !CALM) tl.to(dot, { scale: 1.08, duration: .03, ease: 'sine.out' }, .64).to(dot, { scale: 1, duration: .03, ease: 'sine.in' }, .67);   // نبض مرة وحدة (2% حد النوابض ما ينطبق على نبض 8% المطلوب من المدير الفني)
-        if (kt) tl.fromTo(kt.cover, { clipPath: 'inset(0% 0% 0% 0%)' }, { clipPath: 'inset(100% 0% 0% 0%)', duration: .26, ease: SCAN }, .7)
-          .fromTo(kt.line, { y: 0, opacity: 1 }, { y: function () { return kt.cover.parentNode.offsetHeight; }, duration: .26, ease: SCAN }, .7).to(kt.line, { opacity: 0, duration: .02 }, .94);
+        if (col) {
+          tl.fromTo(col, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .3, ease: SCAN }, .02)
+            .fromTo(sl, { y: 0 }, { y: function () { return col.parentNode.offsetHeight; }, duration: .3, ease: SCAN }, .02)
+            .fromTo(sl, { opacity: 0 }, { opacity: 1, duration: .01 }, .02).to(sl, { opacity: 0, duration: .03 }, .29);
+        }
+        // M4: الهدف ينقاس داخل دالة القيمة (بعد ما التثبيت ينفك في refresh)، مو في onRefresh
+        if (phone) {   // خطوة 2: من تحت المشهد لين يلمس (.36 إلى .62). خطوة 3: يقرب للكاميرا ويبعد (.67 إلى .82). transform بس، بدون شفافية
+          var pv = function (st, k) { var get = function () { return calc()[st][k]; }; return get; };
+          tl.fromTo(phone, { x: pv('from', 'x'), y: pv('from', 'y'), rotation: pv('touch', 'r'), scale: pv('touch', 's'), transformOrigin: '0px 0px' },
+            { x: pv('touch', 'x'), y: pv('touch', 'y'), rotation: pv('touch', 'r'), scale: pv('touch', 's'), duration: .26, ease: 'power2.out' }, .36)
+            .fromTo(phone, { x: pv('touch', 'x'), y: pv('touch', 'y'), rotation: pv('touch', 'r'), scale: pv('touch', 's') },
+              { x: pv('near', 'x'), y: pv('near', 'y'), rotation: pv('near', 'r'), scale: pv('near', 's'), duration: .15, ease: MOVE, immediateRender: false }, .67);
+        }
+        if (dot) tl.call(function () { if (tl.scrollTrigger && tl.scrollTrigger.direction > 0) fire(); }, null, .64);   // TL-6: حدث مرة وحدة بالوقت، مو tween مربوط بالتمرير
+        if (kt) tl.fromTo(kt.cover, { clipPath: 'inset(0% 0% 0% 0%)' }, { clipPath: 'inset(100% 0% 0% 0%)', duration: .22, ease: SCAN }, .74)
+          .fromTo(kt.line, { y: 0 }, { y: function () { return kt.screen.offsetHeight; }, duration: .22, ease: SCAN, immediateRender: false }, .74)
+          .fromTo(kt.line, { opacity: 0 }, { opacity: 1, duration: .01, immediateRender: false }, .74).to(kt.line, { opacity: 0, duration: .02 }, .94);   // الخط يطلع مع المسح بس، ويرجع مخفي مع الرجوع
         go(0);
       });
     }
@@ -392,15 +639,86 @@
     // ===== نبض نقطة الستاند (data-pulse برّا القصة): مرة وحدة لما يطلع الستاند، في المطاعم بس (§10). 1 ← 1.08 ← 1 في 400ms =====
     function pulses() {
       if (CALM) return;
-      $$('[data-pulse]').forEach(function (dot) { if (dot.closest('[data-story]')) return;
-        onView(dot, function () { g.timeline().to(dot, { scale: 1.08, duration: T.pulse / 2, ease: 'sine.out' }).to(dot, { scale: 1, duration: T.pulse / 2, ease: 'sine.in', clearProps: 'transform' }); }, 1, 20); });
+      $$('[data-pulse]').forEach(function (dot) { if (dot.closest('[data-story]')) return; onView(dot, function () { pulseOnce(dot); }, 1, 20); });
     }
 
-    // ===== 7) عمق الصور (data-parallax): الصورة بس، داخل إطارها، ±5% (parallax-subtle). ما ينحط على نص =====
+    // ===== 7) عمق الصور (data-parallax): الصور داخل إطارها (الطبقتين مع بعض)، ±5% (parallax-subtle). ما ينحط على نص =====
     function depth() {
-      $$('[data-parallax]').forEach(function (el) { var img = $('img', el); if (!img) return;
-        var make = function () { g.fromTo(img, { yPercent: -5, scale: 1.1 }, { yPercent: 5, scale: 1.1, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: SCRUB } }); };
+      $$('[data-parallax]').forEach(function (el) { var imgs = $$('img', el); if (!imgs.length) return;
+        var make = function () { g.fromTo(imgs, { yPercent: -5, scale: 1.1 }, { yPercent: 5, scale: 1.1, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: SCRUB } }); };
         watch(el, null, make, 0, -100, make); });
+    }
+
+    // ===== 9) عناوين الأقسام بالكلمات (data-words، مرجعين صاحب المشروع في brief-gm040.md، AD-28) =====
+    // "gather": الكلمات تبدأ متفرقة (كل كلمة مزاحة بقدر بعدها عن وسط سطرها، ومايلة rotateX داخل perspective) وتتجمع مع التمرير (scrub)
+    // لين تستقر لما أعلى العنوان يوصل 45% من الشاشة. "cut": الكلمات تطلع كلمة كلمة من تحت خط قص (عنوان الأسعار)، مرة وحدة لما يدخل.
+    // القواعد: بالكلمات بس (ولا تقسيم للحروف العربية)، transform بس، aria-label على العنوان بالنص كامل والأجزاء aria-hidden،
+    // تقليل الحركة وبدون JS: العنوان ثابت كامل (التقسيم يصير هنا بس، ويرجع النص الأصلي بالحرف مع أي إرجاع)، والإزاحة أقل على الجوال.
+    // ممنوع على h1 (لازم ينقرى من أول لحظة)
+    function split(h) {
+      if (h.__mSplit) return h.__mSplit;
+      var cut = h.getAttribute('data-words') === 'cut', words = [];
+      var rec = { el: h, html: h.innerHTML, had: h.hasAttribute('aria-label'), band: null, words: words };
+      var label = (h.textContent || '').replace(/\s+/g, ' ').trim();
+      var walk = function (node) {
+        [].slice.call(node.childNodes).forEach(function (n) {
+          if (n.nodeType === 1) { walk(n); return; }
+          if (n.nodeType !== 3 || !n.nodeValue) return;
+          var frag = d.createDocumentFragment();
+          n.nodeValue.split(/([ \t\n\r]+)/).forEach(function (p) {   // المسافة العادية بس تفصل (المسافة غير القابلة للكسر تبقى داخل الكلمة)
+            if (!p) return;
+            if (/^[ \t\n\r]+$/.test(p)) { frag.appendChild(d.createTextNode(p)); return; }
+            var o = d.createElement('span'); o.setAttribute('aria-hidden', 'true');
+            if (cut) { o.className = 'm-wc'; var i = d.createElement('span'); i.className = 'm-wi'; i.textContent = p; o.appendChild(i); words.push(i); }
+            else { o.className = 'm-w'; o.textContent = p; words.push(o); }
+            frag.appendChild(o);
+          });
+          node.replaceChild(frag, n);
+        });
+      };
+      splits.push(rec); h.__mSplit = rec;
+      if (!rec.had) h.setAttribute('aria-label', label);
+      walk(h); h.classList.add('m-words');
+      return rec;
+    }
+    function gather(h) {
+      var r = split(h), ws = r.words; if (!ws.length) return;
+      r.band = h.closest('section'); if (r.band) r.band.classList.add('m-words-band');   // ولا تمرير أفقي من كلمة مزاحة (motion.css)
+      var P = null;
+      var calc = function () {
+        if (P) return P; P = [];
+        var mob = !desk(), KX = mob ? .35 : .9, BX = mob ? 16 : 64, RX = mob ? 40 : 55, vw = H.clientWidth, hl = docLeft(h) - w.scrollX, lines = {};
+        ws.forEach(function (e, i) { var k = e.offsetTop; (lines[k] = lines[k] || []).push(i); });
+        Object.keys(lines).forEach(function (k) {
+          var ix = lines[k], lo = Infinity, hi = -Infinity;
+          ix.forEach(function (i) { lo = Math.min(lo, ws[i].offsetLeft); hi = Math.max(hi, ws[i].offsetLeft + ws[i].offsetWidth); });
+          var c = (lo + hi) / 2, half = Math.max(1, (hi - lo) / 2), f = 1;
+          ix.forEach(function (i) {
+            var e = ws[i], dx = e.offsetLeft + e.offsetWidth / 2 - c, sg = dx > .5 ? 1 : dx < -.5 ? -1 : 0, n = Math.max(-1, Math.min(1, dx / half));
+            var x = sg * (Math.abs(dx) * KX + BX), left = hl + e.offsetLeft, room = x > 0 ? vw - 8 - left - e.offsetWidth : 8 - left;
+            if (x && Math.abs(room) < Math.abs(x)) f = Math.min(f, Math.max(0, room / x));
+            P[i] = { x: x, r: Math.round(n * RX) };
+          });
+          // الكلمة تبقى داخل الشاشة: لو وحدة ما لها مكان، السطر كله يتفرق أقل بنفس النسبة (ما تركب كلمة على جارتها)
+          ix.forEach(function (i) { P[i].x = Math.round(P[i].x * f); });
+        });
+        return P;
+      };
+      var wc = function (on) { g.set(ws, { willChange: on ? 'transform' : 'auto' }); };   // will-change وقت الحركة بس
+      g.timeline({ scrollTrigger: { trigger: h, start: 'clamp(top bottom)', end: 'clamp(top 45%)', scrub: SCRUB, invalidateOnRefresh: true,
+        onRefreshInit: safe(function () { P = null; }), onToggle: safe(function (s) { wc(s.isActive); }) } })
+        .fromTo(ws, { x: function (i) { return calc()[i].x; }, rotationX: function (i) { return calc()[i].r; }, transformPerspective: 600, transformOrigin: '50% 60%' },
+          { x: 0, rotationX: 0, ease: 'none', duration: 1 });
+    }
+    function cutWords(h) {
+      var ws = split(h).words; if (!ws.length) return;
+      watch(h, function () { g.set(ws, { yPercent: 150 }); }, function () {
+        g.to(ws, { yPercent: 0, duration: T.rise, ease: OUT, stagger: .07, clearProps: 'transform' });
+      }, 0, 12);
+    }
+    function words() {
+      $$('[data-words]').forEach(function (h) { if (h.tagName === 'H1') return; var k = h.getAttribute('data-words');
+        if (k === 'gather') gather(h); else if (k === 'cut') cutWords(h); });
     }
 
     // ===== 8) الأسئلة (data-accordion): الفتح 240ms والقفل 65% منه، بكلاسات و CSS (cubic-bezier(.2,0,0,1))، مرة وحدة للمستمعين =====
@@ -413,15 +731,17 @@
       }));
     });
 
-    // ===== التشغيل: gsap.matchMedia (تقليل الحركة = ولا شي). tall = الشاشة 640 أو أطول (البطل المثبّت) =====
+    // ===== التشغيل: gsap.matchMedia (تقليل الحركة = ولا شي). tall = الشاشة 640 أو أطول (البداية والبطل والقصة المثبّتة) =====
     mm = g.matchMedia();
     // الشروط: تقليل الحركة، والطول (640). العرض مو شرط هنا: عبوره كان يعيد بناء التثبيت ويرجّع الصفحة لفوق، والمسافات تنحسب وقت refresh
     var keepY = null;
-    mm.add({ motion: '(prefers-reduced-motion: no-preference)', tall: '(prefers-reduced-motion: no-preference) and (min-height: 640px)' }, function (ctx) {
+    mm.add({ motion: '(prefers-reduced-motion: no-preference)', tall: '(prefers-reduced-motion: no-preference) and (min-height: 640px)' }, function (ctx, contextSafe) {
       var c = ctx.conditions;
       if (dead) return;
-      if (!c.motion) { H.classList.remove('m', 'mh'); return; }
+      CS = contextSafe;
+      if (!c.motion) { H.classList.remove('m', 'mh'); restore(); return; }
       H.classList.add('m'); H.classList.toggle('mh', !!c.tall);
+      waiting = [];
       try {
         opening(c);
         reveals();
@@ -434,9 +754,12 @@
         story(c);
         pulses();
         depth();
-      } catch (e) { setTimeout(function () { fail(e); }, 0); }
-      if (keepY !== null) { var y0 = keepY; keepY = null; requestAnimationFrame(safe(function () { ST.refresh(); if (Math.abs(w.scrollY - y0) > 2) w.scrollTo(0, y0); })); }
-      return function () { keepY = w.scrollY; ios.forEach(function (o) { o.disconnect(); }); ios = []; setTimeout(restore, 0); junk.forEach(function (nd) { if (nd && nd.parentNode) nd.parentNode.removeChild(nd); }); junk = []; Q = []; running = null; $$('.is-live, .is-pinned, .is-on').forEach(function (el) { el.classList.remove('is-live', 'is-pinned', 'is-on'); }); };
+        words();
+        sentinel();
+      } catch (e) { fail(e); }
+      if (keepY !== null) { var y0 = keepY; keepY = null; requestAnimationFrame(later(function () { ST.refresh(); if (Math.abs(w.scrollY - y0) > 2) w.scrollTo(0, y0); })); }
+      // التنظيف (MM-2 و CL-3 و CL-4): يشتغل آخر شي بعد ما GSAP يرجّع الحركات. الحالة النهائية على طول، بدون setTimeout (M1 و M9)
+      return function () { keepY = w.scrollY; H.classList.remove('m', 'mh'); unjunk(); restore(); Q = []; running = null; waiting = []; CS = null; };
     });
     if (d.fonts && d.fonts.status !== 'loaded') d.fonts.ready.then(safe(function () { ST.refresh(); }));
     // الفتح على رابط داخلي (index.html#pricing): التثبيت يضيف مسافة فوق الأقسام، فنرجع للقسم المطلوب مرة وحدة بعد أول refresh.

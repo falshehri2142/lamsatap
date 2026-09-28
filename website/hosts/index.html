@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-canonical="/hosts/" data-lt-scheme="light" data-audience="hosts">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- فاتح دايماً (GM-038، web-brand.md): المفتاح على <html> وهذا السطر قبل أي CSS عشان ما يومض الداكن -->
+<meta name="color-scheme" content="only light">
+<!-- قبل أول رسم (web-motion.md «النظام 2»): نفس سطر البوابة. js دايماً، و m لما تقليل الحركة مطفي، و mh لما الشاشة 640px أو أطول.
+     لو motion.js ما اشتغل تنشال m و mh عند DOMContentLoaded وترجع الحالة النهائية. بدون JS ومع تقليل الحركة: كل المحتوى ظاهر -->
+<script>(function(h,w){h.className+=' js';if(!w.matchMedia||!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;h.className+=' m'+(matchMedia('(min-height: 640px)').matches?' mh':'');document.addEventListener('DOMContentLoaded',function(){if(!w.__ltMotion)h.classList.remove('m','mh')})})(document.documentElement,window)</script>
+<!-- الميتا: web-copy «الاتجاه 3» المضيفين بند 11، و og:description = الوصف (skills/seo-audit.md §3 و§13).
+     canonical و og:url يتولدون من config.js (domain + data-canonical) في assets/app.js. og:image ينضاف يوم الإطلاق (website/README.md) -->
+<title>لمسة تاب للمضيفين — دليل الوحدة بشريحة NFC</title>
+<meta name="description" content="باقة المضيف: دليل لكل وحدة بالواي فاي ووقت الخروج، وزر «تم الخروج» و«بلاغ صيانة». تجربة أسبوعين ببلاش في وحدة.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="لمسة تاب">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:title" content="لمسة تاب للمضيفين — دليل الوحدة بشريحة NFC">
+<meta property="og:description" content="باقة المضيف: دليل لكل وحدة بالواي فاي ووقت الخروج، وزر «تم الخروج» و«بلاغ صيانة». تجربة أسبوعين ببلاش في وحدة.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/brand/tokens.css">
+<link rel="stylesheet" href="../assets/brand/components.css">
+<link rel="stylesheet" href="../assets/site.css">
+<!-- الشاشات المصغرة (دليل الوحدة داخل الجوالات): نفس تنسيق صفحة الزبون، وألوان «شقق المثال» فاتحة بس (@@minis-style) -->
+<link rel="stylesheet" href="../assets/client.css">
+<link rel="stylesheet" href="../templates/rental-guide/style.css">
+<!-- @@minis-style --><style>.mini--cafe{--shop:#7A3E2B;--on-shop:#FFFFFF;--shop-press:#662C19;--shop-line:#7A3E2B;--shop-tint:#F4F0EE;--shop-hl:rgba(0,0,0,.14)}.mini--flats{--shop:#1F3B57;--on-shop:#FFFFFF;--shop-press:#0F2B46;--shop-line:#1F3B57;--shop-tint:#EDEFF2;--shop-hl:rgba(0,0,0,.14)}.l-tag { margin: -8px 0 var(--lt-space-20); text-align: center; font-size: 15px; }.w-wa { margin-top: var(--lt-space-32); }</style><!-- /@@minis-style -->
+<link rel="stylesheet" href="../assets/hosts.css">
+<!-- @@scenes --><link rel="stylesheet" href="../assets/scenes.css"><script src="../assets/mockups/print-art.js" defer></script><script src="../assets/scenes.js" defer></script><!-- /@@scenes -->
+<!-- الحركة (web-motion.md «النظام 2»): صفحات الشركة بس (GM-011). GSAP 3.15 و ScrollTrigger محليين (vendor/gsap/LICENSE.md) -->
+<link rel="stylesheet" href="../assets/motion.css">
+<script defer src="../vendor/gsap/gsap.min.js"></script>
+<script defer src="../vendor/gsap/ScrollTrigger.min.js"></script>
+<script defer src="../assets/motion.js"></script>
+</head>
+<body>
+<a class="s-skip" href="#main">انتقل للمحتوى</a>
+
+<!-- 1) الرأس الثابت (web-art-director.md «الاتجاه 3» §1، والنصوص web-copy «الاتجاه 3» القائمة). نفس ترميز البوابة بمسارات ../ ،
+     و aria-current="page" على «للمضيفين» (تحته خط 2px تيل)، والكبسولة برسالة host (تختفي لين ينحط رقم الواتساب) -->
+<header class="s-top">
+<div class="s-wrap s-head">
+<!-- @@logo:head --><a class="s-logo-link" href="../index.html"><img class="s-logo-h" src="../assets/brand/logo-horizontal.svg" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt></a><!-- /@@logo:head -->
+<nav class="s-nav s-nav--top" aria-label="أقسام الموقع"><a href="../restaurants/index.html">للمطاعم والكافيهات</a><a href="index.html" aria-current="page">للمضيفين</a><a href="../index.html#how">كيف نشتغل</a></nav>
+<div class="s-head-end">
+<a class="lt-btn lt-btn--secondary lt-btn--compact s-head-wa" data-wa="host" hidden><span>كلّمنا على واتساب</span></a>
+</div>
+</div>
+</header>
+<nav class="s-nav s-nav--row" aria-label="أقسام الموقع"><div class="s-wrap"><a href="../restaurants/index.html">للمطاعم والكافيهات</a><a href="index.html" aria-current="page">للمضيفين</a><a href="../index.html#how">كيف نشتغل</a></div></nav>
+
+<main id="main">
+<!-- 2) البطل المتوسع (GM-037، «الاتجاه 3» §5). الصورة: المشهد المولّد المعتمد (brief-gm040.md «مشاهد المنتج المعتمدة»، والمدير الفني
+     AD-14 §5 بند 1): باب شقة خشب وبرواز طولي على الجدار جنبه (brand/photos/generated/hosts-hero-imagen-1-upscaled-1.webp)، بطبقتين
+     host-door-frame (@@img:hero، الأبيض والأسود ثم الملونة data-tint) داخل .p-hero-photo. البرواز تنركّب عليه لوحة الخروج من قسم الطباعة
+     بـ tools/place-artwork.py أول ما توصل (الموجز، GM-050). النص البديل من web-copy «GM-049/050: نصوص المشاهد» بدون «وجوال يلمسها»
+     لأن المشهد المولّد ما فيه جوال (المدير الفني §5 بند 7).
+     الحركة (web-motion.md): data-expand والباقي. البطاقة تتوسع مع التمرير، والعنوان الكبير (زخرفي) يتباعد، وبعدها يطلع اللوح.
+     القص (AD-30 و§5 بند 4): البرواز كامل في البطاقة أول إطار، وبعد التوسع بينه وبين اللوح 64px أو أكثر من 768 (hosts.css).
+     بدون JS، وتقليل الحركة، والشاشات القصيرة: النص يمين والمشهد يسار على الكمبيوتر، وفوق بعض على الجوال (hosts.css) -->
+<section class="p-hero" aria-labelledby="hero-h" data-expand>
+<div class="p-hero-media" data-expand-media data-expand-focus="54.6 21.4 69.5 55"><div class="p-hero-photo"><!-- @@img:hero alt="لوحة تسجيل خروج على جدار جنب باب شقة" --><img src="../assets/images/host-door-frame-bw-800.webp" srcset="../assets/images/host-door-frame-bw-800.webp 800w, ../assets/images/host-door-frame-bw-1600.webp 1600w" sizes="(max-aspect-ratio: 1600/900) 178vh, 100vw" width="1600" height="900" alt="لوحة تسجيل خروج على جدار جنب باب شقة" fetchpriority="high"><img data-tint src="../assets/images/host-door-frame-color-800.webp" srcset="../assets/images/host-door-frame-color-800.webp 800w, ../assets/images/host-door-frame-color-1600.webp 1600w" sizes="(max-aspect-ratio: 1600/900) 178vh, 100vw" width="1600" height="900" alt="" decoding="async"><!-- /@@img:hero --></div></div>
+<div class="p-hero-card" data-expand-card></div>
+<p class="p-hero-title" data-expand-title aria-hidden="true"><span>دليل كل وحدة،</span><span>عند بابها</span></p>
+<div class="s-wrap p-hero-wrap">
+<div class="p-hero-sheet" data-expand-sheet>
+<h1 class="s-h1 p-hero-h1" id="hero-h">دليل كل وحدة، عند بابها</h1>
+<p class="s-lead p-hero-lead">شريحة وباركود داخل الوحدة، وضيفك يفتح منهم الدليل بجواله.</p>
+<div class="s-cta p-hero-cta">
+<a class="lt-btn" data-wa="hostTrial" aria-describedby="hero-risk" hidden><span>اطلب تجربة أسبوعين على واتساب</span></a>
+<p class="s-risk" id="hero-risk" data-wa-only hidden>أسبوعين ببلاش · ما عجبك؟ نشيل العتاد، بدون دفع مقدم ولا التزام في التجربة</p>
+<div class="s-tg" data-tg="with-wa" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+<a class="lt-btn p-hero-demo" href="../demo/rental-guide/index.html" data-wa-second>افتح دليل تجريبي</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 3) المشاكل (أبيض، web-copy المضيفين بند 2): ثلاث مواقف بنفس نمط صفحة المطاعم (قرار المدير الفني AD-15): أيقونة 24 باللمسة وجملة 22/500،
+     وبينها خط 1px (عمودي على الكمبيوتر وأفقي على الجوال). الأيقونات: واي فاي، وباب، وجوال (نفس عائلة أيقونات المطاعم، خط 1.75). ظهور بالترتيب -->
+<section class="s-band s-band--white p-probs" aria-labelledby="probs-h">
+<div class="s-wrap">
+<h2 class="s-h2" id="probs-h" data-words="gather">تعرف هالمواقف؟</h2>
+<ul class="p-probs-list">
+<li><svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.75 9.25a13.5 13.5 0 0 1 18.5 0M5.75 12.75a9.25 9.25 0 0 1 12.5 0M8.9 16.2a4.6 4.6 0 0 1 6.2 0"/><path d="M12 19.75h.01" stroke-width="2.5"/></svg><p class="p-prob-t">ضيفك يسألك عن كلمة الواي فاي الساعة 2 الفجر؟</p></li>
+<li><svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 20.75h16.5"/><path d="M6.25 20.75V3.25h11.5v17.5"/><path d="M14.25 12h.01" stroke-width="2.5"/></svg><p class="p-prob-t">ضيفك يطلع، وما يقول لأحد؟</p></li>
+<li><svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6.75" y="2.75" width="10.5" height="18.5" rx="2"/><path d="M10.75 17.75h2.5"/></svg><p class="p-prob-t">ما تبغى رقمك عند كل ضيف؟</p></li>
+</ul>
+</div>
+</section>
+
+<!-- 4) القصة المثبّتة (رملي، «الاتجاه 3» §5 و§6: باب ← جوال ← دليل). النص: web-copy المضيفين بند 3 (h2 جديد، والخطوات ج4 بالحرف).
+     المشهد: نفس مشهد البطل بقص الباب (continuity)، مكتوب هنا بيد عشان data-story-target يكون على نقطة اللمس داخل خانة اللوحة
+     (الترميز من أول assets/scenes.css). الجوال فيه دليل «شقق المثال» (@@phone:guide-story)، ويقرّب ويلمس، وبعدها تنفتح الشاشة بالمسح.
+     بدون نبض (المضيفين). h2 داخل الكتلة المثبّتة مع الخطوات (زي المطاعم، AD-15)، والمشهد هنا زخرفي alt="" (نفس مشهد البطل، ونصه البديل هناك).
+     بدون JS وتقليل الحركة: المشهد أبيض وأسود أو ملون، والجوال لامس، والشاشة مفتوحة، والخطوات كلها ظاهرة -->
+<section class="s-band p-story" aria-labelledby="story-h" data-story>
+<div class="p-story-pin" data-story-pin>
+<div class="s-wrap p-story-grid">
+<div class="p-story-text">
+<h2 class="s-h2" id="story-h">الدليل يرد عنك</h2>
+<ol class="p-story-steps" data-story-run>
+<li data-step><h3 class="s-h3">قبل ما يوصل ضيفك</h3><p>نكتب الدليل من معلوماتك، ونركّب الشريحة والباركود داخل الوحدة.</p></li>
+<li data-step><h3 class="s-h3">أثناء الإقامة</h3><p>يلقى الواي فاي بزر نسخ، والتكييف والشروط وأرقام الطوارئ. ولو صار عطل، يرسل لنا بلاغ صيانة على واتساب.</p></li>
+<li data-step><h3 class="s-h3">عند الخروج</h3><p>يشوف وقت الخروج وخطواته، وزر «تم الخروج» يفتح له رسالة واتساب جاهزة لنا.</p></li>
+</ol>
+</div>
+<div class="p-story-media" data-story-scene data-story-near="right">
+<div class="lt-scene lt-scene--fill lt-scene--door" data-scene="hosts"><div class="lt-scene-stage" data-scan="tint"><img class="lt-scene-bg" src="../assets/mockups/scene-hosts-bw-800.webp" srcset="../assets/mockups/scene-hosts-bw-800.webp 800w, ../assets/mockups/scene-hosts-bw-1600.webp 1600w" sizes="(min-width: 1024px) 60vw, 120vw" width="1600" height="1200" alt="" loading="lazy" decoding="async"><img class="lt-scene-bg" data-tint src="../assets/mockups/scene-hosts-color-800.webp" srcset="../assets/mockups/scene-hosts-color-800.webp 800w, ../assets/mockups/scene-hosts-color-1600.webp 1600w" sizes="(min-width: 1024px) 60vw, 120vw" width="1600" height="1200" alt="" loading="lazy" decoding="async"><span class="lt-slot lt-slot--wall" data-print="checkout-sign"><span class="lt-slot-face"></span><span class="p-touch" data-story-target></span></span></div></div>
+<div class="p-story-hand"><div class="p-story-phone" data-story-phone><!-- @@phone:guide-story --><svg class="h-phone-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 500" width="240" height="500"><path fill="#14201F" class="pf-edge" d="M33.3 0H206.7A33.3 33.3 0 0 1 240 33.3V466.7A33.3 33.3 0 0 1 206.7 500H33.3A33.3 33.3 0 0 1 0 466.7V33.3A33.3 33.3 0 0 1 33.3 0Z"/><path fill="#2A3B38" d="M30.8 0H209.2A0.8 0.8 0 0 1 210 0.8V2.3A0.8 0.8 0 0 1 209.2 3.1H30.8A0.8 0.8 0 0 1 30 2.3V0.8A0.8 0.8 0 0 1 30.8 0Z"/><rect x="10" y="10" width="220" height="480" rx="23.3" fill="#FFFFFF"/><foreignObject x="10" y="10" width="220" height="480"><div class="fo-screen" style="position:relative;overflow:hidden;width:100%;height:100%;border-radius:23.3px"><div class="c mini lt-page mini--flats" inert style="position:absolute;left:0;top:0;width:390px;height:851px;transform:scale(0.56410);transform-origin:0 0"><div class="c-main"><div class="c-id c-id--sm"><picture><img class="c-logo" src="../demo/_brands/apartments.svg" alt="شقق المثال" data-name="شقق المثال"></picture></div><div data-h="1">أهلاً في شقة المثال</div><div><div class="c-wifi"><p class="c-label">الشبكة</p><p class="c-wifi-v" dir="ltr" translate="no">Mithal-Guest</p><p class="c-label">كلمة المرور</p><p class="c-pw" dir="ltr" translate="no">Mithal@2026</p><span class="lt-btn lt-btn--shop" id="pguidestory-wifi-copy">انسخ كلمة المرور</span></div><p class="c-status" id="pguidestory-wifi-st"></p></div><div><div id="pguidestory-out-h" data-h="2">الخروج والصيانة</div><div class="lt-panel"><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">وقت الخروج</span></span><span class="lt-row-end lt-row-end--value">12 الظهر</span></div></div><p class="c-sub g-notice">بالضغط يفتح واتساب وترسل رسالة من رقمك إلى <span data-company>لمسة تاب</span>، مشغّل خدمة الوحدة. نستخدم رقمك لهذا الطلب فقط، ما نشاركه مع أحد، ونحذف المحادثة بعد إغلاق الطلب. <span>سياسة الخصوصية</span></p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="pguidestory-out"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>تم الخروج</span></span><div class="lt-panel g-confirm" id="pguidestory-out-confirm" hidden><p class="g-confirm-h">قبل ما تطلع:</p><ul class="g-steps"><li>طفّ المكيفات والأنوار</li><li>سكّر الشبابيك</li><li>ارمِ الزبالة في الحاوية تحت العمارة</li></ul><div class="g-confirm-b"><p>متأكد إنك طلعت من الوحدة؟ بيفتح واتساب برسالة جاهزة، اضغط «إرسال» عشان نبلغ المضيف.</p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="pguidestory-out-yes"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>نعم، طلعت</span></span><span class="lt-btn lt-btn--secondary" id="pguidestory-out-no">لا، رجوع</span></div></div></div><span class="lt-btn lt-btn--secondary" id="pguidestory-fix"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>بلاغ صيانة</span></span></div><p class="c-label g-contact-h">تواصل مع مشغّل خدمة الوحدة</p><div class="lt-panel"><span class="lt-row" id="pguidestory-ask"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span class="lt-row-body"><span class="lt-row-title">استفسار على واتساب</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span><span class="lt-row" id="pguidestory-call"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 2.8 8.4 3.6 9.2 6.9 7.5 8.4Q8.9 11.1 11.6 12.5L13.1 10.8 16.4 11.6 17.2 13.8Q17.2 16.9 14.4 17.2 4.6 16.6 2.8 5.6 3.1 2.8 6.2 2.8z"/></svg><span class="lt-row-body"><span class="lt-row-title">اتصل بنا</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span></div><p class="c-status" id="pguidestory-out-st"></p></div><p class="c-sub g-privacy" id="pguidestory-privacy-policy">سياسة الخصوصية: ما انكتبت للحين.</p></div></div></div></foreignObject><circle cx="120" cy="20.7" r="4.5" fill="#14201F"/></svg><!-- /@@phone:guide-story --></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 5) الدليل الحي (أبيض، web-copy المضيفين بند 4، و«الاتجاه 3» §5): جوال كبير بدليل «شقق المثال» تنفتح شاشته بالمسح مرة وحدة
+     (data-scan="phone"، 1100ms). وجنبه مشهد طاولة داخل الشقة (إضافة صاحب المشروع بعد GM-050): ثلاث خانات ستاند لقسم الطباعة
+     (wifi-stand و emergency-stand و guest-guide-stand)، مستطيلات بيضاء لين توصل صورهم (assets/mockups/print-art.js).
+     الطوارئ: اسم الستاند بس، بدون أي رقم أو وعد. والباركود الثابت 120 «امسحه بجوالك» على الكمبيوتر بس (§5)، ويفتح المثال (SITE.domain) -->
+<section class="s-band s-band--white p-demo" aria-labelledby="demo-h">
+<div class="s-wrap p-demo-grid">
+<div class="p-demo-text">
+<h2 class="s-h2" id="demo-h">جرّب الدليل بنفسك</h2>
+<p class="s-lead p-demo-lead">مثال وهمي لشقة، ينفتح زي ما ينفتح عند ضيفك.</p>
+<a class="lt-btn p-demo-open" href="../demo/rental-guide/index.html">افتح دليل تجريبي</a>
+<figure class="p-demo-qr" aria-hidden="true"><!-- @@qr:rental-guide --><svg class="m-qr" viewBox="-4 -4 37 37" width="296" height="296" shape-rendering="crispEdges" aria-hidden="true" focusable="false" data-qr-url="https://example.com/demo/rental-guide/"><path fill="currentColor" d="M0 0h7v1h-7zM8 0h2v1h-2zM11 0h4v1h-4zM18 0h1v1h-1zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h6v1h-6zM19 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h2v1h-2zM11 2h1v1h-1zM13 2h3v1h-3zM19 2h2v1h-2zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h1v1h-1zM11 3h1v1h-1zM13 3h2v1h-2zM16 3h2v1h-2zM20 3h1v1h-1zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h1v1h-1zM10 4h2v1h-2zM13 4h2v1h-2zM16 4h1v1h-1zM18 4h2v1h-2zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM10 5h1v1h-1zM13 5h2v1h-2zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM11 7h3v1h-3zM19 7h1v1h-1zM0 8h1v1h-1zM3 8h6v1h-6zM13 8h1v1h-1zM16 8h4v1h-4zM21 8h1v1h-1zM24 8h1v1h-1zM26 8h3v1h-3zM2 9h1v1h-1zM12 9h4v1h-4zM17 9h3v1h-3zM21 9h1v1h-1zM23 9h2v1h-2zM26 9h2v1h-2zM1 10h1v1h-1zM4 10h5v1h-5zM13 10h1v1h-1zM15 10h2v1h-2zM21 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM0 11h1v1h-1zM2 11h3v1h-3zM8 11h2v1h-2zM11 11h1v1h-1zM13 11h1v1h-1zM17 11h1v1h-1zM19 11h2v1h-2zM22 11h1v1h-1zM25 11h1v1h-1zM28 11h1v1h-1zM0 12h3v1h-3zM5 12h5v1h-5zM11 12h1v1h-1zM13 12h1v1h-1zM15 12h1v1h-1zM20 12h1v1h-1zM22 12h2v1h-2zM28 12h1v1h-1zM0 13h2v1h-2zM3 13h1v1h-1zM9 13h1v1h-1zM11 13h1v1h-1zM13 13h4v1h-4zM20 13h1v1h-1zM22 13h7v1h-7zM1 14h2v1h-2zM4 14h1v1h-1zM6 14h4v1h-4zM11 14h1v1h-1zM13 14h1v1h-1zM15 14h1v1h-1zM17 14h4v1h-4zM23 14h2v1h-2zM26 14h1v1h-1zM28 14h1v1h-1zM1 15h3v1h-3zM7 15h1v1h-1zM10 15h3v1h-3zM15 15h1v1h-1zM18 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM0 16h9v1h-9zM10 16h2v1h-2zM14 16h2v1h-2zM19 16h2v1h-2zM23 16h1v1h-1zM25 16h1v1h-1zM0 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM9 17h2v1h-2zM12 17h4v1h-4zM17 17h4v1h-4zM24 17h1v1h-1zM26 17h2v1h-2zM0 18h4v1h-4zM5 18h3v1h-3zM11 18h2v1h-2zM15 18h1v1h-1zM17 18h1v1h-1zM19 18h1v1h-1zM22 18h4v1h-4zM28 18h1v1h-1zM0 19h2v1h-2zM8 19h1v1h-1zM10 19h3v1h-3zM14 19h1v1h-1zM16 19h1v1h-1zM21 19h1v1h-1zM25 19h2v1h-2zM0 20h3v1h-3zM4 20h3v1h-3zM8 20h2v1h-2zM11 20h1v1h-1zM13 20h2v1h-2zM16 20h2v1h-2zM20 20h8v1h-8zM8 21h4v1h-4zM14 21h5v1h-5zM20 21h1v1h-1zM24 21h2v1h-2zM0 22h7v1h-7zM8 22h1v1h-1zM10 22h1v1h-1zM14 22h2v1h-2zM19 22h2v1h-2zM22 22h1v1h-1zM24 22h2v1h-2zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h3v1h-3zM12 23h1v1h-1zM14 23h1v1h-1zM17 23h4v1h-4zM24 23h1v1h-1zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h1v1h-1zM11 24h4v1h-4zM16 24h1v1h-1zM19 24h7v1h-7zM28 24h1v1h-1zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM8 25h1v1h-1zM11 25h1v1h-1zM13 25h1v1h-1zM15 25h2v1h-2zM23 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM9 26h4v1h-4zM14 26h2v1h-2zM19 26h1v1h-1zM21 26h1v1h-1zM23 26h2v1h-2zM26 26h3v1h-3zM0 27h1v1h-1zM6 27h1v1h-1zM10 27h2v1h-2zM13 27h2v1h-2zM16 27h1v1h-1zM18 27h1v1h-1zM21 27h1v1h-1zM23 27h4v1h-4zM28 27h1v1h-1zM0 28h7v1h-7zM8 28h2v1h-2zM11 28h2v1h-2zM15 28h1v1h-1zM19 28h4v1h-4zM24 28h1v1h-1z"/></svg><!-- /@@qr:rental-guide --><figcaption>امسحه بجوالك</figcaption></figure>
+</div>
+<div class="p-demo-media">
+<div class="p-demo-phone" data-scan="phone"><!-- @@phone:guide-demo --><svg class="h-phone-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 500" width="240" height="500"><path fill="#14201F" class="pf-edge" d="M33.3 0H206.7A33.3 33.3 0 0 1 240 33.3V466.7A33.3 33.3 0 0 1 206.7 500H33.3A33.3 33.3 0 0 1 0 466.7V33.3A33.3 33.3 0 0 1 33.3 0Z"/><path fill="#2A3B38" d="M30.8 0H209.2A0.8 0.8 0 0 1 210 0.8V2.3A0.8 0.8 0 0 1 209.2 3.1H30.8A0.8 0.8 0 0 1 30 2.3V0.8A0.8 0.8 0 0 1 30.8 0Z"/><rect x="10" y="10" width="220" height="480" rx="23.3" fill="#FFFFFF"/><foreignObject x="10" y="10" width="220" height="480"><div class="fo-screen" style="position:relative;overflow:hidden;width:100%;height:100%;border-radius:23.3px"><div class="c mini lt-page mini--flats" inert style="position:absolute;left:0;top:0;width:390px;height:851px;transform:scale(0.56410);transform-origin:0 0"><div class="c-main"><div class="c-id c-id--sm"><picture><img class="c-logo" src="../demo/_brands/apartments.svg" alt="شقق المثال" data-name="شقق المثال"></picture></div><div data-h="1">أهلاً في شقة المثال</div><div><div class="c-wifi"><p class="c-label">الشبكة</p><p class="c-wifi-v" dir="ltr" translate="no">Mithal-Guest</p><p class="c-label">كلمة المرور</p><p class="c-pw" dir="ltr" translate="no">Mithal@2026</p><span class="lt-btn lt-btn--shop" id="pguidedemo-wifi-copy">انسخ كلمة المرور</span></div><p class="c-status" id="pguidedemo-wifi-st"></p></div><div><div id="pguidedemo-out-h" data-h="2">الخروج والصيانة</div><div class="lt-panel"><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">وقت الخروج</span></span><span class="lt-row-end lt-row-end--value">12 الظهر</span></div></div><p class="c-sub g-notice">بالضغط يفتح واتساب وترسل رسالة من رقمك إلى <span data-company>لمسة تاب</span>، مشغّل خدمة الوحدة. نستخدم رقمك لهذا الطلب فقط، ما نشاركه مع أحد، ونحذف المحادثة بعد إغلاق الطلب. <span>سياسة الخصوصية</span></p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="pguidedemo-out"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>تم الخروج</span></span><div class="lt-panel g-confirm" id="pguidedemo-out-confirm" hidden><p class="g-confirm-h">قبل ما تطلع:</p><ul class="g-steps"><li>طفّ المكيفات والأنوار</li><li>سكّر الشبابيك</li><li>ارمِ الزبالة في الحاوية تحت العمارة</li></ul><div class="g-confirm-b"><p>متأكد إنك طلعت من الوحدة؟ بيفتح واتساب برسالة جاهزة، اضغط «إرسال» عشان نبلغ المضيف.</p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="pguidedemo-out-yes"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>نعم، طلعت</span></span><span class="lt-btn lt-btn--secondary" id="pguidedemo-out-no">لا، رجوع</span></div></div></div><span class="lt-btn lt-btn--secondary" id="pguidedemo-fix"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>بلاغ صيانة</span></span></div><p class="c-label g-contact-h">تواصل مع مشغّل خدمة الوحدة</p><div class="lt-panel"><span class="lt-row" id="pguidedemo-ask"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span class="lt-row-body"><span class="lt-row-title">استفسار على واتساب</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span><span class="lt-row" id="pguidedemo-call"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 2.8 8.4 3.6 9.2 6.9 7.5 8.4Q8.9 11.1 11.6 12.5L13.1 10.8 16.4 11.6 17.2 13.8Q17.2 16.9 14.4 17.2 4.6 16.6 2.8 5.6 3.1 2.8 6.2 2.8z"/></svg><span class="lt-row-body"><span class="lt-row-title">اتصل بنا</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span></div><p class="c-status" id="pguidedemo-out-st"></p></div><p class="c-sub g-privacy" id="pguidedemo-privacy-policy">سياسة الخصوصية: ما انكتبت للحين.</p></div></div></div></foreignObject><circle cx="120" cy="20.7" r="4.5" fill="#14201F"/></svg><!-- /@@phone:guide-demo --></div>
+<figure class="p-table">
+<div class="lt-scene p-table-scene" data-scene="hosts-table" aria-hidden="true"><div class="lt-scene-stage"><span class="p-table-top"></span><span class="lt-slot lt-slot--stand p-stand p-stand--guide" data-print="guest-guide-stand"><span class="lt-slot-face"></span></span><span class="lt-slot lt-slot--stand p-stand p-stand--sos" data-print="emergency-stand"><span class="lt-slot-face"></span></span><span class="lt-slot lt-slot--stand p-stand p-stand--wifi" data-print="wifi-stand"><span class="lt-slot-face"></span></span></div></div>
+<figcaption><ul class="p-table-names"><li>ستاند الواي فاي</li><li>ستاند الطوارئ</li><li>ستاند دليل الضيف</li></ul></figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- 6) العرض: باقة المضيف بمفتاح «شهري / سنوي» وبطاقتين (رملي ثاني، web-copy المضيفين بند 5 و«مفتاح الأسعار» (أ)، ومرجع صاحب المشروع
+     brief-gm040.md «قسم الأسعار»). انشال «خصم المحافظ» (البطاقة الوحدة والشريط). الأسعار من services/pricing.md (GM-045) بس، وبدون ذكر للضريبة.
+     المفتاح radiogroup (شهري أول، و«بسعر 11 شهر» تحت «سنوي» بـ aria-describedby)، ويبدّل البطاقتين مع بعض (data-price-scope على .p-plans-wrap).
+     الأرقام المتدحرجة aria-hidden، ومكانها نص مخفي بالسعر كامل (ج). بدون JS: المفتاح ما يطلع، والبطاقات على «شهري»، وتحت كل سعر سطر
+     فيه السعر السنوي (.s-nojs، د). الزر الأساسي الوحيد في الشاشة: hostTrial في البطاقة 1، وزر البطاقة 2 ثانوي بإطار (portfolio).
+     المنطق في app.js (initPriceSwitch). ظهور البطاقات بالترتيب (data-reveal="stagger") -->
+<section class="s-band s-band--sand2 p-plan" id="plan" aria-labelledby="plan-h">
+<div class="s-wrap">
+<h2 class="s-h2" id="plan-h" data-words="cut">باقة المضيف، لكل وحدة</h2>
+<p class="s-lead p-plan-lead">ونجهّزها بهويتك ونركّبها داخل الوحدة.</p>
+<div class="p-incl">
+<h3 class="p-incl-h">في الباقة</h3>
+<ul class="s-checks p-incl-list">
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>تجربة أسبوعين ببلاش</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>العتاد والتركيب علينا طول الاشتراك</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>بدون دفع مقدم</span></li>
+</ul>
+</div>
+<div class="p-plans-wrap" data-price-scope>
+<div class="s-period p-period">
+<div class="s-switch" role="radiogroup" aria-label="الدفع شهري أو سنوي" data-price-switch>
+<button type="button" class="s-switch-opt" role="radio" aria-checked="true" data-value="month">شهري</button>
+<button type="button" class="s-switch-opt" role="radio" aria-checked="false" data-value="year" aria-describedby="period-y-note" tabindex="-1">سنوي</button>
+<span class="s-switch-thumb" aria-hidden="true"></span>
+</div>
+<p class="s-period-note" id="period-y-note">بسعر 11 شهر</p>
+</div>
+<div class="s-plans p-plans" data-reveal="stagger">
+<article class="s-card s-plan s-plan--stack p-plan-card" aria-labelledby="plan1-h">
+<div class="s-plan-what">
+<h3 class="s-h3" id="plan1-h">1 إلى 4 وحدات</h3>
+<p class="s-small p-plan-elig">للمضيف المرخّص من وزارة السياحة</p>
+<ul class="s-checks">
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>دليل الضيف: الواي فاي، والتكييف، والشروط، والعنوان</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>«تم الخروج» و«بلاغ صيانة» برسالة واتساب لنا</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>رابط تقييم في الدليل</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>رقمك ما يظهر للضيف</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>شريحة الوحدة وملصق الباركود، باسمك أو شعارك</span></li>
+</ul>
+</div>
+<div class="s-plan-buy">
+<p class="s-price"><span class="s-sr" data-swap data-month="49.5 ريال للوحدة بالشهر" data-year="544.5 ريال للوحدة بالسنة">49.5 ريال للوحدة بالشهر</span><span class="s-price-fig" aria-hidden="true" data-roll data-month="49.5" data-year="544.5">49.5</span> <span class="s-price-unit" aria-hidden="true">ريال <span data-swap data-month="للوحدة بالشهر" data-year="للوحدة بالسنة">للوحدة بالشهر</span></span></p>
+<p class="s-price-note" id="plan1-note"><span data-when="month">بالتزام 6 أشهر.</span><span data-when="year" hidden>للسنة كاملة، بسعر 11 شهر.</span><span class="s-nojs"> أو <span class="s-num">544.5</span> ريال بالسنة للوحدة، بسعر 11 شهر.</span></p>
+<div class="s-cta">
+<a class="lt-btn" data-wa="hostTrial" aria-describedby="plan1-h plan1-note" hidden><span>اطلب تجربة أسبوعين على واتساب</span></a>
+<p class="s-risk" data-wa-only hidden>أسبوعين ببلاش · ما عجبك؟ نشيل العتاد، بدون دفع مقدم ولا التزام في التجربة</p>
+<div class="s-tg" data-tg="with-wa" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</div>
+</article>
+<article class="s-card s-plan s-plan--stack p-plan-card" aria-labelledby="plan2-h">
+<div class="s-plan-what">
+<div class="s-plan-head"><h3 class="s-h3" id="plan2-h">5 وحدات أو أكثر</h3><p class="s-badge">سعر أقل للوحدة</p></div>
+<p class="s-small p-plan-elig">للمضيف المرخّص من وزارة السياحة</p>
+<p class="p-plan-same">نفس الباقة، والسعر على كل وحداتك.</p>
+</div>
+<div class="s-plan-buy">
+<p class="s-price"><span class="s-sr" data-swap data-month="39.5 ريال للوحدة بالشهر" data-year="434.5 ريال للوحدة بالسنة">39.5 ريال للوحدة بالشهر</span><span class="s-price-fig" aria-hidden="true" data-roll data-month="39.5" data-year="434.5">39.5</span> <span class="s-price-unit" aria-hidden="true">ريال <span data-swap data-month="للوحدة بالشهر" data-year="للوحدة بالسنة">للوحدة بالشهر</span></span></p>
+<p class="s-price-note" id="plan2-note"><span data-when="month">بالتزام 6 أشهر.</span><span data-when="year" hidden>للسنة كاملة، بسعر 11 شهر.</span><span class="s-nojs"> أو <span class="s-num">434.5</span> ريال بالسنة للوحدة، بسعر 11 شهر.</span></p>
+<div class="s-cta">
+<a class="lt-btn lt-btn--secondary" data-wa="portfolio" aria-describedby="plan2-h plan2-note" hidden><span>كلّمنا عن وحداتك على واتساب</span></a>
+<p class="s-risk" data-wa-only hidden>أسبوعين ببلاش · ما عجبك؟ نشيل العتاد، بدون دفع مقدم ولا التزام في التجربة</p>
+<div class="s-tg" data-tg="with-wa" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- اللي ما نسويه (web-copy المضيفين بند 6، ج6): نفس نمط المطاعم (AD-15)، ثلاث أعمدة من 1024 بأيقونة «لا» رمادية -->
+<div class="p-dont">
+<h3 class="s-h3" id="dont-h">اللي ما نسويه</h3>
+<ul class="p-dont-list" aria-labelledby="dont-h">
+<li><svg class="p-dont-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.25"/><path d="M5.1 14.9 14.9 5.1"/></svg><span>ما نطلّع رقمك ولا رقم العاملة للضيف.</span></li>
+<li><svg class="p-dont-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.25"/><path d="M5.1 14.9 14.9 5.1"/></svg><span>ما نشارك رقم ضيفك مع أحد.</span></li>
+<li><svg class="p-dont-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.25"/><path d="M5.1 14.9 14.9 5.1"/></svg><span>ما نسحب ضيفك للحجز أو الدفع برا المنصة.</span></li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- 7) الأسئلة (رملي، web-copy المضيفين بند 7: 8 أسئلة، والأجوبة «بالحرف» منقولة من ج8) ثم «اسأل إنسان» (التواصل «ب»، رسالة host).
+     وعد الرد هنا مرتين بس: سؤال 8، وسطر «اسأل إنسان» (GM-046). الأكورديون (data-accordion).
+     نفس تخطيط المطاعم (AD-15): «اسأل إنسان» h3 داخل الأسئلة، جنبها من 1024 (7 أعمدة للأسئلة و4 للوح) وتحتها على الجوال -->
+<section class="s-band p-faq" id="faq" aria-labelledby="faq-h">
+<div class="s-wrap">
+<h2 class="s-h2" id="faq-h">الأسئلة</h2>
+<div class="p-faq-grid">
+<div class="s-faq p-faq-list" data-accordion>
+<details class="s-q"><summary>هل ضيفي يحتاج تطبيق؟</summary><div class="s-q-a"><p>لا، الصفحة تنفتح في متصفح جواله. آيفون XS وأحدث يقرأ الشريحة بدون تطبيق. وأندرويد يقرأها لما يكون NFC شغال والشاشة مفتوحة. وفي أندرويد 17 وأحدث، يطلع له تنبيه يضغط عليه عشان ينفتح الرابط.</p></div></details>
+<details class="s-q"><summary>وش لو جواله ما قرأ الشريحة؟</summary><div class="s-q-a"><p>يمسح الباركود اللي جنبها، ويفتح نفس الصفحة. والآيفون ما يقرأ الشريحة والكاميرا أو المحفظة مفتوحة، أو وهو على وضع الطيران.</p></div></details>
+<details class="s-q"><summary>أقدر أغيّر كلمة الواي فاي أو الشروط بعدين؟</summary><div class="s-q-a"><p>إيه. ترسل لنا التعديل على واتساب، ونغيّره من عندنا بدون ما نرجع للوحدة. والشريحة نفسها ما تتغير.</p></div></details>
+<details class="s-q"><summary>مين يركّب، ووين؟</summary><div class="s-q-a"><p>إحنا نركّب بنفسنا، وحالياً في جدة بس. والتركيب علينا، ونجرّب كل شريحة قبل التسليم.</p></div></details>
+<details class="s-q"><summary>هل رقمي أو رقم العاملة يطلع للضيف؟</summary><div class="s-q-a"><p>لا، أبداً. رسايل «تم الخروج» و«بلاغ صيانة» توصلنا إحنا من جوال الضيف. ورقمك ما يطلع في الصفحة ولا في الرسالة.</p></div></details>
+<details class="s-q"><summary>كيف يصير التجديد؟</summary><div class="s-q-a"><p>ما يتجدد إلا بتأكيد صريح منك. ونذكّرك قبل التجديد بـ 7 أيام للشهري، و30 يوم للسنوي.</p></div></details>
+<details class="s-q"><summary>وش تشمل التجربة، وهل أدفع شي مقدم؟</summary><div class="s-q-a"><p>نجهّز الدليل ونركّب العتاد في وحدة وحدة، وتجرّبها أسبوعين ببلاش. بدون دفع مقدم ولا التزام فيها، ولو ما كمّلت نشيل العتاد.</p></div></details>
+<details class="s-q"><summary>وش لو تعطلت الشريحة؟</summary><div class="s-q-a"><p>نرد على بلاغك خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم. ونبدلها مجاناً خلال 5 أيام عمل، إذا ما كان العطل من سوء استخدام.</p></div></details>
+</div>
+<div class="s-ask lt-lift p-ask">
+<div class="s-ask-head">
+<h3 class="s-h3" id="ask-h">تبغى تكلّم أحد منا؟</h3>
+<p class="s-ask-t">يرد عليك واحد منا خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم.</p>
+</div>
+<div class="s-cta">
+<a class="lt-btn" data-wa="host" hidden><span>كلّمنا على واتساب</span></a>
+<p class="s-small" data-wa-empty>رقم التواصل على واتساب ينضاف قريباً.</p>
+<div class="s-tg" data-tg="with-wa" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 8) الخاتمة (أبيض، web-copy المضيفين بند 9): h2 60 / 44 / 34، والزر برسالة hostTrial وسطر المخاطرة والتليجرام. بدون وعد الرد هنا -->
+<section class="s-band s-band--white p-close" aria-labelledby="close-h">
+<div class="s-wrap">
+<h2 class="s-h2 p-close-h" id="close-h" data-words="gather">تبغى نركّبها في وحداتك؟</h2>
+<p class="s-lead p-close-lead">خبّرنا كم وحدة عندك والحي، ونرتب معك التجربة.</p>
+<div class="s-cta p-close-cta">
+<a class="lt-btn" data-wa="hostTrial" hidden><span>اطلب تجربة أسبوعين على واتساب</span></a>
+<p class="s-risk" data-wa-only hidden>أسبوعين ببلاش · ما عجبك؟ نشيل العتاد، بدون دفع مقدم ولا التزام في التجربة</p>
+<div class="s-tg" data-tg="with-wa" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- 9) التذييل الفاتح (رملي ثاني): نفس البوابة بمسارات ../ (web-copy ج10 و«ج» في التواصل، §11.5). كل رابط قيمته من config.js يختفي لو فاضي -->
+<footer class="s-foot-wrap">
+<div class="s-wrap s-foot">
+<div class="s-foot-id">
+<!-- @@logo:foot --><picture class="s-foot-logo"><source srcset="../assets/brand/logo-stack-since.svg" media="(min-width: 1024px)" width="160" height="145"><img class="s-logo-stack" src="../assets/brand/logo-stack.svg" width="120" height="95" alt="لمسة تاب — LamsaTap" data-company-alt></picture><!-- /@@logo:foot -->
+<p>نركّب حالياً في جدة</p>
+<p>السجل التجاري: [رقم السجل التجاري]</p>
+<!-- سطر «الصور توضيحية» (رد المحامي work/2026-09-28-kie-scenes/legal.md بند 5، واختاره المدير الفني §5 بند 6، GM-060 خلّاه اختياري): المشاهد مولّدة -->
+<p class="s-foot-note">الصور توضيحية</p>
+</div>
+<p class="s-foot-links"><a href="../restaurants/index.html">للمطاعم والكافيهات</a><a href="index.html">للمضيفين</a><a href="../index.html#how">كيف نشتغل</a><a data-link="privacy" hidden>سياسة الخصوصية</a><a data-link="terms" hidden>الشروط والأحكام</a><a data-wa="host" hidden>واتساب</a><a data-tg-channel hidden>قناتنا على تليجرام</a></p>
+<p class="s-foot-c">© 2026 <span data-company>لمسة تاب</span></p>
+</div>
+</footer>
+<script src="../config.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>
