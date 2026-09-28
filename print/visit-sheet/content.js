@@ -33,8 +33,11 @@ window.VISIT_CONTENT = {
   // ===== المنتج على المسرح: نفس محلات العرض الوهمية حق الموقع ولوحات GM-050 (website/demo/_brands/، brand/README.md) =====
   demo: {
     restaurant: { name: 'مقهى المثال', logo: '../../website/demo/_brands/cafe.svg', color: '#7A3E2B' },   // = print/stand/clients/example-cafe.js
-    // ملصق الشريحة ما عليه اسم ولا شعار (web-copy §3)، فالنقطة بالأسود: لون النقطة لما ما فيه لون عميل (GM-027، dotColor في print/print.js)
-    host: { name: '', logo: '', color: '' }
+    // المضيف الوهمي نفسه في كل صور المضيف: «شقق المثال» (= website/demo/_brands/brands.js flats و print/host-stickers/clients/example-flats.js)،
+    // عشان الملصق يطلع نفس الشي في ملصقات المضيف ولوحات GM-050 وصور الموقع (print/renders) وصورة التليجرام م5 (مراجعة التصدير: كان أسود هنا وكحلي هناك).
+    // ملصق الشريحة ما عليه اسم ولا شعار (web-copy §3)، فيبان منه لون النقطة بس: لون العقار لو تباينه مع الأبيض 3 أو أكثر، وإلا أسود
+    // (GM-027، dotColor في print/print.js). #1F3B57 تباينه 11.53 (brand/README.md «شعارات محلات العرض»). و«بهوية وحدتك» ميزة بيع (sales/host-track.md:114)
+    host: { name: 'شقق المثال', logo: '', color: '#1F3B57' }
   },
 
   sheets: {

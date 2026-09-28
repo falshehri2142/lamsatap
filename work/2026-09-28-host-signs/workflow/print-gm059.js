@@ -198,10 +198,20 @@ async function signsFinish() {
     if (f) design = f
   }
   design = await reviewApply(SIGN_RULES, design, 'signs', ph, SIGN_ROLES)
-  const exp = await agent(exportPrompt(SIGN_RULES, design, tool, 'signs re-export'), { label: 'ad-creative: re-export (signs)', phase: ph, schema: EXPORT_SCHEMA, effort: E })
-  const pre = await agent(prepressPrompt(SIGN_RULES, design, exp, 2, 'signs'), { label: 'print-prepress: recheck (signs)', phase: ph, schema: PRE_SCHEMA, effort: E })
-  if (pre && pre.verdict === 'FAIL') log('signs: still FAIL after the fix round — reported, not looped further')
-  return { design, exp, pre, rounds: 2 }
+  let exp = await agent(exportPrompt(SIGN_RULES, design, tool, 'signs re-export'), { label: 'ad-creative: re-export (signs)', phase: ph, schema: EXPORT_SCHEMA, effort: E })
+  let pre = await agent(prepressPrompt(SIGN_RULES, design, exp, 2, 'signs'), { label: 'print-prepress: recheck (signs)', phase: ph, schema: PRE_SCHEMA, effort: E })
+  let rounds = 2
+  if (pre && pre.verdict === 'FAIL') {
+    log(`signs: FAIL in round 2 (${pre.mustFix.length} must-fix) → round 3`)
+    const f3 = await agent(fixPrompt(SIGN_RULES, SIGN_ROLES[0].role, design, pre, exp), { label: 'print-designer: fix round 3 (signs)', phase: ph, schema: DESIGN_SCHEMA, effort: E })
+    if (f3) design = f3
+    design = await reviewApply(SIGN_RULES, design, 'signs round 3', ph, SIGN_ROLES)
+    exp = await agent(exportPrompt(SIGN_RULES, design, tool, 'signs re-export round 3'), { label: 'ad-creative: re-export round 3 (signs)', phase: ph, schema: EXPORT_SCHEMA, effort: E })
+    pre = await agent(prepressPrompt(SIGN_RULES, design, exp, 3, 'signs'), { label: 'print-prepress: recheck round 3 (signs)', phase: ph, schema: PRE_SCHEMA, effort: E })
+    rounds = 3
+    if (pre && pre.verdict === 'FAIL') log('signs: still FAIL after round 3 — reported')
+  }
+  return { design, exp, pre, rounds }
 }
 
 const DESIGNER_B = `${BASE}${B2B_RULES}${SKILLS}
@@ -247,7 +257,16 @@ async function b2bFinish() {
     exp = await agent(exportPrompt(B2B_RULES, design, tool, 'visit sheets + telegram re-export'), { label: 'ad-creative: re-export (b2b)', phase: ph, schema: EXPORT_SCHEMA, effort: E })
     pre = await agent(prepressPrompt(B2B_RULES, design, exp, 2, 'visit sheets + telegram'), { label: 'print-prepress: recheck (b2b)', phase: ph, schema: PRE_SCHEMA, effort: E })
     rounds = 2
-    if (pre && pre.verdict === 'FAIL') log('b2b: still FAIL after the fix round — reported, not looped further')
+    if (pre && pre.verdict === 'FAIL') {
+      log(`b2b: FAIL in round 2 (${pre.mustFix.length} must-fix) → round 3`)
+      const res3 = await parallel(B_ROLES.map(r => () => agent(fixPrompt(B2B_RULES, r.role, r.design(design), pre, exp), { label: `${r.role.split(' ')[0]}: fix round 3 (b2b)`, phase: ph, schema: DESIGN_SCHEMA, effort: E })))
+      design = merge(design, B_ROLES, res3)
+      design = await reviewApply(B2B_RULES, design, 'visit sheets + telegram (round 3)', ph, B_ROLES)
+      exp = await agent(exportPrompt(B2B_RULES, design, tool, 'visit sheets + telegram re-export round 3'), { label: 'ad-creative: re-export round 3 (b2b)', phase: ph, schema: EXPORT_SCHEMA, effort: E })
+      pre = await agent(prepressPrompt(B2B_RULES, design, exp, 3, 'visit sheets + telegram'), { label: 'print-prepress: recheck round 3 (b2b)', phase: ph, schema: PRE_SCHEMA, effort: E })
+      rounds = 3
+      if (pre && pre.verdict === 'FAIL') log('b2b: still FAIL after round 3 — reported')
+    }
   }
   return { design, exp, pre, rounds }
 }

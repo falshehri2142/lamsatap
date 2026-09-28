@@ -9,9 +9,9 @@
 | الملف | وش فيه |
 |---|---|
 | `index.html` | الصفحة. `?sheet=restaurant` أو `?sheet=host`، وبدونها الثنتين |
-| `visit.js` | الرسم والقياس والفحص، و`window.PRINT_REPORT` |
-| `visit.css` | التنسيق (المشترك من `print/print.css`) |
-| `visit-dims.js` | **كل المقاسات بالمليمتر ومصدر كل رقم** |
+| `visit.js` | الرسم والقياس والفحص، و`window.PRINT_REPORT`. ما فيه مقاسات: بس سماحات القياس في الفحوص (مثل ±0.05mm) جنب كل فحص |
+| `visit.css` | الأوزان والألوان وارتفاع الأسطر والترتيب، **بدون ولا مليمتر** (المشترك من `print/print.css`) |
+| `visit-dims.js` | **كل المقاسات والمسافات بالمليمتر ومصدر كل رقم**، وتنحط inline من `visit.js` |
 | `content.js` | **كل النصوص ومصدر كل سطر**، والتواصل الوهمي، وأكواد الباركود |
 
 يعتمد على (قراءة بس، ما نعدّلهم): `print/print.js` و`print/print.css` و`print/dims.js` و`brand/tokens.css` و`website/config.js` و`website/vendor/qrcode-generator.js`.
@@ -21,12 +21,13 @@
 - **جهة النهاية (يسار): الأشياء.** المنتج، والسعر، والباركود. حافتهم اليسار كلها على هامش الأمان 10.583mm.
 - من فوق لتحت: سطر الشعار ← العنوان ← المسرح الرملي (المنتج وتعليقاته) ← العرض (الباقة والسعر ووش فيها والشروط) ← التواصل (البطاقة والباركود).
 - الرأس والعنوان وأعلى المسرح في نفس المكان بالضبط في الورقتين (فراغات ثابتة)، عشان الورقتين عائلة وحدة لو انحطوا جنب بعض. والباقي من الورقة يتوزع بين العرض والتواصل (`gaps` في `visit-dims.js`، وأقلها 4.233mm)، فآخر شي يخلص على هامش الأمان تحت بالضبط.
+- **المسافات الصغيرة (نفسها في الورقتين):** السطر التابع تحت سطره (الأهلية تحت اسم الباقة، والتجديد تحت السعر، والالتزام تحت الجدول) بينهم 1.058mm (`--lt-space-4`). وسطر «بدون دفع مقدم…» لاصق في التجربة لأنه شرطها. والبطاقة مجموعتين: التجربة وشرطها فوق، والقنوات ووعد الرد تحت (بينهم 1.058mm، وبين المجموعتين 2.117mm). وجملة التعليق تحت عنوانه بـ 0.5mm. وكل سطر في نص الورقة عن اللي تحته بحبر 0.77mm أو أكثر (قياس 2026-09-28، كل سطر لحاله بـ 10x). صورة المنتج مصغّرة من قالبها، فتنقاس هناك.
 - **قاعدة المسرح (وحدة للمنتجين):** المنتج شي مقفول من كل جهة، بحد 0.25mm بلون `--lt-slate` داخل حافته، وحوله رملي 4.233mm فوق وتحت (`stagePad`)، وحافته اليسار على هامش الأمان. فارتفاع المسرح = المنتج + 8.467mm: ‏60.992mm للستاند، و53.467mm لملصق المضيف. وأعلى المنتج في الورقتين على نفس الخط (43.21mm من أعلى الورقة).
 
 | | المطاعم والكافيهات (`visit-restaurant`) | المضيفين (`visit-host`) |
 |---|---|---|
 | العنوان 26pt | يسهّل على عملائك يقيّمون | دليل وحدتك، في جوال ضيفك |
-| المنتج | وجه ستاند التقييم الحقيقي (`signSheet` من `print/print.js`) بشعار «مقهى المثال»، مصغّر ×0.55 (55 × 52.525mm)، ومقفول تحت «قرّب جوالك هنا» عند بداية منطقة الباركود | ملصق الشريحة on-metal ‏45×45 **بمقاسه الحقيقي** (نفس رسم `print/host-stickers`) |
+| المنتج | وجه ستاند التقييم الحقيقي (`signSheet` من `print/print.js`) بشعار «مقهى المثال»، مصغّر ×0.55 (55 × 52.525mm)، ومقفول تحت «قرّب جوالك هنا» عند بداية منطقة الباركود | ملصق الشريحة on-metal ‏45×45 **بمقاسه الحقيقي** (نفس رسم `print/host-stickers`)، ونقطته بلون «شقق المثال» الوهمي `#1F3B57` مثل كل صور المضيف |
 | التعليقان | الستاند بهوية محلك (على الشعار)، وهذي النقطة هي مكان اللمسة (على النقطة) | هذي النقطة هي مكان اللمسة (على النقطة)، ونركّب في كل وحدة شريحة وباركود (على حافة الملصق) |
 | السعر | 1,211 ريال / سنة، والتجديد 798 | جدول: 1–4 وحدات 49.5 / 544.5، و5 فأكثر 39.5 / 434.5، وتحته التزام الشهري والسنوي |
 | وش فيها | الخدمات الأربع، والعتاد والتركيب، وتحديث المنيو (الزيادة 25) | دليل الضيف، و«تم الخروج» و«بلاغ صيانة» ونبلغك، ورابط للتقييم |
@@ -60,17 +61,21 @@
 - **تنبيهات تمنع التصدير** (`blockMsg` من `print/print.js`، ومعها `console.error` فأداة التصدير ترفض الصفحة): نص برّا هامش الأمان أو أصغر من 9pt، محتوى أطول من الورقة، المنتج مو في نص المسرح (الرملي فوقه أو تحته مو 4.233mm) أو حافته مو على هامش الأمان، مكان تعليق ما انلقى في المنتج أو خطه أقصر من 3mm أو تعليقين أقرب من 2mm أو تعليق طالع برّا المسرح، سطر الباركود داخل مسافته الهادئة، وحدة الباركود أصغر من 0.5mm، الباركود برّا شبكة الورقة أو البطاقة داخل مسافته الهادئة، نص من الستاند تحت خط القص أو باركوده باقي، سطر تجربة أعرض من البطاقة، شعار أصغر من 21mm، وأي تنبيه يمنع الطباعة في الستاند نفسه (`fitSign`).
 
 ## التصدير (أداة `print/export.cjs`، من جذر المشروع)
+هذي الأوامر نفسها اللي طلّعت ملفات `pdf/` و`png/` الموجودة، وكل أمر يكتب ملفه وملف قياسه (`.export.json`) بنفس الاسم:
 ```
-# ملف المطبعة (PDF بالنزف، فيه TrimBox و BleedBox)
+# ملف المطبعة: PDF بنزف 3mm بدون علامات قص (الصفحة 154×216، وفيه TrimBox و BleedBox)
+#   ← pdf/visit-restaurant-bleed.pdf + pdf/visit-restaurant-bleed.export.json (ونفسه للمضيف)
 node print/export.cjs --url "print/visit-sheet/index.html?sheet=restaurant" --out print/visit-sheet/pdf --bleed --pdf --name visit-restaurant
 node print/export.cjs --url "print/visit-sheet/index.html?sheet=host" --out print/visit-sheet/pdf --bleed --pdf --name visit-host
-# نفسه مع علامات القص (لو المطبعة طلبتها)
-node print/export.cjs --url "print/visit-sheet/index.html?sheet=host" --out print/visit-sheet/pdf --bleed --param marks=1 --pdf --name visit-host-marks
-# صور: 300dpi للمطبعة، و2x للمعاينة
-node print/export.cjs --url "print/visit-sheet/index.html?sheet=restaurant" --out print/visit-sheet/png --png 300dpi,2x --sign-names
-node print/export.cjs --url "print/visit-sheet/index.html?sheet=host" --out print/visit-sheet/png --png 300dpi,2x --sign-names
+# صورة المطبعة 300dpi (1748×2480، RGB)  ← png/visit-restaurant@300dpi.png + png/visit-restaurant-300dpi.export.json
+node print/export.cjs --url "print/visit-sheet/index.html?sheet=restaurant" --out print/visit-sheet/png --png 300dpi --sign-names --name visit-restaurant-300dpi
+node print/export.cjs --url "print/visit-sheet/index.html?sheet=host" --out print/visit-sheet/png --png 300dpi --sign-names --name visit-host-300dpi
+# صورة المعاينة 2x (1119×1587، RGB: الورقة بيضا كاملة، فما لها شفافية)  ← png/visit-restaurant@2x.png + png/visit-restaurant-2x.export.json
+node print/export.cjs --url "print/visit-sheet/index.html?sheet=restaurant" --out print/visit-sheet/png --png 2x --sign-names --name visit-restaurant-2x
+node print/export.cjs --url "print/visit-sheet/index.html?sheet=host" --out print/visit-sheet/png --png 2x --sign-names --name visit-host-2x
 ```
-- جربتها (2026-09-28، Chrome 153): PDF ‏154.00×216.00mm، و TrimBox ‏148×210 على 3mm، و BleedBox ‏154×216 (قراءة مستقلة بـ pypdf). ومع العلامات 164×226. صفر صور نقطية (الشعارين SVG فكتور). الخط Type3 مثل باقي القوالب (`print/EXPORT.md`). PNG ‏300dpi ‏1748×2480.
+- مع علامات القص (لو المطبعة طلبتها، مو من ملفات التسليم): أضف `--param marks=1` لأمر الـ PDF وغيّر الاسم (`--name visit-host-marks`)، فتطلع الصفحة 164×226 والعلامات برّا النزف. `--bleed` لحاله = نزف بدون علامات.
+- جربتها (2026-09-28، Chrome 153): PDF ‏154.00×216.00mm، و TrimBox ‏148×210 على 3mm، و BleedBox ‏154×216 (قراءة مستقلة بـ pypdf). ومع العلامات 164×226. صفر صور نقطية (الشعارين SVG فكتور). الخط Type3 مثل باقي القوالب (`print/EXPORT.md`). PNG ‏300dpi ‏1748×2480، و2x ‏1119×1587.
 
 ## للمطبعة
 - الملف: `pdf/visit-*-bleed.pdf` (نزف 3mm). اكتب لهم: «A5 ‏148×210، نزف 3mm، بدون قص إضافي وبدون تعديل ألوان»، واطلب بروفة CMYK قبل الكمية (GM-020 شرط 4): الملف RGB، والنص الأسود لازم K100 بس (مو أسود مركّب).

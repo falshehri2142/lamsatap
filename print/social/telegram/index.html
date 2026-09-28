@@ -8,12 +8,12 @@
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="../../../brand/tokens.css">
 <!--
-  صور قناة وحساب التليجرام (marketing/telegram-plan.md §5 و§6، GM-047، GM-051). مصمم الإعلانات، 2026-09-28 (بعد مراجعة impeccable).
+  صور قناة وحساب التليجرام (marketing/telegram-plan.md §5 و§6، GM-047، GM-051). مصمم الإعلانات، 2026-09-28 (بعد مراجعة impeccable وجولة إصلاح فحص ما قبل الطباعة).
   هويتنا التسويقية: الشعار أبيض على تيل #0B7A75 (GM-042، brand/logo/v1.0.0/USAGE.md). الملفات كما هي: بدون ظل ولا تدرج عليها، وبدون ®.
   ?img=<الاسم> يعرض صورة وحدة، وبدونه كل الصور للمعاينة. كل صورة .p-sheet باسم data-sign="telegram-<الاسم>".
   التصدير والمقاسات ومصدر كل نص: print/social/telegram/README.md، والملاحظات: work/2026-09-28-host-signs/ad-creative-telegram.md.
   الفحص (fit) في آخر الصفحة: أي نص برّا الهامش أو قريب من القطعة أو الشعار، أو نقطة بيع ناقصة، أو شاشة جوال بغير خط الهوية،
-  يطلع تنبيه (.p-warn) وتقرير window.PRINT_REPORT.
+  أو شاشة ما تبيّن المقصود (data-at) كامل، أو فيها زر معبّى ينافسه (data-none)، يطلع تنبيه (.p-warn) وتقرير window.PRINT_REPORT.
 -->
 <style>
 /* ===== الألوان: من brand/tokens.css بس، ولا لون مخترع (قاعدة الواجهات GM-055 بند 2) ===== */
@@ -79,7 +79,8 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
      حجم واحد للست (قسته): جملة م1 وم4 الكاملة بـ 88 تطلع 3 و4 أسطر وتنزل على القطعة. و70 أكبر حجم ينكسر فيه كل عنوان عند حد العبارة:
      «زبونك جالس، والمنيو الورقي» 890px و«ضيفك وصل الساعة 1 الليل» 862px من 920 (بـ 76: 966 و936، يعني تنكسر «المنيو / الورقي» و«1 / الليل»).
    - كسر الأسطر مكتوب (<br>) عند حد العبارة، وdata-lines عدد الأسطر المتوقع: لو سطر انكسر زيادة يطلع تنبيه.
-   - القطعة تحتهم على نفس المحور، وتبدأ من 490 (خط واحد للقطع)، إلا لو النص طويل: تنزل لين يصير بينها وبين آخر حبر 48px (م4).
+   - القطعة تحتهم على نفس المحور، وتبدأ من 490 (خط واحد للقطع)، إلا لو النص طويل: تنزل عشان سطر الجواب يبقى أقرب لعنوانه منها (م4: 580).
+     وأقل فراغ بين آخر سطر والقطعة 48px (الفحص تحت).
    - كل قطعة بوضعها الطبيعي: الستاند واقف (طالع من حافة الصورة تحت، والظاهر 61.5% بس عشان الباركود الوهمي يبقى تحت الحافة، GM-049)،
      والجوال باليد (طالع من الحافة)، والملصق على الجدار (كامل، وتحته على نفس خط الشعار: 80 من تحت).
    - الشعار الصغير توقيع تحت يسار (نهاية القراءة). */
@@ -90,7 +91,8 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
 .tg-post .logo { height: 44px; width: auto; left: var(--m); bottom: var(--m); }
 .obj { position: absolute; right: var(--m); top: 490px; width: 640px; }
 .obj > img { width: 100%; height: auto; box-shadow: var(--lift); }
-/* ستاند Task A (2x، 756×1134) بعرض 640: الظاهر 590 من 960 (61.5%) = لين تحت «Tap your phone here»، والباركود الوهمي يبدأ 64.4% تحت الحافة */
+/* ستاند Task A (2x، 756×1134) بعرض 640: الظاهر 590 من 960 (61.5%). «Tap your phone here» يخلص على 563، وسطر «أو امسح الباركود» يبدأ على 611،
+   والباركود الوهمي على 703 (قستها بعرض 640)، فالحافة تقص بين 563 و611 والباركود كله تحتها (GM-049) */
 
 /* الملصق (م5): ملصق الشريحة on-metal 45×45 من print/host-stickers (600dpi، 1063×1063) بعرض 510.
    فوقه على خط القطع (490) وتحته على خط الشعار (1000)، يعني 80 من تحت مثل الهامش. ظله درجة «مرفوع» لأنه لاصق على الجدار */
@@ -100,11 +102,15 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
 /* الجوال (م4 وم6): صفحة دليل الوحدة الحقيقية (نسخة العرض website/demo/rental-guide) بعرض الجوال 390، مكبّرة ×1.4.
    خط الشاشة مثبت على Readex Pro (من ملفات المشروع) وقت فتح الصفحة، لأن صفحة الزبون بخط الجهاز (--lt-font-ui)، فالصورة كانت تتغير حسب جهاز التصدير */
 .obj.is-phone { width: 418px; transform: scale(1.4); transform-origin: 100% 0; }
-.obj.is-phone.is-low { top: 560px; }   /* م4: آخر حبر في النص على 507 (قسته)، و507 + 48 = 555، قرّبته لـ 560 */
+.obj.is-phone.is-low { top: 580px; }   /* م4: صندوق حروف آخر سطر يخلص على 501 (قسته). 580 يخلي تحته 79px، أكثر من الفراغ بين العنوان والسطر (56)،
+                                          عشان السطر يلتصق بعنوانه مو بالجوال (قاعدة التقارب) */
 .phone { width: 418px; padding: 14px; border-radius: 62px; background: var(--lt-ink);
   box-shadow: var(--lift), inset 0 0 0 1.5px color-mix(in srgb, #FFFFFF 14%, transparent); }
-.phone .screen { width: 390px; height: 844px; border-radius: 48px; overflow: hidden; background: var(--lt-sand-50); }
+.phone .screen { position: relative; width: 390px; height: 844px; border-radius: 48px; overflow: hidden; background: var(--lt-sand-50); }
 .phone iframe { display: block; width: 390px; height: 844px; border: 0; }
+/* م6: أعلى الشاشة (مكان شريط حالة الجوال) بلون خلفية الصفحة نفسها، وطوله يتحسب بعد التمرير (السكربت تحت، data-hide).
+   يغطي طرف زر «تم الخروج» اللي فوق «بلاغ صيانة» بس، والصفحة نفسها ما تتغير */
+.screen-top { position: absolute; top: 0; left: 0; right: 0; height: 0; }
 </style>
 </head>
 <body>
@@ -202,7 +208,7 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
         <p class="t-line sub" data-lines="2">ملصق في الشقة يفتح دليل الضيف: <br>الواي فاي، والتكييف، والشروط، والعنوان.</p>
       </div>
       <div class="obj is-phone is-low"><div class="phone"><div class="screen">
-        <iframe src="../../../website/demo/rental-guide/index.html" data-at=".c-id" title="صفحة دليل الوحدة (نسخة العرض) على هوية المضيف والترحيب والواي فاي" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+        <iframe src="../../../website/demo/rental-guide/index.html" data-at=".c-id" data-top="20" title="صفحة دليل الوحدة (نسخة العرض) على هوية المضيف والترحيب والواي فاي" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
       </div></div></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
@@ -223,7 +229,9 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
   </section>
 
   <!-- م6 بلاغ الصيانة (#مضيفين): «المكيف وقف؟» سطر 91 حرفي، والثاني مقطع متصل منه. يوصلنا ونحوّله لك (GM-017).
-       القطعة شاشة الضيف على «الخروج والصيانة»، وفيها زر «بلاغ صيانة» -->
+       القطعة شاشة الضيف متمرّرة على زر «بلاغ صيانة» (موضوع المنشور): أول شي في الشاشة، وتحته التواصل مع مشغّل الوحدة وقسم التكييف.
+       زر «تم الخروج» المعبّى وفقرة الخصوصية فوقه برّا الشاشة، عشان ما ينافسون زر الصيانة (فحص ما قبل الطباعة، ui-ux-pro-max primary-action).
+       data-hide: أعلى الشاشة يغطي طرف «تم الخروج» (.screen-top)، وdata-none: لو بان أي زر معبّى ثاني في الشاشة يطلع تنبيه -->
   <section data-img="m6-maintenance">
     <p class="p-screen">telegram-m6-maintenance · 1080×1080 · #مضيفين</p>
     <div class="p-sheet tg-w1080 tg-post" data-sign="telegram-m6-maintenance">
@@ -232,7 +240,8 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
         <p class="t-line sub" data-lines="1">بلاغ صيانة جاهز، ويوصلنا ونحوّله لك</p>
       </div>
       <div class="obj is-phone"><div class="phone"><div class="screen">
-        <iframe src="../../../website/demo/rental-guide/index.html" data-at="الخروج والصيانة" title="صفحة دليل الوحدة (نسخة العرض) على قسم الخروج والصيانة" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+        <iframe src="../../../website/demo/rental-guide/index.html" data-at="#fix" data-top="28" data-hide="#out" data-none=".lt-btn--shop" title="صفحة دليل الوحدة (نسخة العرض) على زر بلاغ صيانة" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+        <div class="screen-top" aria-hidden="true"></div>
       </div></div></div>
       <img class="logo" src="../../../brand/logo/v1.0.0/social/horizontal-teal.svg" alt="LamsaTap">
     </div>
@@ -254,10 +263,18 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
   // الجوال: صفحة دليل الوحدة (نسخة العرض). بعد ما تبني render.js الصفحة:
   // 1) نثبّت خط الشاشة على Readex Pro، لأن صفحة الزبون بخط الجهاز (tokens.css --lt-font-ui، وكلمة المرور ui-monospace)،
   //    فالصورة كانت تطلع بخط جهاز التصدير (Segoe UI وConsolas على ويندوز). الخط نفسه معرّف في website/assets/brand/tokens.css داخل الصفحة.
-  // 2) نمرّر الصفحة للمكان المطلوب (data-at: محدد CSS مثل .c-id = هوية المضيف، أو نص عنوان h2)، ويبعد 28px عن حافة الشاشة فوق.
+  // 2) نمرّر الصفحة للمكان المطلوب (data-at: محدد CSS مثل .c-id = هوية المضيف و#fix = زر «بلاغ صيانة»، أو نص عنوان h2)،
+  //    ويبعد data-top عن حافة الشاشة فوق (م6 28px، وم4 20px عشان صندوق الواي فاي كله يبان مع زر النسخ).
   //    الشريط «عرض تجريبي» اللي فوق الصفحة ما يبان: هو طبقة العرض حقتنا، مو من صفحة الضيف.
+  // 3) data-hide (م6): أعلى الشاشة (.screen-top، بلون خلفية الصفحة) ينزل لين نص الفراغ بين الزر اللي فوق (data-hide = «تم الخروج»)
+  //    والزر المقصود، عشان ما يبان طرف «تم الخروج» مقصوص فوق الشاشة. هذا مكان شريط حالة الجوال، والصفحة نفسها ما تتغير.
+  // 4) النافذة = الجزء الظاهر من الشاشة في الصورة (من تحت الغطا لين حافة الصورة تحت). الفحص تحت: الزر المقصود كامل داخلها،
+  //    واللي فوقه كله تحت الغطا، وما فيه شي مقصوص عند حافتها فوق، وما يبان فيها أي عنصر من data-none (زر معبّى ثاني ينافسه،
+  //    ui-ux-pro-max primary-action).
+  var r1 = function (v) { return Math.round(v * 10) / 10; };
   var frames = [].map.call(d.querySelectorAll('.phone iframe'), function (f) {
-    var at = f.getAttribute('data-at') || '.c-id';
+    var at = f.getAttribute('data-at') || '.c-id', top = +(f.getAttribute('data-top') || 28);
+    var hide = f.getAttribute('data-hide'), none = f.getAttribute('data-none'), mask = f.parentNode.querySelector('.screen-top');
     return new Promise(function (res) {
       var tries = 0;
       (function find() {
@@ -272,14 +289,33 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
         Promise.all(['400', '600', '700'].map(function (wt) { return fd.fonts.load(wt + ' 16px "' + FONT + '"', 'أهلاً Mithal@2026'); }))
           .then(function () { return fd.fonts.ready; })
           .then(function () {
-            w.scrollTo({ top: h.getBoundingClientRect().top + w.scrollY - 28, behavior: 'instant' });
+            w.scrollTo({ top: h.getBoundingClientRect().top + w.scrollY - top, behavior: 'instant' });
+            var tr = h.getBoundingClientRect(), out = { ok: true, at: at, scrollY: Math.round(w.scrollY), target: [r1(tr.top), r1(tr.bottom)] };
+            if (hide && mask) {
+              var hel = fd.querySelector(hide), hb = hel ? hel.getBoundingClientRect().bottom : -1;
+              var mh = hel ? Math.round((hb + tr.top) / 2) : 0;
+              mask.style.height = mh + 'px';
+              mask.style.background = getComputedStyle(fd.body).backgroundColor;   // نفس خلفية الصفحة (#FAF7F2، --lt-sand-50)
+              out.mask = { h: mh, hide: hide, found: !!hel, hiddenBottom: r1(hb), color: mask.style.background };
+            }
+            // النافذة الظاهرة من الشاشة داخل الصورة، بمقاس الشاشة (390 عرض)
+            var fr = f.getBoundingClientRect(), sr = f.closest('.p-sheet').getBoundingClientRect(), sc = fr.height / f.offsetHeight;
+            out.window = [out.mask ? out.mask.h : 0, r1(Math.min(f.offsetHeight, (sr.bottom - fr.top) / sc))];
+            if (none) out.competing = [].filter.call(fd.querySelectorAll(none), function (el) {
+              var r = el.getBoundingClientRect(); return r.height > 0 && r.bottom > out.window[0] && r.top < out.window[1];
+            }).map(function (el) { return norm(el.textContent); });
+            // أي زر أو لوح أو عنوان أو سطر مقصوص عند حافة النافذة فوق (طرفه بس يبان): هذا اللي شفناه في م6 قبل الغطا
+            out.cutTop = [].filter.call(fd.querySelectorAll('button, a, h1, h2, h3, p, li, .lt-panel, .lt-row'), function (el) {
+              var r = el.getBoundingClientRect(); return r.height > 0 && r.top < out.window[0] - 0.5 && r.bottom > out.window[0] + 0.5;
+            }).map(function (el) { return norm(el.textContent).slice(0, 30); });
             // كل عنصر فيه نص في الشاشة: خطه المحسوب لازم يكون خط الهوية
             var fams = {};
             [].forEach.call(fd.body.querySelectorAll('*'), function (el) {
               var own = [].some.call(el.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim(); });
               if (own) fams[getComputedStyle(el).fontFamily] = (fams[getComputedStyle(el).fontFamily] || 0) + 1;
             });
-            res({ ok: true, at: at, scrollY: Math.round(w.scrollY), fonts: fams, loaded: fd.fonts.check('600 16px "' + FONT + '"') });
+            out.fonts = fams; out.loaded = fd.fonts.check('600 16px "' + FONT + '"');
+            res(out);
           }, function () { res({ ok: false, at: at, error: 'font' }); });
       })();
     });
@@ -332,6 +368,11 @@ p, h2 { margin: 0; font-weight: inherit; font-size: inherit; }
       if (!p.ok) { warn.push('الجوال ' + (i + 1) + ': ما انفتحت صفحة دليل الوحدة على «' + p.at + '»' + (p.error ? ' (الخط)' : '')); return; }
       var other = Object.keys(p.fonts).filter(function (f) { return f.replace(/["']/g, '') !== FONT; });
       if (other.length || !p.loaded) warn.push('الجوال ' + (i + 1) + ': شاشة فيها خط غير ' + FONT + ': ' + (other.join('، ') || 'الخط ما نزل'));
+      // المقصود كامل في النافذة، واللي فوقه كله تحت الغطا، وولا زر معبّى ثاني ينافسه
+      if (p.target[0] < p.window[0] - 0.5 || p.target[1] > p.window[1] + 0.5) warn.push('الجوال ' + (i + 1) + ': «' + p.at + '» مو كامل في الشاشة الظاهرة (' + p.target.join('–') + ' من ' + p.window.join('–') + ')');
+      if (p.mask && (!p.mask.found || p.mask.hiddenBottom > p.mask.h + 0.5)) warn.push('الجوال ' + (i + 1) + ': «' + p.mask.hide + '» يبان طرفه فوق الشاشة');
+      if (p.competing && p.competing.length) warn.push('الجوال ' + (i + 1) + ': فيه زر معبّى ينافس «' + p.at + '»: ' + p.competing.join('، '));
+      if (p.cutTop && p.cutTop.length) warn.push('الجوال ' + (i + 1) + ': فيه شي مقصوص فوق الشاشة (طرفه بس يبان): ' + p.cutTop.join('، '));
     });
     var ul = d.getElementById('p-warn');
     if (warn.length) { ul.innerHTML = warn.map(function (x) { var li = d.createElement('li'); li.textContent = x; return li.outerHTML; }).join(''); ul.hidden = false; }

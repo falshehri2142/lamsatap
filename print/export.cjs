@@ -44,9 +44,12 @@ const USAGE = `usage: node print/export.cjs --url <path?query> --out <dir> [opti
   --transparent      PNG with a transparent page background (RGBA); default is opaque RGB
   --social           social images: sheets sized in whole CSS px, captured at 1x to that exact
                      pixel size, opaque, screen media (no --pdf)
-  --bleed            the template's print-shop mode (bleed and crop marks): adds bleed=1 to the URL,
-                     checks the trim box (.s-trim or [data-trim]) against the page without bleed,
-                     and writes PDF TrimBox/BleedBox from the template's own boxes
+  --bleed            the template's print-shop mode: 3mm bleed, NO crop marks (page = trim + bleed,
+                     e.g. 106 x 156 mm for a 100 x 150 piece, 154 x 216 for the A5 visit sheet).
+                     Adds bleed=1 to the URL, checks the trim box (.s-trim or [data-trim]) against
+                     the page without bleed, and writes PDF TrimBox/BleedBox from the template's boxes.
+                     Crop marks only with --param marks=1 (outside the bleed: 116 x 166, 164 x 226);
+                     a mirrored print with --param mirror=1 (print/host-signs, print/stand)
   --bleed-param <k=v> URL parameter for bleed mode (default: bleed=1)
   --param <k=v>      extra URL parameter, repeatable (e.g. --param mono=1)
   --selector <css>   sheet selector (default: .p-sheet)
@@ -542,6 +545,28 @@ function cropImg(img, x0, y0, w, h) {
   for (let y = 0; y < h; y++) img.px.copy(px, y * w * img.ch, ((y0 + y) * img.w + x0) * img.ch, ((y0 + y) * img.w + x0 + w) * img.ch);
   return { w, h, ch: img.ch, px };
 }
+// حافة الورقة: كروم يرسم حدود الصناديق على بكسل CSS كامل (Math.round للعرض والارتفاع)، حتى الـ SVG، وبأي دقة أو DSF (قسناه 2026-09-28).
+// ورقة A5 عرضها 148mm = 559.36px تنرسم لين 559px بس: صورة 2x (1119 عمود) آخر عمود فيها فاضي (شفاف، أو أبيض بدون شفافية)،
+// و300dpi (1748) آخر عمودين. الورقة مثبتة في (0,0)، فالرسم يوقف عند round(w) × الدقة. لو الناقص أكثر من نص بكسل، نكمّل الأعمدة
+// (أو الصفوف) الناقصة من آخر عمود مرسوم كامل = لون حافة الورقة نفسها (الحافة ما عليها إلا خلفية أو شريط؛ النص داخل هامش الأمان).
+// نص بكسل أو أقل ما نلمسه (كروم يرسمه كامل، مثل ملصق 45mm بـ 600dpi)، فأي ورقة كانت تطلع صح تطلع نفسها بالبايت.
+function edgeFill(img, paintedW, paintedH) {
+  const ch = img.ch, stride = img.w * ch, out = { cols: 0, rows: 0 };
+  if (img.w - paintedW > 0.5) {
+    const from = Math.max(0, Math.floor(paintedW) - 1);   // آخر عمود مرسوم كامل
+    for (let y = 0; y < img.h; y++) {
+      const src = img.px.subarray(y * stride + from * ch, y * stride + (from + 1) * ch);
+      for (let x = from + 1; x < img.w; x++) src.copy(img.px, y * stride + x * ch);
+    }
+    out.cols = img.w - from - 1;
+  }
+  if (img.h - paintedH > 0.5) {
+    const from = Math.max(0, Math.floor(paintedH) - 1);   // آخر صف مرسوم كامل
+    for (let y = from + 1; y < img.h; y++) img.px.copy(img.px, y * stride, from * stride, (from + 1) * stride);
+    out.rows = img.h - from - 1;
+  }
+  return out;
+}
 function toRGB(img) {   // بدون شفافية: أي بكسل مو كامل ينخلط على أبيض
   if (img.ch === 3) return { img, semi: 0 };
   const n = img.w * img.h, px = Buffer.alloc(n * 3); let semi = 0;
@@ -959,6 +984,14 @@ async function exportPngs(cdp, sheets, opt, outDir, baseName, suffix, report) {
           if (expW > 16384 || expH > 16384) throw new Error(`too big for one image: ${expW} x ${expH} px`);
           rec.expected = [expW, expH];
           let out = cropImg(img, sx, sy, expW, expH);
+          // الحافة اليمين وتحت: كروم يوقف رسم الورقة عند بكسل CSS كامل (edgeFill فوق). في وضع solo بس (الورقة في 0,0)
+          if (mode === 'solo') {
+            const fill = edgeFill(out, Math.round(w) * sc.scale, Math.round(h) * sc.scale);
+            if (fill.cols || fill.rows) {
+              rec.edgeFill = fill;
+              rec.checks.push(`ok edge filled: ${fill.cols} column(s) at the right, ${fill.rows} row(s) at the bottom, copied from the last fully painted one (the browser paints the sheet to whole CSS px: ${Math.round(w)} x ${Math.round(h)} of ${r2(w)} x ${r2(h)})`);
+            }
+          }
           if (opt.transparent) { if (out.ch !== 4) throw new Error('the browser returned no alpha channel'); }
           else if (out.ch === 4) { const f = toRGB(out); out = f.img; if (f.semi) report.warnings.push(`${sh.name}@${sc.label}: ${f.semi} semi-transparent pixels flattened on white`); }
           if (isBlank(out)) throw new Error('blank image (one flat colour): the sheet did not render');
@@ -1083,7 +1116,8 @@ async function main() {
       if (sel.length > 1) report.errors.push(`--file ${opt.file} names one PNG, but ${sel.length} sheets are selected (${sel.map((s) => s.name).join(', ')}): pick one with the template parameter (e.g. sign=wifi) or --only <sheet>`);
     }
     if (opt.pdf && !size) report.errors.push('the page has no @page size, so the PDF size is unknown (the template must set @page { size: W H })');
-    // وضع المطبعة: الصفحة كبرت، وصندوق القص = مقاس الصفحة بدون نزف، وفي النص بالضبط (علامات القص حوله)، والنزف يغطيه
+    // وضع المطبعة: الصفحة كبرت (النزف بدون علامات، والعلامات بس مع marks=1)، وصندوق القص = مقاس الصفحة بدون نزف،
+    // وفي النص بالضبط (النزف، والعلامات لو فيه، حوله بالتساوي)، والنزف يغطيه
     const bp = opt.bleedParam.join('=');
     if (opt.bleed) {
       if (!trimSize || !size) report.errors.push('bleed mode: the page has no @page size ' + (trimSize ? 'with' : 'without') + ' ' + bp);
@@ -1092,7 +1126,7 @@ async function main() {
         if (!s.trim) { report.errors.push(`${s.name}: no trim box in bleed mode (the template marks it with .s-trim or [data-trim])`); continue; }
         const tw = pxToMM(s.trim.w), th = pxToMM(s.trim.h), [l, t, r, b] = s.trimIn;
         if (trimSize && (Math.abs(tw - trimSize.w) > 0.05 || Math.abs(th - trimSize.h) > 0.05)) report.errors.push(`${s.name}: trim box ${r2(tw)} x ${r2(th)} mm is not the page size without bleed (${r2(trimSize.w)} x ${r2(trimSize.h)} mm)`);
-        if (Math.abs(l - r) > 0.05 || Math.abs(t - b) > 0.05) report.errors.push(`${s.name}: trim box is not centred on the sheet (left ${r2(l)}, right ${r2(r)}, top ${r2(t)}, bottom ${r2(b)} mm), so the crop marks and the bleed do not line up with the trim`);
+        if (Math.abs(l - r) > 0.05 || Math.abs(t - b) > 0.05) report.errors.push(`${s.name}: trim box is not centred on the sheet (left ${r2(l)}, right ${r2(r)}, top ${r2(t)}, bottom ${r2(b)} mm), so the bleed (and the crop marks, if any) do not line up with the trim`);
         if (!s.artIn) report.warnings.push(`${s.name}: no bleed box (.s-art or [data-bleed-box]); PDF BleedBox = whole page`);
         else {
           const bl = s.trimIn.map((v, k) => v - s.artIn[k]);

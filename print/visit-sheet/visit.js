@@ -6,11 +6,13 @@
 (function (w, d) {
   d.documentElement.setAttribute('data-ready', '0');   // أداة التصدير تنتظر "1" (markReady آخر الملف)
   var V = w.VISIT_DIMS, C = w.VISIT_CONTENT, PD = w.PRINT_DIMS || {}, SITE = w.SITE || {};
-  var P = PD.press || { bleed: 3, markOffset: 3, markLen: 5, markW: 0.1 };
   var bleed = isBleed(), marks = bleed && isMarks();
   var only = qp('sheet'), ORDER = ['restaurant', 'host'];
   var list = only ? (C.sheets[only] ? [only] : []) : ORDER;
   var warn = [], PX_MM = 25.4 / 96;
+  // النزف وعلامات القص من print/dims.js (press) بس، بدون نسخة هنا. لو ناقص: منع، والقيم صفر عشان الصفحة ترسم وتبيّن التنبيه
+  var P = PD.press;
+  if (!P) { warn.push(blockMsg('ما لقيت النزف وعلامات القص: print/dims.js ناقص (press).')); P = { bleed: 0, markOffset: 0, markLen: 0, markW: 0 }; }
   var mm = function (v) { return (+v).toFixed(3) + 'mm'; };
   var str = function (v) { return String(v == null ? '' : v).trim(); };
   var esc = w.escP;
@@ -46,6 +48,8 @@
   // الرابط وهمي (نفس مثال example-cafe) بس عشان signSheet يرسم الوجه كامل. بعد الرسم، كل شي تحت خط القص (سطر الباركود والباركود
   // والبطاقة) ينشال من الصفحة نفسها قبل الطباعة، فما يطلع في الورقة ولا في PDF إلا باركودنا.
   var STAND_DEMO_URL = 'https://example.com/t/EXAMPLE123/';
+  // عرض ورقة الستاند الحقيقية (100mm) من print/dims.js (stand.sheetW)، مو رقم هنا
+  var standW = function () { return PD.stand ? PD.stand.sheetW : 0; };
   function standProduct(S, demo) {
     if (typeof w.signSheet !== 'function' || !PD.sign || !PD.stand) { warn.push(blockMsg('ما قدرت أرسم الستاند: print/print.js أو print/dims.js ناقص.')); return { html: '', r: null }; }
     var r = w.signSheet({ sign: 'vs-stand', label: 'ستاند التقييم', variant: 'stand', brand: demo, mono: false, bleed: false,
@@ -54,14 +58,14 @@
     var html = r.html.replace('class="p-sheet s-sheet', 'class="vs-stand s-sheet').replace(/ data-sign="[^"]*"/, '').replace(/ aria-label="[^"]*"/, ' aria-hidden="true"');
     return { html: html, r: r };
   }
-  // المضيف: ملصق الشريحة on-metal 45×45 بمقاسه الحقيقي، بنفس رسم print/host-stickers/stickers.js (النقطة على nfcH/2 − 3، والسطر تحتها بـ 3mm)
+  // المضيف: ملصق الشريحة on-metal 45×45 بمقاسه الحقيقي، بنفس رسم print/host-stickers/stickers.js (النقطة على nfcH/2 − chipDotUp، والسطر تحتها بـ chipLineGap)
   function chipProduct(demo) {
     var H = PD.host;
     if (!H) { warn.push(blockMsg('ما قدرت أرسم ملصق الشريحة: print/dims.js ناقص.')); return ''; }
-    var s = V.chipScale, dotY = H.nfcH / 2 - 3;
+    var s = V.chipScale, dotY = H.nfcH / 2 - V.chipDotUp;
     return '<div class="vs-chip" style="width:' + mm(H.nfcW * s) + ';height:' + mm(H.nfcH * s) + '">' +
       touchMark(dotColor(demo, false), H.dotD * s, mm((dotY - H.dotD / 2) * s), mm((H.nfcW / 2 - H.dotD / 2) * s)) +
-      '<p class="p-el p-line p-center vs-chip-line" style="top:' + mm((dotY + H.dotD / 2 + 3) * s) + ';font-size:' + (H.touchPt * s) + 'pt">قرّب جوالك هنا</p></div>';
+      '<p class="p-el p-line p-center vs-chip-line" style="top:' + mm((dotY + H.dotD / 2 + V.chipLineGap) * s) + ';font-size:' + (H.touchPt * s) + 'pt">قرّب جوالك هنا</p></div>';
   }
 
   // ===== أدوات النص =====
@@ -90,9 +94,9 @@
       // صندوق القص: الستاند كامل (100×150) داخل صندوق بطول خط القص يقص الباقي، وبعدين يتصغّر كله (visit.js تحت، بعد نزول الخط)
       var crop = PD.sign ? PD.sign.footTop - V.standCropGap : 0;
       prodH = crop * V.standScale;
-      prod = '<div class="vs-prod vs-prod--stand" role="img" aria-label="وجه ستاند تقييم بشعار «' + esc(demo.name) + '»، والنقطة مكان اللمس" style="width:100mm;height:' + mm(crop) + '">' + stand.html + '</div>';
+      prod = '<div class="vs-prod vs-prod--stand" role="img" aria-label="وجه ستاند تقييم بشعار «' + esc(demo.name) + '»، والنقطة مكان اللمس" style="width:' + mm(standW()) + ';height:' + mm(crop) + '">' + stand.html + '</div>';
     } else {
-      prodH = (PD.host ? PD.host.nfcH : 45) * V.chipScale;
+      prodH = (PD.host ? PD.host.nfcH : 0) * V.chipScale;   // بدون print/dims.js: chipProduct يمنع التصدير
       prod = '<div class="vs-prod vs-prod--chip" role="img" aria-label="ملصق الشريحة 45×45 بمقاسه الحقيقي، والنقطة مكان اللمس" style="left:' + mm(V.safe + b) +
         ';top:' + mm(V.stagePad) + '">' + chipProduct(demo) + '</div>';
     }
@@ -100,7 +104,7 @@
     var notes = S.notes.map(function (n, i) {
       return '<div class="vs-note" data-at="' + n.at + '" data-i="' + i + '" style="left:' + mm(W - V.safe - V.noteW + b) + ';width:' + mm(V.noteW) + ';top:0">' +
         '<p class="vs-note-t" style="' + pt(V.noteTitlePt) + '">' + esc(n.t) + '</p>' +
-        '<p class="vs-note-b" style="' + pt(V.noteBodyPt) + '">' + esc(n.b) + '</p></div>';
+        '<p class="vs-note-b" style="' + pt(V.noteBodyPt) + ';margin-top:' + mm(V.noteBodyGap) + '">' + esc(n.b) + '</p></div>';
     }).join('');
     var stage = '<div class="vs-stage" style="height:' + mm(stageH) + ';margin:0 ' + mm(-(V.safe + b)) + '">' + prod + notes +
       '<svg class="vs-leaders" viewBox="0 0 ' + stageW + ' ' + stageH + '" width="' + mm(stageW) + '" height="' + mm(stageH) + '" aria-hidden="true" focusable="false"></svg>' +
@@ -109,13 +113,13 @@
     // رأس العرض: اسم الباقة جهة البداية، والسعر (المحل) أو جدول الوحدات (المضيف) جهة النهاية
     var priceSide;
     if (O.price) {
-      priceSide = '<div class="vs-price"><p class="vs-price-main"><span class="vs-price-n" style="' + pt(V.pricePt) + '">' + esc(O.price.n) + '</span>' +
+      priceSide = '<div class="vs-price"><p class="vs-price-main" style="gap:' + mm(V.priceUnitGap) + '"><span class="vs-price-n" style="' + pt(V.pricePt) + '">' + esc(O.price.n) + '</span>' +
         '<span class="vs-price-u" style="' + pt(V.priceUnitPt) + '">' + esc(O.price.u) + '</span></p>' +
-        '<p class="vs-price-renew" style="' + pt(V.renewPt) + '">' + esc(O.renew) + '</p></div>';
+        '<p class="vs-price-renew" style="' + pt(V.renewPt) + ';margin-top:' + mm(V.renewGap) + '">' + esc(O.renew) + '</p></div>';
     } else {
-      var T = O.tiers, gapR = 'padding-right:' + mm(V.tierColGap);
-      priceSide = '<div class="vs-tiers-box"><table class="vs-tiers"><thead><tr><th></th>' +
-        T.head.map(function (h) { return '<th style="' + pt(V.tierHeadPt) + ';' + gapR + '">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      var T = O.tiers, gapR = 'padding-right:' + mm(V.tierColGap), headPad = 'padding-bottom:' + mm(V.tierHeadPad);
+      priceSide = '<div class="vs-tiers-box"><table class="vs-tiers"><thead><tr><th style="' + headPad + '"></th>' +
+        T.head.map(function (h) { return '<th style="' + pt(V.tierHeadPt) + ';' + gapR + ';' + headPad + '">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
         T.rows.map(function (r) {
           return '<tr><th scope="row" style="' + pt(V.tierUnitsPt) + '">' + num(r.units) + '</th>' +
             '<td style="' + gapR + '"><span class="n" style="' + pt(V.tierPt) + '">' + esc(r.month) + '</span> <span class="u" style="' + pt(V.condPt) + '">' + esc(T.cur) + '</span></td>' +
@@ -125,21 +129,21 @@
     }
     var cols = O.items.map(function (c) {
       return '<ul class="vs-col">' + c.map(function (t) {
-        return '<li class="vs-item" style="' + pt(V.itemPt) + ';line-height:' + V.itemLh + '">' + icon('check') + '<span class="vs-item-t">' + keep(t) + '</span></li>';
+        return '<li class="vs-item" style="' + pt(V.itemPt) + ';line-height:' + V.itemLh + ';gap:' + mm(V.itemIconGap) + '">' + icon('check') + '<span class="vs-item-t">' + keep(t) + '</span></li>';
       }).join('') + '</ul>';
     }).join('<span class="vs-colgap" style="width:' + mm(V.colGap) + '"></span>');
     // كل جملة شرط ما تنكسر من نصها (nowrap)، والسطر ينكسر بين الجمل بس
     var conds = O.conds.map(function (c) { return '<span class="vs-keep">' + esc(c === 'tax' ? C.contact.tax : c) + '</span>'; }).join(' ');
-    var offer = '<div class="vs-offer" style="--vs-ig:' + mm(V.itemGap) + '">' +
+    var offer = '<div class="vs-offer" style="--vs-ig:' + mm(V.itemGap) + ';--vs-ilh:' + V.itemLh + '">' +
       '<div class="vs-offer-head" style="column-gap:' + mm(V.colGap) + '"><div class="vs-pkg"><p class="vs-pkg-name" style="' + pt(V.pkgPt) + '">' + esc(O.name) + '</p>' +
       '<p class="vs-pkg-sub" style="' + pt(V.pkgSubPt) + '">' + esc(O.sub) + '</p>' +
-      (O.eligibility ? '<p class="vs-pkg-elig" style="' + pt(V.eligPt) + '">' + esc(O.eligibility) + '</p>' : '') + '</div>' + priceSide + '</div>' +
+      (O.eligibility ? '<p class="vs-pkg-elig" style="' + pt(V.eligPt) + ';margin-top:' + mm(V.eligGap) + '">' + esc(O.eligibility) + '</p>' : '') + '</div>' + priceSide + '</div>' +
       '<div class="vs-items" style="margin-top:' + mm(V.headGap) + '">' + cols + '</div>' +
       '<p class="vs-conds" style="' + pt(V.condPt) + ';margin-top:' + mm(V.condGap) + '">' + conds + '</p></div>';
 
     // التواصل (نفس أسفل لوحات GM-050): جهة النهاية الباركود وفوقه سطره، ومربع وحداته على هامش الأمان ومسافته الهادئة البيضاء تدخل الهامش.
     // وجهة البداية بطاقة رملية: التجربة (فوق) ثم القنوات ووعد الرد (تحت). البطاقة تبدأ مع سطر الباركود وتخلص مع أسفله، وتطول لفوق لو محتواها أطول
-    var capLh = V.qrCapPt * 1.3 * 25.4 / 72, quiet = qr ? qr.quietMM : 0;
+    var capLh = V.qrCapPt * V.qrCapLh * 25.4 / 72, quiet = qr ? qr.quietMM : 0;
     var boxH = capLh + V.qrCapKeep + quiet + V.qrSize;
     // القنوات سطرين ثابتين (التسمية ثم القيمة)، عشان الشكل ما يتغير يوم الإطلاق لما تطول القيم الحقيقية
     var handle = function (l, v) { return '<p class="vs-handle"><span class="vs-handle-l" style="' + pt(V.handleLabPt) + '">' + esc(l) + '</span><span class="vs-handle-v" dir="ltr" style="' + pt(V.handlePt) + '">' + esc(v) + '</span></p>'; };
@@ -147,12 +151,12 @@
     var contact = '<div class="vs-contact" style="min-height:' + mm(boxH) + '">' +
       '<div class="vs-card" style="width:' + mm(cardW) + ';padding:' + mm(V.cardPadV) + ' ' + mm(V.cardPadH) + ';border-radius:' + mm(V.cardR) + '">' +
       // التجربة: مصفوفة = أسطر مقسومة من المصدر (content.js)، ونص واحد = سطر يصغر لين يدخل
-      '<div class="vs-card-top"><p class="vs-trial' + (Array.isArray(S.trial) ? ' is-lines' : '') + '" style="' + pt(V.trialPt) + '">' + [].concat(S.trial).map(keep).join('<br>') + '</p>' +
-      '<p class="vs-trial-note" style="' + pt(V.condPt) + '">' + esc(C.contact.trialNote) + '</p></div>' +
-      '<div class="vs-card-bottom" style="margin-top:' + mm(V.ctaGroupGap) + '"><div class="vs-handles">' + handle(C.contact.waLabel, waShow) + handle(C.contact.tgLabel, tgShow) + '</div>' +
+      '<div class="vs-card-top"><p class="vs-trial' + (Array.isArray(S.trial) ? ' is-lines' : '') + '" style="' + pt(V.trialPt) + ';line-height:' + V.trialLh + '">' + [].concat(S.trial).map(keep).join('<br>') + '</p>' +
+      '<p class="vs-trial-note" style="' + pt(V.condPt) + ';margin-top:' + mm(V.trialNoteGap) + '">' + esc(C.contact.trialNote) + '</p></div>' +
+      '<div class="vs-card-bottom" style="margin-top:' + mm(V.ctaGroupGap) + '"><div class="vs-handles" style="column-gap:' + mm(V.handleColGap) + ';row-gap:' + mm(V.handleRowGap) + '">' + handle(C.contact.waLabel, waShow) + handle(C.contact.tgLabel, tgShow) + '</div>' +
       '<p class="vs-promise" style="' + pt(V.promisePt) + ';margin-top:' + mm(V.promiseGap) + '">' + esc(C.contact.promise[0]) + '<br>' + esc(C.contact.promise[1]) + '</p></div></div>' +
       '<div class="vs-qrbox" style="width:' + mm(V.qrSize) + ';height:' + mm(boxH) + '">' +
-      '<p class="vs-qrcap p-el" style="' + pt(V.qrCapPt) + ';top:0;left:-8mm;right:-8mm">' + esc(C.contact.qrCap) + '</p>' +
+      '<p class="vs-qrcap p-el" style="' + pt(V.qrCapPt) + ';line-height:' + V.qrCapLh + ';top:0;left:' + mm(-V.qrCapOut) + ';right:' + mm(-V.qrCapOut) + '">' + esc(C.contact.qrCap) + '</p>' +
       (qr ? '<div class="vs-qr" style="left:' + mm(-quiet) + ';bottom:' + mm(-quiet) + '">' + qr.html + '</div>' : '') +
       (qr ? '<span class="p-guide" style="left:' + mm(-quiet) + ';bottom:' + mm(-quiet) + ';width:' + mm(qr.totalMM) + ';height:' + mm(qr.totalMM) + '"></span>' : '') + '</div></div>';
 
@@ -162,7 +166,7 @@
     var inner = '<div class="vs-flow" style="padding:' + mm(V.safe) + '">' +
       '<div class="vs-head" style="height:' + mm(V.logo.h) + '"><img class="vs-logo" src="' + esc(V.logo.file) + '" alt="' + esc(brandName + ' — ' + brandEn) + '" style="height:' + mm(V.logo.h) + ';width:' + mm(V.logo.h * V.logo.ratio) + '">' +
       // جهة النهاية: اسمنا بالعربي (الشعار لاتيني بس، GM-033) والموقع، سطر واحد مثل ترويسة الخطاب
-      '<p class="vs-site" style="' + pt(V.headPt) + '"><span class="vs-coname">' + esc(brandName) + '</span><span class="vs-url" dir="ltr" lang="en">' + esc(domShow) + '</span></p></div>' +
+      '<p class="vs-site" style="' + pt(V.headPt) + ';gap:' + mm(V.siteGap) + '"><span class="vs-coname">' + esc(brandName) + '</span><span class="vs-url" dir="ltr" lang="en">' + esc(domShow) + '</span></p></div>' +
       gap('h1') +
       '<h1 class="vs-h1" style="' + pt(V.h1Pt) + ';line-height:' + V.h1Lh + '">' + esc(S.h1) + '</h1>' +
       gap('stage') + stage + gap('offer') + offer + gap('contact') + contact + '</div>' +
@@ -221,7 +225,7 @@
         });
         if (lowest > crop + 0.01) warn.push(blockMsg(B.S.nav + ': نص من الستاند نازل تحت خط القص (' + r2(lowest) + 'mm من أعلاه، والقص ' + crop + 'mm).'));
         if (sEl.querySelector('.p-qr-svg')) warn.push(blockMsg(B.S.nav + ': باركود الستاند المصغّر لسا في الصفحة.'));
-        rep.product = { kind: 'stand-review', scale: +sc.toFixed(4), widthMM: r2(100 * sc), cropAtStandMM: crop, visibleMM: r2(crop * sc), lowestTextInStandMM: r2(lowest),
+        rep.product = { kind: 'stand-review', scale: +sc.toFixed(4), widthMM: r2(standW() * sc), cropAtStandMM: crop, visibleMM: r2(crop * sc), lowestTextInStandMM: r2(lowest),
           innerBottomMM: r2((crop - lowest) * sc), smallestTextPt: r2(small) };
       } else {
         boxEl = prodEl.querySelector('.vs-chip') || prodEl;
@@ -255,11 +259,11 @@
         // الخط يبدأ بعد آخر حرف في سطر العنوان (يسار الحبر، مو الصندوق) ويمشي لين المكان
         var nr = sl(note.getBoundingClientRect()), rg = d.createRange(); rg.selectNodeContents(t);
         var ink = sl(rg.getBoundingClientRect()), x1 = ink.l - V.leaderGap;
-        if (x1 - x2 < 3) warn.push(blockMsg(B.S.nav + ': خط التعليق «' + t.textContent + '» قصير جداً (' + r2(x1 - x2) + 'mm).'));
+        if (x1 - x2 < V.leaderMin) warn.push(blockMsg(B.S.nav + ': خط التعليق «' + t.textContent + '» قصير جداً (' + r2(x1 - x2) + 'mm، وأقله ' + V.leaderMin + 'mm).'));
         paths += '<line x1="' + x2.toFixed(3) + '" y1="' + y.toFixed(3) + '" x2="' + x1.toFixed(3) + '" y2="' + y.toFixed(3) + '" stroke="' + V.color.ink + '" stroke-width="' + V.leaderW + '" stroke-linecap="butt"/>';
         leaders.push({ at: at, fromMM: r2(x2 - B.b), toMM: r2(x1 - B.b), lengthMM: r2(x1 - x2), yInStageMM: r2(y), noteTopMM: r2(nr.t), noteBottomMM: r2(nr.b) });
         if (nr.t < prevBottom + V.noteMinGap) warn.push(blockMsg(B.S.nav + ': تعليقين قريبين من بعض (أقل من ' + V.noteMinGap + 'mm).'));
-        if (nr.t < 1.5 || nr.b > B.stageH - 1.5) warn.push(blockMsg(B.S.nav + ': التعليق «' + t.textContent + '» طالع برّا المسرح.'));
+        if (nr.t < V.noteKeep || nr.b > B.stageH - V.noteKeep) warn.push(blockMsg(B.S.nav + ': التعليق «' + t.textContent + '» طالع برّا المسرح (أو أقرب من ' + V.noteKeep + 'mm لحافته).'));
         prevBottom = nr.b;
       });
       svg.innerHTML = paths;
@@ -337,7 +341,8 @@
       var sh = d.querySelector('.p-sheet'), box = $p('p-sheets');
       if (!sh || !box) return;
       d.documentElement.classList.remove('vs-fit');
-      var need = sh.offsetWidth + 2 * 38, have = d.documentElement.clientWidth;
+      // الحشوة من print.css نفسه (10mm، وفي الجوال 6px)، مو رقم هنا
+      var cs = getComputedStyle(box), need = sh.offsetWidth + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight), have = d.documentElement.clientWidth;
       if (have < need) { d.documentElement.style.setProperty('--vs-zoom', (have / need).toFixed(3)); d.documentElement.classList.add('vs-fit'); }
     };
     if (!isRender()) { fitScreen(); w.addEventListener('resize', fitScreen); }

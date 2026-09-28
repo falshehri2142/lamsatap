@@ -1,0 +1,243 @@
+{
+  "tool": "print/export.cjs",
+  "date": "2026-09-28T05:00:04.564Z",
+  "node": "v24.18.0",
+  "url": "print/visit-sheet/index.html?sheet=restaurant",
+  "options": {
+    "check": false,
+    "pdf": false,
+    "png": [
+      "2x (screen)"
+    ],
+    "transparent": false,
+    "social": false,
+    "bleed": false,
+    "selector": ".p-sheet",
+    "only": null
+  },
+  "errors": [],
+  "warnings": [],
+  "files": [
+    {
+      "kind": "png",
+      "file": "print/visit-sheet/png/visit-restaurant@2x.png",
+      "sheet": "visit-restaurant",
+      "scale": "2x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok edge filled: 1 column(s) at the right, 0 row(s) at the bottom, copied from the last fully painted one (the browser paints the sheet to whole CSS px: 559 x 794 of 559.36 x 793.69)",
+        "ok 1119 x 1587 px = 559.36 x 793.69 CSS px x 2 (148 x 210 mm at 192 dpi, screen media)",
+        "ok opaque RGB, no alpha",
+        "ok pHYs 192 dpi"
+      ],
+      "cssPx": [
+        559.36,
+        793.69
+      ],
+      "mm": [
+        148,
+        210
+      ],
+      "expected": [
+        1119,
+        1587
+      ],
+      "edgeFill": {
+        "cols": 1,
+        "rows": 0
+      },
+      "px": [
+        1119,
+        1587
+      ],
+      "channels": "RGB",
+      "dpi": 192,
+      "bytes": 193760
+    }
+  ],
+  "browser": "Chrome/153.0.8010.53 (Chrome)",
+  "page": {
+    "title": "ورقة الزيارة A5 (للطباعة)",
+    "lang": "ar",
+    "dir": "rtl",
+    "cssSize": "148mm 210mm",
+    "mm": [
+      148,
+      210
+    ],
+    "readyMs": 322,
+    "readySignal": "1",
+    "readyNotes": [],
+    "sheets": [
+      {
+        "name": "visit-restaurant",
+        "sign": "visit-restaurant",
+        "mm": [
+          148,
+          210
+        ],
+        "cssPx": [
+          559.36,
+          793.69
+        ],
+        "radius": "0px",
+        "trimMM": [
+          148,
+          210
+        ],
+        "trimInsetMM": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bleedMM": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "templateWarnings": [
+    "رقم الواتساب وهمي (+966 5X XXX XXXX): الحقيقي ينحط في website/config.js (whatsapp) يوم الإطلاق، والورقة تاخذه لحالها.",
+    "معرّف التليجرام وهمي (@XXXXXXXX): ينضاف في website/config.js (telegram) بعد ما يسجله صاحب المشروع (marketing/telegram-plan.md §4).",
+    "الموقع example.com وهمي: الدومين الحقيقي من website/config.js (domain) يوم الإطلاق (GM-008).",
+    "المطاعم والكافيهات: الباركود وهمي (https://example.com/t/EXAMPLEVISITR/). الحقيقي رابط قصير /t/<code>/ يحوّل لواتساب الشركة برسالة الباقة (مشرف الشبكة، systems/shortlinks)."
+  ],
+  "templateReport": {
+    "sheets": [
+      {
+        "sign": "visit-restaurant",
+        "pageMM": [
+          148,
+          210
+        ],
+        "trimMM": [
+          148,
+          210
+        ],
+        "bleedMM": 0,
+        "marks": false,
+        "qrUrl": "https://example.com/t/EXAMPLEVISITR/",
+        "h1Pt": 26,
+        "trialPt": 14,
+        "product": {
+          "kind": "stand-review",
+          "scale": 0.55,
+          "widthMM": 55,
+          "cropAtStandMM": 95.5,
+          "visibleMM": 52.53,
+          "lowestTextInStandMM": 88.23,
+          "innerBottomMM": 4,
+          "smallestTextPt": 4.95,
+          "boxMM": {
+            "left": 10.58,
+            "top": 4.23,
+            "width": 55,
+            "height": 52.52
+          },
+          "insetMM": {
+            "top": 4.23,
+            "bottom": 4.24
+          },
+          "edge": {
+            "widthMM": 0.25,
+            "color": "#56625F"
+          }
+        },
+        "leaders": [
+          {
+            "at": "logo",
+            "fromMM": 48.78,
+            "toMM": 82.12,
+            "lengthMM": 33.34,
+            "yInStageMM": 13.17,
+            "noteTopMM": 10.66,
+            "noteBottomMM": 21.18
+          },
+          {
+            "at": "dot",
+            "fromMM": 43.58,
+            "toMM": 87.06,
+            "lengthMM": 43.48,
+            "yInStageMM": 38.33,
+            "noteTopMM": 35.83,
+            "noteBottomMM": 51.37
+          }
+        ],
+        "stage": {
+          "topMM": 38.98,
+          "heightMM": 60.99,
+          "leftMM": 0,
+          "rightMM": 148
+        },
+        "capSnapMM": 1.24,
+        "qr": {
+          "modules": 29,
+          "moduleMM": 1.034,
+          "quietMM": 4.14,
+          "sizeMM": 30,
+          "squareMM": [
+            10.58,
+            169.41,
+            40.58,
+            199.41
+          ],
+          "tileMM": [
+            6.45,
+            165.27,
+            44.72,
+            203.55
+          ]
+        },
+        "gapsMM": {
+          "h1": 5.29,
+          "stage": 6.35,
+          "offer": 6.47,
+          "contact": 6.48
+        },
+        "spareMM": 4.49,
+        "contactMM": {
+          "top": 159.16,
+          "bottom": 199.42,
+          "height": 40.26
+        },
+        "cardMM": {
+          "top": 159.16,
+          "bottom": 199.42,
+          "height": 40.26,
+          "content": 33.91,
+          "left": 46.93,
+          "right": 137.42
+        },
+        "logoMM": [
+          28.28,
+          5.29
+        ],
+        "minTextPt": 9,
+        "textOutsideSafe": []
+      }
+    ]
+  },
+  "fonts": {
+    "faces": [
+      {
+        "family": "Readex Pro",
+        "weight": "160 700",
+        "style": "normal",
+        "status": "loaded"
+      }
+    ],
+    "drawn": [
+      {
+        "family": "Readex Pro",
+        "custom": true,
+        "glyphs": 1374
+      }
+    ]
+  }
+}
