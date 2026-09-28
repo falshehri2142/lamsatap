@@ -1,0 +1,13 @@
+{
+  "file": "restaurants-hero-imagen-1-upscaled-1.webp",
+  "model": "recraft/crisp-upscale",
+  "input": {
+    "image": "https://tempfile.aiquickdraw.com/js/g4/361eb71a1d81.webp"
+  },
+  "taskId": "b537a83f84fa3a00f271e51c011b0b86",
+  "creditsConsumed": 0.5,
+  "createTime": 1790555898286,
+  "completeTime": 1790555902358,
+  "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+  "source": "kie.ai generated (GM-058)"
+}

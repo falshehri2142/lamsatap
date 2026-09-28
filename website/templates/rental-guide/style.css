@@ -1,6 +1,17 @@
 /* دليل الوحدة (موجز المدير الفني §5.7): لوحات مجمّعة (components.css) بدل جدار الأزرار، والصندوق الملوّن الوحيد هو الواي فاي.
-   الترتيب: الهوية ← «أهلاً في» ← الواي فاي ← الخروج والصيانة والتواصل ← التكييف ← العنوان ← الشروط ← الطوارئ ← الخصوصية. */
+   الترتيب: الهوية ← «أهلاً في» ← الواي فاي ← الخروج والصيانة (ومعها روابط التليجرام) والتواصل ← التكييف ← العنوان ← الشروط ← التقييم (اختياري) ← الطوارئ ← الخصوصية.
+   التقييم ما يحتاج تنسيق هنا: h2 ولوحة بصف واحد وسطر حالة، كلها من client.css و components.css. */
 .g-notice { margin: var(--lt-space-12) 0; font-size: 14px; line-height: 1.6; }
+/* التليجرام (GM-047، MASTER.md «Telegram secondary link»): رابط نصي بلون الحبر وخط تحته، ولمسه 44، مو زر (primary-action).
+   ولا تيل في صفحة الزبون (GM-025): .lt-link لونه تيل، فهنا ياخذ لون النص. وفي العرض نفس الشكل على <button>.
+   تحته إشعار المحامي (بند 34) لاصق فيه: 15 بين الرابط وإشعاره (11 فراغ صندوق اللمس + 4 عشان حلقة التركيز 3+3 ما تلمس الإشعار)،
+   و19 فوق و24 تحت (FD-5d: الصغير داخل الزوج). */
+.g-tg { margin-block-start: -4px; }                  /* 12 من .c-stack ناقص 4 = 8 بين الزر وصندوق الرابط (touch-spacing) */
+.g-tg:not(:last-child) { margin-block-end: 12px; }   /* قبل «لا، رجوع» */
+.g-tg-link { min-block-size: 44px; margin: 0; padding: 0; border: 0; background: none; color: var(--lt-text); font-family: inherit; text-align: start; cursor: pointer; }
+@media (hover: hover) { .g-tg-link:hover { color: var(--lt-muted); } }
+.g-tg-link:active { color: var(--lt-muted); }
+.g-tg-note { margin-block-start: 4px; line-height: 1.6; }   /* نفس سطر إشعار الواتساب 14/1.6 */
 .g-contact-h { margin: var(--lt-space-24) 0 var(--lt-space-8); }
 /* التأكيد بعد «تم الخروج»: لوحة مكان الزر، فيها «قبل ما تطلع:» والخطوات صفوف، ثم الجملة والزرين */
 .g-confirm-h { padding: 14px var(--lt-space-16) 6px; font-size: 17px; line-height: 1.4; font-weight: 600; }

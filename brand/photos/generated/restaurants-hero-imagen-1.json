@@ -1,0 +1,14 @@
+{
+  "file": "restaurants-hero-imagen-1.webp",
+  "model": "google/imagen4-ultra",
+  "input": {
+    "prompt": "A contemporary Saudi cafe interior in Jeddah during the day. In the foreground, a light oak wooden table surface runs across the frame. On the table stands ONE small EMPTY clear acrylic tabletop sign holder (A6 portrait size, about 10x15 cm, upright L-shaped stand) holding a BLANK plain white card with nothing printed on it, placed slightly right of center and facing the camera straight-on. Beside it a white ceramic cup of cappuccino on a saucer. Softly blurred background of the cafe with plants and light walls. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+    "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+    "aspect_ratio": "16:9",
+    "seed": ""
+  },
+  "taskId": "c98e3b3aa6df1f43b416676540a13541",
+  "creditsConsumed": 12.0,
+  "approved": "GM-058; owner confirmed in chat 2026-09-28 (cap 320 credits); reduced to 57 credits because balance is 80",
+  "source": "kie.ai generated (GM-058)"
+}

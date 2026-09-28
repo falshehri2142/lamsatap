@@ -1,0 +1,96 @@
+/* مشاهد المنتج (GM-049 و GM-050، web-illustrator 2026-09-28). صفحات الشركة بس، وفاتحة دايماً (ما فيها وضع داكن).
+   احنا نبني المشهد حول اللوحة، وقسم الطباعة يرسم اللوحة ووجه الستاند. مكان شغلهم «خانة» (.lt-slot) فيها مستطيل أبيض نظيف،
+   ولما تنحط صورتهم في assets/print/<الاسم>.png وتنكتب في assets/mockups/print-art.js، الخانة تاخذ الصورة ونسبتها الطبيعية (scenes.js).
+   الطبقات من تحت لفوق: خلفية أبيض وأسود (عليها النص البديل)، ثم خلفية ملونة img[data-tint] (motion.js يكشفها)، ثم الخانة، ثم الجوال.
+   المسرح 4:3 بمقياس حقيقي (--stage-mm: عرض المسرح بالمليمتر)، والصفحة تقصه «غطاء» حول نقطة تركيز (--px و--py) وبتقريب (--zoom).
+
+   ===== الشكل (المسار من صفحة داخل مجلد مثل hosts/ أو restaurants/؛ من index.html شيل ../) =====
+   <link rel="stylesheet" href="../assets/scenes.css">
+   <script src="../assets/mockups/print-art.js" defer></script>
+   <script src="../assets/scenes.js" defer></script>
+
+   المضيفين (البطل: داخل [data-expand-media] بـ lt-scene--fill وبدون data-scan، لأن البطل يكشف اللون بنفسه):
+   <div class="lt-scene lt-scene--fill" data-scene="hosts">
+     <div class="lt-scene-stage">
+       <img class="lt-scene-bg" src="../assets/mockups/scene-hosts-bw-1600.webp"
+            srcset="../assets/mockups/scene-hosts-bw-800.webp 800w, ../assets/mockups/scene-hosts-bw-1600.webp 1600w"
+            sizes="100vw" width="1600" height="1200" alt="لوحة تسجيل خروج على جدار جنب باب شقة، وجوال يلمسها">
+       <img class="lt-scene-bg" data-tint src="../assets/mockups/scene-hosts-color-1600.webp"
+            srcset="../assets/mockups/scene-hosts-color-800.webp 800w, ../assets/mockups/scene-hosts-color-1600.webp 1600w"
+            sizes="100vw" width="1600" height="1200" alt="" loading="lazy">
+       <span class="lt-slot lt-slot--wall" data-print="checkout-sign"><span class="lt-slot-face"></span><span class="lt-scene-phone"></span></span>
+     </div>
+   </div>
+
+   المطاعم: نفسه بـ data-scene="restaurants" وملفات scene-restaurants-*، والنص البديل
+   «ستاند تقييم قوقل ومنيو على طاولة كافيه، وجوال يلمس الستاند»، وبدل خانة اللوحة خانتين:
+       <span class="lt-slot lt-slot--flat" data-print="restaurant-menu"><span class="lt-slot-face"></span></span>
+       <span class="lt-slot lt-slot--stand" data-print="restaurant-stand"><span class="lt-slot-face"></span><span class="lt-scene-phone"></span></span>
+
+   البابين في البوابة: نفس المشهد داخل .s-door-media بـ lt-scene--fill lt-scene--door، و data-scan="tint" على .lt-scene-stage
+   (خط المسح يمشي على المسرح نفسه، فيطابق حافة اللون حتى لو المسرح مقصوص). والمسار بدون ../ ، و
+   sizes="(min-width: 1024px) 48vw, (min-width: 768px) 60vw, 120vw". النص البديل من web-copy «GM-049/050: نصوص المشاهد»:
+   المطاعم «ستاند تقييم على طاولة كافيه، وجوال يلمسه»، والمضيفين «لوحة خروج جنب باب شقة، وجوال يلمسها».
+
+   الجوال اختياري: شيل <span class="lt-scene-phone"> لو فيه جوال ثاني يتحرك (القصة المثبّتة). و data-story-target ينحط على الخانة.
+   بدون JS: الأبيض والأسود، والمستطيلات البيضاء، والجوال. كل شي ثابت، فتقليل الحركة ما يغيّر شي هنا. ===== */
+
+.lt-scene { --px: .5; --py: .5; --zoom: 1; position: relative; display: block; margin: 0; overflow: hidden; direction: ltr; aspect-ratio: 4 / 3; container-type: size; background: #F3EEE6; }
+.lt-scene--fill { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+.lt-scene--door { --zoom: 1.22; }
+/* المسرح: «غطاء» مثل object-fit: cover، بس النقطة (--px، --py) تجي في النص قد ما يقدر بدون ما تبان حافة المسرح */
+.lt-scene-stage {
+  --W: calc(max(100cqw, 100cqh * 4 / 3) * var(--zoom));
+  position: relative; display: block; width: var(--W); height: calc(var(--W) * .75); container-type: inline-size;
+  margin-left: clamp(calc(100cqw - var(--W)), calc(50cqw - var(--W) * var(--px)), 0px);
+  margin-top: clamp(calc(100cqh - var(--W) * .75), calc(50cqh - var(--W) * .75 * var(--py)), 0px);
+}
+.lt-scene-bg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.lt-scene[data-scene="hosts"] { --px: .48; --py: .47; }   /* شوي لليسار، عشان حافة الباب تقرب من القص الضيق واللوحة العريضة ما تنقص */
+.lt-scene[data-scene="hosts"] .lt-scene-stage { --stage-mm: 1200; }   /* 1600px = 1200mm من الجدار. أعلى الكادر 171cm من الأرض */
+.lt-scene[data-scene="restaurants"] { --px: .5; --py: .5; }
+.lt-scene[data-scene="restaurants"] .lt-scene-stage { --stage-mm: 800; }   /* 1600px = 800mm من الطاولة */
+
+/* ===== الخانة: مكان صورة الطباعة. عرضها بالمليمتر (--mm)، ونسبتها (--ar) من الصورة لما توصل. مكانها (--x، --y) على المسرح،
+   ونقطة الربط (--ax، --ay) جزء من الخانة: اللوحة من نصها، والستاند من تحت (واقف على قاعدته) ===== */
+.lt-slot { --mm: 100; --ar: 1 / 1.414; --ax: .5; --ay: .5; position: absolute; z-index: 1; display: block; left: var(--x, 50%); top: var(--y, 50%);
+  width: calc(var(--mm) / var(--stage-mm, 1000) * 100%); aspect-ratio: var(--ar); translate: calc(var(--ax) * -100%) calc(var(--ay) * -100%); pointer-events: none; }
+.lt-slot-face { position: absolute; inset: 0; z-index: 1; display: block; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4DCD0; }
+.lt-slot-art { display: block; width: 100%; height: 100%; max-width: none; object-fit: contain; }
+.lt-slot.has-art .lt-slot-face { background: none; box-shadow: none; }
+
+/* اللوحة على الجدار (checkout-sign أو guest-guide-sign): 1:1.414 لين توصل الصورة، والمقاس الافتراضي A4 (210mm). مركزها على 130cm */
+.lt-slot--wall { --mm: 210; --ar: 1 / 1.414; --x: 50%; --y: 46%; --tx: 50%; --ty: 50%; --rot: -20deg; }
+.lt-slot--wall .lt-slot-face { filter: drop-shadow(-.12cqw .2cqw .16cqw rgb(20 32 31 / .2)) drop-shadow(-.9cqw 1.3cqw 1.4cqw rgb(42 59 56 / .13)); }
+
+/* الستاند (restaurant-stand): وجه 100:150 من print/dims.js، مايل لورا شوي في حامل أكريليك شفاف، واقف على قاعدته.
+   نقطة اللمس من dims.js: مركز الشريحة 62mm من 150 = 41.33% */
+.lt-slot--stand { --mm: 100; --ar: 100 / 150; --ax: .5; --ay: 1; --x: 47%; --y: 64%; --tx: 54%; --ty: 41.33%; --rot: -32deg; }
+.lt-slot--stand .lt-slot-face { transform: perspective(40cqw) rotateX(7deg); transform-origin: 50% 100%; }
+.lt-slot--stand .lt-slot-face::after { content: ""; position: absolute; inset: -1.6% -3%; background: linear-gradient(112deg, rgb(255 255 255 / 0) 28%, rgb(255 255 255 / .2) 40%, rgb(255 255 255 / 0) 54%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .75), 0 0 0 1px rgb(20 32 31 / .1); pointer-events: none; }
+.lt-slot--stand::before { content: ""; position: absolute; z-index: 0; left: -8%; bottom: 0; width: 104%; height: 20%;
+  background: linear-gradient(to top, rgb(20 32 31 / .26), rgb(20 32 31 / 0)); transform: skewX(55deg); transform-origin: 50% 100%; filter: blur(.5cqw); }
+.lt-slot--stand::after { content: ""; position: absolute; z-index: 2; left: -14%; top: 100%; width: 128%; margin-top: -2%; aspect-ratio: 128 / 22;
+  background: url("mockups/stand-base.svg") 0 0 / 100% 100% no-repeat; }
+
+/* المنيو (restaurant-menu): كرت A5 نايم على الطاولة، بمنظور الطاولة. الظل في مستوى الكرت نفسه، فيطيح على الطاولة */
+.lt-slot--flat { --mm: 148; --ar: 148 / 210; --x: 23%; --y: 75%; }
+.lt-slot--flat .lt-slot-face { transform: perspective(110cqw) rotateX(71deg) rotateZ(-14deg); filter: drop-shadow(-.3cqw .4cqw .3cqw rgb(20 32 31 / .2)); }
+
+/* ===== الجوال اللي يلمس (phone-tap.svg: 72x150mm، نفس جوال phone-frame.svg). منتصف حافته العليا على نقطة اللمس (--tx، --ty)
+   من الخانة، ومايل بـ --rot. الظل داخل الملف محسوب لميلان -20 إلى -32 ===== */
+.lt-scene-phone { position: absolute; z-index: 3; display: block; left: var(--tx, 50%); top: var(--ty, 50%);
+  width: calc(72 / var(--stage-mm, 1000) * 100cqw * 420 / 240); aspect-ratio: 420 / 640;
+  background: url("mockups/phone-tap.svg") 0 0 / 100% 100% no-repeat;
+  transform-origin: 54.762% 5.9375%; translate: -54.762% -5.9375%; rotate: var(--rot, -22deg); pointer-events: none; }
+
+/* ===== مع الحركة (motion.css / motion.js) =====
+   البطل المتوسع: أول ابن في [data-expand-media] يبدأ مكبّر 1.12 (مثل الصورة)، و motion.js يرجعه 1.
+   البابين: motion.css يكبّر كل img في الباب لحالها 1.03، وهذا يفك الخانة والجوال عن الخلفية. هنا نكبّر المسرح كله بدالها. */
+.mh [data-expand-media] > .lt-scene { transform: scale(1.12); }
+[data-door] .lt-scene img, [data-door]:hover .lt-scene img, [data-door]:focus-within .lt-scene img { scale: none; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-door] .lt-scene-stage { transition: scale var(--m-rise, .6s) var(--m-out, cubic-bezier(.16, 1, .3, 1)); }
+  [data-door]:hover .lt-scene-stage, [data-door]:focus-within .lt-scene-stage { scale: 1.03; }
+}

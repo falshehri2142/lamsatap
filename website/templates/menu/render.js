@@ -1,5 +1,5 @@
 // المنيو: المنطق كله هنا. يستخدمه القالب (templates/menu/) ونسخة العرض (demo/menu/)، والرئيسية للشاشة المصغرة.
-// المواصفة: موجز المدير الفني §5.7 (المنيو) + web-ux ر3-4 و ر4. الصنف سطرين: الاسم والسعر، وتحته «الوصف · السعرات: {cal}».
+// المواصفة: موجز المدير الفني §5.7 (المنيو) + web-ux ر3-4 و ر4. الصنف: الاسم والسعر، وتحته الوصف، وتحته «السعرات: {cal}» سطر لحاله (الاتجاه 2 §3.3).
 (function (w) {
   var R = w.LT_RENDER = w.LT_RENDER || {};
 
@@ -22,11 +22,10 @@
       h.push('<section class="m-sec" id="' + id + '" aria-labelledby="' + id + '-h"><h2 id="' + id + '-h">' + esc(s.title) + '</h2>' +
         cPanel(s.items.map(function (it) {
           it = it || {};
-          // سطرين (web-copy 2.1): الاسم والسعر، وتحتهم «{الوصف} · السعرات: {cal}» أو واحد منهم بس
+          // الاسم والسعر، وتحتهم الوصف والسعرات أو واحد منهم بس (web-copy 2.1)
           var price = str(it.price), desc = str(it.desc), cal = str(it.cal);
-          // «· السعرات: N» مقطع واحد ما ينقسم (التقييم 1 بند 9): النقطة معه، والمسافة قبلها برّاه عشان السطر ينكسر قبل النقطة مو بعدها
-          var sub = (desc ? esc(desc) : '') +
-            (cal ? (desc ? ' ' : '') + '<span class="m-cal">' + (desc ? '· ' : '') + 'السعرات: ' + esc(cal) + '</span>' : '');
+          // السعرات سطر لحالها «السعرات: N» بدون نقطة وسطى (الاتجاه 2 §3.3، ويحل محل التقييم 1 بند 9)
+          var sub = (desc ? esc(desc) : '') + (cal ? '<span class="m-cal">السعرات: ' + esc(cal) + '</span>' : '');
           return cRow({ cls: 'm-item', title: esc(it.name), sub: sub, value: price ? esc(price) : null });
         })) + '</section>');
     });

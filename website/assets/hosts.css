@@ -1,0 +1,220 @@
+/* صفحة المضيفين hosts/index.html (GM-040 و GM-043 و GM-049/050): فوق site.css، والمكوّنات المشتركة (s-*) منه.
+   المراجع: design-system/lamsatap/pages/hosts.md (يغلب MASTER.md)، و web-art-director.md «الاتجاه 3» §5 و§10 و§11، و web-motion.md «النظام 2».
+   الترتيب: الرأس ← البطل المتوسع (رملي) ← المشاكل (أبيض) ← القصة المثبّتة (رملي) ← الدليل الحي (أبيض) ← الباقة (رملي ثاني)
+   ← الأسئلة واسأل إنسان (رملي) ← الخاتمة (أبيض) ← التذييل (رملي ثاني).
+   فاتح دايماً، ولا لون بيد (كله من tokens.css)، ولا ظل بيد (العمق من site.css وتوكنز web-brand، GM-055)، ولا حد 2px، ولا كبسولة 999. اللمسة (تيل) من data-audience="hosts" في tokens.css.
+   الحركة كلها في motion.css و motion.js. هنا الحالة النهائية (بدون JS، وتقليل الحركة، والشاشات الأقصر من 640)، وحالة .mh للبطل.
+   ولا content-visibility على قسم مثبّت (web-motion.md). ولا z-index على قسم مثبّت. */
+
+/* ===== الجوالات المصغرة: phone-frame.svg والشاشة الحقيقية داخل خانته (tools/build-home-minis.cjs، علامات @@phone:*).
+   كانت في home.css القديم (a7a3867). مكانها الصح site.css لأن صفحة المطاعم تحتاجها (مذكورة للقسم) ===== */
+.mini, .fo-screen { contain: strict; }
+.h-phone-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mini [data-h="1"] { margin: 0 0 16px; font-size: 28px; line-height: 1.25; font-weight: 700; }
+.mini [data-h="2"] { margin: 32px 0 10px; font-size: 20px; line-height: 1.3; font-weight: 700; }
+.mini { pointer-events: none; }
+.h-phone-svg .mini > .c-main { padding-top: 28px; }   /* الكاميرا فوق الشاشة، فالمحتوى ينزل 28 عشان ما تغطي الهوية */
+
+/* ===== 2) البطل المتوسع (GM-037، §5): الصورة (المشهد المولّد المعتمد host-door-frame، AD-14) + اللوح (h1 والسطر والزر والرابط).
+   الحالة النهائية: الجوال فوق بعض (النص ثم الصورة 4:5)، والكمبيوتر النص يمين 5 أعمدة والصورة يسار 7 أعمدة تنزف لحافة الشاشة.
+   .mh (الحركة شغالة والشاشة 640 أو أطول): القسم 100svh (motion.css)، والصورة تعبّي القسم، والبطاقة الصغيرة تتوسع مع التمرير،
+   وبعدها يطلع اللوح: بطاقة بيضاء فوق الجدار (يمين على الكمبيوتر، وتحت على الجوال) عشان النص يبقى على أبيض.
+   القص (.p-hero-photo): الصورة cover بنقطة تركيز (--fx و --fy)، وتقريب (--z حول --ox و --oy). البرواز في الصورة الأصلية (1600×900):
+   x من 54.6% لين 69.5%، و y من 21.4% لين 55%، وحافة الباب 43.5%. القواعد (المدير الفني §5 بند 4 و AD-30): البرواز كامل ظاهر دايماً،
+   وما يروح تحت اللوح، ومن 768 بينه وبين اللوح 64px أو أكثر. وتحت .mh أول إطار (البطاقة الصغيرة في نص القسم) فيه البرواز كامل:
+   الصورة تبدأ مكبّرة 1.12 حول --so (motion.js يرجعها 1 مع التوسع)، و --so محسوبة عشان وسط البرواز يجي وسط البطاقة ===== */
+.p-hero { --c: min(var(--lt-container), 100% - 2 * var(--lt-gutter)); position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--lt-bg); }
+.p-hero-wrap { order: -1; width: 100%; padding-block: var(--lt-space-40) var(--lt-space-32); }
+.p-hero-media { position: relative; aspect-ratio: 4 / 5; max-height: 78svh; overflow: hidden; background: var(--lt-surface-2); }
+.p-hero-photo { --fx: 50%; --fy: 50%; --z: 1; --ox: var(--fx); --oy: var(--fy); position: absolute; inset: 0; overflow: hidden; }
+.p-hero-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--fx) var(--fy); transform: scale(var(--z)); transform-origin: var(--ox) var(--oy); }
+/* الجوال (4:5): حافة الباب والمقبض يسار، والبرواز كامل في النص */
+.p-hero-photo { --fx: 57%; --z: 1.3; --ox: 50%; --oy: 45%; }
+.p-hero-lead { margin-top: var(--lt-space-16); }
+.p-hero-cta { margin-top: var(--lt-space-24); }
+.p-hero-cta > .p-hero-demo { margin: 0; }
+.p-hero-cta > .s-tg + .p-hero-demo, .p-hero-cta > .s-risk + .p-hero-demo { margin-top: var(--lt-space-8); }
+@media (min-width: 768px) {
+  .p-hero-media { aspect-ratio: 16 / 10; }
+  .p-hero-photo { --fx: 50%; --z: 1.15; --ox: 62%; --oy: 38%; }
+}
+@media (min-width: 1024px) {
+  .p-hero { display: block; min-height: clamp(560px, 100svh - 81px, 900px); }
+  .p-hero-wrap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; min-height: inherit; padding-block: var(--lt-space-64); }
+  .p-hero-sheet { grid-column: 1 / span 5; }
+  /* الصورة: من حافة الشاشة اليسار لين بداية عمود النص (7 أعمدة) */
+  .p-hero-media { position: absolute; top: 0; bottom: 0; left: 0; width: calc((100% - var(--c)) / 2 + var(--c) * 7 / 12 - var(--lt-grid-gap) / 2); aspect-ratio: auto; max-height: none; }
+  .p-hero-photo { --fx: 64%; --z: 1.1; --ox: 64%; --oy: 38%; }
+}
+/* .mh: الصورة تعبّي القسم (البطاقة والكشف من motion.js)، واللوح فوقها */
+.mh .p-hero { display: block; min-height: 0; }
+/* سقف الارتفاع: لقطة الصفحة الكاملة (نافذة بطول الصفحة) كانت تخلي 100svh طول الصفحة كلها، مثل ما صار في البوابة */
+.mh .p-hero[data-expand] { height: clamp(560px, 100svh, 1000px); }
+.mh .p-hero-media { position: absolute; inset: 0; width: auto; aspect-ratio: auto; max-height: none; }
+.mh .p-hero-media > .p-hero-photo { transform: scale(1.12); transform-origin: var(--so, 50% 50%); }
+/* .mh تحت 768: الشاشة طولية واللوح تحت، فالبرواز فوق اللوح وحافة الباب يسار */
+.mh .p-hero-media > .p-hero-photo { --fx: 62%; --fy: 0%; --z: 1; --so: 165% -119%; }
+.mh .p-hero-wrap { position: absolute; inset: 0; z-index: 1; display: block; min-height: 0; padding: 0; pointer-events: none; }
+.mh .p-hero-sheet { position: absolute; inset-inline: var(--lt-gutter); bottom: var(--lt-space-16); padding: var(--lt-space-20); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-surface); pointer-events: auto; }
+.mh .p-hero-h1 { font-size: 34px; }
+.mh .p-hero-lead { margin-top: var(--lt-space-8); font-size: 16px; }
+.mh .p-hero-cta { margin-top: var(--lt-space-16); }
+@media (min-width: 768px) {
+  .mh .p-hero-sheet { inset-inline-end: auto; width: min(460px, 60%); padding: var(--lt-space-32); }
+  .mh .p-hero-media > .p-hero-photo { --fx: 71%; --so: 50% -118%; }   /* البرواز في النص فوق اللوح، وحافة الباب يسار */
+}
+@media (min-width: 1024px) {
+  .mh .p-hero-sheet { top: 50%; bottom: auto; translate: 0 -50%; width: min(416px, 34%); padding: var(--lt-space-32); }   /* 416 وحشو 32 (كان 440 و40): مكان للبرواز والفراغ 64 (AD-30)، والعنوان سطرين */
+  .mh .p-hero-h1 { font-size: 52px; }
+  .mh .p-hero-lead { font-size: 18px; }
+  /* الكمبيوتر (AD-30): الصورة مثبّتة من يمينها وفوقها ومقرّبة 1.24، فالبرواز يروح يسار اللوح بـ 64px أو أكثر */
+  .mh .p-hero-media > .p-hero-photo { --fx: 100%; --fy: 0%; --z: 1.24; --ox: 100%; --oy: 0%; --so: 28.5% -32.6%; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .mh .p-hero-media > .p-hero-photo { --so: -69% -33%; }
+}
+/* الشاشات العريضة: الصورة تتقيد بالعرض، فاللوح يروح لحافة الشاشة (بدل حافة الحاوية) والتقريب أقل، عشان البرواز يبعد عنه ويدخل البطاقة */
+@media (min-width: 1600px) {
+  .mh .p-hero-wrap { max-width: none; }
+  .mh .p-hero-media > .p-hero-photo { --z: 1.1; --so: 126% -65%; }
+}
+
+/* ===== 3) المشاكل (أبيض): نفس نمط المطاعم (AD-15): أيقونة 24 باللمسة وجملة 20 / 22 وزن 500، وبينها خط 1px: أفقي على الجوال،
+   وعمودي من 1024 (ثلاث أعمدة) ===== */
+.p-ico { display: block; flex: none; width: 24px; height: 24px; color: var(--lt-accent); }
+.p-probs-list { list-style: none; padding: 0; margin-top: var(--lt-space-32); display: grid; }
+.p-probs-list > li { display: grid; gap: var(--lt-space-16); align-content: start; padding-block: var(--lt-space-24); }
+.p-probs-list > li + li { border-top: var(--lt-hairline) solid var(--lt-border); }
+.p-prob-t { max-width: 18em; font-size: 20px; line-height: 1.45; font-weight: 500; }
+@media (min-width: 1024px) {
+  .p-probs-list { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--lt-space-48); }
+  .p-probs-list > li { padding: var(--lt-space-8) var(--lt-space-32); }
+  .p-probs-list > li:first-child { padding-inline-start: 0; }
+  .p-probs-list > li + li { border-top: 0; border-inline-start: var(--lt-hairline) solid var(--lt-border); }
+  .p-prob-t { font-size: 22px; }
+}
+
+/* ===== 4) القصة المثبّتة (رملي): الجوال المشهد فوق (36svh) والخطوات تحته، والكمبيوتر الخطوات يمين 5 أعمدة والمشهد يسار ينزف للحافة.
+   العنصر المثبّت (.p-story-pin) لازم يدخل في الشاشة. GM-054 (والمدير الفني r2 §5 بند 2): المشهد المولّد المعتمد host-door-frame
+   (16:9) بطبقتين. **ولا جوال فوق الصورة**: جوال الدليل في الدليل الحي بس.
+   AD-41: المسرح (.p-story-stage) الصورة بنسبتها 16:9 وبنفس قص cover (عرضه max(100cqw, 100cqh × 16/9) من حاوية المشهد)، فخانة
+   اللوحة (.p-story-touch) والحلقة عليها بالنسبة من الصورة نفسها في كل مقاس: البرواز x من 54.6% لين 69.5%، و y من 21.4% لين 55%،
+   ونقطة اللمس وسطه (--tx و --ty 50%، مثل .lt-slot--wall). القص على اليمين (--opx 1، مثل object-position 100%) عشان الجدار الفاضي
+   يمين اللوحة يبان، وحافة الباب (43.5%) ومقبضه يبانون: من 1024 لين 1279 الحاوية ضيقة وطويلة، فالقص 80%.
+   البطاقة (.p-story-card، خطوة 3): على الجدار يمين اللوحة، ونسبتها 1:2، وعرضها الأصغر من (طول المشهد − 2m) / 2 والمسافة من حافة
+   البرواز لحافة المشهد ناقص الهامش والفراغ، فما تلمس البرواز أبداً (تغطية 0). المسح يمشي على المسرح (motion.js story) ===== */
+.p-story { overflow-x: clip; }
+.p-story-grid { display: grid; gap: var(--lt-space-24); }
+.p-story-media { --opx: 1; --opy: .45; --sw: max(100cqw, 100cqh * 16 / 9); --sl: calc((100cqw - var(--sw)) * var(--opx));
+  position: relative; order: -1; height: clamp(240px, 36svh, 360px); margin-inline: calc(-1 * var(--lt-gutter)); overflow: hidden; background: var(--lt-surface-2); container-type: size; }
+.p-story-photo { position: absolute; inset: 0; overflow: hidden; }
+.p-story-stage { position: absolute; left: var(--sl); top: calc((100cqh - var(--sw) * 9 / 16) * var(--opy)); width: var(--sw); aspect-ratio: 16 / 9; }
+.p-story-stage > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.p-story-stage > .p-story-touch { --ax: 0; --ay: 0; --tx: 50%; --ty: 50%; left: 54.6%; top: 21.4%; width: 14.9%; height: 33.6%; aspect-ratio: auto; }
+.p-story-card { --m: 12px; --gap: 12px; --cw: min((100cqh - 2 * var(--m)) / 2, 100cqw - var(--sl) - var(--sw) * .695 - var(--m) - var(--gap));
+  right: var(--m); top: 0; bottom: 0; width: var(--cw); height: calc(var(--cw) * 2); margin-block: auto; transform-origin: 0% 50%; }   /* تكبر من حافتها جهة اللوحة، وما تقرب منها */
+.p-story-steps { list-style: none; padding: 0; display: grid; gap: var(--lt-space-16); margin-top: var(--lt-space-24); }   /* تحت h2 داخل الكتلة المثبّتة (AD-15، زي المطاعم) */
+.p-story-steps .s-h3 { font-size: 18px; }
+.p-story-steps p { max-width: 36em; margin-top: var(--lt-space-4); font-size: 15px; line-height: 1.6; color: var(--lt-muted); }
+@media (min-width: 768px) {
+  .p-story-media { height: clamp(320px, 44svh, 480px); margin-inline: 0; border-radius: var(--lt-radius-s); }
+  .p-story-card { --m: 20px; --gap: 20px; }
+  .p-story-steps .s-h3 { font-size: 20px; }
+  .p-story-steps p { font-size: 16px; }
+}
+@media (min-width: 1024px) {
+  .p-story-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
+  .p-story-text { grid-column: 1 / span 5; grid-row: 1; }
+  .p-story-steps { gap: var(--lt-space-32); margin-top: var(--lt-space-32); }
+  .p-story-steps .s-h3 { font-size: 24px; }
+  .p-story-steps p { font-size: 17px; margin-top: var(--lt-space-8); }
+  /* المشهد 7 أعمدة، وينزف لحافة الشاشة اليسار (الحاوية 1200 والحافة 48) */
+  .p-story-media { order: 0; grid-column: 6 / -1; grid-row: 1; height: clamp(440px, 100svh - 200px, 640px); margin-inline-end: calc(-1 * (var(--lt-gutter) + max(0px, (100vw - var(--lt-container) - 2 * var(--lt-gutter)) / 2))); border-radius: 0; }
+  .p-story-card { --m: 28px; --gap: 24px; }
+}
+@media (min-width: 1024px) and (max-width: 1279.98px) { .p-story-media { --opx: .8; } }
+
+/* ===== 5) الدليل الحي (أبيض): النص (والباركود الثابت 120 على الكمبيوتر) ثم الجوال الكبير ثم مشهد الطاولة.
+   الكمبيوتر: النص يمين 4 أعمدة، والجوال والطاولة يسار 8 أعمدة ===== */
+.p-demo-grid { display: grid; gap: var(--lt-space-40); }
+.p-demo-lead { margin-top: var(--lt-space-16); }
+.p-demo-open { margin: var(--lt-space-24) 0 0; }
+.p-demo-qr { display: none; }
+.p-demo-media { display: grid; gap: var(--lt-space-32); justify-items: center; }
+.p-demo-phone { width: min(240px, 64vw); }
+.p-table { width: 100%; max-width: 560px; }
+/* من 768 على قد نصه، نفس أزرار .s-cta (impeccable 7): 280 أقل شي وحشوة 32 */
+@media (min-width: 768px) { .p-demo-text .p-demo-open { display: inline-flex; inline-size: auto; min-inline-size: 280px; padding-inline: var(--lt-space-32); } }
+@media (min-width: 1024px) {
+  .p-demo-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: center; }
+  .p-demo-text { grid-column: 1 / span 4; }
+  .p-demo-media { grid-column: 5 / -1; grid-template-columns: 240px minmax(0, 1fr); align-items: end; justify-items: stretch; gap: var(--lt-space-40); }
+  .p-demo-phone { width: 240px; }
+  .p-table { max-width: none; }
+  .p-demo-qr { display: flex; flex-direction: column; align-items: flex-start; gap: var(--lt-space-8); margin-top: var(--lt-space-40); color: var(--lt-text); }
+  .p-demo-qr .m-qr { display: block; width: 120px; height: 120px; }
+  .p-demo-qr figcaption { font-size: 15px; font-weight: 500; color: var(--lt-muted); }
+}
+
+/* مشهد الطاولة داخل الشقة (إضافة صاحب المشروع بعد GM-050، و AD-36): المشهد المولّد المعتمد scene-hosts-table (16:9، كونسول و3 ستاندات)
+   بطبقتين في .s-photo (site.css) بنسبة 4:3 وزاوية 8 (داخل التخطيط)، cover بالنص: يبان من x 12.5% لين 87.5% من الصورة، والكروت الثلاثة
+   كلها داخله. المسح يلوّنه مرة وحدة لما يدخل (data-scan="tint"). خط 1px (::after) عشان الجدار الأبيض ما يذوب في خلفية القسم البيضاء.
+   الخانات على الكروت البيضاء نفسها. مقاسات المدير الفني من الصورة 1600×900 (ومقاسي بالبكسل يطابقها ±0.4%): دليل الضيف x 26.0–35.0%،
+   والطوارئ x 45.0–54.2%، والواي فاي x 63.8–72.7%، والثلاث y 42.7–67.2%. في القص: x' = (x − 12.5) / 75، فدليل الضيف 18.0% بعرض 12.0%،
+   والطوارئ 43.333% بعرض 12.267%، والواي فاي 68.4% بعرض 11.867%. الخانة فاضية (بدون وجه أبيض مرسوم، فيبان كرت الصورة نفسه) لين
+   توصل صورة الطباعة: scenes.js يحطها contain داخل مستطيل الكرت (العرض والطول هنا ثابتين، فنسبة الصورة ما تحرّكه) */
+.p-table-scene { --photo-ratio: 4 / 3; }
+.p-table-scene::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; box-shadow: inset 0 0 0 var(--lt-hairline) var(--lt-border); pointer-events: none; }
+.p-table-scene > .lt-slot { --ax: 0; --ay: 0; top: 42.7%; height: 24.5%; aspect-ratio: auto; }
+.p-table-scene > .p-slot--guide { left: 18%; width: 12%; }
+.p-table-scene > .p-slot--sos { left: 43.333%; width: 12.267%; }
+.p-table-scene > .p-slot--wifi { left: 68.4%; width: 11.867%; }
+.p-table-scene > .lt-slot > .lt-slot-face { background: none; box-shadow: none; }
+/* الأسماء تحت كروتها: RTL، فالأول (الواي فاي) يمين. 3 أعمدة بعرض المسافة بين مراكز الكروت (24.86%)، والحشو يجيب المراكز على
+   74.3% و49.5% و24.6% من اليسار (الكروت: 74.3% و49.5% و24.0%) */
+.p-table-names { list-style: none; padding: 0; padding-inline: 13.24% 12.18%; margin-top: var(--lt-space-12); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center; font-size: 14px; line-height: 1.45; font-weight: 500; color: var(--lt-muted); }
+.p-table-names > li { padding-inline: var(--lt-space-4); text-wrap: balance; }
+
+/* ===== 6) الباقة (رملي ثاني): صف علامات الصح (بدون عنوان صغير فوقه، impeccable 8)، ثم مفتاح «شهري / سنوي» (.s-period) فوق
+   البطاقتين ويبدّل السعرين، ثم البطاقتين الأخوات (.s-plans و .s-plan--stack من site.css، AD-40 ومرجع صاحب المشروع: «بطاقتين للمضيفين
+   بدل البطاقة وشريط المحافظ»): جنب بعض بنفس الارتفاع من 1024، وفوق بعض تحته. الاسمين بنفس الحجم (24 / 28). ثم «اللي ما نسويه» بنمط
+   المطاعم (AD-15). «خصم المحافظ» انشال (web-copy «مفتاح الأسعار» أ) ===== */
+.p-plan-lead { margin-top: var(--lt-space-16); }
+.p-incl { margin-top: var(--lt-space-32); }
+.p-plans-wrap { margin-top: var(--lt-space-32); }
+.p-plans { margin-top: var(--lt-space-24); }
+.p-plan-card .s-plan-what .s-h3 { font-size: 24px; }
+.p-plan-elig { margin-top: var(--lt-space-4); }
+.p-plan-same { max-width: 30em; margin-top: var(--lt-space-16); }
+@media (min-width: 1024px) {
+  .p-plan-card .s-plan-what .s-h3 { font-size: 28px; }
+}
+.p-dont { margin-top: var(--lt-space-48); padding-top: var(--lt-space-32); border-top: var(--lt-hairline) solid var(--lt-border); }
+.p-dont-list { list-style: none; padding: 0; margin-top: var(--lt-space-16); display: grid; gap: var(--lt-space-12); }
+.p-dont-list li { display: flex; align-items: flex-start; gap: var(--lt-space-8); }
+.p-dont-i { flex: none; width: 20px; height: 20px; margin-top: .3em; color: var(--lt-muted); }
+@media (min-width: 768px) {
+  .p-incl-list { display: flex; flex-wrap: wrap; gap: var(--lt-space-12) var(--lt-space-32); }
+}
+@media (min-width: 1024px) {
+  .p-incl-list { gap: var(--lt-space-12) var(--lt-space-40); }
+  .p-dont-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--lt-grid-gap); }
+}
+
+/* ===== 7) الأسئلة واسأل إنسان (رملي): نفس تخطيط المطاعم (AD-15). من 1024: 7 أعمدة للأسئلة، و4 للوح (لاصق تحت الرأس) ===== */
+.p-faq-grid { display: grid; gap: var(--lt-space-40); margin-top: var(--lt-space-32); }
+.p-ask .s-ask-t { margin-top: var(--lt-space-4); }
+@media (min-width: 1024px) {
+  .p-faq-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); align-items: start; margin-top: var(--lt-space-40); }
+  .p-faq-grid > .s-faq { grid-column: 1 / span 7; }
+  .p-faq-grid > .p-ask { grid-column: 9 / span 4; position: sticky; top: 104px; grid-template-columns: minmax(0, 1fr); padding: var(--lt-space-32); }
+  .p-faq-grid > .p-ask > .s-ask-head, .p-faq-grid > .p-ask > .s-cta { grid-column: auto; }
+  .p-faq-grid > .p-ask > .s-cta { margin-top: var(--lt-space-12); }
+}
+
+/* ===== 8) الخاتمة (أبيض): h2 34 / 44 / 60 (§5) ===== */
+.p-close-h { max-width: 14em; font-size: 34px; line-height: 1.2; }
+.p-close-lead { margin-top: var(--lt-space-16); }
+.p-close-cta:has(> :not([hidden])) { margin-top: var(--lt-space-32); }
+@media (min-width: 768px) { .p-close-h { font-size: 44px; } }
+@media (min-width: 1024px) { .p-close-h { font-size: 60px; line-height: 1.12; } }

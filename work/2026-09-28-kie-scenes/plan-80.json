@@ -1,0 +1,71 @@
+{
+  "purpose": "GM-058 scene backgrounds; print artwork composited later with tools/place-artwork.py; replaced by real photography before launch (GM-054) | reduced to fit the 80-credit balance (owner approved up to 320)",
+  "jobs": [
+    {
+      "id": "restaurants-hero-imagen",
+      "model": "google/imagen4-ultra",
+      "count": 1,
+      "input": {
+        "prompt": "A contemporary Saudi cafe interior in Jeddah during the day. In the foreground, a light oak wooden table surface runs across the frame. On the table stands ONE small EMPTY clear acrylic tabletop sign holder (A6 portrait size, about 10x15 cm, upright L-shaped stand) holding a BLANK plain white card with nothing printed on it, placed slightly right of center and facing the camera straight-on. Beside it a white ceramic cup of cappuccino on a saucer. Softly blurred background of the cafe with plants and light walls. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+        "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+        "aspect_ratio": "16:9",
+        "seed": ""
+      }
+    },
+    {
+      "id": "restaurants-hero-flux",
+      "model": "flux-2/pro-text-to-image",
+      "count": 1,
+      "input": {
+        "prompt": "A contemporary Saudi cafe interior in Jeddah during the day. In the foreground, a light oak wooden table surface runs across the frame. On the table stands ONE small EMPTY clear acrylic tabletop sign holder (A6 portrait size, about 10x15 cm, upright L-shaped stand) holding a BLANK plain white card with nothing printed on it, placed slightly right of center and facing the camera straight-on. Beside it a white ceramic cup of cappuccino on a saucer. Softly blurred background of the cafe with plants and light walls. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    {
+      "id": "hosts-hero-imagen",
+      "model": "google/imagen4-ultra",
+      "count": 1,
+      "input": {
+        "prompt": "The entrance area inside a modern furnished apartment. A flat light warm-white wall beside a light wooden apartment front door with a simple metal handle. On the wall next to the door, at chest height, hangs ONE EMPTY thin light-oak picture frame (A4 landscape) holding a BLANK plain white insert with nothing printed on it, facing the camera straight-on. Clean floor, one small green plant. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+        "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+        "aspect_ratio": "16:9",
+        "seed": ""
+      }
+    },
+    {
+      "id": "hosts-hero-flux",
+      "model": "flux-2/pro-text-to-image",
+      "count": 1,
+      "input": {
+        "prompt": "The entrance area inside a modern furnished apartment. A flat light warm-white wall beside a light wooden apartment front door with a simple metal handle. On the wall next to the door, at chest height, hangs ONE EMPTY thin light-oak picture frame (A4 landscape) holding a BLANK plain white insert with nothing printed on it, facing the camera straight-on. Clean floor, one small green plant. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    {
+      "id": "hosts-table-imagen",
+      "model": "google/imagen4-ultra",
+      "count": 1,
+      "input": {
+        "prompt": "Inside a bright modern furnished apartment. A light oak console table against a plain warm-white wall. On the table stand THREE small EMPTY clear acrylic sign holders of the same size (A7 portrait, about 7x10 cm), evenly spaced, each holding a BLANK plain white card with nothing printed on it, all facing the camera straight-on. A small ceramic vase with a green sprig at one end. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+        "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+        "aspect_ratio": "16:9",
+        "seed": ""
+      }
+    },
+    {
+      "id": "hosts-table-flux",
+      "model": "flux-2/pro-text-to-image",
+      "count": 1,
+      "input": {
+        "prompt": "Inside a bright modern furnished apartment. A light oak console table against a plain warm-white wall. On the table stand THREE small EMPTY clear acrylic sign holders of the same size (A7 portrait, about 7x10 cm), evenly spaced, each holding a BLANK plain white card with nothing printed on it, all facing the camera straight-on. A small ceramic vase with a green sprig at one end. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    }
+  ]
+}
