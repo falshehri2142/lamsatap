@@ -99,8 +99,8 @@
    (16:9) بطبقتين. **ولا جوال فوق الصورة**: جوال الدليل في الدليل الحي بس.
    AD-41: المسرح (.p-story-stage) الصورة بنسبتها 16:9 وبنفس قص cover (عرضه max(100cqw, 100cqh × 16/9) من حاوية المشهد)، فخانة
    اللوحة (.p-story-touch) والحلقة عليها بالنسبة من الصورة نفسها في كل مقاس: البرواز x من 54.6% لين 69.5%، و y من 21.4% لين 55%،
-   ونقطة اللمس على نقطة «قرّب جوالك هنا» في لوحة الخروج المركّبة داخل البرواز (brand/photos/composites/README.md): مركزها في الصورة
-   x 62.14% و y 36.17%، يعني داخل الخانة --tx 50.6% و --ty 44%. القص على اليمين (--opx 1، مثل object-position 100%) عشان الجدار الفاضي
+   ونقطة اللمس وسطه (--tx و --ty 50%، مثل .lt-slot--wall)، والبرواز فاضي لين تجي لوحة الخروج الجديدة. لما تنركّب، الحلقة تنحط على نقطة
+   «قرّب جوالك هنا» حقها (اللوحة الأولى كانت x 62.14% و y 36.17% من الصورة). القص على اليمين (--opx 1، مثل object-position 100%) عشان الجدار الفاضي
    يمين اللوحة يبان، وحافة الباب (43.5%) ومقبضه يبانون: من 1024 لين 1279 الحاوية ضيقة وطويلة، فالقص 80%.
    البطاقة (.p-story-card، خطوة 3): على الجدار يمين اللوحة، ونسبتها 1:2، وعرضها الأصغر من (طول المشهد − 2m) / 2 والمسافة من حافة
    البرواز لحافة المشهد ناقص الهامش والفراغ، فما تلمس البرواز أبداً (تغطية 0). المسح يمشي على المسرح (motion.js story) ===== */
@@ -111,7 +111,7 @@
 .p-story-photo { position: absolute; inset: 0; overflow: hidden; }
 .p-story-stage { position: absolute; left: var(--sl); top: calc((100cqh - var(--sw) * 9 / 16) * var(--opy)); width: var(--sw); aspect-ratio: 16 / 9; }
 .p-story-stage > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
-.p-story-stage > .p-story-touch { --ax: 0; --ay: 0; --tx: 50.6%; --ty: 44%; left: 54.6%; top: 21.4%; width: 14.9%; height: 33.6%; aspect-ratio: auto; }
+.p-story-stage > .p-story-touch { --ax: 0; --ay: 0; --tx: 50%; --ty: 50%; left: 54.6%; top: 21.4%; width: 14.9%; height: 33.6%; aspect-ratio: auto; }
 .p-story-card { --m: 12px; --gap: 12px; --cw: min((100cqh - 2 * var(--m)) / 2, 100cqw - var(--sl) - var(--sw) * .695 - var(--m) - var(--gap));
   right: var(--m); top: 0; bottom: 0; width: var(--cw); height: calc(var(--cw) * 2); margin-block: auto; transform-origin: 0% 50%; }   /* تكبر من حافتها جهة اللوحة، وما تقرب منها */
 .p-story-steps { list-style: none; padding: 0; display: grid; gap: var(--lt-space-16); margin-top: var(--lt-space-24); }   /* تحت h2 داخل الكتلة المثبّتة (AD-15، زي المطاعم) */
@@ -160,8 +160,8 @@
 /* مشهد الطاولة داخل الشقة (إضافة صاحب المشروع بعد GM-050، و AD-36): المشهد المولّد المعتمد scene-hosts-table (16:9، كونسول و3 ستاندات)
    بطبقتين في .s-photo (site.css) بنسبة 4:3 وزاوية 8 (داخل التخطيط)، cover بالنص: يبان من x 12.5% لين 87.5% من الصورة، والكروت الثلاثة
    كلها داخله. المسح يلوّنه مرة وحدة لما يدخل (data-scan="tint"). خط 1px (::after) عشان الجدار الأبيض ما يذوب في خلفية القسم البيضاء.
-   صور قسم الطباعة مركّبة داخل الصورة نفسها على الكروت (brand/photos/composites/README.md): دليل الضيف x 26.0–35.0%، والطوارئ
-   x 45.0–54.2%، والواي فاي x 63.8–72.7%، والثلاث y 42.7–67.2% من الصورة 1600×900 (مقاسات المدير الفني). فما فيه خانات .lt-slot هنا. */
+   الكروت بيضاء لين تجي صور الطباعة الجديدة، وبعدها تنركّب داخل الصورة نفسها (brand/photos/composites/README.md): دليل الضيف x 26.0–35.0%،
+   والطوارئ x 45.0–54.2%، والواي فاي x 63.8–72.7%، والثلاث y 42.7–67.2% من الصورة 1600×900 (مقاسات المدير الفني). فما فيه خانات .lt-slot هنا. */
 .p-table-scene { --photo-ratio: 4 / 3; }
 .p-table-scene::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; box-shadow: inset 0 0 0 var(--lt-hairline) var(--lt-border); pointer-events: none; }
 /* الأسماء تحت كروتها: RTL، فالأول (الواي فاي) يمين. 3 أعمدة بعرض المسافة بين مراكز الكروت (24.86%)، والحشو يجيب المراكز على
