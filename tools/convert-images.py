@@ -35,7 +35,10 @@ LAYERS = {
     # GM-054/058: مشاهد المنتج المولّدة (kie.ai، مكبّرة 2560×1440)، مكانها brand/photos/generated/
     'scene-restaurants':      ('../generated/restaurants-hero-imagen-1-upscaled-1.webp', 'warm',  True,  None),  # طاولة كافيه وستاند فاضي
     'scene-hosts-door':       ('../generated/hosts-hero-imagen-1-upscaled-1.webp',       'light', True,  None),  # باب شقة وبرواز فاضي
-    'scene-hosts-table':      ('../generated/hosts-table-imagen-1-upscaled-1.webp',      'light', False, None),  # كونسول و3 ستاندات
+    'scene-hosts-table':      ('../composites/hosts-table-stands.webp',                  'light', False, None),  # كونسول و3 ستاندات عليها صور الطباعة
+    # المشاهد نفسها بعد تركيب صور قسم الطباعة على كروتها (brand/photos/composites/README.md): بطل المطاعم وبابها، وبطل المضيفين وبابهم
+    'restaurant-cafe-stand':  ('../composites/restaurants-hero-stand.webp',              'warm',  True,  None),  # ستاند التقييم على طاولة الكافيه
+    'host-door-frame':        ('../composites/hosts-hero-checkout.webp',                 'light', True,  None),  # لوحة الخروج في البرواز جنب الباب
 }
 # حدود «الاتجاه 3» §4 بالـKB، للـ1600: (الأبيض والأسود، اللون). والـ800 نصها.
 LIMITS = {True: (180, 180), False: (120, 160)}
@@ -128,10 +131,14 @@ def color_layer(rgb, mood):
     c[..., 0] = lstar(y_of(c[..., 0]) * (lin(k['white']) @ REC709))       # الأبيض: أبيض للمطاعم، ورملي للمضيفين
     # الظلال: أغمق 1% يوصل لـ L* لون الظلال (الحبر 11.1، أو #2A3B38 23.4)، والفرق يخف لين يختفي عند L* 50.
     # الإضاءة بس تتغير، واللون يبقى (البني الغامق يبقى بني). وأغمق الظلال (أقل من L* الظلال + 8) تاخذ لون الظلال نفسه.
+    # صورة فاتحة كلها (أغمق 1% فوق L* 50، مثل مشهد الباب الأبيض host-door-frame): ما فيها ظلال تنربط، فالخطوة تنشال.
+    # بدونها المدى يصير مقلوب (smooth(l1, 50) و l1 أكبر من 50) وتغمق الصورة كلها وتطلع بقع تيل عند الحواف.
+    # بهالشرط طبقة host-door-frame طابقت ملف البنّاء الأول (فرق متوسط 0.83 من 255، ضجيج ضغط).
     lb, ab = to_lab(lin(k['black']))[0], to_lab(lin(k['black']))[1:]
     l1 = np.percentile(c[..., 0], 1)
-    c[..., 0] = np.maximum(c[..., 0] + (lb - l1) * (1 - smooth(l1, 50, c[..., 0])), lb)
-    c[..., 1:] += (1 - smooth(lb, lb + 8, c[..., 0]))[..., None] * (ab - c[..., 1:])
+    if l1 < 50:
+        c[..., 0] = np.maximum(c[..., 0] + (lb - l1) * (1 - smooth(l1, 50, c[..., 0])), lb)
+        c[..., 1:] += (1 - smooth(lb, lb + 8, c[..., 0]))[..., None] * (ab - c[..., 1:])
     u, l = srgb(from_lab(c)), c[..., 0:1] / 100
     if k['hi']:   # الفاتح يميل للون (المطاعم: زعفران 10%)
         u = u + k['hi'][1] * smooth(0.5, 1.0, l) * (k['hi'][0] - u)

@@ -5,5 +5,8 @@
 // الأسماء: checkout-sign (بطل المضيفين وبابهم)، guest-guide-sign (احتياط لنفس الخانة)، restaurant-stand (بطل المطاعم وبابهم)،
 //          restaurant-menu (كرت المنيو جنب الستاند: قسم الطباعة ما سمّاه في تسليمه، غير مؤكد).
 // مثال (مو حقيقي):  "checkout-sign": { w: 1240, h: 1754, mm: 210, touch: [50, 48] },
+// 2026-09-28: صور الطباعة الخمس وصلت (main af691d7) وانركّبت داخل المشاهد نفسها بالمنظور والإضاءة (brand/photos/composites/README.md):
+//   restaurant-stand و checkout-sign و guest-guide-stand و emergency-stand و wifi-stand. لا تكتبها هنا: تطلع مرتين فوق المشهد.
+//   هالقائمة تبقى فاضية، وتنفع بس لمشهد مرسوم جديد (@@scene) ما فيه كرت حقيقي.
 window.LT_PRINT_ART = {
 };

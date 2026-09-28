@@ -137,6 +137,14 @@
     [].forEach.call(app.querySelectorAll('.lt-btn[data-wa]'), function (a) { waIcon(a); });
     logoFallback(app);
     themeColor();
+    // رابط فيه #قسم (مثل #emergency من ستاند الطوارئ): الصفحة تنبني بالسكربت، فالمتصفح ما يلقى القسم وقت ما يدوّر عليه. ننزل له هنا.
+    // getElementById بس (ما يمر على محدد CSS)، وداخل الصفحة نفسها بس. بدون حركة (يحترم تقليل الحركة من نفسه)
+    var hash = w.location.hash.slice(1);
+    if (hash) {
+      try { hash = decodeURIComponent(hash); } catch (e) { /* يبقى كما هو */ }
+      var target = d.getElementById(hash);
+      if (target && app.contains(target)) target.scrollIntoView();
+    }
     if (w.matchMedia) {
       var mq = w.matchMedia('(prefers-color-scheme: dark)');
       if (mq.addEventListener) mq.addEventListener('change', themeColor);

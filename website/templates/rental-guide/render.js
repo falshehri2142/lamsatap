@@ -111,9 +111,11 @@
             : cRow({ tag: 'a', attrs: ' id="' + id('rv') + '" href="' + esc(rv) + '" target="_blank" rel="noopener"', title: 'قيّم إقامتك', chevron: true })
     ]) + (still ? '<p class="c-status" id="' + id('rv-st') + '" role="status" aria-live="polite"></p>' : '') + '</section>');
 
-    // 7) الطوارئ: أرقام وطنية من config.js بمصدرها (ر4-2). مو أحمر. في العرض صفوف بدون روابط
+    // 7) الطوارئ: أرقام وطنية من config.js بمصدرها (ر4-2). مو أحمر. في العرض صفوف بدون روابط، وفي دليل العميل كل صف رابط tel: (56px).
+    //    #emergency ثابت (رسالة المدير العام بعد af691d7): رابط ستاند الطوارئ (/t/<code>/) يفتح الدليل هنا على طول (cMount ينزل له).
+    //    نفس قائمة ستاند الطوارئ بالضبط (print/host-signs/signs.js يقرأ SITE.emergency نفسها)، وبدون رقم المضيف أبداً (GM-003 و GM-062)
     var sos = (Array.isArray(S.emergency) ? S.emergency : []).filter(function (e) { return e && str(e.label) && waNum(e.number); });
-    if (sos.length) h.push('<section aria-labelledby="' + id('sos-h') + '"><h2 id="' + id('sos-h') + '">الطوارئ</h2>' +
+    if (sos.length) h.push('<section id="' + id('emergency') + '" aria-labelledby="' + id('sos-h') + '"><h2 id="' + id('sos-h') + '">الطوارئ</h2>' +
       cPanel(sos.map(function (e, i) {
         var n = waNum(e.number), r = { icon: 'call', title: esc(e.label), value: '<span dir="ltr">' + n + '</span>', cls: 'g-sos' + (i ? '' : ' is-first') };
         return still ? cRow(r) : cRow(Object.assign(r, { tag: 'a', attrs: ' href="tel:' + n + '"' }));
