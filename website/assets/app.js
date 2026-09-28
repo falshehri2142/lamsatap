@@ -61,10 +61,19 @@
         a.hidden = true;
       }
     });
-    all('[data-wa-empty]').forEach(function (el) { el.hidden = !!num; });
-    all('[data-wa-only]').forEach(function (el) { el.hidden = !num; });
-    // زوج الأزرار (الاتجاه 2 §3.5): الزر الثاني ثانوي بس لما زر الواتساب ظاهر. بدون رقم يبقى بشكل الأساسي، عشان ما يبان ناقص
-    all('[data-wa-second]').forEach(function (el) { el.classList.toggle('lt-btn--secondary', !!num); });
+    // «فيه طريقة تواصل» = رقم واتساب، أو بوت تليجرام لما الرقم فاضي (AD-34 و AD-35):
+    //   [data-wa-empty] («الرقم ينضاف قريباً») يطلع بس لما ما فيه ولا قناة.
+    //   [data-wa-only] (سطر المخاطرة وأمثاله) يطلع مع أي قناة، لأنه يشرح الزر اللي فوقه (واتساب أو تليجرام).
+    //   [data-wa-second]: الزر الثاني ثانوي لما فيه زر تواصل أساسي، عشان زر أساسي واحد لكل شاشة.
+    var contact = !!num || !!tgUser(S.telegram);
+    all('[data-wa-empty]').forEach(function (el) { el.hidden = contact; });
+    all('[data-wa-only]').forEach(function (el) { el.hidden = !contact; });
+    all('[data-wa-second]').forEach(function (el) { el.classList.toggle('lt-btn--secondary', contact); });
+    // اسم القناة في النص (مثل «نتفاهم على واتساب»): [data-channel-name] يصير «تليجرام» لما الرقم فاضي والبوت موجود
+    all('[data-channel-name]').forEach(function (el) {
+      if (el.__wa == null) el.__wa = el.textContent;
+      el.textContent = (!num && tgUser(S.telegram)) ? 'تليجرام' : el.__wa;
+    });
   };
 
   // التليجرام (GM-047، وإشعار المحامي بند 34): اليوزر من config.js بدون @ (telegram للبوت، telegramChannel للقناة)،
@@ -87,7 +96,11 @@
         first.textContent = solo ? '' : first.__or;
       }
       var link = el.querySelector('[data-tg-link]');
-      if (link) link.classList.toggle('lt-btn', !!(bot && solo));
+      if (link) {
+        link.classList.toggle('lt-btn', !!(bot && solo));
+        // الرتبة: data-tg-rank="secondary" على المجموعة (بطاقة 5 وحدات، أو «اسأل إنسان» اللي يبان مع الخاتمة) = زر بإطار
+        link.classList.toggle('lt-btn--secondary', !!(bot && solo) && el.getAttribute('data-tg-rank') === 'secondary');
+      }
     });
     all('[data-tg-link]').forEach(function (a) {
       if (bot) { a.href = 'https://t.me/' + bot; a.hidden = false; } else { a.removeAttribute('href'); a.hidden = true; }
