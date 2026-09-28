@@ -47,6 +47,13 @@
 | `hosts-hero-imagen-1.webp` | google/imagen4-ultra عبر kie.ai | مهمة `1136f236b4b85956e69716fd12a3f37d` | 2026-09-28 | 12.0 | The entrance area inside a modern furnished apartment. A flat light warm-white wall beside a light wooden apartment front door with a simple… |
 | `hosts-table-imagen-1.webp` | google/imagen4-ultra عبر kie.ai | مهمة `e7ba869ce0fea21630e758d5bc299dbb` | 2026-09-28 | 12.0 | Inside a bright modern furnished apartment. A light oak console table against a plain warm-white wall. On the table stand THREE small EMPTY … |
 
+- **تكبير (موافقة صاحب المشروع في المحادثة):** بـ Recraft Crisp Upscale عبر kie.ai، ب0.5 credit للصورة. المخرجات 2560×1440:
+  - `restaurants-hero-imagen-1-upscaled-1.webp`
+  - `hosts-hero-imagen-1-upscaled-1.webp`
+  - `hosts-table-imagen-1-upscaled-1.webp`
+- **الأصل:** ما تغيّر.
+- **مجموع صرف kie.ai:** 49.5 credit، والرصيد 80 صار 30.5.
+
 **ملفات الطبقتين (web-builder، 2026-09-28):**
 - لكل خانة 4 ملفات: اللون `<الخانة>-color-800.webp` و`-1600.webp`، والأبيض والأسود `<الخانة>-bw-800.webp` و`-1600.webp`.
 - المصدر والرخصة والمصوّر لكل ملف: صف خانته في الجدول فوق.

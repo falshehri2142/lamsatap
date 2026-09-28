@@ -1,0 +1,13 @@
+{
+  "file": "hosts-hero-imagen-1-upscaled-1.webp",
+  "model": "recraft/crisp-upscale",
+  "input": {
+    "image": "https://tempfile.aiquickdraw.com/js/g4/5201dbc43725.webp"
+  },
+  "taskId": "16deb038df0bf18601fccbe1b5ce02c1",
+  "creditsConsumed": 0.5,
+  "createTime": 1790555899000,
+  "completeTime": 1790555903583,
+  "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+  "source": "kie.ai generated (GM-058)"
+}

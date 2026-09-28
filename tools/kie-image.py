@@ -12,6 +12,7 @@
 #   python tools/kie-image.py credits                                          (الرصيد بس)
 #   python tools/kie-image.py generate work/2026-09-28-kie-scenes/plan.json --approved "GM-058 <تاريخ الموافقة>" [--only <id>] [--skip a,b]
 #   python tools/kie-image.py fetch      (يكمّل تنزيل مهام خلصت بعدين، بدون أي صرف)
+#   python tools/kie-image.py upscale --names a-1,b-1 --approved "..."   (Recraft Crisp Upscale، 0.5 credit للصورة)
 # قاعدة: ولا توليد بدون --approved، والموافقة من صاحب المشروع عن طريق المدير العام (GM-057 و GM-058).
 import argparse, json, pathlib, subprocess, sys, time, urllib.error, urllib.request
 
@@ -21,6 +22,7 @@ PRICES = {
     ("google/imagen4-ultra", None): (12, 0.06),
     ("flux-2/pro-text-to-image", "2K"): (7, 0.035),
     ("flux-2/pro-text-to-image", "1K"): (5, 0.025),
+    ("recraft/crisp-upscale", None): (0.5, 0.0025),
 }
 
 
@@ -138,23 +140,52 @@ def cmd_fetch(out_dir):
     wait_all(pending, key, out_dir, log, tasks, minutes=10)
 
 
+def cmd_upscale(out_dir, names, approved):
+    """يكبّر صور مولّدة (Recraft Crisp Upscale) من روابطها الأصلية عند kie.ai (تبقى 14 يوم). الأصل ما يتغير."""
+    if not approved:
+        raise SystemExit("ممنوع التكبير بدون --approved (يكلف رصيد)")
+    key = load_key()
+    log = out_dir / "tasks.json"
+    tasks = json.loads(log.read_text(encoding="utf-8"))
+    pending = []
+    for rec in tasks:
+        base = f"{rec['job']}-{rec['idx']}"
+        if rec.get("done") is not True or base not in names:
+            continue
+        d = call("GET", f"/jobs/recordInfo?taskId={rec['task']}", key)["data"]
+        url = json.loads(d.get("resultJson") or "{}").get("resultUrls", [None])[0]
+        if not url:
+            print(f"  {base}: ما لقيت رابط الأصل (يمكن انتهت 14 يوم)"); continue
+        body = {"model": "recraft/crisp-upscale", "input": {"image": url}}
+        task = call("POST", "/jobs/createTask", key, body)["data"]["taskId"]
+        print(f"{base}: تكبير، مهمة {task}", flush=True)
+        up = {"task": task, "job": base + "-upscaled", "idx": 1, "body": body, "approved": approved, "done": False}
+        tasks.append(up); pending.append(up)
+        log.write_text(json.dumps(tasks, ensure_ascii=False, indent=2), encoding="utf-8")
+    wait_all(pending, key, out_dir, log, tasks, minutes=10)
+
+
 def main():
     for st in (sys.stdout, sys.stderr):
         if hasattr(st, "reconfigure"):
             st.reconfigure(encoding="utf-8", errors="replace")
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["price", "credits", "generate", "fetch"])
+    ap.add_argument("cmd", choices=["price", "credits", "generate", "fetch", "upscale"])
     ap.add_argument("plan", nargs="?")
     ap.add_argument("--out", default="brand/photos/generated")
     ap.add_argument("--only")
     ap.add_argument("--approved", default="")
     ap.add_argument("--skip", default="", help="أسماء مهام مفصولة بفاصلة ما تنرسل (خلصت قبل)")
+    ap.add_argument("--names", default="", help="للتكبير: أسماء الصور بدون امتداد، مفصولة بفاصلة")
     a = ap.parse_args()
     if a.cmd == "credits":
         print("الرصيد:", call("GET", "/chat/credit", load_key())["data"], "credit")
         return
     if a.cmd == "fetch":
         cmd_fetch(pathlib.Path(a.out))
+        return
+    if a.cmd == "upscale":
+        cmd_upscale(pathlib.Path(a.out), set(x for x in a.names.split(",") if x), a.approved)
         return
     plan = json.loads(pathlib.Path(a.plan).read_text(encoding="utf-8"))
     if a.cmd == "price":

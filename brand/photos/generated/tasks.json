@@ -142,5 +142,44 @@
     },
     "approved": "GM-058/GM-060 retry round (owner: remaining balance for retries)",
     "done": "fail"
+  },
+  {
+    "task": "b537a83f84fa3a00f271e51c011b0b86",
+    "job": "restaurants-hero-imagen-1-upscaled",
+    "idx": 1,
+    "body": {
+      "model": "recraft/crisp-upscale",
+      "input": {
+        "image": "https://tempfile.aiquickdraw.com/js/g4/361eb71a1d81.webp"
+      }
+    },
+    "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+    "done": true
+  },
+  {
+    "task": "16deb038df0bf18601fccbe1b5ce02c1",
+    "job": "hosts-hero-imagen-1-upscaled",
+    "idx": 1,
+    "body": {
+      "model": "recraft/crisp-upscale",
+      "input": {
+        "image": "https://tempfile.aiquickdraw.com/js/g4/5201dbc43725.webp"
+      }
+    },
+    "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+    "done": true
+  },
+  {
+    "task": "55b6f179471e0cc4e607d8eea3224ef8",
+    "job": "hosts-table-imagen-1-upscaled",
+    "idx": 1,
+    "body": {
+      "model": "recraft/crisp-upscale",
+      "input": {
+        "image": "https://tempfile.aiquickdraw.com/js/g4/71f82581f494.webp"
+      }
+    },
+    "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+    "done": true
   }
 ]
