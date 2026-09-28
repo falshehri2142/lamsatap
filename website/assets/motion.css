@@ -52,10 +52,13 @@
 .mh header:has([data-open-logo]) { background-color: var(--lt-surface); border-bottom-color: transparent; }
 .mh header:has([data-open-logo]) + .s-nav--row { background-color: var(--lt-surface); }
 .mh header:has([data-open-logo]).m-docked + .s-nav--row { background-color: transparent; }   /* وقتها الصف طالع من الشاشة (التثبيت يبدأ بعده) */
+/* AD-39: نفس رأس صفحتي الجمهور بالبكسل: الظل توكن --lt-elev-float (tokens.css) على ::before، والخط 1px على صف الحد نفسه (::after تحت
+   الظل، مثل الحد الحقيقي في site.css). الاثنين يطلعون بالشفافية بس */
 .mh header:has([data-open-logo])::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--lt-bg);
-  box-shadow: inset 0 calc(-1 * var(--lt-hairline, 1px)) 0 var(--lt-border), 0 1px 2px rgb(42 59 56 / .05), 0 8px 24px -12px rgb(42 59 56 / .16);
-  opacity: 0; transition: opacity var(--m-press) ease-out; }
-.mh header:has([data-open-logo]).m-docked::before { opacity: 1; }
+  box-shadow: var(--lt-elev-float, 0 0 #0000); opacity: 0; transition: opacity var(--m-press) ease-out; }
+.mh header:has([data-open-logo])::after { content: ""; position: absolute; left: 0; right: 0; bottom: calc(-1 * var(--lt-hairline, 1px)); height: var(--lt-hairline, 1px);
+  z-index: -2; pointer-events: none; background: var(--lt-border); opacity: 0; transition: opacity var(--m-press) ease-out; }
+.mh header:has([data-open-logo]).m-docked::before, .mh header:has([data-open-logo]).m-docked::after { opacity: 1; }
 .m-field { position: absolute; z-index: 0; pointer-events: none; }
 /* طبقة الطيران: نسخ الرمز والكلمة فوق الرأس الثابت وقت التثبيت (الأصل يختفي، والنسخ تختفي لما يظهر الشعار الحقيقي) */
 .m-fly { position: fixed; inset: 0; z-index: 40; pointer-events: none; }
@@ -78,6 +81,16 @@
   .mh [data-expand-title] > * { align-self: auto; }
 }
 .mh [data-expand-sheet], .mh [data-expand-phone] { opacity: 0; }
+/* AD-37 (تحت 1024، اللوح تحت الصورة): آخر التوسع شريط صورة تحت الرأس لين فوق اللوح، والصورة cover على الشريط نفسه، واللوح تحته بدون تداخل.
+   motion.js يحط .m-band ويحسب --m-bt (أعلى الشريط = الرأس) و --m-bh (طوله) و --m-xh (كم يطول القسم لو اللوح ما يترك مكان للشريط).
+   البطاقة الصغيرة تبقى مكانها من طول الشاشة (57%) حتى لو القسم طال. هنا بدل restaurants.css و hosts.css (ملفات المطوّر).
+   قبل ما يشتغل motion.js (بدون .m-x، والصورة ممكن تنرسم قبله على شبكة بطيئة): الصورة بطول البطاقة وعرض الشاشة وبدون تكبير، فالمنتج كامل
+   في البطاقة من أول رسم، وقريب من البداية اللي يحسبها motion.js */
+@media (max-width: 1023.98px) {
+  html.mh [data-expand]:not(.m-x) [data-expand-media] > :first-child { top: calc(var(--cy) - var(--ch) / 2); bottom: auto; height: var(--ch); transform: none; }
+  html.mh [data-expand].m-band { --cy: calc(clamp(560px, 100svh, 1000px) * .57); height: calc(clamp(560px, 100svh, 1000px) + var(--m-xh, 0px)); }
+  html.mh [data-expand].m-band [data-expand-media] > :first-child { top: var(--m-bt, 0px); bottom: auto; height: var(--m-bh, 100%); }
+}
 
 /* ===== القصة المثبّتة (data-story): الخطوة الحالية واضحة، والباقي أخف وقت التثبيت بس، والشريط يمتلي بالحبر ===== */
 .m [data-story].is-live [data-story-run] { position: relative; }

@@ -33,6 +33,8 @@
     try { offs.forEach(function (f) { f(); }); } catch (x) {} offs = [];
     try { [].slice.call(d.querySelectorAll('[data-story].is-live, [data-story] .is-on')).forEach(function (el) { el.classList.remove('is-live', 'is-pinned', 'is-on'); }); } catch (x) {}
     try { [].slice.call(d.querySelectorAll('.m-docked')).forEach(function (el) { el.classList.remove('m-docked'); }); } catch (x) {}
+    try { [].slice.call(d.querySelectorAll('[data-expand]')).forEach(function (el) { el.classList.remove('m-band', 'm-x'); el.style.removeProperty('--m-xh');   // شريط البطل على الجوال (AD-37)
+      var md = el.querySelector('[data-expand-media]'); if (md) { md.style.removeProperty('--m-bt'); md.style.removeProperty('--m-bh'); } }); } catch (x) {}
   }
   // FO-4: المحتوى يبان الحين (الكلاسات والقيم المكتوبة)، والإرجاع بعد setTimeout عشان ما يصير وسط حلقة refresh حق ScrollTrigger
   function fail(e) {
@@ -448,62 +450,121 @@
         g.set([sheet, phone].concat(ins).filter(Boolean), { opacity: 1 }); if (media) g.set(media, { clipPath: 'none' }); if (pic) g.set(pic, { scale: 1 }); if (col) g.set(col, { clipPath: 'none' });
         return;
       }
+      // قبل ما يشتغل motion.js ممكن الصورة تنرسم بحالة CSS (motion.css تحت 1024، وCSS الصفحة فوقها): مقاس على 3G و 4G بطيء، الصورة قبل
+      // motion.js بـ 0.5 ثانية تقريباً. فلو القسم ظاهر والصورة نازلة: نسخة منها مجمّدة على حالة CSS (مكانها ومقاسها و transform حقها)
+      // تتلاشى فوق الحالة الجديدة مرة وحدة (300ms)، بدل ما تنط. أي تمرير يكمّلها على طول
+      var im0 = pic && $('img', pic), r0 = sec.getBoundingClientRect();
+      if (im0 && im0.complete && im0.naturalWidth && r0.top >= 0 && r0.top < vh()) {
+        var ghost = pic.cloneNode(true), cs0 = getComputedStyle(pic); ghost.setAttribute('aria-hidden', 'true');
+        ghost.style.cssText = 'top:' + cs0.top + ';bottom:auto;height:' + cs0.height + ';transform:' + cs0.transform + ';transform-origin:' + cs0.transformOrigin;
+        $$('img', ghost).forEach(function (i) { i.alt = ''; i.removeAttribute('fetchpriority'); });
+        media.appendChild(ghost); junk.push(ghost);
+        var gone = g.to(ghost, { opacity: 0, duration: .3, ease: MOVE, delay: .05, onComplete: function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost); } });
+        on(w, 'scroll', safe(function () { gone.progress(1); }), { passive: true, once: true });
+      }
       var dir = getComputedStyle(sec).direction === 'rtl' ? 1 : -1, halves = title ? [].slice.call(title.children) : [];
-      var inset = function () { var W = sec.clientWidth, Hh = sec.clientHeight, t = card.offsetTop, l = card.offsetLeft;
-        return 'inset(' + t + 'px ' + (W - l - card.offsetWidth) + 'px ' + (Hh - t - card.offsetHeight) + 'px ' + l + 'px round 8px)'; };   // 8 مثل الصور داخل التخطيط (AD-11)
-      // AD-26 (قاعدة لأي صورة بطل، ومنها المشهد المولّد): أول إطار في البطاقة فيه المنتج في نصها، وما ينقص الشعار أبداً.
+      // البطاقة بالكسور (نفس مستطيل CSS و geo)، عشان حافة الصورة المصغّرة تطابق حافة القص بالضبط. 8 مثل الصور داخل التخطيط (AD-11)
+      var px2 = function (v) { return Math.round(v * 100) / 100 + 'px '; };
+      var inset = function () { geo(); var m = media.getBoundingClientRect(), r = card.getBoundingClientRect();
+        return 'inset(' + px2(r.top - m.top) + px2(m.right - r.right) + px2(m.bottom - r.bottom) + px2(r.left - m.left) + 'round 8px)'; };
+      // AD-26 و AD-37 (قاعدة لأي صورة بطل، ومنها المشهد المولّد): المنتج كامل في أول إطار وفي آخر التوسع، وفي نص البطاقة، وما ينقص الشعار أبداً.
       // data-expand-focus على [data-expand-media]: مستطيل المنتج "x1 y1 x2 y2" بالنسبة المئوية من الصورة الأصلية (أول img، مع
       // object-fit: cover و object-position وأي تقريب على الـ img نفسها)، أو نقطة "x y"، أو selector لعنصر داخل المشهد (خانة طباعة).
-      // القياس على حالة البداية الفعلية (scale 1.12 حول transform-origin اللي في CSS الصفحة، --so)، فيركب مع أي origin:
-      // الصورة تبدأ مزاحة (x و y، transform بس) بالباقي بس، لين المنتج يصير في نص البطاقة، وترجع 0 مع التوسع.
-      // المنتج يدخل البطاقة: يتوسطها. أعرض منها: يتوسط بالعرض. أطول منها: تبان حافته العليا (16px تحت حافة البطاقة). والإزاحة محصورة بحيث
-      // الصورة المكبرة تغطي البطاقة كلها. القياس مرة لكل refresh (داخل دوال القيم)
-      var PS = 1.12, F = null, focus = media.getAttribute('data-expand-focus');
-      var shift = function () {
-        if (F) return F; F = { x: 0, y: 0 };
-        if (!focus || !pic) return F;
-        var keep = pic.style.transform; pic.style.transform = 'scale(' + PS + ')';
-        var box = null, nums = focus.trim().split(/\s+/).map(parseFloat), pr = pic.getBoundingClientRect(), cr = card.getBoundingClientRect();
-        if ((nums.length === 2 || nums.length === 4) && !nums.some(isNaN)) {
+      // مقياس البداية (AD-37): max(cover, min(1.12, fit)). fit يدخّل المنتج البطاقة بهامش 16px، و cover أصغر مقياس تبقى فيه الصورة مغطية
+      // البطاقة. والإزاحة (x و y، transform بس) توسّط المنتج، محصورة بحيث الصورة تغطي البطاقة، وترجع 0 مع التوسع. المنتج أطول من البطاقة
+      // حتى على cover: تبان حافته العليا (16px تحت حافة البطاقة). الحساب يركب مع أي transform-origin في CSS الصفحة (--so).
+      // تحت 1024 (AD-37، اللوح تحت الصورة من الجوال لين التابلت): آخر التوسع شريط صورة تحت الرأس لين فوق اللوح بـ 16px، والصورة cover
+      // على الشريط نفسه (motion.css .m-band)، واللوح تحته بدون تداخل. الشريط أقل شي 75% من العرض (45% من طول القسم بالكثير)، ويطول لين
+      // المنتج كله يدخله بهامش 16px (الشريط العريض القصير يقص الصورة من فوق وتحت). ولو اللوح ما يترك له مكان، القسم يطول بالفرق (--m-xh)
+      // واللوح ينزل معه.
+      // AD-38: خط المسح على حافة اللون (y من القياس، ومعه أي تقريب على الـ img). القياس مرة لكل refresh (داخل دوال القيم، بعد ما التثبيت ينفك)
+      var PS = 1.12, MG = 16, GAP = 16, G = null, focus = media.getAttribute('data-expand-focus'), small = w.matchMedia('(max-width: 1023.98px)');
+      var relTop = function (el) { var y = 0; while (el && el !== sec) { y += el.offsetTop; el = el.offsetParent; } return y; };
+      // مستطيل المنتج على الشاشة من تخطيط الصورة الحالي (نادها والصورة بدون transform)
+      var focusBox = function () {
+        var nums = (focus || '').trim().split(/\s+/).map(parseFloat);
+        if (focus && (nums.length === 2 || nums.length === 4) && !nums.some(isNaN)) {
           if (nums.length === 2) nums = nums.concat(nums);
           var im = $('img', pic), iw = im && (im.naturalWidth || +im.getAttribute('width')), ih = im && (im.naturalHeight || +im.getAttribute('height'));
           var lw = im && im.offsetWidth, lh = im && im.offsetHeight;
-          if (iw && ih && lw && lh) {
-            var ib = im.getBoundingClientRect(), kx = ib.width / lw, ky = ib.height / lh;   // scale و translate بس، فالتحويل خطي
-            var sc = Math.max(lw / iw, lh / ih), rw = iw * sc, rh = ih * sc, op = getComputedStyle(im).objectPosition.split(' ');
-            var pos = function (v, free) { return /%$/.test(v) ? free * parseFloat(v) / 100 : isNaN(parseFloat(v)) ? free / 2 : parseFloat(v); };
-            var ox = pos(op[0], lw - rw), oy = pos(op[1] || '50%', lh - rh);
-            box = { l: ib.left + (ox + rw * nums[0] / 100) * kx, r: ib.left + (ox + rw * nums[2] / 100) * kx,
-                    t: ib.top + (oy + rh * nums[1] / 100) * ky, b: ib.top + (oy + rh * nums[3] / 100) * ky };
-          }
-        } else {
-          var fe = null; try { fe = $(focus, pic); } catch (x) {}
-          if (fe) { var fr = fe.getBoundingClientRect(); box = { l: fr.left, r: fr.right, t: fr.top, b: fr.bottom }; }
+          if (!(iw && ih && lw && lh)) return null;
+          var ib = im.getBoundingClientRect(), kx = ib.width / lw, ky = ib.height / lh;   // scale و translate بس، فالتحويل خطي
+          var sc = Math.max(lw / iw, lh / ih), rw = iw * sc, rh = ih * sc, op = getComputedStyle(im).objectPosition.split(' ');
+          var pos = function (v, free) { return /%$/.test(v) ? free * parseFloat(v) / 100 : isNaN(parseFloat(v)) ? free / 2 : parseFloat(v); };
+          var ox = pos(op[0], lw - rw), oy = pos(op[1] || '50%', lh - rh);
+          return { l: ib.left + (ox + rw * nums[0] / 100) * kx, r: ib.left + (ox + rw * nums[2] / 100) * kx,
+                   t: ib.top + (oy + rh * nums[1] / 100) * ky, b: ib.top + (oy + rh * nums[3] / 100) * ky };
         }
-        pic.style.transform = keep;
-        if (!box) return F;
-        var M = 16, lim = function (v, lo, hi) { return lo > hi ? 0 : Math.max(lo, Math.min(hi, v)); };
-        var x = (cr.left + cr.right) / 2 - (box.l + box.r) / 2;
-        var y = box.b - box.t <= cr.height ? (cr.top + cr.bottom) / 2 - (box.t + box.b) / 2 : cr.top + M - box.t;
-        F.x = Math.round(lim(x, cr.right - pr.right, cr.left - pr.left));
-        F.y = Math.round(lim(y, cr.bottom - pr.bottom, cr.top - pr.top));
-        return F;
+        var fe = null; try { fe = focus && $(focus, pic); } catch (x) {}
+        var fr = fe && fe.getBoundingClientRect(); return fr ? { l: fr.left, r: fr.right, t: fr.top, b: fr.bottom } : null;
       };
-      var shown = false, content = g.timeline({ paused: true, defaults: { ease: OUT, duration: T.rise } });
+      var geo = function () {
+        if (G) return G;
+        G = { s: PS, x: 0, y: 0, t: 0, end: 'inset(0px 0px 0px 0px round 0px)', l0: 0, l1: 0 };
+        var band = small.matches && !!sheet, hb = band ? headerH() : 0, keep = pic ? pic.style.transform : '';
+        sec.classList.add('m-x'); sec.classList.toggle('m-band', band);   // m-x: motion.js ماسك البداية (حالة CSS المبدئية تنشال)
+        sec.style.setProperty('--m-xh', '0px');
+        if (pic) pic.style.transform = 'none';
+        if (band) {
+          var Hs = sec.clientHeight, sh = sheet.offsetHeight, pad = Hs - relTop(sheet) - sh;
+          var avail = Math.floor(Hs - pad - sh - GAP - hb), BH = Math.max(Math.round(Math.min(sec.clientWidth * .75, Hs * .45)), avail), xh = 0;
+          var setBand = function () { xh = Math.max(0, BH - avail); sec.style.setProperty('--m-xh', xh + 'px'); media.style.setProperty('--m-bt', hb + 'px'); media.style.setProperty('--m-bh', BH + 'px'); };
+          setBand();
+          for (var it = 0; pic && it < 6; it++) {   // المنتج كله في الشريط بهامش 16px، وإلا الشريط يطول (خطوات محدودة، مرة لكل refresh)
+            var fb = focusBox(), bt0 = pic.getBoundingClientRect().top; if (!fb) break;
+            var need = Math.max(MG - (fb.t - bt0), (fb.b - bt0) - (BH - MG)); if (need <= .5) break;
+            BH += Math.ceil(need * 2); setBand();
+          }
+          G.t = hb; G.end = 'inset(' + hb + 'px 0px ' + (Hs + xh - hb - BH) + 'px 0px round 0px)';
+        } else { sec.style.removeProperty('--m-xh'); media.style.removeProperty('--m-bt'); media.style.removeProperty('--m-bh'); }
+        if (!pic) return G;
+        var box = focusBox(), pr = pic.getBoundingClientRect(), cr = card.getBoundingClientRect();
+        var org = getComputedStyle(pic).transformOrigin.split(' ').map(parseFloat), tr = col && col.getBoundingClientRect();
+        if (tr) { G.l0 = Math.round(tr.top - pr.top); G.l1 = Math.round(tr.bottom - pr.top); }
+        pic.style.transform = keep;
+        var W = pr.width, Hp = pr.height; if (!W || !Hp) return G;
+        // كل شي من أعلى يسار الصورة وهي بدون transform. A = مكان أعلى يسار الصورة المصغّرة (ما يعتمد على transform-origin)
+        var cl = cr.left - pr.left, ct = cr.top - pr.top, cw = cr.width, ch = cr.height, cover = Math.max(cw / W, ch / Hp);
+        var s = box ? Math.min(PS, (cw - 2 * MG) / Math.max(1, box.r - box.l), (ch - 2 * MG) / Math.max(1, box.b - box.t)) : PS;
+        s = Math.round(Math.max(cover, s) * 1e4) / 1e4;
+        var lim = function (v, lo, hi) { return lo > hi ? (lo + hi) / 2 : Math.max(lo, Math.min(hi, v)); };
+        var gx = isNaN(org[0]) ? W / 2 : org[0], gy = isNaN(org[1]) ? Hp / 2 : org[1], ax = gx * (1 - s), ay = gy * (1 - s);
+        if (box) {
+          var bl = box.l - pr.left, bt = box.t - pr.top, bw = box.r - box.l, bh = box.b - box.t;
+          ax = cl + cw / 2 - s * (bl + bw / 2);
+          ay = s * bh <= ch - 2 * MG ? ct + ch / 2 - s * (bt + bh / 2) : ct + MG - s * bt;
+        }
+        ax = lim(ax, cl + cw - s * W, cl); ay = lim(ay, ct + ch - s * Hp, ct);   // الصورة المصغّرة تغطي البطاقة كلها
+        // transform: translate(x, y) scale(s) حول origin: أعلى يسار الصورة = origin × (1 − s) + (x, y)
+        G.s = s; G.x = Math.round((ax - gx * (1 - s)) * 100) / 100; G.y = Math.round((ay - gy * (1 - s)) * 100) / 100;
+        return G;
+      };
+      geo();   // الشريط والمقاسات قبل ما ينبني التثبيت (وبعدها كل refresh)
+      var shown = false, content = g.timeline({ paused: true, defaults: { ease: OUT, duration: T.rise } }), cts = [sheet, phone].concat(ins).filter(Boolean);
       if (sheet) content.fromTo(sheet, { opacity: 0, y: RISE }, { opacity: 1, y: 0 }, 0);
       if (ins.length) content.fromTo(ins, { opacity: 0, y: RISE }, { opacity: 1, y: 0, stagger: stag }, .1);
       if (phone) content.fromTo(phone, { opacity: 0, y: 48 }, { opacity: 1, y: 0 }, .12);
+      // GSAP يحفظ translate حق CSS الصفحة داخل transform (لوح المضيفين من 1024: translate 0 -50%). مع كل refresh (تغيير المقاس أو تدوير الجوال
+      // عبر 1024) نمسحه ونخلي GSAP يقراه من جديد، وإلا اللوح يطلع 50% من طوله فوق مكانه تحت 1024 ويركب على الصورة
+      var recontent = function () { var p = content.progress(); content.progress(0).invalidate(); g.set(cts, { clearProps: 'transform,translate' }); content.progress(p); };
       var tl = g.timeline({ defaults: { ease: 'none' }, onUpdate: safe(function () {
         var p = tl.progress();
         if (p > .66 && !shown) { shown = true; content.timeScale(1).play(); } else if (p < .5 && shown) { shown = false; content.timeScale(1 / T.exit).reverse(); }
       }), scrollTrigger: { trigger: sec, pin: true, start: 'top top', end: function () { return '+=' + Math.round(vh() * (desk() ? 1.3 : 1)); }, scrub: SCRUB, invalidateOnRefresh: true, refreshPriority: 2, anticipatePin: 1,
-        onRefreshInit: safe(function () { F = null; }) } });
-      tl.fromTo(media, { clipPath: inset }, { clipPath: 'inset(0px 0px 0px 0px round 0px)', duration: .62, ease: MOVE }, 0);
-      if (pic) tl.fromTo(pic, { scale: PS, x: function () { return shift().x; }, y: function () { return shift().y; } }, { scale: 1, x: 0, y: 0, duration: .62, ease: MOVE }, 0);
-      if (col) tl.fromTo(col, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .62, ease: 'none' }, 0);
+        onRefreshInit: safe(function () { G = null; recontent(); }), onToggle: safe(function (s) { if (s.isActive) finishRunning(); }) } });   // خط واحد: أي مسح شغال يكمل
+      var gv = function (k) { var get = function () { return geo()[k]; }; return get; };   // قيمة من geo() لكل refresh
+      tl.fromTo(media, { clipPath: inset }, { clipPath: gv('end'), duration: .62, ease: MOVE }, 0);
+      if (pic) tl.fromTo(pic, { scale: gv('s'), x: gv('x'), y: gv('y') }, { scale: 1, x: 0, y: 0, duration: .62, ease: MOVE }, 0);
+      if (col) {   // AD-38: اللون ينكشف وخط المسح على حافته (نفس line() حق القصة)، يطلع مع أول الكشف ويختفي عند آخره، ومقصوص داخل البطاقة
+        var sl = line(col.parentNode);
+        tl.fromTo(col, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .62, ease: 'none' }, 0)
+          .fromTo(sl, { y: gv('l0') }, { y: gv('l1'), duration: .62, ease: 'none' }, 0)
+          .fromTo(sl, { opacity: 0 }, { opacity: 1, duration: .01 }, 0)
+          .fromTo(sl, { opacity: 1 }, { opacity: 0, duration: .05, immediateRender: false }, .57);
+      }
       // AD-29: العنوان الكبير يطلع لفوق مع حافة البطاقة العليا بالضبط (نفس المدة والمنحنى وبنفس المسافة، transform بس)، فيبقى 20px
-      // فوقها طول التوسع وما يقطعها أبداً، ونصينه يتباعدون ويخفون مثل قبل
-      if (title) tl.fromTo(title, { y: 0 }, { y: function () { return -card.offsetTop; }, duration: .62, ease: MOVE }, 0);
+      // فوقها طول التوسع وما يقطعها أبداً، ونصينه يتباعدون ويخفون مثل قبل. على الجوال الحافة توقف تحت الرأس (الشريط)
+      if (title) tl.fromTo(title, { y: 0 }, { y: function () { return geo().t - card.offsetTop; }, duration: .62, ease: MOVE }, 0);
       halves.forEach(function (hf, i) { tl.fromTo(hf, { x: 0, opacity: 1 }, { x: function () { return (i ? -dir : dir) * sec.clientWidth * .55; }, opacity: 0, duration: .42, ease: AWAY }, i * .02); });
       tl.to({}, { duration: .38 }, .62);
       // التركيز بالكيبورد على اللوح قبل ما يطلع: يطلع على طول (CSS الصفحة يجبر الشفافية، وهنا نكمّل الارتفاع)
