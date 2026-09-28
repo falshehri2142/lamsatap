@@ -106,6 +106,11 @@
 .m-dot { position: absolute; z-index: 2; left: var(--tx, 50%); top: var(--ty, 50%); width: 30%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
   box-shadow: inset 0 0 0 2px var(--lt-accent, #14201F); opacity: 0; pointer-events: none; }
 .m-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--lt-accent-glow, #14201F); opacity: var(--lt-accent-tail, .12); }
+/* AD-41: حلقة اللمس وبطاقة الشاشة في القصة مخفيين تحت .mh بس (من أول رسم)، و motion.js story() يطلّعهم مع التمرير، أو يظهّرهم لو
+   القصة طلعت بدري (hook ناقص). تقليل الحركة وبدون JS والشاشات الأقصر من 640 (بدون .mh): ظاهرين بشكلهم النهائي (site.css).
+   غطا البطاقة (.m-card-cover من motion.js) أبيض فوق الشاشة المصغرة، ويتحرك clip-path بس (فبدون will-change، PERF-2) */
+.mh [data-story] [data-story-ring], .mh [data-story] [data-story-card] { opacity: 0; }
+.m-card-cover { position: absolute; inset: 0; z-index: 2; background: var(--lt-surface, #FFFFFF); pointer-events: none; }
 /* الحارس بآخر الصفحة: لما يبان، اللي ينتظر وهو داخل الشاشة يشتغل (ما يبقى مخفي أو مقصوص للأبد) */
 .m-end { display: block; height: 1px; margin-top: -1px; pointer-events: none; }
 
@@ -147,7 +152,8 @@
 
 /* الطباعة: كل شي ثابت وظاهر */
 @media print {
-  .m-line, .m-kit, .m-field, .h-story-rail, .m-dot, .m-fly { display: none !important; }
+  .m-line, .m-kit, .m-field, .h-story-rail, .m-dot, .m-fly, .m-card-cover { display: none !important; }
   .mh [data-expand] { height: auto !important; }
+  [data-story-ring], [data-story-card] { opacity: 1 !important; transform: none !important; }
   .mh [data-open-qr] svg, .mh [data-open-sym], .mh [data-open-word], .mh [data-open-cap] > *, .mh [data-open-logo] img, .mh [data-expand-sheet], .mh [data-expand-phone] { opacity: 1 !important; }
 }

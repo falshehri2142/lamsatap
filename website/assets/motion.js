@@ -15,7 +15,7 @@
   var HERO = ['[data-open-qr]', '[data-open-qr] svg', '[data-open-sym]', '[data-open-word]', '[data-open-cap] > *', '[data-open-logo] img',
     '[data-reveal]', '[data-reveal="stagger"] > *', '[data-scan="reveal"]', '[data-scan="list"] > *', '[data-scan="media"]', '[data-tint]',
     '[data-scan="check"] li svg', '[data-door]', '[data-expand-media]', '[data-expand-media] > *', '[data-expand-title]', '[data-expand-title] > *', '[data-expand-sheet]',
-    '[data-expand-in]', '[data-expand-phone]', '[data-story-phone]', '[data-pulse]', '[data-parallax] img'].join(', ');
+    '[data-expand-in]', '[data-expand-phone]', '[data-story-phone]', '[data-story-ring]', '[data-story-card]', '[data-pulse]', '[data-parallax] img'].join(', ');
   function restore() {
     try { if (g) g.set([].slice.call(d.querySelectorAll(HERO)), { clearProps: 'opacity,visibility,transform,clipPath' }); } catch (x) {}
     try { if (g && moved.length) g.set(moved, { clearProps: 'transform' }); } catch (x) {} moved = [];
@@ -574,6 +574,11 @@
     // ===== 6) القصة المثبّتة (data-story): ثلاث خطوات مربوطة بالتمرير، وترجع طبيعي مع الرجوع.
     // خطوة 1: المشهد ينكشف بلون جمهوره وخط المسح على حافته. خطوة 2: الجوال يقرّب ويلمس ([data-story-target])، والنقطة تنبض مرة (المطاعم).
     // خطوة 3: الشاشة تنفتح بالمسح. النص ظاهر كله، والخطوة الحالية واضحة والباقي أخف وقت التثبيت بس.
+    // AD-41 (بدون جوال مرسوم، GM-054): خطوة 2 حلقة اللمس [data-story-ring] تطلع على منطقة اللمس (.36 لين .42)، وفي المطاعم تنبض مرة
+    // (1 ← 1.08 ← 1 في 400ms، بالوقت) عند .44 للأمام، وتبقى. خطوة 3 بطاقة الشاشة [data-story-card] تدخل بـ transform والشفافية
+    // (.56 لين .68، من تحت 32px ومن .96) فاضية بيضاء، وبعدها تنفتح بالمسح (.70 لين .92): غطا أبيض ينقص من فوق لتحت (clip-path)
+    // وخط المسح باللمسة على حافته. مكان البطاقة من CSS الصفحة (جنب المنتج، وما تغطيه)، والحركة عمودية ومقياس بس، فما تقرب منه.
+    // الحالة النهائية (تقليل الحركة، وبدون JS، والشاشات القصيرة): الحلقة والبطاقة ظاهرين (site.css). motion.css يخفيهم تحت .mh بس.
     // الهدف: عنصر (مثل .p-touch) = وسطه وأعلاه. خانة طباعة (.lt-slot) = نقطة اللمس فيها (--tx و --ty من scenes.css أو print-art.js) =====
     function touchPoint(t) {
       var r = t.getBoundingClientRect(); if (!t.classList.contains('lt-slot')) return { x: r.left + r.width / 2, y: r.top };   // نقطة أو عنصر: وسطه وأعلاه
@@ -596,7 +601,12 @@
       $$('[data-story]').forEach(function (sec) {
         var steps = $$('[data-step]', sec), n = steps.length, pinEl = $('[data-story-pin]', sec);
         var scene = $('[data-story-scene]', sec), col = scene && $('[data-tint]', scene);
-        if (!c.tall || n < 2 || !pinEl) { if (col) tintWhenSeen(col.parentNode); return; }   // M7: الشاشات القصيرة تتلوّن بالمسح العادي
+        var ring = $('[data-story-ring]', sec), card = $('[data-story-card]', sec);
+        if (!c.tall || n < 2 || !pinEl) {   // M7: الشاشات القصيرة تتلوّن بالمسح العادي. M3: hook ناقص = الحلقة والبطاقة ظاهرين (motion.css يخفيهم تحت .mh)
+          if (col) tintWhenSeen(col.parentNode);
+          if (ring || card) g.set([ring, card].filter(Boolean), { opacity: 1 });
+          return;
+        }
         var run = $('[data-story-run]', sec) || steps[0].parentNode;
         var phone = $('[data-story-phone]', sec), target = $('[data-story-target]', sec), dot = !CALM && $('[data-pulse]', sec);
         var rail = mk('span', 'h-story-rail', run), fill = mk('b', '', rail), kt = phone && $('.fo-screen', phone) ? kit(phone, false) : null;
@@ -689,7 +699,18 @@
             .fromTo(phone, { x: pv('touch', 'x'), y: pv('touch', 'y'), rotation: pv('touch', 'r'), scale: pv('touch', 's') },
               { x: pv('near', 'x'), y: pv('near', 'y'), rotation: pv('near', 'r'), scale: pv('near', 's'), duration: .15, ease: MOVE, immediateRender: false }, .67);
         }
-        if (dot) tl.call(function () { if (tl.scrollTrigger && tl.scrollTrigger.direction > 0) fire(); }, null, .64);   // TL-6: حدث مرة وحدة بالوقت، مو tween مربوط بالتمرير
+        // AD-41: الحلقة (خطوة 2) والبطاقة (خطوة 3). المراحل labels بأجزاء من مسافة التثبيت (TL-5)
+        tl.addLabel('ring', .36).addLabel('pulse', .44).addLabel('card', .56).addLabel('open', .70);
+        if (ring) tl.fromTo(ring, { opacity: 0 }, { opacity: 1, duration: .06 }, 'ring');
+        if (card) {
+          var cover = mk('span', 'm-card-cover', card), cl = line(card);   // الغطا والخط داخل البطاقة (مقصوصين بزاويتها 22)
+          g.set(cl, { opacity: 0 });
+          tl.fromTo(card, { opacity: 0, y: 32, scale: .96 }, { opacity: 1, y: 0, scale: 1, duration: .12, ease: OUT }, 'card')
+            .fromTo(cover, { clipPath: 'inset(0% 0% 0% 0%)' }, { clipPath: 'inset(100% 0% 0% 0%)', duration: .22, ease: SCAN }, 'open')
+            .fromTo(cl, { y: 0 }, { y: function () { return card.clientHeight; }, duration: .22, ease: SCAN, immediateRender: false }, 'open')
+            .fromTo(cl, { opacity: 0 }, { opacity: 1, duration: .01, immediateRender: false }, 'open').to(cl, { opacity: 0, duration: .02 }, .90);   // الخط مع المسح بس
+        }
+        if (dot) tl.call(function () { if (tl.scrollTrigger && tl.scrollTrigger.direction > 0) fire(); }, null, ring ? 'pulse' : .64);   // TL-6: حدث مرة وحدة بالوقت، مو tween مربوط بالتمرير
         if (kt) tl.fromTo(kt.cover, { clipPath: 'inset(0% 0% 0% 0%)' }, { clipPath: 'inset(100% 0% 0% 0%)', duration: .22, ease: SCAN }, .74)
           .fromTo(kt.line, { y: 0 }, { y: function () { return kt.screen.offsetHeight; }, duration: .22, ease: SCAN, immediateRender: false }, .74)
           .fromTo(kt.line, { opacity: 0 }, { opacity: 1, duration: .01, immediateRender: false }, .74).to(kt.line, { opacity: 0, duration: .02 }, .94);   // الخط يطلع مع المسح بس، ويرجع مخفي مع الرجوع

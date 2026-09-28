@@ -17,6 +17,8 @@
 //   qr:field             نفس الباركود بدون رمز (احتياط الحركة)
 //   qr:<مثال>            باركود ثابت حقيقي (menu، rental-guide، wifi، links، review) يفتح SITE.domain + /demo/<مثال>/، زخرفي (aria-hidden)
 //   phone:<شاشة>[-<لاحقة>]  جوال (phone-frame.svg) فيه شاشة مصغرة حقيقية: guide أو menu أو wifi أو links. اللاحقة تفرق بين نسختين في نفس الصفحة
+//                        frame="false": نفس الشاشة الحقيقية بدون جسم الجوال (AD-41، بطاقة القصة المثبّتة): svg بعرض صفحة الزبون (390)
+//                        ونسبة 1:2، يتصغر على قد خانته. الزاوية والظل والحد من CSS البطاقة (.s-story-card في site.css)
 //   minis-style          ألوان محلات العرض داخل الشاشات المصغرة (فاتح بس) وتنسيق قالبي الروابط والواي فاي. لازم لو فيه phone:*
 //   img:hero             صورة البطل بطبقتين (الأبيض والأسود ثم الملونة data-tint) من HERO_PHOTO حسب الصفحة
 //   photo:<خانة>         صورة بطبقتين من assets/images/<خانة>-bw-* و -color-* (CREDITS.md). alt="" افتراضي (زخرفية)
@@ -128,6 +130,15 @@ function phone(screenHtml) {
     .replace(/<title[^>]*>[^<]*<\/title>/, '').replace(/<style>[\s\S]*?<\/style>/, '')
     .replace(/ (role|aria-labelledby|data-slot|data-slot-radius)="[^"]*"/g, '')
     .replace(/^<svg /, '<svg class="h-phone-svg" aria-hidden="true" focusable="false" ');
+}
+// الشاشة بدون جسم الجوال (frame="false"، AD-41): الصفحة المصغرة بعرضها الحقيقي (390) داخل svg بـ viewBox، فتتصغر مع عرض البطاقة
+// في أي مقاس بدون حساب. slice: تعبّي البطاقة حتى لو نسبتها ما طابقت 1:2 بالبكسل (الحد 1px). زخرفية (aria-hidden)، والشاشة inert
+const SCREEN_W = 390, SCREEN_H = 780;
+function screenOnly(screenHtml) {
+  return '<svg class="h-screen-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + SCREEN_W + ' ' + SCREEN_H +
+    '" width="' + SCREEN_W + '" height="' + SCREEN_H + '" preserveAspectRatio="xMidYMin slice"><foreignObject x="0" y="0" width="' + SCREEN_W + '" height="' + SCREEN_H + '">' +
+    '<div class="fo-screen" style="position:relative;overflow:hidden;width:100%;height:100%">' +
+    screenHtml('position:absolute;left:0;top:0;width:' + SCREEN_W + 'px;height:' + SCREEN_H + 'px') + '</div></foreignObject></svg>';
 }
 function minisStyle() {
   // ألوان المحلين من محرك اللون، فاتح بس: صفحات الشركة فاتحة دايماً (GM-038، web-brand.md: بالداكن كان تباين صندوق الواي فاي 1.14)
@@ -273,7 +284,8 @@ function resolve(key, page, rel, o) {
   if (kind === 'phone') {
     const shot = name.split('-')[0];
     if (!shots[shot]) throw new Error('شاشة مو معروفة في ' + page + ': ' + key + ' (المعروفة: ' + Object.keys(shots).join('، ') + ')');
-    return phone(shots[shot]('p' + name.replace(/[^a-z0-9]/g, '') + '-', rel));   // بادئة id مختلفة لكل نسخة
+    const screen = shots[shot]('p' + name.replace(/[^a-z0-9]/g, '') + '-', rel);   // بادئة id مختلفة لكل نسخة
+    return o.frame === 'false' ? screenOnly(screen) : phone(screen);
   }
   if (key === 'img:hero') {
     if (!HERO_PHOTO[page]) throw new Error('img:hero بدون صورة بطل لـ ' + page + ' (HERO_PHOTO)');

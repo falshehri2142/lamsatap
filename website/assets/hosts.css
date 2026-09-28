@@ -96,18 +96,29 @@
 
 /* ===== 4) القصة المثبّتة (رملي): الجوال المشهد فوق (36svh) والخطوات تحته، والكمبيوتر الخطوات يمين 5 أعمدة والمشهد يسار ينزف للحافة.
    العنصر المثبّت (.p-story-pin) لازم يدخل في الشاشة. GM-054 (والمدير الفني r2 §5 بند 2): المشهد المولّد المعتمد host-door-frame
-   (16:9) بطبقتين، cover حول x 46% عشان حافة الباب (43.5%) والبرواز (x من 54.6% لين 69.5%) يبانون في كل قص. **ولا جوال فوق الصورة**:
-   جوال الدليل في الدليل الحي بس. المسح يمشي على .p-story-photo (motion.js story) ===== */
+   (16:9) بطبقتين. **ولا جوال فوق الصورة**: جوال الدليل في الدليل الحي بس.
+   AD-41: المسرح (.p-story-stage) الصورة بنسبتها 16:9 وبنفس قص cover (عرضه max(100cqw, 100cqh × 16/9) من حاوية المشهد)، فخانة
+   اللوحة (.p-story-touch) والحلقة عليها بالنسبة من الصورة نفسها في كل مقاس: البرواز x من 54.6% لين 69.5%، و y من 21.4% لين 55%،
+   ونقطة اللمس وسطه (--tx و --ty 50%، مثل .lt-slot--wall). القص على اليمين (--opx 1، مثل object-position 100%) عشان الجدار الفاضي
+   يمين اللوحة يبان، وحافة الباب (43.5%) ومقبضه يبانون: من 1024 لين 1279 الحاوية ضيقة وطويلة، فالقص 80%.
+   البطاقة (.p-story-card، خطوة 3): على الجدار يمين اللوحة، ونسبتها 1:2، وعرضها الأصغر من (طول المشهد − 2m) / 2 والمسافة من حافة
+   البرواز لحافة المشهد ناقص الهامش والفراغ، فما تلمس البرواز أبداً (تغطية 0). المسح يمشي على المسرح (motion.js story) ===== */
 .p-story { overflow-x: clip; }
 .p-story-grid { display: grid; gap: var(--lt-space-24); }
-.p-story-media { position: relative; order: -1; height: clamp(240px, 36svh, 360px); margin-inline: calc(-1 * var(--lt-gutter)); overflow: hidden; background: var(--lt-surface-2); }
+.p-story-media { --opx: 1; --opy: .45; --sw: max(100cqw, 100cqh * 16 / 9); --sl: calc((100cqw - var(--sw)) * var(--opx));
+  position: relative; order: -1; height: clamp(240px, 36svh, 360px); margin-inline: calc(-1 * var(--lt-gutter)); overflow: hidden; background: var(--lt-surface-2); container-type: size; }
 .p-story-photo { position: absolute; inset: 0; overflow: hidden; }
-.p-story-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 46% 45%; }
+.p-story-stage { position: absolute; left: var(--sl); top: calc((100cqh - var(--sw) * 9 / 16) * var(--opy)); width: var(--sw); aspect-ratio: 16 / 9; }
+.p-story-stage > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.p-story-stage > .p-story-touch { --ax: 0; --ay: 0; --tx: 50%; --ty: 50%; left: 54.6%; top: 21.4%; width: 14.9%; height: 33.6%; aspect-ratio: auto; }
+.p-story-card { --m: 12px; --gap: 12px; --cw: min((100cqh - 2 * var(--m)) / 2, 100cqw - var(--sl) - var(--sw) * .695 - var(--m) - var(--gap));
+  right: var(--m); top: 0; bottom: 0; width: var(--cw); height: calc(var(--cw) * 2); margin-block: auto; transform-origin: 0% 50%; }   /* تكبر من حافتها جهة اللوحة، وما تقرب منها */
 .p-story-steps { list-style: none; padding: 0; display: grid; gap: var(--lt-space-16); margin-top: var(--lt-space-24); }   /* تحت h2 داخل الكتلة المثبّتة (AD-15، زي المطاعم) */
 .p-story-steps .s-h3 { font-size: 18px; }
 .p-story-steps p { max-width: 36em; margin-top: var(--lt-space-4); font-size: 15px; line-height: 1.6; color: var(--lt-muted); }
 @media (min-width: 768px) {
   .p-story-media { height: clamp(320px, 44svh, 480px); margin-inline: 0; border-radius: var(--lt-radius-s); }
+  .p-story-card { --m: 20px; --gap: 20px; }
   .p-story-steps .s-h3 { font-size: 20px; }
   .p-story-steps p { font-size: 16px; }
 }
@@ -119,7 +130,9 @@
   .p-story-steps p { font-size: 17px; margin-top: var(--lt-space-8); }
   /* المشهد 7 أعمدة، وينزف لحافة الشاشة اليسار (الحاوية 1200 والحافة 48) */
   .p-story-media { order: 0; grid-column: 6 / -1; grid-row: 1; height: clamp(440px, 100svh - 200px, 640px); margin-inline-end: calc(-1 * (var(--lt-gutter) + max(0px, (100vw - var(--lt-container) - 2 * var(--lt-gutter)) / 2))); border-radius: 0; }
+  .p-story-card { --m: 28px; --gap: 24px; }
 }
+@media (min-width: 1024px) and (max-width: 1279.98px) { .p-story-media { --opx: .8; } }
 
 /* ===== 5) الدليل الحي (أبيض): النص (والباركود الثابت 120 على الكمبيوتر) ثم الجوال الكبير ثم مشهد الطاولة.
    الكمبيوتر: النص يمين 4 أعمدة، والجوال والطاولة يسار 8 أعمدة ===== */
@@ -162,27 +175,19 @@
 .p-table-names { list-style: none; padding: 0; padding-inline: 13.24% 12.18%; margin-top: var(--lt-space-12); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center; font-size: 14px; line-height: 1.45; font-weight: 500; color: var(--lt-muted); }
 .p-table-names > li { padding-inline: var(--lt-space-4); text-wrap: balance; }
 
-/* ===== 6) الباقة (رملي ثاني): صف علامات الصح (بدون عنوان صغير فوقه، impeccable 8)، ثم بطاقة «1 إلى 4 وحدات» (.s-plan من site.css:
-   من 1024 عرض 12 عمود بنصين زي حزمة المطاعم، وش فيها يمين، والمفتاح والسعر والزر يسار)، ثم شريط «5 وحدات أو أكثر» (.p-strip،
-   impeccable 3): إطار حبر 1px وزاوية 8، بدون خلفية ولا ظل (أهدى من البطاقة)، ونصينه على نفس خط نصين البطاقة فالسعرين فوق بعض،
-   وسعره 36 (أصغر من البطاقة). ثم «اللي ما نسويه» بنمط المطاعم (AD-15). «خصم المحافظ» انشال (web-copy «مفتاح الأسعار» أ) ===== */
+/* ===== 6) الباقة (رملي ثاني): صف علامات الصح (بدون عنوان صغير فوقه، impeccable 8)، ثم مفتاح «شهري / سنوي» (.s-period) فوق
+   البطاقتين ويبدّل السعرين، ثم البطاقتين الأخوات (.s-plans و .s-plan--stack من site.css، AD-40 ومرجع صاحب المشروع: «بطاقتين للمضيفين
+   بدل البطاقة وشريط المحافظ»): جنب بعض بنفس الارتفاع من 1024، وفوق بعض تحته. الاسمين بنفس الحجم (24 / 28). ثم «اللي ما نسويه» بنمط
+   المطاعم (AD-15). «خصم المحافظ» انشال (web-copy «مفتاح الأسعار» أ) ===== */
 .p-plan-lead { margin-top: var(--lt-space-16); }
 .p-incl { margin-top: var(--lt-space-32); }
-.p-plans-wrap { display: grid; gap: var(--lt-space-16); margin-top: var(--lt-space-24); }
-.p-plan-card .s-plan-what > .s-h3 { font-size: 24px; }
+.p-plans-wrap { margin-top: var(--lt-space-32); }
+.p-plans { margin-top: var(--lt-space-24); }
+.p-plan-card .s-plan-what .s-h3 { font-size: 24px; }
 .p-plan-elig { margin-top: var(--lt-space-4); }
 .p-plan-same { max-width: 30em; margin-top: var(--lt-space-16); }
-.p-strip { display: grid; gap: var(--lt-space-24); padding: var(--lt-space-24); border: var(--lt-hairline) solid var(--lt-text); border-radius: var(--lt-radius-s); }
-.p-strip .s-h3 { font-size: 20px; }
-.p-strip .s-plan-head { justify-content: flex-start; }   /* الشارة جنب الاسم، مو في نص الشريط العريض */
-.p-strip-buy { display: grid; align-content: start; gap: var(--lt-space-8); }
-.p-strip-buy .s-cta { margin-top: var(--lt-space-16); }
 @media (min-width: 1024px) {
-  .p-plan-card .s-plan-what > .s-h3 { font-size: 28px; }
-  .p-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; }
-  .p-strip-what, .p-strip-buy { padding: var(--lt-space-32) var(--lt-space-40); }
-  .p-strip .s-h3 { font-size: 22px; }
-  .p-strip .s-price-fig { font-size: 36px; }
+  .p-plan-card .s-plan-what .s-h3 { font-size: 28px; }
 }
 .p-dont { margin-top: var(--lt-space-48); padding-top: var(--lt-space-32); border-top: var(--lt-hairline) solid var(--lt-border); }
 .p-dont-list { list-style: none; padding: 0; margin-top: var(--lt-space-16); display: grid; gap: var(--lt-space-12); }

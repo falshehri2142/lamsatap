@@ -241,10 +241,25 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 .s-door-media > .s-scene { position: absolute; inset: 0; }
 .s-scene > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--scene-pos, 50% 50%); }
 
+/* ===== 8-ب) القصة المثبّتة، الخطوة 2 و3 (AD-41، قرار المدير الفني r2 §5 بند 2 خيار أ). هنا الحالة النهائية (بدون JS، وتقليل الحركة،
+   والشاشات الأقصر من 640): الحلقة والبطاقة ظاهرين. مع الحركة motion.js (story) يخفيهم تحت .mh ويطلّعهم مع التمرير.
+   .s-story-ring [data-story-ring]: حلقة لمس باللمسة على نقطة اللمس (--tx و --ty) داخل خانة المنتج (.lt-slot)، عرضها 30% من الخانة.
+     مكانها بالهامش مو بـ translate، عشان نبض GSAP (scale) ما يحفظ إزاحة بالبكسل تتغير مع المقاس.
+   .s-story-card [data-story-card]: الشاشة المصغرة الحقيقية (@@phone:<شاشة> frame="false"، بدون جسم الجوال) كبطاقة صفحة زبون: زاوية 22
+     (--lt-radius-l، صفحة زبون)، وظل --lt-elev-float، وحد 1px عشان حافتها تبان على الجدار الفاتح. مكانها ومقاسها في CSS الصفحة: جنب
+     المنتج داخل المشهد، وما تغطيه أبداً (تغطية 0) ===== */
+.s-story-ring { position: absolute; z-index: 1; left: var(--tx, 50%); top: var(--ty, 50%); width: 30%; aspect-ratio: 1; margin: -15% 0 0 -15%;
+  border-radius: 50%; box-shadow: inset 0 0 0 2px var(--lt-accent); pointer-events: none; }
+.s-story-ring::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--lt-accent-glow); opacity: var(--lt-accent-tail, .28); }
+.s-story-card { position: absolute; z-index: 2; display: block; overflow: hidden; border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-l);
+  background: var(--lt-surface); box-shadow: var(--lt-elev-float); pointer-events: none; }
+.s-story-card > .h-screen-svg { display: block; width: 100%; height: 100%; }
+
 /* ===== 9) الباقة (§5 و§10 و§11.3): <article class="s-card s-plan"> فيها .s-plan-what (الاسم، و«وش فيها» بعلامات صح) و .s-plan-buy
    (السعر، ثم .s-cta بالزر وسطر المخاطرة والتليجرام). من 1024 نصين: يمين وش فيها، ويسار السعر والزر، وبينهم خط 1px.
    السعر: .s-price فيه .s-price-fig (Figtree 700، 36 / 44، أرقام جدولية) و .s-price-unit (17/400)، وسطر .s-price-note رمادي 15/500.
-   المضيفين: نفس البطاقة («1 إلى 4 وحدات»)، وتحتها شريط «5 وحدات أو أكثر» (.p-strip في hosts.css، impeccable 3).
+   .s-plan--stack (المضيفين، AD-40 ومرجع صاحب المشروع): وش فيها فوق والسعر والزر تحت بخط 1px فوقهم، وبطاقتين أخوات جنب بعض في
+   .s-plans من 1024 بنفس الارتفاع (السعر والزر ينزلون لتحت البطاقة، فالسعرين على نفس الخط)، وفوق بعض تحته.
    مفتاح الأسعار (web-copy «مفتاح الأسعار»، مرجع صاحب المشروع brief-gm040.md): .s-period فيه .s-switch (radiogroup، المنطق في app.js
    initPriceSwitch) وسطر صغير تحت الخيار الثاني (.s-period-note). يطلع مع JS بس (.js)، وبدونه البطاقات على الحالة الأولى وسطر .s-nojs.
    المؤشر (.s-switch-thumb) ينزلق بـ transform، والرقم يتدحرج بالخانات (.s-roll-*، transform بس). تقليل الحركة: تبديل مباشر ===== */
@@ -279,6 +294,9 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .s-roll-col { transition: transform .6s var(--m-out, cubic-bezier(.16, 1, .3, 1)); }
 }
 .s-plan-buy > .s-period { margin-bottom: var(--lt-space-16); }
+/* بطاقتين أخوات (المضيفين) */
+.s-plans { display: grid; gap: var(--lt-space-16); }
+.s-plan.s-plan--stack { display: flex; flex-direction: column; }
 .s-plan-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--lt-space-8) var(--lt-space-16); }
 /* الشارة: حقيقة معتمدة بس (مثل «سعر أقل للوحدة»)، مربع صغير باللمسة ونص حبر 14/500، وزاوية 8 (مو كبسولة) */
 .s-badge { display: inline-flex; align-items: center; gap: var(--lt-space-8); padding: var(--lt-space-4) var(--lt-space-12); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-bg); font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--lt-text); }
@@ -289,7 +307,9 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .s-plan-buy { border-inline-start: var(--lt-hairline) solid var(--lt-border); }
   .s-price-fig { font-size: 44px; }
   /* الزر مخفي (بدون رقم واتساب): السعر يتوسط عمودياً في عموده، بدل فراغ تحته (AD-16) */
-  .s-plan .s-plan-buy:not(:has(.s-cta > :not([hidden]))) { align-content: center; }
+  .s-plan:not(.s-plan--stack) .s-plan-buy:not(:has(.s-cta > :not([hidden]))) { align-content: center; }
+  .s-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-grid-gap); align-items: stretch; }
+  .s-plan--stack .s-plan-buy { margin-top: auto; border-inline-start: 0; border-top: var(--lt-hairline) solid var(--lt-border); }
 }
 
 /* ===== 10) الأسئلة: <div class="s-faq" data-accordion> وفيها <details class="s-q"><summary>…</summary><div class="s-q-a"><p>…</p></div></details>.

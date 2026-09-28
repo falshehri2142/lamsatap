@@ -98,8 +98,12 @@
 <!-- 4) القصة المثبّتة (رملي، «الاتجاه 3» §5 و§6: باب ← لوحة ← دليل). النص: web-copy المضيفين بند 3 (h2 جديد، والخطوات ج4 بالحرف).
      GM-054 (والمدير الفني r2 §5 بند 2): المشهد المولّد المعتمد نفسه حق البطل (host-door-frame: باب شقة خشب وبرواز طولي على الجدار،
      brief-gm040.md «مشاهد المنتج المعتمدة») بطبقتين، و**بدون أي جوال مرسوم فوق الصورة**: جوال الدليل في الدليل الحي بس.
-     خطوة 1 المشهد يتلوّن بالضوء وخط المسح (motion.js story)، وبدون نبض (المضيفين هادي). h2 داخل الكتلة المثبّتة مع الخطوات (AD-15).
-     المشهد زخرفي alt="" (نفس مشهد البطل، ونصه البديل هناك). بدون JS: الأبيض والأسود. تقليل الحركة: ملون، والخطوات كلها ظاهرة -->
+     AD-41 (قرار المدير الفني r2 §5 بند 2 خيار أ): خطوة 1 المشهد يتلوّن بالضوء وخط المسح. خطوة 2 حلقة لمس على اللوحة (.p-story-touch:
+     خانة على البرواز داخل المسرح .p-story-stage، والحلقة [data-story-ring] تطلع بدون نبض، المضيفين هادي). خطوة 3 بطاقة الدليل
+     ([data-story-card]: الشاشة المصغرة الحقيقية @@phone:guide-story بدون جسم الجوال، زاوية 22 وظل --lt-elev-float) تدخل جنب اللوحة
+     على الجدار الفاضي وتنفتح بالمسح، وما تغطي اللوحة أبداً (hosts.css). h2 داخل الكتلة المثبّتة مع الخطوات (AD-15).
+     المشهد زخرفي alt="" (نفس مشهد البطل، ونصه البديل هناك)، والحلقة والبطاقة زخرفية (aria-hidden). بدون JS: الأبيض والأسود، والحلقة
+     والبطاقة ظاهرة. تقليل الحركة: ملون، والحلقة والبطاقة والخطوات كلها ظاهرة -->
 <section class="s-band p-story" aria-labelledby="story-h" data-story>
 <div class="p-story-pin" data-story-pin>
 <div class="s-wrap p-story-grid">
@@ -112,7 +116,8 @@
 </ol>
 </div>
 <div class="p-story-media" data-story-scene>
-<div class="p-story-photo"><!-- @@photo:host-door-frame sizes="(min-width: 1024px) 80vw, 140vw" --><img src="../assets/images/host-door-frame-bw-800.webp" srcset="../assets/images/host-door-frame-bw-800.webp 800w, ../assets/images/host-door-frame-bw-1600.webp 1600w" sizes="(min-width: 1024px) 80vw, 140vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><img data-tint src="../assets/images/host-door-frame-color-800.webp" srcset="../assets/images/host-door-frame-color-800.webp 800w, ../assets/images/host-door-frame-color-1600.webp 1600w" sizes="(min-width: 1024px) 80vw, 140vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><!-- /@@photo:host-door-frame --></div>
+<div class="p-story-photo"><div class="p-story-stage"><!-- @@photo:host-door-frame sizes="(min-width: 1024px) 80vw, 140vw" --><img src="../assets/images/host-door-frame-bw-800.webp" srcset="../assets/images/host-door-frame-bw-800.webp 800w, ../assets/images/host-door-frame-bw-1600.webp 1600w" sizes="(min-width: 1024px) 80vw, 140vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><img data-tint src="../assets/images/host-door-frame-color-800.webp" srcset="../assets/images/host-door-frame-color-800.webp 800w, ../assets/images/host-door-frame-color-1600.webp 1600w" sizes="(min-width: 1024px) 80vw, 140vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><!-- /@@photo:host-door-frame --><span class="lt-slot p-story-touch" aria-hidden="true"><span class="s-story-ring" data-story-ring></span></span></div></div>
+<div class="s-story-card p-story-card" data-story-card aria-hidden="true"><!-- @@phone:guide-story frame="false" --><svg class="h-screen-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 780" width="390" height="780" preserveAspectRatio="xMidYMin slice"><foreignObject x="0" y="0" width="390" height="780"><div class="fo-screen" style="position:relative;overflow:hidden;width:100%;height:100%"><div class="c mini lt-page mini--flats" inert style="position:absolute;left:0;top:0;width:390px;height:780px"><div class="c-main"><div class="c-id c-id--sm"><picture><img class="c-logo" src="../demo/_brands/apartments.svg" alt="شقق المثال" data-name="شقق المثال"></picture></div><div data-h="1">أهلاً في شقة المثال</div><div><div class="c-wifi"><p class="c-label">الشبكة</p><p class="c-wifi-v" dir="ltr" translate="no">Mithal-Guest</p><p class="c-label">كلمة المرور</p><p class="c-pw" dir="ltr" translate="no">Mithal@2026</p><span class="lt-btn lt-btn--shop" id="pguidestory-wifi-copy">انسخ كلمة المرور</span></div><p class="c-status" id="pguidestory-wifi-st"></p></div><div><div id="pguidestory-out-h" data-h="2">الخروج والصيانة</div><div class="lt-panel"><div class="lt-row"><span class="lt-row-body"><span class="lt-row-title">وقت الخروج</span></span><span class="lt-row-end lt-row-end--value">12 الظهر</span></div></div><p class="c-sub g-notice">بالضغط يفتح واتساب وترسل رسالة من رقمك إلى <span data-company>لمسة تاب</span>، مشغّل خدمة الوحدة. نستخدم رقمك لهذا الطلب فقط، ما نشاركه مع أحد، ونحذف المحادثة بعد إغلاق الطلب. <span>سياسة الخصوصية</span></p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="pguidestory-out"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>تم الخروج</span></span><div class="lt-panel g-confirm" id="pguidestory-out-confirm" hidden><p class="g-confirm-h">قبل ما تطلع:</p><ul class="g-steps"><li>طفّ المكيفات والأنوار</li><li>سكّر الشبابيك</li><li>ارمِ الزبالة في الحاوية تحت العمارة</li></ul><div class="g-confirm-b"><p>متأكد إنك طلعت من الوحدة؟ بيفتح واتساب برسالة جاهزة، اضغط «إرسال» عشان نبلغ المضيف.</p><div class="c-stack"><span class="lt-btn lt-btn--shop" id="pguidestory-out-yes"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>نعم، طلعت</span></span><span class="lt-btn lt-btn--secondary" id="pguidestory-out-no">لا، رجوع</span></div></div></div><span class="lt-btn lt-btn--secondary" id="pguidestory-fix"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span>بلاغ صيانة</span></span></div><p class="c-label g-contact-h">تواصل مع مشغّل خدمة الوحدة</p><div class="lt-panel"><span class="lt-row" id="pguidestory-ask"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8A3.5 3.5 0 0 1 17.5 7v4A3.5 3.5 0 0 1 14 14.5v2.8L10.6 14.5H6A3.5 3.5 0 0 1 2.5 11V7A3.5 3.5 0 0 1 6 3.5z"/><path d="M6.6 9h.01M10 9h.01M13.4 9h.01" stroke-width="2.3"/></svg><span class="lt-row-body"><span class="lt-row-title">استفسار على واتساب</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span><span class="lt-row" id="pguidestory-call"><svg class="lt-row-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 2.8 8.4 3.6 9.2 6.9 7.5 8.4Q8.9 11.1 11.6 12.5L13.1 10.8 16.4 11.6 17.2 13.8Q17.2 16.9 14.4 17.2 4.6 16.6 2.8 5.6 3.1 2.8 6.2 2.8z"/></svg><span class="lt-row-body"><span class="lt-row-title">اتصل بنا</span></span><svg class="lt-row-chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5 7 10l5 5"/></svg></span></div><p class="c-status" id="pguidestory-out-st"></p></div><p class="c-sub g-privacy" id="pguidestory-privacy-policy">سياسة الخصوصية: ما انكتبت للحين.</p></div></div></div></foreignObject></svg><!-- /@@phone:guide-story --></div>
 </div>
 </div>
 </div>
@@ -144,13 +149,14 @@
 
 <!-- 6) العرض: باقة المضيف (رملي ثاني، web-copy المضيفين بند 5 و«مفتاح الأسعار» (أ)، ومرجع صاحب المشروع brief-gm040.md «قسم الأسعار»).
      الأسعار من services/pricing.md (GM-045) بس، وبدون ذكر للضريبة. صف علامات الصح بدون عنوان صغير فوقه (impeccable 8).
-     impeccable 3 و«الاتجاه 3» §5: بطاقة عرض وحدة 12 عمود «1 إلى 4 وحدات» بنصين زي حزمة المطاعم (وش فيها يمين، والمفتاح والسعر والزر
-     يسار)، وتحتها شريط بإطار حبر 1px وزاوية 8 «5 وحدات أو أكثر» (.p-strip) بسعره وزر ثانوي بإطار (رسالة portfolio).
-     المفتاح radiogroup (شهري أول، و«بسعر 11 شهر» تحت «سنوي» بـ aria-describedby)، ويبدّل البطاقة والشريط مع بعض (data-price-scope على
-     .p-plans-wrap). الأرقام المتدحرجة aria-hidden، ومكانها نص مخفي بالسعر كامل (ج). بدون JS: المفتاح ما يطلع، والأسعار على «شهري»، وتحت
-     كل سعر سطر فيه السعر السنوي (.s-nojs، د). زر أساسي واحد في الشاشة (AD-34): البطاقة، بواتساب hostTrial أو التليجرام البديل. والشريط
-     زره ثانوي في الوضعين (الواتساب lt-btn--secondary، والتليجرام data-tg-rank="secondary"). سطر المخاطرة تحت كل زر مع أي قناة
-     ([data-wa-only]، AD-35). المنطق في app.js (initPriceSwitch). ظهور البطاقة والشريط بالترتيب (data-reveal="stagger") -->
+     AD-40 (مرجع صاحب المشروع يغلب impeccable 3: «بطاقتين للمضيفين بدل البطاقة وشريط المحافظ»، brief-gm040.md:85): بطاقتين أخوات بنفس
+     المكوّن (.s-card.s-plan.s-plan--stack) وبنفس الارتفاع، «1 إلى 4 وحدات» و«5 وحدات أو أكثر»، جنب بعض من 1024 وفوق بعض تحته (site.css).
+     المفتاح فوق البطاقتين (.s-period قبل .s-plans داخل .p-plans-wrap)، radiogroup (شهري أول، و«بسعر 11 شهر» تحت «سنوي» بـ
+     aria-describedby)، ويبدّل السعرين مع بعض (data-price-scope على .p-plans-wrap). الأرقام المتدحرجة aria-hidden، ومكانها نص مخفي بالسعر
+     كامل (ج). بدون JS: المفتاح ما يطلع، والأسعار على «شهري»، وتحت كل سعر سطر فيه السعر السنوي (.s-nojs، د). زر أساسي واحد في الشاشة
+     (AD-34): البطاقة الأولى، بواتساب hostTrial أو التليجرام البديل. والثانية زرها ثانوي بإطار في الوضعين (الواتساب lt-btn--secondary
+     برسالة portfolio، والتليجرام data-tg-rank="secondary")، وعليها شارة «سعر أقل للوحدة». سطر المخاطرة وإشعار التليجرام تحت كل زر مع أي
+     قناة ([data-wa-only]، AD-35). المنطق في app.js (initPriceSwitch). ظهور البطاقتين بالترتيب (data-reveal="stagger" على .s-plans) -->
 <section class="s-band s-band--sand2 p-plan" id="plan" aria-labelledby="plan-h">
 <div class="s-wrap">
 <h2 class="s-h2" id="plan-h" data-words="cut">باقة المضيف، لكل وحدة</h2>
@@ -162,8 +168,17 @@
 <li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>بدون دفع مقدم</span></li>
 </ul>
 </div>
-<div class="p-plans-wrap" data-price-scope data-reveal="stagger">
-<article class="s-card s-plan p-plan-card" aria-labelledby="plan1-h">
+<div class="p-plans-wrap" data-price-scope>
+<div class="s-period p-period">
+<div class="s-switch" role="radiogroup" aria-label="الدفع شهري أو سنوي" data-price-switch>
+<button type="button" class="s-switch-opt" role="radio" aria-checked="true" data-value="month">شهري</button>
+<button type="button" class="s-switch-opt" role="radio" aria-checked="false" data-value="year" aria-describedby="period-y-note" tabindex="-1">سنوي</button>
+<span class="s-switch-thumb" aria-hidden="true"></span>
+</div>
+<p class="s-period-note" id="period-y-note">بسعر 11 شهر</p>
+</div>
+<div class="s-plans p-plans" data-reveal="stagger">
+<article class="s-card s-plan s-plan--stack p-plan-card" aria-labelledby="plan1-h">
 <div class="s-plan-what">
 <h3 class="s-h3" id="plan1-h">1 إلى 4 وحدات</h3>
 <p class="s-small p-plan-elig">للمضيف المرخّص من وزارة السياحة</p>
@@ -176,14 +191,6 @@
 </ul>
 </div>
 <div class="s-plan-buy">
-<div class="s-period p-period">
-<div class="s-switch" role="radiogroup" aria-label="الدفع شهري أو سنوي" data-price-switch>
-<button type="button" class="s-switch-opt" role="radio" aria-checked="true" data-value="month">شهري</button>
-<button type="button" class="s-switch-opt" role="radio" aria-checked="false" data-value="year" aria-describedby="period-y-note" tabindex="-1">سنوي</button>
-<span class="s-switch-thumb" aria-hidden="true"></span>
-</div>
-<p class="s-period-note" id="period-y-note">بسعر 11 شهر</p>
-</div>
 <p class="s-price"><span class="s-sr" data-swap data-month="49.5 ريال للوحدة بالشهر" data-year="544.5 ريال للوحدة بالسنة">49.5 ريال للوحدة بالشهر</span><span class="s-price-fig" aria-hidden="true" data-roll data-month="49.5" data-year="544.5">49.5</span> <span class="s-price-unit" aria-hidden="true">ريال <span data-swap data-month="للوحدة بالشهر" data-year="للوحدة بالسنة">للوحدة بالشهر</span></span></p>
 <p class="s-price-note" id="plan1-note"><span data-when="month">بالتزام 6 أشهر.</span><span data-when="year" hidden>للسنة كاملة، بسعر 11 شهر.</span><span class="s-nojs"> أو <span class="s-num">544.5</span> ريال بالسنة للوحدة، بسعر 11 شهر.</span></p>
 <div class="s-cta">
@@ -196,13 +203,13 @@
 </div>
 </div>
 </article>
-<div class="p-strip" role="group" aria-labelledby="plan2-h">
-<div class="p-strip-what">
+<article class="s-card s-plan s-plan--stack p-plan-card" aria-labelledby="plan2-h">
+<div class="s-plan-what">
 <div class="s-plan-head"><h3 class="s-h3" id="plan2-h">5 وحدات أو أكثر</h3><p class="s-badge">سعر أقل للوحدة</p></div>
 <p class="s-small p-plan-elig">للمضيف المرخّص من وزارة السياحة</p>
 <p class="p-plan-same">نفس الباقة، والسعر على كل وحداتك.</p>
 </div>
-<div class="p-strip-buy">
+<div class="s-plan-buy">
 <p class="s-price"><span class="s-sr" data-swap data-month="39.5 ريال للوحدة بالشهر" data-year="434.5 ريال للوحدة بالسنة">39.5 ريال للوحدة بالشهر</span><span class="s-price-fig" aria-hidden="true" data-roll data-month="39.5" data-year="434.5">39.5</span> <span class="s-price-unit" aria-hidden="true">ريال <span data-swap data-month="للوحدة بالشهر" data-year="للوحدة بالسنة">للوحدة بالشهر</span></span></p>
 <p class="s-price-note" id="plan2-note"><span data-when="month">بالتزام 6 أشهر.</span><span data-when="year" hidden>للسنة كاملة، بسعر 11 شهر.</span><span class="s-nojs"> أو <span class="s-num">434.5</span> ريال بالسنة للوحدة، بسعر 11 شهر.</span></p>
 <div class="s-cta">
@@ -214,6 +221,7 @@
 </div>
 </div>
 </div>
+</article>
 </div>
 </div>
 <!-- اللي ما نسويه (web-copy المضيفين بند 6، ج6): نفس نمط المطاعم (AD-15)، ثلاث أعمدة من 1024 بأيقونة «لا» رمادية -->
