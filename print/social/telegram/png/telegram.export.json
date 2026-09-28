@@ -1,0 +1,815 @@
+{
+  "tool": "print/export.cjs",
+  "date": "2026-09-28T01:09:10.417Z",
+  "node": "v24.18.0",
+  "url": "print/social/telegram/index.html",
+  "options": {
+    "check": false,
+    "pdf": false,
+    "png": [
+      "1x (screen)"
+    ],
+    "transparent": false,
+    "social": true,
+    "bleed": false,
+    "selector": ".p-sheet",
+    "only": null
+  },
+  "errors": [],
+  "warnings": [],
+  "files": [
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-avatar.png",
+      "sheet": "telegram-avatar",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1024 x 1024 px = 1024 x 1024 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1024,
+        1024
+      ],
+      "mm": [
+        270.93,
+        270.93
+      ],
+      "expected": [
+        1024,
+        1024
+      ],
+      "px": [
+        1024,
+        1024
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 20212
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-pinned.png",
+      "sheet": "telegram-pinned",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1280 x 720 px = 1280 x 720 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1280,
+        720
+      ],
+      "mm": [
+        338.67,
+        190.5
+      ],
+      "expected": [
+        1280,
+        720
+      ],
+      "px": [
+        1280,
+        720
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 124838
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-square.png",
+      "sheet": "telegram-square",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1080 x 1080 px = 1080 x 1080 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1080,
+        1080
+      ],
+      "mm": [
+        285.75,
+        285.75
+      ],
+      "expected": [
+        1080,
+        1080
+      ],
+      "px": [
+        1080,
+        1080
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 240949
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-m1-menu.png",
+      "sheet": "telegram-m1-menu",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1080 x 1080 px = 1080 x 1080 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1080,
+        1080
+      ],
+      "mm": [
+        285.75,
+        285.75
+      ],
+      "expected": [
+        1080,
+        1080
+      ],
+      "px": [
+        1080,
+        1080
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 125406
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-m2-review.png",
+      "sheet": "telegram-m2-review",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1080 x 1080 px = 1080 x 1080 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1080,
+        1080
+      ],
+      "mm": [
+        285.75,
+        285.75
+      ],
+      "expected": [
+        1080,
+        1080
+      ],
+      "px": [
+        1080,
+        1080
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 152753
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-m3-wifi.png",
+      "sheet": "telegram-m3-wifi",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1080 x 1080 px = 1080 x 1080 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1080,
+        1080
+      ],
+      "mm": [
+        285.75,
+        285.75
+      ],
+      "expected": [
+        1080,
+        1080
+      ],
+      "px": [
+        1080,
+        1080
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 140206
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-m4-guide.png",
+      "sheet": "telegram-m4-guide",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1080 x 1080 px = 1080 x 1080 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1080,
+        1080
+      ],
+      "mm": [
+        285.75,
+        285.75
+      ],
+      "expected": [
+        1080,
+        1080
+      ],
+      "px": [
+        1080,
+        1080
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 149425
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-m5-checkout.png",
+      "sheet": "telegram-m5-checkout",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1080 x 1080 px = 1080 x 1080 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1080,
+        1080
+      ],
+      "mm": [
+        285.75,
+        285.75
+      ],
+      "expected": [
+        1080,
+        1080
+      ],
+      "px": [
+        1080,
+        1080
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 139961
+    },
+    {
+      "kind": "png",
+      "file": "print/social/telegram/png/telegram-m6-maintenance.png",
+      "sheet": "telegram-m6-maintenance",
+      "scale": "1x",
+      "media": "screen",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1080 x 1080 px = 1080 x 1080 CSS px x 1",
+        "ok opaque RGB, no alpha"
+      ],
+      "cssPx": [
+        1080,
+        1080
+      ],
+      "mm": [
+        285.75,
+        285.75
+      ],
+      "expected": [
+        1080,
+        1080
+      ],
+      "px": [
+        1080,
+        1080
+      ],
+      "channels": "RGB",
+      "dpi": null,
+      "bytes": 153473
+    }
+  ],
+  "browser": "Chrome/153.0.8010.53 (Chrome)",
+  "page": {
+    "title": "صور التليجرام: لمسة تاب",
+    "lang": "ar",
+    "dir": "rtl",
+    "cssSize": null,
+    "mm": null,
+    "readyMs": 377,
+    "readySignal": "1",
+    "readyNotes": [],
+    "sheets": [
+      {
+        "name": "telegram-avatar",
+        "sign": "telegram-avatar",
+        "mm": [
+          270.93,
+          270.93
+        ],
+        "cssPx": [
+          1024,
+          1024
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-pinned",
+        "sign": "telegram-pinned",
+        "mm": [
+          338.67,
+          190.5
+        ],
+        "cssPx": [
+          1280,
+          720
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-square",
+        "sign": "telegram-square",
+        "mm": [
+          285.75,
+          285.75
+        ],
+        "cssPx": [
+          1080,
+          1080
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-m1-menu",
+        "sign": "telegram-m1-menu",
+        "mm": [
+          285.75,
+          285.75
+        ],
+        "cssPx": [
+          1080,
+          1080
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-m2-review",
+        "sign": "telegram-m2-review",
+        "mm": [
+          285.75,
+          285.75
+        ],
+        "cssPx": [
+          1080,
+          1080
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-m3-wifi",
+        "sign": "telegram-m3-wifi",
+        "mm": [
+          285.75,
+          285.75
+        ],
+        "cssPx": [
+          1080,
+          1080
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-m4-guide",
+        "sign": "telegram-m4-guide",
+        "mm": [
+          285.75,
+          285.75
+        ],
+        "cssPx": [
+          1080,
+          1080
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-m5-checkout",
+        "sign": "telegram-m5-checkout",
+        "mm": [
+          285.75,
+          285.75
+        ],
+        "cssPx": [
+          1080,
+          1080
+        ],
+        "radius": "0px"
+      },
+      {
+        "name": "telegram-m6-maintenance",
+        "sign": "telegram-m6-maintenance",
+        "mm": [
+          285.75,
+          285.75
+        ],
+        "cssPx": [
+          1080,
+          1080
+        ],
+        "radius": "0px"
+      }
+    ]
+  },
+  "templateWarnings": [],
+  "templateReport": {
+    "page": "print/social/telegram",
+    "promise": "رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل",
+    "phones": [
+      {
+        "ok": true,
+        "scrollY": 410
+      }
+    ],
+    "sheets": [
+      {
+        "sign": "telegram-avatar",
+        "px": [
+          1024,
+          1024
+        ],
+        "text": []
+      },
+      {
+        "sign": "telegram-pinned",
+        "px": [
+          1280,
+          720
+        ],
+        "text": [
+          {
+            "text": "منيو، تقييم، واي فاي بلمسة",
+            "px": 84,
+            "weight": "600",
+            "lines": 1,
+            "box": [
+              155,
+              372,
+              1200,
+              444
+            ]
+          },
+          {
+            "text": "رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل",
+            "px": 48,
+            "weight": "400",
+            "lines": 2,
+            "box": [
+              364,
+              511,
+              1200,
+              619
+            ]
+          }
+        ],
+        "logo": [
+          901,
+          80,
+          1200,
+          136
+        ]
+      },
+      {
+        "sign": "telegram-square",
+        "px": [
+          1080,
+          1080
+        ],
+        "text": [
+          {
+            "text": "منيو، تقييم، واي فاي بلمسة",
+            "px": 104,
+            "weight": "600",
+            "lines": 2,
+            "box": [
+              181,
+              560,
+              899,
+              794
+            ]
+          },
+          {
+            "text": "رد خلال ساعة على الواتساب أو التليجرام، من 9 الصبح لين 11 الليل",
+            "px": 44,
+            "weight": "400",
+            "lines": 2,
+            "box": [
+              157,
+              866,
+              923,
+              965
+            ]
+          }
+        ],
+        "logo": [
+          360,
+          120,
+          720,
+          406
+        ]
+      },
+      {
+        "sign": "telegram-m1-menu",
+        "px": [
+          1080,
+          1080
+        ],
+        "text": [
+          {
+            "text": "يقرّب جواله من الستاند أو يمسح الباركود،",
+            "px": 40,
+            "weight": "400",
+            "lines": 1,
+            "box": [
+              288,
+              97,
+              1000,
+              125
+            ]
+          },
+          {
+            "text": "والمنيو قدامه.",
+            "px": 88,
+            "weight": "600",
+            "lines": 1,
+            "box": [
+              442,
+              174,
+              1000,
+              248
+            ]
+          }
+        ],
+        "logo": [
+          80,
+          956,
+          315,
+          1000
+        ],
+        "object": [
+          360,
+          490,
+          1000,
+          1450
+        ]
+      },
+      {
+        "sign": "telegram-m2-review",
+        "px": [
+          1080,
+          1080
+        ],
+        "text": [
+          {
+            "text": "تبغى الزبون يلقى صفحة تقييمك بسهولة؟",
+            "px": 88,
+            "weight": "600",
+            "lines": 3,
+            "box": [
+              333,
+              104,
+              1000,
+              425
+            ]
+          }
+        ],
+        "logo": [
+          80,
+          956,
+          315,
+          1000
+        ],
+        "object": [
+          360,
+          490,
+          1000,
+          1450
+        ]
+      },
+      {
+        "sign": "telegram-m3-wifi",
+        "px": [
+          1080,
+          1080
+        ],
+        "text": [
+          {
+            "text": "«وش باسوورد الواي فاي؟»",
+            "px": 88,
+            "weight": "600",
+            "lines": 2,
+            "box": [
+              438,
+              104,
+              1000,
+              302
+            ]
+          },
+          {
+            "text": "كلمة المرور جاهزة للنسخ",
+            "px": 40,
+            "weight": "400",
+            "lines": 1,
+            "box": [
+              567,
+              363,
+              1000,
+              391
+            ]
+          }
+        ],
+        "logo": [
+          80,
+          956,
+          315,
+          1000
+        ],
+        "object": [
+          360,
+          490,
+          1000,
+          1450
+        ]
+      },
+      {
+        "sign": "telegram-m4-guide",
+        "px": [
+          1080,
+          1080
+        ],
+        "text": [
+          {
+            "text": "ضيفك وصل الساعة 1 الليل",
+            "px": 40,
+            "weight": "400",
+            "lines": 1,
+            "box": [
+              531,
+              97,
+              1000,
+              125
+            ]
+          },
+          {
+            "text": "وما يدري وين المكيف ولا كلمة الواي فاي؟",
+            "px": 88,
+            "weight": "600",
+            "lines": 2,
+            "box": [
+              154,
+              174,
+              1000,
+              372
+            ]
+          }
+        ],
+        "logo": [
+          80,
+          956,
+          315,
+          1000
+        ],
+        "object": [
+          360,
+          490,
+          1000,
+          1450
+        ]
+      },
+      {
+        "sign": "telegram-m5-checkout",
+        "px": [
+          1080,
+          1080
+        ],
+        "text": [
+          {
+            "text": "الضيف طالع؟",
+            "px": 88,
+            "weight": "600",
+            "lines": 1,
+            "box": [
+              458,
+              104,
+              1000,
+              178
+            ]
+          },
+          {
+            "text": "وتوصلنا الرسالة ونبلغك من جوال الشركة، عشان تجهز التنظيف.",
+            "px": 40,
+            "weight": "400",
+            "lines": 2,
+            "box": [
+              280,
+              240,
+              1000,
+              330
+            ]
+          }
+        ],
+        "logo": [
+          80,
+          956,
+          315,
+          1000
+        ],
+        "object": [
+          360,
+          490,
+          1000,
+          1450
+        ]
+      },
+      {
+        "sign": "telegram-m6-maintenance",
+        "px": [
+          1080,
+          1080
+        ],
+        "text": [
+          {
+            "text": "المكيف وقف؟",
+            "px": 88,
+            "weight": "600",
+            "lines": 1,
+            "box": [
+              436,
+              104,
+              1000,
+              178
+            ]
+          },
+          {
+            "text": "بلاغ صيانة جاهز، ويوصلنا ونحوّله لك",
+            "px": 40,
+            "weight": "400",
+            "lines": 1,
+            "box": [
+              374,
+              240,
+              1000,
+              268
+            ]
+          }
+        ],
+        "logo": [
+          80,
+          956,
+          315,
+          1000
+        ],
+        "object": [
+          415,
+          490,
+          1000,
+          1711
+        ]
+      }
+    ],
+    "warnings": []
+  },
+  "fonts": {
+    "faces": [
+      {
+        "family": "Readex Pro",
+        "weight": "160 700",
+        "style": "normal",
+        "status": "loaded"
+      }
+    ],
+    "drawn": [
+      {
+        "family": "Readex Pro",
+        "custom": true,
+        "glyphs": 956
+      }
+    ]
+  }
+}

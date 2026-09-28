@@ -1,0 +1,175 @@
+{
+  "tool": "print/export.cjs",
+  "date": "2026-09-28T01:24:16.775Z",
+  "node": "v24.18.0",
+  "url": "print/stand/index.html?client=example-cafe&purpose=review",
+  "options": {
+    "check": false,
+    "pdf": false,
+    "png": [
+      "300dpi (print)"
+    ],
+    "transparent": false,
+    "social": false,
+    "bleed": false,
+    "selector": ".p-sheet",
+    "only": null
+  },
+  "errors": [],
+  "warnings": [],
+  "files": [
+    {
+      "kind": "png",
+      "file": "print/stand/png/stand-review@300dpi.png",
+      "sheet": "stand-review",
+      "scale": "300dpi",
+      "media": "print",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1181 x 1772 px = 377.94 x 566.92 CSS px x 3.13 (100 x 150 mm at 300 dpi, print media)",
+        "ok opaque RGB, no alpha",
+        "ok pHYs 300 dpi"
+      ],
+      "cssPx": [
+        377.94,
+        566.92
+      ],
+      "mm": [
+        100,
+        150
+      ],
+      "expected": [
+        1181,
+        1772
+      ],
+      "px": [
+        1181,
+        1772
+      ],
+      "channels": "RGB",
+      "dpi": 300,
+      "bytes": 88523
+    }
+  ],
+  "browser": "Chrome/153.0.8010.53 (Chrome)",
+  "page": {
+    "title": "قالب الستاند (للطباعة)",
+    "lang": "ar",
+    "dir": "rtl",
+    "cssSize": "100mm 150mm",
+    "mm": [
+      100,
+      150
+    ],
+    "readyMs": 320,
+    "readySignal": "1",
+    "readyNotes": [],
+    "sheets": [
+      {
+        "name": "stand-review",
+        "sign": "stand-review",
+        "mm": [
+          100,
+          150
+        ],
+        "cssPx": [
+          377.94,
+          566.92
+        ],
+        "radius": "0px",
+        "trimMM": [
+          100,
+          150
+        ],
+        "trimInsetMM": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bleedMM": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "templateWarnings": [
+    "لون الطباعة (CMYK أو Pantone) ناقص. اطلب بروفة قبل الطباعة.",
+    "باركود تجريبي (example.com). الحقيقي نفس رابط الشريحة /t/<code>/ من systems/shortlinks."
+  ],
+  "templateReport": {
+    "client": "example-cafe",
+    "signs": [
+      {
+        "sign": "stand-review",
+        "variant": "stand",
+        "url": "https://example.com/t/EXAMPLE123/",
+        "pageMM": [
+          100,
+          150
+        ],
+        "trimMM": [
+          100,
+          150
+        ],
+        "chipCenterMM": [
+          50,
+          62
+        ],
+        "chipZoneMM": [
+          30,
+          30
+        ],
+        "qr": {
+          "modules": 29,
+          "moduleMM": 1.034,
+          "quietMM": 4.14,
+          "totalMM": 38.28
+        },
+        "fit": {
+          "minTextPt": 9,
+          "textOutsideSafe": [],
+          "dotCenterMM": [
+            50,
+            62
+          ],
+          "dotDiameterMM": 20,
+          "qrBoxMM": [
+            3.86,
+            105.86,
+            42.13,
+            144.14
+          ],
+          "cardMM": [
+            44,
+            117.5,
+            92,
+            132.5
+          ],
+          "cardMode": "hug"
+        }
+      }
+    ]
+  },
+  "fonts": {
+    "faces": [
+      {
+        "family": "Readex Pro",
+        "weight": "160 700",
+        "style": "normal",
+        "status": "loaded"
+      }
+    ],
+    "drawn": [
+      {
+        "family": "Readex Pro",
+        "custom": true,
+        "glyphs": 242
+      }
+    ]
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "tool": "print/export.cjs",
+  "date": "2026-09-28T01:23:50.176Z",
+  "node": "v24.18.0",
+  "url": "print/host-signs/index.html?client=example-flats&sign=checkout",
+  "options": {
+    "check": false,
+    "pdf": false,
+    "png": [
+      "300dpi (print)"
+    ],
+    "transparent": false,
+    "social": false,
+    "bleed": false,
+    "selector": ".p-sheet",
+    "only": null
+  },
+  "errors": [],
+  "warnings": [],
+  "files": [
+    {
+      "kind": "png",
+      "file": "print/host-signs/png/checkout@300dpi.png",
+      "sheet": "checkout",
+      "scale": "300dpi",
+      "media": "print",
+      "mode": "solo",
+      "ok": true,
+      "checks": [
+        "ok 1181 x 1772 px = 377.94 x 566.92 CSS px x 3.13 (100 x 150 mm at 300 dpi, print media)",
+        "ok opaque RGB, no alpha",
+        "ok pHYs 300 dpi"
+      ],
+      "cssPx": [
+        377.94,
+        566.92
+      ],
+      "mm": [
+        100,
+        150
+      ],
+      "expected": [
+        1181,
+        1772
+      ],
+      "px": [
+        1181,
+        1772
+      ],
+      "channels": "RGB",
+      "dpi": 300,
+      "bytes": 104868
+    }
+  ],
+  "browser": "Chrome/153.0.8010.53 (Chrome)",
+  "page": {
+    "title": "لوحات الوحدة (للطباعة)",
+    "lang": "ar",
+    "dir": "rtl",
+    "cssSize": "100mm 150mm",
+    "mm": [
+      100,
+      150
+    ],
+    "readyMs": 324,
+    "readySignal": "1",
+    "readyNotes": [],
+    "sheets": [
+      {
+        "name": "checkout",
+        "sign": "checkout",
+        "mm": [
+          100,
+          150
+        ],
+        "cssPx": [
+          377.94,
+          566.92
+        ],
+        "radius": "15.1181px",
+        "trimMM": [
+          100,
+          150
+        ],
+        "trimInsetMM": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "bleedMM": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "templateWarnings": [
+    "لون الطباعة (CMYK أو Pantone) ناقص. اطلب بروفة قبل الطباعة.",
+    "تأكيد الخروج: باركود تجريبي (example.com). الحقيقي نفس رابط الشريحة /t/<code>/ من systems/shortlinks."
+  ],
+  "templateReport": {
+    "client": "example-flats",
+    "signs": [
+      {
+        "sign": "checkout",
+        "variant": "door",
+        "url": "https://example.com/t/EXAMPLEOUT01/",
+        "pageMM": [
+          100,
+          150
+        ],
+        "trimMM": [
+          100,
+          150
+        ],
+        "chipCenterMM": [
+          50,
+          62
+        ],
+        "chipZoneMM": [
+          45,
+          45
+        ],
+        "qr": {
+          "modules": 29,
+          "moduleMM": 1.034,
+          "quietMM": 4.14,
+          "totalMM": 38.28
+        },
+        "fit": {
+          "minTextPt": 9,
+          "textOutsideSafe": [],
+          "dotCenterMM": [
+            50,
+            62
+          ],
+          "dotDiameterMM": 20,
+          "qrBoxMM": [
+            3.86,
+            105.86,
+            42.13,
+            144.14
+          ],
+          "cardMM": [
+            44,
+            110,
+            92,
+            139.99
+          ],
+          "cardMode": "qr"
+        }
+      }
+    ]
+  },
+  "fonts": {
+    "faces": [
+      {
+        "family": "Readex Pro",
+        "weight": "160 700",
+        "style": "normal",
+        "status": "loaded"
+      }
+    ],
+    "drawn": [
+      {
+        "family": "Readex Pro",
+        "custom": true,
+        "glyphs": 326
+      }
+    ]
+  }
+}
