@@ -6,14 +6,16 @@
 <meta name="robots" content="noindex">
 <title>قالب الستاند (للطباعة)</title>
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="../../website/assets/brand/tokens.css">
+<link rel="stylesheet" href="../../brand/tokens.css">
 <link rel="stylesheet" href="../print.css">
 </head>
 <body>
-<!-- أداة داخلية للطباعة (GM-023 بند 3). العميل من ?client=<اسم> (ملف clients/<اسم>.js)، ونسخة الحفر بـ &mono=1.
+<!-- أداة داخلية للطباعة (GM-023 بند 3)، بلغة اللوحات الموحدة (GM-050). العميل من ?client=<اسم> (ملف clients/<اسم>.js)،
+     والغرض من الملف أو &purpose=review|menu (كل وجه برابطه: urls في ملف العميل). &mono=1 نسخة الحفر، &bleed=1 ملف المطبعة (106×156: نزف 3mm، ومعه &marks=1 علامات القص)،
+     &render=1 للتصدير بخلفية شفافة.
      المقاسات من print/dims.js. الطباعة: المقاس الفعلي 100%، بدون هوامش، بدون ترويسة ولا تذييل. الشرح: print/README.md -->
 <div class="p-screen"><div class="p-bar" id="p-bar"></div>
-<p class="p-note">المعاينة بالمقاس الحقيقي. اطبع بمقاس 100% بدون هوامش، وقِس بالمسطرة قبل الطباعة الكبيرة.</p></div>
+<p class="p-note">المعاينة بالمقاس الحقيقي. ملفات المطبعة تطلع بأداة التصدير (print/README.md، «الطباعة»). للتجربة: اطبع بمقاس 100% بدون هوامش، وقِس بالمسطرة.</p></div>
 <div class="p-sheets" id="p-sheets"></div>
 <script src="../../website/config.js"></script>
 <script src="../dims.js"></script>

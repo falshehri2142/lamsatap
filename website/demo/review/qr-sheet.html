@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-lt-scheme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="only light">
 <meta name="robots" content="noindex">
 <title>لمسة تاب — ورقة باركود العرض (تجريبية)</title>
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
@@ -13,30 +13,37 @@
 <link rel="stylesheet" href="../../assets/brand/components.css">
 <style>
 /* ورقة الباركود لصاحب المحل (الموجز §4.5، web-copy §4): A4 عمودي، هوامش 20mm، وكل الألوان من tokens.
+   كل العناصر على محور النص (التقييم 1 بند 4، ويصحح 4.5): الكلمة، والعنوان، والباركود، والأسطر، والرابط، والسطر التجريبي.
+   الرأس كلمة «لمسة تاب» نص Readex Pro 600 (الاتجاه 2 §3.7: الشعار موقوف، وصورة الشعار انشالت من هنا).
    ورقة مطبوعة، فألوانها ثابتة بالوضعين: الورق أبيض (--lt-inverse)، والنص حبر، والثانوي رمادي الهوية.
    الباركود أسود #000000 على أبيض (K100 أحد في الطباعة من الأسود المركّب). */
 @page { size: A4; margin: 20mm; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--lt-sand-50); color: var(--lt-ink); font-family: var(--lt-font-brand); font-size: 14pt; line-height: 1.5; }
-.q-page { width: 210mm; min-height: 297mm; max-width: 100%; margin: 12mm auto; padding: 20mm; background: var(--lt-inverse); }
-.q-logo { display: block; width: auto; height: 12mm; }
-.q-h { margin: 12mm 0 10mm; font-size: 28pt; line-height: 1.25; font-weight: 600; text-wrap: balance; }
+/* المجموعة كلها في نص الورقة طولياً (التقييم 2 بند 10): عمود مرن يتوسّط ارتفاع الورقة */
+.q-page { display: flex; flex-direction: column; justify-content: center; width: 210mm; min-height: 297mm; max-width: 100%; margin: 12mm auto; padding: 20mm; background: var(--lt-inverse); text-align: center; }
+.q-word { margin: 0; font-size: 20pt; line-height: 1.3; font-weight: 600; }
+/* خانة الشعار الأفقي (GM-036): ارتفاع 12mm على الورق الأبيض، ويطلع بدل الكلمة لما يوصل ملفه */
+.q-logo { display: block; width: auto; height: 12mm; margin: 0 auto; }
+.q-h { max-width: 15em; margin: 12mm auto 10mm; font-size: 28pt; line-height: 1.25; font-weight: 600; text-wrap: balance; }
 .q-code { width: 100mm; max-width: 100%; margin: 0 auto; }
 .q-code svg { display: block; width: 100%; height: auto; }
-.q-lines { margin-top: 10mm; text-align: center; }
+.q-lines { margin-top: 10mm; }
 .q-lines p { margin: 0 0 2mm; font-size: 14pt; }
-.q-url { margin: 6mm 0 0; direction: ltr; text-align: center; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10pt; color: var(--lt-slate); word-break: break-all; }
+/* الرابط بخط الشركة (التقييم 2 بند 10): المونو محصور في كلمة سر الواي فاي («الاتجاه 2» §3.3) */
+.q-url { margin: 6mm 0 0; direction: ltr; font-size: 10pt; color: var(--lt-slate); word-break: break-all; }
 .q-foot { margin: 12mm 0 0; padding-top: 4mm; border-top: var(--lt-hairline) solid var(--lt-sand-200); font-size: 9pt; color: var(--lt-slate); }
 .q-err { font-size: 12pt; }
 @media print {
   body { background: var(--lt-inverse); }
-  .q-page { width: auto; min-height: 0; margin: 0; padding: 0; }
+  /* المساحة المطبوعة 297 − 2×20 = 257mm. 255 عشان ما تطلع ورقة ثانية فاضية من تقريب البكسل */
+  .q-page { width: auto; min-height: 255mm; margin: 0; padding: 0; }
 }
 </style>
 </head>
 <body>
 <main class="q-page">
-<img class="q-logo" src="../../assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt>
+<!-- @@logo:sheet --><img class="q-logo" src="../../assets/brand/logo-horizontal.svg" width="240" height="45" alt="لمسة تاب — LamsaTap" data-company-alt><!-- /@@logo:sheet -->
 <h1 class="q-h">امسح واعرف كيف يشتغل ستاند التقييم</h1>
 <div class="q-code" id="qr" role="img" aria-label="باركود QR لرابط صفحة العرض"></div>
 <div class="q-lines">

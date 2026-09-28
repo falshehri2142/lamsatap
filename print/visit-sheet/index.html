@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ورقة الزيارة A5 (للطباعة)</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../brand/tokens.css">
+<link rel="stylesheet" href="../print.css">
+<link rel="stylesheet" href="visit.css">
+</head>
+<body>
+<!-- أداة داخلية للطباعة (GM-051): ورقة زيارة A5 تنترك عند صاحب المحل أو المضيف بعد الزيارة، بهويتنا (شعارنا الأسود للوثائق، GM-042).
+     ?sheet=restaurant (المطاعم والكافيهات) أو ?sheet=host (المضيفين)، وبدونها الثنتين. كل ورقة section.p-sheet عليها data-sign (visit-restaurant و visit-host).
+     &bleed=1 ملف المطبعة (154×216: القص 148×210 + نزف 3mm)، و&bleed=1&marks=1 مع علامات القص (164×226)، و&render=1 خلفية شفافة للتصدير.
+     المقاسات ومصادرها في visit-dims.js، والنصوص ومصادرها في content.js، والرسم والفحص في visit.js. الطباعة من أداة print/export.cjs (مو «اطبع» من المتصفح).
+     الشرح: README.md -->
+<!-- ملاحظة: الستاند المصغّر في المسرح يترسم وقت فتح الصفحة من print/print.js (signSheet) بنفس قالب print/stand، فأي تعديل على الستاند يطلع هنا لحاله -->
+
+<div class="p-screen"><div class="p-bar" id="p-bar"></div>
+<p class="p-note">المعاينة بالمقاس الحقيقي (A5). التواصل والباركود وهمية لين الإطلاق. اطبع بمقاس 100% بدون هوامش، وقِس بالمسطرة قبل الكمية.</p></div>
+<div class="p-sheets" id="p-sheets"></div>
+<script src="../../website/config.js"></script>
+<script src="../dims.js"></script>
+<script src="../../website/vendor/qrcode-generator.js"></script>
+<script src="../print.js"></script>
+<script src="visit-dims.js"></script>
+<script src="content.js"></script>
+<script src="visit.js"></script>
+</body>
+</html>

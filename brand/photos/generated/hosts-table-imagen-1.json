@@ -1,0 +1,16 @@
+{
+  "file": "hosts-table-imagen-1.webp",
+  "model": "google/imagen4-ultra",
+  "input": {
+    "prompt": "Inside a bright modern furnished apartment. A light oak console table against a plain warm-white wall. On the table stand THREE small EMPTY clear acrylic sign holders of the same size (A7 portrait, about 7x10 cm), evenly spaced, each holding a BLANK plain white card with nothing printed on it, all facing the camera straight-on. A small ceramic vase with a green sprig at one end. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+    "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+    "aspect_ratio": "16:9",
+    "seed": ""
+  },
+  "taskId": "e7ba869ce0fea21630e758d5bc299dbb",
+  "creditsConsumed": 12.0,
+  "createTime": 1790555389681,
+  "completeTime": 1790555398698,
+  "approved": "GM-058/GM-060; owner confirmed in chat 2026-09-28; reduced 6-image set within the 80-credit balance",
+  "source": "kie.ai generated (GM-058)"
+}

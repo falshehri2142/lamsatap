@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>لوحات الوحدة (للطباعة)</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../brand/tokens.css">
+<link rel="stylesheet" href="../print.css">
+</head>
+<body>
+<!-- أداة داخلية للطباعة (GM-023 بند 3، GM-050): لوحة تأكيد الخروج (أكريليك 100×150 جنب الباب) وثلاث ستاندات طاولة A6 داخل الوحدة.
+     الوحدة من ?client=<اسم> (ملف clients/<اسم>.js)، واللوحة من &sign=checkout|wifi|emergency|guide (بدونها: الأربع).
+     &bleed=1 ملف المطبعة (106×156: نزف 3mm، ومعه &marks=1 علامات القص، و&mirror=1 معكوس للطباعة من الخلف)، &mono=1 نسخة الحفر، &render=1 للتصدير بخلفية شفافة.
+     المقاسات من print/dims.js. الطباعة: المقاس الفعلي 100%، بدون هوامش، بدون ترويسة ولا تذييل. الشرح: print/README.md -->
+<div class="p-screen"><div class="p-bar" id="p-bar"></div>
+<p class="p-note">المعاينة بالمقاس الحقيقي. لكل لوحة شريحتها ورابطها. ملفات المطبعة تطلع بأداة التصدير (print/README.md، «الطباعة»). للتجربة: اطبع بمقاس 100% بدون هوامش، وقِس بالمسطرة.</p></div>
+<div class="p-sheets" id="p-sheets"></div>
+<script src="../../website/config.js"></script>
+<script src="../dims.js"></script>
+<script src="../../website/vendor/qrcode-generator.js"></script>
+<script src="../print.js"></script>
+<script src="signs.js"></script>
+</body>
+</html>

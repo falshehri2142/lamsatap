@@ -1,0 +1,185 @@
+[
+  {
+    "task": "c98e3b3aa6df1f43b416676540a13541",
+    "job": "restaurants-hero-imagen",
+    "idx": 1,
+    "body": {
+      "model": "google/imagen4-ultra",
+      "input": {
+        "prompt": "A contemporary Saudi cafe interior in Jeddah during the day. In the foreground, a light oak wooden table surface runs across the frame. On the table stands ONE small EMPTY clear acrylic tabletop sign holder (A6 portrait size, about 10x15 cm, upright L-shaped stand) holding a BLANK plain white card with nothing printed on it, placed slightly right of center and facing the camera straight-on. Beside it a white ceramic cup of cappuccino on a saucer. Softly blurred background of the cafe with plants and light walls. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+        "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+        "aspect_ratio": "16:9",
+        "seed": ""
+      }
+    },
+    "approved": "GM-058; owner confirmed in chat 2026-09-28",
+    "done": true
+  },
+  {
+    "task": "b8470b5905254b3be2fd52235ed3b232",
+    "job": "restaurants-hero-flux",
+    "idx": 1,
+    "body": {
+      "model": "flux-2/pro-text-to-image",
+      "input": {
+        "prompt": "A contemporary Saudi cafe interior in Jeddah during the day. In the foreground, a light oak wooden table surface runs across the frame. On the table stands ONE small EMPTY clear acrylic tabletop sign holder (A6 portrait size, about 10x15 cm, upright L-shaped stand) holding a BLANK plain white card with nothing printed on it, placed slightly right of center and facing the camera straight-on. Beside it a white ceramic cup of cappuccino on a saucer. Softly blurred background of the cafe with plants and light walls. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    "approved": "GM-058; owner confirmed in chat 2026-09-28",
+    "done": "fail"
+  },
+  {
+    "task": "1136f236b4b85956e69716fd12a3f37d",
+    "job": "hosts-hero-imagen",
+    "idx": 1,
+    "body": {
+      "model": "google/imagen4-ultra",
+      "input": {
+        "prompt": "The entrance area inside a modern furnished apartment. A flat light warm-white wall beside a light wooden apartment front door with a simple metal handle. On the wall next to the door, at chest height, hangs ONE EMPTY thin light-oak picture frame (A4 landscape) holding a BLANK plain white insert with nothing printed on it, facing the camera straight-on. Clean floor, one small green plant. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+        "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+        "aspect_ratio": "16:9",
+        "seed": ""
+      }
+    },
+    "approved": "GM-058/GM-060; owner confirmed in chat 2026-09-28; reduced 6-image set within the 80-credit balance",
+    "done": true
+  },
+  {
+    "task": "fb67f2bdd1bb74f4de3e58bd28c3043a",
+    "job": "hosts-hero-flux",
+    "idx": 1,
+    "body": {
+      "model": "flux-2/pro-text-to-image",
+      "input": {
+        "prompt": "The entrance area inside a modern furnished apartment. A flat light warm-white wall beside a light wooden apartment front door with a simple metal handle. On the wall next to the door, at chest height, hangs ONE EMPTY thin light-oak picture frame (A4 landscape) holding a BLANK plain white insert with nothing printed on it, facing the camera straight-on. Clean floor, one small green plant. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    "approved": "GM-058/GM-060; owner confirmed in chat 2026-09-28; reduced 6-image set within the 80-credit balance",
+    "done": "fail"
+  },
+  {
+    "task": "e7ba869ce0fea21630e758d5bc299dbb",
+    "job": "hosts-table-imagen",
+    "idx": 1,
+    "body": {
+      "model": "google/imagen4-ultra",
+      "input": {
+        "prompt": "Inside a bright modern furnished apartment. A light oak console table against a plain warm-white wall. On the table stand THREE small EMPTY clear acrylic sign holders of the same size (A7 portrait, about 7x10 cm), evenly spaced, each holding a BLANK plain white card with nothing printed on it, all facing the camera straight-on. A small ceramic vase with a green sprig at one end. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials.",
+        "negative_prompt": "people, person, face, hands, fingers, text, letters, numbers, writing, logo, brand name, watermark, signage, QR code, barcode, clutter, dark, night, neon, cartoon, illustration, 3D render, CGI, plastic look, oversaturated",
+        "aspect_ratio": "16:9",
+        "seed": ""
+      }
+    },
+    "approved": "GM-058/GM-060; owner confirmed in chat 2026-09-28; reduced 6-image set within the 80-credit balance",
+    "done": true
+  },
+  {
+    "task": "8d5412a35c938b00f5d438a0873dfe2c",
+    "job": "hosts-table-flux",
+    "idx": 1,
+    "body": {
+      "model": "flux-2/pro-text-to-image",
+      "input": {
+        "prompt": "Inside a bright modern furnished apartment. A light oak console table against a plain warm-white wall. On the table stand THREE small EMPTY clear acrylic sign holders of the same size (A7 portrait, about 7x10 cm), evenly spaced, each holding a BLANK plain white card with nothing printed on it, all facing the camera straight-on. A small ceramic vase with a green sprig at one end. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    "approved": "GM-058/GM-060; owner confirmed in chat 2026-09-28; reduced 6-image set within the 80-credit balance",
+    "done": "fail"
+  },
+  {
+    "task": "cd123d5f053796126cd85a23c7b19bf1",
+    "job": "restaurants-hero-flux-retry",
+    "idx": 1,
+    "body": {
+      "model": "flux-2/pro-text-to-image",
+      "input": {
+        "prompt": "A contemporary Saudi cafe interior in Jeddah during the day. In the foreground, a light oak wooden table surface runs across the frame. On the table stands ONE small EMPTY clear acrylic tabletop sign holder (A6 portrait size, about 10x15 cm, upright L-shaped stand) holding a BLANK plain white card with nothing printed on it, placed slightly right of center and facing the camera straight-on. Beside it a white ceramic cup of cappuccino on a saucer. Softly blurred background of the cafe with plants and light walls. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    "approved": "GM-058/GM-060 retry round (owner: remaining balance for retries)",
+    "done": "fail"
+  },
+  {
+    "task": "db56d1587a1568293db40a61c4880a6e",
+    "job": "hosts-hero-flux-retry",
+    "idx": 1,
+    "body": {
+      "model": "flux-2/pro-text-to-image",
+      "input": {
+        "prompt": "The entrance area inside a modern furnished apartment. A flat light warm-white wall beside a light wooden apartment front door with a simple metal handle. On the wall next to the door, at chest height, hangs ONE EMPTY thin light-oak picture frame (A4 landscape) holding a BLANK plain white insert with nothing printed on it, facing the camera straight-on. Clean floor, one small green plant. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    "approved": "GM-058/GM-060 retry round (owner: remaining balance for retries)",
+    "done": "fail"
+  },
+  {
+    "task": "3e13cac429a8259d06af061462da57d0",
+    "job": "hosts-table-flux-retry",
+    "idx": 1,
+    "body": {
+      "model": "flux-2/pro-text-to-image",
+      "input": {
+        "prompt": "Inside a bright modern furnished apartment. A light oak console table against a plain warm-white wall. On the table stand THREE small EMPTY clear acrylic sign holders of the same size (A7 portrait, about 7x10 cm), evenly spaced, each holding a BLANK plain white card with nothing printed on it, all facing the camera straight-on. A small ceramic vase with a green sprig at one end. No people. Photorealistic editorial interior photograph, natural daylight, soft even light, light and airy palette (warm white, sand, light oak), clean minimal premium look, eye-level straight-on camera, 35mm lens, shallow depth of field, high detail, true-to-life materials. Absolutely no people, no text, no logos, no QR codes.",
+        "aspect_ratio": "16:9",
+        "resolution": "2K",
+        "nsfw_checker": true
+      }
+    },
+    "approved": "GM-058/GM-060 retry round (owner: remaining balance for retries)",
+    "done": "fail"
+  },
+  {
+    "task": "b537a83f84fa3a00f271e51c011b0b86",
+    "job": "restaurants-hero-imagen-1-upscaled",
+    "idx": 1,
+    "body": {
+      "model": "recraft/crisp-upscale",
+      "input": {
+        "image": "https://tempfile.aiquickdraw.com/js/g4/361eb71a1d81.webp"
+      }
+    },
+    "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+    "done": true
+  },
+  {
+    "task": "16deb038df0bf18601fccbe1b5ce02c1",
+    "job": "hosts-hero-imagen-1-upscaled",
+    "idx": 1,
+    "body": {
+      "model": "recraft/crisp-upscale",
+      "input": {
+        "image": "https://tempfile.aiquickdraw.com/js/g4/5201dbc43725.webp"
+      }
+    },
+    "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+    "done": true
+  },
+  {
+    "task": "55b6f179471e0cc4e607d8eea3224ef8",
+    "job": "hosts-table-imagen-1-upscaled",
+    "idx": 1,
+    "body": {
+      "model": "recraft/crisp-upscale",
+      "input": {
+        "image": "https://tempfile.aiquickdraw.com/js/g4/71f82581f494.webp"
+      }
+    },
+    "approved": "owner approved upscale in chat 2026-09-28 (1.5 credits)",
+    "done": true
+  }
+]

@@ -1,12 +1,53 @@
 /* مكوّنات هوية «لمسة تاب» الجاهزة (web-brand). تنربط بعد tokens.css في كل صفحة.
-   web-builder ينسخ الملف كما هو إلى website/assets/brand/components.css.
+   web-brand ينسخه كما هو إلى website/assets/brand/components.css بعد كل تعديل (الاتجاه 2 §7).
    المرجع: الموجز الفني (web-art-director.md، الأقسام 3.2 و3.4 و4.3 و5.6)، و GM-011 و GM-020 و GM-022 و GM-023.
    القواعد: ولا ظل، ولا حد 2px (الحدود 1px، وحلقة التركيز 3px بس)، ولا حركة: الضغط والـ hover والتركيز تغيير فوري.
-   الأوزان: 600 للأزرار والصفوف، 400 للثانوي. letter-spacing صفر (العربي). */
+   الأوزان: 600 للأزرار والصفوف، 400 للثانوي. letter-spacing صفر (العربي).
+   هذا الأساس، وهو سلّم صفحات الزبون (GM-023). صفحات الشركة (الاتجاه 2) تغيّر الشكل بس في website/assets/site.css:
+   أزرار كبسولة 52 ونص 16/500، والثانوي شفاف بحد 1px بلون النص، والرابط 16/500، وانتقال 150ms على اللون والحد.
+   الألوان تبقى من هنا ومن tokens.css (ومنها .lt-ink).
+   صفحات الشركة (<html data-lt-scheme="light">): ولا كبسولة (--lt-radius-pill يصير 14 في tokens.css)، والأيقونات 1.75 (§11).
+   الوضع الداكن كله تحت :where(:root:not([data-lt-scheme="light"])): صفحات الشركة فاتحة دايماً بـ <html data-lt-scheme="light">
+   (GM-038)، وصفحات الزبون تتبع الجهاز. :where ما يغيّر أولوية المحدد، فالنتيجة في صفحات الزبون نفس قبل. */
 
 /* ===== 0) أسطح المتصفح (3.4): التحديد تيل خفيف، مو زعفران ===== */
 ::selection { background: var(--lt-selection); color: var(--lt-on-selection); }
 html { caret-color: var(--lt-text); scrollbar-color: var(--lt-muted) transparent; }
+
+/* ===== 0-ب) لوحة الحبر (الاتجاه 2 §3.1): <section class="lt-ink"> =====
+   **متروكة في صفحات الشركة (GM-038)**: المطوّر يشيلها بعد web-motion، والبديل .lt-lift تحت. باقية لشريط «عرض تجريبي» (client.js).
+   الأدوار على الحبر في tokens.css (.lt-ink)، فكل مكوّن داخلها (الأزرار، والروابط، والتركيز، والتحديد) ياخذ ألوان الحبر.
+   في الداكن الصفحة #0E1615 واللوحة أفتح بفرق 1.10 بس، فتاخذ خط 1px فوق وتحت. */
+.lt-ink,
+.lt-page {                                  /* .lt-page: جزء داخل الحبر يرجع لألوان الصفحة (الشاشة المصغرة في الجوال) */
+  background: var(--lt-bg);
+  color: var(--lt-text);
+}
+@media (prefers-color-scheme: dark) {
+  :where(:root:not([data-lt-scheme="light"])) .lt-ink { border-block: 1px solid var(--lt-border); }
+}
+
+/* ===== 0-ج) القسم المرفوع الفاتح (GM-038): <section class="lt-lift"> في صفحات الشركة =====
+   بديل لوحة الحبر: رملي ثاني #F3EEE6 على الصفحة #FAF7F2، وحد 1px #E4DCD0، وزاوية 8 (§11.1: 22 لصفحات الزبون بس)، ولا ظل.
+   الأدوار في tokens.css.
+   المدير الفني يحدد وين. داخل الحاوية (مو من حافة لحافة)، عشان الزاوية والحد يبانون. */
+.lt-lift {
+  background: var(--lt-bg);
+  color: var(--lt-text);
+  border: var(--lt-hairline) solid var(--lt-border);
+  border-radius: var(--lt-radius-s);
+}
+
+/* ===== 0-د) الأيقونات في صفحات الشركة (§11.3): خط 1.75، وأطراف ووصلات مدورة، وبدون تعبئة. الشعار بس هو المعبّى =====
+   قيم افتراضية على الـ svg نفسه، فأي جزء داخله له attribute خاص (مثل نقاط أيقونة المحادثة 2.3) يبقى على حاله.
+   .lt-icon لأي أيقونة جديدة. صفحات الزبون ما تتأثر. */
+[data-lt-scheme="light"] :is(.lt-icon, .lt-btn-icon, .lt-wa-icon, .lt-row-icon, .lt-row-chevron) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 /* ===== 1) الأزرار =====
    ارتفاع 56، وحشوة جانبية 24، وزاوية 14، ونص 17/600، وعرض كامل.
@@ -131,43 +172,42 @@ html { caret-color: var(--lt-text); scrollbar-color: var(--lt-muted) transparent
   }
 }
 
-/* ===== 2) الرابط المستقل (4.3): 17/600 بلون --lt-link، بدون خط تحت، وبعده سهم التقدّم 16px، ولمسه 48 ===== */
+/* ===== 2) الرابط المستقل (الاتجاه 2 §3.3): نص فيه فعل واضح («افتح منيو تجريبي») بلون --lt-link، وخط تحت 1px
+   بمسافة 0.3em، و**بدون سهم** (ينطبق على الصفحتين، الشركة والزبون)، ولمسه 48.
+   على الرملي #075E5A (7.13)، وداخل .lt-ink #3FC1B6 (7.57)، وفي الداكن #3FC1B6 (8.32).
+   المقاس هنا 17/600 (سلّم صفحات الزبون، §5.5: الأوزان 400 و600 و700 بس). صفحات الشركة 16/500 من site.css (§3.5).
+   السهم (chevron) يبقى في صفوف صفحات الزبون بس (.lt-row-chevron): يعلّم إن الصف يودّي لصفحة ثانية. ===== */
 .lt-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   min-block-size: 48px;
   color: var(--lt-link);
   font-size: 17px;
   font-weight: 600;
   line-height: 1.3;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .3em;
+  text-decoration-skip-ink: auto;
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(0, 0, 0, .06);
 }
 @media (hover: hover) {
-  .lt-link:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: .22em;
-  }
+  .lt-link:hover { color: var(--lt-text); }
 }
+.lt-link:active { color: var(--lt-text); }
 .lt-link:focus-visible {
   outline: 3px solid var(--lt-focus);
   outline-offset: 3px;
   border-radius: var(--lt-radius-s);
 }
-.lt-link-icon {
-  inline-size: 16px;
-  block-size: 16px;
-  flex: none;
-}
+.lt-link-icon { display: none; }            /* السهم الملزوق بالرابط انشال (§3.3)، حتى لو الكود القديم حطه */
 
 /* ===== 3) اللوحة المجمّعة والصف (5.6)، مثل إعدادات آيفون =====
    <div class="lt-panel">
      <a class="lt-row" href="...">
        <svg class="lt-row-icon">…</svg>                      (اختياري: يا كل صفوف اللوحة فيها أيقونة، يا ولا واحد)
-       <span class="lt-row-body"><span class="lt-row-title">اسم الصنف</span><span class="lt-row-sub">وصف · السعرات: 120</span></span>
+       <span class="lt-row-body"><span class="lt-row-title">اسم الصنف</span><span class="lt-row-sub">السعرات: 120</span></span>
        <span class="lt-row-end lt-row-end--value">18</span>   (القيمة، أو سهم .lt-row-chevron يأشر لاتجاه القراءة)
      </a>
    </div>
@@ -294,16 +334,23 @@ button.lt-row:active { background: var(--lt-surface-2); }
 .lt-by img,
 .lt-by svg { display: none; }              /* GM-022: الرمز الحالي ما يطلع هنا لين يجي الرمز الجديد */
 
-/* ===== الوضع الداكن: لون اللمس بس (الألوان نفسها من tokens.css) ===== */
+/* ===== لون اللمس داخل لوحة الحبر: الزر الأساسي فاتح هناك، فاللمس يغمّقه (نفس الشي في الوضعين) ===== */
+.lt-ink .lt-btn,
+.lt-ink .lt-wa { --btn-hl: rgba(0, 0, 0, .14); }
+.lt-ink .lt-btn--secondary,
+.lt-ink .lt-wa--quiet { --btn-hl: rgba(255, 255, 255, .08); }
+.lt-ink .lt-link { -webkit-tap-highlight-color: rgba(255, 255, 255, .08); }
+
+/* ===== الوضع الداكن: لون اللمس بس (الألوان نفسها من tokens.css). صفحات الزبون بس (GM-038) ===== */
 @media (prefers-color-scheme: dark) {
-  .lt-btn,
-  .lt-wa { --btn-hl: rgba(0, 0, 0, .14); }
-  .lt-btn--shop { --btn-hl: var(--shop-hl, rgba(0, 0, 0, .14)); }
-  .lt-btn--secondary,
-  .lt-wa--quiet { --btn-hl: rgba(255, 255, 255, .08); }
-  .lt-btn--on-band { --btn-hl: rgba(0, 0, 0, .08); }
-  .lt-btn--on-bar { --btn-hl: rgba(255, 255, 255, .10); }
-  .lt-link,
-  a.lt-row,
-  button.lt-row { -webkit-tap-highlight-color: rgba(255, 255, 255, .08); }
+  :where(:root:not([data-lt-scheme="light"])) .lt-btn,
+  :where(:root:not([data-lt-scheme="light"])) .lt-wa { --btn-hl: rgba(0, 0, 0, .14); }
+  :where(:root:not([data-lt-scheme="light"])) .lt-btn--shop { --btn-hl: var(--shop-hl, rgba(0, 0, 0, .14)); }
+  :where(:root:not([data-lt-scheme="light"])) .lt-btn--secondary,
+  :where(:root:not([data-lt-scheme="light"])) .lt-wa--quiet { --btn-hl: rgba(255, 255, 255, .08); }
+  :where(:root:not([data-lt-scheme="light"])) .lt-btn--on-band { --btn-hl: rgba(0, 0, 0, .08); }
+  :where(:root:not([data-lt-scheme="light"])) .lt-btn--on-bar { --btn-hl: rgba(255, 255, 255, .10); }
+  :where(:root:not([data-lt-scheme="light"])) .lt-link,
+  :where(:root:not([data-lt-scheme="light"])) a.lt-row,
+  :where(:root:not([data-lt-scheme="light"])) button.lt-row { -webkit-tap-highlight-color: rgba(255, 255, 255, .08); }
 }

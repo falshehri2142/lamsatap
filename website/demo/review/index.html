@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-lt-scheme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="only light">
 <meta name="robots" content="noindex">
 <title>ستاند تقييم قوقل — لمسة تاب</title>
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
@@ -12,33 +12,62 @@
 <link rel="stylesheet" href="../../assets/brand/tokens.css">
 <link rel="stylesheet" href="../../assets/brand/components.css">
 <link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/stand.css">
 <style>
-/* صفحة شرح ستاند التقييم لصاحب المحل (web-copy §2.5)، بطبقتنا. الستاند الحقيقي يفتح صفحة التقييم في قوقل مباشرة،
-   فما فيه صفحة تقييم للزبون ولا نحاكي واجهة قوقل. وهذي الصفحة اللي يفتحها باركود ورقة QR. */
-.r-page { max-width: 640px; padding-block: var(--lt-space-48) var(--lt-space-64); }
-.r-page .s-lead { margin-top: var(--lt-space-16); }
-.r-fig { margin: var(--lt-space-40) 0; }
-.r-page .s-small { margin-top: var(--lt-space-24); }
-.r-page .s-body { margin-top: var(--lt-space-8); }
-.r-page .s-acts { margin-top: var(--lt-space-32); }
+/* صفحة شرح ستاند التقييم لصاحب المحل (web-copy §2.5)، صفحة شركة على «الاتجاه 2»: الرأس كلمة على الرملي، وعرضها 720 بحد أقصى،
+   وتحت h1 الستاند نفسه، ثم «كيف يشتغل» بنفس خطوات الرئيسية، وسطر السياسة، وسطر البيع، والزر، والذيل نفسه حق الرئيسية.
+   الستاند يفتح صفحة التقييم في قوقل مباشرة، فما فيه صفحة تقييم للزبون ولا نحاكي واجهة قوقل. وهذي الصفحة اللي يفتحها باركود ورقة QR. */
+/* الرأس والمحتوى نفس العمود 720 (التقييم 2 بند 9): الكلمة فوق بداية العنوان بالضبط */
+.r-head, .r-page { max-width: calc(720px + 2 * var(--lt-gutter)); }
+.r-page { padding-block: var(--lt-space-24) var(--lt-section); }
+.r-steps-h { margin-top: var(--lt-space-48); }
+.r-steps { margin-top: var(--lt-space-24); }
+.r-policy { margin-top: var(--lt-space-40); }
+.r-sales { max-width: 36em; margin-top: var(--lt-space-8); }
+.r-acts { margin-top: var(--lt-space-32); }
+
+/* الستاند مكوّن (التقييم 2، القرار 2): ../../assets/stand.css، والـ HTML من tools/stand.cjs بعلامة @@stand:review.
+   هنا المسافة حوله بس. على الجوال المسرح من حافة لحافة */
+.r-fig { margin: var(--lt-space-32) calc(-1 * var(--lt-gutter)) 0; }
+@media (min-width: 768px) { .r-fig { margin-inline: 0; } }
 </style>
 </head>
 <body>
-<div class="s-wrap">
-<header class="s-head"><a href="../../index.html"><picture><source srcset="../../assets/brand/lamsatap-horizontal-dark.svg" media="(prefers-color-scheme: dark)"><img class="s-logo" src="../../assets/brand/lamsatap-horizontal.svg" width="174" height="48" alt="لمسة تاب — LamsaTap" data-company-alt></picture></a></header>
-<main class="r-page">
+<a class="s-skip" href="#main">انتقل للمحتوى</a>
+<!-- الرأس: خانة الشعار الأفقي (GM-036). لين يوصل ملفه: كلمة «لمسة تاب» نص على الرملي (tools/build-home-minis.cjs) -->
+<header class="s-wrap s-head r-head"><!-- @@logo:head --><a class="s-logo-link" href="../../index.html"><img class="s-logo-h" src="../../assets/brand/logo-horizontal.svg" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt></a><!-- /@@logo:head --></header>
+<main class="s-wrap r-page" id="main">
+<!-- GM-061: باركود ستاندنا حقيقي ويودّي هنا، فالصفحة لازم تقول إنها عرض تجريبي بمحل وهمي، وزرها ما يفتح محل حقيقي -->
+<p class="s-badge">عرض تجريبي</p>
 <h1 class="s-h2">ستاند يفتح صفحة تقييمك في قوقل</h1>
-<p class="s-lead">زبونك يقرّب جواله أو يمسح الباركود، وتنفتح له صفحة تقييم محلك في قوقل مباشرة.</p>
-<!-- مكان رسمة الستاند بهوية المحل (web-illustrator، website/assets/illustrations/). تنحط هنا داخل:
-     <figure class="r-fig">...</figure> ، والباركود في الرسمة ما ينقرى (الموجز §7). -->
-<p class="s-small">يطلب التقييم من كل زبائنك، بدون أي مقابل.</p>
-<p class="s-body">يجي داخل حزمة المحل الكامل، مع المنيو والواي فاي والروابط.</p>
-<div class="s-acts">
-<a class="lt-btn lt-btn--fit" data-wa="demoReview" hidden><span>أبغى ستاند تقييم لمحلي</span></a>
-<a class="lt-link" href="../../index.html">رجوع لموقع <span data-company>لمسة تاب</span></a>
+<!-- ستاند «مقهى المثال» (محل وهمي): المكوّن tools/stand.cjs بمقاسات print/dims.js، وباركود حقيقي يفتح هالصفحة
+     (SITE.domain + /demo/review/). زخرفي (aria-hidden و inert): الخطوات تحت تشرحه. يتولد بـ node tools/build-home-minis.cjs -->
+<div class="r-fig"><!-- @@stand:review --><figure class="lt-stand-stage" aria-hidden="true" inert><div class="lt-stand" data-qr-url="https://example.com/demo/review/"><img class="lt-stand-logo" src="../../demo/_brands/cafe.svg" alt="" style="top:calc(12 * var(--mm));left:calc(20 * var(--mm));width:calc(60 * var(--mm));height:calc(16 * var(--mm))"><p class="lt-stand-line" style="top:calc(34 * var(--mm));font-size:calc(6.35 * var(--mm));font-weight:600">قيّمنا في قوقل</p><span class="lt-stand-dot" style="top:calc(55 * var(--mm));left:calc(43 * var(--mm));width:calc(14 * var(--mm));height:calc(14 * var(--mm));background:#7A3E2B"></span><p class="lt-stand-line" style="top:calc(80 * var(--mm));font-size:calc(3.881 * var(--mm));font-weight:600">قرّب جوالك هنا</p><p class="lt-stand-line" style="top:calc(97 * var(--mm));font-size:calc(3.528 * var(--mm));font-weight:500">أو امسح الباركود</p><svg class="lt-stand-qr" viewBox="0 0 29 29" shape-rendering="crispEdges" focusable="false" style="top:calc(110 * var(--mm));left:calc(35 * var(--mm));width:calc(30 * var(--mm));height:calc(30 * var(--mm))"><path fill="currentColor" d="M0 0h7v1h-7zM8 0h1v1h-1zM10 0h2v1h-2zM15 0h2v1h-2zM18 0h1v1h-1zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h2v1h-2zM16 1h1v1h-1zM19 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h2v1h-2zM11 2h2v1h-2zM15 2h2v1h-2zM19 2h2v1h-2zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h2v1h-2zM12 3h1v1h-1zM16 3h2v1h-2zM20 3h1v1h-1zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h5v1h-5zM14 4h3v1h-3zM18 4h2v1h-2zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM15 5h2v1h-2zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM9 7h1v1h-1zM12 7h2v1h-2zM15 7h2v1h-2zM19 7h1v1h-1zM0 8h1v1h-1zM3 8h7v1h-7zM11 8h3v1h-3zM17 8h3v1h-3zM21 8h1v1h-1zM24 8h1v1h-1zM26 8h3v1h-3zM0 9h4v1h-4zM5 9h1v1h-1zM7 9h2v1h-2zM10 9h2v1h-2zM13 9h1v1h-1zM16 9h4v1h-4zM21 9h1v1h-1zM23 9h2v1h-2zM26 9h2v1h-2zM0 10h1v1h-1zM2 10h1v1h-1zM6 10h1v1h-1zM8 10h2v1h-2zM12 10h2v1h-2zM15 10h2v1h-2zM21 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM0 11h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM7 11h3v1h-3zM11 11h1v1h-1zM13 11h1v1h-1zM16 11h2v1h-2zM19 11h2v1h-2zM22 11h1v1h-1zM25 11h1v1h-1zM28 11h1v1h-1zM0 12h8v1h-8zM10 12h2v1h-2zM13 12h1v1h-1zM15 12h2v1h-2zM20 12h1v1h-1zM22 12h2v1h-2zM28 12h1v1h-1zM0 13h2v1h-2zM4 13h1v1h-1zM7 13h2v1h-2zM11 13h4v1h-4zM16 13h1v1h-1zM20 13h1v1h-1zM22 13h7v1h-7zM0 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM13 14h1v1h-1zM16 14h5v1h-5zM23 14h2v1h-2zM26 14h1v1h-1zM28 14h1v1h-1zM1 15h5v1h-5zM7 15h4v1h-4zM12 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM0 16h2v1h-2zM3 16h1v1h-1zM5 16h3v1h-3zM9 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h2v1h-2zM23 16h1v1h-1zM25 16h1v1h-1zM0 17h1v1h-1zM2 17h2v1h-2zM8 17h4v1h-4zM13 17h2v1h-2zM16 17h5v1h-5zM24 17h1v1h-1zM26 17h2v1h-2zM0 18h4v1h-4zM6 18h3v1h-3zM15 18h1v1h-1zM17 18h1v1h-1zM19 18h1v1h-1zM22 18h4v1h-4zM28 18h1v1h-1zM0 19h6v1h-6zM8 19h1v1h-1zM12 19h1v1h-1zM14 19h3v1h-3zM21 19h1v1h-1zM25 19h2v1h-2zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM10 20h2v1h-2zM13 20h2v1h-2zM16 20h2v1h-2zM20 20h8v1h-8zM8 21h1v1h-1zM14 21h3v1h-3zM20 21h1v1h-1zM24 21h2v1h-2zM0 22h7v1h-7zM8 22h2v1h-2zM11 22h2v1h-2zM14 22h3v1h-3zM19 22h2v1h-2zM22 22h1v1h-1zM24 22h2v1h-2zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h2v1h-2zM12 23h1v1h-1zM14 23h2v1h-2zM17 23h4v1h-4zM24 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h2v1h-2zM13 24h3v1h-3zM19 24h7v1h-7zM27 24h2v1h-2zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM8 25h1v1h-1zM10 25h2v1h-2zM13 25h1v1h-1zM15 25h4v1h-4zM23 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM15 26h1v1h-1zM18 26h2v1h-2zM21 26h1v1h-1zM23 26h2v1h-2zM26 26h3v1h-3zM0 27h1v1h-1zM6 27h1v1h-1zM11 27h2v1h-2zM21 27h1v1h-1zM23 27h4v1h-4zM28 27h1v1h-1zM0 28h7v1h-7zM8 28h2v1h-2zM12 28h4v1h-4zM19 28h4v1h-4zM24 28h1v1h-1z"/></svg></div></figure><!-- /@@stand:review --></div>
+<h2 class="s-h3 r-steps-h">كيف يشتغل</h2>
+<ol class="s-steps r-steps">
+<li><span class="s-step-n" aria-hidden="true">1</span><h3 class="s-h3">زبونك يقرّب جواله</h3><p class="s-step-t">من الستاند على الطاولة أو الكاشير، أو يمسح الباركود.</p></li>
+<li><span class="s-step-n" aria-hidden="true">2</span><h3 class="s-h3">تنفتح صفحة تقييمك</h3><p class="s-step-t">في قوقل مباشرة، بدون أي صفحة قبلها.</p></li>
+<li><span class="s-step-n" aria-hidden="true">3</span><h3 class="s-h3">يكتب رأيه</h3><p class="s-step-t">وينشره بنفسه من حسابه في قوقل.</p></li>
+</ol>
+<p class="s-small r-policy">الستاند يطلب التقييم من كل زبائنك، بدون أي مقابل.</p>
+<p class="r-sales">يجي داخل حزمة المحل الكامل، مع المنيو والواي فاي والروابط.</p>
+<div class="s-acts r-acts">
+<a class="lt-btn" data-wa="demoReview" hidden><span>أبغى ستاند تقييم لمحلي</span></a>
+<a class="lt-link" href="../../index.html"><span>رجوع لموقع <span data-company>لمسة تاب</span></span></a>
 </div>
 </main>
+<!-- التذييل الفاتح المشترك (site.css .s-foot-wrap، نفس البوابة، web-copy ج10) -->
+<footer class="s-foot-wrap">
+<div class="s-wrap s-foot">
+<div class="s-foot-id">
+<!-- @@logo:foot --><picture class="s-foot-logo"><source srcset="../../assets/brand/logo-stack-since.svg" media="(min-width: 1024px)" width="160" height="145"><img class="s-logo-stack" src="../../assets/brand/logo-stack.svg" width="120" height="95" alt="لمسة تاب — LamsaTap" data-company-alt></picture><!-- /@@logo:foot -->
+<p>نركّب حالياً في جدة</p>
+<p>السجل التجاري: [رقم السجل التجاري]</p>
 </div>
+<p class="s-foot-links"><a href="../../restaurants/index.html">للمطاعم والكافيهات</a><a href="../../hosts/index.html">للمضيفين</a><a href="../../index.html#how">كيف نشتغل</a><a data-link="privacy" hidden>سياسة الخصوصية</a><a data-link="terms" hidden>الشروط والأحكام</a><a data-wa="home" hidden>واتساب</a><a data-tg-channel hidden>قناتنا على تليجرام</a></p>
+<p class="s-foot-c">© 2026 <span data-company>لمسة تاب</span></p>
+</div>
+</footer>
 <script src="../../config.js"></script>
 <script src="../../assets/app.js"></script>
 </body>

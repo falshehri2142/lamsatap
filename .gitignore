@@ -2,3 +2,10 @@ publish/
 
 systems/n8n/seed/out/
 __pycache__/
+# نسخة إطلاق الموقع: يطلّعها tools/build-dist.cjs من website/، ما تنحفظ في المستودع
+dist/
+
+# Secrets (GM-057/GM-058): local only, never committed
+.env
+.env.*
+!.env.example

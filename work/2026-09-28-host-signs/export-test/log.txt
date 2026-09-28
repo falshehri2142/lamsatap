@@ -1,0 +1,47 @@
+export-test log: print/export.cjs (ad-creative, GM-050 / GM-051), 2026-09-28
+Machine: Windows 11, Node v24.18.0, Chrome 153.0.8010.53, Edge 154.0.4258.37. Outputs deleted after checking (list at the end).
+
+1. host-stickers (Chrome)  --url "print/host-stickers/index.html?client=example-flats" --pdf --png 2x,300dpi --transparent
+   PDF 1 page: browser made 99.82 x 69.85 mm -> corrected 100.000 x 70.000 mm (MediaBox 283.4646 x 198.4252 pt). Fonts Type3 x6, raster images 0.
+   PNG sheet-1 45x45mm: @2x 340x340, @300dpi 531x531. sheet-2 45x70mm: @2x 340x529, @300dpi 531x827. All RGBA, pHYs 192 / 300 dpi.
+   Corners alpha 255 on all four: these stickers are square white rectangles (the transparent area is outside the sheet).
+   Exit 0 (5/5 files passed).
+2. host-stickers mono (Edge)  --param mono=1 --pdf --png 300dpi
+   PDF 100.000 x 70.000 mm. Raster images 2 = the logo as a 441x90 RGB bitmap + its 441x90 alpha mask (filter: brightness(0)).
+   The colour PDF above has 0 raster images. PNG 531x531 and 531x827 RGB, 300 dpi. Exit 0.
+3. host-signs (print-designer's work in progress, read only)  --pdf --png 2x --transparent --sign-names
+   4 sheets from data-sign: checkout, wifi-stand, emergency-stand, guest-guide-stand. data-ready=1 seen.
+   PDF 4 pages: browser made 99.82 x 149.94 mm -> corrected 100.000 x 150.000 mm each. Fonts Type3, raster images 0.
+   PNG checkout@2x 756x1134 RGBA, corners alpha 0,0,0,0 (plate radius 4mm in screen media; first opaque pixel 29 px in, about 3.84 mm).
+   wifi-stand / emergency-stand / guest-guide-stand @2x 756x1134, corners 255. Exit 0.
+4. host-signs --bleed --pdf --png 300dpi  -> FAILED on purpose (nothing exported):
+   page 116 x 166 mm, trim box 100 x 150 mm but at 11/11/5/5 mm from the edges (left/top/right/bottom), crop marks drawn at 8 mm.
+   Cause in print/print.js signSheet and signBack: .s-art is placed at left/top = slug (8 mm); it should be slug - bleed (5 mm).
+4b. Re-run after the print-designer changed .s-art to slug - b (output to the scratchpad, outside the project):
+   trim at 8/8/8/8 mm, bleed 3 mm each side. PDF 4 pages: browser made 116.08 x 166.12 mm -> 116.000 x 166.000 mm,
+   TrimBox 100.000 x 150.000 at 8 mm, BleedBox 106.000 x 156.000 at 5 mm on every page (pypdf strict, same numbers).
+   checkout-bleed@300dpi 1370x1961 RGB, 300 dpi; crop marks sit on the trim lines (looked at the corner). Exit 0.
+5. test page with correct bleed geometry (fx-bleed.html, deleted)  --bleed --pdf --png 300dpi
+   Waited for data-ready "0" -> "1" (1025 ms). PDF 2 pages: browser made 116.08 x 166.12 mm -> 116.000 x 166.000 mm.
+   TrimBox 100.000 x 150.000 mm at 8 mm, BleedBox 106.000 x 156.000 mm at 5 mm. PNG 1370x1961 RGB, 300 dpi. Exit 0.
+6. test page social (fx-social.html, deleted)  --social
+   post 1080x1080 RGB, story 1080x1920 RGB. The 8 px border bars sit exactly on rows/columns 0-7 and the last 8. Exit 0.
+   (First try failed on purpose: two 1080 px sheets in a flex row shrank to 596 px in a 1280 px window.
+   Fixed in the tool: sheets are measured in a 4096 px window, locked to that size, then captured.)
+7. outside image (fx-net.html, deleted): "blocked request outside the project: https://example.com/not-allowed.png". Exit 1, nothing exported.
+8. window-sized element as a sheet: "size follows the browser window (4096 then 4160 CSS px)". Exit 1, not exported.
+9. missing client file: "HTTP 404: /print/host-stickers/clients/no-such-client.js". Exit 1, nothing exported.
+10. --url "https://example.com/": usage error, exit 2.
+
+Independent check (Python: pypdf 6.19 strict read + Pillow 12.3, different code from the tool):
+   all PDFs read strict OK; MediaBox/TrimBox/BleedBox as above to 0.001 mm; every PNG size = mm*96/25.4*scale (MATCH);
+   dpi 299.9994 / 191.9986 (pHYs 11811 / 7559 px per metre); alpha channel present in the transparent ones; 118 PNG chunks, 0 bad CRC.
+   The corrected host-stickers PDF and the bleed PDF open and render in Chrome's own PDF viewer (PDFium), content in place.
+   PDF text extracts as real Arabic (ToUnicode); the property name on the sticker is the SVG logo (vector shapes, no text).
+Font test (scratchpad only): the brand font (variable, wght 160-700, fsType 0) prints as Type3; a static wght 600 instance
+   of the same file prints as Type0 / CIDFontType2 with an embedded FontFile2 (TrueType).
+Images looked at: host-stickers sheet-2@300dpi and sheet-1@2x, host-signs checkout@2x on a dark background (rounded
+   transparent corners, clean edge), checkout@300dpi card close-up.
+
+Deleted after checking (test outputs and test pages): *.pdf, *.png, *.export.json in this folder, fx-bleed.html,
+   fx-net.html, fx-social.html. Kept: this log.

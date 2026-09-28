@@ -101,11 +101,13 @@
     return href ? '<a class="lt-btn lt-btn--' + (kind || 'shop') + '" href="' + esc(href) + '">' + cIcon('chat', 'lt-btn-icon') + '<span>' + esc(label) + '</span></a>' : '';
   };
 
-  // طبقة لمسة تاب في نسخ العرض (§5.6): شريط بلون الفعل فوق، وقسم آخر الصفحة، والزرين لرقم الشركة.
+  // طبقة لمسة تاب في نسخ العرض (§5.6): شريط حبر فوق، وقسم آخر الصفحة، والزرين لرقم الشركة.
+  // الشريط لوحة حبر (.lt-ink من tokens.css) بالوضعين (التقييم 2 بند 8)، وزره الأساسي داخلها يطلع فاتح على الحبر.
   // اسم الزر المختصر = نصه الظاهر (WCAG 2.5.3)، ووصفه = نص الزر الكبير (aria-describedby)
+  // «عرض تجريبي» بس، بدون نقطة وسطى ولا اسم المحل: الاسم موجود في رأس الصفحة (الاتجاه 2 §3.3). label باقي للتوافق وما يُستخدم
   w.cDemoBar = function (label, key) {
-    return '<aside class="c-demo" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي · ' + esc(label) + '</span>' +
-      (key ? '<a class="lt-btn lt-btn--compact lt-btn--on-bar" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a>' : '') +
+    return '<aside class="c-demo lt-ink" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي</span>' +
+      (key ? '<a class="lt-btn lt-btn--compact" data-wa="' + key + '" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a>' : '') +
       '</div></aside>';
   };
   // آخر العرض (web-copy 2.0 و ر5-2): العنوان والسطر والزر حسب الصفحة، ورابط الرجوع لموقعنا
@@ -114,7 +116,7 @@
     return '<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">' + title + '</h2>' +
       '<p>' + line + '</p>' +
       '<a class="lt-btn" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a>' +
-      '<p class="c-owner-back"><a class="lt-link" href="' + esc(home) + '">رجوع لموقع <span data-company>' + esc(companyName()) + '</span></a></p></section>';
+      '<p class="c-owner-back"><a class="lt-link" href="' + esc(home) + '"><span>رجوع لموقع <span data-company>' + esc(companyName()) + '</span></span></a></p></section>';   // النص في span واحد: .lt-link مرن (inline-flex) ويشيل المسافة قبل الاسم
   };
   // «بواسطة لمسة تاب» (components.css: .lt-by): نص بس، ويطلع بس لو poweredBy: true (GM-023). بدون رمز (GM-022)
   w.cBy = function (on) {
@@ -135,6 +137,14 @@
     [].forEach.call(app.querySelectorAll('.lt-btn[data-wa]'), function (a) { waIcon(a); });
     logoFallback(app);
     themeColor();
+    // رابط فيه #قسم (مثل #emergency من ستاند الطوارئ): الصفحة تنبني بالسكربت، فالمتصفح ما يلقى القسم وقت ما يدوّر عليه. ننزل له هنا.
+    // getElementById بس (ما يمر على محدد CSS)، وداخل الصفحة نفسها بس. بدون حركة (يحترم تقليل الحركة من نفسه)
+    var hash = w.location.hash.slice(1);
+    if (hash) {
+      try { hash = decodeURIComponent(hash); } catch (e) { /* يبقى كما هو */ }
+      var target = d.getElementById(hash);
+      if (target && app.contains(target)) target.scrollIntoView();
+    }
     if (w.matchMedia) {
       var mq = w.matchMedia('(prefers-color-scheme: dark)');
       if (mq.addEventListener) mq.addEventListener('change', themeColor);

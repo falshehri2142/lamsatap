@@ -66,8 +66,12 @@
 .c-pw { margin: 2px 0 var(--lt-space-16); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 24px; line-height: 1.3; font-weight: 600; text-align: right; -webkit-user-select: all; user-select: all; }
 .c-wifi-open { font-size: 17px; line-height: 1.4; font-weight: 600; }
 
-/* طبقة لمسة تاب في نسخ العرض بس (§5.6): شريط بلون الفعل بعرض الشاشة فوق، وقسم «لصاحب المحل» آخر الصفحة */
-.c-demo { background: var(--lt-action); color: var(--lt-on-action); }
+/* طبقة لمسة تاب في نسخ العرض بس (§5.6): شريط بعرض الشاشة فوق، وقسم «لصاحب المحل» آخر الصفحة.
+   الشريط حبر #14201F ونصه #ECF2F0 بالوضعين (التقييم 2 بند 8): class="lt-ink" (الأدوار من tokens.css، والخلفية والنص من components.css).
+   قبل كان بلون الفعل، فيتقلب في الداكن لشريط فاتح ويصير أقوى شي في الشاشة. في الداكن خط 1px تحته بس (بدون خط فوق حافة الشاشة).
+   التركيز والتحديد محايدين مثل باقي صفحة الزبون: نص الحبر الفاتح، مو التيل */
+.c-demo { --lt-focus: var(--lt-text); --lt-selection: var(--lt-border); }
+@media (prefers-color-scheme: dark) { .c-demo.lt-ink { border-top: 0; } }
 .c-demo-in { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-12); max-width: var(--lt-column-client); min-height: 64px; margin: 0 auto; padding: var(--lt-space-8) var(--lt-space-20); font-size: 14px; line-height: 1.4; font-weight: 600; }
 .c-owner { margin-top: var(--lt-space-48); padding: var(--lt-space-24) var(--lt-space-20); border-radius: var(--lt-radius-m); background: var(--lt-surface-2); color: var(--lt-text); }
 :where(.c-owner) h2 { margin: 0 0 var(--lt-space-8); }

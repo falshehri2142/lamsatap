@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- نفس سكربت الرأس في website/index.html (js دايماً، و m و mh لما تقليل الحركة مطفي) -->
+<script>(function(h,w){h.className+=' js';if(!w.matchMedia||!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;h.className+=' m'+(matchMedia('(min-height: 640px)').matches?' mh':'');document.addEventListener('DOMContentLoaded',function(){if(!w.__ltMotion)h.classList.remove('m','mh')})})(document.documentElement,window)</script>
+<link rel="stylesheet" href="../../../../../website/assets/motion.css">
+<script defer src="../../../../../website/vendor/gsap/gsap.min.js"></script>
+<script defer src="../../../../../website/vendor/gsap/ScrollTrigger.min.js"></script>
+<script defer src="../../../../../website/assets/motion.js"></script>
+<style>body{margin:0;font:16px sans-serif} .hdr{position:sticky;top:0;height:80px;background:#fff;z-index:30;border-bottom:1px solid #ddd} .ph{position:absolute;inset:0;width:100%;height:100%;display:block}</style>
+</head>
+<body>
+<header class="hdr"></header>
+<div style="height:2200px">spacer</div>
+<figure id="last" data-scan="media" style="height:200px;background:#ccc;margin:0">LAST MEDIA</figure>
+<footer style="height:100px;background:#eee">footer</footer>
+</body></html>

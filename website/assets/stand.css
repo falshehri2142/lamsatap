@@ -1,0 +1,14 @@
+/* ستاند التقييم كمكوّن (التقييم 2، القرار 2: «المنتج نفسه هو الرسمة»): وجه قالب الطباعة print/stand/ مصغر، بباركود حقيقي.
+   الـ HTML يولّده tools/stand.cjs (مقاساته من print/dims.js نفسه)، وينحط بعلامة @@stand في الصفحة عن طريق tools/build-home-minis.cjs.
+   مكانين: صفحة شرح التقييم، و«كيف نشتغل» في الرئيسية. المسرح السطح 2 وأرضية، والزاوية 0. عرض الستاند 200 على الجوال و240 من 768.
+   شي مادي: الورقة بيضاء والنص حبر ثابتة بالوضعين. كل الألوان من tokens.css، ولون النقطة من بيانات المحل. */
+.lt-stand-stage { position: relative; display: flex; justify-content: center; margin: 0; padding-top: var(--lt-space-40); background: var(--lt-surface-2); overflow: hidden; }
+.lt-stand-stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28px; background: var(--lt-border); }   /* الأرضية */
+.lt-stand { --stand-w: 200px; --mm: calc(var(--stand-w) / 100); position: relative; z-index: 1; width: var(--stand-w); height: calc(150 * var(--mm)); margin-bottom: 20px; border: var(--lt-hairline) solid var(--lt-sand-200); background: var(--lt-inverse); color: var(--lt-ink); font-family: var(--lt-font-brand); line-height: 1.2; text-align: center; }
+@media (min-width: 768px) { .lt-stand { --stand-w: 240px; } }
+/* كل عنصر مكانه بالمليمتر (style من المولّد: top و left و width بـ calc(N * var(--mm))) */
+.lt-stand > * { position: absolute; margin: 0; }
+.lt-stand-logo { display: block; object-fit: contain; }
+.lt-stand-line { left: 0; right: 0; white-space: nowrap; }
+.lt-stand-dot { border-radius: 50%; }
+.lt-stand-qr { display: block; overflow: visible; }
