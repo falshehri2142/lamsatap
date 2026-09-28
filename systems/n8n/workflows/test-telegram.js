@@ -20,6 +20,15 @@ const cases = [
   ['groups are ignored', run({ chat: { id: -5, type: 'group' }, text: 'hi' }), j => j.kind === 'ignore'],
   ['photo without text', run({ chat: { id: 111, ...P } }), j => j.kind === 'client' && j.text.includes('بدون نص')]
 ];
+const runCq = (cq, owner) => f((n) => n === 'Read CHANNEL'
+  ? { first: () => ({ json: { owner_telegram_chat_id: owner || '999' } }) }
+  : { all: () => [{ json: { callback_query: cq } }] })[0].json;
+cases.push(
+  ['button food -> segment', runCq({ id: 'q1', data: 'seg_food', from: { id: 111, first_name: 'Ali' }, message: { chat: { id: 111 } } }), j => j.kind === 'segment' && j.qid === 'q1' && j.header.includes('اختار: مطعم أو كافيه') && j.header.includes('#c111') && j.reply.startsWith('ممتاز ☕')],
+  ['button host -> segment', runCq({ id: 'q2', data: 'seg_host', from: { id: 111 }, message: { chat: { id: 111 } } }), j => j.kind === 'segment' && j.reply.startsWith('ممتاز 🏠')],
+  ['unknown button ignored', runCq({ id: 'q3', data: 'xyz', from: { id: 111 }, message: { chat: { id: 111 } } }), j => j.kind === 'ignore'],
+  ['owner button ignored (approvals)', runCq({ id: 'q4', data: 'seg_food', from: { id: 999 }, message: { chat: { id: 999 } } }), j => j.kind === 'ignore']
+);
 let fail = 0;
 for (const [n, j, ok] of cases) { const r = ok(j); if (!r) fail++; console.log(r ? 'PASS' : 'FAIL', n); }
 process.exit(fail ? 1 : 0);
