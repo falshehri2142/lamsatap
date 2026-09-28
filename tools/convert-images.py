@@ -35,10 +35,11 @@ LAYERS = {
     # GM-054/058: مشاهد المنتج المولّدة (kie.ai، مكبّرة 2560×1440)، مكانها brand/photos/generated/
     'scene-restaurants':      ('../generated/restaurants-hero-imagen-1-upscaled-1.webp', 'warm',  True,  None),  # طاولة كافيه وستاند فاضي
     'scene-hosts-door':       ('../generated/hosts-hero-imagen-1-upscaled-1.webp',       'light', True,  None),  # باب شقة وبرواز فاضي
-    'scene-hosts-table':      ('../composites/hosts-table-stands.webp',                  'light', False, None),  # كونسول و3 ستاندات عليها صور الطباعة
-    # المشاهد نفسها بعد تركيب صور قسم الطباعة على كروتها (brand/photos/composites/README.md): بطل المطاعم وبابها، وبطل المضيفين وبابهم
-    'restaurant-cafe-stand':  ('../composites/restaurants-hero-stand.webp',              'warm',  True,  None),  # ستاند التقييم على طاولة الكافيه
-    'host-door-frame':        ('../composites/hosts-hero-checkout.webp',                 'light', True,  None),  # لوحة الخروج في البرواز جنب الباب
+    'scene-hosts-table':      ('../generated/hosts-table-imagen-1-upscaled-1.webp',      'light', False, None),  # كونسول و3 ستاندات، كروتها بيضاء
+    # بطل المطاعم وبابها، وبطل المضيفين وبابهم (نفس المشاهد، كروتها بيضاء). صور الطباعة الخمس انرفضت (صاحب المشروع، عن طريق المدير العام
+    # 2026-09-28) وبتنعاد، فالكروت تبقى بيضاء لين تجي الجديدة، وبعدها المصدر يصير التركيب (brand/photos/composites/README.md)
+    'restaurant-cafe-stand':  ('../generated/restaurants-hero-imagen-1-upscaled-1.webp', 'warm',  True,  None),  # طاولة كافيه وستاند بكرت أبيض
+    'host-door-frame':        ('../generated/hosts-hero-imagen-1-upscaled-1.webp',       'light', True,  None),  # باب شقة وبرواز فاضي
 }
 # حدود «الاتجاه 3» §4 بالـKB، للـ1600: (الأبيض والأسود، اللون). والـ800 نصها.
 LIMITS = {True: (180, 180), False: (120, 160)}
