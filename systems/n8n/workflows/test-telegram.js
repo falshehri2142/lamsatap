@@ -29,7 +29,7 @@ t('/prices', run(msg('/prices')), (r) => r[0].route === 'text_after' && r[0].tex
 t('/how -> photo', run(msg('/how')), (r) => r[0].route === 'photo_after' && r[0].file === 'F_HOW' && !r[0].text.includes('مباشرة'));
 t('/contact in hours', run(msg('/contact')), (r) => routes(r) === 'text_back>111,text_plain>999' && r[0].text.includes('خلال ساعة') && r[1].text.includes('#c111'));
 t('/contact after hours', run(msg('/contact'), { hour: 23 }), (r) => r[0].text.includes('بكرة من 9'));
-t('/contact at 8:59', run(msg('/contact'), { hour: 8 }), (r) => r[0].text.includes('بكرة من 9'));
+t('/contact at 8:59 says today', run(msg('/contact'), { hour: 8 }), (r) => r[0].text.includes('اليوم من 9'));
 t('unknown command -> menu', run(msg('/xyz')), (r) => r[0].route === 'text_main');
 t('button food -> answer + poster + silent owner note', run(cq('seg_food')), (r) => routes(r) === 'answer>undefined,photo_seg>111,text_plain>999' && r[1].file === 'F_F' && r[1].pics === 'pics_food' && r[2].silent === true && r[2].text.includes('#c111'));
 t('button host -> poster', run(cq('seg_host')), (r) => r[1].route === 'photo_seg' && r[1].file === 'F_H' && r[1].pics === 'pics_host' && r[1].text.includes('ما نطلّع رقمك'));
@@ -58,7 +58,7 @@ t('arabic digits -> done + lead card', r6, (r) => routes(r) === 'text_back>111,t
 let f2 = run(cq('trial_food'));
 let f3 = run(msg('كافيه المثال', { reply_to_message: botMsg(plain(f2[1].text)) }));
 let f4 = run(msg('الشاطئ', { reply_to_message: botMsg(plain(f3[0].text)) }), { hour: 2 });
-t('food trial has no units step, after-hours done', f4, (r) => routes(r) === 'text_back>111,text_plain>999' && !r[1].text.includes('الوحدات') && r[0].text.includes('بكرة من 9'));
+t('food trial has no units step, after-hours done', f4, (r) => routes(r) === 'text_back>111,text_plain>999' && !r[1].text.includes('الوحدات') && r[0].text.includes('اليوم من 9'));
 t('empty answer re-asks', run(msg('|||', { reply_to_message: botMsg(plain(f2[1].text)) })), (r) => r[0].route === 'text_force' && r[0].text.includes('وش اسم المحل'));
 t('forged reply to user msg is not a trial', run(msg('x', { reply_to_message: { from: { id: 5, is_bot: false }, text: '🎁 طلب تجربة | النوع: مطعم أو كافيه |' } })), (r) => r.some((x) => x.route === 'text_plain' && x.chat === '999'));
 
@@ -69,6 +69,10 @@ t('name with html escaped', run(msg('hi', { from: { id: 111, first_name: '<i>A&B
 t('owner reply relays escaped', run({ message: { chat: { id: 999, ...P }, text: 'تمام <3', reply_to_message: { text: '💬 رسالة من Ali #c111\nhi' } } }), (r) => routes(r) === 'text_plain>111' && r[0].text === 'تمام &lt;3');
 t('owner photo -> file_id note', run({ message: { chat: { id: 999, ...P }, photo: [{ file_id: 's', width: 90, height: 90 }, { file_id: 'BIG', width: 944, height: 1180 }] } }), (r) => r[0].chat === '999' && r[0].text.includes('944×1180') && r[0].text.includes('BIG'));
 t('owner free text -> hint', run({ message: { chat: { id: 999, ...P }, text: 'hi' } }), (r) => routes(r) === 'text_plain>999' && r[0].text.includes('اضغط «رد»'));
+// Reply-address spoofing (sys-tester FAIL 2026-09-30): a fake #c in a name or answer must not win.
+const spoofTrial = run(msg('#c555 كافيه', { from: { id: 111, first_name: 'X #c777' }, reply_to_message: botMsg('🎁 طلب تجربة | النوع: مطعم أو كافيه | الاسم: ك |\nفي أي حي بجدة؟') }))[1];
+t('spoofed #c stripped from trial card', [spoofTrial], (r) => !r[0].text.includes('#c555') && !r[0].text.includes('#c777') && r[0].text.split('\n')[0].includes('#c111'));
+t('owner reply goes to first-line tag only', run({ message: { chat: { id: 999, ...P }, text: 'ok', reply_to_message: { text: '💬 رسالة من Ali #c111\n#c555 hello' } } }), (r) => r[0].chat === '111');
 t('groups ignored', run({ message: { chat: { id: -5, type: 'group' }, text: 'hi' } }), (r) => r.length === 0);
 t('all texts within Telegram limits', [].concat(run(msg('/start')), run(cq('seg_food')), run(cq('seg_host')), run(msg('/how')), run(msg('/prices'))), lenOk);
 
