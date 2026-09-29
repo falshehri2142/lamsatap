@@ -59,6 +59,23 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 - **n8n: الـ sub-workflows ما تنادى إلا إذا كانت منشورة** («Workflow is not active and cannot be executed»). يعني get-channel وowner-notify وclient-send لازم تنشر قبل أي workflow يعتمد عليها. نشرها ما يفتح رابط عام (Execute Workflow Trigger)، بس القرار لصاحب المشروع. الاختبار قبل النشر = نسخة مؤقتة فيها نفس العقد، وتنأرشف بعده.
 - **تليجرام مجرّب (2026-09-28):** CHANNEL = telegram. تنبيه وصل، موافقة بزر = approved true، انتهاء المهلة = approved false.
 
+- **البوت الاحترافي (طلب صاحب المشروع 2026-09-30، مسودة في n8n، صاحب المشروع ينشر):**
+  - المخ كله في عقدة «Classify message»، ومصدرها `systems/n8n/workflows/telegram-classify.js`.
+  - الفحص: `node systems/n8n/workflows/test-telegram.js`.
+  - الأسلاك (13 مخرج Switch «Route action»، و11 عقدة إرسال بلوحات أزرار ثابتة) تنولّد بـ `systems/n8n/workflows/telegram-pro-ops.js`.
+  - النصوص من `systems/bot-brief.md` بس.
+  - الصور:
+    - 12 صورة في `print/telegram-bot-assets/upload/` (كل صورة مقاسها غير، عشان نطابق الرمز بالمقاس).
+    - رموزها (file_id) في عقدة ASSETS.
+    - إذا الرمز فاضي، البوت يرسل نص.
+  - طلب التجربة بدون حفظ: الإجابات تمشي في أول سطر من رسالة ForceReply.
+  - صاحب المشروع يقدر يجرب الأزرار من حسابه. وإذا أرسل صورة، البوت يرد عليه بمقاسها ورمزها.
+  - خطوات BotFather وإعادة النشر: `systems/telegram-bot-setup.md`.
+  - **الباقي:**
+    - رموز الصور.
+    - يرجع حفظ التنفيذ none.
+    - صاحب المشروع يعيد النشر ويسوي أوامر BotFather.
+    - باركود بوستر الترحيب يفتح lamsatap.com، والموقع ما انطلق.
 - **استشارة الدفع الأونلاين (GM-052، معلّق):** رأي القسم في `work/2026-09-28-online-subscriptions/network.md` (رابط دفع مستضاف + webhook متحقق بالـ API + login_tokens بدون كلمة سر). المقارنة في `gateways.md`، وأغلب أرقام البوابات غير مؤكدة.
 
 ## دروس
@@ -67,6 +84,9 @@ description: مشرف الشبكة (الأنظمة والأتمتة) لمشرو�
 - git بدون هوية في هالجهاز: الـ commit بـ `-c user.name=... -c user.email=...` نفس صاحب المشروع، بدون تعديل الإعدادات.
 - `dist/links.txt` كان بينرفع للعامة: أي ملف فيه أماكن أو عملاء يروح `out/` (خارج مجلد الرفع).
 - خطة الرجوع بـ `git checkout links.json` تخرب البناء (published.txt فيه الأكواد الجديدة): التصحيح بـ `set-dest`/`cancel` بس.
+- n8n Telegram node: لوحة الأزرار (inlineKeyboard) شكلها ثابت في العقدة، ونصوص الأزرار وcallback_data تقبل expression. عشان كذا نسوي عقدة لكل شكل لوحة، والكود يختار المسار.
+- تنفيذات الاختبار (test_workflow) ما تنحفظ، لأن saveManualExecutions=false. فحص المنطق يكون محلي بـ test-*.js، وtest_workflow يثبت بس إن الكود يشتغل في n8n بدون خطأ.
+- update_workflow على workflow منشور يغيّر المسودة بس، والنسخة الحية تبقى لين صاحب المشروع يعيد النشر (activeVersion.sameAsDraft).
 - مدققين اثنين ممكن يختلفون على اقتباس (مثال: أسعار واتساب utility): افتح المصدر بنفسك قبل ما تعتمد أي واحد، واللي ما ينحسم يبقى «غير مؤكد» مع الافتراض الأحوط.
 
 ## مهارات القسم (GM-015)

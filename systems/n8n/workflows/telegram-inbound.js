@@ -1,3 +1,6 @@
+// NOTE (2026-09-30): SUPERSEDED for the bot logic. The pro bot = telegram-classify.js (Classify code) +
+// telegram-pro-ops.js (update_workflow operations: ASSETS, Route action, send nodes). This file keeps the
+// original structure (trigger, Read CHANNEL, door path) for reference.
 // NOTE (GM-064 follow-up, 2026-09-28): the live workflow adds, via update_workflow:
 //  - Telegram Trigger updates: message + callback_query
 //  - Welcome: marketing text + inline buttons seg_food / seg_host

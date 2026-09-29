@@ -1,0 +1,86 @@
+[
+  {
+    "file": "01-welcome.jpg",
+    "key": "welcome",
+    "width": 944,
+    "height": 1180,
+    "source": "print/telegram-bot-assets/posters/poster-brand.webp"
+  },
+  {
+    "file": "02-food.jpg",
+    "key": "food",
+    "width": 936,
+    "height": 1170,
+    "source": "print/telegram-bot-assets/posters/poster-food.webp"
+  },
+  {
+    "file": "03-host.jpg",
+    "key": "host",
+    "width": 928,
+    "height": 1160,
+    "source": "print/telegram-bot-assets/posters/poster-host.webp"
+  },
+  {
+    "file": "04-how.jpg",
+    "key": "how",
+    "width": 1190,
+    "height": 669,
+    "source": "print/telegram-bot-assets/10-how.jpg"
+  },
+  {
+    "file": "05-food_scene.jpg",
+    "key": "food_scene",
+    "width": 1270,
+    "height": 714,
+    "source": "print/telegram-bot-assets/02-cafe-scene.jpg"
+  },
+  {
+    "file": "06-food_menu.jpg",
+    "key": "food_menu",
+    "width": 1260,
+    "height": 1260,
+    "source": "print/telegram-bot-assets/03-menu.jpg"
+  },
+  {
+    "file": "07-food_review.jpg",
+    "key": "food_review",
+    "width": 1250,
+    "height": 1250,
+    "source": "print/telegram-bot-assets/04-review.jpg"
+  },
+  {
+    "file": "08-food_wifi.jpg",
+    "key": "food_wifi",
+    "width": 1240,
+    "height": 1240,
+    "source": "print/telegram-bot-assets/05-wifi.jpg"
+  },
+  {
+    "file": "09-host_scene.jpg",
+    "key": "host_scene",
+    "width": 1230,
+    "height": 692,
+    "source": "print/telegram-bot-assets/06-host-scene.jpg"
+  },
+  {
+    "file": "10-host_guide.jpg",
+    "key": "host_guide",
+    "width": 1220,
+    "height": 1220,
+    "source": "print/telegram-bot-assets/07-guide.jpg"
+  },
+  {
+    "file": "11-host_checkout.jpg",
+    "key": "host_checkout",
+    "width": 1210,
+    "height": 1210,
+    "source": "print/telegram-bot-assets/08-checkout.jpg"
+  },
+  {
+    "file": "12-host_maint.jpg",
+    "key": "host_maint",
+    "width": 1200,
+    "height": 1200,
+    "source": "print/telegram-bot-assets/09-maintenance.jpg"
+  }
+]
