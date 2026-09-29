@@ -17,7 +17,8 @@ const KB = {
     [btn('عندي QR ببلاش، وش الفرق؟', 'faq_1')], [btn('وش الفايدة لمحلي؟', 'faq_2')], [btn('يشتغل على الآيفون؟', 'faq_3')],
     [btn('بتحطون شعاركم عندي؟', 'faq_4')], [btn('رقمي يطلع للضيف؟', 'faq_5')], [btn('يحتاج الزبون تطبيق؟', 'faq_6')],
     [btn('مين يركّب، ووين؟', 'faq_7')], [MENU]),
-  back: kb([MENU])
+  back: kb([MENU]),
+  handoff: { rows: [{ row: { buttons: [{ text: '🟢 كلّمنا على واتساب', additionalFields: { url: '={{ $json.url }}' } }] } }, { row: { buttons: [MENU] } }] }
 };
 const FIELDS = { appendAttribution: false, parse_mode: 'HTML', disable_web_page_preview: true };
 let y = 0;
@@ -34,16 +35,16 @@ const ROUTES = [
   ['answer', 'Answer button'], ['door', 'Ack guest (no data kept)'], ['text_plain', 'Send plain'],
   ['text_main', 'Text + main menu'], ['text_after', 'Text + next steps'], ['text_trial', 'Text + trial type'],
   ['text_faq', 'Text + FAQ'], ['text_back', 'Text + back'], ['text_force', 'Text + ask (force reply)'],
-  ['photo_main', 'Photo + main menu'], ['photo_seg', 'Photo + segment'], ['photo_after', 'Photo + next steps'], ['album', 'Album']
+  ['photo_main', 'Photo + main menu'], ['photo_seg', 'Photo + segment'], ['photo_after', 'Photo + next steps'], ['album', 'Album'], ['text_handoff', 'Text + handoff']
 ];
 const rule = (key) => ({ outputKey: key, conditions: { options: { caseSensitive: true, leftValue: '', typeValidation: 'strict' }, conditions: [{ leftValue: '={{ $json.route }}', operator: { type: 'string', operation: 'equals' }, rightValue: key }], combinator: 'and' } });
-const ASSET_KEYS = ['welcome', 'food', 'host', 'how', 'food_scene', 'food_menu', 'food_review', 'food_wifi', 'host_scene', 'host_guide', 'host_checkout', 'host_maint'];
+const ASSET_KEYS = ['whatsapp', 'owner_username', 'welcome', 'food', 'host', 'how', 'food_scene', 'food_menu', 'food_review', 'food_wifi', 'host_scene', 'host_guide', 'host_checkout', 'host_maint'];
 const assets = JSON.parse(fs.existsSync(__dirname + '/telegram-assets.json') ? fs.readFileSync(__dirname + '/telegram-assets.json', 'utf8') : '{}');
 
 const ops = [
   ...['Welcome', 'Forward to owner', 'Ack client', 'Segment reply', 'Tell owner segment', 'Route by kind'].map((n) => ({ type: 'removeNode', nodeName: n })),
   { type: 'removeConnection', source: 'Read CHANNEL', target: 'Classify message' },
-  { type: 'addNode', node: { name: 'ASSETS', type: 'n8n-nodes-base.set', typeVersion: 3.4, position: [336, 288], parameters: { mode: 'manual', includeOtherFields: false, assignments: { assignments: ASSET_KEYS.map((k, i) => ({ id: 'a' + i, name: k, type: 'string', value: assets[k] || '' })) }, options: {} }, notes: 'Telegram file_id for each bot picture (print/telegram-bot-assets/upload). Empty = the bot sends text instead.' } },
+  { type: 'addNode', node: { name: 'ASSETS', type: 'n8n-nodes-base.set', typeVersion: 3.4, position: [336, 288], parameters: { mode: 'manual', includeOtherFields: false, assignments: { assignments: ASSET_KEYS.map((k, i) => ({ id: 'a' + i, name: k, type: 'string', value: assets[k] || (k === 'whatsapp' ? '966507250396' : '') })) }, options: {} }, notes: 'Telegram file_id for each bot picture (print/telegram-bot-assets/upload). Empty = the bot sends text instead.' } },
   { type: 'setNodeSettings', nodeName: 'ASSETS', settings: { executeOnce: true } },
   { type: 'addConnection', source: 'Read CHANNEL', target: 'ASSETS' },
   { type: 'addConnection', source: 'ASSETS', target: 'Classify message' },
@@ -57,6 +58,7 @@ const ops = [
   sender('Text + FAQ', 'sendMessage', 'faq'),
   sender('Text + back', 'sendMessage', 'back'),
   sender('Text + ask (force reply)', 'sendMessage', 'force'),
+  sender('Text + handoff', 'sendMessage', 'handoff'),
   sender('Photo + main menu', 'sendPhoto', 'main'),
   sender('Photo + segment', 'sendPhoto', 'seg'),
   sender('Photo + next steps', 'sendPhoto', 'after'),
@@ -69,6 +71,6 @@ const ops = [
   { type: 'setNodeParameter', nodeName: 'Answer button', path: '/queryId', value: '={{ $json.qid }}' }
 ];
 // A failed send (user blocked the bot, bad file_id) must not stop the other messages of the same update.
-for (const n of ['Send plain', 'Answer button', 'Album', 'After album', ...ROUTES.slice(3, 12).map((r) => r[1])]) ops.push({ type: 'setNodeSettings', nodeName: n, settings: { onError: 'continueRegularOutput' } });
+for (const n of ['Send plain', 'Answer button', 'Album', 'After album', ...ROUTES.slice(3, 12).map((r) => r[1]), 'Text + handoff']) ops.push({ type: 'setNodeSettings', nodeName: n, settings: { onError: 'continueRegularOutput' } });
 ops.push({ type: 'updateNodeParameters', nodeName: 'Sticky Note e80c16d8', parameters: { content: '## LamsaTap bot (pro, 2026-09-30)\nClassify message = the whole bot (texts from systems/bot-brief.md, source: systems/n8n/workflows/telegram-classify.js). Menus: buttons -> photo/text screens. Trial request: answers travel inside the bot\'s own reply-request message (nothing stored). Clients\' free text -> owner with #c<chat_id>; owner replies -> client. Door links: owner gets code + place only (GM-017).\nASSETS = Telegram file_ids. Execution data OFF.' } });
 process.stdout.write(JSON.stringify(ops));

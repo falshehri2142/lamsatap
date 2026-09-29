@@ -6,7 +6,9 @@ const cfg = $('Read CHANNEL').first().json;
 const A = $('ASSETS').first().json;
 const owner = String(cfg.owner_telegram_chat_id || '').trim();
 const hour = Number($now.setZone('Asia/Riyadh').hour);
-const open = hour >= 9 && hour < 23; // B20: من 9 الصبح لين 11 الليل
+// B20 (owner, 2026-09-30): replies 24/7. Set ALWAYS_OPEN = false to go back to 9:00-22:59 with the after-hours texts.
+const ALWAYS_OPEN = true;
+const open = ALWAYS_OPEN || (hour >= 9 && hour < 23);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 // The #c<chat> tag is the reply address: user text never carries '#', and the tag always sits on the card's first line.
 const whoOf = (f, chat) => [f && f.first_name ? esc(String(f.first_name).replace(/#/g, '').slice(0, 64)) : '', f && f.username ? '@' + esc(f.username) : '', '#c' + chat].filter(Boolean).join(' ');
@@ -40,13 +42,13 @@ const T = {
     faq_7: '<b>مين يركّب، ووين؟</b>\nإحنا نركّب بنفسنا، وحالياً في جدة بس. والتركيب علينا، ونجرّب كل شريحة قبل التسليم.' // B04
   },
   // B20 / B21
-  humanOpen: '<b>👤 أبشر</b>\nاكتب سؤالك هنا، ويرد عليك واحد منا خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم.',
-  humanClosed: '<b>👤 أبشر</b>\nاكتب سؤالك هنا. وقتنا الحين برا الدوام، ويرد عليك واحد منا ' + WHEN + ' من 9 الصبح.',
-  ackOpen: 'وصلتنا رسالتك ✅\nيرد عليك واحد منا خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم.',
-  ackClosed: 'وصلتنا رسالتك ✅\nوقتنا الحين برا الدوام، ويرد عليك واحد منا ' + WHEN + ' من 9 الصبح.',
+  humanOpen: '<b>👤 أبشر</b>\nكلّمنا مباشرة على واتساب من الزر تحت، أو اكتب سؤالك هنا ويوصلنا على طول.\nنرد خلال ساعة، 24 ساعة، 7 أيام بالأسبوع.',
+  humanClosed: '<b>👤 أبشر</b>\nكلّمنا على واتساب من الزر تحت، أو اكتب سؤالك هنا. وقتنا الحين برا الدوام، ويرد عليك واحد منا ' + WHEN + ' من 9 الصبح.',
+  ackOpen: '✅ وصلت رسالتك، ويرد عليك واحد منا.',
+  ackClosed: '✅ وصلت رسالتك. وقتنا الحين برا الدوام، ويرد عليك واحد منا ' + WHEN + ' من 9 الصبح.',
   // B18
   trial: '<b>🎁 أسبوعين ببلاش</b>\nما عجبك؟ نشيل العتاد، بدون دفع مقدم ولا التزام في التجربة.\n\nوش نوع نشاطك؟',
-  trialDoneOpen: '<b>✅ وصل طلبك</b>\nيرد عليك واحد منا خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم.',
+  trialDoneOpen: '<b>✅ وصل طلبك</b>\nيرد عليك واحد منا خلال ساعة، 24 ساعة، 7 أيام بالأسبوع.\nتبي تكلّمنا الحين؟ اضغط واتساب تحت، أو اكتب هنا.',
   trialDoneClosed: '<b>✅ وصل طلبك</b>\nوقتنا الحين برا الدوام، ويرد عليك واحد منا ' + WHEN + ' من 9 الصبح.',
   ownerHint: 'ℹ️ عشان ترد على عميل: اضغط «رد» على رسالته هنا واكتب ردك.'
 };
@@ -70,6 +72,15 @@ const photo = (route, fallback, chat, key, text, extra) => {
   else send(fallback, chat, text);
 };
 const toOwner = (text, silent) => { if (owner) send('text_plain', owner, text, { silent: !!silent }); };
+// Real handoff (owner, 2026-09-30): after the marketing part the client gets a WhatsApp button to the company number
+// (ASSETS.whatsapp, from the owner's posters) and the owner's Telegram @ if ASSETS.owner_username is set.
+const WA = String(A.whatsapp || '').replace(/[^0-9]/g, '');
+const TG = String(A.owner_username || '').replace(/[^A-Za-z0-9_]/g, '');
+const handoff = (chat, text) => {
+  const line = TG ? '\n\nأو كلّمنا مباشرة على تليجرام: @' + TG : '';
+  if (WA) send('text_handoff', chat, text + line, { url: 'https://wa.me/' + WA + '?text=' + encodeURIComponent('السلام عليكم، جاي من بوت لمسة تاب') });
+  else send('text_back', chat, text + line);
+};
 const ask = (chat, f, k, retry) => send('text_force', chat, encode(f) + '\n' + (retry ? retry + '\n' : '') + '<b>' + QUESTION(f, k) + '</b>');
 
 function screen(name, chat, who) {
@@ -78,7 +89,7 @@ function screen(name, chat, who) {
   if (name === 'seg_food' || name === 'seg_host') {
     const food = name === 'seg_food';
     photo('photo_seg', 'text_after', chat, food ? 'food' : 'host', food ? T.food : T.host, { pics: food ? 'pics_food' : 'pics_host' });
-    return toOwner('👀 فتح «' + (food ? TYPES.trial_food : HOST) + '» — ' + who, true);
+    return toOwner('👀 فتح «' + (food ? TYPES.trial_food : HOST) + '» — ' + who);
   }
   if (name === 'pics_food' || name === 'pics_host') {
     const keys = name === 'pics_food' ? ['food_scene', 'food_menu', 'food_review', 'food_wifi'] : ['host_scene', 'host_guide', 'host_checkout', 'host_maint'];
@@ -90,7 +101,7 @@ function screen(name, chat, who) {
   if (name === 'faq') return send('text_faq', chat, T.faq);
   if (T.faqA[name]) return send('text_after', chat, T.faqA[name]);
   if (name === 'human') {
-    send('text_back', chat, open ? T.humanOpen : T.humanClosed);
+    handoff(chat, open ? T.humanOpen : T.humanClosed);
     return toOwner('👤 <b>يبي يكلم شخص</b> — ' + who + '\n' + REPLY_HINT);
   }
   if (name === 'trial') return send('text_trial', chat, T.trial);
@@ -136,7 +147,7 @@ for (const it of $('Telegram message in').all()) {
     }
     const next = need(f);
     if (next) { ask(chat, f, next); continue; }
-    send('text_back', chat, open ? T.trialDoneOpen : T.trialDoneClosed);
+    handoff(chat, open ? T.trialDoneOpen : T.trialDoneClosed);
     toOwner('🆕 <b>طلب تجربة</b> — ' + who + '\nالنوع: ' + f['النوع'] + '\nالاسم: ' + f['الاسم'] + '\nالحي: ' + f['الحي'] + (f['الوحدات'] ? '\nالوحدات: ' + f['الوحدات'] : '') + '\n' + REPLY_HINT);
     continue;
   }
@@ -162,9 +173,10 @@ for (const it of $('Telegram message in').all()) {
     continue;
   }
 
-  // Anything else from a client goes to the owner, and the client gets an hours-aware ack.
+  // Anything else from a client goes to the owner at once (live chat through the bot). Short silent ack,
+  // skipped when the client is replying to one of the bot's messages (already in a conversation).
   const tag = /منيو|menu/i.test(raw) ? '[طلب تحديث منيو] ' : '';
   toOwner('💬 ' + tag + 'رسالة من ' + who + '\n' + (raw ? esc(raw) : '(صورة أو ملف بدون نص، افتحها من تليجرام)') + '\n\n' + REPLY_HINT);
-  send('text_back', chat, open ? T.ackOpen : T.ackClosed);
+  if (!(rep && rep.from && rep.from.is_bot)) send('text_plain', chat, open ? T.ackOpen : T.ackClosed, { silent: true });
 }
 return out;
