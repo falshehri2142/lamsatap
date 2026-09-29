@@ -75,6 +75,8 @@ t('spoofed #c stripped from trial card', [spoofTrial], (r) => !r[0].text.include
 t('owner reply goes to first-line tag only', run({ message: { chat: { id: 999, ...P }, text: 'ok', reply_to_message: { text: '💬 رسالة من Ali #c111\n#c555 hello' } } }), (r) => r[0].chat === '111');
 t('live chat: reply to a bot message -> owner only, no ack', run(msg('تمام متى تركبون؟', { reply_to_message: botMsg('نركب بكرة') })), (r) => routes(r) === 'text_plain>999');
 t('no whatsapp in ASSETS -> contact falls back to text', run(msg('/contact'), { assets: {} }), (r) => r[0].route === 'text_back' && !r[0].url);
+t('ad link ?start=food opens restaurants', run(msg('/start food')), (r) => r[0].route === 'photo_seg' && r[0].file === 'F_F');
+t('ad link ?start=host opens apartments', run(msg('/start host')), (r) => r[0].route === 'photo_seg' && r[0].file === 'F_H');
 t('groups ignored', run({ message: { chat: { id: -5, type: 'group' }, text: 'hi' } }), (r) => r.length === 0);
 t('all texts within Telegram limits', [].concat(run(msg('/start')), run(cq('seg_food')), run(cq('seg_host')), run(msg('/how')), run(msg('/prices'))), lenOk);
 

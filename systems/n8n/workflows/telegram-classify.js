@@ -157,7 +157,9 @@ for (const it of $('Telegram message in').all()) {
   if (c) {
     const d = c[1].toLowerCase() === 'start' && c[2] && c[2].match(/^(co|mt)_([a-z0-9]{12,32})$/i);
     if (d) { out.push({ json: { route: 'door', chat, request: d[1].toLowerCase() === 'mt' ? 'maintenance' : 'checkout', ref: d[2].toLowerCase() } }); continue; }
-    screen(COMMANDS[c[1].toLowerCase()] || 'menu', chat, who);
+    // Ad links: t.me/lamsatap_bot?start=food | host open that section straight away (marketing/launch-kit-telegram-whatsapp.md).
+    const seg = c[1].toLowerCase() === 'start' && c[2] && ({ food: 'seg_food', host: 'seg_host' })[c[2].toLowerCase()];
+    screen(seg || COMMANDS[c[1].toLowerCase()] || 'menu', chat, who);
     continue;
   }
 
