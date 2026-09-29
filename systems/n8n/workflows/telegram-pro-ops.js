@@ -10,7 +10,7 @@ const TRIAL = btn('🎁 اطلب تجربة ببلاش', 'trial');
 const FAQ = btn('❓ أسئلة شائعة', 'faq');
 const KB = {
   main: kb([btn('☕ مطعم أو كافيه', 'seg_food')], [btn('🏠 شقق أو إيجار قصير', 'seg_host')], [btn('👀 كيف تشتغل', 'how'), btn('💰 الأسعار', 'prices')], [FAQ, btn('👤 كلّم شخص', 'human')]),
-  seg: kb([TRIAL], [btn('📸 صور من الشغل', '={{ $json.pics }}'), btn('💰 الأسعار', 'prices')], [FAQ, MENU]),
+  seg: kb([TRIAL], [btn('💰 الأسعار', 'prices'), FAQ], [btn('👤 كلّم شخص', 'human'), MENU]),
   after: kb([TRIAL], [FAQ, btn('👤 كلّم شخص', 'human')], [MENU]),
   trial: kb([btn('☕ مطعم أو كافيه', 'trial_food')], [btn('🏠 شقق أو إيجار قصير', 'trial_host')], [MENU]),
   faq: kb(
