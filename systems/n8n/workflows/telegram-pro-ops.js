@@ -44,7 +44,7 @@ const assets = JSON.parse(fs.existsSync(__dirname + '/telegram-assets.json') ? f
 const ops = [
   ...['Welcome', 'Forward to owner', 'Ack client', 'Segment reply', 'Tell owner segment', 'Route by kind'].map((n) => ({ type: 'removeNode', nodeName: n })),
   { type: 'removeConnection', source: 'Read CHANNEL', target: 'Classify message' },
-  { type: 'addNode', node: { name: 'ASSETS', type: 'n8n-nodes-base.set', typeVersion: 3.4, position: [336, 288], parameters: { mode: 'manual', includeOtherFields: false, assignments: { assignments: ASSET_KEYS.map((k, i) => ({ id: 'a' + i, name: k, type: 'string', value: assets[k] || (k === 'whatsapp' ? '966507250396' : '') })) }, options: {} }, notes: 'Telegram file_id for each bot picture (print/telegram-bot-assets/upload). Empty = the bot sends text instead.' } },
+  { type: 'addNode', node: { name: 'ASSETS', type: 'n8n-nodes-base.set', typeVersion: 3.4, position: [336, 288], parameters: { mode: 'manual', includeOtherFields: false, assignments: { assignments: ASSET_KEYS.map((k, i) => ({ id: 'a' + i, name: k, type: 'string', value: assets[k] || ({ whatsapp: '966507250396', owner_username: 'LMSATAP' })[k] || '' })) }, options: {} }, notes: 'Telegram file_id for each bot picture (print/telegram-bot-assets/upload). Empty = the bot sends text instead.' } },
   { type: 'setNodeSettings', nodeName: 'ASSETS', settings: { executeOnce: true } },
   { type: 'addConnection', source: 'Read CHANNEL', target: 'ASSETS' },
   { type: 'addConnection', source: 'ASSETS', target: 'Classify message' },

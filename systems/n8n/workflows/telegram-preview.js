@@ -7,7 +7,7 @@ const UP = path.join(ROOT, 'print/telegram-bot-assets/upload');
 const man = JSON.parse(fs.readFileSync(path.join(UP, 'manifest.json'), 'utf8'));
 const img = {};
 for (const m of man) img[m.key] = 'data:image/jpeg;base64,' + fs.readFileSync(path.join(UP, m.file)).toString('base64');
-const ASSETS = Object.assign({ whatsapp: '966507250396', owner_username: '' }, Object.fromEntries(man.map((m) => [m.key, m.key])));
+const ASSETS = Object.assign({ whatsapp: '966507250396', owner_username: 'LMSATAP' }, Object.fromEntries(man.map((m) => [m.key, m.key])));
 const code = fs.readFileSync(path.join(__dirname, 'telegram-classify.js'), 'utf8');
 const f = new Function('$', '$now', code);
 const run = (update) => f((n) => n === 'Read CHANNEL' ? { first: () => ({ json: { owner_telegram_chat_id: '999' } }) }
