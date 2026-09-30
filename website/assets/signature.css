@@ -1,16 +1,25 @@
 /* Tap Lab — مختبر اللمسة (site-wow, AD §a). ألوان من tokens فقط، حركة transform/opacity فقط. */
-.tl{overflow-x:clip;--tl-spring:cubic-bezier(.2,.9,.25,1.15);--tl-pw:240px;--tl-ph:500px;padding-block:var(--lt-section);display:grid;gap:var(--lt-space-32)}
+.tl{overflow-x:clip;--tl-spring:var(--m-spring,cubic-bezier(.2,.9,.25,1.15));--tl-pw:240px;--tl-ph:500px;padding-block:var(--lt-section);display:grid;gap:var(--lt-space-32)}
 .tl__head{display:grid;gap:var(--lt-space-8)}
 .tl__eyebrow{margin:0;font-size:14px;color:var(--lt-muted);letter-spacing:0}
 .tl__title{margin:0;font-size:var(--h2,clamp(30px,2.2vw + 22px,48px));font-weight:var(--lt-weight-heading);line-height:1.25;letter-spacing:0;color:var(--lt-ink)}
 .tl__body{display:grid;gap:var(--lt-space-24)}
 .tl__picker{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--lt-space-8)}
-.tl__opt{min-height:var(--lt-tap-min);padding:0 var(--lt-space-12);font:inherit;font-size:15px;letter-spacing:0;color:var(--lt-ink);background:var(--lt-surface);border:var(--lt-hairline) solid var(--lt-sand-200);border-radius:var(--lt-radius-m);cursor:pointer;
-  transition:transform 200ms var(--tl-spring),box-shadow 200ms ease-out,background-color 200ms ease-out,color 200ms ease-out}
-.tl__opt:hover{transform:translateY(-1px);box-shadow:var(--lt-elev-raised)}
-.tl__opt:active{transform:scale(.98)}
+.tl__opt{position:relative;isolation:isolate;min-height:var(--lt-tap-min);padding:0 var(--lt-space-12);font:inherit;font-size:15px;letter-spacing:0;color:var(--lt-ink);background:var(--lt-surface);border:var(--lt-hairline) solid var(--lt-sand-200);border-radius:var(--lt-radius-m);cursor:pointer;
+  transition:transform 240ms var(--tl-spring)}
+/* anim-micro: الظل والتعبئة طبقات تتحرك بالشفافية و transform بس (GM-055 §6). اللون فوري. المؤشر من aria-selected نفسه، فالضغط السريع ما يخربه */
+.tl__opt::before,.tl__opt::after{content:"";position:absolute;inset:calc(-1 * var(--lt-hairline));border-radius:inherit;pointer-events:none}
+.tl__opt::after{z-index:-2;box-shadow:var(--lt-elev-raised);opacity:0;transition:opacity 100ms ease-out}
+.tl__opt::before{z-index:-1;background:var(--lt-ink);opacity:0;transform:scale(.94);transition:opacity 100ms var(--m-in,ease-in),transform 100ms var(--m-in,ease-in)}
+.tl__opt[aria-selected="true"]::before{opacity:1;transform:none;transition:opacity 150ms ease-out,transform 240ms var(--tl-spring)}
+@media (hover:hover) and (pointer:fine){
+  .tl__opt:hover{transform:translateY(-1px);transition:transform var(--m-press,150ms) ease-out}
+  .tl__opt:hover::after{opacity:1;transition-duration:150ms}
+  .tl__open:hover{transform:translateY(-1px);transition:transform var(--m-press,150ms) ease-out}
+}
+.tl__opt:active,.tl__open:active{transform:scale(.98);transition:transform var(--m-press,150ms) ease-out}
 .tl__opt:focus-visible,.tl__open:focus-visible{outline:2px solid var(--lt-teal-deep);outline-offset:3px}
-.tl__opt[aria-selected="true"]{background:var(--lt-ink);color:var(--lt-surface);border-color:var(--lt-ink)}
+.tl__opt[aria-selected="true"]{color:var(--lt-surface);border-color:var(--lt-ink)}
 @media (max-width:419px){.tl__picker{grid-template-columns:1fr 1fr}}
 .tl__opt{white-space:nowrap}
 
@@ -29,9 +38,7 @@
 .tl__stage[data-loaded] .tl__poster{opacity:0}
 .tl__frame,.tl__poster{transition:opacity 160ms ease-out}
 .tl__caption{position:relative;z-index:2;margin:0;max-width:34ch;text-align:center;font-size:var(--lt-body,17px);line-height:1.7;letter-spacing:0;color:var(--lt-muted);min-height:3.4em}
-.tl__open{justify-self:center;display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding-inline:var(--lt-space-16);color:var(--lt-teal-deep);font-weight:600;letter-spacing:0;text-decoration:underline;text-underline-offset:4px;border-radius:var(--lt-radius-s);transition:transform 200ms var(--tl-spring)}
-.tl__open:hover{transform:translateY(-1px)}
-.tl__open:active{transform:scale(.98)}
+.tl__open{justify-self:center;display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding-inline:var(--lt-space-16);color:var(--lt-teal-deep);font-weight:600;letter-spacing:0;text-decoration:underline;text-underline-offset:4px;border-radius:var(--lt-radius-s);transition:transform 240ms var(--tl-spring)}
 
 @media (min-width:768px){
   .tl{--tl-pw:260px;--tl-ph:540px}
@@ -50,8 +57,9 @@
   .tl{--tl-sw:150px}
 }
 @media (prefers-reduced-motion:reduce){
-  .tl__opt,.tl__open{transition:none}
-  .tl__opt:hover,.tl__open:hover{transform:none}
+  .tl__opt,.tl__open,.tl__opt::before,.tl__opt::after{transition:none!important}
+  .tl__opt:hover,.tl__open:hover,.tl__opt:active,.tl__open:active{transform:none}
+  .tl__opt::before{transform:none}
   .tl__frame,.tl__poster{transition:opacity 120ms linear}
   .tl__ripple{display:none}
 }

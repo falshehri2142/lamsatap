@@ -201,3 +201,18 @@
 .h-footer-logo { width: 220px; }
 .h-footer-brand p { margin-top: var(--lt-space-16); font-size: 16px; line-height: 1.7; color: var(--lt-text); }
 @media (min-width: 1024px) { .h-footer-main { padding-block: var(--lt-space-48); } .h-footer-logo { width: 260px; } .h-footer-brand p { font-size: 18px; } }
+
+/* motion: anim-micro 2026-09-30 (brief §6). transform بس، والتحويم تحت (hover:hover) و (pointer:fine)، والرجوع على --m-spring */
+.h-pick a, .h-doors .s-door { transition: transform 240ms var(--m-spring); }
+.h-pick a:hover, .h-doors .s-door:hover { transform: none; }
+@media (hover: hover) and (pointer: fine) {
+ .h-pick a:hover, .h-doors .s-door:hover { transform: translateY(-2px); transition: transform var(--m-press) ease-out; }
+}
+.h-pick a:active, .h-doors .s-door:active { transform: scale(.98); transition: transform var(--m-press) ease-out; }
+.h-door-more .h-arrow { transition: transform 240ms var(--m-spring); }
+.h-door-more .h-arrow, .s-door:hover .h-door-more .h-arrow { transform: none; }
+@media (hover: hover) and (pointer: fine) { .s-door:hover .h-door-more .h-arrow { transform: translateX(-4px); } }
+@media (prefers-reduced-motion: reduce) {
+ .h-pick a, .h-doors .s-door, .h-door-more .h-arrow, .h-open-qr { transition: none; }
+ .h-pick a:hover, .h-pick a:active, .h-doors .s-door:hover, .h-doors .s-door:active, .s-door:hover .h-door-more .h-arrow { transform: none; }
+}

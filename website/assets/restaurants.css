@@ -346,3 +346,19 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .trust--plan { grid-template-columns: 1fr; }
   .r-plan .s-price-fig { font-size: 64px; }
 }
+
+/* motion: anim-micro 2026-09-30 (brief §6). اللون فوري، والحركة transform بس، والتحويم تحت (hover:hover) و (pointer:fine) */
+.a-section-nav a { transition: transform var(--m-press) ease-out; }
+.a-text-link { transition: transform 240ms var(--m-spring); }
+.a-text-link:active { transform: scale(.98); transition: transform var(--m-press) ease-out; }
+.a-text-link:focus-visible, .a-section-nav a:focus-visible { outline: 2px solid var(--lt-teal-deep); outline-offset: 3px; border-radius: var(--lt-radius-s); }
+.r-lab-link { transition: transform 240ms var(--m-spring); }
+.r-lab-link svg { transition: transform 240ms var(--m-spring); }
+.r-lab-link:hover svg { transform: none; }
+@media (hover: hover) and (pointer: fine) { .r-lab-link:hover svg { transform: translateX(-4px); transition: transform var(--m-press) ease-out; } }
+.r-lab-link:active { transform: scale(.98); transition: transform var(--m-press) ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .a-section-nav a, .a-text-link, .r-lab-link, .r-lab-link svg { transition: none; }
+  .a-text-link:active, .r-lab-link:active, .r-lab-link:hover svg { transform: none; }
+}
+.r-story.is-editorial .r-steps > li::before { transition: none; }   /* رقم الخطوة يتلون فوري، والتقدّم يوضحه الشريط (scaleX) */

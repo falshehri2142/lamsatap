@@ -1,0 +1,122 @@
+[
+ {
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": null
+ },
+ {
+  "page": "/",
+  "w": 390,
+  "mode": "reduce",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": null
+ },
+ {
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": "[{\"y\":1072,\"top\":-40},{\"y\":1072,\"top\":-40},{\"y\":1072,\"top\":374},\"hiddenAfterResize=0\"]"
+ },
+ {
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": null
+ },
+ {
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": null
+ },
+ {
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": null
+ },
+ {
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": "[{\"y\":2946,\"top\":-750},{\"y\":2946,\"top\":-750},{\"y\":2946,\"top\":406},\"hiddenAfterResize=0\"]"
+ },
+ {
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": null,
+  "rs": null
+ },
+ {
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": "3->4",
+  "rs": null
+ },
+ {
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "reduce",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": "3->4",
+  "rs": null
+ },
+ {
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": "3->4",
+  "rs": "[{\"y\":2639,\"top\":-791},{\"y\":2674,\"top\":-791},{\"y\":2674,\"top\":-62},\"hiddenAfterResize=0\"]"
+ },
+ {
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "reduce",
+  "errs": [],
+  "minPrice": 1,
+  "hidden": [],
+  "step": "3->4",
+  "rs": null
+ }
+]

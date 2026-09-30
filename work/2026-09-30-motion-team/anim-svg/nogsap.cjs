@@ -1,0 +1,22 @@
+const { chromium } = require('playwright');
+(async () => {
+  const br = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' }); const errs = [];
+  const p = await br.newPage({ viewport: { width: 1440, height: 900 } });
+  p.on('pageerror', e => errs.push(e.message));
+  await p.route('**/vendor/gsap/**', r => r.abort());
+  await p.goto('http://localhost:8913/'); await p.locator('#tap-lab').scrollIntoViewIfNeeded(); await p.waitForTimeout(1000);
+  await p.click('[data-tl-opt=wifi]'); await p.waitForTimeout(250);
+  const mid = await p.evaluate(() => [document.querySelector('[data-tl-stage]').dataset.state, getComputedStyle(document.querySelector('.tl__phone')).transform]);
+  await p.evaluate(() => ['menu', 'review', 'wifi', 'guide'].forEach((k, i) => setTimeout(() => document.querySelector(`[data-tl-opt=${k}]`).click(), i * 100)));
+  await p.waitForTimeout(1200);
+  const fin = await p.evaluate(() => [document.querySelector('[data-tl-stage]').dataset.state, getComputedStyle(document.querySelector('.tl__frame')).opacity, getComputedStyle(document.querySelector('.tl__phone')).transform, document.querySelector('[aria-selected=true]').dataset.tlOpt]);
+  const h = await br.newPage({ viewport: { width: 390, height: 844 } }); await h.route('**/vendor/gsap/**', r => r.abort());
+  h.on('pageerror', e => errs.push('hosts ' + e.message));
+  await h.goto('http://localhost:8913/hosts/'); await h.addScriptTag({ url: 'http://localhost:8913/assets/svg-motion.js' });
+  await h.evaluate(() => document.querySelector('.p-sign').scrollIntoView({ block: 'center' })); await h.waitForTimeout(1500);
+  const s = await h.evaluate(() => [document.querySelector('.p-sign').dataset.signState, getComputedStyle(document.querySelector('.p-sign-frame')).transform, getComputedStyle(document.querySelector('.p-sign-row')).opacity]);
+  await h.locator('.p-sign').screenshot({ path: __dirname + '/shots/sign-nogsap-390.png' });
+  const j = await br.newPage({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
+  await j.goto('http://localhost:8913/hosts/'); await j.locator('.p-sign').screenshot({ path: __dirname + '/shots/sign-nojs-390.png' });
+  console.log(JSON.stringify({ mid, fin, sign: s, errs })); await br.close();
+})();

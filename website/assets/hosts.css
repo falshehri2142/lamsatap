@@ -422,3 +422,35 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .p-clean-flow { grid-column: 1; grid-row: 2; grid-template-columns: repeat(2, minmax(0,1fr)); }
   .p-clean-flow::before { display: none; }
 }
+
+/* motion: anim-micro 2026-09-30 (brief §6). اللون فوري، والحركة transform بس، والتحويم تحت (hover:hover) و (pointer:fine) */
+.a-section-nav a { transition: transform var(--m-press) ease-out; }
+.a-text-link { transition: transform 240ms var(--m-spring); }
+.a-text-link:active { transform: scale(.98); transition: transform var(--m-press) ease-out; }
+.a-text-link:focus-visible, .a-section-nav a:focus-visible { outline: 2px solid var(--lt-teal-deep); outline-offset: 3px; border-radius: var(--lt-radius-s); }
+.p-lab-link { transition: transform 240ms var(--m-spring); }
+.p-lab-link svg { transition: transform 240ms var(--m-spring); }
+.p-lab-link:hover svg { transform: none; }
+@media (hover: hover) and (pointer: fine) { .p-lab-link:hover svg { transform: translateX(-4px); transition: transform var(--m-press) ease-out; } }
+.p-lab-link:active { transform: scale(.98); transition: transform var(--m-press) ease-out; }
+/* الحاسبة: الظل طبقة ::after بالشفافية (مو box-shadow يتحرك)، والضغط .98 والرجوع نابض */
+.p-calc-step, .p-calc-bill span { position: relative; transition: transform 240ms var(--m-spring); }
+.p-calc-step::after, .p-calc-bill span::after { content: ""; position: absolute; inset: calc(-1 * var(--lt-hairline)); border-radius: inherit; box-shadow: var(--lt-elev-raised); opacity: 0; pointer-events: none; transition: opacity 100ms ease-out; }
+.p-calc-step:hover:not(:disabled), .p-calc-bill label:hover span { transform: none; box-shadow: none; }
+@media (hover: hover) and (pointer: fine) {
+  .p-calc-step:hover:not(:disabled), .p-calc-bill label:hover span { transform: translateY(-1px); transition: transform var(--m-press) ease-out; }
+  .p-calc-step:hover:not(:disabled)::after, .p-calc-bill label:hover span::after { opacity: 1; transition-duration: var(--m-press); }
+}
+.p-calc-step:active:not(:disabled), .p-calc-bill label:active span { transform: scale(.98); transition: transform var(--m-press) ease-out; }
+/* إطار «تأكيد الخروج»: ولا نبض يتكرر (brief §3 «No loops»). svg-motion.js يشغّل الموجة مرة على الظهور وعلى اللمس بـ .is-tap */
+.p-sign-tap { position: relative; animation: none; }
+.p-sign-tap::after { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 2px var(--lt-teal-deep); opacity: 0; transform: scale(.6); pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .p-sign-tap.is-tap::after { animation: p-sign-ripple 480ms cubic-bezier(.33, 1, .68, 1) 1 both; }   /* power2.out، مرة وحدة */
+  @keyframes p-sign-ripple { from { opacity: .5; transform: scale(.6); } to { opacity: 0; transform: scale(1.6); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .a-section-nav a, .a-text-link, .p-lab-link, .p-lab-link svg, .p-calc-step, .p-calc-bill span, .p-calc-step::after, .p-calc-bill span::after { transition: none; }
+  .a-text-link:active, .p-lab-link:active, .p-calc-step:active:not(:disabled), .p-calc-bill label:active span, .p-calc-step:hover:not(:disabled), .p-calc-bill label:hover span, .p-lab-link:hover svg { transform: none; }
+  .p-sign-tap { animation: none; }
+}

@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="../assets/brand/tokens.css">
 <link rel="stylesheet" href="../assets/brand/components.css">
 <link rel="stylesheet" href="../assets/site.css?v=quality-20260930-7">
-<link rel="stylesheet" href="../assets/restaurants.css?v=quality-20260930-7">
+<link rel="stylesheet" href="../assets/restaurants.css?v=motion-team-20260930-1">
 <!-- ستاند التقييم جنب الجوال في العرض الحي (impeccable 5، «الاتجاه 3» §10): مكوّن tools/stand.cjs، وتنسيقه هنا -->
 <link rel="stylesheet" href="../assets/stand.css">
 <!-- الجوالات المصغرة (القصة والعرض الحي): نفس تنسيق صفحة المنيو (HTML حقيقي بنفس classes)، وألوان «مقهى المثال» فاتحة بس -->
@@ -33,10 +33,10 @@
 <link rel="stylesheet" href="../templates/menu/style.css">
 <!-- @@minis-style --><style>.mini--cafe{--shop:#7A3E2B;--on-shop:#FFFFFF;--shop-press:#662C19;--shop-line:#7A3E2B;--shop-tint:#F4F0EE;--shop-hl:rgba(0,0,0,.14)}.mini--flats{--shop:#1F3B57;--on-shop:#FFFFFF;--shop-press:#0F2B46;--shop-line:#1F3B57;--shop-tint:#EDEFF2;--shop-hl:rgba(0,0,0,.14)}.l-tag { margin: -8px 0 var(--lt-space-20); text-align: center; font-size: 15px; }.w-wa { margin-top: var(--lt-space-32); }</style><!-- /@@minis-style -->
 <!-- الحركة (web-motion.md «النظام 2»): صفحات الشركة بس، وصفحات الزبون ما تحمّلها (GM-011). GSAP 3.15 و ScrollTrigger محليين (vendor/gsap/LICENSE.md) -->
-<link rel="stylesheet" href="../assets/motion.css">
+<link rel="stylesheet" href="../assets/motion.css?v=motion-team-20260930-1">
 <script defer src="../vendor/gsap/gsap.min.js"></script>
 <script defer src="../vendor/gsap/ScrollTrigger.min.js"></script>
-<script defer src="../assets/motion.js?v=mobile-sync-20260930-6"></script>
+<script defer src="../assets/motion.js?v=motion-team-20260930-4"></script>
 <!-- البيانات المنظمة (skills/seo-audit.md §8) بأسعار services/pricing.md (GM-045) بس، وبدون أي حقل ضريبة. ملفوفة بـ [ ] عشان فحص
      tools/build-dist.cjs يقراها JS (الحل المؤقت في §8)، والدومين lamsatap.com معتمد في config.js -->
 <script type="application/ld+json">
@@ -149,7 +149,7 @@
 </div>
 </div>
 <div class="r-demo-body">
-<ul class="r-cards">
+<ul class="r-cards" data-reveal="stagger">
 <li class="s-card r-card"><svg class="r-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.25" width="14" height="17.5" rx="2"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg><h3 class="s-h3">المنيو</h3><p class="r-card-t">الأصناف بأسعارها وسعراتها.</p><a class="lt-link" href="../demo/menu/index.html">افتح المثال<span class="s-sr">: المنيو</span></a></li>
 <li class="s-card r-card"><svg class="r-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.75 9.25a13.5 13.5 0 0 1 18.5 0M5.75 12.75a9.25 9.25 0 0 1 12.5 0M8.9 16.2a4.6 4.6 0 0 1 6.2 0"/><path d="M12 19.75h.01" stroke-width="2.5"/></svg><h3 class="s-h3">الواي فاي</h3><p class="r-card-t">كلمة المرور قدامه، بزر نسخ.</p><a class="lt-link" href="../demo/wifi/index.html">افتح المثال<span class="s-sr">: الواي فاي</span></a></li>
 <li class="s-card r-card"><svg class="r-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.2 13.8a4 4 0 0 0 5.66 0l3.2-3.2a4 4 0 0 0-5.66-5.66l-1.1 1.1"/><path d="M13.8 10.2a4 4 0 0 0-5.66 0l-3.2 3.2a4 4 0 0 0 5.66 5.66l1.1-1.1"/></svg><h3 class="s-h3">روابط المحل</h3><p class="r-card-t">واتساب المحل وحساباته وموقعه.</p><a class="lt-link" href="../demo/links/index.html">افتح المثال<span class="s-sr">: روابط المحل</span></a></li>
@@ -220,7 +220,7 @@
 <h2 class="s-h2" id="plan-h" data-words="cut">كل هذا باشتراك واحد</h2>
 <p class="s-lead r-plan-lead">ونجهّزها بهويتك ونركّبها عندك.</p>
 <div class="r-plan-row">
-<article class="s-card s-plan r-plan" aria-labelledby="plan-name" data-reveal>
+<article class="s-card s-plan r-plan" aria-labelledby="plan-name" data-reveal="rise">
 <div class="s-plan-what">
 <h3 class="s-h3" id="plan-name">حزمة المحل الكامل</h3>
 <ul class="s-checks">
@@ -284,7 +284,7 @@
 <div class="s-wrap">
 <h2 class="s-h2" id="faq-h">الأسئلة</h2>
 <div class="r-faq-grid">
-<div class="s-faq" data-accordion>
+<div class="s-faq" data-accordion data-reveal>
 <details class="s-q"><summary>هل زبوني يحتاج تطبيق؟</summary><div class="s-q-a"><p>لا، الصفحة تنفتح في متصفح جواله. آيفون XS وأحدث يقرأ الشريحة بدون تطبيق. وأندرويد يقرأها لما يكون NFC شغال والشاشة مفتوحة. وفي أندرويد 17 وأحدث، يطلع له تنبيه يضغط عليه عشان ينفتح الرابط.</p></div></details>
 <details class="s-q"><summary>وش لو جواله ما قرأ الشريحة؟</summary><div class="s-q-a"><p>يمسح الباركود اللي جنبها، ويفتح نفس الصفحة. والآيفون ما يقرأ الشريحة والكاميرا أو المحفظة مفتوحة، أو وهو على وضع الطيران.</p></div></details>
 <details class="s-q"><summary>أقدر أغيّر المنيو أو الأسعار بعدين؟</summary><div class="s-q-a"><p>إيه. ترسل لنا التعديل على واتساب، ونحدّث المنيو مرتين بالشهر داخل الحزمة. والتحديث الزيادة بـ 25 ريال لين 10 أصناف، والأكبر أو المنيو الجديد بعرض سعر. والشريحة نفسها ما تتغير.</p></div></details>
@@ -294,7 +294,7 @@
 <details class="s-q"><summary>وش تشمل التجربة، وهل أدفع شي مقدم؟</summary><div class="s-q-a"><p>نجهّز صفحتك ونركّب العتاد عندك، وتجرّبها أسبوعين ببلاش. بدون دفع مقدم ولا التزام فيها، ولو ما كمّلت نشيل العتاد.</p></div></details>
 <details class="s-q"><summary>وش لو تعطلت الشريحة؟</summary><div class="s-q-a"><p>نرد على بلاغك خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم. ونبدلها مجاناً خلال 5 أيام عمل، إذا ما كان العطل من سوء استخدام.</p></div></details>
 </div>
-<div class="s-ask lt-lift r-ask">
+<div class="s-ask lt-lift r-ask" data-reveal>
 <div class="s-ask-head">
 <h3 class="s-h3" id="ask-h">تبغى تكلّم أحد منا؟</h3>
 <p class="s-ask-t">يرد عليك واحد منا خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم.</p>
@@ -317,7 +317,7 @@
 <div class="s-wrap">
 <h2 class="r-close-h" id="close-h">جرّبها أسبوعين في محلك. علينا.</h2>
 <p class="s-lead r-close-lead">خبّرنا عن محلك والحي، ونرتب معك التجربة.</p>
-<div class="s-cta r-close-cta">
+<div class="s-cta r-close-cta" data-reveal>
 <a class="lt-btn" data-wa="shopTrial" hidden><span>اطلب تجربة أسبوعين على واتساب</span></a>
 <p class="s-risk" data-wa-only hidden>أسبوعين ببلاش · ما عجبك؟ نشيل العتاد، بدون دفع مقدم ولا التزام في التجربة</p>
 <div class="s-tg" data-tg="with-wa" data-tg-rank="secondary" hidden>
@@ -344,6 +344,6 @@
 </div>
 </footer>
 <script src="../config.js?v=whatsapp-20260930"></script>
-<script src="../assets/app.js?v=quality-20260930-7"></script>
+<script src="../assets/app.js?v=motion-team-20260930-1"></script>
 </body>
 </html>

@@ -194,11 +194,12 @@
       var j = prev.length - (next.length - i), pc = j < 0 ? '' : prev.charAt(j);   // نفس الخانة من اليمين (الآحاد مع الآحاد)
       var add = anim && prev && (j < 0 || !/\d/.test(pc) && pc !== ch) ? ' data-in' : '';
       if (!/\d/.test(ch)) return '<span class="s-roll-s"' + add + '>' + esc(ch) + '</span>';
-      cols.push([/\d/.test(pc) && anim ? +pc : +ch, +ch]);
+      cols.push([+ch, +ch]);   // الخانة تبدأ على قيمتها النهائية (بدون تدحرج)
       return '<span class="s-roll-d"' + add + '><span class="s-roll-g">' + ch + '</span>' + DIG + '</span>';
     }).join('');
     var list = all('.s-roll-col', el), ins = all('[data-in]', el);
     list.forEach(function (c, i) { c.style.transition = 'none'; c.style.transform = 'translateY(' + (-10 * cols[i][0]) + '%)'; });
+    if (el._fade) { try { el._fade.cancel(); } catch (e) {} el._fade = null; }
     if (!anim) {
       // A preference change can happen after a previous FLIP animation.
       // Clear its sibling styles too, including an animation still in flight.
@@ -208,16 +209,12 @@
       });
       return;
     }
-    ins.forEach(function (n) { n.style.display = 'inline-block'; n.style.transition = 'none'; n.style.opacity = '0'; n.style.transform = 'translateY(55%)'; });
-    sibs.forEach(function (s, i) {
-      s.style.transition = 'none'; s.style.transform = 'none';
-      var r = s.getBoundingClientRect(), dx = before[i][0] - r.left, dy = before[i][1] - r.top;
-      s.style.transform = dx || dy ? 'translate(' + dx + 'px, ' + dy + 'px)' : '';
-    });
-    void el.offsetWidth;   // يثبت نقطة البداية قبل الانتقال
-    list.forEach(function (c, i) { c.style.transition = ''; c.style.transform = 'translateY(' + (-10 * cols[i][1]) + '%)'; });
-    ins.forEach(function (n) { n.style.transition = 'transform .6s ' + EASE + ', opacity .3s ease-out'; n.style.opacity = ''; n.style.transform = ''; });
-    sibs.forEach(function (s) { if (s.style.transform) { s.style.transition = 'transform .6s ' + EASE; s.style.transform = ''; } });
+    // anim-micro 2026-09-30 (brief §3 و§6.5): بدون تدحرج ولا عدّ. الرقم الجديد مكتوب على طول، ويظهر من .4 لين 1 في 150ms
+    // (ما يصير فاضي أبداً). الضغط السريع يلغي الظهور اللي قبله، والحالة النهائية صريحة (بدون transitionend)
+    list.forEach(function (c) { c.style.transition = ''; });
+    sibs.forEach(function (s) { s.style.transition = 'none'; s.style.transform = ''; });
+    ins.forEach(function (n) { n.removeAttribute('data-in'); });
+    if (el.animate) el._fade = el.animate([{ opacity: 0.4 }, { opacity: 1 }], { duration: 150, easing: 'ease-out' });
   }
   w.initPriceSwitch = function () {
     all('[data-price-switch]').forEach(function (sw) {

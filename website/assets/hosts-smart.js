@@ -35,12 +35,15 @@
       b.disabled = s < 0 ? n <= MIN : n >= MAX;
     });
     waMsg();
-    var f = q('.p-calc-total');
-    if (f.animate && w.matchMedia && w.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-      f.animate([{ transform: 'translateY(6px)', opacity: 0.4 }, { transform: 'none', opacity: 1 }], { duration: 320, easing: 'cubic-bezier(.2,.9,.25,1.15)' });
+    // anim-micro (brief §3): المجموع يتبدل فوري، والرقم بس يظهر من .4 لين 1 في 150ms (بدون حركة ولا عدّ). التفضيل ينقرى كل مرة،
+    // والضغط السريع يلغي الظهور اللي قبله
+    var f = q('[data-total]');
+    if (fade) { try { fade.cancel(); } catch (e) {} fade = null; }
+    if (f && f.animate && w.matchMedia && w.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      fade = f.animate([{ opacity: 0.4 }, { opacity: 1 }], { duration: 150, easing: 'ease-out' });
     }
   }
-  var w = window;
+  var w = window, fade = null;
   box.querySelectorAll('[data-step]').forEach(function (b) {
     b.addEventListener('click', function () { n = Math.min(MAX, Math.max(MIN, n + +b.getAttribute('data-step'))); render(); });
   });

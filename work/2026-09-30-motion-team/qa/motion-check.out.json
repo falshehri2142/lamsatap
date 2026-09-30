@@ -1,0 +1,717 @@
+[
+ {
+  "id": "M1",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce-load",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "bad": [],
+   "run": 0,
+   "pins": 0
+  }
+ },
+ {
+  "id": "M2",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce-toggle",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hidden": 0,
+   "run": 0
+  }
+ },
+ {
+  "id": "M3",
+  "page": "/",
+  "w": 390,
+  "mode": "nogsap",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hid": 0,
+   "errs": []
+  }
+ },
+ {
+  "id": "M7",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": 0
+ },
+ {
+  "id": "M10",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": {
+   "run": 0,
+   "mline": 0,
+   "hidden": 0
+  }
+ },
+ {
+  "id": "PROPS",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M6",
+  "page": "/",
+  "w": 390,
+  "mode": "info",
+  "pass": true,
+  "val": {
+   "layout": 15,
+   "style": 98,
+   "longtasks": [],
+   "errs": []
+  }
+ },
+ {
+  "id": "M11",
+  "page": "/",
+  "w": 390,
+  "mode": "kbd",
+  "pass": false,
+  "val": [
+   {
+    "t": "A.s-door-link",
+    "ring": false,
+    "op": 1
+   }
+  ]
+ },
+ {
+  "id": "M1",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce-load",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "bad": [],
+   "run": 0,
+   "pins": 0
+  }
+ },
+ {
+  "id": "M2",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce-toggle",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hidden": 0,
+   "run": 0
+  }
+ },
+ {
+  "id": "M3",
+  "page": "/",
+  "w": 1440,
+  "mode": "nogsap",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hid": 0,
+   "errs": []
+  }
+ },
+ {
+  "id": "M7",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": 0
+ },
+ {
+  "id": "M10",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": {
+   "run": 0,
+   "mline": 0,
+   "hidden": 0
+  }
+ },
+ {
+  "id": "PROPS",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M6",
+  "page": "/",
+  "w": 1440,
+  "mode": "info",
+  "pass": true,
+  "val": {
+   "layout": 3,
+   "style": 53,
+   "longtasks": [],
+   "errs": []
+  }
+ },
+ {
+  "id": "M11",
+  "page": "/",
+  "w": 1440,
+  "mode": "kbd",
+  "pass": false,
+  "val": [
+   {
+    "t": "A.s-door-link",
+    "ring": false,
+    "op": 1
+   }
+  ]
+ },
+ {
+  "id": "M9",
+  "page": "/",
+  "w": 1440,
+  "mode": "resize",
+  "pass": true,
+  "val": {
+   "r1": {
+    "hs": false,
+    "top": 135.4375,
+    "jump": 0
+   },
+   "r2": {
+    "hs": false,
+    "hid": 0
+   },
+   "r3": {
+    "hs": false
+   }
+  }
+ },
+ {
+  "id": "M1",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce-load",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "bad": [],
+   "run": 0,
+   "pins": 0
+  }
+ },
+ {
+  "id": "M2",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce-toggle",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hidden": 0,
+   "run": 0
+  }
+ },
+ {
+  "id": "M3",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "nogsap",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hid": 0,
+   "errs": []
+  }
+ },
+ {
+  "id": "M7",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": 0
+ },
+ {
+  "id": "M10",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": {
+   "run": 0,
+   "mline": 0,
+   "hidden": 0
+  }
+ },
+ {
+  "id": "PROPS",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M6",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "info",
+  "pass": true,
+  "val": {
+   "layout": 13,
+   "style": 114,
+   "longtasks": [
+    50
+   ],
+   "errs": []
+  }
+ },
+ {
+  "id": "M11",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "kbd",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M1",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce-load",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "bad": [],
+   "run": 0,
+   "pins": 0
+  }
+ },
+ {
+  "id": "M2",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce-toggle",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hidden": 0,
+   "run": 0
+  }
+ },
+ {
+  "id": "M3",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "nogsap",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hid": 0,
+   "errs": []
+  }
+ },
+ {
+  "id": "M7",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": 0.0006
+ },
+ {
+  "id": "M10",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": {
+   "run": 0,
+   "mline": 0,
+   "hidden": 0
+  }
+ },
+ {
+  "id": "PROPS",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M6",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "info",
+  "pass": true,
+  "val": {
+   "layout": 13,
+   "style": 99,
+   "longtasks": [
+    55
+   ],
+   "errs": []
+  }
+ },
+ {
+  "id": "M11",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "kbd",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M9",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "resize",
+  "pass": true,
+  "val": {
+   "r1": {
+    "hs": false,
+    "top": 188.23709106445312,
+    "jump": 0
+   },
+   "r2": {
+    "hs": false,
+    "hid": 0
+   },
+   "r3": {
+    "hs": false
+   }
+  }
+ },
+ {
+  "id": "M1",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "reduce-load",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "bad": [],
+   "run": 0,
+   "pins": 0
+  }
+ },
+ {
+  "id": "M2",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "reduce-toggle",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hidden": 0,
+   "run": 0
+  }
+ },
+ {
+  "id": "M3",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "nogsap",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hid": 0,
+   "errs": []
+  }
+ },
+ {
+  "id": "M7",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": 0
+ },
+ {
+  "id": "M10",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": {
+   "run": 0,
+   "mline": 0,
+   "hidden": 0
+  }
+ },
+ {
+  "id": "PROPS",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M6",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "info",
+  "pass": true,
+  "val": {
+   "layout": 17,
+   "style": 156,
+   "longtasks": [
+    50
+   ],
+   "errs": []
+  }
+ },
+ {
+  "id": "M11",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "kbd",
+  "pass": false,
+  "val": [
+   {
+    "t": "INPUT.",
+    "ring": true,
+    "op": 0
+   }
+  ]
+ },
+ {
+  "id": "M1",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "reduce-load",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "bad": [],
+   "run": 0,
+   "pins": 0
+  }
+ },
+ {
+  "id": "M2",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "reduce-toggle",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hidden": 0,
+   "run": 0
+  }
+ },
+ {
+  "id": "M3",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "nogsap",
+  "pass": true,
+  "val": {
+   "m": false,
+   "mh": false,
+   "hid": 0,
+   "errs": []
+  }
+ },
+ {
+  "id": "M7",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": 0.0006
+ },
+ {
+  "id": "M10",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": {
+   "run": 0,
+   "mline": 0,
+   "hidden": 0
+  }
+ },
+ {
+  "id": "PROPS",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "pass": true,
+  "val": []
+ },
+ {
+  "id": "M6",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "info",
+  "pass": true,
+  "val": {
+   "layout": 13,
+   "style": 132,
+   "longtasks": [],
+   "errs": []
+  }
+ },
+ {
+  "id": "M11",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "kbd",
+  "pass": false,
+  "val": [
+   {
+    "t": "INPUT.",
+    "ring": true,
+    "op": 0
+   }
+  ]
+ },
+ {
+  "id": "M9",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "resize",
+  "pass": true,
+  "val": {
+   "r1": {
+    "hs": false,
+    "top": 2646.59375,
+    "jump": 2207
+   },
+   "r2": {
+    "hs": false,
+    "hid": 0
+   },
+   "r3": {
+    "hs": false
+   }
+  }
+ },
+ {
+  "id": "M5",
+  "page": "/",
+  "w": 390,
+  "mode": "cpu4x",
+  "pass": false,
+  "val": {
+   "load": {
+    "maxF": 233,
+    "over33": 3
+   },
+   "scrollLongTasks": [
+    69
+   ]
+  }
+ },
+ {
+  "id": "M8",
+  "page": "/",
+  "w": 390,
+  "mode": "cpu4x",
+  "pass": true,
+  "val": {
+   "maxInteraction": 56,
+   "target": 100
+  }
+ },
+ {
+  "id": "M5",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "cpu4x",
+  "pass": false,
+  "val": {
+   "load": {
+    "maxF": 217,
+    "over33": 1
+   },
+   "scrollLongTasks": []
+  }
+ },
+ {
+  "id": "M8",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "cpu4x",
+  "pass": true,
+  "val": {
+   "maxInteraction": 40,
+   "target": 100
+  }
+ },
+ {
+  "id": "M5",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "cpu4x",
+  "pass": false,
+  "val": {
+   "load": {
+    "maxF": 283,
+    "over33": 3
+   },
+   "scrollLongTasks": []
+  }
+ },
+ {
+  "id": "M8",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "cpu4x",
+  "pass": true,
+  "val": {
+   "maxInteraction": 48,
+   "target": 100
+  }
+ },
+ {
+  "id": "DEMO",
+  "page": "demo/*",
+  "w": 0,
+  "mode": "6",
+  "pass": true,
+  "val": {
+   "errs": [],
+   "gsapReqs": []
+  }
+ }
+]

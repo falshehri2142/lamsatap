@@ -26,24 +26,76 @@
       '<rect x="80" y="140" width="60" height="4" rx="2" fill="var(--lt-surface)" opacity=".35"/></svg>';
   }
 
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var G = window.gsap, cur = null, token = 0, timer = 0, started = false;
-  var SPRING = 'cubic-bezier(.2,.9,.25,1.15)';
-
-  function anim(el, from, to, ms, ease, delay) {
-    return new Promise(function (res) {
-      if (!el) return res();
-      if (G) {
-        G.fromTo(el, from, Object.assign({}, to, { duration: ms / 1000, delay: (delay || 0) / 1000, ease: ease === SPRING ? 'back.out(1.4)' : 'power2.out', onComplete: res, overwrite: true }));
-      } else if (el.animate) {
-        var a = el.animate([css(from), css(to)], { duration: ms, delay: delay || 0, easing: ease, fill: 'forwards' });
-        a.onfinish = res; a.oncancel = res;
-      } else res();
-    });
+  // brief §4 Tap Lab: out → meet → tap → open، المجموع 650ms. التفضيل ينقرى وقت كل تشغيل.
+  function reduced() { return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); }
+  var G = window.gsap, cur = null, token = 0, timer = 0, started = false, tl = null, waits = [];
+  var poster = root.querySelector('[data-tl-poster]'), screen = null;
+  var EASE = {
+    in: ['expo.in', 'cubic-bezier(.7,0,.84,0)'], io: ['power2.inOut', 'cubic-bezier(.45,0,.55,1)'],
+    out: ['power2.out', 'cubic-bezier(.33,1,.68,1)'], xo: ['expo.out', 'cubic-bezier(.16,1,.3,1)'],
+    spring: ['back.out(1.2)', 'cubic-bezier(.2,.9,.25,1.15)']
+  };
+  // [ms, el, from (null = القيمة الحالية), to, المدة, المنحنى]
+  function steps() {
+    // fade the page layer only (the screen keeps its light surface, not the ink body)
+    screen = stage.hasAttribute('data-loaded') || !poster ? frame : poster;
+    return [
+      [0, screen, null, { opacity: 0 }, 150, 'in'],
+      [0, phone, null, { x: -12 }, 240, 'io'],
+      [170, ripple, { scale: .6, opacity: .5 }, { scale: 1.6, opacity: 0 }, 480, 'out'],
+      [170, stand, { y: 0 }, { y: -2 }, 120, 'out'],
+      [290, stand, { y: -2 }, { y: 0 }, 120, 'out'],
+      [400, screen, { opacity: 0 }, { opacity: 1 }, 240, 'xo'],
+      [400, phone, { x: -12 }, { x: 0 }, 240, 'spring']
+    ];
   }
   function css(o) {
-    var t = 'translateY(' + (o.y || 0) + 'px) rotate(' + (o.rotation || 0) + 'deg) scale(' + (o.scale == null ? 1 : o.scale) + ')';
-    return o.opacity == null ? { transform: t } : { transform: t, opacity: o.opacity };
+    var r = { transform: 'translate(' + (o.x || 0) + 'px,' + (o.y || 0) + 'px) scale(' + (o.scale == null ? 1 : o.scale) + ')' };
+    if (o.opacity != null) r.opacity = o.opacity;
+    if (o.x == null && o.y == null && o.scale == null) delete r.transform;
+    return r;
+  }
+  function stop() {
+    G = window.gsap;
+    if (tl) { tl.kill(); tl = null; }
+    waits.forEach(clearTimeout); waits = [];
+    [frame, poster, phone, ripple, stand].forEach(function (el) {
+      if (!el) return;
+      if (G) G.killTweensOf(el);
+      if (el.getAnimations) el.getAnimations().forEach(function (a) { a.cancel(); });
+    });
+  }
+  function finalState() {
+    stop();
+    [frame, poster, phone, ripple, stand].forEach(function (el) { if (el) { el.style.transform = ''; el.style.opacity = ''; } });
+    if (G) G.set([frame, poster, phone, stand].filter(Boolean), { clearProps: 'transform,opacity' });
+  }
+  function run(t) {
+    stop();
+    var list = steps();
+    if (G) {
+      tl = G.timeline();
+      list.forEach(function (s) {
+        if (!s[1]) return;
+        // overwrite:false inside the timeline (overwrite:true would kill sibling steps on the same target); stop() kills all tweens first.
+        var to = Object.assign({}, s[3], { duration: s[4] / 1000, ease: EASE[s[5]][0], overwrite: false, immediateRender: false });
+        s[2] ? tl.fromTo(s[1], s[2], to, s[0] / 1000) : tl.to(s[1], to, s[0] / 1000);
+      });
+      tl.call(setState, ['tap'], .17).call(setState, ['open'], .4).call(function () { G.set([frame, poster], { clearProps: 'opacity' }); });
+      return;
+    }
+    list.forEach(function (s) {
+      var el = s[1]; if (!el || !el.animate) return;
+      waits.push(setTimeout(function () {
+        if (t !== token) return;
+        var from = s[2] || (s[3].opacity != null ? { opacity: getComputedStyle(el).opacity } : { x: 0 });
+        var last = s[3].opacity === 1;
+        if (last) el.getAnimations().forEach(function (a) { a.cancel(); });
+        el.animate([css(from), css(s[3])], { duration: s[4], easing: EASE[s[5]][1], fill: last ? 'backwards' : 'forwards' });
+      }, s[0]));
+    });
+    waits.push(setTimeout(function () { if (t === token) setState('tap'); }, 170));
+    waits.push(setTimeout(function () { if (t === token) setState('open'); }, 400));
   }
   function setState(s) { stage.setAttribute('data-state', s); }
 
@@ -73,16 +125,9 @@
     if (cap) cap.textContent = TEXT[key] || '';
     if (open) open.setAttribute('href', src);
     load(src, t);
-    if (reduce) { setState('open'); return; }
+    if (reduced()) { finalState(); setState('open'); return; }
     setState('approach');
-    anim(phone, { y: 24, rotation: -4 }, { y: 0, rotation: 0 }, 520, SPRING).then(function () {
-      if (t !== token) return;
-      setState('tap');
-      var r1 = anim(ripple, { scale: .2, opacity: .5 }, { scale: 1.6, opacity: 0 }, 640, 'ease-out');
-      var r2 = r1.then(function () { return t === token && anim(ripple, { scale: .2, opacity: .5 }, { scale: 1.6, opacity: 0 }, 640, 'ease-out', 120); });
-      setTimeout(function () { if (t === token) setState('open'); }, 380);
-      return r2;
-    });
+    run(t);
   }
 
   function select(tab, focus) {
