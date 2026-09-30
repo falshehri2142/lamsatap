@@ -356,21 +356,44 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
 }
 @media (max-width: 1023px) { .trust--plan { display: none; } } /* الجوال: الضمانات تحت البطل تكفي، بدون تكرار */
 
-/* ===== GM-067 نظافة بعد الخروج «زي الباقات»: عنوان القسم، ثم كرتين s-plan بحجم الوحدة ===== */
-.p-clean { margin-top: var(--lt-space-64); padding-top: var(--lt-space-48); border-top: var(--lt-hairline) solid var(--lt-border); }
+
+/* ===== GM-067 نظافة بعد الخروج v3: مقدمة، ثم مسار الخطوات مرة وحدة، ثم كرتين بحجم الوحدة ===== */
+.p-clean { margin-top: var(--lt-space-64); padding: var(--lt-space-32) var(--lt-space-20); border-radius: var(--lt-radius-l); background: var(--lt-bg); display: grid; gap: var(--lt-space-32); }
+.p-clean-head { display: flex; flex-direction: column-reverse; align-items: flex-start; gap: var(--lt-space-12); }
 .p-clean-h { margin: 0; }
 .p-clean-line { margin-top: var(--lt-space-8); }
-.p-clean-plans { margin-top: var(--lt-space-32); }
-.p-clean-plan .s-plan-head .s-h3 { margin: 0; }
-.p-clean-plan .s-plan-head .s-badge { white-space: nowrap; }
-.p-clean-checks { margin-top: var(--lt-space-20); }
-.p-clean-soon { font-family: var(--lt-font-brand); font-size: 28px; direction: rtl; color: var(--lt-muted); }
-.p-clean-plan .s-plan-buy .s-cta { justify-items: start; }
-@media (min-width: 768px) { .p-clean-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-space-24); } }
+.p-clean-note { margin-top: var(--lt-space-4); color: var(--lt-muted); }
+.p-clean-flow { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--lt-space-16); position: relative; }
+.p-clean-flow li { display: grid; grid-template-columns: 48px minmax(0,1fr); grid-template-rows: auto auto; column-gap: var(--lt-space-16); align-items: center; position: relative; }
+.p-clean-ico { grid-row: 1 / span 2; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: var(--lt-surface); box-shadow: var(--lt-elev-raised); color: var(--lt-ink); position: relative; z-index: 1; }
+.p-clean-ico svg { width: 24px; height: 24px; }
+.p-clean-n { font-family: var(--lt-font-latin); font-size: 13px; font-weight: 600; color: var(--lt-muted); }
+.p-clean-t { font-size: 17px; line-height: 1.5; font-weight: 500; color: var(--lt-text); }
+.p-clean-flow::before { content: ""; position: absolute; inset-inline-start: 23px; top: 24px; bottom: 24px; width: 2px; background: var(--lt-border); }
+.p-clean-plans { display: grid; gap: var(--lt-space-16); }
+.p-clean-card { display: grid; gap: var(--lt-space-8); align-content: start; padding: var(--lt-space-24); background: var(--lt-surface); border-color: transparent; box-shadow: var(--lt-elev-raised); border-radius: var(--lt-radius-l); }
+.p-clean-card-ico { width: 44px; height: 44px; display: grid; place-items: center; border-radius: var(--lt-radius-m); background: var(--lt-surface-2); color: var(--lt-ink); margin-bottom: var(--lt-space-8); }
+.p-clean-card-ico svg { width: 24px; height: 24px; }
+.p-clean-card .s-h3 { margin: 0; }
+.p-clean-sub { margin: 0; color: var(--lt-muted); }
+.p-clean-price { margin: var(--lt-space-12) 0 var(--lt-space-8); }
+.p-clean-soon { display: inline-flex; align-items: center; gap: var(--lt-space-8); padding: var(--lt-space-8) var(--lt-space-16); border-radius: var(--lt-radius-pill); background: var(--lt-surface-2); font-size: 15px; font-weight: 600; color: var(--lt-text); }
+.p-clean-soon::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lt-accent); }
+.p-clean-price > span:not(.p-clean-soon) { font-family: var(--lt-font-latin); font-size: 32px; font-weight: 700; color: var(--lt-text); }
+.p-clean-card .s-cta { justify-items: stretch; }
+.p-clean-card .s-cta .lt-btn { width: 100%; }
+@media (min-width: 768px) { .p-clean-plans { grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--lt-space-24); } }
 @media (min-width: 1024px) {
-  .p-clean-plan .s-plan-buy { border-inline-start: 0; border-top: var(--lt-hairline) solid var(--lt-border); background: var(--lt-bg); }
-  .p-clean-soon { font-size: 32px; }
+  .p-clean { padding: var(--lt-space-48); grid-template-columns: minmax(0,5fr) minmax(0,7fr); column-gap: var(--lt-space-48); align-items: center; }
+  .p-clean-plans { grid-column: 1 / -1; }
+  .p-clean-flow { grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--lt-space-24); }
+  .p-clean-flow li { grid-template-columns: 1fr; grid-template-rows: auto; row-gap: var(--lt-space-8); justify-items: start; }
+  .p-clean-ico { grid-row: auto; }
+  .p-clean-flow::before { inset-inline: 24px calc(33.33% - 24px); top: 23px; bottom: auto; width: auto; height: 2px; }
+  .p-clean-card { padding: var(--lt-space-32); }
 }
-.p-clean-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-8) var(--lt-space-12); }
-.p-clean-head .s-badge { white-space: nowrap; }
-.p-clean-head { flex-direction: column-reverse; align-items: flex-start; gap: var(--lt-space-12); }   /* الشارة فوق العنوان كعنوان صغير، ما تنزل تحته في 390 */
+@media (max-width: 767px) {
+  .p-clean { padding-inline: var(--lt-space-16); }
+  .p-clean-card { padding: var(--lt-space-20); }
+  .p-clean-card .s-cta .lt-btn { padding-inline: var(--lt-space-12); font-size: 15px; }
+}
