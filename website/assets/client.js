@@ -28,7 +28,7 @@
   // رأس الهوية (§5.3): شعار المحل، أو اسمه كشعار كتابي بالثيم المحايد (GM-027). small = 40px (دليل الوحدة لو لزم)
   w.cIdentity = function (brand, small) {
     brand = brand || {};
-    var name = str(brand.name), logo = localImg(brand.logo), dark = localImg(brand.logoDark);
+    var name = str(brand.name), logo = localImg(brand.logo), dark = d.documentElement.getAttribute('data-lt-scheme') === 'light' ? '' : localImg(brand.logoDark);
     var cls = 'c-id' + (small ? ' c-id--sm' : '');
     if (!logo) return name ? '<header class="' + cls + '"><p class="c-id-name">' + esc(name) + '</p></header>' : '';
     var img = '<img class="c-logo' + (dark ? '' : ' c-plate') + '" src="' + esc(logo) + '" alt="' + esc(name) + '" data-name="' + esc(name) + '">';

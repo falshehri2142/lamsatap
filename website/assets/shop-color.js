@@ -118,7 +118,8 @@
         ';--shop-tint:' + x.tint + ';--shop-hl:' + x.hl;
     };
     if (!el) { el = document.createElement('style'); el.id = id; document.head.appendChild(el); }
-    el.textContent = scope + '{' + vars(t.light) + '}@media (prefers-color-scheme:dark){' + scope + '{' + vars(t.dark) + '}}';
+    var lightOnly = document.documentElement.getAttribute('data-lt-scheme') === 'light';
+    el.textContent = scope + '{' + vars(t.light) + '}' + (lightOnly ? '' : '@media (prefers-color-scheme:dark){' + scope + '{' + vars(t.dark) + '}}');
     return t;
   };
 })(window);

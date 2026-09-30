@@ -48,8 +48,8 @@
 .c-id-name { font-size: 22px; line-height: 1.3; font-weight: 700; text-align: center; }
 .c-id--sm .c-id-name { font-size: 17px; }   /* الاسم بدون شعار بنفس المنطق: أصغر من الترحيب 28 بوضوح */
 @media (prefers-color-scheme: dark) {
-  /* أغلب الشعارات مرسومة للأبيض: الملف الفاتح على لوح أبيض، إلا لو فيه brand.logoDark (يطلع بدون لوح) */
-  .c-plate { box-sizing: content-box; padding: var(--lt-space-8) var(--lt-space-12); border-radius: 12px; background: var(--c-plate); }
+  /* (مقفول فاتح بـ data-lt-scheme) أغلب الشعارات مرسومة للأبيض: الملف الفاتح على لوح أبيض، إلا لو فيه brand.logoDark (يطلع بدون لوح) */
+  :where(:root:not([data-lt-scheme="light"])) .c-plate { box-sizing: content-box; padding: var(--lt-space-8) var(--lt-space-12); border-radius: 12px; background: var(--c-plate); }
 }
 
 /* الأيقونات 20px، currentColor (§3.3) */
@@ -71,7 +71,7 @@
    قبل كان بلون الفعل، فيتقلب في الداكن لشريط فاتح ويصير أقوى شي في الشاشة. في الداكن خط 1px تحته بس (بدون خط فوق حافة الشاشة).
    التركيز والتحديد محايدين مثل باقي صفحة الزبون: نص الحبر الفاتح، مو التيل */
 .c-demo { --lt-focus: var(--lt-text); --lt-selection: var(--lt-border); }
-@media (prefers-color-scheme: dark) { .c-demo.lt-ink { border-top: 0; } }
+@media (prefers-color-scheme: dark) { :where(:root:not([data-lt-scheme="light"])) .c-demo.lt-ink { border-top: 0; } }
 .c-demo-in { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-12); max-width: var(--lt-column-client); min-height: 64px; margin: 0 auto; padding: var(--lt-space-8) var(--lt-space-20); font-size: 14px; line-height: 1.4; font-weight: 600; }
 .c-owner { margin-top: var(--lt-space-48); padding: var(--lt-space-24) var(--lt-space-20); border-radius: var(--lt-radius-m); background: var(--lt-surface-2); color: var(--lt-text); }
 :where(.c-owner) h2 { margin: 0 0 var(--lt-space-8); }
@@ -80,8 +80,12 @@
 
 @media (prefers-reduced-motion: reduce) { .c * { scroll-behavior: auto !important; transition: none !important; } }
 
-/* Desktop (768+): the page reads as one calm panel instead of a thin strip lost on a wide screen.
-   Border only, no shadow or motion (GM-011); works in both themes via tokens. */
+/* Light, premium feel (owner request 2026-09-30, overrides the system-font/no-shadow rule of GM-011/GM-023 for these pages):
+   brand font, sand page, white cards lifted by the soft brand shadow, calmer rhythm. */
+.c { font-family: var(--lt-font-brand); background: var(--lt-bg); }
+.c .lt-panel { background: var(--lt-surface); border-color: transparent; box-shadow: var(--lt-elev-raised); border-radius: var(--lt-radius-l); }
+.c .lt-btn { border-radius: var(--lt-radius-m); }
+.c-main h2, .c-main .c-h { letter-spacing: 0; }
 @media (min-width: 768px) {
-  body.c .c-main { margin-block: var(--lt-space-40); padding: var(--lt-space-32) var(--lt-space-32) var(--lt-space-48); background: var(--lt-surface); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-l); }
+  body.c .c-main { padding-block: var(--lt-space-48) var(--lt-space-64); }
 }
