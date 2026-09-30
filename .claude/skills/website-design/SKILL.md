@@ -97,7 +97,7 @@ description: مصمم الموقع لمشروع NFC. يبني موقع الشر�
 - `ui-ux-pro-max` — **دايماً** في أي شغل واجهة (أمر صاحب المشروع 2026-09-27): `--design-system` أول، وبحث `--domain`، والنقد بأرقام القواعد، و Pre-Delivery Checklist و `references/pro-rules.md` قبل أي تسليم. المخرجات مدخل، وقرارات GM المعتمدة (الألوان والخط وGM-011/021) تغلبها.
 - `frontend-design` (رسمي من Anthropic): اتجاه بصري مميز مو قالب عام، وخطة tokens قبل الكود، ونقد ذاتي بالصور. أولويتها تحت قرارات GM المعتمدة.
 - **إلزامي في كل شغل تصميم** (أمر صاحب المشروع عن طريق المدير العام، 2026-09-27: «استخدم كل مهارات التصميم الموجودة»):
-  - **التصميم والنقد والجودة:** `ui-ux-pro-max` و `impeccable` و `frontend-design`.
+  - **التصميم والنقد والجودة:** `ui-ux-pro-max` و `frontend-design`، ومراجع impeccable النصية في `references/impeccable/` (مو سكيل؛ اقرأ `SOURCE.md` حقها أول. تحديث 2026-09-30، `vendor-skills/REVIEW-2026-09-30.md`).
   - **الحركة:** `gsap-core` و `gsap-scrolltrigger` و `gsap-timeline` و `gsap-plugins` و `gsap-performance` و `gsap-utils`. GSAP مسموح كنسخة محلية في `website/vendor/` (مو CDN)، ورخصته مكتوبة في CREDITS، وتنزيله بموافقة صاحب المشروع. وشروطنا ثابتة: 60 إطار في الثانية، و reduced-motion، والمحتوى يبان بدون JS، وصفحات الزبون على GM-011.
   - **الأصول البصرية:** `canvas-design`.
 
@@ -107,7 +107,7 @@ description: مصمم الموقع لمشروع NFC. يبني موقع الشر�
 | المهارة | وقتها |
 |---|---|
 | `frontend-design` و`ui-ux-pro-max` | أول كل جلسة (نظام التصميم `design-system/lamsatap/`)، وقائمة الفحص قبل التسليم |
-| `impeccable` | المراجعة النهائية لكل صفحة بوكيل `impeccable-finish-reviewer`، وإنتاج الصور بـ `impeccable-asset-producer`، وملف `DESIGN.md` في النهاية بـ `impeccable-documenter` |
+| مراجع impeccable (`references/impeccable/`) | النقد النهائي بـ `critique-rubrics.md` و`polish.md` و`audit.md` (يقراها المدير الفني ومدير الحركة)، والحركة بـ `animate.md`. **تحديث 2026-09-30:** سكيل `impeccable` نفسه ووكيلا `impeccable-finish-reviewer` و`impeccable-asset-producer` ممنوعين نهائياً، و`impeccable-documenter` محجوز لقرار المدير العام (الأسباب في `vendor-skills/HELD.md`) |
 | `gsap-core` و`gsap-scrolltrigger` و`gsap-timeline` و`gsap-plugins` و`gsap-utils` و`gsap-performance` | كل حركة. الخلاصة في `work/2026-09-27-brand-identity/skills/gsap.md` |
 | `seo-audit` | قبل التسليم. القائمة في `skills/seo-audit.md` |
 | `copywriting` | لكاتب النصوص |
@@ -174,6 +174,7 @@ description: مصمم الموقع لمشروع NFC. يبني موقع الشر�
   - `tools/check-qr.py`: يفحص كل باركود في الصور بـ OpenCV و jsQR بمقاسات وقطع مكبّرة (`--jsqr <مجلد jsqr>`). يطلع FAIL لو رابط مو `/demo/`.
     jsQR مو داخل المشروع: نسخة 1.4.0 من فحص سابق في `%TEMP%\claude\qa-review-demo\node_modules\jsqr`.
   - `tools/build-dist.cjs`: نسخة الإطلاق.
+  - `tools/motion-frames.cjs` (2026-09-30): لقطات الحركة بتمرير حقيقي على 390 و1440، عادي أو تقليل حركة أو بدون GSAP، مع `frames.json`. الطريقة في «فريق الحركة» تحت.
   - أي خطوة تتكرر تصير سكربت هنا.
 - **أي شي يكلف فلوس أو رصيد** (صور مدفوعة، أو توليد بالذكاء الاصطناعي): موافقة صاحب المشروع قبله.
 - **دروس:**
@@ -217,3 +218,97 @@ description: مصمم الموقع لمشروع NFC. يبني موقع الشر�
 - **الباقي (ملاحظ ومو مصلّح):**
   - رابط «سياسة الخصوصية» داخل ملاحظة دليل الضيف ارتفاعه 16px. هو رابط داخل الجملة، ومقبول.
   - «السعرات: 5» في المنيو التجريبي ممكن تنفهم إنها سعر. الأوضح «سعرات حرارية».
+
+## فريق الحركة (2026-09-30)
+**الطلب:** صاحب المشروع طلب 2026-09-30: «سويلي 5 ايجنت مختصين من الانميشن للموقع كامل»، مع تنزيل المهارات اللي تحتاجها الحركة من GitHub (المراجعة في `vendor-skills/REVIEW-2026-09-30.md`).
+**الوكلاء:** خمسة في `.claude/agents/`، كلهم Opus 5.5 بجهد low (GM-066).
+
+| الوكيل | شغله | يملك افتراضياً |
+|---|---|---|
+| `anim-director` | لغة الحركة (المدد والمنحنيات والتسلسل، ووش ما يتحرك أبداً)، والموجز قبل التنفيذ، والدرجة من 10 بعده. الكلمة الأخيرة في الحركة | `work/<task>/anim-director.md` بس |
+| `anim-scroll` | ScrollTrigger: القصص والتثبيت والظهور والتتابع، والجوال أول، وصحة refresh وتغيير المقاس | `assets/motion.js`، وسمات الحركة `data-*` و`?v=` في الصفحات الثلاث |
+| `anim-micro` | hover وfocus وactive، والأزرار والكروت وأزرار المختبر والنماذج ومبدّل الأسعار والعدّادات. CSS أول | `assets/motion.css` و`assets/signature.css`، وحركة مبدّل الأسعار في `assets/app.js`، وحركة `assets/hosts-smart.js` |
+| `anim-svg` | موجة اللمسة، والجوال والستاند، ورمز الشعار، وإطار «تأكيد الخروج» `.p-sign`، ورسم المسارات | `assets/signature.js`، وسمات الحركة داخل `assets/illustrations/*.svg` |
+| `anim-perf-qa` | تقليل الحركة، وtransform وopacity بس، وINP وCLS وlayout thrash، ومعالج مبطّأ، وبدون GSAP وبدون JS، وcheck.js، وبوابة البناء | `work/<task>/qa/` بس. ما يعدّل الموقع |
+
+- **ليش 5 مو 6:**
+  - كود الحركة في أربع ملفات أساسية: `motion.js` و`motion.css` و`signature.js` و`signature.css`. الخمسة يغطونها بدون ما يتشاركون ملف.
+  - انتقالات الصفحات (`@view-transition`، CSS بس) عند anim-micro بقرار المدير.
+  - توقيت النص العربي قاعدة عند anim-director.
+  - وكيل سادس يعني ملفات مشتركة وتنسيق أكثر.
+- **مع الفريق الثماني:**
+  - في مهمة حركة، فريق الحركة يحل محل `web-motion`، وما يشتغلون مع بعض على نفس الملفات.
+  - `web-art-director` يغلب في الشكل والتخطيط، وanim-director في الحركة، والخلاف للمدير العام.
+- **الملفات الثانية** (`site.css` و`home.css` و`restaurants.css` و`hosts.css`، وأي ملف غير اللي فوق):
+  - المدير يكتب في موجزه مين يعدّلها، وكل ملف له وكيل واحد في المهمة.
+  - اللي يحتاج تعديل في ملف غيره يكتب في `work/<task>/requests-<صاحب الملف>.md`.
+
+### مهارات القسم للحركة (مثبتة 2026-09-30)
+**اقرأ `SOURCE.md` قبل `SKILL.md` دايماً.**
+- **سكيلات GSAP الست** في `.claude/skills/`: `gsap-core` و`gsap-scrolltrigger` و`gsap-timeline` و`gsap-performance` و`gsap-utils` و`gsap-plugins`.
+  - المصدر: نسخة بايت ببايت من greensock/gsap-skills (`aed9cfd3`)، والـ MIT يغطي النص بس.
+  - التصحيحات في رأس كل `SOURCE.md` وتغلب السكيل:
+    - `refreshPriority`: الأكبر يتحدث أول.
+    - Observer يكون بـ `ScrollTrigger.observe()`.
+    - اللي ينبني بعد matchMedia يحتاج `contextSafe`.
+    - مثال horizontal scroll في السكيل خربان.
+    - لا npm ولا CDN، ولا SplitText ولا ScrollSmoother، ولا تقسيم للعربي لحروف.
+- **`.claude/skills/ui-ux-pro-max/`** (معدّل، `09170eec`، MIT):
+  - الأمر: `python3 -B .claude/skills/ui-ux-pro-max/scripts/search.py "<بحث>" --domain ux` (أو `--domain gsap`).
+  - بدون `--force`، وبدون `--persist -p LamsaTap`. المخرجات مدخل بس.
+  - بحث سابق للفريق في `work/2026-09-30-motion-team/ui-ux-pro-max/`: ناخذ التوقيت والقواعد، ونترك الألوان والخطوط.
+- **`.claude/skills/website-design/references/impeccable/`** (نصوص مرجعية معدّلة، Apache-2.0، مو سكيل):
+  - الملفات: `animate.md` (الأهم)، و`delight.md` و`polish.md` و`critique-rubrics.md` و`optimize.md` و`harden.md` و`audit.md`. و`overdrive.md` مرجع بس.
+  - GM-055 §6 (transform وopacity) يغلب «material palette» في `animate.md` (blur وfilter وshadow).
+- **خلاصة الفريق:** `work/2026-09-27-brand-identity/skills/gsap.md`.
+  - القواعد: PIN وMM وCL وTL وPERF وFO.
+  - السلّم في §3.1، وقائمة الفحص في §6.
+- **ما انثبت:**
+  - سكيل `impeccable` ووكلاؤه.
+  - `gsap-react` و`gsap-frameworks`.
+  - أي plugin لـ GSAP غير الملفين المحليين.
+  - الأسباب في `vendor-skills/HELD.md`.
+
+### طريقة التشغيل
+1. **الهدف:** القسم يكتب `work/<task>/goal.md`: هدف واحد، والصفحات، ومعيار النجاح. المعيار: 9 أو أكثر من المدير، وكل فحوص anim-perf-qa PASS.
+2. **الموجز:** `anim-director` يكتب `work/<task>/anim-director.md`، وفيه:
+   - أطروحة الحركة، والسلّم، والتسلسل لكل قسم.
+   - قائمة «ما يتحرك أبداً».
+   - خريطة الملفات: كل ملف له وكيل واحد.
+3. **التنفيذ بالتوازي:** `anim-scroll` و`anim-micro` و`anim-svg`، كل واحد على ملفاته بس.
+   - كل واحد يكتب نتيجته في `work/<task>/<الوكيل>.md`، ولقطاته في `work/<task>/<الوكيل>/`.
+4. **الفحص:** `anim-perf-qa` بعدهم: الفحص الثابت، وcheck.js (نسخة في `work/<task>/qa/`)، وفحوص الحركة، والبناء.
+5. **الدرجة:** `anim-director` يقيّم كل صفحة. أقل من 9 أو أي FAIL = قائمة إصلاح، ونرجع للخطوة 3. يتكرر لين كل الصفحات 9 أو أكثر.
+6. **الحفظ:** القسم يحدّث السكيل (وش انعمل، والملفات، ووش انحسم، والباقي)، وcommit على فرعه. لا push ولا نشر.
+
+- **المنافذ** (عشان ما يتصادمون):
+  - director 8850، وscroll 8851، وmicro 8852، وsvg 8853، وperf-qa 8854.
+  - السيرفر: `python3 -m http.server <المنفذ> --directory website`.
+- **اللقطات:**
+  - الأمر: `NODE_PATH=/tmp/claude-0/sp/node_modules node tools/motion-frames.cjs --port <المنفذ> --out work/<task>/<الوكيل>/shots`.
+  - الخيارات: `--pages /,/restaurants/,/hosts/`، و`--widths 390,1440`، و`--stops 0,25,50,75,100`، و`--mode normal|reduce|nogsap|all`، و`--section "<selector>"`.
+  - وش يسوي: يصوّر الشاشة بتمرير حقيقي، مو اللقطة الكاملة اللي تخبي الـ pin والـ iframe. ويكتب `frames.json`: صنف html، والحركات الشغالة، والـ triggers، والـ pins.
+  - انجرب 2026-09-30 على الرئيسية والمضيفين بالأوضاع الثلاثة: 36 لقطة بدون خطأ.
+- **Playwright:**
+  - Chromium في `/opt/pw-browsers/chromium`، والمكتبة في `/tmp/claude-0/sp/node_modules` (1.63.0).
+  - الاثنين برّا المستودع. لو انحذفوا، القسم يرجعهم، والوكيل ما ينزّل شي بنفسه.
+
+### نقطة البداية (2026-09-30، قبل أول مهمة للفريق)
+- **`run.cjs S`:** PASS 9، وFAIL 0، وINFO 3:
+  - `lagSmoothing(120, 16)` ما انقاس على جوال ضعيف (M8).
+  - 3 منحنيات برا السلّم في `motion.js`: السطر 735 `power2.out`، والسطر 820 `power3.out`، والسطر 924 `power2.out`.
+- **`signature.js`:**
+  - يقرأ تقليل الحركة مرة وحدة عند التحميل، فتفعيله والصفحة مفتوحة ما يوقف المختبر.
+  - يطلّع موجتين ورا بعض لكل لمسة.
+  - منحنياته `back.out(1.4)` و`power2.out` برا السلّم.
+- **`signature.css`:**
+  - `.tl__opt` يحرّك `box-shadow` و`background-color` و`color`، وهذا ضد GM-055 §6.
+  - الموجة والستاند مخفيين تحت 768px، يعني اللحظة المركزية ما تبان في الجوال.
+- **الميزانية:** الرئيسية gzip 95.5 من 110 KiB، والمطاعم 100.5 من 110 (`work/2026-09-30-site-wow/motion-notes.md`). أي plugin أو كود كبير لازم يدخل في الباقي.
+- **reduce وnogsap:** الرئيسية والمضيفين بدون `m` و`mh`، و0 حركة شغالة (motion-frames، 2026-09-30).
+
+### الباقي
+- رخصة plugins GSAP للاستخدام التجاري: غير مؤكد. DrawSVG وMorphSVG يحتاجون موافقة صاحب المشروع قبل أي نسخة محلية.
+- فحوص R في `gsap-checks/run.cjs` تحتاج Edge بمسار ويندوز، وعلى Linux تطلع INFO. فحوص الحركة الحية عند anim-perf-qa بـ Playwright.
+- ما انفحص: آيفون Safari حقيقي، وأندرويد متوسط حقيقي.
+- الفريق ما اشتغل على أي مهمة للحين.

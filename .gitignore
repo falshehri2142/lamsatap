@@ -5,6 +5,10 @@ __pycache__/
 # نسخة إطلاق الموقع: يطلّعها tools/build-dist.cjs من website/، ما تنحفظ في المستودع
 dist/
 
+# نسخ git الكاملة للمهارات الخارجية في الحجر (أكثر من 100MB قبل التنظيف): للتدقيق محلياً بس، ما تنحفظ في المستودع.
+# المراجعة: vendor-skills/REVIEW-2026-09-30.md
+vendor-skills/_quarantine/_src/
+
 # Secrets (GM-057/GM-058): local only, never committed
 .env
 .env.*
