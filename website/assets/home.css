@@ -28,7 +28,7 @@
 .mh [data-open-inline][data-symbol-flight] [data-open-sym],
 .mh [data-open-inline][data-symbol-flight] [data-open-word],
 .mh [data-open-inline][data-symbol-flight] [data-open-cap] > * { opacity: 1; }
-.s-logo-h.is-symbol-away { clip-path: inset(0 0 0 18.714%); }
+.s-logo-h.is-symbol-away { clip-path: inset(0 0 0 21%); }
 .h-open-sym.r-symbol-fly { display: block; max-width: none; pointer-events: none; }
 .h-open[data-open-inline][data-symbol-flight] .h-open-art { min-height: 0; }
 .h-open-word { position: relative; display: block; width: calc(37 * var(--qm)); aspect-ratio: 808.75 / 105; margin-top: var(--lt-space-4); overflow: hidden; }

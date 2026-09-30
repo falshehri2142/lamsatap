@@ -367,7 +367,8 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .s-nav--top { margin-inline: auto; gap: var(--lt-space-32); }
 }
 @media (max-width: 767px) {
-  .s-nav--row .s-wrap { justify-content: space-between; gap: var(--lt-space-8); }
+  /* .s-nav is flex, so the wrap shrank to its content and the links sat 8px apart (read as one phrase) */
+  .s-nav--row .s-wrap { flex: 1; justify-content: space-between; gap: var(--lt-space-8); }
   .s-nav--row a { font-size: 14px; white-space: normal; text-align: center; }
 }
 @media (max-width: 359px) {

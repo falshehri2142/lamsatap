@@ -24,7 +24,7 @@ html .audience-hero[data-symbol-flight] .p-hero-photo > img:not([data-tint]) { f
 .p-lift-stage .a-photo-caption { position: absolute; inset-inline: 0; bottom: 0; z-index: 3; }
 .is-lift-ready .p-card-symbol-fallback { opacity: 0; }
 .is-lift-ready .p-lift-object { visibility: visible; }
-.s-logo-h.is-symbol-away { clip-path: inset(0 0 0 18.714%); }
+.s-logo-h.is-symbol-away { clip-path: inset(0 0 0 21%); }
 .p-symbol-fly, .r-symbol-fly { display: block; max-width: none; pointer-events: none; }
 @media (min-width: 768px) { .p-lift-stage { aspect-ratio: 16 / 10; } }
 @media (min-width: 1024px) {

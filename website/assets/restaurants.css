@@ -34,7 +34,7 @@ html .audience-hero[data-symbol-flight] .r-card-art { position: absolute; left: 
   .is-lift-ready .r-card-symbol-fallback { opacity: 1; }
   .r-lift-object, .r-lift-cue { display: none !important; }
 }
-.s-logo-h.is-symbol-away { clip-path: inset(0 0 0 18.714%); }
+.s-logo-h.is-symbol-away { clip-path: inset(0 0 0 21%); }
 .r-symbol-fly { display: block; max-width: none; pointer-events: none; }
 @media print { .r-symbol-flight { display: none !important; } .s-logo-h.is-symbol-away { clip-path: none; } }
 /* 2026-09-29 — readable product-studio hero. The inline marker keeps the
