@@ -1,0 +1,23 @@
+[
+  {
+    "file": "01-welcome.jpg",
+    "key": "welcome",
+    "width": 944,
+    "height": 1180,
+    "source": "print/telegram-bot-assets/posters/poster-brand.webp"
+  },
+  {
+    "file": "02-food.jpg",
+    "key": "food",
+    "width": 936,
+    "height": 1170,
+    "source": "print/telegram-bot-assets/posters/poster-food.webp"
+  },
+  {
+    "file": "03-host.jpg",
+    "key": "host",
+    "width": 928,
+    "height": 1160,
+    "source": "print/telegram-bot-assets/posters/poster-host.webp"
+  }
+]

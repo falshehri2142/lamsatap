@@ -42,3 +42,8 @@
 - الـ credential اللي أنشأه صاحب المشروع اسمه **«Telegram account»** (`0432qINokSfkjuq4`)، مربوط بكل عقد التليجرام في «LT telegram inbound» و«LT owner-notify». (الاسم في كود `*.js` = «Telegram LamsaTap bot»؛ عند إعادة البناء اربط «Telegram account».)
 - `owner_telegram_chat_id` انحط في عقدة `CHANNEL` داخل n8n (الرقم ما ينكتب في git). `channel` باقي `email` لين يقرر صاحب المشروع يحوّل التنبيهات لتليجرام.
 - مساعد رقم المحادثة «LT telegram chat id helper (one-time)» (`GBqHFgkP5XBD6Wyf`) انستخدم مرة وتأرشف.
+
+## GM-053 (2026-09-28): نشر ثلاث داخلية بموافقة صاحب المشروع
+- منشورة: get-channel، owner-notify، client-send. عقد WhatsApp وGmail فيها **معطّلة** لين تنوجد credentials (العقدة المعطلة تمرر البيانات فالنتيجة approved=false = تفشل بأمان). client-send: لو القناة مو whatsapp → رابط wa.me لصاحب المشروع.
+- تجربة من workflow أب مؤقت (تأرشف): تنبيه ✅، موافقة بزر ✅ (approved=true)، انتهاء مهلة دقيقة ✅ (approved=false).
+- **تحذير تليجرام:** البوت يقبل webhook واحد. «Execute workflow» (استماع تجريبي) على أي workflow فيه Telegram Trigger يسرق الـ webhook ويحذفه لما يوقف، فالمنشور يبقى active بدون رسائل. العلاج: إلغاء النشر وإعادته، وممنوع الاستماع التجريبي بعد النشر.

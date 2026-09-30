@@ -1,0 +1,72 @@
+[
+  {
+    "file": "01-welcome.jpg",
+    "key": "welcome",
+    "width": 1280,
+    "height": 720,
+    "source": "print/social/telegram/png/telegram-pinned.png"
+  },
+  {
+    "file": "02-cafe-scene.jpg",
+    "key": "cafe-scene",
+    "width": 1270,
+    "height": 714,
+    "source": "print/telegram-bot-assets/src-composites/restaurants-hero-stand.webp"
+  },
+  {
+    "file": "03-menu.jpg",
+    "key": "menu",
+    "width": 1260,
+    "height": 1260,
+    "source": "print/social/telegram/png/telegram-m1-menu.png"
+  },
+  {
+    "file": "04-review.jpg",
+    "key": "review",
+    "width": 1250,
+    "height": 1250,
+    "source": "print/social/telegram/png/telegram-m2-review.png"
+  },
+  {
+    "file": "05-wifi.jpg",
+    "key": "wifi",
+    "width": 1240,
+    "height": 1240,
+    "source": "print/social/telegram/png/telegram-m3-wifi.png"
+  },
+  {
+    "file": "06-host-scene.jpg",
+    "key": "host-scene",
+    "width": 1230,
+    "height": 692,
+    "source": "print/telegram-bot-assets/src-composites/hosts-hero-checkout.webp"
+  },
+  {
+    "file": "07-guide.jpg",
+    "key": "guide",
+    "width": 1220,
+    "height": 1220,
+    "source": "print/social/telegram/png/telegram-m4-guide.png"
+  },
+  {
+    "file": "08-checkout.jpg",
+    "key": "checkout",
+    "width": 1210,
+    "height": 1210,
+    "source": "print/social/telegram/png/telegram-m5-checkout.png"
+  },
+  {
+    "file": "09-maintenance.jpg",
+    "key": "maintenance",
+    "width": 1200,
+    "height": 1200,
+    "source": "print/social/telegram/png/telegram-m6-maintenance.png"
+  },
+  {
+    "file": "10-how.jpg",
+    "key": "how",
+    "width": 1190,
+    "height": 669,
+    "source": "print/telegram-bot-assets/src-composites/hosts-table-stands.webp"
+  }
+]
