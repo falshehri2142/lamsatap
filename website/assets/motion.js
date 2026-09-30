@@ -652,12 +652,12 @@
         var tl = g.timeline({ onUpdate: paint, scrollTrigger: {
           // Mobile keeps native scrolling: pinning the photo adds half a screen
           // of empty space. Only the detached symbol flies while the scene scrolls.
-          id: 'audience-symbol-flight', trigger: host, pin: desktop,
+          id: 'audience-symbol-flight', trigger: host, pin: false,   // site-wow: no pin, no spacer gap under hero
           start: function () { return 'top top+=' + (headerH() + (desktop ? 0 : 24)); },
           end: function () { return '+=' + Math.round(vh() * (desktop ? .72 : .5)); },
           // The unpinned mobile source moves with the document. Catch-up easing
           // would leave its fixed clone at stale coordinates on a fast reversal.
-          scrub: desktop ? .3 : true, invalidateOnRefresh: true, refreshPriority: 3, anticipatePin: 1,
+          scrub: true, invalidateOnRefresh: true, refreshPriority: 3, anticipatePin: 1,
           onRefresh: paint
         } });
         // Refresh measures while GSAP has reverted pin positioning.

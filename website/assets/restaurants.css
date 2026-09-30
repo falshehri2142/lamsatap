@@ -303,3 +303,46 @@ html .audience-hero[data-expand-inline] .s-lead { max-width: 25em; margin-top: v
 @media (prefers-reduced-motion: reduce) {
   .r-story.is-editorial .r-steps > li::before { transition: none; }
 }
+
+/* ===== site-wow 2026-09-30 (web-builder restaurants): brief-art §b §c §d ===== */
+html .audience-hero[data-expand-inline] .s-h1 { font-size: clamp(40px, 12vw, 44px); font-weight: var(--lt-weight-heading); letter-spacing: 0; }
+main .s-h2, .r-story[data-story="editorial"] .s-h2, .r-probs-in .s-h2 { font-size: 30px; line-height: 1.35; font-weight: var(--lt-weight-heading); letter-spacing: 0; }
+main .s-lead { font-size: 17px; line-height: 1.7; }
+.r-close-h { font-size: 30px; }
+@media (min-width: 768px) { html .audience-hero[data-expand-inline] .s-h1 { font-size: 56px; } }
+@media (min-width: 1024px) {
+  html .audience-hero[data-expand-inline] .s-h1 { font-size: 64px; line-height: 1.2; }
+  main .s-h2, .r-story[data-story="editorial"] .s-h2, .r-probs-in .s-h2 { font-size: 48px; line-height: 1.25; }
+  main .s-lead { font-size: 19px; }
+  .r-close-h { font-size: 48px; }
+}
+
+/* الضمانات: مكوّن .trust (4 بنود، أيقونة 1.5px حبر) */
+.r-trust-band { padding-block: var(--lt-space-32) var(--lt-space-48); }
+@media (min-width: 1024px) {
+  .trust:not(.trust--plan) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--lt-space-16); }
+  .trust:not(.trust--plan) > li { padding: var(--lt-space-24); font-size: 16px; }
+}
+
+/* الديمو: رابط مختبر اللمسة */
+.r-lab-link { margin-top: var(--lt-space-16); justify-content: flex-start; }
+.r-lab-link svg { width: 18px; height: 18px; transition: transform 200ms cubic-bezier(.2,.9,.25,1.15); }
+.r-lab-link:hover svg { transform: translateX(-4px); }
+.r-lab-link:active { transform: scale(.98); }
+.r-lab-link:focus-visible, .trust a:focus-visible { outline: 2px solid var(--lt-teal-deep); outline-offset: 3px; border-radius: var(--lt-radius-s); }
+
+/* المشاكل داخل القصة */
+.r-probs-in { margin-bottom: var(--lt-space-64); }
+.r-probs-in .r-probs { margin-top: var(--lt-space-32); }
+
+/* الباقة: السعر بمقاس الأرقام، البطاقة float، والضمانات جنبها */
+.r-plan-row { display: grid; gap: var(--lt-space-24); margin-top: var(--lt-space-32); }
+.r-plan-row .r-plan { margin-top: 0; box-shadow: var(--lt-elev-float); }
+.r-plan .s-price-fig { font-size: 44px; font-weight: var(--lt-weight-figure); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.r-plan .s-price-unit { font-size: 18px; font-weight: var(--lt-weight-unit); }
+.r-plan .s-num { font-weight: var(--lt-weight-figure); font-variant-numeric: tabular-nums; }
+@media (min-width: 1024px) {
+  .r-plan-row { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: start; }
+  .trust--plan { grid-template-columns: 1fr; }
+  .r-plan .s-price-fig { font-size: 64px; }
+}

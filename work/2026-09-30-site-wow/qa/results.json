@@ -1,0 +1,1312 @@
+[
+ {
+  "c": "/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/restaurants/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/restaurants/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/restaurants/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/restaurants/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/restaurants/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/restaurants/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/restaurants/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/hosts/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/hosts/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/hosts/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/hosts/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/hosts/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/hosts/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/hosts/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/404.html @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/404.html @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/404.html @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/404.html img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/404.html @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/404.html @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/404.html @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/menu/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/menu/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/menu/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/menu/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/menu/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/menu/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/menu/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/review/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/review/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/review/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/review/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/review/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/review/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/review/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/wifi/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/wifi/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/wifi/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/wifi/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/wifi/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/wifi/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/wifi/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/links/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/links/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/links/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/links/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/links/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/links/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/links/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/rental-guide/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/rental-guide/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/rental-guide/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/rental-guide/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/rental-guide/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "reduce / @390 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+ },
+ {
+  "c": "reduce / @1440 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+ },
+ {
+  "c": "reduce /restaurants/ @390 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+ },
+ {
+  "c": "reduce /restaurants/ @1440 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+ },
+ {
+  "c": "reduce /hosts/ @390 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+ },
+ {
+  "c": "reduce /hosts/ @1440 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+ },
+ {
+  "c": "nojs / @390 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+ },
+ {
+  "c": "nojs / @1440 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+ },
+ {
+  "c": "nojs /restaurants/ @390 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+ },
+ {
+  "c": "nojs /restaurants/ @1440 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+ },
+ {
+  "c": "nojs /hosts/ @390 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+ },
+ {
+  "c": "nojs /hosts/ @1440 headings+CTA visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+ },
+ {
+  "c": "signature (no-preference) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=demo/review/index.html, wifi:open sel=true href=demo/wifi/index.html, guide:open sel=true href=demo/rental-guide/index.html, menu:open sel=true href=demo/menu/index.html "
+ },
+ {
+  "c": "signature (no-preference) keyboard",
+  "ok": true,
+  "d": "ArrowLeft->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "signature (reduce) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=demo/review/index.html, wifi:open sel=true href=demo/wifi/index.html, guide:open sel=true href=demo/rental-guide/index.html, menu:open sel=true href=demo/menu/index.html "
+ },
+ {
+  "c": "signature (reduce) keyboard",
+  "ok": true,
+  "d": "ArrowLeft->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "no transition: all in assets/*.css",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "prices match services/pricing.md",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "build-dist.cjs",
+  "ok": true,
+  "d": "  templates/wifi/index.html: 47.3KiB / gzip 16.3KiB (11 ملفات؛ lightweight، الحد 100.0KiB / gzip 50.0KiB) /  / جاهز للرفع: dist/"
+ }
+]

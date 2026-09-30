@@ -35,3 +35,9 @@ Evidence and reproducible QA: `../work/2026-09-29-site-upgrade/`.
 The mechanical design detector's cream palette warning is an intentional match to the approved brand. Its section-padding warnings require rendered verification: these sections have nested padded containers and logical `padding-block`/`padding-inline`, which the heuristic does not fully resolve.
 
 The release checker still enforces its original size limits. See `bundle-size.md` in the work directory for the before/after measurements; do not raise those limits to conceal an over-budget result.
+
+## site-wow direction (2026-09-30)
+- Signature: Tap Lab (`#tap-lab`, `assets/signature.css|js`). ARIA tabs pick menu/review/wifi/guide; phone slides onto an ink NFC stand, teal ripple (only filled teal use), real `/demo/*` page loads in the phone iframe. Reduced motion = 120ms crossfade; no JS = poster + link.
+- Trust system: one `.trust` list (site.css), 4 approved lines only: 2-week free trial, no upfront payment, hardware and install on us, install in Jeddah + reply within an hour 9am-11pm. No testimonials, counts, ratings, client logos.
+- Type scale: h1 80/44 home, 64/44 audience; h2 48/30; figures 64/44 tabular. One ink primary button per screen; teal only for focus ring, ripple, reply dot.
+- Audience pages: 6 sections, demo directly after hero. Hosts use a unit calculator from services/pricing.md.

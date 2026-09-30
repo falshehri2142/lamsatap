@@ -1,0 +1,68 @@
+/* Tap Lab — مختبر اللمسة (site-wow, AD §a). ألوان من tokens فقط، حركة transform/opacity فقط. */
+.tl{overflow-x:clip;--tl-spring:cubic-bezier(.2,.9,.25,1.15);--tl-pw:240px;--tl-ph:500px;padding-block:var(--lt-section);display:grid;gap:var(--lt-space-32)}
+.tl__head{display:grid;gap:var(--lt-space-8)}
+.tl__eyebrow{margin:0;font-size:14px;color:var(--lt-muted);letter-spacing:0}
+.tl__title{margin:0;font-size:var(--h2,clamp(30px,2.2vw + 22px,48px));font-weight:var(--lt-weight-heading);line-height:1.25;letter-spacing:0;color:var(--lt-ink)}
+.tl__body{display:grid;gap:var(--lt-space-24)}
+.tl__picker{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--lt-space-8)}
+.tl__opt{min-height:var(--lt-tap-min);padding:0 var(--lt-space-12);font:inherit;font-size:15px;letter-spacing:0;color:var(--lt-ink);background:var(--lt-surface);border:var(--lt-hairline) solid var(--lt-sand-200);border-radius:var(--lt-radius-m);cursor:pointer;
+  transition:transform 200ms var(--tl-spring),box-shadow 200ms ease-out,background-color 200ms ease-out,color 200ms ease-out}
+.tl__opt:hover{transform:translateY(-1px);box-shadow:var(--lt-elev-raised)}
+.tl__opt:active{transform:scale(.98)}
+.tl__opt:focus-visible,.tl__open:focus-visible{outline:2px solid var(--lt-teal-deep);outline-offset:3px}
+.tl__opt[aria-selected="true"]{background:var(--lt-ink);color:var(--lt-surface);border-color:var(--lt-ink)}
+@media (max-width:419px){.tl__picker{grid-template-columns:1fr 1fr}}
+.tl__opt{white-space:nowrap}
+
+.tl__stage{position:relative;display:grid;justify-items:center;gap:var(--lt-space-16);padding-block:var(--lt-space-24) 0;isolation:isolate}
+.tl{--tl-sw:110px}
+.tl__stand{display:block;position:absolute;left:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * 1.1);width:var(--tl-sw);z-index:1;pointer-events:none}
+.tl__stand svg{display:block;width:100%;height:auto}
+.tl__ripple{position:absolute;left:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) / 2 + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * .6);width:calc(var(--tl-pw) * .9);aspect-ratio:1;margin-left:calc(var(--tl-pw) * -.45);margin-top:calc(var(--tl-pw) * -.45);border-radius:50%;background:var(--lt-teal);opacity:0;transform:scale(.2);z-index:0;pointer-events:none}
+.tl__phone{position:relative;z-index:2;width:var(--tl-pw);height:var(--tl-ph);padding:10px;background:var(--lt-ink);border-radius:36px;box-shadow:var(--lt-elev-float);transform-origin:50% 100%}
+.tl__phone::before{content:"";position:absolute;top:18px;left:50%;width:64px;height:18px;margin-left:-32px;border-radius:var(--lt-radius-pill);background:var(--lt-ink);z-index:3}
+.tl__screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:27px;background:var(--lt-surface)}
+.tl__frame,.tl__poster{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.tl__frame{opacity:0;background:var(--lt-surface)}
+.tl__poster{object-fit:cover;opacity:1}
+.tl__stage[data-loaded] .tl__frame{opacity:1}
+.tl__stage[data-loaded] .tl__poster{opacity:0}
+.tl__frame,.tl__poster{transition:opacity 240ms ease-out}
+.tl__caption{position:relative;z-index:2;margin:0;max-width:34ch;text-align:center;font-size:var(--lt-body,17px);line-height:1.7;letter-spacing:0;color:var(--lt-muted);min-height:3.4em}
+.tl__open{justify-self:center;display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding-inline:var(--lt-space-16);color:var(--lt-teal-deep);font-weight:600;letter-spacing:0;text-decoration:underline;text-underline-offset:4px;border-radius:var(--lt-radius-s);transition:transform 200ms var(--tl-spring)}
+.tl__open:hover{transform:translateY(-1px)}
+.tl__open:active{transform:scale(.98)}
+
+@media (min-width:768px){
+  .tl{--tl-pw:260px;--tl-ph:540px}
+  .tl__body{grid-template-columns:1fr 1fr;align-items:start}
+  .tl__picker{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1024px){
+  .tl{--tl-pw:300px;--tl-ph:620px;grid-template-columns:5fr 7fr;column-gap:var(--lt-space-48);align-items:start}
+  .tl__head{grid-column:1;grid-row:1}
+  .tl__body{display:contents}
+  .tl__picker{grid-column:1;grid-row:2;align-self:start;grid-template-columns:1fr}
+  .tl__stage{grid-column:2;grid-row:1 / span 3}
+  .tl__open{grid-column:1;grid-row:3;justify-self:start;align-self:start}
+  .tl__opt{min-height:56px;text-align:start;font-size:17px;padding-inline:var(--lt-space-20)}
+  .tl__caption{font-size:19px}
+  .tl{--tl-sw:150px}
+}
+@media (prefers-reduced-motion:reduce){
+  .tl__opt,.tl__open{transition:none}
+  .tl__opt:hover,.tl__open:hover{transform:none}
+  .tl__frame,.tl__poster{transition:opacity 120ms linear}
+  .tl__ripple{display:none}
+}
+.tl{padding-inline:max(var(--lt-gutter),calc((100% - var(--lt-container)) / 2))}
+@media (min-width:1024px){.tl__open{justify-self:start}}
+/* The demo renders at a real phone width (375) and scales into the screen, so it never
+   wraps at 220px; it starts under a status strip so the notch never covers its header. */
+.tl{--tl-s:.5867}
+.tl__screen{--tl-bar:26px}
+.tl__frame{inset:auto;top:var(--tl-bar);left:0;width:375px;height:calc((100% - var(--tl-bar)) / var(--tl-s));transform:scale(var(--tl-s));transform-origin:0 0}
+@media (min-width:768px){.tl{--tl-s:.64}}
+@media (min-width:1024px){.tl{--tl-s:.7467}}
+/* desktop: keep the "open full demo" link right under the picker instead of floating mid-column */
+@media (min-width:1024px){.tl{grid-template-rows:auto auto 1fr}}

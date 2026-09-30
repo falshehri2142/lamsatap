@@ -275,3 +275,83 @@ html .audience-hero[data-expand-inline] .s-lead { max-width: 25em; margin-top: v
   .p-plan-card .s-plan-what, .p-plan-card .s-plan-buy { padding: var(--lt-space-40); }
   .p-plan-card .s-plan-what { background: var(--lt-bg); }
 }
+
+/* ===== site-wow 2026-09-30 (web-builder hosts): brief-art §b §c §d، brief-ux §1 ===== */
+html .audience-hero[data-expand-inline] .s-h1 { font-size: clamp(40px, 12vw, 44px); font-weight: var(--lt-weight-heading); letter-spacing: 0; }
+main .s-h2 { font-size: 30px; line-height: 1.35; font-weight: var(--lt-weight-heading); letter-spacing: 0; }
+.p-probs .s-h2, .p-close-h { font-size: 30px; }
+main .s-lead { font-size: 17px; line-height: 1.7; }
+.p-story-h { margin: 0; }
+@media (min-width: 768px) { html .audience-hero[data-expand-inline] .s-h1 { font-size: 56px; } }
+@media (min-width: 1024px) {
+  html .audience-hero[data-expand-inline] .s-h1 { font-size: 64px; line-height: 1.2; }
+  main .s-h2, .p-close-h { font-size: 48px; line-height: 1.25; }
+  .p-story-h.s-h2 { font-size: 32px; line-height: 1.4; }
+  main .s-lead { font-size: 19px; }
+}
+
+/* الضمانات: مكوّن .trust (نفس restaurants.css لين ينقل site.css — requests-web-builder-hosts.md) */
+.p-trust-band { padding-block: var(--lt-space-32) var(--lt-space-48); }
+@media (min-width: 1024px) {
+  .trust:not(.trust--plan) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--lt-space-16); }
+  .trust:not(.trust--plan) > li { padding: var(--lt-space-24); font-size: 16px; }
+}
+
+/* الديمو: رابط مختبر اللمسة */
+.p-lab-link { margin-top: var(--lt-space-16); justify-content: flex-start; min-height: var(--lt-tap-min); }
+.p-lab-link svg { width: 18px; height: 18px; transition: transform 200ms cubic-bezier(.2,.9,.25,1.15); }
+.p-lab-link:hover svg { transform: translateX(-4px); }
+.p-lab-link:active { transform: scale(.98); }
+.p-lab-link:focus-visible { outline: 2px solid var(--lt-teal-deep); outline-offset: 3px; border-radius: var(--lt-radius-s); }
+
+/* المشاكل داخل القصة */
+.p-probs-in { margin-bottom: var(--lt-space-64); }
+.p-probs-in .p-probs-list { margin-top: var(--lt-space-32); }
+
+/* الباقة: الحاسبة (float) وجنبها الشمول والضمانات */
+.p-plan-row { display: grid; gap: var(--lt-space-24); margin-top: var(--lt-space-32); }
+.p-calc { padding: var(--lt-space-24); box-shadow: var(--lt-elev-float); background: var(--lt-surface); border-radius: var(--lt-radius-l); }
+.p-calc-live { margin-top: var(--lt-space-16); }
+.p-calc-units { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-16); padding: var(--lt-space-8); background: var(--lt-bg); border-radius: var(--lt-radius-m); }
+.p-calc-step { display: grid; place-items: center; width: 48px; height: 48px; min-width: var(--lt-tap-min); border: var(--lt-hairline) solid var(--lt-sand-200); border-radius: var(--lt-radius-m); background: var(--lt-surface); color: var(--lt-ink); cursor: pointer; transition: transform 200ms cubic-bezier(.2,.9,.25,1.15), box-shadow 200ms ease-out; }
+.p-calc-step svg { width: 22px; height: 22px; }
+.p-calc-step:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--lt-elev-raised); }
+.p-calc-step:active:not(:disabled) { transform: scale(.96); }
+.p-calc-step:disabled { opacity: .4; cursor: default; }
+.p-calc-step:focus-visible, .p-calc-bill input:focus-visible + span { outline: 2px solid var(--lt-teal-deep); outline-offset: 3px; }
+.p-calc-n { display: flex; align-items: baseline; gap: var(--lt-space-8); margin: 0; }
+.p-calc-n output { font-size: 44px; line-height: 1.1; font-weight: var(--lt-weight-figure); font-variant-numeric: tabular-nums; color: var(--lt-ink); }
+.p-calc-n span { font-size: 18px; font-weight: var(--lt-weight-unit); color: var(--lt-muted); }
+.p-calc-bill { display: grid; grid-template-columns: 1fr 1fr; gap: var(--lt-space-8); margin: var(--lt-space-16) 0 0; padding: 0; border: 0; }
+.p-calc-bill label { position: relative; display: block; cursor: pointer; }
+.p-calc-bill input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+.p-calc-bill span { display: flex; flex-direction: column; justify-content: center; min-height: 56px; padding: var(--lt-space-8) var(--lt-space-16); border: var(--lt-hairline) solid var(--lt-sand-200); border-radius: var(--lt-radius-m); background: var(--lt-surface); font-weight: 500; line-height: 1.5; transition: transform 200ms cubic-bezier(.2,.9,.25,1.15), box-shadow 200ms ease-out; }
+.p-calc-bill small { font-size: 13px; font-weight: 400; color: var(--lt-muted); }
+.p-calc-bill label:hover span { transform: translateY(-1px); box-shadow: var(--lt-elev-raised); }
+.p-calc-bill label:active span { transform: scale(.98); }
+.p-calc-bill input:checked + span { background: var(--lt-action); color: var(--lt-on-action); border-color: var(--lt-action); }
+.p-calc-bill input:checked + span small { color: inherit; opacity: .8; }
+.p-calc-total { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--lt-space-8); margin: var(--lt-space-24) 0 0; }
+.p-calc-fig { font-size: 44px; line-height: 1.1; font-weight: var(--lt-weight-figure); font-variant-numeric: tabular-nums; color: var(--lt-ink); }
+.p-calc-unit { font-size: 18px; font-weight: var(--lt-weight-unit); color: var(--lt-muted); }
+.p-calc-rate { margin: var(--lt-space-8) 0 0; font-size: 15px; line-height: 1.7; color: var(--lt-muted); }
+.p-calc-table { width: 100%; margin-top: var(--lt-space-24); border-collapse: collapse; font-size: 15px; line-height: 1.7; }
+.p-calc-table th, .p-calc-table td { padding: var(--lt-space-8) var(--lt-space-4); text-align: start; border-bottom: var(--lt-hairline) solid var(--lt-sand-200); }
+.p-calc-table thead th { font-size: 13px; font-weight: 400; color: var(--lt-muted); }
+.p-calc-table .s-num { font-weight: var(--lt-weight-figure); font-variant-numeric: tabular-nums; }
+.p-calc.is-bulk .p-calc-table tbody tr:last-child, .p-calc.is-live:not(.is-bulk) .p-calc-table tbody tr:first-child { background: var(--lt-bg); }
+.p-calc .p-plan-elig { margin-top: var(--lt-space-12); }
+.p-calc .s-cta { margin-top: var(--lt-space-24); }
+.p-plan-side { display: grid; gap: var(--lt-space-24); align-content: start; }
+.p-incl-box .s-checks { margin-top: var(--lt-space-12); }
+@media (min-width: 1024px) {
+  .p-plan-row { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--lt-space-48); align-items: start; }
+  .p-calc { padding: var(--lt-space-40); }
+  .p-calc-n output, .p-calc-fig { font-size: 64px; }
+  .trust--plan { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 359px) { .p-calc { padding: var(--lt-space-16); } .p-calc-bill span { padding-inline: var(--lt-space-8); } }
+@media (prefers-reduced-motion: reduce) {
+  .p-lab-link svg, .p-calc-step, .p-calc-bill span { transition: none; }
+}
+@media (max-width: 1023px) { .trust--plan { display: none; } } /* الجوال: الضمانات تحت البطل تكفي، بدون تكرار */

@@ -1,0 +1,5 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});
+for(const p of ['','restaurants/','hosts/'])for(const w of [390,1440]){const pg=await b.newPage({viewport:{width:w,height:900}});const errs=[];pg.on('pageerror',e=>errs.push(e.message));
+await pg.goto('http://localhost:8801/'+p);for(let y=0;y<30000;y+=600){await pg.evaluate(y=>scrollTo(0,y),y);await pg.waitForTimeout(60)}
+const m=await pg.evaluate(()=>{const f=s=>{const e=document.querySelector(s);return e?parseFloat(getComputedStyle(e).fontSize):null};return {h1:f('h1'),h2:f('h2'),p:f('main p'),H:document.body.scrollHeight,sx:document.documentElement.scrollWidth,sections:document.querySelectorAll('main > section').length,ids:[...document.querySelectorAll('main > section')].map(s=>s.id||s.className.slice(0,20)).join('|')}});
+console.log(p||'home',w,JSON.stringify(m),errs.join(';'));await pg.screenshot({path:`work/2026-09-30-site-wow/art/${(p||'home').replace('/','')}-${w}.png`,fullPage:true});await pg.close()}await b.close()})();
