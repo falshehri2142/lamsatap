@@ -355,3 +355,23 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .p-lab-link svg, .p-calc-step, .p-calc-bill span { transition: none; }
 }
 @media (max-width: 1023px) { .trust--plan { display: none; } } /* الجوال: الضمانات تحت البطل تكفي، بدون تكرار */
+
+/* ===== GM-067 نظافة بعد الخروج: بطاقة إضافة بعرض الشبكة بين الحاسبة و«اللي ما نسويه» ===== */
+.p-clean { margin-top: var(--lt-space-32); padding: var(--lt-space-20); display: grid; gap: var(--lt-space-16); }
+.p-clean-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-8); }   /* 390: العنوان 158 + 8 + الشارة 133 داخل 310 */
+.p-clean-head .s-h3 { margin: 0; }
+.p-clean-head .s-badge { flex: none; white-space: nowrap; }
+.p-clean-line { margin: 0; font-size: 17px; line-height: 1.7; color: var(--lt-text); }
+.p-clean-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--lt-space-12); counter-reset: clean; }
+.p-clean-steps > li { counter-increment: clean; position: relative; padding-inline-start: var(--lt-space-48); font-size: 16px; line-height: 1.7; }
+.p-clean-steps > li::before { content: "0" counter(clean); position: absolute; inset-inline-start: 0; top: 0; font-family: var(--lt-font-latin); font-size: 20px; line-height: 1.35; font-weight: 500; color: var(--lt-muted); }
+.p-clean-note { margin: 0; color: var(--lt-muted); }
+.p-clean-cta { justify-items: start; }
+@media (min-width: 1024px) {
+  .p-clean { margin-top: var(--lt-space-48); padding: var(--lt-space-40); grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--lt-space-48); align-items: start; }
+  .p-clean-head, .p-clean-line, .p-clean-note { grid-column: 1; }
+  .p-clean-steps { grid-column: 2; grid-row: 1 / span 4; align-self: center; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--lt-space-24); }
+  .p-clean-steps > li { padding-inline-start: 0; padding-top: var(--lt-space-64); border-top: var(--lt-hairline) solid var(--lt-border); font-size: 17px; }
+  .p-clean-steps > li::before { top: var(--lt-space-20); }
+  .p-clean-cta { grid-column: 1; }
+}
