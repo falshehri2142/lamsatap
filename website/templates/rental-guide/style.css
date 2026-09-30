@@ -25,3 +25,7 @@
 .g-sos.is-first .lt-row-title { font-weight: 700; }
 .g-demo-note { margin-top: var(--lt-space-8); }
 .g-privacy { margin-top: var(--lt-space-32); }
+
+/* Calmer rhythm: more air between sections, quieter fine print */
+.c-main > section + section, .c-main section { margin-top: var(--lt-space-40); }
+.g-notice, .g-tg-note { font-size: 13px; line-height: 1.7; color: var(--lt-muted); }

@@ -68,8 +68,8 @@
         '<div class="c-stack">' + waBtn('out-yes', 'lt-btn lt-btn--shop', 'نعم، طلعت', 'checkout') +
         (tgOn ? tgPair('out-tg', 'نعم، على تليجرام', 'co') : '') +
         '<button class="lt-btn lt-btn--secondary" type="button" id="' + id('out-no') + '">لا، رجوع</button></div></div></div>');
-      h.push(waBtn('fix', 'lt-btn lt-btn--secondary', 'بلاغ صيانة', 'maintenance') +
-        (tgOn ? tgPair('fix-tg', 'بلاغ صيانة على تليجرام', 'mt') : '') + '</div>');
+      // بلاغ الصيانة زر واحد: نسخة التليجرام المكررة تحته كانت تزحم الصفحة (طلب صاحب المشروع 2026-09-30)
+      h.push(waBtn('fix', 'lt-btn lt-btn--secondary', 'بلاغ صيانة', 'maintenance') + '</div>');
       var ask = still || hasRef('contact');
       h.push('<p class="c-label g-contact-h">تواصل مع مشغّل خدمة الوحدة</p>' + cPanel([
         ask ? (still ? cRow({ tag: 'button', attrs: ' id="' + id('ask') + '"', icon: 'chat', title: 'استفسار على واتساب', chevron: true })
@@ -123,7 +123,7 @@
 
     // 8) سياسة الخصوصية: placeholder. ما ينرفع دليل عميل قبل ما تنكتب ويتغير الرابط (بند 21 أ).
     //    لما ينحط رابطها في SITE.links.privacy، الإشعارين يودّون له وهذا السطر يختفي (ما يقول «ما انكتبت» وهي موجودة)
-    if (!pvOk) h.push('<p class="c-sub g-privacy" id="' + id('privacy-policy') + '">سياسة الخصوصية: ما انكتبت للحين.</p>');
+    if (!pvOk && !demo) h.push('<p class="c-sub g-privacy" id="' + id('privacy-policy') + '">سياسة الخصوصية: ما انكتبت للحين.</p>');
     if (demo && !mini) h.push(cOwner('للمضيف', 'هذي الصفحة اللي يشوفها ضيفك لما يقرّب جواله من الشريحة أو يمسح الباركود. ونسويها بشعارك وألوانك.', 'أبغى دليل مثله لوحداتي', 'demoGuide'));
 
     return {
