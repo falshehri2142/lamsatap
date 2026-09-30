@@ -75,7 +75,7 @@
   "pass": true,
   "val": {
    "layout": 15,
-   "style": 98,
+   "style": 100,
    "longtasks": [],
    "errs": []
   }
@@ -170,7 +170,7 @@
   "pass": true,
   "val": {
    "layout": 3,
-   "style": 53,
+   "style": 56,
    "longtasks": [],
    "errs": []
   }
@@ -287,9 +287,7 @@
   "val": {
    "layout": 13,
    "style": 114,
-   "longtasks": [
-    50
-   ],
+   "longtasks": [],
    "errs": []
   }
  },
@@ -377,9 +375,9 @@
   "pass": true,
   "val": {
    "layout": 13,
-   "style": 99,
+   "style": 103,
    "longtasks": [
-    55
+    50
    ],
    "errs": []
   }
@@ -489,10 +487,8 @@
   "pass": true,
   "val": {
    "layout": 17,
-   "style": 156,
-   "longtasks": [
-    50
-   ],
+   "style": 154,
+   "longtasks": [],
    "errs": []
   }
  },
@@ -586,7 +582,7 @@
   "pass": true,
   "val": {
    "layout": 13,
-   "style": 132,
+   "style": 130,
    "longtasks": [],
    "errs": []
   }
@@ -634,11 +630,11 @@
   "pass": false,
   "val": {
    "load": {
-    "maxF": 233,
-    "over33": 3
+    "maxF": 283,
+    "over33": 1
    },
    "scrollLongTasks": [
-    69
+    52
    ]
   }
  },
@@ -649,7 +645,7 @@
   "mode": "cpu4x",
   "pass": true,
   "val": {
-   "maxInteraction": 56,
+   "maxInteraction": 40,
    "target": 100
   }
  },
@@ -661,8 +657,8 @@
   "pass": false,
   "val": {
    "load": {
-    "maxF": 217,
-    "over33": 1
+    "maxF": 233,
+    "over33": 2
    },
    "scrollLongTasks": []
   }
@@ -674,7 +670,7 @@
   "mode": "cpu4x",
   "pass": true,
   "val": {
-   "maxInteraction": 40,
+   "maxInteraction": 32,
    "target": 100
   }
  },
@@ -686,7 +682,7 @@
   "pass": false,
   "val": {
    "load": {
-    "maxF": 283,
+    "maxF": 150,
     "over33": 3
    },
    "scrollLongTasks": []
@@ -699,7 +695,7 @@
   "mode": "cpu4x",
   "pass": true,
   "val": {
-   "maxInteraction": 48,
+   "maxInteraction": 56,
    "target": 100
   }
  },

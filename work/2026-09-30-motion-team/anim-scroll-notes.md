@@ -77,3 +77,15 @@ Scripts in anim-scroll/r4/: m9b.cjs (3 positions, both directions, normal/reduce
    - Load frames (restaurants 6 >33ms, max 250) are still the page's own first layout (round 1 finding) and not the scroll path.
 3. Regression (qa-copy): M1/M2/M3/M7/M10/PROPS PASS 6/6. M8 40/40/48 ms. M9 PASS 3/3. Home scroll long task 78ms (same as round 3's 74, render/paint). M11 is not mine. Total 51/58, the same failures as before except M9 is now PASS.
 - run.cjs S: PASS 10, FAIL 0, INFO 2. build-dist passes without budget changes, and dist/ was deleted. ?v=motion-team-20260930-4 on motion.js in the 3 pages.
+
+### Round 4 re-run (2026-09-30, port 8941)
+- m9b hosts (normal): calc -1/-1, mid -1/-1, FAQ 0/-1 px (1440->1200 / 1200->1440). PASS (<=2).
+- scrollperf x4 390, 12 runs: restaurants 0 long tasks in 12/12; hosts 0 in 12/12; home 52-85ms in 7/12 runs (render/paint at Tap Lab, same as round 3, not motion.js).
+- run.cjs S: PASS 10, FAIL 0, INFO 2. scrollperf.cjs default port set to 8941.
+
+## Round 5 (2026-09-30, port 8941): re-measure only, no code change
+- M9 hosts (m9b, normal mode, 1440->1200 / 1200->1440): calc -1/-1, mid-story -1/-1, FAQ 0/-2 px. PASS (<=2). The real cause (reveal transform included in the saved offset) was already fixed in round 4 with `lay()`.
+- M5 scroll long tasks, CPU x4, 390, 12 runs: restaurants 0 in 12/12, hosts 0 in 12/12. Home: 53-89ms in 12/12 (render/paint at Tap Lab, not motion.js).
+- M5 restaurants: motion.js not changed. It is already built after first paint in idle() steps, has one batched reveal path, no layout reads in show, and sets will-change only while moving. ScrollTrigger.batch was not added because the metric is already 0.
+- qa-copy (Chromium path fixed to /opt/pw-browsers/chromium): 51/58. M1/M2/M3/M7/M10 PASS on 3 pages x 2 widths. M8 40/32/40ms. M9 PASS. The failures are the same as before: M5 load frames (183/250/250ms, first layout) and M11 (not mine).
+- run.cjs S: PASS 10, FAIL 0, INFO 2.

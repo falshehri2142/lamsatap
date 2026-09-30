@@ -1,5 +1,5 @@
 // M5 scroll long tasks at 390 (CPU x4 and x1), 3 runs each, + CPU profile top of scroll phase. usage: node scrollperf.cjs <port> [path] [prof]
-const { chromium } = require('playwright'); const port = process.argv[2] || 8931, path = process.argv[3] || '/', prof = process.argv[4];
+const { chromium } = require('playwright'); const port = process.argv[2] || 8941, path = process.argv[3] || '/', prof = process.argv[4];
 function top(profile) { const self = {}, byId = {}; profile.nodes.forEach(n => byId[n.id] = n); const dt = {}; profile.samples.forEach((s, i) => dt[s] = (dt[s] || 0) + (profile.timeDeltas[i] || 0));
   for (const id in dt) { const cf = byId[id].callFrame; const k = cf.functionName + ' ' + cf.url.split('/').pop() + ':' + (cf.lineNumber + 1); self[k] = (self[k] || 0) + dt[id] / 1000; }
   return Object.entries(self).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([k, v]) => k + ' ' + v.toFixed(0) + 'ms'); }

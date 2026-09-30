@@ -7,7 +7,7 @@ const rec = (id, page, w, mode, pass, val) => { out.push({ id, page, w, mode, pa
 async function scrollAll(p) { await p.evaluate(async () => { const H = document.documentElement.scrollHeight; for (let y = 0; y <= H; y += 300) { scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); } }); }
 const heroState = () => { const sel = ['[data-open-qr]', '[data-open-sym]', '[data-open-word]', '[data-open-cap] > *', '[data-open-logo] img', 'h1', 'h2', '.lt-btn']; const bad = []; for (const s of sel) for (const e of document.querySelectorAll(s)) { const cs = getComputedStyle(e); const r = e.getBoundingClientRect(); if (r.top > innerHeight || r.bottom < 0) continue; if (+cs.opacity < .99 || (cs.clipPath !== 'none' && /inset\((?!0px\)|0%)/.test(cs.clipPath))) bad.push(s + ':' + cs.opacity + ':' + cs.clipPath); } const run = window.gsap ? gsap.globalTimeline.getChildren(true, true, false).filter(t => t.isActive()).length : 0; const pins = window.ScrollTrigger ? ScrollTrigger.getAll().filter(s => s.pin).length : 0; const c = document.documentElement.classList; return { m: c.contains('m'), mh: c.contains('mh'), bad: bad.slice(0, 5), run, pins }; };
 (async () => {
-  const br = await chromium.launch({ executablePath: process.env.CHROME || undefined });
+  const br = await chromium.launch({ executablePath: process.env.CHROME || '/opt/pw-browsers/chromium' });
   for (const path of PAGES) for (const [w, h] of [[390, 844], [1440, 900]]) {
     // M1
     let ctx = await br.newContext({ viewport: { width: w, height: h }, reducedMotion: 'reduce' }); let p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));

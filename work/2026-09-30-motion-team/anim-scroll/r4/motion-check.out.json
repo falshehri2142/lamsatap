@@ -74,9 +74,11 @@
   "mode": "info",
   "pass": true,
   "val": {
-   "layout": 17,
-   "style": 100,
-   "longtasks": [],
+   "layout": 15,
+   "style": 99,
+   "longtasks": [
+    57
+   ],
    "errs": []
   }
  },
@@ -170,8 +172,10 @@
   "pass": true,
   "val": {
    "layout": 3,
-   "style": 54,
-   "longtasks": [],
+   "style": 55,
+   "longtasks": [
+    62
+   ],
    "errs": []
   }
  },
@@ -375,10 +379,8 @@
   "pass": true,
   "val": {
    "layout": 12,
-   "style": 98,
-   "longtasks": [
-    54
-   ],
+   "style": 103,
+   "longtasks": [],
    "errs": []
   }
  },
@@ -487,8 +489,10 @@
   "pass": true,
   "val": {
    "layout": 16,
-   "style": 154,
-   "longtasks": [],
+   "style": 156,
+   "longtasks": [
+    53
+   ],
    "errs": []
   }
  },
@@ -582,10 +586,8 @@
   "pass": true,
   "val": {
    "layout": 13,
-   "style": 129,
-   "longtasks": [
-    50
-   ],
+   "style": 131,
+   "longtasks": [],
    "errs": []
   }
  },
@@ -612,8 +614,8 @@
   "val": {
    "r1": {
     "hs": false,
-    "top": 439.59375,
-    "jump": 0
+    "top": 2646.59375,
+    "jump": 2207
    },
    "r2": {
     "hs": false,
@@ -632,11 +634,11 @@
   "pass": false,
   "val": {
    "load": {
-    "maxF": 283,
+    "maxF": 183,
     "over33": 2
    },
    "scrollLongTasks": [
-    78
+    50
    ]
   }
  },
@@ -660,7 +662,7 @@
   "val": {
    "load": {
     "maxF": 250,
-    "over33": 6
+    "over33": 1
    },
    "scrollLongTasks": []
   }
@@ -672,7 +674,7 @@
   "mode": "cpu4x",
   "pass": true,
   "val": {
-   "maxInteraction": 40,
+   "maxInteraction": 32,
    "target": 100
   }
  },
@@ -684,8 +686,8 @@
   "pass": false,
   "val": {
    "load": {
-    "maxF": 167,
-    "over33": 4
+    "maxF": 250,
+    "over33": 3
    },
    "scrollLongTasks": []
   }
@@ -697,7 +699,7 @@
   "mode": "cpu4x",
   "pass": true,
   "val": {
-   "maxInteraction": 48,
+   "maxInteraction": 40,
    "target": 100
   }
  },

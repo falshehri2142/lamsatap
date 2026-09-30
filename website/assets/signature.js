@@ -101,6 +101,7 @@
 
   // The poster only covers the very first load; after that the previous demo stays visible until the next one is ready.
   function load(src, t) {
+    if (frame.getAttribute('src') === src && stage.hasAttribute('data-loaded')) return;   // already preloaded at idle
     clearTimeout(timer);
     frame.onload = function () {
       if (t !== token || frame.getAttribute('src') === 'about:blank') return;
@@ -163,6 +164,15 @@
     if (started) return;
     select(tabs.filter(function (b) { return b.getAttribute('aria-selected') === 'true'; })[0] || tabs[0]);
   }
+  // Preload the first demo while the browser is idle after load, so its parse/layout never lands mid-scroll (M5 long task).
+  function preload() {
+    if (started || frame.getAttribute('src') !== 'about:blank') return;
+    var t0 = tabs.filter(function (b) { return b.getAttribute('aria-selected') === 'true'; })[0] || tabs[0];
+    frame.onload = function () { if (!started || cur === t0) stage.setAttribute('data-loaded', ''); };
+    frame.setAttribute('src', t0.getAttribute('data-tl-src'));
+  }
+  function idle() { (window.requestIdleCallback || function (f) { setTimeout(f, 1200); })(preload, { timeout: 4000 }); }
+  if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
       if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); first(); }
