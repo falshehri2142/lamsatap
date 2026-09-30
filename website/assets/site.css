@@ -408,3 +408,25 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 .trust svg { width: 24px; height: 24px; flex: none; color: var(--lt-ink); }
 .trust__sub { display: flex; align-items: baseline; gap: var(--lt-space-8); margin-top: var(--lt-space-4); font-size: 13px; font-weight: 400; color: var(--lt-muted); }
 .trust__dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--lt-teal); transform: translateY(-1px); }
+
+/* ===== Header polish (owner 2026-09-30 «حسّن الجودة») =====
+   1) Frosted glass while scrolling: the page shows softly through the sand bar.
+   2) Nav links: a thin ink underline grows from the centre on hover (current page keeps its accent line).
+   3) Header button: fills with ink on hover and its arrow nudges toward the reading direction. */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .s-top.is-stuck, .mh header.m-docked { background-color: color-mix(in srgb, var(--lt-bg) 82%, transparent); -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px); }
+}
+.s-nav a:hover { text-decoration: none; }
+.s-nav a:not([aria-current="page"])::after { content: ""; position: absolute; inset-inline: 0; bottom: 8px; height: 1.5px; background: var(--lt-ink); transform: scaleX(0); transform-origin: 50% 50%; }
+@media (hover: hover) and (pointer: fine) { .s-nav a:not([aria-current="page"]):hover::after { transform: scaleX(1); } }
+.s-nav a:focus-visible { outline: 2px solid var(--lt-ink); outline-offset: 2px; border-radius: var(--lt-radius-s); }
+.h-nav-action .h-arrow, .s-head-wa .lt-btn-icon { transition: transform .25s cubic-bezier(.2,.9,.25,1.15); }
+@media (hover: hover) and (pointer: fine) {
+  .h-nav-action:hover, .s-head-wa:hover { background: var(--lt-ink); color: var(--lt-surface); border-color: var(--lt-ink); }
+  .h-nav-action:hover .h-arrow { transform: translateX(-4px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .s-nav a:not([aria-current="page"])::after { transition: transform .28s cubic-bezier(.2,.9,.25,1.15); }
+  .h-nav-action, .s-head-wa { transition: background-color .2s ease-out, color .2s ease-out, border-color .2s ease-out; }
+}
+@media (prefers-reduced-motion: reduce) { .h-nav-action .h-arrow { transition: none; } }
