@@ -27,7 +27,7 @@
 .tl__poster{object-fit:cover;opacity:1}
 .tl__stage[data-loaded] .tl__frame{opacity:1}
 .tl__stage[data-loaded] .tl__poster{opacity:0}
-.tl__frame,.tl__poster{transition:opacity 240ms ease-out}
+.tl__frame,.tl__poster{transition:opacity 160ms ease-out}
 .tl__caption{position:relative;z-index:2;margin:0;max-width:34ch;text-align:center;font-size:var(--lt-body,17px);line-height:1.7;letter-spacing:0;color:var(--lt-muted);min-height:3.4em}
 .tl__open{justify-self:center;display:inline-flex;align-items:center;min-height:var(--lt-tap-min);padding-inline:var(--lt-space-16);color:var(--lt-teal-deep);font-weight:600;letter-spacing:0;text-decoration:underline;text-underline-offset:4px;border-radius:var(--lt-radius-s);transition:transform 200ms var(--tl-spring)}
 .tl__open:hover{transform:translateY(-1px)}

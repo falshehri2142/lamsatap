@@ -47,31 +47,40 @@
   }
   function setState(s) { stage.setAttribute('data-state', s); }
 
+  // The poster only covers the very first load; after that the previous demo stays visible until the next one is ready.
   function load(src, t) {
-    stage.removeAttribute('data-loaded');
     clearTimeout(timer);
     frame.onload = function () {
       if (t !== token || frame.getAttribute('src') === 'about:blank') return;
       clearTimeout(timer); stage.setAttribute('data-loaded', '');
+      prefetchRest();
       try { var st = frame.contentDocument.createElement('style'); st.textContent = 'html{scrollbar-width:none}html::-webkit-scrollbar{display:none}'; frame.contentDocument.head.appendChild(st); } catch (e) {}
     };
     timer = setTimeout(function () { if (t === token) stage.setAttribute("data-slow", ""); }, 1500);
     frame.setAttribute('src', src);
   }
 
+  var prefetched = false;
+  function prefetchRest() {
+    if (prefetched) return; prefetched = true;
+    tabs.forEach(function (b) {
+      var l = document.createElement('link'); l.rel = 'prefetch'; l.href = b.getAttribute('data-tl-src'); document.head.appendChild(l);
+    });
+  }
+
   function play(tab) {
     var key = tab.getAttribute('data-tl-opt'), src = tab.getAttribute('data-tl-src'), t = ++token;
     if (cap) cap.textContent = TEXT[key] || '';
     if (open) open.setAttribute('href', src);
-    if (reduce) { setState('open'); load(src, t); return; }
+    load(src, t);
+    if (reduce) { setState('open'); return; }
     setState('approach');
-    stage.removeAttribute('data-loaded');
     anim(phone, { y: 24, rotation: -4 }, { y: 0, rotation: 0 }, 520, SPRING).then(function () {
       if (t !== token) return;
       setState('tap');
       var r1 = anim(ripple, { scale: .2, opacity: .5 }, { scale: 1.6, opacity: 0 }, 640, 'ease-out');
       var r2 = r1.then(function () { return t === token && anim(ripple, { scale: .2, opacity: .5 }, { scale: 1.6, opacity: 0 }, 640, 'ease-out', 120); });
-      setTimeout(function () { if (t === token) { setState('open'); load(src, t); } }, 380);
+      setTimeout(function () { if (t === token) setState('open'); }, 380);
       return r2;
     });
   }
@@ -112,7 +121,7 @@
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
       if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); first(); }
-    }, { threshold: .4 });
+    }, { rootMargin: '600px 0px' });
     io.observe(stage);
   } else first();
 })();
