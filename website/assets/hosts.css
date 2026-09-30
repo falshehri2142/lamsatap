@@ -356,29 +356,21 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
 }
 @media (max-width: 1023px) { .trust--plan { display: none; } } /* الجوال: الضمانات تحت البطل تكفي، بدون تكرار */
 
-/* ===== GM-067 نظافة بعد الخروج: بطاقة إضافة بعرض الشبكة بين الحاسبة و«اللي ما نسويه» ===== */
-.p-clean { margin-top: var(--lt-space-32); padding: var(--lt-space-20); display: grid; gap: var(--lt-space-16); }
-.p-clean-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-8); }   /* 390: العنوان 158 + 8 + الشارة 133 داخل 310 */
-.p-clean-head .s-h3 { margin: 0; }
-.p-clean-head .s-badge { flex: none; white-space: nowrap; }
-.p-clean-line { margin: 0; font-size: 17px; line-height: 1.7; color: var(--lt-text); }
-.p-clean-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--lt-space-12); counter-reset: clean; }
-.p-clean-steps > li { counter-increment: clean; position: relative; padding-inline-start: var(--lt-space-48); font-size: 16px; line-height: 1.7; }
-.p-clean-steps > li::before { content: "0" counter(clean); position: absolute; inset-inline-start: 0; top: 0; font-family: var(--lt-font-latin); font-size: 20px; line-height: 1.35; font-weight: 500; color: var(--lt-muted); }
-.p-clean-note { margin: 0; color: var(--lt-muted); }
-.p-clean-cta { justify-items: start; }
+/* ===== GM-067 نظافة بعد الخروج «زي الباقات»: عنوان القسم، ثم كرتين s-plan بحجم الوحدة ===== */
+.p-clean { margin-top: var(--lt-space-64); padding-top: var(--lt-space-48); border-top: var(--lt-hairline) solid var(--lt-border); }
+.p-clean-h { margin: 0; }
+.p-clean-line { margin-top: var(--lt-space-8); }
+.p-clean-plans { margin-top: var(--lt-space-32); }
+.p-clean-plan .s-plan-head .s-h3 { margin: 0; }
+.p-clean-plan .s-plan-head .s-badge { white-space: nowrap; }
+.p-clean-checks { margin-top: var(--lt-space-20); }
+.p-clean-soon { font-family: var(--lt-font-brand); font-size: 28px; direction: rtl; color: var(--lt-muted); }
+.p-clean-plan .s-plan-buy .s-cta { justify-items: start; }
+@media (min-width: 768px) { .p-clean-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-space-24); } }
 @media (min-width: 1024px) {
-  .p-clean { margin-top: var(--lt-space-48); padding: var(--lt-space-40); grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--lt-space-48); align-items: start; }
-  .p-clean-head, .p-clean-line, .p-clean-note { grid-column: 1; }
-  .p-clean-steps { grid-column: 2; grid-row: 1 / span 4; align-self: center; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--lt-space-24); }
-  .p-clean-steps > li { padding-inline-start: 0; padding-top: var(--lt-space-64); border-top: var(--lt-hairline) solid var(--lt-border); font-size: 17px; }
-  .p-clean-steps > li::before { top: var(--lt-space-20); }
-  .p-clean-cta { grid-column: 1; }
+  .p-clean-plan .s-plan-buy { border-inline-start: 0; border-top: var(--lt-hairline) solid var(--lt-border); background: var(--lt-bg); }
+  .p-clean-soon { font-size: 32px; }
 }
-/* Cleaning steps as three quiet tiles with the number as the hero, so the right side isn't empty lines */
-.p-clean-steps > li::before { font-size: 28px; color: var(--lt-ink); }
-@media (min-width: 1024px) {
-  .p-clean { align-items: center; }
-  .p-clean-steps > li { border-top: 0; padding: var(--lt-space-64) var(--lt-space-20) var(--lt-space-24); background: var(--lt-surface-2); border-radius: var(--lt-radius-m); }
-  .p-clean-steps > li::before { top: var(--lt-space-20); inset-inline-start: var(--lt-space-20); font-size: 32px; }
-}
+.p-clean-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-8) var(--lt-space-12); }
+.p-clean-head .s-badge { white-space: nowrap; }
+.p-clean-head { flex-direction: column-reverse; align-items: flex-start; gap: var(--lt-space-12); }   /* الشارة فوق العنوان كعنوان صغير، ما تنزل تحته في 390 */

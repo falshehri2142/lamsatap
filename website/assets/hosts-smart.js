@@ -54,3 +54,12 @@
   // app.js يعبّي رابط واتساب عند DOMContentLoaded، فنرسم بعده عشان نضيف عدد الوحدات للرسالة
   if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', render); else render();
 })(document);
+
+// GM-067: سعر النظافة من config.js ‏cleaningPrices. فاضي = يبقى «السعر قريباً» اللي في HTML.
+(function () {
+  var P = (window.SITE && window.SITE.cleaningPrices) || {};
+  document.querySelectorAll('[data-clean-price]').forEach(function (el) {
+    var v = String(P[el.getAttribute('data-clean-price')] || '').trim();
+    if (v) { el.textContent = v; el.classList.remove('p-clean-soon'); }
+  });
+})();

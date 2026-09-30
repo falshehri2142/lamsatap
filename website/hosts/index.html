@@ -218,23 +218,54 @@
 </ul>
 </div>
 </div>
-<!-- GM-067 نظافة بعد الخروج: إضافة اختيارية بعرض الشبكة، تحت الحاسبة وفوق «اللي ما نسويه».
-     ممنوع هنا (لين ينعتمد في services/pricing.md): سعر، أو وقت، أو اسم شركة النظافة، أو «فريقنا». التعريف: services/cleaning.md -->
-<div class="s-card p-clean" aria-labelledby="clean-h">
-<div class="p-clean-head"><h3 class="s-h3" id="clean-h">نظافة بعد الخروج</h3><span class="s-badge">إضافة اختيارية</span></div>
-<p class="p-clean-line">ضيفك طلع؟ لا تشيل هم التنظيف.</p>
-<ol class="p-clean-steps">
-<li>الضيف يلمس «تم الخروج».</li>
-<li>نرتّب النظافة.</li>
-<li>توصلك صور الوحدة جاهزة.</li>
-</ol>
-<p class="s-small p-clean-note">حالياً في جدة، لمشتركي باقة المضيف.</p>
-<div class="s-cta p-clean-cta">
+<!-- GM-067 نظافة بعد الخروج «زي الباقات»: كرتين بحجم الوحدة بنفس شكل s-plan. ممنوع (لين ينعتمد في services/pricing.md):
+     رقم سعر، أو وقت، أو اسم شركة النظافة، أو «فريقنا». السعر من config.js ‏cleaningPrices، وفاضي = «السعر قريباً». التعريف: services/cleaning.md -->
+<div class="p-clean" aria-labelledby="clean-h">
+<div class="p-clean-head"><h3 class="s-h2 p-clean-h" id="clean-h">نظافة بعد الخروج</h3><span class="s-badge">إضافة اختيارية</span></div>
+<p class="s-lead p-clean-line">ضيفك طلع؟ لا تشيل هم التنظيف.</p>
+<div class="s-plans p-clean-plans">
+<article class="s-card s-plan s-plan--stack p-clean-plan" aria-labelledby="clean-studio-h">
+<div class="s-plan-what">
+<div class="s-plan-head"><h4 class="s-h3" id="clean-studio-h">استوديو، أو غرفة وصالة</h4></div>
+<ul class="s-checks p-clean-checks">
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>الضيف يلمس «تم الخروج»</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>نرتّب النظافة</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>توصلك صور الوحدة جاهزة</span></li>
+</ul>
+</div>
+<div class="s-plan-buy">
+<p class="s-price"><span class="s-price-fig p-clean-soon" data-clean-price="studio">السعر قريباً</span></p>
+<p class="s-price-note">حالياً في جدة، لمشتركي باقة المضيف.</p>
+<div class="s-cta">
 <a class="lt-btn lt-btn--secondary" data-wa="hostCleaning" hidden><span>اسأل عن النظافة على واتساب</span></a>
 <div class="s-tg" data-tg="with-wa" data-tg-rank="secondary" hidden>
 <p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
 <p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
 </div>
+</div>
+</div>
+</article>
+<article class="s-card s-plan s-plan--stack p-clean-plan" aria-labelledby="clean-big-h">
+<div class="s-plan-what">
+<div class="s-plan-head"><h4 class="s-h3" id="clean-big-h">غرفتين أو ثلاث غرف</h4></div>
+<ul class="s-checks p-clean-checks">
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>الضيف يلمس «تم الخروج»</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>نرتّب النظافة</span></li>
+<li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>توصلك صور الوحدة جاهزة</span></li>
+</ul>
+</div>
+<div class="s-plan-buy">
+<p class="s-price"><span class="s-price-fig p-clean-soon" data-clean-price="twoThree">السعر قريباً</span></p>
+<p class="s-price-note">حالياً في جدة، لمشتركي باقة المضيف.</p>
+<div class="s-cta">
+<a class="lt-btn lt-btn--secondary" data-wa="hostCleaning" hidden><span>اسأل عن النظافة على واتساب</span></a>
+<div class="s-tg" data-tg="with-wa" data-tg-rank="secondary" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</div>
+</article>
 </div>
 </div>
 <!-- اللي ما نسويه (web-copy المضيفين بند 6، ج6): نفس نمط المطاعم (AD-15)، ثلاث أعمدة من 1024 بأيقونة «لا» رمادية -->
