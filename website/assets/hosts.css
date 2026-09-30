@@ -375,3 +375,10 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .p-clean-steps > li::before { top: var(--lt-space-20); }
   .p-clean-cta { grid-column: 1; }
 }
+/* Cleaning steps as three quiet tiles with the number as the hero, so the right side isn't empty lines */
+.p-clean-steps > li::before { font-size: 28px; color: var(--lt-ink); }
+@media (min-width: 1024px) {
+  .p-clean { align-items: center; }
+  .p-clean-steps > li { border-top: 0; padding: var(--lt-space-64) var(--lt-space-20) var(--lt-space-24); background: var(--lt-surface-2); border-radius: var(--lt-radius-m); }
+  .p-clean-steps > li::before { top: var(--lt-space-20); inset-inline-start: var(--lt-space-20); font-size: 32px; }
+}

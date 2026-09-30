@@ -53,6 +53,7 @@
     frame.onload = function () {
       if (t !== token || frame.getAttribute('src') === 'about:blank') return;
       clearTimeout(timer); stage.setAttribute('data-loaded', '');
+      try { var st = frame.contentDocument.createElement('style'); st.textContent = 'html{scrollbar-width:none}html::-webkit-scrollbar{display:none}'; frame.contentDocument.head.appendChild(st); } catch (e) {}
     };
     timer = setTimeout(function () { if (t === token) stage.setAttribute("data-slow", ""); }, 1500);
     frame.setAttribute('src', src);

@@ -197,3 +197,7 @@
 :where(.tl__open) { display: flex; align-items: center; justify-content: center; min-height: 48px; margin-top: var(--lt-space-16); }
 .h-open-h1 { text-wrap: balance; }
 @media (min-width:1024px){ .h-open-h1 { white-space: nowrap; } }
+/* Footer brand: a confident sign-off, not a 12px afterthought */
+.h-footer-logo { width: 220px; }
+.h-footer-brand p { margin-top: var(--lt-space-16); font-size: 16px; line-height: 1.7; color: var(--lt-text); }
+@media (min-width: 1024px) { .h-footer-main { padding-block: var(--lt-space-48); } .h-footer-logo { width: 260px; } .h-footer-brand p { font-size: 18px; } }

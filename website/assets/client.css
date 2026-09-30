@@ -79,3 +79,9 @@
 .c-owner > .c-owner-back { margin: var(--lt-space-8) 0 0; }
 
 @media (prefers-reduced-motion: reduce) { .c * { scroll-behavior: auto !important; transition: none !important; } }
+
+/* Desktop (768+): the page reads as one calm panel instead of a thin strip lost on a wide screen.
+   Border only, no shadow or motion (GM-011); works in both themes via tokens. */
+@media (min-width: 768px) {
+  body.c .c-main { margin-block: var(--lt-space-40); padding: var(--lt-space-32) var(--lt-space-32) var(--lt-space-48); background: var(--lt-surface); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-l); }
+}

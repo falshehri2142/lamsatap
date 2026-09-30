@@ -66,3 +66,6 @@
 @media (min-width:1024px){.tl{--tl-s:.7467}}
 /* desktop: keep the "open full demo" link right under the picker instead of floating mid-column */
 @media (min-width:1024px){.tl{grid-template-rows:auto auto 1fr}}
+/* Stand sits beside the phone, never over it; on narrow screens the phone alone tells the story. */
+.tl__stand{left:auto;right:calc(50% + var(--tl-pw) / 2 + var(--lt-space-16));top:auto;bottom:calc(var(--lt-space-16) + 3.4em + var(--lt-space-16))}
+@media (max-width:767px){.tl__stand,.tl__ripple{display:none}}
