@@ -1,0 +1,523 @@
+{
+  "baseline": "f43dc4478ebf12be88146b93308814ef362119f5",
+  "limits": {
+    "raw": 102400,
+    "gzip": 51200
+  },
+  "result": [
+    {
+      "before": {
+        "page": "index.html",
+        "version": "HEAD",
+        "raw": 264802,
+        "gzip": 89328,
+        "resources": [
+          {
+            "file": "index.html",
+            "raw": 20377,
+            "gzip": 5661
+          },
+          {
+            "file": "assets/brand/tokens.css",
+            "raw": 5939,
+            "gzip": 1598
+          },
+          {
+            "file": "assets/brand/components.css",
+            "raw": 7588,
+            "gzip": 1724
+          },
+          {
+            "file": "assets/site.css",
+            "raw": 21356,
+            "gzip": 4219
+          },
+          {
+            "file": "assets/home.css",
+            "raw": 3832,
+            "gzip": 1187
+          },
+          {
+            "file": "assets/stand.css",
+            "raw": 980,
+            "gzip": 469
+          },
+          {
+            "file": "assets/scenes.css",
+            "raw": 4091,
+            "gzip": 1363
+          },
+          {
+            "file": "assets/mockups/print-art.js",
+            "raw": 27,
+            "gzip": 47
+          },
+          {
+            "file": "assets/scenes.js",
+            "raw": 1553,
+            "gzip": 846
+          },
+          {
+            "file": "assets/motion.css",
+            "raw": 8617,
+            "gzip": 2245
+          },
+          {
+            "file": "vendor/gsap/gsap.min.js",
+            "raw": 72927,
+            "gzip": 28375
+          },
+          {
+            "file": "vendor/gsap/ScrollTrigger.min.js",
+            "raw": 44575,
+            "gzip": 18000
+          },
+          {
+            "file": "assets/motion.js",
+            "raw": 59105,
+            "gzip": 18717
+          },
+          {
+            "file": "config.js",
+            "raw": 2471,
+            "gzip": 819
+          },
+          {
+            "file": "assets/app.js",
+            "raw": 11364,
+            "gzip": 4058
+          }
+        ]
+      },
+      "after": {
+        "page": "index.html",
+        "version": "working-tree",
+        "raw": 264471,
+        "gzip": 87323,
+        "resources": [
+          {
+            "file": "index.html",
+            "raw": 21167,
+            "gzip": 5516
+          },
+          {
+            "file": "assets/brand/tokens.css",
+            "raw": 5939,
+            "gzip": 1598
+          },
+          {
+            "file": "assets/brand/components.css",
+            "raw": 7588,
+            "gzip": 1724
+          },
+          {
+            "file": "assets/site.css",
+            "raw": 21790,
+            "gzip": 4279
+          },
+          {
+            "file": "assets/motion.css",
+            "raw": 8617,
+            "gzip": 2245
+          },
+          {
+            "file": "vendor/gsap/gsap.min.js",
+            "raw": 72938,
+            "gzip": 28387
+          },
+          {
+            "file": "vendor/gsap/ScrollTrigger.min.js",
+            "raw": 44586,
+            "gzip": 18010
+          },
+          {
+            "file": "assets/motion.js",
+            "raw": 59131,
+            "gzip": 18730
+          },
+          {
+            "file": "assets/home.css",
+            "raw": 8649,
+            "gzip": 1917
+          },
+          {
+            "file": "config.js",
+            "raw": 2471,
+            "gzip": 820
+          },
+          {
+            "file": "assets/app.js",
+            "raw": 11595,
+            "gzip": 4097
+          }
+        ]
+      }
+    },
+    {
+      "before": {
+        "page": "restaurants/index.html",
+        "version": "HEAD",
+        "raw": 294787,
+        "gzip": 94932,
+        "resources": [
+          {
+            "file": "restaurants/index.html",
+            "raw": 38363,
+            "gzip": 8311
+          },
+          {
+            "file": "assets/brand/tokens.css",
+            "raw": 5939,
+            "gzip": 1598
+          },
+          {
+            "file": "assets/brand/components.css",
+            "raw": 7588,
+            "gzip": 1724
+          },
+          {
+            "file": "assets/site.css",
+            "raw": 21356,
+            "gzip": 4219
+          },
+          {
+            "file": "assets/restaurants.css",
+            "raw": 10081,
+            "gzip": 2253
+          },
+          {
+            "file": "assets/stand.css",
+            "raw": 980,
+            "gzip": 469
+          },
+          {
+            "file": "assets/scenes.css",
+            "raw": 4091,
+            "gzip": 1363
+          },
+          {
+            "file": "assets/mockups/print-art.js",
+            "raw": 27,
+            "gzip": 47
+          },
+          {
+            "file": "assets/scenes.js",
+            "raw": 1553,
+            "gzip": 846
+          },
+          {
+            "file": "assets/client.css",
+            "raw": 3875,
+            "gzip": 1196
+          },
+          {
+            "file": "templates/menu/style.css",
+            "raw": 1875,
+            "gzip": 692
+          },
+          {
+            "file": "assets/motion.css",
+            "raw": 8617,
+            "gzip": 2245
+          },
+          {
+            "file": "vendor/gsap/gsap.min.js",
+            "raw": 72927,
+            "gzip": 28375
+          },
+          {
+            "file": "vendor/gsap/ScrollTrigger.min.js",
+            "raw": 44575,
+            "gzip": 18000
+          },
+          {
+            "file": "assets/motion.js",
+            "raw": 59105,
+            "gzip": 18717
+          },
+          {
+            "file": "config.js",
+            "raw": 2471,
+            "gzip": 819
+          },
+          {
+            "file": "assets/app.js",
+            "raw": 11364,
+            "gzip": 4058
+          }
+        ]
+      },
+      "after": {
+        "page": "restaurants/index.html",
+        "version": "working-tree",
+        "raw": 302247,
+        "gzip": 96456,
+        "resources": [
+          {
+            "file": "restaurants/index.html",
+            "raw": 39286,
+            "gzip": 8777
+          },
+          {
+            "file": "assets/brand/tokens.css",
+            "raw": 5939,
+            "gzip": 1598
+          },
+          {
+            "file": "assets/brand/components.css",
+            "raw": 7588,
+            "gzip": 1724
+          },
+          {
+            "file": "assets/site.css",
+            "raw": 21790,
+            "gzip": 4279
+          },
+          {
+            "file": "assets/restaurants.css",
+            "raw": 15905,
+            "gzip": 3175
+          },
+          {
+            "file": "assets/stand.css",
+            "raw": 980,
+            "gzip": 469
+          },
+          {
+            "file": "assets/scenes.css",
+            "raw": 4091,
+            "gzip": 1363
+          },
+          {
+            "file": "assets/mockups/print-art.js",
+            "raw": 27,
+            "gzip": 47
+          },
+          {
+            "file": "assets/scenes.js",
+            "raw": 1553,
+            "gzip": 846
+          },
+          {
+            "file": "assets/client.css",
+            "raw": 3875,
+            "gzip": 1197
+          },
+          {
+            "file": "templates/menu/style.css",
+            "raw": 1875,
+            "gzip": 692
+          },
+          {
+            "file": "assets/motion.css",
+            "raw": 8617,
+            "gzip": 2245
+          },
+          {
+            "file": "vendor/gsap/gsap.min.js",
+            "raw": 72938,
+            "gzip": 28387
+          },
+          {
+            "file": "vendor/gsap/ScrollTrigger.min.js",
+            "raw": 44586,
+            "gzip": 18010
+          },
+          {
+            "file": "assets/motion.js",
+            "raw": 59131,
+            "gzip": 18730
+          },
+          {
+            "file": "config.js",
+            "raw": 2471,
+            "gzip": 820
+          },
+          {
+            "file": "assets/app.js",
+            "raw": 11595,
+            "gzip": 4097
+          }
+        ]
+      }
+    },
+    {
+      "before": {
+        "page": "hosts/index.html",
+        "version": "HEAD",
+        "raw": 296757,
+        "gzip": 94800,
+        "resources": [
+          {
+            "file": "hosts/index.html",
+            "raw": 40477,
+            "gzip": 8425
+          },
+          {
+            "file": "assets/brand/tokens.css",
+            "raw": 5939,
+            "gzip": 1598
+          },
+          {
+            "file": "assets/brand/components.css",
+            "raw": 7588,
+            "gzip": 1724
+          },
+          {
+            "file": "assets/site.css",
+            "raw": 21356,
+            "gzip": 4219
+          },
+          {
+            "file": "assets/client.css",
+            "raw": 3875,
+            "gzip": 1196
+          },
+          {
+            "file": "templates/rental-guide/style.css",
+            "raw": 1390,
+            "gzip": 518
+          },
+          {
+            "file": "assets/hosts.css",
+            "raw": 11402,
+            "gzip": 2650
+          },
+          {
+            "file": "assets/scenes.css",
+            "raw": 4091,
+            "gzip": 1363
+          },
+          {
+            "file": "assets/mockups/print-art.js",
+            "raw": 27,
+            "gzip": 47
+          },
+          {
+            "file": "assets/scenes.js",
+            "raw": 1553,
+            "gzip": 846
+          },
+          {
+            "file": "assets/motion.css",
+            "raw": 8617,
+            "gzip": 2245
+          },
+          {
+            "file": "vendor/gsap/gsap.min.js",
+            "raw": 72927,
+            "gzip": 28375
+          },
+          {
+            "file": "vendor/gsap/ScrollTrigger.min.js",
+            "raw": 44575,
+            "gzip": 18000
+          },
+          {
+            "file": "assets/motion.js",
+            "raw": 59105,
+            "gzip": 18717
+          },
+          {
+            "file": "config.js",
+            "raw": 2471,
+            "gzip": 819
+          },
+          {
+            "file": "assets/app.js",
+            "raw": 11364,
+            "gzip": 4058
+          }
+        ]
+      },
+      "after": {
+        "page": "hosts/index.html",
+        "version": "working-tree",
+        "raw": 303596,
+        "gzip": 96097,
+        "resources": [
+          {
+            "file": "hosts/index.html",
+            "raw": 41397,
+            "gzip": 8795
+          },
+          {
+            "file": "assets/brand/tokens.css",
+            "raw": 5939,
+            "gzip": 1598
+          },
+          {
+            "file": "assets/brand/components.css",
+            "raw": 7588,
+            "gzip": 1724
+          },
+          {
+            "file": "assets/site.css",
+            "raw": 21790,
+            "gzip": 4279
+          },
+          {
+            "file": "assets/client.css",
+            "raw": 3875,
+            "gzip": 1197
+          },
+          {
+            "file": "templates/rental-guide/style.css",
+            "raw": 1390,
+            "gzip": 519
+          },
+          {
+            "file": "assets/hosts.css",
+            "raw": 16608,
+            "gzip": 3440
+          },
+          {
+            "file": "assets/scenes.css",
+            "raw": 4091,
+            "gzip": 1363
+          },
+          {
+            "file": "assets/mockups/print-art.js",
+            "raw": 27,
+            "gzip": 47
+          },
+          {
+            "file": "assets/scenes.js",
+            "raw": 1553,
+            "gzip": 846
+          },
+          {
+            "file": "assets/motion.css",
+            "raw": 8617,
+            "gzip": 2245
+          },
+          {
+            "file": "vendor/gsap/gsap.min.js",
+            "raw": 72938,
+            "gzip": 28387
+          },
+          {
+            "file": "vendor/gsap/ScrollTrigger.min.js",
+            "raw": 44586,
+            "gzip": 18010
+          },
+          {
+            "file": "assets/motion.js",
+            "raw": 59131,
+            "gzip": 18730
+          },
+          {
+            "file": "config.js",
+            "raw": 2471,
+            "gzip": 820
+          },
+          {
+            "file": "assets/app.js",
+            "raw": 11595,
+            "gzip": 4097
+          }
+        ]
+      }
+    }
+  ]
+}

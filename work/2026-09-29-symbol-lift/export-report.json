@@ -1,0 +1,56 @@
+{
+  "source": {
+    "path": "C:\\Users\\TechTroniX\\.codex\\generated_images\\01a0eeb2-49a4-7b00-8651-1e68542b6c6b\\exec-16dec599-f420-4ecf-ac51-59de1a724c68.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 1263985,
+    "sha256": "3495251105f1c83844a3bf104e8ec1b1f0913955e4d0cf686ab2d012620a2f9d"
+  },
+  "master": {
+    "path": "brand/photos/composites/restaurant-symbol-plate-v1.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 1263985,
+    "byteIdenticalToSource": true
+  },
+  "resize": {
+    "aspectRatio": "16:9",
+    "fit": "cover",
+    "position": "centre",
+    "artworkChanged": false
+  },
+  "exports": [
+    {
+      "path": "website/assets/images/restaurant-symbol-plate-800.webp",
+      "width": 800,
+      "height": 450,
+      "format": "webp",
+      "bytes": 18964,
+      "quality": 88,
+      "sha256": "ff6903c41a3f4176126db06ae7576a805a65c3d75c5b0b7df6a5a1fcb40a68f8"
+    },
+    {
+      "path": "website/assets/images/restaurant-symbol-plate-1600.webp",
+      "width": 1600,
+      "height": 900,
+      "format": "webp",
+      "bytes": 42866,
+      "quality": 88,
+      "sha256": "1f63c3a041e5b9fd1b4c1fddf6d688125e6f27c69a95bd2cb73ef69484fad8fb"
+    }
+  ],
+  "symbol": {
+    "path": "website/assets/brand/symbol-ink.svg",
+    "source": "website/assets/brand/logo-horizontal.svg",
+    "width": 200,
+    "height": 200,
+    "viewBox": "0 0 200 200",
+    "fill": "#14201F",
+    "pathStart": "M0.1 46.81",
+    "closedSubpaths": 4,
+    "geometryVerbatim": true,
+    "sourceLogoUnchanged": true,
+    "bytes": 767,
+    "sha256": "7750134733e6e9ffa683697cf40d5216966dffd5ebc83e5a4b0a0049edaecab4"
+  }
+}

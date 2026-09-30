@@ -1,0 +1,19 @@
+dist/: html 13، css 14، js 21، نسخ زي ما هي 99. انشال 157.2KB تعليقات
+ما انرفع (توثيق): assets/images/CREDITS.md، DESIGN.md، README.md، vendor/gsap/LICENSE.md
+
+الحجم (بدون الخطوط والصور)، الحد 100.0KB غير مضغوط و50.0KB gzip:
+  demo/links/index.html: 48.4KB / gzip 17.0KB (12 ملفات)
+  demo/menu/index.html: 53.3KB / gzip 18.5KB (12 ملفات)
+  demo/rental-guide/index.html: 59.4KB / gzip 20.2KB (12 ملفات)
+  demo/review/index.html: 57.2KB / gzip 15.4KB (7 ملفات)
+  demo/review/qr-sheet.html: 88.4KB / gzip 21.4KB (7 ملفات)
+  demo/wifi/index.html: 46.9KB / gzip 16.3KB (12 ملفات)
+  فوق الحد hosts/index.html: 308.5KB / gzip 99.1KB (16 ملفات)
+  فوق الحد index.html: 269.3KB / gzip 88.1KB (11 ملفات)
+  فوق الحد restaurants/index.html: 324.9KB / gzip 101.2KB (17 ملفات)
+  templates/links/index.html: 48.0KB / gzip 16.8KB (11 ملفات)
+  templates/menu/index.html: 51.7KB / gzip 17.9KB (11 ملفات)
+  templates/rental-guide/index.html: 59.2KB / gzip 19.9KB (11 ملفات)
+  templates/wifi/index.html: 46.7KB / gzip 16.1KB (11 ملفات)
+
+3 مشكلة. صلّحها قبل الرفع.

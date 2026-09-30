@@ -1,0 +1,49 @@
+{
+  "canvas": {
+    "width": 1600,
+    "height": 900,
+    "transparent": true
+  },
+  "photo": "website/assets/images/host-symbol-plate-1600.webp",
+  "sourcePhoto": "brand/photos/generated/hosts-hero-imagen-1-upscaled-1.webp",
+  "photoObjectPosition": {
+    "x": 0.59,
+    "y": 0.5
+  },
+  "frameInnerPaper": {
+    "left": 911.875,
+    "top": 232.5,
+    "right": 1076.25,
+    "bottom": 456.875
+  },
+  "symbol": {
+    "x": 952,
+    "y": 284,
+    "size": 84,
+    "centerX": 994,
+    "centerY": 326,
+    "image": "website/assets/brand/symbol-ink.svg"
+  },
+  "wordmark": {
+    "x": 918,
+    "y": 380,
+    "width": 152,
+    "height": 19.73415765069552,
+    "viewBox": "260 47.4 808.75 105"
+  },
+  "nativeGeometry": {
+    "source": "website/assets/brand/logo-horizontal.svg",
+    "sourceSha256": "faf414823890b4da3bd226d1ca2ce95413b51a1fdd61c38cc8ad7ba43e001974",
+    "sourceUnchanged": true,
+    "symbolPathVerbatim": true,
+    "wordPathVerbatim": true
+  },
+  "integration": {
+    "marker": "card:host",
+    "factory": "buildHostCard",
+    "photoHook": "data-lift-photo",
+    "positionHook": "data-lift-position=\"0.59\"",
+    "registration": "data-card-symbol-box=\"952 284 84\""
+  },
+  "fallback": "Native square and wordmark remain visible without JS, with reduced motion, on short screens and after motion initialization failure."
+}

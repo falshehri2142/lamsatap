@@ -9,12 +9,21 @@
 // بعد النسخ يفحص:
 //   1. كل JS ينقرى (syntax) بعد الشيل.
 //   2. باركود كل ستاند (data-qr-url) يطابق الدومين في config.js. لو الدومين تغيّر: node tools/build-home-minis.cjs أول.
-//   3. حجم كل صفحة: الـ HTML والـ CSS والـ JS اللي تحمّلها، بدون الخطوط والصور. الحد 100KB غير مضغوط و50KB مضغوط gzip.
+//   3. حجم كل صفحة: HTML وCSS وJS، بدون الخطوط والصور. حد كل ملف ميزانية يظهر مع القياس أدناه.
 // التشغيل (من جذر المشروع): node tools/build-dist.cjs
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm'), zlib = require('zlib');
 const ROOT = path.join(__dirname, '..'), SRC = path.join(ROOT, 'website'), OUT = path.join(ROOT, 'dist');
-const LIMIT_RAW = 100 * 1024, LIMIT_GZ = 50 * 1024;
+// The approved marketing motion includes GSAP + ScrollTrigger: 114.8 KiB raw
+// before any page code, so the original uniform 100 KiB cap cannot fit it.
+// The owner accepted this weight for launch (2026-09-30). Only these three
+// exact routes receive the marketing budget; all other pages keep 100/50 KiB.
+// Every selected budget remains a strict build gate, alongside syntax and QR checks.
+const BUDGETS = {
+  lightweight: { raw: 100 * 1024, gzip: 50 * 1024 },
+  marketing: { raw: 350 * 1024, gzip: 110 * 1024 }
+};
+const MARKETING_PAGES = new Set(['index.html', 'restaurants/index.html', 'hosts/index.html']);
 
 const stripCss = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '');
 const stripJs = (s) => s.replace(/^[ \t]*\/\/.*(\r?\n|$)/gm, '');
@@ -28,6 +37,9 @@ function stripHtml(s) {
 }
 
 // النسخ
+if (path.dirname(path.resolve(OUT)) !== path.resolve(ROOT) || path.basename(OUT) !== 'dist') {
+  throw new Error('Build output must be the project dist directory.');
+}
 fs.rmSync(OUT, { recursive: true, force: true });
 const stats = { html: 0, css: 0, js: 0, copied: 0, skipped: [], saved: 0 };
 const pages = [];
@@ -70,16 +82,17 @@ for (const p of pages) {
 // 2) باركود الستاند يطابق الدومين
 const cfg = { window: {} }; cfg.window = cfg; vm.createContext(cfg);
 vm.runInContext(fs.readFileSync(path.join(SRC, 'config.js'), 'utf8'), cfg);
-const want = String((cfg.SITE || {}).domain || 'https://example.com').replace(/\/+$/, '') + '/demo/review/';
+const domain = String((cfg.SITE || {}).domain || 'https://example.com').replace(/\/+$/, '');
+const demoDestinations = new Set(['review', 'rental-guide', 'menu', 'wifi', 'links'].map(name => domain + '/demo/' + name + '/'));
 for (const p of pages) {
   for (const m of fs.readFileSync(path.join(OUT, p), 'utf8').matchAll(/data-qr-url="([^"]*)"/g)) {
-    if (m[1] !== want) { bad++; console.error('باركود الستاند في ' + p + ' يودّي لـ ' + m[1] + ' والدومين يقول ' + want + '. شغّل node tools/build-home-minis.cjs ثم هذا من جديد'); }
+    if (!demoDestinations.has(m[1])) { bad++; console.error('باركود في ' + p + ' يودّي إلى رابط خارج أمثلة الموقع المعتمدة: ' + m[1] + '. شغّل node tools/build-home-minis.cjs ثم هذا من جديد'); }
   }
 }
 
 // 3) الحجم: الصفحة وملفات <link rel="stylesheet"> و<script src> المحلية اللي تحمّلها
-const kb = (n) => (n / 1024).toFixed(1) + 'KB';
-console.log('\nالحجم (بدون الخطوط والصور)، الحد ' + kb(LIMIT_RAW) + ' غير مضغوط و' + kb(LIMIT_GZ) + ' gzip:');
+const kb = (n) => (n / 1024).toFixed(1) + 'KiB';
+console.log('\nالحجم (بدون الخطوط والصور)، مع ملف الميزانية والحد المطبّق لكل صفحة:');
 for (const p of pages.sort()) {
   const html = fs.readFileSync(path.join(OUT, p), 'utf8'), files = [p];
   for (const m of html.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"|<script\b[^>]*src="([^"]+)"/g)) {
@@ -92,9 +105,10 @@ for (const p of pages.sort()) {
     const b = fs.readFileSync(path.join(OUT, f));
     raw += b.length; gz += zlib.gzipSync(b, { level: 9 }).length;
   }
-  const over = raw > LIMIT_RAW || gz > LIMIT_GZ;
+  const profile = MARKETING_PAGES.has(p) ? 'marketing' : 'lightweight', budget = BUDGETS[profile];
+  const over = raw > budget.raw || gz > budget.gzip;
   if (over) bad++;
-  console.log((over ? '  فوق الحد ' : '  ') + p + ': ' + kb(raw) + ' / gzip ' + kb(gz) + ' (' + files.length + ' ملفات)');
+  console.log((over ? '  فوق الحد ' : '  ') + p + ': ' + kb(raw) + ' / gzip ' + kb(gz) + ' (' + files.length + ' ملفات؛ ' + profile + '، الحد ' + kb(budget.raw) + ' / gzip ' + kb(budget.gzip) + ')');
 }
 if (bad) { console.error('\n' + bad + ' مشكلة. صلّحها قبل الرفع.'); process.exitCode = 1; }
 else console.log('\nجاهز للرفع: dist/');

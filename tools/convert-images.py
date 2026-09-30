@@ -35,11 +35,10 @@ LAYERS = {
     # GM-054/058: مشاهد المنتج المولّدة (kie.ai، مكبّرة 2560×1440)، مكانها brand/photos/generated/
     'scene-restaurants':      ('../generated/restaurants-hero-imagen-1-upscaled-1.webp', 'warm',  True,  None),  # طاولة كافيه وستاند فاضي
     'scene-hosts-door':       ('../generated/hosts-hero-imagen-1-upscaled-1.webp',       'light', True,  None),  # باب شقة وبرواز فاضي
-    'scene-hosts-table':      ('../generated/hosts-table-imagen-1-upscaled-1.webp',      'light', False, None),  # كونسول و3 ستاندات، كروتها بيضاء
-    # بطل المطاعم وبابها، وبطل المضيفين وبابهم (نفس المشاهد، كروتها بيضاء). صور الطباعة الخمس انرفضت (صاحب المشروع، عن طريق المدير العام
-    # 2026-09-28) وبتنعاد، فالكروت تبقى بيضاء لين تجي الجديدة، وبعدها المصدر يصير التركيب (brand/photos/composites/README.md)
-    'restaurant-cafe-stand':  ('../generated/restaurants-hero-imagen-1-upscaled-1.webp', 'warm',  True,  None),  # طاولة كافيه وستاند بكرت أبيض
-    'host-door-frame':        ('../generated/hosts-hero-imagen-1-upscaled-1.webp',       'light', True,  None),  # باب شقة وبرواز فاضي
+    # 2026-09-29: طلب صاحب المشروع وضع الشعار داخل المساحات البيضاء. الألوان مخبوزة في الصور الجديدة.
+    'scene-hosts-table':      ('../composites/scene-hosts-table-logo-v1.png',     'baked', False, None),
+    'restaurant-cafe-stand':  ('../composites/restaurant-cafe-stand-logo-v1.png', 'baked', True,  None),
+    'host-door-frame':        ('../composites/host-door-frame-logo-v1.png',       'baked', True,  None),
 }
 # حدود «الاتجاه 3» §4 بالـKB، للـ1600: (الأبيض والأسود، اللون). والـ800 نصها.
 LIMITS = {True: (180, 180), False: (120, 160)}
@@ -122,6 +121,8 @@ MOODS = {
 
 def color_layer(rgb, mood):
     """الطبقة الثانية (§4): نفس البكسلات بالضبط، واللون بس يتغير. الإضاءة والتشبع في CIELAB عشان اللون ما يتلوث."""
+    if mood == 'baked':  # صورة مركبة معتمدة اللون؛ لا نطبّق المعالجة مرتين.
+        return Image.fromarray(np.clip(np.rint(rgb), 0, 255).astype(np.uint8))
     k = MOODS[mood]
     v = lin(rgb / 255.0) * np.array(k['wb']) * 2 ** k['ev']
     v = np.where(v > 0.75, 0.75 + 0.25 * np.tanh((v - 0.75) / 0.25), v)   # كتف ناعم للفاتح بدل ما ينقص (بعد +EV)

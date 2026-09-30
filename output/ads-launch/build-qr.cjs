@@ -1,0 +1,10 @@
+const fs = require('fs');
+const path = require('path');
+const qrcode = require('../../website/vendor/qrcode-generator.js');
+const sharp = require('C:/Users/TechTroniX/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+const qr = qrcode(0, 'H');
+qr.addData('https://lamsatap.com', 'Byte');
+qr.make();
+const svg = qr.createSvgTag(12, 48);
+fs.writeFileSync(path.join(__dirname, 'lamsatap-qr.svg'), svg);
+sharp(Buffer.from(svg)).png().toFile(path.join(__dirname, 'lamsatap-qr.png')).then(() => console.log('Created exact QR: https://lamsatap.com; modules=' + qr.getModuleCount()));

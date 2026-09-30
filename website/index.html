@@ -3,14 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- فاتح دايماً (GM-038، web-brand.md): المفتاح على <html> وهذا السطر قبل أي CSS عشان ما يومض الداكن -->
+
 <meta name="color-scheme" content="only light">
-<!-- قبل أول رسم (web-motion.md «النظام 2»): js دايماً. m لما تقليل الحركة مطفي، ومعها mh لما الشاشة 640px أو أطول (بداية البوابة).
-     mh تخفي فن البداية (الباركود والرمز والكلمة والسطر) لين يبدأ تسلسله، والنص ما ينخفي أبداً. لو motion.js ما اشتغل (GSAP ما تحمّل مثلاً) تنشال m و mh
-     عند DOMContentLoaded وترجع الحالة النهائية. بدون JS ومع تقليل الحركة: الحالة النهائية من البداية، وكل المحتوى ظاهر -->
+
 <script>(function(h,w){h.className+=' js';if(!w.matchMedia||!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;h.className+=' m'+(matchMedia('(min-height: 640px)').matches?' mh':'');document.addEventListener('DOMContentLoaded',function(){if(!w.__ltMotion)h.classList.remove('m','mh')})})(document.documentElement,window)</script>
-<!-- الميتا: web-copy «الاتجاه 3» البوابة بند 7 (والوصف زي ج11). og:url و canonical يتولدون من config.js (domain) في assets/app.js.
-     og:image ينضاف يوم الإطلاق (website/README.md) -->
+
 <title>لمسة تاب — شرائح NFC وباركود QR للمطاعم والإيجار القصير</title>
 <meta name="description" content="ستاند وشريحة NFC وباركود QR بشعار محلك في جدة: ضيفك يقرّب جواله أو يمسح الباركود، ويفتح المنيو أو دليل الوحدة. العتاد والتركيب علينا طول الاشتراك.">
 <meta property="og:type" content="website">
@@ -22,112 +19,59 @@
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="preload" href="assets/brand/fonts/readex-pro-arabic-latin.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="assets/brand/tokens.css">
 <link rel="stylesheet" href="assets/brand/components.css">
-<link rel="stylesheet" href="assets/site.css">
-<link rel="stylesheet" href="assets/home.css">
-<!-- ستاند التقييم الثابت في «كيف نشتغل» (impeccable 6، «الاتجاه 3» §3 صف 4): مكوّن tools/stand.cjs، وتنسيقه هنا -->
-<link rel="stylesheet" href="assets/stand.css">
-<!-- @@scenes: تنسيق مشاهد المنتج وسكربت خانات الطباعة (GM-049/050، assets/scenes.css). يولّده tools/build-home-minis.cjs --><link rel="stylesheet" href="assets/scenes.css"><script src="assets/mockups/print-art.js" defer></script><script src="assets/scenes.js" defer></script><!-- /@@scenes -->
-<!-- الحركة (web-motion.md «النظام 2»): صفحات الشركة بس، وصفحات الزبون ما تحمّلها (GM-011). GSAP 3.15 و ScrollTrigger محليين (vendor/gsap/LICENSE.md) -->
+<link rel="stylesheet" href="assets/site.css?v=quality-20260930-7">
+
+
+
+
+
 <link rel="stylesheet" href="assets/motion.css">
 <script defer src="vendor/gsap/gsap.min.js"></script>
 <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
-<script defer src="assets/motion.js"></script>
+<script defer src="assets/motion.js?v=mobile-sync-20260930-6"></script>
+<link rel="stylesheet" href="assets/home.css?v=quality-20260930-7">
 </head>
-<body>
+<body class="home-studio">
 <a class="s-skip" href="#main">انتقل للمحتوى</a>
-
-<!-- 1) الرأس الثابت (web-art-director.md «الاتجاه 3» §1، والنصوص web-copy «الاتجاه 3» القائمة). المكوّن في site.css (.s-top).
-     الشعار ثابت هنا (data-open-logo: شعار البداية يطير له). الروابط في مكانين وواحد بس ظاهر: جنب الشعار من 1024، وصف ثاني تحت الرأس على الجوال.
-     صفحتي الجمهور: نفس الترميز بمسارات ../ ، و aria-current="page" على رابط الصفحة، و«كيف نشتغل» ← ../index.html#how -->
-<header class="s-top">
-<div class="s-wrap s-head">
-<a class="s-logo-link" href="index.html" data-open-logo><img class="s-logo-h" src="assets/brand/logo-horizontal.svg" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt></a>
+<header class="s-top"><div class="s-wrap s-head">
+<a class="s-logo-link" href="index.html"><img class="s-logo-h" src="assets/brand/logo-horizontal.svg" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt></a>
 <nav class="s-nav s-nav--top" aria-label="أقسام الموقع"><a href="restaurants/index.html">للمطاعم والكافيهات</a><a href="hosts/index.html">للمضيفين</a><a href="#how">كيف نشتغل</a></nav>
-<div class="s-head-end">
-<a class="lt-btn lt-btn--secondary lt-btn--compact s-head-wa" data-wa="home" hidden><span>كلّمنا على واتساب</span></a>
-</div>
-</div>
-</header>
+<div class="s-head-end"><a class="lt-btn lt-btn--secondary lt-btn--compact h-nav-action" href="#solutions">اكتشف الحلول <svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a></div>
+</div></header>
 <nav class="s-nav s-nav--row" aria-label="أقسام الموقع"><div class="s-wrap"><a href="restaurants/index.html">للمطاعم والكافيهات</a><a href="hosts/index.html">للمضيفين</a><a href="#how">كيف نشتغل</a></div></nav>
-
 <main id="main">
-<!-- 2) البداية «باركودنا هو شعارنا» والوعد (GM-040 §1، «الاتجاه 3» §3). الحركة وشرح الـ hooks: web-motion.md «النظام 2».
-     الوعد (h1 وسطره وسطر الثقة) نص ثابت ظاهر من أول لحظة. الفن جنبه: حقل وحدات يترتب باركود حقيقي (تصحيح H)، ووسطه رمزنا، وتحته LAMSATAP.
-     الباركود نفسه رابط للدليل التجريبي (بديل الكيبورد والضغط). بدون JS ومع تقليل الحركة: الباركود النهائي برمزه، و LAMSATAP، والسطر،
-     والشعار في الرأس. لا تشيل data-open* ولا data-scan -->
-<section class="h-open" aria-labelledby="hero-h" data-open>
-<div class="s-wrap h-open-grid">
-<div class="h-open-text">
-<h1 class="h-open-h1" id="hero-h">قرّب جوالك، تنفتح الصفحة</h1>
+<section class="h-open" aria-labelledby="hero-h" data-open data-open-inline data-symbol-flight>
+<div class="s-wrap h-open-grid"><div class="h-open-text">
+<h1 class="h-open-h1" id="hero-h">قرّب جوالك،<br>تنفتح الصفحة.</h1>
 <p class="s-lead h-open-lead">المنيو وتقييم قوقل والواي فاي ودليل الشقة، تنفتح باللمس أو بالباركود، بدون تطبيق.</p>
-<p class="s-check h-open-trust"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>العتاد والتركيب علينا طول الاشتراك</span></p>
-</div>
-<figure class="h-open-art" data-open-art>
-<a class="h-open-qr" href="demo/rental-guide/index.html" aria-label="باركود فيه رمز لمسة تاب، يفتح الدليل التجريبي" data-scan="qr-field" data-open-qr><!-- @@qr:logo --><svg class="m-qr" viewBox="-4 -4 45 45" width="360" height="360" style="--qv:45" shape-rendering="crispEdges" role="img" aria-label="باركود فيه رمز لمسة تاب، يفتح الدليل التجريبي" data-qr-url="https://example.com/demo/rental-guide/" data-qr-hole="13 10"><path fill="currentColor" d="M0 0h7v1h-7zM11 0h1v1h-1zM15 0h2v1h-2zM19 0h1v1h-1zM22 0h2v1h-2zM25 0h4v1h-4zM30 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h2v1h-2zM13 1h2v1h-2zM16 1h4v1h-4zM22 1h1v1h-1zM24 1h2v1h-2zM28 1h1v1h-1zM30 1h1v1h-1zM36 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM12 2h1v1h-1zM16 2h1v1h-1zM19 2h1v1h-1zM21 2h1v1h-1zM23 2h2v1h-2zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h3v1h-3zM14 3h3v1h-3zM18 3h2v1h-2zM21 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM30 3h1v1h-1zM32 3h3v1h-3zM36 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM9 4h2v1h-2zM12 4h1v1h-1zM18 4h1v1h-1zM22 4h3v1h-3zM26 4h2v1h-2zM30 4h1v1h-1zM32 4h3v1h-3zM36 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM12 5h3v1h-3zM16 5h1v1h-1zM18 5h2v1h-2zM24 5h1v1h-1zM28 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h7v1h-7zM8 7h1v1h-1zM11 7h2v1h-2zM15 7h3v1h-3zM20 7h1v1h-1zM22 7h4v1h-4zM4 8h4v1h-4zM12 8h5v1h-5zM18 8h3v1h-3zM22 8h2v1h-2zM25 8h1v1h-1zM27 8h2v1h-2zM30 8h2v1h-2zM35 8h1v1h-1zM2 9h1v1h-1zM4 9h2v1h-2zM7 9h2v1h-2zM11 9h2v1h-2zM14 9h2v1h-2zM17 9h2v1h-2zM24 9h1v1h-1zM26 9h1v1h-1zM31 9h3v1h-3zM3 10h1v1h-1zM6 10h1v1h-1zM10 10h1v1h-1zM15 10h1v1h-1zM18 10h5v1h-5zM25 10h3v1h-3zM29 10h1v1h-1zM31 10h1v1h-1zM34 10h1v1h-1zM0 11h2v1h-2zM4 11h1v1h-1zM8 11h2v1h-2zM11 11h1v1h-1zM15 11h6v1h-6zM22 11h2v1h-2zM26 11h4v1h-4zM31 11h1v1h-1zM34 11h1v1h-1zM0 12h1v1h-1zM4 12h3v1h-3zM9 12h4v1h-4zM15 12h1v1h-1zM22 12h2v1h-2zM28 12h3v1h-3zM34 12h3v1h-3zM3 13h1v1h-1zM8 13h1v1h-1zM11 13h1v1h-1zM26 13h4v1h-4zM32 13h1v1h-1zM34 13h1v1h-1zM0 14h2v1h-2zM4 14h5v1h-5zM11 14h2v1h-2zM23 14h2v1h-2zM26 14h3v1h-3zM31 14h4v1h-4zM0 15h4v1h-4zM5 15h1v1h-1zM7 15h1v1h-1zM9 15h1v1h-1zM24 15h1v1h-1zM26 15h1v1h-1zM31 15h2v1h-2zM34 15h1v1h-1zM0 16h1v1h-1zM3 16h5v1h-5zM10 16h1v1h-1zM23 16h2v1h-2zM26 16h2v1h-2zM30 16h2v1h-2zM33 16h2v1h-2zM36 16h1v1h-1zM0 17h2v1h-2zM3 17h2v1h-2zM8 17h2v1h-2zM11 17h2v1h-2zM24 17h5v1h-5zM32 17h3v1h-3zM2 18h1v1h-1zM6 18h1v1h-1zM8 18h2v1h-2zM12 18h1v1h-1zM23 18h1v1h-1zM27 18h1v1h-1zM29 18h1v1h-1zM34 18h1v1h-1zM0 19h1v1h-1zM9 19h1v1h-1zM26 19h1v1h-1zM28 19h5v1h-5zM34 19h3v1h-3zM0 20h1v1h-1zM3 20h6v1h-6zM11 20h2v1h-2zM23 20h2v1h-2zM29 20h2v1h-2zM33 20h4v1h-4zM0 21h2v1h-2zM4 21h1v1h-1zM7 21h1v1h-1zM10 21h3v1h-3zM25 21h3v1h-3zM32 21h4v1h-4zM2 22h5v1h-5zM8 22h1v1h-1zM11 22h2v1h-2zM24 22h1v1h-1zM27 22h2v1h-2zM30 22h1v1h-1zM34 22h1v1h-1zM2 23h2v1h-2zM5 23h1v1h-1zM9 23h3v1h-3zM15 23h1v1h-1zM17 23h2v1h-2zM23 23h1v1h-1zM26 23h1v1h-1zM28 23h1v1h-1zM30 23h2v1h-2zM34 23h1v1h-1zM36 23h1v1h-1zM1 24h7v1h-7zM9 24h1v1h-1zM12 24h2v1h-2zM15 24h1v1h-1zM18 24h2v1h-2zM21 24h3v1h-3zM25 24h3v1h-3zM30 24h2v1h-2zM34 24h3v1h-3zM0 25h1v1h-1zM4 25h1v1h-1zM7 25h1v1h-1zM10 25h1v1h-1zM12 25h1v1h-1zM17 25h1v1h-1zM19 25h4v1h-4zM24 25h2v1h-2zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h1v1h-1zM34 25h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM8 26h3v1h-3zM13 26h3v1h-3zM20 26h1v1h-1zM22 26h3v1h-3zM26 26h1v1h-1zM28 26h2v1h-2zM34 26h1v1h-1zM4 27h1v1h-1zM7 27h1v1h-1zM9 27h2v1h-2zM12 27h2v1h-2zM15 27h1v1h-1zM17 27h1v1h-1zM20 27h4v1h-4zM26 27h1v1h-1zM30 27h2v1h-2zM34 27h2v1h-2zM0 28h2v1h-2zM5 28h2v1h-2zM12 28h2v1h-2zM15 28h2v1h-2zM18 28h2v1h-2zM22 28h1v1h-1zM24 28h1v1h-1zM27 28h6v1h-6zM34 28h3v1h-3zM8 29h2v1h-2zM11 29h3v1h-3zM17 29h3v1h-3zM22 29h2v1h-2zM28 29h1v1h-1zM32 29h2v1h-2zM0 30h7v1h-7zM8 30h2v1h-2zM11 30h2v1h-2zM14 30h1v1h-1zM17 30h1v1h-1zM19 30h8v1h-8zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h3v1h-3zM0 31h1v1h-1zM6 31h1v1h-1zM8 31h1v1h-1zM13 31h3v1h-3zM17 31h2v1h-2zM21 31h1v1h-1zM23 31h2v1h-2zM26 31h1v1h-1zM28 31h1v1h-1zM32 31h1v1h-1zM34 31h2v1h-2zM0 32h1v1h-1zM2 32h3v1h-3zM6 32h1v1h-1zM8 32h1v1h-1zM14 32h1v1h-1zM16 32h5v1h-5zM23 32h2v1h-2zM28 32h7v1h-7zM0 33h1v1h-1zM2 33h3v1h-3zM6 33h1v1h-1zM9 33h1v1h-1zM12 33h2v1h-2zM16 33h1v1h-1zM20 33h3v1h-3zM26 33h2v1h-2zM30 33h2v1h-2zM0 34h1v1h-1zM2 34h3v1h-3zM6 34h1v1h-1zM9 34h1v1h-1zM12 34h1v1h-1zM14 34h3v1h-3zM21 34h2v1h-2zM26 34h1v1h-1zM28 34h1v1h-1zM30 34h1v1h-1zM33 34h3v1h-3zM0 35h1v1h-1zM6 35h1v1h-1zM12 35h3v1h-3zM17 35h1v1h-1zM22 35h1v1h-1zM24 35h1v1h-1zM27 35h1v1h-1zM30 35h3v1h-3zM34 35h2v1h-2zM0 36h7v1h-7zM14 36h2v1h-2zM17 36h3v1h-3zM23 36h2v1h-2zM26 36h2v1h-2zM34 36h3v1h-3z"/><path data-qr-center fill="none" d="M13 13h3v1h-3zM17 13h1v1h-1zM19 13h2v1h-2zM22 13h1v1h-1zM13 14h1v1h-1zM21 14h1v1h-1zM13 15h2v1h-2zM17 15h1v1h-1zM19 15h2v1h-2zM13 16h1v1h-1zM17 16h2v1h-2zM21 16h1v1h-1zM13 17h1v1h-1zM19 17h2v1h-2zM22 17h1v1h-1zM15 18h1v1h-1zM17 18h1v1h-1zM19 18h2v1h-2zM22 18h1v1h-1zM14 19h2v1h-2zM20 19h1v1h-1zM14 20h2v1h-2zM17 20h1v1h-1zM19 20h1v1h-1zM22 20h1v1h-1zM15 21h1v1h-1zM17 21h6v1h-6zM13 22h1v1h-1zM15 22h1v1h-1zM18 22h1v1h-1zM21 22h2v1h-2z"/></svg><span class="h-open-sym" data-open-sym style="left:40%;top:40%;width:17.7778%;height:17.7778%"><img src="assets/brand/logo-horizontal.svg" alt="" width="1069" height="200"></span><!-- /@@qr:logo --></a>
-<span class="h-open-word" data-open-word><img src="assets/brand/logo-horizontal.svg" width="1069" height="200" alt=""></span>
-<figcaption class="h-open-cap" data-open-cap><span class="h-open-scan">امسحه بجوالك</span><a class="lt-btn h-open-try" href="demo/rental-guide/index.html">افتح المثال</a><span class="h-open-alt">أو امسحه من جوال ثاني</span></figcaption>
-</figure>
-</div>
+<div class="h-open-actions"><a class="lt-btn" href="#solutions">شوف الحل المناسب لك <svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a><a class="h-text-link" href="demo/rental-guide/index.html">جرّبها بنفسك <svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5a10 10 0 0 1 0 14M12 8a6 6 0 0 1 0 8M16 11a2 2 0 0 1 0 2"/></svg></a></div>
+<p class="h-open-trust"><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg><span>العتاد والتركيب علينا طول الاشتراك</span></p>
+</div><div class="h-product" data-lift-stage>
+<div class="h-product-photo"><img src="assets/images/restaurant-hand-phone-color-800.webp" srcset="assets/images/restaurant-hand-phone-color-800.webp 800w, assets/images/restaurant-hand-phone-color-1600.webp 1600w" sizes="(min-width: 1024px) 50vw, 100vw" width="1600" height="1067" alt="جوال يفتح لمسة تاب بجانب فنجان قهوة على طاولة كافيه" fetchpriority="high" decoding="async"></div>
+<div class="h-product-caption"><span class="h-tap-mark"><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5a10 10 0 0 1 0 14M12 8a6 6 0 0 1 0 8M16 11a2 2 0 0 1 0 2"/></svg></span><p>لمسة صغيرة.<br><strong>تجربة أسهل لضيوفك.</strong></p></div>
+<figure class="h-open-art" data-open-art><a class="h-open-qr" href="demo/rental-guide/index.html" aria-label="افتح دليل الضيف التجريبي" data-open-qr><!-- @@qr:logo --><svg class="m-qr" viewBox="-4 -4 45 45" width="360" height="360" style="--qv:45" shape-rendering="crispEdges" role="img" aria-label="باركود فيه رمز لمسة تاب، يفتح الدليل التجريبي" data-qr-url="https://lamsatap.com/demo/rental-guide/" data-qr-hole="13 10"><path fill="currentColor" d="M0 0h7v1h-7zM10 0h1v1h-1zM12 0h5v1h-5zM18 0h1v1h-1zM20 0h2v1h-2zM23 0h1v1h-1zM25 0h1v1h-1zM28 0h1v1h-1zM30 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h7v1h-7zM19 1h2v1h-2zM24 1h2v1h-2zM28 1h1v1h-1zM30 1h1v1h-1zM36 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM10 2h2v1h-2zM14 2h5v1h-5zM20 2h1v1h-1zM22 2h4v1h-4zM27 2h2v1h-2zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h3v1h-3zM17 3h4v1h-4zM24 3h4v1h-4zM30 3h1v1h-1zM32 3h3v1h-3zM36 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h1v1h-1zM11 4h1v1h-1zM14 4h2v1h-2zM17 4h1v1h-1zM19 4h3v1h-3zM24 4h1v1h-1zM27 4h1v1h-1zM30 4h1v1h-1zM32 4h3v1h-3zM36 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h3v1h-3zM14 5h1v1h-1zM16 5h5v1h-5zM24 5h2v1h-2zM30 5h1v1h-1zM36 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h7v1h-7zM8 7h1v1h-1zM11 7h1v1h-1zM14 7h1v1h-1zM19 7h1v1h-1zM24 7h1v1h-1zM27 7h2v1h-2zM2 8h2v1h-2zM6 8h4v1h-4zM13 8h1v1h-1zM19 8h3v1h-3zM23 8h1v1h-1zM25 8h1v1h-1zM27 8h4v1h-4zM32 8h1v1h-1zM4 9h1v1h-1zM8 9h2v1h-2zM12 9h2v1h-2zM17 9h1v1h-1zM20 9h3v1h-3zM24 9h5v1h-5zM31 9h1v1h-1zM0 10h1v1h-1zM4 10h6v1h-6zM11 10h2v1h-2zM15 10h3v1h-3zM19 10h5v1h-5zM25 10h1v1h-1zM27 10h1v1h-1zM29 10h1v1h-1zM32 10h3v1h-3zM0 11h1v1h-1zM15 11h3v1h-3zM21 11h2v1h-2zM24 11h4v1h-4zM33 11h2v1h-2zM1 12h1v1h-1zM6 12h1v1h-1zM8 12h2v1h-2zM12 12h2v1h-2zM15 12h1v1h-1zM17 12h2v1h-2zM23 12h4v1h-4zM29 12h2v1h-2zM32 12h1v1h-1zM34 12h3v1h-3zM7 13h1v1h-1zM10 13h3v1h-3zM23 13h6v1h-6zM30 13h1v1h-1zM32 13h1v1h-1zM34 13h1v1h-1zM36 13h1v1h-1zM1 14h1v1h-1zM3 14h2v1h-2zM6 14h1v1h-1zM9 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM32 14h1v1h-1zM34 14h2v1h-2zM4 15h1v1h-1zM8 15h3v1h-3zM23 15h1v1h-1zM26 15h7v1h-7zM35 15h2v1h-2zM0 16h2v1h-2zM6 16h1v1h-1zM8 16h1v1h-1zM12 16h1v1h-1zM23 16h1v1h-1zM25 16h1v1h-1zM33 16h2v1h-2zM36 16h1v1h-1zM0 17h3v1h-3zM4 17h2v1h-2zM9 17h2v1h-2zM12 17h1v1h-1zM24 17h2v1h-2zM27 17h1v1h-1zM29 17h2v1h-2zM34 17h1v1h-1zM36 17h1v1h-1zM0 18h1v1h-1zM5 18h3v1h-3zM11 18h1v1h-1zM24 18h1v1h-1zM26 18h2v1h-2zM29 18h1v1h-1zM34 18h3v1h-3zM2 19h2v1h-2zM9 19h2v1h-2zM23 19h2v1h-2zM26 19h3v1h-3zM30 19h4v1h-4zM36 19h1v1h-1zM0 20h2v1h-2zM4 20h4v1h-4zM26 20h4v1h-4zM32 20h1v1h-1zM35 20h1v1h-1zM2 21h1v1h-1zM8 21h1v1h-1zM10 21h3v1h-3zM23 21h3v1h-3zM29 21h1v1h-1zM31 21h1v1h-1zM2 22h1v1h-1zM5 22h3v1h-3zM9 22h1v1h-1zM23 22h3v1h-3zM32 22h2v1h-2zM2 23h1v1h-1zM7 23h2v1h-2zM10 23h4v1h-4zM20 23h1v1h-1zM27 23h3v1h-3zM33 23h3v1h-3zM0 24h1v1h-1zM2 24h1v1h-1zM5 24h2v1h-2zM13 24h4v1h-4zM19 24h2v1h-2zM24 24h1v1h-1zM26 24h1v1h-1zM30 24h1v1h-1zM32 24h4v1h-4zM2 25h1v1h-1zM5 25h1v1h-1zM15 25h3v1h-3zM20 25h1v1h-1zM23 25h4v1h-4zM29 25h5v1h-5zM35 25h2v1h-2zM1 26h2v1h-2zM5 26h3v1h-3zM11 26h4v1h-4zM16 26h1v1h-1zM20 26h1v1h-1zM23 26h1v1h-1zM25 26h2v1h-2zM33 26h3v1h-3zM0 27h1v1h-1zM2 27h2v1h-2zM7 27h1v1h-1zM9 27h1v1h-1zM11 27h2v1h-2zM17 27h2v1h-2zM21 27h3v1h-3zM28 27h2v1h-2zM32 27h1v1h-1zM35 27h1v1h-1zM3 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h9v1h-9zM20 28h1v1h-1zM25 28h1v1h-1zM27 28h6v1h-6zM34 28h1v1h-1zM36 28h1v1h-1zM8 29h3v1h-3zM15 29h3v1h-3zM22 29h2v1h-2zM28 29h1v1h-1zM32 29h3v1h-3zM36 29h1v1h-1zM0 30h7v1h-7zM8 30h4v1h-4zM13 30h2v1h-2zM16 30h1v1h-1zM18 30h2v1h-2zM24 30h1v1h-1zM26 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h2v1h-2zM35 30h2v1h-2zM0 31h1v1h-1zM6 31h1v1h-1zM10 31h1v1h-1zM12 31h4v1h-4zM17 31h2v1h-2zM23 31h2v1h-2zM27 31h2v1h-2zM32 31h2v1h-2zM0 32h1v1h-1zM2 32h3v1h-3zM6 32h1v1h-1zM9 32h1v1h-1zM11 32h2v1h-2zM15 32h1v1h-1zM17 32h1v1h-1zM20 32h1v1h-1zM23 32h2v1h-2zM28 32h6v1h-6zM0 33h1v1h-1zM2 33h3v1h-3zM6 33h1v1h-1zM8 33h2v1h-2zM13 33h1v1h-1zM17 33h1v1h-1zM19 33h2v1h-2zM24 33h1v1h-1zM27 33h2v1h-2zM30 33h1v1h-1zM32 33h2v1h-2zM0 34h1v1h-1zM2 34h3v1h-3zM6 34h1v1h-1zM8 34h3v1h-3zM12 34h1v1h-1zM14 34h2v1h-2zM18 34h3v1h-3zM23 34h2v1h-2zM26 34h1v1h-1zM30 34h4v1h-4zM35 34h1v1h-1zM0 35h1v1h-1zM6 35h1v1h-1zM11 35h1v1h-1zM15 35h1v1h-1zM17 35h1v1h-1zM19 35h2v1h-2zM25 35h2v1h-2zM33 35h2v1h-2zM0 36h7v1h-7zM9 36h2v1h-2zM12 36h1v1h-1zM16 36h3v1h-3zM20 36h3v1h-3zM24 36h4v1h-4zM30 36h3v1h-3zM34 36h3v1h-3z"/><path data-qr-center fill="none" d="M13 13h2v1h-2zM18 13h2v1h-2zM22 13h1v1h-1zM13 14h2v1h-2zM18 14h2v1h-2zM21 14h2v1h-2zM13 15h5v1h-5zM19 15h1v1h-1zM21 15h1v1h-1zM14 16h2v1h-2zM19 16h1v1h-1zM21 16h2v1h-2zM18 17h2v1h-2zM21 17h1v1h-1zM15 18h3v1h-3zM19 18h1v1h-1zM21 18h2v1h-2zM13 19h3v1h-3zM18 19h2v1h-2zM22 19h1v1h-1zM13 20h1v1h-1zM17 20h1v1h-1zM19 20h4v1h-4zM13 21h2v1h-2zM16 21h2v1h-2zM22 21h1v1h-1zM13 22h1v1h-1zM17 22h1v1h-1z"/></svg><span class="h-open-sym" data-open-sym style="left:40%;top:40%;width:17.7778%;height:17.7778%"><img src="assets/brand/logo-horizontal.svg" alt="" width="1069" height="200"></span><!-- /@@qr:logo --></a><span class="h-open-word" data-open-word><img src="assets/brand/logo-horizontal.svg" width="1069" height="200" alt=""></span><figcaption class="h-open-cap" data-open-cap><a href="demo/rental-guide/index.html">امسح وجرّب دليل الضيف <svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a></figcaption></figure>
+</div></div>
+<div class="s-wrap"><ul class="h-benefits" aria-label="مميزات لمسة تاب"><li><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5a10 10 0 0 1 0 14M12 8a6 6 0 0 1 0 8M16 11a2 2 0 0 1 0 2"/></svg><span>لمسة <bdi>NFC</bdi> أو مسح <bdi>QR</bdi></span></li><li><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><span>تفتح مباشرة، بدون تطبيق</span></li><li><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4v5c0 5-8 9-8 9s-8-4-8-9V7Z"/><path d="m8 12 3 3 5-5"/></svg><span>بشعارك وألوان نشاطك</span></li><li><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>نجهّز ونركّب في جدة</span></li></ul></div>
 </section>
-
-<!-- 3) البابين (رملي، «الاتجاه 3» §3 و§10 و§11.1). كل باب قطعة من الرمز (site.css .s-door)، ولمسة جمهوره من data-audience.
-     الوسيط: البابين من نفس النوع ونفس المعالجة (المدير الفني AD-14 و§5 بند 4): قص من المشهدين المولّدين المعتمدين (brief-gm040.md
-     «مشاهد المنتج المعتمدة») بطبقتين (@@photo داخل .s-door-photo): المطاعم restaurant-cafe-stand (الستاند والكابتشينو)، والمضيفين
-     host-door-frame (الباب والبرواز). القص لكل باب في home.css. النص البديل يوصف الصورة (web-copy «GM-049/050: نصوص المشاهد» بدون جملة الجوال،
-     لأن المشاهد المولّدة ما فيها جوال)، واسم الباب نص الرابط.
-     الحركة (web-motion.md): data-doors على القائمة، و data-door على كل باب، والمسرح داخل المشهد عليه data-scan="tint" (المسح يكشف لونه) -->
-<section class="s-band h-doors" aria-labelledby="doors-h">
-<div class="s-wrap">
-<h2 class="s-h2" id="doors-h">وش عندك؟</h2>
+<section class="s-band h-doors" id="solutions" aria-labelledby="doors-h"><div class="s-wrap">
+<div class="h-section-head"><h2 class="s-h2" id="doors-h">نفس اللمسة.<br>على مقاس نشاطك.</h2><p class="s-lead">من طاولة الكافيه إلى باب الشقة.<br>اختر نشاطك وشوف كيف نخدم ضيوفك.</p></div>
 <ul class="s-doors" data-doors>
-<li><div class="s-door" data-door data-audience="restaurants">
-<div class="s-door-media"><div class="s-door-photo" data-scan="tint"><!-- @@photo:restaurant-cafe-stand alt="ستاند تقييم على طاولة كافيه" sizes="(min-width: 1024px) 48vw, (min-width: 768px) 60vw, 100vw" --><img src="assets/images/restaurant-cafe-stand-bw-800.webp" srcset="assets/images/restaurant-cafe-stand-bw-800.webp 800w, assets/images/restaurant-cafe-stand-bw-1600.webp 1600w" sizes="(min-width: 1024px) 48vw, (min-width: 768px) 60vw, 100vw" width="1600" height="900" alt="ستاند تقييم على طاولة كافيه" loading="lazy" decoding="async"><img data-tint src="assets/images/restaurant-cafe-stand-color-800.webp" srcset="assets/images/restaurant-cafe-stand-color-800.webp 800w, assets/images/restaurant-cafe-stand-color-1600.webp 1600w" sizes="(min-width: 1024px) 48vw, (min-width: 768px) 60vw, 100vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><!-- /@@photo:restaurant-cafe-stand --></div></div>
-<div class="s-door-body">
-<svg class="s-door-icon lt-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5h12v4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M16.5 11h1.25a2.5 2.5 0 0 1 0 5H16"/><path d="M3.5 21h15M8.5 3.5v2.5M12.5 3.5v2.5"/></svg>
-<h3 class="s-door-t"><a class="s-door-link" href="restaurants/index.html" aria-describedby="door-r-t">عندي مطعم أو كافيه</a></h3>
-<p class="s-door-line" id="door-r-t">منيو، وتقييم قوقل، وواي فاي، وروابط حساباتك.</p>
-</div>
-</div></li>
-<li><div class="s-door" data-door data-audience="hosts">
-<div class="s-door-media"><div class="s-door-photo" data-scan="tint"><!-- @@photo:host-door-frame alt="لوحة خروج جنب باب شقة" sizes="(min-width: 1024px) 48vw, (min-width: 768px) 60vw, 100vw" --><img src="assets/images/host-door-frame-bw-800.webp" srcset="assets/images/host-door-frame-bw-800.webp 800w, assets/images/host-door-frame-bw-1600.webp 1600w" sizes="(min-width: 1024px) 48vw, (min-width: 768px) 60vw, 100vw" width="1600" height="900" alt="لوحة خروج جنب باب شقة" loading="lazy" decoding="async"><img data-tint src="assets/images/host-door-frame-color-800.webp" srcset="assets/images/host-door-frame-color-800.webp 800w, assets/images/host-door-frame-color-1600.webp 1600w" sizes="(min-width: 1024px) 48vw, (min-width: 768px) 60vw, 100vw" width="1600" height="900" alt="" loading="lazy" decoding="async"><!-- /@@photo:host-door-frame --></div></div>
-<div class="s-door-body">
-<svg class="s-door-icon lt-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15.5" r="4.5"/><path d="M11.2 12.3 19.5 4M16.5 7l2.5 2.5M14 9.5l2 2"/></svg>
-<h3 class="s-door-t"><a class="s-door-link" href="hosts/index.html" aria-describedby="door-h-t">عندي شقق أو إيجار قصير</a></h3>
-<p class="s-door-line" id="door-h-t">دليل لكل وحدة: الواي فاي، ووقت الخروج، وبلاغ الصيانة.</p>
-</div>
-</div></li>
-</ul>
-</div>
-</section>
-
-<!-- 4) كيف نشتغل (أبيض، #how): web-copy ج6 بالحرف، والعنوان يتجمّع مع التمرير (AD-28). اسم القناة في الخطوة 1 من config
-     (AD-35، impeccable 1): [data-channel-name] يصير «تليجرام» لما الواتساب فاضي والبوت موجود (app.js).
-     الستاند الثابت بباركوده الحقيقي (impeccable 6، «الاتجاه 3» §3 صف 4): @@stand:review (tools/stand.cjs، يفتح صفحة الشرح).
-     1440: الخطوات يمين (7 أعمدة) والستاند يسار (5). الجوال: الستاند تحت الخطوات (home.css) -->
-<section class="s-band s-band--white h-how" id="how" aria-labelledby="how-h">
-<div class="s-wrap h-how-grid">
-<div class="h-how-main">
-<h2 class="s-h2" id="how-h" data-words="gather">كيف نشتغل</h2>
-<ol class="s-steps">
-<li><span class="s-step-n" aria-hidden="true">1</span><h3 class="s-h3">نتفاهم على <span data-channel-name>واتساب</span></h3><p class="s-step-t">ترسل لنا نوع محلك أو عدد وحداتك، ونقترح لك الباقة.</p></li>
-<li><span class="s-step-n" aria-hidden="true">2</span><h3 class="s-h3">نجهّز كل شي بهويتك</h3><p class="s-step-t">الصفحة والعتاد بشعارك وألوانك، والشريحة والباركود على نفس الرابط.</p></li>
-<li><span class="s-step-n" aria-hidden="true">3</span><h3 class="s-h3">نركّب عندك</h3><p class="s-step-t">نركّب حالياً في جدة، ونجرّب كل شريحة قبل التسليم.</p></li>
-</ol>
-</div>
-<div class="h-how-stand"><!-- @@stand:review --><figure class="lt-stand-stage" aria-hidden="true" inert><div class="lt-stand" data-qr-url="https://example.com/demo/review/"><img class="lt-stand-logo" src="demo/_brands/cafe.svg" alt="" style="top:calc(12 * var(--mm));left:calc(20 * var(--mm));width:calc(60 * var(--mm));height:calc(16 * var(--mm))"><p class="lt-stand-line" style="top:calc(34 * var(--mm));font-size:calc(6.35 * var(--mm));font-weight:600">قيّمنا في قوقل</p><span class="lt-stand-dot" style="top:calc(55 * var(--mm));left:calc(43 * var(--mm));width:calc(14 * var(--mm));height:calc(14 * var(--mm));background:#7A3E2B"></span><p class="lt-stand-line" style="top:calc(80 * var(--mm));font-size:calc(3.881 * var(--mm));font-weight:600">قرّب جوالك هنا</p><p class="lt-stand-line" style="top:calc(97 * var(--mm));font-size:calc(3.528 * var(--mm));font-weight:500">أو امسح الباركود</p><svg class="lt-stand-qr" viewBox="0 0 29 29" shape-rendering="crispEdges" focusable="false" style="top:calc(110 * var(--mm));left:calc(35 * var(--mm));width:calc(30 * var(--mm));height:calc(30 * var(--mm))"><path fill="currentColor" d="M0 0h7v1h-7zM8 0h1v1h-1zM10 0h2v1h-2zM15 0h2v1h-2zM18 0h1v1h-1zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h2v1h-2zM16 1h1v1h-1zM19 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h2v1h-2zM11 2h2v1h-2zM15 2h2v1h-2zM19 2h2v1h-2zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h2v1h-2zM12 3h1v1h-1zM16 3h2v1h-2zM20 3h1v1h-1zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h5v1h-5zM14 4h3v1h-3zM18 4h2v1h-2zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM11 5h1v1h-1zM15 5h2v1h-2zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM9 7h1v1h-1zM12 7h2v1h-2zM15 7h2v1h-2zM19 7h1v1h-1zM0 8h1v1h-1zM3 8h7v1h-7zM11 8h3v1h-3zM17 8h3v1h-3zM21 8h1v1h-1zM24 8h1v1h-1zM26 8h3v1h-3zM0 9h4v1h-4zM5 9h1v1h-1zM7 9h2v1h-2zM10 9h2v1h-2zM13 9h1v1h-1zM16 9h4v1h-4zM21 9h1v1h-1zM23 9h2v1h-2zM26 9h2v1h-2zM0 10h1v1h-1zM2 10h1v1h-1zM6 10h1v1h-1zM8 10h2v1h-2zM12 10h2v1h-2zM15 10h2v1h-2zM21 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM0 11h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM7 11h3v1h-3zM11 11h1v1h-1zM13 11h1v1h-1zM16 11h2v1h-2zM19 11h2v1h-2zM22 11h1v1h-1zM25 11h1v1h-1zM28 11h1v1h-1zM0 12h8v1h-8zM10 12h2v1h-2zM13 12h1v1h-1zM15 12h2v1h-2zM20 12h1v1h-1zM22 12h2v1h-2zM28 12h1v1h-1zM0 13h2v1h-2zM4 13h1v1h-1zM7 13h2v1h-2zM11 13h4v1h-4zM16 13h1v1h-1zM20 13h1v1h-1zM22 13h7v1h-7zM0 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM13 14h1v1h-1zM16 14h5v1h-5zM23 14h2v1h-2zM26 14h1v1h-1zM28 14h1v1h-1zM1 15h5v1h-5zM7 15h4v1h-4zM12 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM0 16h2v1h-2zM3 16h1v1h-1zM5 16h3v1h-3zM9 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM19 16h2v1h-2zM23 16h1v1h-1zM25 16h1v1h-1zM0 17h1v1h-1zM2 17h2v1h-2zM8 17h4v1h-4zM13 17h2v1h-2zM16 17h5v1h-5zM24 17h1v1h-1zM26 17h2v1h-2zM0 18h4v1h-4zM6 18h3v1h-3zM15 18h1v1h-1zM17 18h1v1h-1zM19 18h1v1h-1zM22 18h4v1h-4zM28 18h1v1h-1zM0 19h6v1h-6zM8 19h1v1h-1zM12 19h1v1h-1zM14 19h3v1h-3zM21 19h1v1h-1zM25 19h2v1h-2zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM10 20h2v1h-2zM13 20h2v1h-2zM16 20h2v1h-2zM20 20h8v1h-8zM8 21h1v1h-1zM14 21h3v1h-3zM20 21h1v1h-1zM24 21h2v1h-2zM0 22h7v1h-7zM8 22h2v1h-2zM11 22h2v1h-2zM14 22h3v1h-3zM19 22h2v1h-2zM22 22h1v1h-1zM24 22h2v1h-2zM0 23h1v1h-1zM6 23h1v1h-1zM8 23h2v1h-2zM12 23h1v1h-1zM14 23h2v1h-2zM17 23h4v1h-4zM24 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h2v1h-2zM13 24h3v1h-3zM19 24h7v1h-7zM27 24h2v1h-2zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM8 25h1v1h-1zM10 25h2v1h-2zM13 25h1v1h-1zM15 25h4v1h-4zM23 25h1v1h-1zM28 25h1v1h-1zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM15 26h1v1h-1zM18 26h2v1h-2zM21 26h1v1h-1zM23 26h2v1h-2zM26 26h3v1h-3zM0 27h1v1h-1zM6 27h1v1h-1zM11 27h2v1h-2zM21 27h1v1h-1zM23 27h4v1h-4zM28 27h1v1h-1zM0 28h7v1h-7zM8 28h2v1h-2zM12 28h4v1h-4zM19 28h4v1h-4zM24 28h1v1h-1z"/></svg></div></figure><!-- /@@stand:review --></div>
-</div>
-</section>
-
-<!-- 5) اسأل إنسان (رملي، web-copy «التواصل» ب، ورسالة home). المكان الوحيد لوعد الرد في البوابة (GM-046).
-     الزر يختفي لين ينحط رقم الواتساب. لما الواتساب فاضي والبوت موجود: التليجرام يصير الزر الأساسي (app.js، data-tg="with-wa")،
-     وهنا يبقى معبّى لأن ما بعده زر (AD-34 بند 3). سطر «ينضاف قريباً» يطلع بس لما ما فيه ولا قناة ([data-wa-empty]) -->
-<section class="s-band h-ask" aria-labelledby="ask-h">
+<li><div class="s-door" data-door data-audience="restaurants"><div class="s-door-media"><div class="s-door-photo" data-scan="tint"><img src="assets/images/restaurant-cafe-stand-bw-800.webp?v=logo-v1" width="1600" height="900" alt="ستاند على طاولة كافيه بجانب فنجان قهوة" loading="lazy" decoding="async"><img data-tint src="assets/images/restaurant-cafe-stand-color-800.webp?v=logo-v1" srcset="assets/images/restaurant-cafe-stand-color-800.webp?v=logo-v1 800w, assets/images/restaurant-cafe-stand-color-1600.webp?v=logo-v1 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="900" alt="" loading="lazy" decoding="async"></div></div><div class="s-door-body"><div class="h-door-heading"><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Zm12 2h2a3 3 0 0 1 0 6h-2M3 22h16M8 3v2m4-2v2"/></svg><h3 class="s-door-t"><a class="s-door-link" href="restaurants/index.html" aria-describedby="door-r-t">عندي مطعم أو كافيه</a></h3><svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></div><p class="s-door-line" id="door-r-t">منيو، وتقييم قوقل، وواي فاي، وروابط حساباتك.</p><ul class="h-door-features" aria-label="خدمات المطاعم"><li>منيو إلكتروني</li><li>تقييم قوقل</li><li>واي فاي</li></ul><span class="h-door-more" aria-hidden="true">اكتشف حزمة المحل الكامل <svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span></div></div></li>
+<li><div class="s-door" data-door data-audience="hosts"><div class="s-door-media"><div class="s-door-photo" data-scan="tint"><img src="assets/images/host-door-frame-bw-800.webp?v=logo-v1" width="1600" height="900" alt="لوحة بجانب باب شقة ضيافة" loading="lazy" decoding="async"><img data-tint src="assets/images/host-door-frame-color-800.webp?v=logo-v1" srcset="assets/images/host-door-frame-color-800.webp?v=logo-v1 800w, assets/images/host-door-frame-color-1600.webp?v=logo-v1 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="900" alt="" loading="lazy" decoding="async"></div></div><div class="s-door-body"><div class="h-door-heading"><svg class="lt-icon " viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15.5" r="4.5"/><path d="m11.2 12.3 8.3-8.3M16.5 7 19 9.5M14 9.5l2 2"/></svg><h3 class="s-door-t"><a class="s-door-link" href="hosts/index.html" aria-describedby="door-h-t">عندي شقق أو إيجار قصير</a></h3><svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></div><p class="s-door-line" id="door-h-t">دليل لكل وحدة: الواي فاي، ووقت الخروج، وبلاغ الصيانة.</p><ul class="h-door-features" aria-label="خدمات المضيفين"><li>دليل الضيف</li><li>تسجيل الخروج</li><li>بلاغ صيانة</li></ul><span class="h-door-more" aria-hidden="true">اكتشف باقة المضيف <svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></span></div></div></li>
+</ul></div></section>
+<section class="s-band s-band--white h-how" id="how" aria-labelledby="how-h" data-how-motion><div class="s-wrap h-how-grid">
+<div class="h-how-intro"><h2 class="s-h2" id="how-h">من أول تواصل،<br>إلى أول لمسة.</h2><p class="s-lead">أنت تعرف ضيوفك.<br>وإحنا نجهّز لهم التجربة.</p><a class="h-text-link" href="#contact">خلّنا نبدأ <svg class="lt-icon h-arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a><div class="h-how-photo" data-how-photo><img src="assets/images/restaurant-cafe-stand-color-800.webp?v=logo-v1" width="1600" height="900" alt="الستاند المخصص على طاولة الكافيه" loading="lazy" decoding="async"></div></div>
+<ol class="s-steps h-steps"><li data-how-step><span class="s-step-n" aria-hidden="true">01</span><div><h3 class="s-h3">نتفاهم على <span data-channel-name>واتساب</span></h3><p class="s-step-t">ترسل لنا نوع محلك أو عدد وحداتك، ونقترح لك الباقة.</p></div></li><li data-how-step><span class="s-step-n" aria-hidden="true">02</span><div><h3 class="s-h3">نجهّز كل شي بهويتك</h3><p class="s-step-t">الصفحة والعتاد بشعارك وألوانك، والشريحة والباركود على نفس الرابط.</p></div></li><li data-how-step><span class="s-step-n" aria-hidden="true">03</span><div><h3 class="s-h3">نركّب عندك</h3><p class="s-step-t">نركّب حالياً في جدة، ونجرّب كل شريحة قبل التسليم.</p></div></li></ol>
+</div></section>
+<section class="s-band h-ask" id="contact" aria-labelledby="ask-h">
 <div class="s-wrap">
-<div class="s-ask lt-lift">
+<div class="s-ask h-contact-layout">
 <div class="s-ask-head">
-<h2 class="s-h2" id="ask-h">تبغى تكلّم أحد منا؟</h2>
+<p class="h-contact-kicker"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 10c0 5-7 10-7 10S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>نركّب حالياً في جدة</p>
+<h2 class="s-h2" id="ask-h">خلّنا نجهّز<br>أول لمسة.</h2>
 <p class="s-ask-t">يرد عليك واحد منا خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم.</p>
 </div>
 <div class="s-cta">
@@ -141,24 +85,22 @@
 </div>
 </div>
 </section>
-</main>
 
-<!-- 6) التذييل الفاتح (رملي ثاني، web-copy ج10 و«ج» في التواصل، §11.5): الشعار المكدّس يولّده @@logo:foot.
-     كل رابط قيمته من config.js يختفي لو فاضي: السياسات (data-link)، وواتساب (data-wa)، وقناة التليجرام (data-tg-channel) -->
-<footer class="s-foot-wrap">
-<div class="s-wrap s-foot">
-<div class="s-foot-id">
-<!-- @@logo:foot --><picture class="s-foot-logo"><source srcset="assets/brand/logo-stack-since.svg" media="(min-width: 1024px)" width="160" height="145"><img class="s-logo-stack" src="assets/brand/logo-stack.svg" width="120" height="95" alt="لمسة تاب — LamsaTap" data-company-alt></picture><!-- /@@logo:foot -->
-<p>نركّب حالياً في جدة</p>
-<p>السجل التجاري: [رقم السجل التجاري]</p>
-<!-- سطر «الصور توضيحية» (رد المحامي work/2026-09-28-kie-scenes/legal.md بند 5، واختاره المدير الفني §5 بند 6، GM-060 خلّاه اختياري): المشاهد مولّدة -->
-<p class="s-foot-note">الصور توضيحية</p>
+</main>
+<footer class="h-footer">
+<div class="s-wrap">
+<div class="h-footer-main">
+<div class="h-footer-brand">
+<!-- @@logo:foot layout="horizontal" --><img class="h-footer-logo" src="assets/brand/logo-horizontal.svg" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt><!-- /@@logo:foot -->
+<p>لمسة NFC أو مسح QR. بدون تطبيق.</p>
 </div>
-<p class="s-foot-links"><a href="restaurants/index.html">للمطاعم والكافيهات</a><a href="hosts/index.html">للمضيفين</a><a href="#how">كيف نشتغل</a><a data-link="privacy" hidden>سياسة الخصوصية</a><a data-link="terms" hidden>الشروط والأحكام</a><a data-wa="home" hidden>واتساب</a><a data-tg-channel hidden>قناتنا على تليجرام</a></p>
-<p class="s-foot-c">© 2026 <span data-company>لمسة تاب</span></p>
+<nav class="h-footer-links" aria-label="روابط أسفل الصفحة"><a href="restaurants/index.html">للمطاعم والكافيهات</a><a href="hosts/index.html">للمضيفين</a><a href="#how">كيف نشتغل</a><a data-link="privacy" hidden>سياسة الخصوصية</a><a data-link="terms" hidden>الشروط والأحكام</a><a data-wa="home" hidden>واتساب</a><a data-tg-channel hidden>قناتنا على تليجرام</a></nav>
+<a class="h-footer-top" href="#main">للأعلى<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></a>
+</div>
+<div class="h-footer-meta"><p>© 2026 <span data-company>لمسة تاب</span></p><div><p data-commercial-registration hidden></p><p>الصور توضيحية</p></div></div>
 </div>
 </footer>
-<script src="config.js"></script>
-<script src="assets/app.js"></script>
+<script src="config.js?v=whatsapp-20260930"></script>
+<script src="assets/app.js?v=quality-20260930-7"></script>
 </body>
 </html>

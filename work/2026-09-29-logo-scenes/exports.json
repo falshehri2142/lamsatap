@@ -1,0 +1,86 @@
+[
+  {
+    "file": "restaurant-cafe-stand-color-1600.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 44880,
+    "quality": 88
+  },
+  {
+    "file": "restaurant-cafe-stand-bw-1600.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 31952,
+    "quality": 88
+  },
+  {
+    "file": "restaurant-cafe-stand-color-800.webp",
+    "width": 800,
+    "height": 450,
+    "bytes": 19472,
+    "quality": 88
+  },
+  {
+    "file": "restaurant-cafe-stand-bw-800.webp",
+    "width": 800,
+    "height": 450,
+    "bytes": 14194,
+    "quality": 88
+  },
+  {
+    "file": "host-door-frame-color-1600.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 27716,
+    "quality": 88
+  },
+  {
+    "file": "host-door-frame-bw-1600.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 21506,
+    "quality": 88
+  },
+  {
+    "file": "host-door-frame-color-800.webp",
+    "width": 800,
+    "height": 450,
+    "bytes": 10608,
+    "quality": 88
+  },
+  {
+    "file": "host-door-frame-bw-800.webp",
+    "width": 800,
+    "height": 450,
+    "bytes": 8308,
+    "quality": 88
+  },
+  {
+    "file": "scene-hosts-table-color-1600.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 49092,
+    "quality": 88
+  },
+  {
+    "file": "scene-hosts-table-bw-1600.webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 38412,
+    "quality": 88
+  },
+  {
+    "file": "scene-hosts-table-color-800.webp",
+    "width": 800,
+    "height": 450,
+    "bytes": 19160,
+    "quality": 88
+  },
+  {
+    "file": "scene-hosts-table-bw-800.webp",
+    "width": 800,
+    "height": 450,
+    "bytes": 15378,
+    "quality": 88
+  }
+]

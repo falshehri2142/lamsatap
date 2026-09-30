@@ -17,7 +17,7 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 [hidden] { display: none !important; }
 .s-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .s-nw { white-space: nowrap; }   /* كلمتين ما تنقسم بين سطرين (مثل «تقييم قوقل» في عنوان، AD-17) */
-.js .s-nojs { display: none; }   /* سطر لبدون JS بس (مثل السعر الثاني تحت السعر، web-copy «مفتاح الأسعار» د)، و .js من سكربت الرأس قبل أول رسم */
+[data-price-scope].is-price-ready .s-nojs { display: none; } /* Hide the alternative price only after its control is initialized. */
 /* رابط تخطّي للمحتوى (skip-links): يبان بس مع التركيز */
 .s-skip { position: absolute; inset-inline-start: var(--lt-space-16); top: var(--lt-space-8); z-index: 50; padding: var(--lt-space-12) var(--lt-space-16); border-radius: var(--lt-radius-s); background: var(--lt-surface); color: var(--lt-text); font-size: 16px; font-weight: 500; transform: translateY(-200%); }
 .s-skip:focus-visible { transform: none; }
@@ -159,8 +159,10 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
    (--btn-fg و --btn-press من components.css و .lt-btn--secondary): معبّى نصه أبيض (16.72)، وبإطار نصه حبر */
 .s-tg.is-solo { display: contents; }
 .s-tg.is-solo > .s-tg-line { order: -1; display: grid; justify-self: stretch; margin-bottom: var(--lt-space-4); }
-.s-tg.is-solo .s-tg-link.lt-btn { color: var(--btn-fg); text-decoration: none; }
-.s-tg.is-solo .s-tg-link.lt-btn:active { background: var(--btn-press); }
+.s-tg.is-action { justify-self: stretch; }
+.s-tg.is-action > .s-tg-line { display: grid; margin: 0; }
+.s-tg.is-action .s-tg-link.lt-btn { inline-size: 100%; color: var(--btn-fg); text-decoration: none; }
+.s-tg.is-action .s-tg-link.lt-btn:active { background: var(--btn-press); }
 .s-tg-note { font-size: 13px; line-height: 1.6; color: var(--lt-muted); }   /* 13px رمادي: 5.94 على الرملي و 5.50 على الرملي الثاني (AA) */
 @media (min-width: 768px) {
   .s-cta > .lt-btn, .s-tg.is-solo .s-tg-link.lt-btn { inline-size: auto; min-inline-size: 280px; padding-inline: var(--lt-space-32); }
@@ -279,7 +281,7 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
 .s-roll-col > span { display: block; }
 /* المفتاح: إطار أبيض بحد 1px وزاوية 14، وخيارين 44، والمؤشر حبر تحت الخيار المختار (نصه أبيض) */
 .s-period { display: none; }
-.js .s-period { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--lt-space-4); width: max-content; max-width: 100%; }
+.s-period.is-price-ready { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--lt-space-4); width: max-content; max-width: 100%; }
 .s-switch { position: relative; grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: var(--lt-space-4); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-m); background: var(--lt-surface); }
 .s-switch-opt { position: relative; z-index: 1; min-height: 44px; padding: 0 var(--lt-space-24); border: 0; border-radius: calc(var(--lt-radius-m) - 4px); background: transparent; color: var(--lt-text); font: inherit; font-size: 15px; font-weight: 500; line-height: 1.2; white-space: nowrap; cursor: pointer; touch-action: manipulation; transition: color .15s ease-out, background-color .15s ease-out; }
 .s-switch-opt[aria-checked="true"] { color: var(--lt-on-action); cursor: default; }
@@ -359,4 +361,42 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .s-foot-c { grid-column: 1 / -1; }
 }
 
+/* Shared navigation fits narrow RTL viewports without clipping labels. */
+@media (min-width: 1024px) {
+  .s-head { gap: var(--lt-space-40); }
+  .s-nav--top { margin-inline: auto; gap: var(--lt-space-32); }
+}
+@media (max-width: 767px) {
+  .s-nav--row .s-wrap { justify-content: space-between; gap: var(--lt-space-8); }
+  .s-nav--row a { font-size: 14px; white-space: normal; text-align: center; }
+}
+@media (max-width: 359px) {
+  .s-head { gap: var(--lt-space-8); }
+  .s-head-end { gap: var(--lt-space-8); }
+}
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* Contact actions follow the available card width, including tablet sidebars. */
+:is(.r-ask, .p-ask, .s-plan-buy) .s-cta { min-inline-size: 0; justify-self: stretch; }
+:is(.r-ask, .p-ask, .s-plan-buy) .s-cta:has(> .lt-btn:not([hidden]), > .s-tg.is-solo) { width: 100%; }
+:is(.r-ask, .p-ask, .s-plan-buy) .s-cta > .lt-btn,
+:is(.r-ask, .p-ask, .s-plan-buy) .s-tg .s-tg-link.lt-btn {
+  min-inline-size: 0; inline-size: 100%; padding-inline: var(--lt-space-16);
+}
+@media (max-width: 399px) {
+  .s-switch-opt { padding-inline: var(--lt-space-12); }
+  .s-logo-h { height: 28px; }
+  .s-head-wa:not(.c .lt-btn) { padding-inline: 10px; font-size: 13px; min-block-size: 44px; }
+}
+@media (max-width: 359px) {
+  .s-logo-h { height: 24px; }
+  .s-nav--row a { font-size: 13px; white-space: nowrap; }
+}
+
+/* A shorter close keeps the last action and footer visually connected. */
+:is(.r-close, .p-close) { padding-block: var(--lt-space-48); }
+[data-audience] .s-foot { gap: var(--lt-space-24); padding-block: var(--lt-space-32); }
+[data-audience] .s-foot-id > :first-child { margin-bottom: var(--lt-space-24); }
+@media (min-width: 1024px) {
+  :is(.r-close, .p-close) { padding-block: var(--lt-space-64); }
+}

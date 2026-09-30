@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-29T19:57:45.065Z",
+  "runs": [],
+  "interactions": [
+    {
+      "page": "restaurants/index.html",
+      "event": "keyboard ArrowLeft",
+      "active": "renew",
+      "selected": [
+        "renew"
+      ],
+      "prices": [
+        "798"
+      ],
+      "text": [
+        "798 ريال بالسنة للتجديد"
+      ],
+      "notes": []
+    },
+    {
+      "page": "restaurants/index.html",
+      "event": "reduced-motion computed units",
+      "units": [
+        {
+          "duration": "0s",
+          "transform": "none",
+          "runningAnimations": 0
+        }
+      ]
+    },
+    {
+      "page": "restaurants/index.html",
+      "event": "live prefers-reduced-motion then click",
+      "reduced": true,
+      "inlineTransitions": [],
+      "selected": "first"
+    },
+    {
+      "page": "hosts/index.html",
+      "event": "keyboard ArrowLeft",
+      "active": "year",
+      "selected": [
+        "year"
+      ],
+      "prices": [
+        "544.5",
+        "434.5"
+      ],
+      "text": [
+        "544.5 ريال للوحدة بالسنة",
+        "للوحدة بالسنة",
+        "434.5 ريال للوحدة بالسنة",
+        "للوحدة بالسنة"
+      ],
+      "notes": [
+        "للسنة كاملة، بسعر 11 شهر.",
+        "للسنة كاملة، بسعر 11 شهر."
+      ]
+    },
+    {
+      "page": "hosts/index.html",
+      "event": "reduced-motion computed units",
+      "units": [
+        {
+          "duration": "0s",
+          "transform": "none",
+          "runningAnimations": 0
+        },
+        {
+          "duration": "0s",
+          "transform": "none",
+          "runningAnimations": 0
+        }
+      ]
+    },
+    {
+      "page": "hosts/index.html",
+      "event": "live prefers-reduced-motion then click",
+      "reduced": true,
+      "inlineTransitions": [],
+      "selected": "month"
+    }
+  ],
+  "issues": []
+}

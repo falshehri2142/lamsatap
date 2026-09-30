@@ -9,71 +9,127 @@
 
 /* أيقونة 24 باللمسة القوية، خط 1.75 وبدون تعبئة (§11.3) */
 .r-ico { display: block; flex: none; width: 24px; height: 24px; color: var(--lt-accent); }
-
-/* ===== 2) البطل المتوسع (data-expand) =====
-   الحالة النهائية الثابتة (بدون JS، تقليل الحركة، الشاشة الأقصر من 640): الجوال النص فوق والصورة تحته 4:5 من حافة لحافة،
-   والكمبيوتر النص يمين (5 أعمدة) والصورة يسار تنزف لحافة الشاشة بارتفاع الشاشة ناقص الرأس (§5).
-   الصورة (AD-14، §5 بند 1): المشهد المولّد المعتمد restaurant-cafe-stand (طاولة كافيه، وستاند أكريليك بكرت أبيض، وكابتشينو) بطبقتين
-   داخل .r-hero-photo، والقص بنقطة تركيز لكل مقاس (--fx و --fy). الستاند في الصورة الأصلية (1600×900): x من 37.3% لين 56.9%، و y من 27%
-   لين 82%، والكوب x لين 82%. القواعد (المدير الفني §5 بند 4): الستاند كامل في الخانة، ومن 768 بينه وبين اللوح 64px أو أكثر.
-   تحت .mh: الصورة تبدأ مكبّرة 1.12 حول --so (motion.js يرجعها 1)، و --so محسوبة عشان الستاند في نص البطاقة وحافته العليا ظاهرة.
-   الستاند 55% من طول الصورة، فالبطاقة الصغيرة (47.5% من طول الشاشة) ما تقدر تحتويه كامل أول إطار (ملاحظة لـ web-motion، AD-26). */
-.r-hero { position: relative; background: var(--lt-bg); }
-.r-hero-wrap { padding-block: var(--lt-space-40) var(--lt-space-40); }
-.r-hero-lead { margin-top: var(--lt-space-16); }
-.r-hero-cta { margin-top: var(--lt-space-32); }
-.r-hero-cta > .r-hero-demo { margin: 0; }
-.r-hero-cta > .s-tg + .r-hero-demo, .r-hero-cta > .s-risk + .r-hero-demo { margin-top: var(--lt-space-8); }
-.r-hero-media { position: relative; overflow: hidden; aspect-ratio: 4 / 5; max-height: 78svh; background: var(--lt-surface-2); }
-.r-hero-photo { --fx: 44%; --fy: 50%; position: absolute; inset: 0; overflow: hidden; }
-.r-hero-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--fx) var(--fy); }
+/* Native card artwork stays registered to the blank photograph; only its center mark flies. */
+.r-lift-stage { grid-column: 1; grid-row: 2; position: relative; min-width: 0; width: 100%; aspect-ratio: 1; }
+html .audience-hero[data-symbol-flight] .r-lift-stage .r-hero-media { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; container-type: size; }
+html .audience-hero[data-symbol-flight] .r-card-art { position: absolute; left: 46%; top: 50%; width: max(100cqw, calc(100cqh * 16 / 9)); height: auto; max-width: none; aspect-ratio: 16 / 9; transform: translate(-46%, -50%); mix-blend-mode: multiply; pointer-events: none; will-change: auto; }
+.r-card-art text { font-family: var(--lt-font-brand); }
+.r-lift-object { position: absolute; display: block; max-width: none; object-fit: fill; visibility: hidden; pointer-events: none; z-index: 2; }
+.r-lift-stage .a-photo-caption { position: absolute; inset-inline: 0; bottom: 0; z-index: 3; }
+.is-lift-ready .r-card-symbol-fallback { opacity: 0; }
+.is-lift-ready .r-lift-object { visibility: visible; }
+.r-lift-cue { display: flex; visibility: hidden; align-items: center; gap: 10px; margin-top: 24px; font-size: 12px; color: var(--lt-muted); }
+.r-lift-cue svg { width: 16px; height: 20px; }
+.is-lift-ready .r-lift-cue { visibility: visible; }
+@media (min-width: 768px) { .r-lift-stage { aspect-ratio: 16 / 10; } }
+@media (min-width: 1024px) {
+  .r-lift-stage { grid-column: 2; grid-row: 1; aspect-ratio: auto; height: clamp(400px, calc(100svh - 208px), 600px); }
+}
+@media (prefers-reduced-motion: reduce), (max-height: 639.98px) {
+  .is-lift-ready .r-card-symbol-fallback { opacity: 1; }
+  .is-lift-ready .r-lift-object { visibility: hidden; }
+  .is-lift-ready .r-lift-cue { display: none; }
+}
+@media print {
+  .is-lift-ready .r-card-symbol-fallback { opacity: 1; }
+  .r-lift-object, .r-lift-cue { display: none !important; }
+}
+.s-logo-h.is-symbol-away { clip-path: inset(0 0 0 18.714%); }
+.r-symbol-fly { display: block; max-width: none; pointer-events: none; }
+@media print { .r-symbol-flight { display: none !important; } .s-logo-h.is-symbol-away { clip-path: none; } }
+/* 2026-09-29 — readable product-studio hero. The inline marker keeps the
+   original media hooks while avoiding the legacy scroll-gated headline. */
+html .audience-hero[data-expand-inline] {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr);
+  gap: var(--lt-space-32); width: min(calc(var(--lt-container) + 2 * var(--lt-gutter)), 100%);
+  height: auto; min-height: 0; margin-inline: auto;
+  padding: var(--lt-space-40) var(--lt-gutter) var(--lt-space-32);
+  overflow: visible; background: var(--lt-bg);
+}
+html .audience-hero[data-expand-inline] > :is(.r-hero-wrap, .p-hero-wrap) { display: contents; }
+html .audience-hero[data-expand-inline] :is(.r-hero-sheet, .p-hero-sheet) {
+  grid-column: 1; grid-row: 1; position: static; width: auto; max-width: none;
+  padding: 0; margin: 0; border: 0; background: transparent;
+  opacity: 1; transform: none; translate: none;
+}
+html .audience-hero[data-expand-inline] :is(.r-hero-media, .p-hero-media) {
+  grid-column: 1; grid-row: 2; position: relative; inset: auto; width: 100%;
+  height: auto; min-height: 0; max-height: none; aspect-ratio: 1 / 1;
+  overflow: hidden; border-radius: var(--lt-radius-s); background: var(--lt-surface-2);
+  clip-path: none;
+}
+html .audience-hero[data-expand-inline] :is(.r-hero-photo, .p-hero-photo) {
+  position: absolute; inset: 0; height: 100%; transform: none;
+}
+html .audience-hero[data-expand-inline] :is(.r-hero-photo, .p-hero-photo) > img {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+  max-width: none; object-fit: cover; transform: none;
+}
+html.mh .audience-hero[data-expand-inline] [data-expand-media] > :first-child { inset: 0; height: 100%; transform: none; }
+html .audience-hero[data-expand-inline] .r-hero-photo > img { object-position: 46% 50%; }
+html .audience-hero[data-expand-inline] .p-hero-photo > img { object-position: 59% 50%; }
+html.js .audience-hero[data-expand-inline] [data-tint] { clip-path: none; }
+html .audience-hero[data-expand-inline] :is([data-expand-card], [data-expand-title]) { display: none; }
+.a-context { display: flex; align-items: center; gap: var(--lt-space-12); margin: 0 0 var(--lt-space-24); color: var(--lt-muted); font-size: 14px; line-height: 1.7; }
+.a-context-mark { width: 8px; height: 8px; border: 1px solid var(--lt-accent); border-radius: 2px; }
+html .audience-hero[data-expand-inline] .s-h1 { max-width: 12em; font-size: clamp(36px, 10vw, 44px); line-height: 1.25; font-weight: 500; letter-spacing: 0; }
+html .audience-hero[data-expand-inline] .s-lead { max-width: 25em; margin-top: var(--lt-space-20); font-size: 17px; line-height: 1.8; }
+.a-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-8) var(--lt-space-24); margin-top: var(--lt-space-24); }
+.a-hero-actions > .lt-btn { min-height: 56px; padding-inline: var(--lt-space-24); width: 100%; justify-content: space-between; }
+.a-hero-actions svg, .a-text-link svg { flex: none; width: 20px; height: 20px; }
+.a-text-link { display: inline-flex; align-items: center; justify-content: center; gap: var(--lt-space-12); min-height: 48px; color: var(--lt-text); font-size: 15px; font-weight: 500; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.a-text-link:active { transform: translateY(1px); }
+.a-trial { display: flex; align-items: center; gap: var(--lt-space-8); margin-top: var(--lt-space-12); font-size: 13px; line-height: 1.7; color: var(--lt-muted); }
+.a-trial svg { width: 18px; height: 18px; flex: none; color: var(--lt-accent); }
+.a-service-list { display: flex; flex-wrap: wrap; list-style: none; gap: var(--lt-space-8) var(--lt-space-16); padding: var(--lt-space-24) 0 0; margin-top: var(--lt-space-24); border-top: 1px solid var(--lt-border); font-size: 13px; color: var(--lt-muted); }
+.a-service-list li { display: flex; align-items: center; gap: var(--lt-space-8); }
+.a-service-list li::before { content: ""; display: block; width: 4px; height: 4px; border: 1px solid var(--lt-accent); }
+.a-photo-caption { grid-column: 1; grid-row: 2; align-self: end; position: relative; z-index: 1; display: flex; align-items: center; gap: var(--lt-space-16); padding: var(--lt-space-16); margin: var(--lt-space-16); background: var(--lt-surface); border: 1px solid var(--lt-border); border-radius: var(--lt-radius-s); box-shadow: var(--lt-elev-float); font-size: 12px; line-height: 1.8; color: var(--lt-muted); }
+.a-photo-caption > svg { flex: none; width: 26px; height: 26px; color: var(--lt-accent); }
+.a-photo-caption strong { font-weight: 500; color: var(--lt-text); font-size: 14px; }
+.a-photo-tech { margin-left: 0; margin-right: auto; color: var(--lt-text); white-space: nowrap; font-family: var(--lt-font-latin); font-size: 12px; }
+.a-section-nav { background: var(--lt-surface); border-block: 1px solid var(--lt-border); }
+.a-section-nav > .s-wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-24); min-height: 72px; }
+.a-section-nav p { display: none; font-size: 14px; font-weight: 500; }
+.a-section-nav .s-wrap > div { display: flex; align-items: center; justify-content: space-between; gap: var(--lt-space-16); width: 100%; }
+.a-section-nav a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 48px; color: var(--lt-muted); font-size: 13px; text-decoration: none; transition: color 180ms, transform 180ms; }
+.a-section-nav a:active { transform: translateY(1px); }
+@media (hover: hover) {
+  .a-text-link:hover { text-decoration-thickness: 2px; }
+  .a-section-nav a:hover { color: var(--lt-text); text-decoration: underline; text-underline-offset: 6px; }
+}
 @media (min-width: 768px) {
-  .r-hero-wrap { padding-block: var(--lt-space-64) var(--lt-space-48); }
-  .r-hero-media { aspect-ratio: 4 / 3; }
-  .r-hero-photo { --fx: 50%; }
+  html .audience-hero[data-expand-inline] { gap: var(--lt-space-40); padding-block: var(--lt-space-48); }
+  html .audience-hero[data-expand-inline] .s-h1 { font-size: 54px; }
+  html .audience-hero[data-expand-inline] .s-lead { font-size: 19px; }
+  html .audience-hero[data-expand-inline] :is(.r-hero-media, .p-hero-media) { aspect-ratio: 16 / 10; }
+  .a-hero-actions > .lt-btn { width: auto; min-width: 240px; gap: var(--lt-space-32); }
+  .a-photo-caption { margin: var(--lt-space-24); padding: var(--lt-space-20) var(--lt-space-24); }
+  .a-photo-caption strong { font-size: 16px; }
+  .a-photo-tech { font-size: 14px; }
+  .a-section-nav p { display: block; }
+  .a-section-nav .s-wrap > div { width: auto; gap: var(--lt-space-40); }
+  .a-section-nav a { font-size: 14px; }
 }
 @media (min-width: 1024px) {
-  /* --r-in: عرض الحاوية الداخلي، و --r-5: خمس أعمدة من 12 (الفاصل 24). المشهد من حافة الشاشة اليسار لين قبل عمود النص بفاصل */
-  .r-hero { --r-in: min(var(--lt-container), 100% - 2 * var(--lt-gutter)); display: flex; align-items: center; min-height: clamp(560px, calc(100svh - 81px), 1000px); }
-  .r-hero-wrap { width: 100%; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--lt-grid-gap); padding-block: var(--lt-space-64); }
-  .r-hero-sheet { grid-column: 1 / span 5; }
-  .r-hero-media { position: absolute; top: 0; bottom: 0; left: 0; aspect-ratio: auto; max-height: none;
-    right: calc((100% - var(--r-in)) / 2 + (var(--r-in) - 11 * var(--lt-grid-gap)) * 5 / 12 + 5 * var(--lt-grid-gap)); }
-  .r-hero-photo { --fx: 62%; }   /* الستاند والكوب كاملين في خانة الصورة (1024 لين 1920) */
+  html .audience-hero[data-expand-inline] { grid-template-columns: 1fr 1.04fr; column-gap: var(--lt-space-48); align-items: center; padding-block: var(--lt-space-48); }
+  html .audience-hero[data-expand-inline] :is(.r-hero-sheet, .p-hero-sheet) { grid-column: 1; grid-row: 1; }
+  html .audience-hero[data-expand-inline] :is(.r-hero-media, .p-hero-media) { grid-column: 2; grid-row: 1; aspect-ratio: auto; height: 600px; }
+  html .audience-hero[data-expand-inline] .s-h1 { font-size: clamp(48px, 4.45vw, 64px); line-height: 1.22; }
+  html .audience-hero[data-expand-inline] .s-lead { max-width: 25em; font-size: 19px; }
+  .a-hero-actions { gap: var(--lt-space-8) var(--lt-space-24); margin-top: var(--lt-space-32); }
+  .a-hero-actions > .lt-btn { min-width: 220px; }
+  .a-context { margin-bottom: var(--lt-space-32); }
+  .a-service-list { margin-top: var(--lt-space-40); padding-top: var(--lt-space-24); }
+  .a-photo-caption { grid-column: 2; grid-row: 1; }
 }
-
-/* مع الحركة (html.mh، motion.css يعطي القسم 100svh و overflow: hidden): المشهد يعبّي القسم كله (motion.js يقصه للبطاقة ثم يوسعه)،
-   واللوح (.r-hero-sheet) فوقه أبيض بحد 1px وزاوية 8: تحت على الجوال، ويمين في نص الارتفاع على الكمبيوتر. يطلع بعد التوسع */
-.mh .r-hero { display: block; min-height: 0; }
-.mh .r-hero-media { position: absolute; inset: 0; aspect-ratio: auto; max-height: none; }
-.mh .r-hero-media > .r-hero-photo { --fx: 46%; --fy: 50%; --so: 50% -73%; transform: scale(1.12); transform-origin: var(--so); }   /* يبدأ مكبّر، و motion.js يرجعه 1 مع التوسع */
-.mh .r-hero-wrap { position: absolute; inset: 0; z-index: 2; display: flex; align-items: flex-end; padding-block: var(--lt-space-20); pointer-events: none; }
-.mh .r-hero-sheet { width: 100%; padding: var(--lt-space-24); border: var(--lt-hairline) solid var(--lt-border); border-radius: var(--lt-radius-s); background: var(--lt-surface); pointer-events: auto; }
-.mh .r-hero-sheet .s-h1 { font-size: 34px; }
-.mh .r-hero-sheet .s-lead { font-size: 16px; }
-.mh .r-hero-cta { margin-top: var(--lt-space-20); }
-.mh [data-expand-sheet]:focus-within { opacity: 1 !important; }   /* التركيز بالكيبورد قبل ما يطلع اللوح: يبان على طول */
-@media (min-width: 768px) {
-  .mh .r-hero-sheet { max-width: 34rem; padding: var(--lt-space-32); }
-  .mh .r-hero-sheet .s-h1 { font-size: 44px; }
-  .mh .r-hero-media > .r-hero-photo { --fx: 45%; --so: 50% -40.5%; }
+@media (prefers-reduced-motion: reduce) {
+  .a-section-nav a, .a-text-link { transition: none; }
 }
-@media (min-width: 1024px) {
-  .mh .r-hero-wrap { display: flex; align-items: center; padding-block: var(--lt-space-40); }
-  .mh .r-hero-sheet { width: calc((100% - 11 * var(--lt-grid-gap)) * 5 / 12 + 4 * var(--lt-grid-gap)); max-width: none; padding: var(--lt-space-40); }
-  .mh .r-hero-sheet .s-h1 { font-size: 56px; }
-  .mh .r-hero-sheet .s-lead { font-size: 18px; }
-  /* الستاند يسار اللوح بـ 64px أو أكثر (AD-30 على المطاعم): الصورة على يمينها */
-  .mh .r-hero-media > .r-hero-photo { --fx: 100%; --so: -32% -48%; }
-}
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .mh .r-hero-media > .r-hero-photo { --fx: 72%; --so: -55% -51%; }
-}
-/* الشاشات العريضة: الصورة تتقيد بالعرض، فاللوح يروح لحافة الشاشة بعرضه على 1440 (486) عشان الستاند ما يروح تحته */
-@media (min-width: 1600px) {
-  .mh .r-hero-wrap { max-width: none; }
-  .mh .r-hero-sheet { width: 486px; }
-  .mh .r-hero-media > .r-hero-photo { --so: 23% -50%; }
+@media (max-width: 767.98px) {
+  html .audience-hero[data-expand-inline] { padding-top: var(--lt-space-32); gap: var(--lt-space-24); }
+  .a-context { margin-bottom: var(--lt-space-16); }
+  .a-service-list { display: none; }
 }
 
 /* ===== 3) المشاكل (أبيض): ثلاث مواقف، بينها خط 1px أفقي على الجوال وعمودي من 1024 ===== */
@@ -89,24 +145,11 @@
   .r-prob-t { font-size: 22px; }
 }
 
-/* ===== 4) القصة المثبّتة (رملي، data-story): الجوال المشهد فوق والنص تحته، والكمبيوتر النص يمين (5) والمشهد يسار ينزف للحافة (7).
-   GM-054 (والمدير الفني r2 §5 بند 2): المشهد المولّد المعتمد (restaurant-cafe-stand، 16:9) بطبقتين في خانة 4:3 (cover، فيبان 75% من
-   عرض الصورة في كل مقاس). **ولا جوال فوق الصورة**: جوال المنيو في العرض الحي بس.
-   AD-41 (خيار أ): القص على 35% (object-position) بدل النص، فيبان من x 8.75% لين 83.75%: الستاند (أكريليك x من 37.25% لين 57%)
-   والكوب مع صحنه (لين 82.4%) كاملين، واليسار من حافة المشهد لين الستاند (38% من العرض) فاضي للبطاقة.
-   خطوة 2 حلقة اللمس (.r-story-touch: .lt-slot بدون وجه على كرت الستاند الأبيض، وفيها .s-story-ring [data-story-ring data-pulse] من
-   site.css) تطلع وتنبض مرة (1 ← 1.08 ← 1 في 400ms) وتبقى. الكرت مقاس بالبكسل على restaurant-cafe-stand-color-1600.webp: x من 39.3% لين
-   55.8%، و y من 29.9% لين 77.8%، يعني في القص: x من 40.73% (عرض 22%)، و y نفسها (47.9%). نقطة اللمس 41.33% من أعلى الكرت (مركز الشريحة
-   62 من 150mm، print/dims.js).
-   خطوة 3 بطاقة المنيو (.r-story-card: .s-story-card فيها @@phone:menu-story frame="false"): يسار الستاند، عرضها 31.5% ونسبتها 1:2،
-   و3% من حافة المشهد، فحافتها اليمين 34.5% والستاند يبدأ 38% (فراغ 3.5% من العرض، 14px على 390): تغطية الستاند 0 في كل مقاس لأن
-   الخانة 4:3 دايماً. وتتوسط عمودياً (طولها 63% من العرض، والمشهد 75%). الشريط (.h-story-rail من motion.js) على بداية القائمة ===== */
+/* ===== 4) القصة: الصورة بالشعار دون طبقات فوق اللوحة. التلوين وتتابع النص من motion.js. ===== */
 .r-story-grid { display: grid; gap: var(--lt-space-32); }
 .r-story-media { position: relative; order: -1; aspect-ratio: 4 / 3; margin-inline: calc(-1 * var(--lt-gutter)); overflow: hidden; background: var(--lt-surface-2); }
 .r-story-photo { position: absolute; inset: 0; overflow: hidden; }
 .r-story-photo > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 35% 50%; }
-.r-story-photo > .r-story-touch { --ax: 0; --ay: 0; --tx: 50%; --ty: 41.33%; left: 40.73%; top: 29.9%; width: 22%; height: 47.9%; aspect-ratio: auto; }
-.r-story-card { left: 3%; top: 8%; width: 31.5%; aspect-ratio: 1 / 2; transform-origin: 100% 50%; }   /* تكبر من حافتها جهة الستاند (continuity)، وما تقرب منه */
 .r-steps { list-style: none; padding: 0; margin-top: var(--lt-space-24); display: grid; gap: var(--lt-space-20); }
 .r-steps p { max-width: 32em; margin-top: var(--lt-space-4); color: var(--lt-muted); }
 /* 768 لين 1023 (AD-33، §11.6 بند 6): المشهد داخل التخطيط، فزاويته 8، والحاوية نفسها مقصوصة فيها (ولا زاوية مربعة ورا الزاوية المدورة) */
@@ -201,3 +244,62 @@
 .r-close-cta { margin-top: var(--lt-space-32); }
 @media (min-width: 768px) { .r-close-h { font-size: 44px; line-height: 1.15; } }
 @media (min-width: 1024px) { .r-close-h { font-size: 60px; line-height: 1.1; } }
+
+/* Keep the supporting content quieter than the product: compact questions,
+   numbered moments in the visit, and open editorial rows for live examples. */
+.r-probs-band { padding-block: var(--lt-space-48); }
+.r-probs-band .s-h2 { font-size: 28px; }
+.r-probs { margin-top: var(--lt-space-24); }
+.r-probs > li { grid-template-columns: 24px minmax(0, 1fr); column-gap: var(--lt-space-16); }
+.r-probs > li .r-ico { margin-top: var(--lt-space-4); }
+.r-prob-t { max-width: 19em; font-size: 18px; line-height: 1.65; }
+.r-steps { counter-reset: visit; }
+.r-steps > li { counter-increment: visit; position: relative; padding-inline-start: var(--lt-space-48); }
+.r-steps > li::before { content: "0" counter(visit); position: absolute; inset-inline-start: 0; top: 0; font-family: var(--lt-font-latin); font-size: 24px; line-height: 1.5; font-weight: 500; color: var(--lt-muted); }
+.r-cards { gap: 0; }
+.r-card { position: relative; padding: var(--lt-space-24) 0; border: 0; border-bottom: 1px solid var(--lt-border); border-radius: 0; box-shadow: none; background: transparent; }
+.r-card:first-child { padding-top: 0; }
+.r-card .lt-link { min-height: 44px; }
+.r-card .lt-link::after { content: ""; position: absolute; inset: 0; }
+.r-card:has(a:focus-visible) { outline: 3px solid var(--lt-focus); outline-offset: 4px; }
+.r-plan { overflow: hidden; }
+@media (min-width: 1024px) {
+  .r-probs-band { padding-block: var(--lt-space-64); }
+  .r-probs-band .s-h2 { font-size: 32px; }
+  .r-probs { margin-top: var(--lt-space-32); }
+  .r-prob-t { font-size: 19px; }
+  .r-plan .s-plan-what, .r-plan .s-plan-buy { padding: var(--lt-space-48); }
+  .r-plan .s-plan-what { background: var(--lt-bg); }
+}
+@media (hover: hover) { .r-card:hover { border-bottom-color: var(--lt-text); } }
+
+/* A framed cafe visit: photo and printed artwork travel as one camera plane. */
+.r-story[data-story="editorial"] .r-story-media { margin-inline: 0; border-radius: var(--lt-radius-s); aspect-ratio: 5 / 4; }
+.r-story[data-story="editorial"] .r-story-photo { container-type: size; }
+.r-story[data-story="editorial"] .r-story-photo > img { object-position: 46% 50%; }
+.r-story[data-story="editorial"] .r-card-art { position: absolute; left: 46%; top: 50%; width: max(100cqw, calc(100cqh * 16 / 9)); height: auto; max-width: none; aspect-ratio: 16 / 9; transform: translate(-46%, -50%); mix-blend-mode: multiply; pointer-events: none; }
+.r-story[data-story="editorial"] .r-steps { gap: 0; }
+.r-story[data-story="editorial"] .r-steps > li { padding-block: 16px; border-bottom: 1px solid var(--lt-border); }
+.r-story[data-story="editorial"] .r-steps > li::before { top: 16px; font-size: 20px; }
+.r-story[data-story="editorial"] .r-steps > li::after { content: ""; position: absolute; inset-inline: 0; bottom: -1px; height: 1px; background: var(--lt-text); transform: scaleX(var(--step-progress, 0)); transform-origin: right center; }
+.r-story[data-story="editorial"] .r-steps .s-h3 { font-size: 19px; }
+.r-story.is-editorial .r-steps > li::before { transition: color 240ms; }
+.r-story.is-editorial .r-steps > li.is-on::before { color: var(--lt-text); }
+.r-story[data-story="editorial"] .r-steps p { font-size: 15px; line-height: 1.8; }
+.r-demo-media[data-product-stage] { padding: 32px 24px; border-radius: var(--lt-radius-s); background: var(--lt-bg); overflow: hidden; }
+.r-demo-media[data-product-stage] .lt-stand-stage { background: transparent; min-height: 0; padding: 0; }
+@media (min-width: 768px) {
+  .r-story[data-story="editorial"] .r-story-media { aspect-ratio: 16 / 10; }
+  .r-demo-media[data-product-stage] { gap: 16px; padding: 32px 20px; }
+  .r-demo-media[data-product-stage] .r-demo-phone { width: clamp(180px, 19vw, 230px); }
+  .r-demo-media[data-product-stage] .lt-stand { --stand-w: 220px; }
+}
+@media (min-width: 1024px) {
+  .r-story[data-story="editorial"] .r-story-media { height: clamp(360px, calc(100svh - 184px), 560px); aspect-ratio: auto; margin-inline-start: 24px; }
+  .r-story[data-story="editorial"] .s-h2 { font-size: clamp(30px, 2.8vw, 40px); line-height: 1.4; }
+  .r-story[data-story="editorial"] .r-steps { margin-top: 20px; }
+  .r-demo-media[data-product-stage] { grid-column: 6 / span 7; min-height: 530px; align-self: start; align-items: end; padding: 40px 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .r-story.is-editorial .r-steps > li::before { transition: none; }
+}

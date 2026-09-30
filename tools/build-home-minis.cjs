@@ -12,6 +12,7 @@
 // العلامات (المفتاح بعد @@، وبعده اختياري attributes مثل alt="..." و sizes="..."):
 //   logo:head            رابط شعار الرأس (logo-horizontal.svg، الحبر، GM-042) للصفحة الرئيسية. البوابة شعارها ثابت في HTML (data-open-logo)
 //   logo:foot            شعار التذييل: logo-stack.svg بعرض 120، و logo-stack-since.svg من 1024 (عرض 160، §11.5)
+//                        layout="horizontal": الشعار الأفقي الأصلي للفوتر المختصر في البوابة.
 //   logo:sheet           الشعار الأفقي في ورقة الباركود
 //   qr:logo              باركود البداية الحقيقي (تصحيح H، ورمزنا في وسطه): SITE.domain + /demo/rental-guide/ (البوابة بس)
 //   qr:field             نفس الباركود بدون رمز (احتياط الحركة)
@@ -22,6 +23,7 @@
 //   minis-style          ألوان محلات العرض داخل الشاشات المصغرة (فاتح بس) وتنسيق قالبي الروابط والواي فاي. لازم لو فيه phone:*
 //   img:hero             صورة البطل بطبقتين (الأبيض والأسود ثم الملونة data-tint) من HERO_PHOTO حسب الصفحة
 //   photo:<خانة>         صورة بطبقتين من assets/images/<خانة>-bw-* و -color-* (CREDITS.md). alt="" افتراضي (زخرفية)
+//                        color="true": صورة ملونة واحدة للمشاهد التي لا تحتاج مسح التلوين.
 //   scene:<اسم>          مشهد المنتج (GM-049/050) بترميز assets/scenes.css، أو مكان فاضي فاتح لو ملفاته ما وصلت (تحت: SCENES).
 //                        attributes اختيارية: alt="..." و sizes="..." و phone="false" (بدون الجوال الثابت) و scan="tint" و fill="true"
 //                        و target="<خانة طباعة>" (يحط data-story-target على الخانة، هدف جوال القصة) و pulse="true" (ومعه data-pulse)
@@ -47,6 +49,8 @@ const run = (f) => vm.runInContext(read(f), ctx, { filename: f });
 vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'print', 'dims.js'), 'utf8'), ctx, { filename: 'print/dims.js' });
 const standHtml = require('./stand.cjs');
 const { qrPath } = standHtml;
+const { buildRestaurantCard } = require('./build-restaurant-card.cjs');
+const { buildHostCard } = require('./build-host-card.cjs');
 ctx.LT_NO_MOUNT = true;
 ['demo/menu/data.js', 'templates/menu/render.js', 'demo/wifi/data.js', 'templates/wifi/render.js',
   'demo/links/data.js', 'templates/links/render.js', 'demo/rental-guide/data.js', 'templates/rental-guide/render.js'].forEach(run);
@@ -60,7 +64,8 @@ const attr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').rep
 //   brand/photos/generated/restaurants-hero-imagen-1-upscaled-1.webp (restaurant-cafe-stand، المزاج warm)، وبطل المضيفين وبابهم من
 //   hosts-hero-imagen-1-upscaled-1.webp (host-door-frame، المزاج light). طبقتينها بدوال tools/convert-images.py نفسها (حد البطل 180KB).
 //   صورة اليد والجوال بشعارنا (restaurant-hand-phone) ما تنستخدم في أي بطل ولا باب (AD-14). الأبواب: @@photo:<الاسم> في index.html.
-const HERO_PHOTO = { 'restaurants/index.html': 'restaurant-cafe-stand', 'hosts/index.html': 'host-door-frame' };
+// Restaurant hero uses a blank photograph under the native QR card overlay.
+const HERO_PHOTO = { 'restaurants/index.html': 'scene-restaurants', 'hosts/index.html': 'host-symbol-plate' };
 
 // مشاهد المنتج (GM-049/050): الترميز من assets/scenes.css (وكيل المشاهد، web-illustrator): .lt-scene > .lt-scene-stage فيها
 // الخلفية بطبقتين (assets/mockups/scene-<src>-bw/-color -800/-1600، والنص البديل على الأبيض والأسود)، ثم خانات الطباعة .lt-slot[data-print]
@@ -193,6 +198,11 @@ function layers(bwBase, colorBase, rel, o) {
   return imgTag(bw, rel, { sizes, alt: o.alt, lcp: o.lcp }) + imgTag(col, rel, { sizes, alt: '', lcp: o.lcp, tint: true });
 }
 function photo(slot, rel, o) {
+  if (o.colorOnly) {
+    const col = pair('assets/images/' + slot + '-color');
+    if (!col) throw new Error('Missing color photograph: ' + slot);
+    return imgTag(col, rel, { sizes: o.sizes || '100vw', alt: o.alt || '', lcp: !!o.lcp });
+  }
   const out = layers('assets/images/' + slot + '-bw', 'assets/images/' + slot + '-color', rel, o);
   if (!out) throw new Error('ملفات الصورة ناقصة: assets/images/' + slot + '-bw/-color -800/-1600');
   return out;
@@ -268,6 +278,7 @@ const logo = {
 function resolve(key, page, rel, o) {
   const [kind, name] = [key.split(':')[0], key.split(':').slice(1).join(':')];
   if (key === 'logo:head') return logo.head(rel);
+  if (key === 'logo:foot' && o.layout === 'horizontal') return '<img class="h-footer-logo" src="' + rel + LOGO.h + '" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt>';
   if (key === 'logo:foot') return logo.foot(rel);
   if (key === 'logo:sheet') return logo.sheet(rel);
   if (key === 'minis-style') return minisStyle();
@@ -289,9 +300,17 @@ function resolve(key, page, rel, o) {
   }
   if (key === 'img:hero') {
     if (!HERO_PHOTO[page]) throw new Error('img:hero بدون صورة بطل لـ ' + page + ' (HERO_PHOTO)');
+    if (page === 'hosts/index.html') {
+      const plate = pair('assets/images/' + HERO_PHOTO[page]);
+      if (!plate) throw new Error('Missing blank host symbol plate.');
+      const sizes = o.sizes || '100vw';
+      return imgTag(plate, rel, { sizes, alt: o.alt || '', lcp: true }) + imgTag(plate, rel, { sizes, alt: '', tint: true }).replace('<img', '<img data-lift-photo');
+    }
     return photo(HERO_PHOTO[page], rel, { lcp: true, alt: o.alt || '', sizes: o.sizes });
   }
-  if (kind === 'photo') return photo(name, rel, { alt: o.alt || '', sizes: o.sizes });
+  if (key === 'card:restaurant') return buildRestaurantCard({ url: DOMAIN + '/demo/menu/' }).svg;
+  if (key === 'card:host') return buildHostCard().svg;
+  if (kind === 'photo') return photo(name, rel, { alt: o.alt || '', sizes: o.sizes, colorOnly: o.color === 'true' });
   if (kind === 'scene') return scene(name, rel, o);
   throw new Error('علامة مو معروفة في ' + page + ': @@' + key);
 }

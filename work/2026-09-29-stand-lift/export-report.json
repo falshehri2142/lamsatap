@@ -1,0 +1,64 @@
+{
+  "originals": [
+    "brand\\photos\\composites\\restaurant-lift-plate-v1.png",
+    "brand\\photos\\composites\\restaurant-lift-stand-v1.png"
+  ],
+  "plate": [
+    {
+      "path": "website\\assets\\images\\restaurant-lift-plate-1600.webp",
+      "width": 1600,
+      "height": 900,
+      "quality": 88,
+      "bytes": 42070
+    },
+    {
+      "path": "website\\assets\\images\\restaurant-lift-plate-800.webp",
+      "width": 800,
+      "height": 450,
+      "quality": 88,
+      "bytes": 17902
+    }
+  ],
+  "sourceStand": {
+    "width": 1297,
+    "height": 1212,
+    "bounds": [
+      {
+        "threshold": 0,
+        "left": 304,
+        "top": 114,
+        "width": 813,
+        "height": 1019,
+        "count": 633558
+      },
+      {
+        "threshold": 16,
+        "left": 306,
+        "top": 123,
+        "width": 754,
+        "height": 1006,
+        "count": 618593
+      },
+      {
+        "threshold": 128,
+        "left": 307,
+        "top": 124,
+        "width": 752,
+        "height": 1004,
+        "count": 521455
+      }
+    ]
+  },
+  "stand": {
+    "path": "website\\assets\\images\\restaurant-lift-stand.webp",
+    "width": 752,
+    "height": 1004,
+    "hasAlpha": true,
+    "bytes": 95128,
+    "alpha": {
+      "transparent": 123441,
+      "partial": 630501,
+      "opaque": 1066
+    }
+  }
+}

@@ -40,10 +40,14 @@
 
   // اسم الشركة: [data-company] نص، [data-company-alt] نص بديل للشعار، والعنوان إذا فيه الاسم الاحتياطي
   w.fillCompany = function () {
-    var n = companyName(), en = str(S.companyNameEn);
+    var n = companyName(), en = str(S.companyNameEn), registration = str(S.commercialRegistration);
     all('[data-company]').forEach(function (el) { el.textContent = n; });
     all('[data-company-en]').forEach(function (el) { el.textContent = en || 'LamsaTap'; });
     all('[data-company-alt]').forEach(function (el) { el.alt = en ? n + ' — ' + en : n; });
+    all('[data-commercial-registration]').forEach(function (el) {
+      el.textContent = registration ? 'السجل التجاري: ' + registration : '';
+      el.hidden = !registration;
+    });
     if (n !== NAME) d.title = d.title.split(NAME).join(n);
   };
 
@@ -79,27 +83,28 @@
   // التليجرام (GM-047، وإشعار المحامي بند 34): اليوزر من config.js بدون @ (telegram للبوت، telegramChannel للقناة)،
   // والرابط ينبني https://t.me/<يوزر>. الفاضي (أو الغلط) يخفي الرابط، مثل الواتساب. ولا يوزر مكتوب داخل الصفحات.
   // [data-tg]: مجموعة «أو كلّمنا على تليجرام» وإشعارها تحتها. تطلع بس لو يوزر البوت موجود.
-  //   [data-tg="with-wa"]: كمان لازم رقم الواتساب موجود، لأن «أو» تجي بعد زر الواتساب (web-copy «الاتجاه 3»، التواصل «أ»).
+  //   [data-tg="with-wa"]: زر واضح بنفس رتبة زر واتساب، حتى مع وجود الرقم.
   // [data-tg-link]: رابط محادثة البوت. [data-tg-channel]: رابط القناة (التذييل)، ويختفي لو القناة فاضية.
   w.tgUser = function (v) { v = str(v).replace(/^@/, ''); return /^[A-Za-z0-9_]{5,32}$/.test(v) ? v : ''; };
   w.fillTelegram = function () {
     var bot = tgUser(S.telegram), ch = tgUser(S.telegramChannel), wa = !!waNum(S.whatsapp);
-    // لما الواتساب فاضي والبوت موجود: مجموعة with-wa ما تختفي (مراجعة المدير الفني: لازم طريقة تواصل ظاهرة)، بل تصير هي الفعل:
-    // تنشال «أو» من أول السطر، والرابط ياخذ شكل الزر الأساسي، والإشعار يبقى تحته (بند 34). ولما يجي الرقم ترجع ثانوية.
+    // قناتا التواصل أزرار متساوية البروز. عند غياب واتساب يبقى ترتيب الزر البديل كما هو.
     all('[data-tg]').forEach(function (el) {
       var withWa = el.getAttribute('data-tg') === 'with-wa', solo = withWa && !wa;
       el.hidden = !bot;
       el.classList.toggle('is-solo', !!(bot && solo));
+      el.classList.toggle('is-action', !!(bot && withWa));
       var line = el.querySelector('.s-tg-line'), first = line && line.firstChild;
       if (first && first.nodeType === 3) {
         if (first.__or == null) first.__or = first.textContent;
-        first.textContent = solo ? '' : first.__or;
+        first.textContent = withWa ? '' : first.__or;
       }
       var link = el.querySelector('[data-tg-link]');
       if (link) {
-        link.classList.toggle('lt-btn', !!(bot && solo));
+        link.classList.toggle('lt-btn', !!(bot && withWa));
         // الرتبة: data-tg-rank="secondary" على المجموعة (بطاقة 5 وحدات، أو «اسأل إنسان» اللي يبان مع الخاتمة) = زر بإطار
-        link.classList.toggle('lt-btn--secondary', !!(bot && solo) && el.getAttribute('data-tg-rank') === 'secondary');
+        link.classList.toggle('lt-btn--secondary', !!(bot && withWa) && el.getAttribute('data-tg-rank') === 'secondary');
+        if (bot && withWa) waIcon(link);
       }
     });
     all('[data-tg-link]').forEach(function (a) {
@@ -194,7 +199,15 @@
     }).join('');
     var list = all('.s-roll-col', el), ins = all('[data-in]', el);
     list.forEach(function (c, i) { c.style.transition = 'none'; c.style.transform = 'translateY(' + (-10 * cols[i][0]) + '%)'; });
-    if (!anim) return;
+    if (!anim) {
+      // A preference change can happen after a previous FLIP animation.
+      // Clear its sibling styles too, including an animation still in flight.
+      if (el.parentNode) [].forEach.call(el.parentNode.children, function (s) {
+        if (s === el || s.classList.contains('s-sr')) return;
+        s.style.transition = 'none'; s.style.transform = '';
+      });
+      return;
+    }
     ins.forEach(function (n) { n.style.display = 'inline-block'; n.style.transition = 'none'; n.style.opacity = '0'; n.style.transform = 'translateY(55%)'; });
     sibs.forEach(function (s, i) {
       s.style.transition = 'none'; s.style.transform = 'none';
@@ -207,11 +220,11 @@
     sibs.forEach(function (s) { if (s.style.transform) { s.style.transition = 'transform .6s ' + EASE; s.style.transform = ''; } });
   }
   w.initPriceSwitch = function () {
-    var calm = !w.matchMedia || w.matchMedia('(prefers-reduced-motion: reduce)').matches;
     all('[data-price-switch]').forEach(function (sw) {
       var scope = sw.closest('[data-price-scope]') || d, opts = all('[role="radio"]', sw);
       if (!opts.length) return;
       function set(i, anim) {
+        var calm = !w.matchMedia || w.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var k = opts[i].getAttribute('data-value');
         opts.forEach(function (o, j) { o.setAttribute('aria-checked', j === i ? 'true' : 'false'); o.tabIndex = j === i ? 0 : -1; });
         sw.setAttribute('data-on', String(i));
@@ -223,6 +236,7 @@
       opts.forEach(function (o, i) {
         o.addEventListener('click', function () { if (i !== cur()) set(i, true); });
         o.addEventListener('keydown', function (e) {
+          if (e.altKey || e.ctrlKey || e.metaKey) return;
           var n = opts.length, rtl = getComputedStyle(sw).direction === 'rtl', j = null;
           if (e.key === 'ArrowDown' || e.key === (rtl ? 'ArrowLeft' : 'ArrowRight')) j = (i + 1) % n;
           else if (e.key === 'ArrowUp' || e.key === (rtl ? 'ArrowRight' : 'ArrowLeft')) j = (i - 1 + n) % n;
@@ -234,6 +248,10 @@
         });
       });
       set(cur(), false);
+      // Keep both prices readable until this particular control is working.
+      var period = sw.closest('.s-period');
+      if (period) period.classList.add('is-price-ready');
+      if (scope.classList) scope.classList.add('is-price-ready');
     });
   };
 

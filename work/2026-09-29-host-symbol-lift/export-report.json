@@ -1,0 +1,20 @@
+{
+  "source": "brand/photos/generated/hosts-hero-imagen-1-upscaled-1.webp",
+  "sourceWidth": 2560,
+  "sourceHeight": 1440,
+  "transformation": "resize/export only; no recolor, inpainting or brand artwork baked into the photo",
+  "exports": [
+    {
+      "file": "website/assets/images/host-symbol-plate-800.webp",
+      "width": 800,
+      "height": 450,
+      "bytes": 9302
+    },
+    {
+      "file": "website/assets/images/host-symbol-plate-1600.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 23892
+    }
+  ]
+}

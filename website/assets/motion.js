@@ -15,7 +15,8 @@
   var HERO = ['[data-open-qr]', '[data-open-qr] svg', '[data-open-sym]', '[data-open-word]', '[data-open-cap] > *', '[data-open-logo] img',
     '[data-reveal]', '[data-reveal="stagger"] > *', '[data-scan="reveal"]', '[data-scan="list"] > *', '[data-scan="media"]', '[data-tint]',
     '[data-scan="check"] li svg', '[data-door]', '[data-expand-media]', '[data-expand-media] > *', '[data-expand-title]', '[data-expand-title] > *', '[data-expand-sheet]',
-    '[data-expand-in]', '[data-expand-phone]', '[data-story-phone]', '[data-story-ring]', '[data-story-card]', '[data-pulse]', '[data-parallax] img'].join(', ');
+    '[data-expand-in]', '[data-expand-phone]', '[data-story-phone]', '[data-story-ring]', '[data-story-card]', '[data-pulse]', '[data-parallax] img',
+    '[data-editorial-camera]', '[data-editorial-reveal]', '[data-product-reveal]', '[data-how-photo] img'].join(', ');
   function restore() {
     try { if (g) g.set([].slice.call(d.querySelectorAll(HERO)), { clearProps: 'opacity,visibility,transform,clipPath' }); } catch (x) {}
     try { if (g && moved.length) g.set(moved, { clearProps: 'transform' }); } catch (x) {} moved = [];
@@ -150,10 +151,11 @@
     var OPEN_HIDDEN = '[data-open-qr] svg, [data-open-sym], [data-open-word], [data-open-cap] > *, [data-open-logo] img';
     // AD-07: الرأس يرجع رملي بخطه وظله (motion.css .m-docked) لما يكون الشعار الحقيقي ظاهر فيه
     function dock(on) { var hd = $('[data-open-logo]'); hd = hd && hd.closest('header'); if (hd) hd.classList.toggle('m-docked', !!on); }
-    function showOpening() { g.set($$(OPEN_HIDDEN), { opacity: 1, clipPath: 'none' }); dock(true); }   // M3: hook ناقص = الحالة النهائية، مو مخفي بدون خطأ
+    function showOpening() { var targets = $$(OPEN_HIDDEN); if (targets.length) g.set(targets, { opacity: 1, clipPath: 'none' }); dock(true); }   // M3: hook ناقص = الحالة النهائية، مو مخفي بدون خطأ
     function opening(c) {
       var sec = $('[data-open]');
       if (!sec) { if ($('[data-open-logo]')) showOpening(); return; }
+      if (sec.hasAttribute('data-symbol-flight')) return;
       if (!c.tall) return;
       var qr = $('[data-open-qr]', sec), svg = qr && $('svg', qr), sym = $('[data-open-sym]', sec), word = $('[data-open-word]', sec),
           cap = $$('[data-open-cap] > :not(a)', sec), btn = $$('[data-open-cap] > a', sec), art = $('[data-open-art]', sec) || qr, dest = $('[data-open-logo]'), destImg = dest && $('img', dest);
@@ -442,7 +444,7 @@
     // والعنوانين يتباعدون (محسوبين RTL)، واللون ينكشف مع التوسع، وبعد التوسع الكامل يطلع اللوح والجوال.
     // الشاشات الأقصر من 640: الحالة النهائية الثابتة (CSS الصفحة)، واللون بالمسح العادي لما يدخل الشاشة (M7) =====
     function expand(c) {
-      var sec = $('[data-expand]'); if (!sec) return;
+      var sec = $('[data-expand]:not([data-expand-inline])'); if (!sec) return;
       var media = $('[data-expand-media]', sec), pic = media && media.firstElementChild, card = $('[data-expand-card]', sec), title = $('[data-expand-title]', sec),
           sheet = $('[data-expand-sheet]', sec), ins = $$('[data-expand-in]', sec), phone = $('[data-expand-phone]', sec), col = media && $('[data-tint]', media);
       if (!c.tall) { if (col) tintWhenSeen(col.parentNode); return; }
@@ -571,6 +573,116 @@
       if (sheet) on(sheet, 'focusin', safe(function () { if (!shown) { shown = true; content.progress(1); } }));
     }
 
+    // Only the square mark flies. Photo scenes use native image coordinates;
+    // the home QR uses its actual DOM box. The card and wordmark stay in place.
+    function symbolFlight(c) {
+      var sec = $('[data-symbol-flight]'); if (!sec || !c.tall) return;
+      var stage = $('[data-lift-stage]', sec), symbol = $('[data-lift-object], [data-open-sym]', sec), plate = $('[data-lift-photo], .r-hero-photo [data-tint], .p-hero-photo [data-tint]', sec), dest = $('.s-logo-h');
+      var card = $('[data-card-symbol-box]', sec), box = card && card.getAttribute('data-card-symbol-box').split(' ').map(Number);
+      var nativeSource = symbol && symbol.hasAttribute('data-open-sym');
+      if (!stage || !symbol || !dest || (!nativeSource && (!plate || !box || box.length !== 3 || !box.every(Number.isFinite)))) return;
+      var originalStyle = symbol.getAttribute('style');
+      var sourceImage = symbol.tagName === 'IMG' ? symbol : $('img', symbol);
+      function restoreSymbol() { if (originalStyle === null) symbol.removeAttribute('style'); else symbol.setAttribute('style', originalStyle); }
+      var crop = Number(sec.getAttribute('data-lift-position') || .46);
+      if (!Number.isFinite(crop)) crop = .46;
+      var cancelled = false, assetsReady = false, draw = null, flightMedia = g.matchMedia(), listeners = [];
+      function ready(img) {
+        function decode() { return img.decode ? img.decode() : Promise.resolve(); }
+        if (img.complete) return img.naturalWidth ? decode() : Promise.reject();
+        return new Promise(function (resolve, reject) {
+          function clean() { img.removeEventListener('load', loaded); img.removeEventListener('error', failed); }
+          function loaded() { clean(); decode().then(resolve, reject); }
+          function failed() { clean(); reject(); }
+          img.addEventListener('load', loaded); img.addEventListener('error', failed); listeners.push(clean);
+        });
+      }
+      offs.push(function () {
+        cancelled = true; listeners.forEach(function (clean) { clean(); });
+        flightMedia.revert(); sec.classList.remove('is-lift-ready'); dest.classList.remove('is-symbol-away');
+        restoreSymbol();
+      });
+      // Create the scroll trigger synchronously, before the initial-hash refresh.
+      // Image decoding only switches layers; it never changes document geometry.
+      flightMedia.add({ desktop: '(min-width: 1024px)', mobile: '(max-width: 1023.98px)' }, function (ctx) {
+        if (cancelled || dead) return;
+        var desktop = ctx.conditions.desktop, host = desktop ? sec : stage;
+        var layer = mk('div', 'm-fly r-symbol-flight', d.body), fly = symbol.cloneNode(true);
+        fly.removeAttribute('data-lift-object'); fly.removeAttribute('data-open-sym'); fly.removeAttribute('style');
+        fly.className = (nativeSource ? symbol.className + ' ' : '') + 'r-symbol-fly'; layer.appendChild(fly);
+        var R = {}, fp = { q: 0 }, last = '', ease = g.parseEase('power3.out');
+        var setX = g.quickSetter(fly, 'x', 'px'), setY = g.quickSetter(fly, 'y', 'px');
+        var setScaleX = g.quickSetter(fly, 'scaleX'), setScaleY = g.quickSetter(fly, 'scaleY');
+        function measure() {
+          var sw = stage.clientWidth, sh = stage.clientHeight;
+          var scale = Math.max(sw / 1600, sh / 900), ox = (sw - 1600 * scale) * crop, oy = (sh - 900 * scale) * .5;
+          var left, top, size;
+          if (nativeSource) {
+            left = docLeft(symbol) - docLeft(stage); top = docTop(symbol) - docTop(stage); size = symbol.offsetWidth;
+          } else {
+            left = ox + box[0] * scale; top = oy + box[1] * scale; size = box[2] * scale;
+            symbol.style.left = left + 'px'; symbol.style.top = top + 'px';
+            symbol.style.width = size + 'px'; symbol.style.height = size + 'px';
+          }
+          var pinTop = headerH() + (desktop ? 0 : 24), di = dest.getBoundingClientRect();
+          R = { x: docLeft(stage) - w.scrollX + left, y: docTop(stage) - docTop(host) + pinTop + top,
+            size: size, dx: di.left, dy: di.top, ds: di.width * 200 / 1068.75 };
+          // Rise first, then cross above the headline, just like the old opening.
+          var heading = $('h1', sec), textTop = desktop ? docTop(heading) - docTop(host) + pinTop : pinTop;
+          R.lane = desktop ? headerH() + Math.max(0, textTop - headerH()) * .28 : headerH() + 12;
+          g.set(fly, { left: R.x, top: R.y, width: size, height: size, transformOrigin: '0 0' });
+          last = '';
+        }
+        function bez(a, b, c1, z, t) { var u = 1 - t; return u*u*u*a + 3*u*u*t*b + 3*u*t*t*c1 + t*t*t*z; }
+        var paint = safe(function () {
+          var q = clamp(fp.q), moving = q > .0001 && q < .9999, docked = q >= .9999;
+          var k = 1 + ease(q) * (R.ds / R.size - 1);
+          setX(bez(R.x, R.x, R.dx, R.dx, q) - R.x);
+          setY(bez(R.y, R.lane, R.lane, R.dy, q) - R.y);
+          setScaleX(k); setScaleY(k);
+          var state = assetsReady + ':' + moving + ':' + docked;
+          if (state === last) return; last = state;
+          sec.classList.toggle('is-lift-ready', assetsReady);
+          dest.classList.toggle('is-symbol-away', assetsReady && !docked);
+          symbol.style.opacity = assetsReady && (moving || docked) ? '0' : '1';
+          fly.style.visibility = assetsReady && moving ? 'visible' : 'hidden';
+          fly.style.willChange = assetsReady && moving ? 'transform' : 'auto';
+        });
+        measure();
+        var tl = g.timeline({ onUpdate: paint, scrollTrigger: {
+          // Mobile keeps native scrolling: pinning the photo adds half a screen
+          // of empty space. Only the detached symbol flies while the scene scrolls.
+          id: 'audience-symbol-flight', trigger: host, pin: desktop,
+          start: function () { return 'top top+=' + (headerH() + (desktop ? 0 : 24)); },
+          end: function () { return '+=' + Math.round(vh() * (desktop ? .72 : .5)); },
+          // The unpinned mobile source moves with the document. Catch-up easing
+          // would leave its fixed clone at stale coordinates on a fast reversal.
+          scrub: desktop ? .3 : true, invalidateOnRefresh: true, refreshPriority: 3, anticipatePin: 1,
+          onRefresh: paint
+        } });
+        // Refresh measures while GSAP has reverted pin positioning.
+        tl.fromTo(fp, { q: 0 }, { q: function () { measure(); return 1; }, duration: 1, ease: 'none', immediateRender: false });
+        draw = paint; paint();
+        return function () {
+          if (draw === paint) draw = null;
+          layer.remove(); sec.classList.remove('is-lift-ready'); dest.classList.remove('is-symbol-away'); restoreSymbol();
+        };
+      });
+      Promise.all([plate, sourceImage].filter(Boolean).map(ready)).then(safe(function () {
+        if (cancelled || dead) return;
+        assetsReady = true; if (draw) draw();
+      })).catch(function () {
+        // A missing optional asset keeps the complete, ordinary hero photograph.
+        if (cancelled || dead) return;
+        var anchor = $$('main section, main nav').find(function (el) {
+          var r = el.getBoundingClientRect(); return r.top < vh() && r.bottom > headerH();
+        });
+        var before = anchor && anchor.getBoundingClientRect().top;
+        flightMedia.revert(); ST.refresh();
+        if (anchor) w.scrollBy(0, anchor.getBoundingClientRect().top - before);
+      });
+    }
+
     // ===== 6) القصة المثبّتة (data-story): ثلاث خطوات مربوطة بالتمرير، وترجع طبيعي مع الرجوع.
     // خطوة 1: المشهد ينكشف بلون جمهوره وخط المسح على حافته. خطوة 2: الجوال يقرّب ويلمس ([data-story-target])، والنقطة تنبض مرة (المطاعم).
     // خطوة 3: الشاشة تنفتح بالمسح. النص ظاهر كله، والخطوة الحالية واضحة والباقي أخف وقت التثبيت بس.
@@ -597,8 +709,122 @@
       }
       return g.timeline().to(dot, { scale: 1.08, duration: T.pulse / 2, ease: PULSE }).to(dot, { scale: 1, duration: T.pulse / 2, ease: PULSE, clearProps: 'transform' });
     }
+    // A continuous camera move through the cafe visit, without the old scan layer.
+    function editorialStory(sec, c) {
+      var grid = $('[data-story-pin]', sec), media = $('[data-editorial-reveal]', sec), camera = $('[data-editorial-camera]', sec), steps = $$('[data-step]', sec);
+      if (!grid || !media || !camera || !steps.length) return;
+      $$('img', camera).forEach(prefetch);
+      var chapter = null, timeline = null, pinned = null, frame = 0, observer = null, disposed = false, rebuilding = false;
+      function fits() {
+        // The pinned element can retain a fixed height until ScrollTrigger refreshes.
+        // Include overflowing content, with 2px hysteresis to avoid rounding oscillation.
+        var height = Math.max.apply(null, [grid.offsetHeight].concat([].slice.call(grid.children).map(function (child) { return child.offsetHeight; }))), room = vh() - headerH() - 48;
+        return desk() && vh() >= 640 && room - height >= (pinned ? -2 : 2);
+      }
+      function build(desktop) {
+        pinned = desktop;
+        chapter = g.context(function () {
+        var state = { p: 0 }, current = -1;
+        var setters = steps.map(function (step) { return g.quickSetter(step, '--step-progress'); });
+        sec.classList.add('is-editorial');
+        var paint = safe(function () {
+          var active = Math.min(steps.length - 1, Math.floor(state.p * steps.length));
+          if (active !== current) { current = active; steps.forEach(function (step, i) { step.classList.toggle('is-on', i === active); }); }
+          setters.forEach(function (set, i) { set(clamp(state.p * steps.length - i)); });
+        });
+        g.fromTo(media, { y: 20, scale: .985, opacity: .72 }, { y: 0, scale: 1, opacity: 1, ease: 'power2.out', scrollTrigger: {
+          trigger: sec, start: 'top 88%', end: 'top 28%', scrub: .5, invalidateOnRefresh: true
+        } });
+        var tl = timeline = g.timeline({ onUpdate: paint, scrollTrigger: {
+          id: 'restaurant-visit', trigger: desktop ? grid : sec, pin: desktop ? grid : false,
+          start: function () { return desktop ? 'top top+=' + (headerH() + Math.max(24, (vh() - headerH() - grid.offsetHeight) / 2)) : 'top 55%'; },
+          end: function () { return desktop ? '+=' + Math.round(vh() * 1.5) : 'bottom 65%'; },
+          scrub: .6, invalidateOnRefresh: true, refreshPriority: 1, anticipatePin: 1,
+          onToggle: safe(function (s) { camera.style.willChange = s.isActive ? 'transform' : 'auto'; })
+        } });
+        tl.fromTo(camera, { scale: 1, yPercent: 0 }, { scale: desktop ? 1.065 : 1.035, yPercent: desktop ? -1 : -.5, transformOrigin: '48% 48%', duration: 1, ease: 'none' }, 0)
+          .to(state, { p: 1, duration: 1, ease: 'none' }, 0);
+        paint();
+        return function () {
+          sec.classList.remove('is-editorial');
+          steps.forEach(function (step) { step.classList.remove('is-on'); step.style.removeProperty('--step-progress'); });
+          camera.style.removeProperty('will-change');
+        };
+        });
+      }
+      var check = later(function () {
+        frame = 0;
+        if (disposed || rebuilding) return;
+        var next = fits(); if (next === pinned) return;
+        var previous = timeline && timeline.scrollTrigger, progress = previous ? previous.progress : 0;
+        var active = previous && previous.isActive, scroll = w.scrollY;
+        var anchor = previous && scroll >= previous.end ? sec.nextElementSibling : null;
+        var anchorTop = anchor ? anchor.getBoundingClientRect().top : 0;
+        rebuilding = true;
+        try {
+          chapter.revert(); build(next); ST.sort(); ST.refresh();
+          var trigger = timeline.scrollTrigger;
+          // Preserve the current chapter while it is active, or the following
+          // content's viewport position when added/removed pin space is above it.
+          var target = active ? trigger.start + progress * (trigger.end - trigger.start) :
+            anchor ? scroll + anchor.getBoundingClientRect().top - anchorTop : scroll;
+          if (Math.abs(w.scrollY - target) > 1) w.scrollTo(w.scrollX, Math.max(0, target));
+          ST.update();
+          if (active) {
+            var scrub = trigger.getTween(); if (scrub) scrub.progress(1);
+            timeline.progress(progress);
+          }
+        } finally { rebuilding = false; }
+      });
+      function schedule() {
+        if (!disposed && !rebuilding && !frame) frame = w.requestAnimationFrame(check);
+      }
+      offs.push(function () {
+        disposed = true;
+        if (frame) w.cancelAnimationFrame(frame);
+        if (observer) observer.disconnect();
+        ST.removeEventListener('refresh', schedule);
+        if (chapter) chapter.revert();
+      });
+      build(fits());
+      on(w, 'resize', schedule, { passive: true });
+      ST.addEventListener('refresh', schedule);
+      if ('ResizeObserver' in w) {
+        observer = new ResizeObserver(schedule);
+        observer.observe(grid);
+        [].slice.call(grid.children).forEach(function (child) { observer.observe(child); });
+      }
+    }
+    function howMotion() {
+      $$('[data-how-motion]').forEach(function (section) {
+        var steps = $$('[data-how-step]', section), photo = $('[data-how-photo] img', section);
+        steps.forEach(function (step) {
+          var state = { p: 0 }, set = g.quickSetter(step, '--how-progress');
+          g.to(state, { p: 1, ease: 'none', onUpdate: safe(function () { set(state.p); }), scrollTrigger: {
+            trigger: step, start: 'top 82%', end: 'bottom 48%', scrub: .45, invalidateOnRefresh: true
+          } });
+        });
+        if (photo) g.fromTo(photo, { scale: 1, yPercent: 0 }, { scale: 1.08, yPercent: -2, ease: 'none', scrollTrigger: {
+          trigger: section, start: 'top 85%', end: 'bottom 25%', scrub: .6, invalidateOnRefresh: true
+        } });
+        offs.push(function () { steps.forEach(function (step) { step.style.removeProperty('--how-progress'); }); });
+      });
+    }
+    function productReveals() {
+      $$('[data-product-stage]').forEach(function (stage) {
+        var objects = $$('[data-product-reveal]', stage); if (!objects.length) return;
+        objects.forEach(function (object, index) {
+          // Observe each product so a viewport change cannot reveal its sibling
+          // off-screen; desktop timing is chosen when this product actually enters.
+          watch(object, function () { g.set(object, { y: 28, scale: .975, opacity: .7 }); }, function () {
+            g.to(object, { y: 0, scale: 1, opacity: 1, duration: .95, delay: desk() ? Math.min(index, 2) * .12 : 0, ease: 'power3.out', clearProps: 'transform,opacity' });
+          }, 0, 12);
+        });
+      });
+    }
     function story(c) {
       $$('[data-story]').forEach(function (sec) {
+        if (sec.getAttribute('data-story') === 'editorial') { editorialStory(sec, c); return; }
         var steps = $$('[data-step]', sec), n = steps.length, pinEl = $('[data-story-pin]', sec);
         var scene = $('[data-story-scene]', sec), col = scene && $('[data-tint]', scene);
         var ring = $('[data-story-ring]', sec), card = $('[data-story-card]', sec);
@@ -833,7 +1059,10 @@
         $$('[data-scan="check"]').forEach(scanCheck);
         doors();
         expand(c);
+        symbolFlight(c);
         story(c);
+        productReveals();
+        howMotion();
         pulses();
         depth();
         words();

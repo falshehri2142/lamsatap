@@ -1,0 +1,73 @@
+{
+  "destination": "https://example.com/demo/menu/",
+  "configuredDomain": "https://example.com",
+  "localDemo": "website/demo/menu/index.html",
+  "canvas": {
+    "width": 1600,
+    "height": 900,
+    "transparent": true,
+    "photo": "website/assets/images/scene-restaurants-color-1600.webp"
+  },
+  "qr": {
+    "correction": "H",
+    "modules": 33,
+    "x": 650,
+    "y": 342,
+    "inkSize": 220,
+    "moduleSize": 6.666666666666667,
+    "centerHole": {
+      "firstModule": 11,
+      "sizeModules": 10
+    },
+    "quietZone": "Provided by blank paper in the underlying scene; no added SVG quiet-zone padding."
+  },
+  "flyingSymbol": {
+    "x": 730,
+    "y": 422,
+    "width": 53.333333333333336,
+    "height": 53.333333333333336,
+    "centerX": 756.6666666666666,
+    "centerY": 448.6666666666667,
+    "source": "website/assets/brand/symbol-ink.svg",
+    "staticFallbackClass": "r-card-symbol-fallback",
+    "sizeModules": 8
+  },
+  "wordmark": {
+    "x": 650,
+    "y": 595,
+    "width": 220,
+    "height": 28.56259659969088,
+    "viewBox": "260 47.4 808.75 105",
+    "pathVerbatim": true
+  },
+  "instruction": {
+    "text": "امسحه بجوالك",
+    "x": 760,
+    "y": 648,
+    "fontSize": 13,
+    "fontFamily": "var(--lt-font-brand, 'Readex Pro', sans-serif)",
+    "inlineSvgUsesPageFont": true
+  },
+  "nativeGeometry": {
+    "source": "website/assets/brand/logo-horizontal.svg",
+    "sourceSha256": "faf414823890b4da3bd226d1ca2ce95413b51a1fdd61c38cc8ad7ba43e001974",
+    "sourceUnchanged": true,
+    "symbolPathStart": "M0.1 46.81",
+    "symbolClosedSubpaths": 4,
+    "symbolPathVerbatim": true,
+    "wordmarkPathVerbatim": true
+  },
+  "animation": "Only the separate native symbol moves. Keep QR modules, wordmark and Arabic text static. The fallback symbol is visible by default and should be hidden only once the normal-motion flight layer is ready.",
+  "outputs": {
+    "artwork": "work/2026-09-29-symbol-lift/card-art.svg",
+    "fragment": "work/2026-09-29-symbol-lift/native-card-fragment.html",
+    "report": "work/2026-09-29-symbol-lift/card-art-report.json"
+  },
+  "bytes": 9145,
+  "verification": {
+    "generatedFromLocalQrLibrary": true,
+    "nativePathsExact": true,
+    "sourceLogoUnchanged": true,
+    "rasterDecode": "Not run by this builder; check the final rendered overlay."
+  }
+}
