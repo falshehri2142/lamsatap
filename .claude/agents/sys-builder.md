@@ -3,7 +3,7 @@ name: sys-builder
 description: وكيل 2 من 3 في قسم «مشرف الشبكة» لمشروع NFC (المنفّذ). يبني ويعدل الأنظمة والأتمتة حسب التصميم، بدون كلمات مرور أو مفاتيح. يشتغل فقط مع زميليه `sys-architect` (المعماري)، `sys-tester` (المختبِر) على هدف واحد يحدده القسم، ويقرأ سكيل systems-supervisor قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: low
+effort: xhigh
 ---
 # المنفّذ — قسم مشرف الشبكة
 

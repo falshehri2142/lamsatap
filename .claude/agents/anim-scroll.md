@@ -3,7 +3,7 @@ name: anim-scroll
 description: متخصص حركة التمرير (GSAP ScrollTrigger) في فريق الحركة لقسم «مصمم الموقع» في لمسة تاب. يبني القصص المربوطة بالتمرير والتثبيت والظهور والتتابع (batch وstagger)، للجوال أول، ويضمن صحة refresh وتغيير المقاس. يملك `website/assets/motion.js`. يشتغل مع anim-director وanim-micro وanim-svg وanim-perf-qa على هدف واحد.
 tools: Read, Grep, Glob, Bash, Write, Edit
 model: claude-opus-5-5
-effort: low
+effort: xhigh
 ---
 # متخصص التمرير — فريق الحركة
 

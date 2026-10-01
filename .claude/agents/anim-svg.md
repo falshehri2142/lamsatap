@@ -3,7 +3,7 @@ name: anim-svg
 description: متخصص حركة الرسومات وSVG في فريق الحركة لقسم «مصمم الموقع» في لمسة تاب. يحرّك موجة لمسة NFC، والجوال وهو يقرّب للستاند، ورمز الشعار، وإطار «تأكيد الخروج»، ورسم المسارات. يستخدم GSAP المحلي وtransform وopacity، وبدون أي plugin مو موجود محلياً. يملك مشهد مختبر اللمسة `signature.js`. يشتغل مع anim-director وanim-scroll وanim-micro وanim-perf-qa على هدف واحد.
 tools: Read, Grep, Glob, Bash, Write, Edit
 model: claude-opus-5-5
-effort: low
+effort: xhigh
 ---
 # متخصص الرسومات وSVG — فريق الحركة
 

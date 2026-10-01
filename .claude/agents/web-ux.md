@@ -3,7 +3,7 @@ name: web-ux
 description: وكيل 1 من 3 في قسم «مصمم الموقع» لمشروع NFC (مخطط التجربة). يحدد الصفحة: لمين، وش أول شي يشوفه العميل عند الطاولة، والنصوص من الملفات المعتمدة فقط. يشتغل فقط مع زميليه `web-builder` (المطوّر)، `web-qa` (مختبِر الواجهة) على هدف واحد يحدده القسم، ويقرأ سكيل website-design قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: low
+effort: xhigh
 ---
 # مخطط التجربة — قسم مصمم الموقع
 

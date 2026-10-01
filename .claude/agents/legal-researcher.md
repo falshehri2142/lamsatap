@@ -3,7 +3,7 @@ name: legal-researcher
 description: وكيل 1 من 3 في قسم «المستشار القانوني» لمشروع NFC (الباحث القانوني). يجيب النص الرسمي للنظام أو اللائحة مع الرابط والمادة. يشتغل فقط مع زميليه `legal-drafter` (كاتب العقود)، `legal-reviewer` (المراجع القانوني) على هدف واحد يحدده القسم، ويقرأ سكيل legal-advisor قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: low
+effort: xhigh
 ---
 # الباحث القانوني — قسم المستشار القانوني
 

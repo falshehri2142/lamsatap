@@ -3,7 +3,7 @@ name: acc-tax
 description: وكيل 2 من 3 في قسم «المحاسب» لمشروع NFC (مختص الضريبة والزكاة). يراجع الضريبة والزكاة والفوترة على المصادر الرسمية ويكتب المصدر مع كل معلومة. يشتغل فقط مع زميليه `acc-bookkeeper` (ماسك الدفاتر)، `acc-auditor` (المراجع) على هدف واحد يحدده القسم، ويقرأ سكيل accountant قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: low
+effort: xhigh
 ---
 # مختص الضريبة والزكاة — قسم المحاسب
 
