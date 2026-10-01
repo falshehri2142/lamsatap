@@ -164,7 +164,7 @@
 /* ===== الأسئلة (data-accordion): الجواب يطلع 240ms، ويروح 65% منها، و+ تصير − (الخط الواقف ينطوي) ===== */
 .m [data-accordion] summary { position: relative; }
 .m [data-accordion] summary::after { background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat; }
-.m [data-accordion] summary::before { content: ""; position: absolute; left: 0; top: 50%; width: 16px; height: 16px; margin-top: -8px; background: linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; transition: transform var(--m-acc) var(--m-acc-ease); }
+.m [data-accordion] summary::before { content: ""; position: absolute; inset-inline-end: 0; top: 50%; width: 16px; height: 16px; margin-top: -8px; background: linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; transition: transform var(--m-acc) var(--m-acc-ease); }
 .m [data-accordion] details[open] summary::before { transform: scaleY(0); }
 .m [data-accordion] details > :not(summary) { transition: opacity var(--m-acc) var(--m-acc-ease), translate var(--m-acc) var(--m-acc-ease); }
 .m [data-accordion] details.m-opening > :not(summary) { opacity: 0; translate: 0 -8px; transition: none; }
@@ -173,6 +173,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .m [data-accordion] summary::before, .m [data-accordion] details > :not(summary) { transition: none; }
+  html[dir="ltr"] .h-nav-action:hover .h-arrow { transform: none; }   /* GM-070: سهم الرأس ما يتحرك مع تقليل الحركة (يغلب ltr.css) */
 }
 
 /* الطباعة: كل شي ثابت وظاهر */

@@ -39,14 +39,16 @@
   function steps() {
     // fade the page layer only (the screen keeps its light surface, not the ink body)
     screen = stage.hasAttribute('data-loaded') || !poster ? frame : poster;
+    // GM-070: الجوال يتحرك 12px ناحية الستاند. الستاند على الحافة البعيدة عن الخيارات (signature.css): RTL يسار، LTR يمين
+    var lean = getComputedStyle(root).direction === 'rtl' ? -12 : 12;
     return [
       [0, screen, null, { opacity: 0 }, 150, 'in'],
-      [0, phone, null, { x: -12 }, 240, 'io'],
+      [0, phone, null, { x: lean }, 240, 'io'],
       [170, ripple, { scale: .6, opacity: .5 }, { scale: 1.6, opacity: 0 }, 480, 'out'],
       [170, stand, { y: 0 }, { y: -2 }, 120, 'out'],
       [290, stand, { y: -2 }, { y: 0 }, 120, 'out'],
       [400, screen, { opacity: 0 }, { opacity: 1 }, 240, 'xo'],
-      [400, phone, { x: -12 }, { x: 0 }, 240, 'spring']
+      [400, phone, { x: lean }, { x: 0 }, 240, 'spring']
     ];
   }
   function css(o) {

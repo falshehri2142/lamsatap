@@ -27,7 +27,7 @@
 .tl{--tl-sw:110px}
 .tl__stand{display:block;position:absolute;left:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * 1.1);width:var(--tl-sw);z-index:1;pointer-events:none}
 .tl__stand svg{display:block;width:100%;height:auto}
-.tl__ripple{position:absolute;left:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) / 2 + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * .6);width:calc(var(--tl-pw) * .9);aspect-ratio:1;margin-left:calc(var(--tl-pw) * -.45);margin-top:calc(var(--tl-pw) * -.45);border-radius:50%;background:var(--lt-teal);opacity:0;transform:scale(.2);z-index:0;pointer-events:none}
+.tl__ripple{position:absolute;inset-inline-end:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) / 2 + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * .6);width:calc(var(--tl-pw) * .9);aspect-ratio:1;margin-inline-end:calc(var(--tl-pw) * -.45);margin-top:calc(var(--tl-pw) * -.45);border-radius:50%;background:var(--lt-teal);opacity:0;transform:scale(.2);z-index:0;pointer-events:none}
 .tl__phone{position:relative;z-index:2;width:var(--tl-pw);height:var(--tl-ph);padding:10px;background:var(--lt-ink);border-radius:36px;box-shadow:var(--lt-elev-float);transform-origin:50% 100%}
 .tl__phone::before{content:"";position:absolute;top:18px;left:50%;width:64px;height:18px;margin-left:-32px;border-radius:var(--lt-radius-pill);background:var(--lt-ink);z-index:3}
 .tl__screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:27px;background:var(--lt-surface)}
@@ -74,6 +74,9 @@
 @media (min-width:1024px){.tl{--tl-s:.7467}}
 /* desktop: keep the "open full demo" link right under the picker instead of floating mid-column */
 @media (min-width:1024px){.tl{grid-template-rows:auto auto 1fr}}
-/* Stand sits beside the phone, never over it; on narrow screens the phone alone tells the story. */
-.tl__stand{left:auto;right:calc(50% + var(--tl-pw) / 2 + var(--lt-space-16));top:auto;bottom:calc(var(--lt-space-16) + 3.4em + var(--lt-space-16))}
+/* Stand sits beside the phone, never over it; on narrow screens the phone alone tells the story.
+   GM-070: sides are logical. The stand sits on the outer edge, away from the picker (RTL left, LTR right), and the phone
+   moves 12px toward it (signature.js). In RTL these resolve to the same left/right as before. Its waves face the phone. */
+.tl__stand{inset-inline:calc(50% + var(--tl-pw) / 2 + var(--lt-space-16)) auto;top:auto;bottom:calc(var(--lt-space-16) + 3.4em + var(--lt-space-16))}
+[dir="ltr"] .tl__stand path[stroke]{transform-box:fill-box;transform-origin:center;transform:scaleX(-1)}
 @media (max-width:767px){.tl__stand,.tl__ripple{display:none}}

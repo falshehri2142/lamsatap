@@ -35,9 +35,10 @@ const SHARED = [
   ['نرد خلال ساعة، 9 الصبح لين 11 الليل، كل يوم</small>', 'We reply within an hour, 9 AM–11 PM, every day</small>'],
   // contact group
   [TG_NOTE_AR, TG_NOTE_EN],
-  ['<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>', '<p class="s-tg-line">Or <a class="s-tg-link" data-tg-link>Message us on Telegram</a></p>'],
-  ['<p class="s-tg-line"><a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>', '<p class="s-tg-line"><a class="s-tg-link" data-tg-link>Message us on Telegram</a></p>'],
-  ['<span>كلّمنا على واتساب</span>', '<span>Message us on WhatsApp</span>'],
+  ['<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>', '<p class="s-tg-line">Or <a class="s-tg-link" data-tg-link>Chat on Telegram</a></p>'],
+  ['<p class="s-tg-line"><a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>', '<p class="s-tg-line"><a class="s-tg-link" data-tg-link>Chat on Telegram</a></p>'],
+  // web-qa 2026-10-01: «Chat on …» (the header's approved short label) so the buttons stay on one line at 320–1024
+  ['<span>كلّمنا على واتساب</span>', '<span>Chat on WhatsApp</span>'],
   ['رقم التواصل على واتساب ينضاف قريباً.', 'Our WhatsApp number is coming soon.'],
   ['يرد عليك واحد منا خلال ساعة، من 9 الصبح لين 11 الليل، كل يوم.', 'Someone on our team replies within an hour, 9 AM–11 PM, every day.'],
   ['تبغى تكلّم أحد منا؟', 'Want to talk to a person?'],
@@ -153,7 +154,7 @@ const REST = [
   ['"unitText": "بالسنة"', '"unitText": "per year"'],
   ['"name": "للمطاعم والكافيهات"', '"name": "Restaurants & cafés"'],
   // hero
-  ['خلّ جوال زبونك<br>يرد عنك.', 'Let your guests’ phones<br>answer for you.'],
+  ['خلّ جوال زبونك<br>يرد عنك.', 'Let your guests’ phones<br>answer for&nbsp;you.'],
   ['<span>خلّ جوال زبونك</span><span>يرد عنك</span>', '<span>Let your guests’ phones</span><span>answer for you</span>'],
   ['زبونك يقرّب جواله: المنيو، والواي فاي، وصفحة تقييمك في قوقل.', 'One tap brings up your menu, your Wi-Fi, and your Google review page.'],
   ['افتح منيو تجريبي<svg', 'Open a sample menu<svg'],
@@ -186,7 +187,7 @@ const REST = [
   ['كل شوي أحد يسأل عن كلمة الواي فاي؟', 'Someone asking for the Wi-Fi password, again?'],
   ['غيّرت أسعارك، والمنيو المطبوع صار قديم؟', 'Changed your prices, and now the printed menu is out of date?'],
   ['زبونك يبغى يقيّمك، بس ما يلقى صفحتك بسرعة؟', 'Guests want to leave a review but can’t find your page fast?'],
-  ['ثلاث أسئلة، ولا وحدة توصلك.', 'Three questions. <br>None of them reach you.'],
+  ['ثلاث أسئلة، ولا وحدة توصلك.', 'Three questions. <br>None of them reach&nbsp;you.'],
   ['<h3 class="s-h3">على الطاولة</h3><p>المنيو بأسعاره وسعراته، مرتب بأقسام.</p>', '<h3 class="s-h3">At the table</h3><p>The menu with prices and calories, organized by section.</p>'],
   ['<h3 class="s-h3">عند الكاشير</h3><p>ستاند التقييم يفتح صفحة تقييم محلك في قوقل مباشرة، ويطلبه من الكل بدون مقابل.</p>', '<h3 class="s-h3">At the counter</h3><p>The review stand opens your Google review page directly. It invites every guest, with nothing offered in return.</p>'],
   ['<h3 class="s-h3">طول الجلسة</h3><p>كلمة مرور الواي فاي بزر نسخ، وروابط حساباتك وموقعك.</p>', '<h3 class="s-h3">Throughout the visit</h3><p>The Wi-Fi password with a copy button, plus your social links and location.</p>'],
@@ -301,7 +302,7 @@ const HOSTS = [
   ['id="clean-studio-h">استوديو، أو غرفة وصالة</h4>\n<p class="p-clean-sub">للوحدات الصغيرة.</p>', 'id="clean-studio-h">Studio or one-bedroom</h4>\n<p class="p-clean-sub">For smaller units.</p>'],
   ['id="clean-big-h">غرفتين أو ثلاث غرف</h4>\n<p class="p-clean-sub">للشقق العائلية.</p>', 'id="clean-big-h">Two or three bedrooms</h4>\n<p class="p-clean-sub">For family apartments.</p>'],
   ['class="p-clean-soon">السعر قريباً</span>', 'class="p-clean-soon">Price coming soon</span>'],
-  ['<span>اسأل عن النظافة على واتساب</span>', '<span>Ask about cleaning on WhatsApp</span>'],
+  ['<span>اسأل عن النظافة على واتساب</span>', '<span>Ask on WhatsApp</span>'],
   // smart stay (GM-068 proposal)
   ['id="stay-h">الإقامة الذكية</h3><span class="s-badge">جديد</span>', 'id="stay-h">Smart Stay</h3><span class="s-badge">New</span>'],
   ['ضيفك يدخل بلمسة، وأنت تدري.', 'Guests let themselves in with a tap. And you know when they do.'],
@@ -401,7 +402,7 @@ for (const P of PAGES) {
   for (const m of h.matchAll(/\s([\w:-]+)="([^"]*[؀-ۿ][^"]*)"/g)) left.push('@' + m[1] + '=' + m[2]);
   if (left.length) throw new Error(P.out + ': Arabic left:\n  ' + left.join('\n  '));
   // times never break inside («9 AM–11 PM»)
-  h = h.split('9 AM–11 PM').join('9&nbsp;AM–11&nbsp;PM');
+  h = h.split('9 AM–11 PM').join('9&nbsp;AM&#8288;–&#8288;11&nbsp;PM');   // web-qa: &nbsp; alone still broke after the en dash; U+2060 word joiners hold it (no <span>: .trust__sub is flex)
   // the unit stepper reads minus, count, plus in English (hosts-smart.js finds the buttons by data-step)
   h = h.replace(/(<button type="button" class="p-calc-step" data-step="1"[\s\S]*?<\/button>)\n(<p class="p-calc-n">[\s\S]*?<\/p>)\n(<button type="button" class="p-calc-step" data-step="-1"[\s\S]*?<\/button>)/, '$3\n$2\n$1');
   h = h.replace(/\u0000(\d+)\u0000/g, (m, i) => keep[+i]);

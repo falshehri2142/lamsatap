@@ -279,7 +279,7 @@ const logo = {
 
 // ===== مفتاح العلامة ← محتواها =====
 function resolve(key, page, rel, o) {
-  const base = page.replace(/^ar\//, ''), home = page.startsWith('ar/') ? '../'.repeat(page.split('/').length - 2) : rel;
+  const base = page.replace(/^ar\//, ''), home = page.startsWith('ar/') ? '../'.repeat(page.split('/').length - 2) : rel + 'ar/';   // every page here is Arabic: demo/review goes home to ar/ too (web-qa, GM-070)
   const [kind, name] = [key.split(':')[0], key.split(':').slice(1).join(':')];
   if (key === 'logo:head') return logo.head(rel, home);
   if (key === 'logo:foot' && o.layout === 'horizontal') return '<img class="h-footer-logo" src="' + rel + LOGO.h + '" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt>';

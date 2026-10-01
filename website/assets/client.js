@@ -112,7 +112,7 @@
   };
   // آخر العرض (web-copy 2.0 و ر5-2): العنوان والسطر والزر حسب الصفحة، ورابط الرجوع لموقعنا
   w.cOwner = function (title, line, cta, key) {
-    var home = (w.ASSETS || '../../assets/').replace(/assets\/$/, '') + 'index.html';
+    var home = (w.ASSETS || '../../assets/').replace(/assets\/$/, '') + 'ar/index.html';   // GM-070: the Arabic company home is ar/ (the root is English)
     return '<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">' + title + '</h2>' +
       '<p>' + line + '</p>' +
       '<a class="lt-btn" data-wa="' + key + '" hidden><span id="demo-cta-t">' + esc(cta) + '</span></a>' +
