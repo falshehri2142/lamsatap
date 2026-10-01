@@ -362,3 +362,19 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .a-text-link:active, .r-lab-link:active, .r-lab-link:hover svg { transform: none; }
 }
 .r-story.is-editorial .r-steps > li::before { transition: none; }   /* رقم الخطوة يتلون فوري، والتقدّم يوضحه الشريط (scaleX) */
+/* إضافة «الطلب من الطاولة» (#order) */
+.r-order { margin-top: var(--lt-space-32); padding: var(--lt-space-32); box-shadow: var(--lt-elev-float); }
+.r-order-badge { display: inline-block; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--lt-bg); border: var(--lt-hairline) solid var(--lt-border); margin-bottom: var(--lt-space-12); }
+.r-order .s-h3 { font-size: 24px; }
+.r-order-lead { margin-top: var(--lt-space-8); color: var(--lt-muted); max-width: 46ch; }
+.r-order-steps { list-style: none; padding: 0; margin: var(--lt-space-24) 0; display: grid; gap: var(--lt-space-12); }
+.r-order-steps li { display: flex; align-items: center; gap: var(--lt-space-12); }
+.r-order-n { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; background: var(--lt-ink, #111); color: #fff; font-variant-numeric: tabular-nums; }
+.r-order-price { margin-top: var(--lt-space-16); font-weight: 700; font-size: 18px; }
+.r-order .s-cta { margin-top: var(--lt-space-16); }
+@media (min-width: 900px) {
+  .r-order { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--lt-space-48); padding: var(--lt-space-48); }
+  .r-order > :not(.r-order-steps):not(.s-checks) { grid-column: 1 / -1; }
+  .r-order-badge { justify-self: start; }
+  .r-order .s-h3 { font-size: 28px; }
+}

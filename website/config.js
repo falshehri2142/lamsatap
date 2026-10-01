@@ -34,6 +34,7 @@ window.SITE = {
     // المطاعم والكافيهات (restaurants/): الكبسولة و«اسأل إنسان»، ثم أزرار التجربة، ثم سطر ستاند التقييم لأي نشاط
     shop: "السلام عليكم، أبغى حزمة المحل الكامل لمطعمي أو كافيهي. اسم المحل والحي:",
     shopTrial: "السلام عليكم، أبغى أجرّب حزمة المحل الكامل لمطعمي أو كافيهي أسبوعين. اسم المحل والحي:",
+    shopOrder: "السلام عليكم، أبغى خدمة الطلب من الطاولة لمطعمي أو كافيهي. اسم المحل والحي:",
     reviewAny: "السلام عليكم، أبغى ستاند تقييم قوقل لنشاطي. نوع النشاط والحي:",
     // المضيفين (hosts/): الكبسولة و«اسأل إنسان»، ثم أزرار التجربة، ثم شريط خصم المحافظ
     host: "السلام عليكم، أبغى باقة المضيف لشققي. عدد الوحدات والحي:",
@@ -49,6 +50,7 @@ window.SITE = {
     homeEn: "Hi, I saw your website and have a question.",
     shopEn: "Hi, I'm interested in the Full Venue Package for my restaurant or café. Venue name and neighborhood:",
     shopTrialEn: "Hi, I'd like to try the Full Venue Package at my restaurant or café for two weeks. Venue name and neighborhood:",
+    shopOrderEn: "Hi, I'd like table ordering for my restaurant or café. Venue name and neighborhood:",
     reviewAnyEn: "Hi, I'd like a Google review stand for my business. Type of business and neighborhood:",
     hostEn: "Hi, I'm interested in the Host Plan for my apartments. Number of units and neighborhood:",
     hostTrialEn: "Hi, I'd like to try the Host Plan for two weeks. Number of units and neighborhood:",
