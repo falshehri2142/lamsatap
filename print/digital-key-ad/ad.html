@@ -1,0 +1,110 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>Digital key ad series</title>
+<style>
+@font-face{font-family:"Readex";src:url("../../website/assets/brand/fonts/readex-pro-arabic-latin.woff") format("woff");font-weight:160 700}
+@font-face{font-family:"LT Latin";src:url("../../website/assets/brand/fonts/figtree-latin.woff") format("woff");font-weight:400 700;unicode-range:U+0020-007E}
+:root{--ink:#14201F;--sand:#F7F3EC;--sand2:#EFE7DA;--teal:#1F6F6A;--muted:#5B6664;--oak:#D9BF98}
+*{box-sizing:border-box;margin:0}
+body{background:#999;font-family:"LT Latin","Readex",sans-serif;color:var(--ink)}
+.s{width:1080px;height:1920px;background:radial-gradient(120% 70% at 50% 30%,#fff,var(--sand) 70%);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:250px 80px 250px}
+.logo{position:absolute;top:120px;right:80px;height:46px}
+.num{direction:ltr;unicode-bidi:isolate;position:absolute;top:118px;left:80px;font-family:"LT Latin";font-weight:700;font-size:34px;color:var(--teal);letter-spacing:.04em}
+.num i{font-style:normal;color:#B9C3C1}
+h1{font-family:"Readex";font-weight:700;font-size:86px;line-height:1.2;text-align:center;margin-top:60px}
+.sub{font-family:"Readex";font-weight:500;font-size:42px;line-height:1.55;text-align:center;color:#2A3B38;margin-top:24px;max-width:880px}
+.small{font-family:"Readex";font-size:32px;color:var(--muted);text-align:center;margin-top:22px}
+.stage{flex:1;width:100%;display:flex;align-items:center;justify-content:center;position:relative}
+/* phone */
+.phone{width:360px;height:720px;background:var(--ink);border-radius:58px;padding:16px;box-shadow:0 30px 60px -20px rgba(20,32,31,.35);position:relative}
+.scr{width:100%;height:100%;background:#fff;border-radius:44px;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:60px 26px}
+.keycard{width:100%;border-radius:28px;background:linear-gradient(135deg,#1F6F6A,#14201F);color:#fff;padding:30px 28px;box-shadow:0 14px 30px -12px rgba(20,32,31,.5)}
+.keycard .t{font-family:"Readex";font-size:30px;font-weight:600}
+.keycard .sym{width:54px;height:54px;margin-bottom:26px;filter:invert(1)}
+.keycard .d{display:flex;justify-content:space-between;margin-top:30px;font-family:"Readex";font-size:22px;opacity:.85}
+.keycard .d b{display:block;font-family:"LT Latin";font-size:30px;opacity:1;margin-top:4px}
+.ok{margin-top:34px;font-family:"Readex";font-size:26px;color:var(--teal);font-weight:600;text-align:center}
+/* door scene */
+.door{width:430px;height:860px;background:linear-gradient(90deg,#CFB083,var(--oak) 40%,#E2CDA9);border-radius:10px;position:relative;box-shadow:inset 0 0 0 14px #BFA176,0 30px 60px -24px rgba(20,32,31,.3)}
+.lock{position:absolute;left:46px;top:360px;width:70px;height:200px;background:#1b1f1f;border-radius:14px}
+.lock:after{content:"";position:absolute;left:50%;top:40px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#3CCB7F;box-shadow:0 0 18px #3CCB7F}
+.plate{position:absolute;left:-200px;top:300px;width:150px;height:200px;background:#fff;border-radius:18px;box-shadow:0 10px 24px -10px rgba(20,32,31,.3);display:grid;place-items:center}
+.plate:before{content:"";width:58px;height:58px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 14px rgba(31,111,106,.15)}
+.mini{position:absolute;left:-300px;top:330px;width:120px;height:240px;background:var(--ink);border-radius:24px;padding:8px;transform:rotate(10deg)}
+.mini div{width:100%;height:100%;background:linear-gradient(135deg,#1F6F6A,#14201F);border-radius:18px}
+/* notifications */
+.notes{display:flex;flex-direction:column;gap:22px;width:100%}
+.n{background:#fff;border-radius:28px;padding:26px 30px;display:flex;align-items:center;gap:22px;box-shadow:0 10px 26px -14px rgba(20,32,31,.25)}
+.n .ic{width:70px;height:70px;border-radius:20px;background:var(--sand2);display:grid;place-items:center;flex:none}
+.n .ic svg{width:40px;height:40px;color:var(--teal)}
+.n b{font-family:"Readex";font-size:36px;display:block}
+.n span{font-family:"Readex";font-size:28px;color:var(--muted)}
+.n time{margin-inline-start:auto;font-family:"LT Latin";font-size:28px;color:var(--muted);direction:ltr}
+/* dashboard */
+.dash{width:100%;background:#fff;border-radius:36px;padding:40px;box-shadow:0 20px 40px -20px rgba(20,32,31,.3)}
+.dash h3{font-family:"Readex";font-size:34px;font-weight:600}
+.bars{display:flex;align-items:flex-end;gap:24px;height:300px;margin-top:30px;border-bottom:3px solid var(--sand2);padding:0 10px}
+.bars i{flex:1;background:linear-gradient(var(--teal),#2E8F88);border-radius:14px 14px 4px 4px}
+.rows{margin-top:30px;display:grid;gap:16px}
+.rows div{height:24px;border-radius:12px;background:var(--sand2)}
+.cta{position:absolute;bottom:260px;left:80px;right:80px;background:var(--ink);color:#fff;border-radius:999px;padding:30px;display:flex;align-items:center;justify-content:center;gap:18px;font-family:"Readex";font-size:42px;font-weight:600}
+.cta .nn,.tg .nn{font-family:"LT Latin";direction:ltr;unicode-bidi:isolate}
+.tg{position:absolute;bottom:190px;left:0;right:0;text-align:center;font-family:"Readex";font-size:34px}
+.jd{position:absolute;bottom:130px;left:0;right:0;text-align:center;font-family:"Readex";font-size:28px;color:var(--muted)}
+.ico{width:44px;height:44px}
+/* square */
+.sq{width:1080px;height:1080px;background:radial-gradient(120% 90% at 50% 0%,#fff,var(--sand) 70%);position:relative;padding:70px 64px;display:flex;flex-direction:column}
+.sq .logo{top:64px;right:64px;height:38px}
+.sq h1{font-size:66px;margin-top:70px;text-align:right}
+.sq .sub{text-align:right;font-size:32px;margin-top:10px}
+.flow{display:flex;gap:16px;margin-top:44px}
+.st{flex:1;background:#fff;border-radius:26px;padding:26px 18px;text-align:center;box-shadow:0 10px 24px -14px rgba(20,32,31,.25);position:relative}
+.st .k{width:62px;height:62px;border-radius:50%;background:var(--teal);color:#fff;font-family:"LT Latin";font-weight:700;font-size:30px;display:grid;place-items:center;margin:0 auto 16px}
+.st b{font-family:"Readex";font-size:28px;line-height:1.35;display:block}
+.st small{font-family:"Readex";font-size:20px;color:var(--muted)}
+.st:not(:last-child):after{content:"←";position:absolute;left:-17px;top:40%;font-size:26px;color:var(--teal)}
+.bell{margin-top:30px;background:var(--sand2);border-radius:22px;padding:22px 26px;font-family:"Readex";font-size:30px;font-weight:600;display:flex;gap:16px;align-items:center}
+.bell svg{width:38px;height:38px;color:var(--teal);flex:none}
+.sq .small{text-align:right;font-size:26px;margin-top:14px}
+.sq .contact{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-family:"Readex";font-size:30px;font-weight:600;background:var(--ink);color:#fff;border-radius:999px;padding:24px 36px}
+</style></head><body>
+<!-- 1 -->
+<section class="s" id="f1"><img class="logo" src="../../website/assets/brand/logo-horizontal.svg"><span class="num">1<i> / 4</i></span>
+<h1>جوال ضيفك هو المفتاح</h1><p class="sub">زي كرت الفندق: يوصله مع قبول الحجز، وينتهي يوم خروجه</p>
+<div class="stage"><div class="phone"><div class="scr"><div class="keycard"><img class="sym" src="../../website/assets/brand/favicon.svg"><div class="t">مفتاح شقتك</div><div class="d"><div>الدخول<b>12 Oct</b></div><div>الخروج<b>15 Oct</b></div></div></div><p class="ok">✓ المفتاح جاهز على جوالك</p></div></div></div>
+</section>
+<!-- 2 -->
+<section class="s" id="f2"><img class="logo" src="../../website/assets/brand/logo-horizontal.svg"><span class="num">2<i> / 4</i></span>
+<h1>يقرّب جواله من الباب ويدخل</h1><p class="sub">لا رقم سري ولا تسليم مفاتيح، وتنبيه لك ولنا</p>
+<div class="stage" style="padding-left:300px"><div class="door"><div class="lock"></div><div class="plate"></div><div class="mini"><div></div></div></div></div>
+<p class="small">جواله طفى؟ لا تقلق، عندنا حل احتياطي</p>
+</section>
+<!-- 3 -->
+<section class="s" id="f3"><img class="logo" src="../../website/assets/brand/logo-horizontal.svg"><span class="num">3<i> / 4</i></span>
+<h1>يطلع بلمسة جواله،<br>وفريق النظافة يدري</h1><p class="sub">تنبيه الخروج يوصلك، ويوصلنا، ويوصل فريق النظافة</p>
+<div class="stage"><div class="notes">
+<div class="n"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><div><b>أنت</b><span>ضيفك سجّل خروجه</span></div><time>11:02</time></div>
+<div class="n"><span class="ic"><img src="../../website/assets/brand/favicon.svg" style="width:40px"></span><div><b>لمسة تاب</b><span>الشقة فضت</span></div><time>11:02</time></div>
+<div class="n"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18h18M5 10V7h6v3"/></svg></span><div><b>فريق النظافة</b><span>الشقة جاهزة للتنظيف</span></div><time>11:02</time></div>
+</div></div>
+<p class="small">النظافة إضافة اختيارية</p>
+</section>
+<!-- 4 -->
+<section class="s" id="f4"><img class="logo" src="../../website/assets/brand/logo-horizontal.svg"><span class="num">4<i> / 4</i></span>
+<h1>إدارة مالية تشوفها أي وقت</h1><p class="sub">حجوزاتك ودخلك قدامك، في مكان واحد</p>
+<div class="stage" style="align-items:flex-start;padding-top:70px"><div class="dash"><h3>حجوزات الشهر</h3><div class="bars"><i style="height:45%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:75%"></i></div><div class="rows"><div style="width:90%"></div><div style="width:70%"></div><div style="width:80%"></div></div></div></div>
+<div class="cta"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.1.1.7-.1 1.2z"/></svg>كلّمنا على واتساب <span class="nn">+966 50 725 0396</span></div>
+<div class="tg">أو تليجرام <span class="nn">@lamsatap_bot</span></div><div class="jd">نركّب عندك في جدة</div>
+</section>
+<!-- square -->
+<section class="sq" id="sq"><img class="logo" src="../../website/assets/brand/logo-horizontal.svg">
+<h1>جوال ضيفك هو المفتاح</h1><p class="sub">زي كرت الفندق، يشتغل أيام حجزه بس، وبدون رقم سري</p>
+<div class="flow">
+<div class="st"><div class="k">1</div><b>المفتاح يوصل جواله</b></div>
+<div class="st"><div class="k">2</div><b>يدخل بلمسة</b></div>
+<div class="st"><div class="k">3</div><b>يطلع بلمسة، وفريق النظافة يدري</b><small>(إضافة اختيارية)</small></div>
+<div class="st"><div class="k">4</div><b>إدارة مالية: حجوزاتك ودخلك</b></div>
+</div>
+<div class="bell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 16V11a6 6 0 1 0-12 0v5l-2 2h16z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>مع كل لمسة دخول أو خروج: تنبيه لك ولنا</div>
+<p class="small">جواله طفى؟ لا تقلق، عندنا حل احتياطي</p>
+<div class="contact"><span>واتساب <span class="nn" style="font-family:'LT Latin';direction:ltr;unicode-bidi:isolate">+966 50 725 0396</span></span><span>تليجرام <span style="font-family:'LT Latin';direction:ltr;unicode-bidi:isolate">@lamsatap_bot</span></span></div>
+</section>
+</body></html>
