@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<title>LamsaTap check-in/out sign (A4 landscape)</title>
+<style>
+@font-face{font-family:"Readex";src:url("../../website/assets/brand/fonts/readex-pro-arabic-latin.woff") format("woff");font-weight:160 700}
+@font-face{font-family:"LT Latin";src:url("../../website/assets/brand/fonts/figtree-latin.woff") format("woff");font-weight:400 700;unicode-range:U+0020-007E}
+:root{--ink:#14201F;--sand:#F7F3EC;--sand2:#EFE7DA;--teal:#1F6F6A;--muted:#5B6664}
+*{box-sizing:border-box;margin:0}
+html,body{width:297mm;height:210mm}
+body{font-family:"LT Latin","Readex",sans-serif;color:var(--ink);background:var(--sand);letter-spacing:0}
+.page{position:relative;width:297mm;height:210mm;padding:14mm 16mm;display:grid;grid-template-columns:1fr 82mm;grid-template-rows:auto 1fr auto;column-gap:14mm;
+ background:radial-gradient(120% 90% at 30% 0%,#fff 0,var(--sand) 60%)}
+.page:before{content:"";position:absolute;inset:7mm;border:0.6mm solid #C9B48A;border-radius:3mm;pointer-events:none}
+.head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}
+.logo{height:11mm}
+.hello{text-align:left}
+.hello b{display:block;font-family:"Readex";font-size:15mm;font-weight:700;line-height:1.1}
+.hello span{font-size:5mm;color:var(--muted);font-weight:500}
+.main{grid-column:1;grid-row:2;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:10mm;align-self:center}
+.tap{width:62mm;height:62mm;border-radius:50%;background:var(--teal);display:grid;place-items:center;color:#fff;
+ box-shadow:0 0 0 5mm rgba(31,111,106,.14),0 0 0 10mm rgba(31,111,106,.07)}
+.tap svg{width:30mm;height:30mm}
+.tapt b{display:block;font-family:"Readex";font-size:12mm;font-weight:700;line-height:1.2}
+.tapt span{display:block;font-size:5.2mm;color:var(--muted);margin-top:1mm}
+.choices{display:flex;gap:6mm;margin-top:8mm}
+.ch{flex:1;background:#fff;border-radius:4mm;padding:5mm 6mm;display:flex;align-items:center;gap:4mm;box-shadow:0 .6mm 2mm rgba(20,32,31,.08)}
+.ch svg{width:11mm;height:11mm;color:var(--teal);flex:none}
+.ch b{font-family:"Readex";font-size:8mm;font-weight:700;display:block;line-height:1.1}
+.ch span{font-size:4.2mm;color:var(--muted);white-space:nowrap}
+.qr{grid-column:2;grid-row:2;width:82mm;align-self:center;background:#fff;border:0.6mm solid var(--teal);border-radius:4mm;padding:6mm;text-align:center}
+.qr #q svg{width:100%;height:auto;display:block}
+.qr b{display:block;font-family:"Readex";font-size:6mm;margin-top:4mm}
+.qr span{font-size:4mm;color:var(--muted)}
+.foot{grid-column:1/-1;display:flex;justify-content:center;gap:12mm;padding-top:5mm;border-top:0.3mm solid var(--sand2)}
+.f{display:flex;align-items:center;gap:2.5mm;font-family:"Readex";font-size:5mm;font-weight:500}
+.f svg{width:7mm;height:7mm;color:var(--teal)}
+.f small{font-family:"LT Latin";font-size:3.6mm;color:var(--muted);font-weight:400}
+</style></head><body>
+<div class="page">
+ <div class="head">
+  <img class="logo" src="../../website/assets/brand/logo-horizontal.svg" alt="LamsaTap">
+  <div class="hello"><b>أهلاً فيك</b><span>Welcome</span></div>
+ </div>
+ <div class="main">
+  <div class="tap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="9" height="16" rx="2"/><path d="M8.5 15.5h2"/><path d="M17 8.5a4 4 0 0 1 0 5M19.5 6.5a7 7 0 0 1 0 9"/></svg></div>
+  <div>
+   <div class="tapt"><b>قرّب جوالك هنا</b><span>Tap your phone here · بدون تطبيق</span></div>
+   <div class="choices">
+    <div class="ch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M6 21V4h9v17"/><path d="M15 6l4 1.5V21"/><circle cx="12.5" cy="12.5" r=".6" fill="currentColor"/></svg><div><b>دخول</b><span>Check-in</span></div></div>
+    <div class="ch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5h6v2M4 13h16"/></svg><div><b>خروج</b><span>Check-out</span></div></div>
+   </div>
+  </div>
+ </div>
+ <div class="qr"><div id="q"></div><b>أو امسح الرمز</b><span>or scan the code</span></div>
+ <div class="foot">
+  <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>دليل الشقة والواي فاي<small>Guide & Wi‑Fi</small></div>
+  <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 16V11a6 6 0 1 0-12 0v5l-2 2h16z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>تنبيه فوري للمضيف<small>Instant host alert</small></div>
+  <div class="f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 7.5-7 9-4-1.5-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>آمن وخاص<small>Secure & private</small></div>
+ </div>
+</div>
+<script src="../../website/vendor/qrcode-generator.js"></script>
+<script>
+var url=(new URLSearchParams(location.search)).get('u')||'https://lamsatap.com/demo/door/';
+var q=qrcode(0,'M');q.addData(url);q.make();
+document.getElementById('q').innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true}).replace('fill="#000000"','fill="#14201F"');
+</script>
+</body></html>
