@@ -271,6 +271,61 @@
 </article>
 </div>
 </div>
+<!-- مقترح GM-068 (work/2026-10-01-smart-stay/study.md): باقات «الإقامة الذكية» بنفس كروت النظافة. ممنوع لين ينعتمد في services/pricing.md:
+     رقم سعر، أو اسم القفل، أو وعد دعم 24 ساعة، أو إننا نحصّل فلوس أو نكلّم الضيف باسمنا (ترخيص «فال» غير مؤكد).
+     السعر من config.js ‏smartStayPrices، وفاضي = «السعر قريباً». المنطق في assets/hosts-smart.js. المثال: demo/door/ -->
+<div class="p-stay" aria-labelledby="stay-h" id="stay">
+<div class="p-stay-intro">
+<div class="p-clean-head"><h3 class="s-h2 p-clean-h" id="stay-h">الإقامة الذكية</h3><span class="s-badge">جديد</span></div>
+<p class="s-lead p-clean-line">ضيفك يدخل بلمسة، وأنت تدري.</p>
+<p class="s-small p-clean-note">قفل ذكي نركّبه بعد ما نشوف بابك. حالياً في جدة. <a class="s-tg-link" href="../demo/door/">شوف مثال «افتح الباب»</a></p>
+</div>
+<div class="p-clean-plans p-stay-plans">
+<article class="s-card p-clean-card p-stay-card" aria-labelledby="stay-entry-h">
+<span class="p-clean-card-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="15" cy="12" r="1.2"/></svg></span>
+<h4 class="s-h3" id="stay-entry-h">دخول ذكي</h4>
+<p class="p-clean-sub">الباب يفتح من جوال الضيف.</p>
+<p class="p-clean-price"><span data-stay-price="entry" class="p-clean-soon">السعر قريباً</span></p>
+<ul class="s-checks p-stay-list"><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>ضيفك يفتح الباب من جواله: يلمس الشريحة أو يمسح الباركود</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>الباب يفتح بس وقت حجزه</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>يوصلك تنبيه لما ضيفك يفتح من جواله</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>رمز احتياطي للباب، ومفتاح احتياطي يبقى عندك</span></li></ul>
+<div class="s-cta">
+<a class="lt-btn lt-btn--secondary" data-wa="stayEntry" hidden><span>اسأل على واتساب</span></a>
+<div class="s-tg" data-tg="with-wa" data-tg-rank="secondary" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</article>
+<article class="s-card p-clean-card p-stay-card" aria-labelledby="stay-entryClean-h">
+<span class="p-clean-card-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="10" height="18" rx="2"/><circle cx="10" cy="12" r="1"/><path d="M16 20h5M18.5 20V9l2.5-3M16 13h5"/></svg></span>
+<h4 class="s-h3" id="stay-entryClean-h">دخول ذكي + نظافة</h4>
+<p class="p-clean-sub">الدخول الذكي، ومعه نظافة بعد الخروج.</p>
+<p class="p-clean-price"><span data-stay-price="entryClean" class="p-clean-soon">السعر قريباً</span></p>
+<ul class="s-checks p-stay-list"><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>كل اللي في «دخول ذكي»</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>نظافة بعد كل خروج، بسعر الزيارة</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>توصلك صور الوحدة جاهزة</span></li></ul>
+<div class="s-cta">
+<a class="lt-btn lt-btn--secondary" data-wa="stayEntryClean" hidden><span>اسأل على واتساب</span></a>
+<div class="s-tg" data-tg="with-wa" data-tg-rank="secondary" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</article>
+<article class="s-card p-clean-card p-stay-card p-stay-card--feat" aria-labelledby="stay-full-h">
+<span class="p-clean-card-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4m8-4v4m-8 7h2m3 0h2m-7 3h2"/></svg></span>
+<h4 class="s-h3" id="stay-full-h">دخول + تقويم الحجوزات</h4>
+<p class="p-clean-sub">الدخول الذكي، وتقويم حجوزاتك في مكان واحد.</p>
+<p class="p-clean-price"><span data-stay-price="full" class="p-clean-soon">السعر قريباً</span></p>
+<ul class="s-checks p-stay-list"><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>كل اللي في «دخول ذكي»</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>تقويم حجوزات تديره بنفسك</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>الباب يفتح حسب الحجز اللي تدخله</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>النظافة تنضاف بطلبك</span></li></ul>
+<div class="s-cta">
+<a class="lt-btn" data-wa="stayFull" hidden><span>اسأل على واتساب</span></a>
+<div class="s-tg" data-tg="with-wa" data-tg-rank="secondary" hidden>
+<p class="s-tg-line">أو <a class="s-tg-link" data-tg-link>كلّمنا على تليجرام</a></p>
+<p class="s-tg-note">بالضغط تنفتح محادثة مع بوت <span data-company>لمسة تاب</span>، ويوصلنا معرّفك في تليجرام لهذا الطلب بس، وما نشاركه مع أحد. <a data-link="privacy" hidden>سياسة الخصوصية</a></p>
+</div>
+</div>
+</article>
+</div>
+<p class="s-small p-stay-note">الدفع والتواصل مع ضيفك يبقون عندك. الأسعار تطلع هنا بعد اعتمادها.</p>
+</div>
 <!-- اللي ما نسويه (web-copy المضيفين بند 6، ج6): نفس نمط المطاعم (AD-15)، ثلاث أعمدة من 1024 بأيقونة «لا» رمادية -->
 <div class="p-dont">
 <h3 class="s-h3" id="dont-h">اللي ما نسويه</h3>

@@ -1,7 +1,7 @@
 // QA gate: NODE_PATH=/tmp/claude-0/sp/node_modules node check.js [port]
 const {chromium}=require('playwright');const fs=require('fs');const path=require('path');
 const PORT=process.argv[2]||8831,B=`http://localhost:${PORT}`;
-const PAGES=['/','/restaurants/','/hosts/','/404.html','/demo/menu/','/demo/review/','/demo/wifi/','/demo/links/','/demo/rental-guide/'];
+const PAGES=['/','/restaurants/','/hosts/','/404.html','/demo/menu/','/demo/review/','/demo/wifi/','/demo/links/','/demo/rental-guide/','/demo/door/'];
 const CO=['/','/restaurants/','/hosts/'];const W=[320,375,390,768,1024,1440];
 const SH=path.join(__dirname,'shots');fs.mkdirSync(SH,{recursive:true});
 const R=[];const add=(c,ok,d)=>{R.push({c,ok,d});};

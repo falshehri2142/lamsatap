@@ -1,0 +1,203 @@
+{
+  "name": "LT PIN dispatch",
+  "active": false,
+  "nodes": [
+    {
+      "id": "lt-1",
+      "name": "Daily 10:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 * * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-2",
+      "name": "Bookings checking in tomorrow",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_BOOKINGS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "from",
+              "keyValue": "={{$now.setZone('Asia/Riyadh').plus({days:1}).toFormat('yyyy-MM-dd')}}"
+            },
+            {
+              "keyName": "status",
+              "keyValue": "active"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-3",
+      "name": "Make PIN + window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// PIN 6 أرقام، صالح من وقت الدخول لين الخروج + 30 دقيقة. ما ينحفظ نص الرمز، بس آخر رقمين للمرجع.\nconst crypto=require('crypto');\nconst CHECKIN='__CHECKIN_TIME__', CHECKOUT='__CHECKOUT_TIME__';\nreturn $input.all().map(i=>{const b=i.json; const pin=String(crypto.randomInt(0,1e6)).padStart(6,'0');\n return {json:{...b, pin, startMs:Date.parse(b.from+'T'+CHECKIN+':00+03:00'), endMs:Date.parse(b.to+'T'+CHECKOUT+':00+03:00')+30*60000}};});"
+      }
+    },
+    {
+      "id": "lt-4",
+      "name": "Lock add PIN (HTTP placeholder)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "__LOCK_API_BASE__/keyboardPwd/add",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({lockId:$json.lock_id, pwd:$json.pin, startDate:$json.startMs, endDate:$json.endMs}) }}",
+        "options": {
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "lt-5",
+      "name": "Mark pin_set",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        960,
+        300
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_BOOKINGS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid",
+              "keyValue": "={{$('Make PIN + window').item.json.uid}}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "pin_hint": "={{'****'+$('Make PIN + window').item.json.pin.slice(-2)}}",
+            "pin_set": true
+          }
+        }
+      }
+    },
+    {
+      "id": "lt-6",
+      "name": "Send to host (not guest)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        300
+      ],
+      "parameters": {
+        "chatId": "={{$('Make PIN + window').item.json.host_chat}}",
+        "text": "=🔑 رمز الدخول الاحتياطي لحجز {{$('Make PIN + window').item.json.ref}} ({{$('Make PIN + window').item.json.unit}}):\n<code>{{$('Make PIN + window').item.json.pin}}</code>\nيشتغل من {{$('Make PIN + window').item.json.from}} {{'__CHECKIN_TIME__'}} لين {{$('Make PIN + window').item.json.to}}.\nانسخه وأرسله لضيفك مع رابط الباب.",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily 10:00": {
+      "main": [
+        [
+          {
+            "node": "Bookings checking in tomorrow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bookings checking in tomorrow": {
+      "main": [
+        [
+          {
+            "node": "Make PIN + window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Make PIN + window": {
+      "main": [
+        [
+          {
+            "node": "Lock add PIN (HTTP placeholder)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lock add PIN (HTTP placeholder)": {
+      "main": [
+        [
+          {
+            "node": "Mark pin_set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark pin_set": {
+      "main": [
+        [
+          {
+            "node": "Send to host (not guest)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "__ERROR_WORKFLOW_ID__"
+  },
+  "meta": {
+    "note": "مسودة GM-068. غير منشورة. بدون credentials. القيم __X__ يعبيها صاحب المشروع يوم الإطلاق."
+  }
+}

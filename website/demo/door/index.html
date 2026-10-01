@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-lt-scheme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="only light">
+<meta name="robots" content="noindex">
+<meta name="description" content="مثال صفحة «افتح الباب»: ضيفك يفتح باب الوحدة من جواله وقت حجزه.">
+<title>افتح الباب، عرض تجريبي</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../assets/brand/tokens.css">
+<link rel="stylesheet" href="../../assets/brand/components.css">
+<link rel="stylesheet" href="../../assets/client.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="c">
+<!-- مقترح GM-068 (work/2026-10-01-smart-stay/study.md §6 بند 1): الصفحة اللي تفتحها شريحة الباب.
+     عرض بس: بدون أي طلب شبكة، وما يفتح باب حقيقي. الحالات: تحقق الحجز، زر «اضغط مطوّل»، انفتح، القفل ما يرد (الرمز الاحتياطي).
+     ممنوع هنا: رقم المضيف، واسم القفل، ورمز حقيقي. الرمز 0000 مثال واضح. -->
+<aside class="c-demo lt-ink" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي، ما يفتح باب حقيقي</span><a class="lt-btn lt-btn--compact" data-wa="demoDoor" aria-describedby="demo-cta-t" hidden><span>أبغى مثله</span></a></div></aside>
+<main class="c-main">
+<div class="c-id c-id--sm"><img class="c-logo" src="../_brands/apartments.svg" alt="شقق المثال"></div>
+<h1>باب شقة المثال</h1>
+<p class="c-sub d-sub">حي الشاطئ، جدة</p>
+
+<!-- 1) تحقق الحجز -->
+<section class="lt-panel d-card" id="d-verify" aria-labelledby="d-verify-h">
+<h2 class="d-h" id="d-verify-h">تأكيد الحجز</h2>
+<p class="c-sub">نتأكد إن حجزك شغّال الحين قبل ما يفتح الباب.</p>
+<label class="c-label d-label" for="d-ref">رقم الحجز</label>
+<input class="d-input" id="d-ref" value="حجز تجريبي" readonly aria-describedby="d-ref-n">
+<p class="c-sub d-note" id="d-ref-n">في العرض الرقم معبّى جاهز.</p>
+<button class="lt-btn lt-btn--shop d-wide" type="button" id="d-check"><span>تأكيد الحجز</span></button>
+</section>
+
+<!-- 2) الفتح -->
+<section class="lt-panel d-card" id="d-open" aria-labelledby="d-open-h" hidden>
+<p class="d-ok-line"><span class="d-dot" aria-hidden="true"></span>حجزك مؤكد · الدخول متاح الحين</p>
+<h2 class="d-h" id="d-open-h">افتح الباب</h2>
+<p class="c-sub" id="d-hold-n">اضغط على الزر وخلّك ضاغط ثانية لين يمتلي. من الكيبورد: خلّ زر المسافة مضغوط.</p>
+<button class="d-hold" type="button" id="d-hold" aria-describedby="d-hold-n">
+<span class="d-hold-fill" aria-hidden="true"></span>
+<svg class="d-hold-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>
+<span class="d-hold-t">اضغط مطوّل للفتح</span>
+</button>
+<label class="d-sim"><input type="checkbox" id="d-fail"> جرّب حالة: القفل ما يرد</label>
+</section>
+
+<!-- 3) انفتح -->
+<section class="lt-panel d-card d-done" id="d-done" aria-labelledby="d-done-h" hidden tabindex="-1">
+<svg class="d-big-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg>
+<h2 class="d-h" id="d-done-h">انفتح الباب</h2>
+<p>ادخل، وتأكد إن الباب تسكّر وراك.</p>
+<p class="c-sub">وصل تنبيه للمضيف إن الباب انفتح.</p>
+</section>
+
+<!-- 4) القفل ما يرد: الرمز الاحتياطي -->
+<section class="lt-panel d-card" id="d-pin" aria-labelledby="d-pin-h" hidden tabindex="-1">
+<h2 class="d-h" id="d-pin-h">القفل ما رد</h2>
+<p>ممكن النت ضعيف عند الباب. افتح بالرمز الاحتياطي من لوحة القفل.</p>
+<p class="c-label d-label">الرمز الاحتياطي لحجزك</p>
+<p class="d-pin" dir="ltr">0000 #</p>
+<p class="c-sub">في العرض الرمز مثال. الرمز الحقيقي يشتغل وقت حجزك بس.</p>
+<button class="lt-btn lt-btn--secondary d-wide" type="button" id="d-retry"><span>جرّب الفتح مرة ثانية</span></button>
+</section>
+
+<p class="c-status" id="d-status" role="status" aria-live="polite"></p>
+
+<section class="d-more" aria-labelledby="d-more-h">
+<h2 id="d-more-h">بعد ما تدخل</h2>
+<a class="lt-panel d-link" href="../rental-guide/"><span>دليل الوحدة: الواي فاي، والتكييف، والشروط</span><span aria-hidden="true">←</span></a>
+<a class="lt-panel d-link" href="../rental-guide/#out-h"><span>وقت الخروج: «تم الخروج»</span><span aria-hidden="true">←</span></a>
+</section>
+
+<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">للمضيف</h2>
+<p>هذي الصفحة اللي يشوفها ضيفك لما يلمس الشريحة على الباب أو يمسح الباركود. الباب يفتح بس وقت حجزه، ويوصلك تنبيه.</p>
+<a class="lt-btn" data-wa="demoDoor" hidden><span id="demo-cta-t">أبغى الدخول الذكي لوحداتي</span></a>
+<p class="c-owner-back"><a class="lt-link" href="../../hosts/#stay"><span>رجوع لصفحة المضيفين</span></a></p></section>
+</main>
+<script src="../../config.js?v=whatsapp-20260930"></script>
+<script src="../../assets/app.js?v=channels-20260930"></script>
+<script src="door.js"></script>
+</body>
+</html>

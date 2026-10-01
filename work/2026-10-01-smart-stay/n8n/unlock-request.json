@@ -1,0 +1,575 @@
+{
+  "name": "LT door open",
+  "active": false,
+  "nodes": [
+    {
+      "id": "lt-1",
+      "name": "Webhook door-open",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "door-open",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "__SITE_ORIGIN__"
+        }
+      }
+    },
+    {
+      "id": "lt-2",
+      "name": "Validate shape",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const b=$json.body||{};\nconst ip=($json.headers['x-forwarded-for']||'').split(',')[0].trim();\nconst ok=/^[a-z0-9]{3,16}$/.test(b.unit||'') && /^[A-Za-z0-9_-]{22}$/.test(b.token||'');\nreturn [{json:{ok, unit:b.unit, token:b.token, ip, now:new Date().toISOString()}}];"
+      }
+    },
+    {
+      "id": "lt-3",
+      "name": "Rate limit lookup",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_RATE_LIMIT__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "key",
+              "keyValue": "={{ 'ip:'+$json.ip }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "lt-4",
+      "name": "Check limits",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// حد المحاولات على الـIP والرابط، مو على الوحدة (study.md)\nconst v=$('Validate shape').first().json;\nconst rows=$input.all().map(i=>i.json).filter(r=>r.ts && Date.now()-Date.parse(r.ts)<15*60*1000);\nconst fails=rows.filter(r=>r.result==='fail').length;\nconst opens=rows.filter(r=>r.result==='open' && Date.now()-Date.parse(r.ts)<60*1000).length;\nconst limited=fails>=5||opens>=3;\nreturn [{json:{...v, limited, status: !v.ok?'bad_link':(limited?'too_many':'continue')}}];"
+      }
+    },
+    {
+      "id": "lt-5",
+      "name": "Allowed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{$json.status}}",
+              "rightValue": "continue",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-6",
+      "name": "Hash token",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        300
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "value": "={{$json.token}}",
+        "dataPropertyName": "token_hash"
+      }
+    },
+    {
+      "id": "lt-7",
+      "name": "Find booking",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_BOOKINGS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "unit",
+              "keyValue": "={{$json.unit}}"
+            },
+            {
+              "keyName": "token_hash",
+              "keyValue": "={{$json.token_hash}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-8",
+      "name": "Check window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        300
+      ],
+      "parameters": {
+        "alwaysOutputData": true,
+        "jsCode": "// الفترة: من (from + وقت الدخول) لين (to + وقت الخروج + 30 دقيقة)\nconst v=$('Hash token').first().json; const b=$input.first()?.json||{};\nconst CHECKIN='__CHECKIN_TIME__', CHECKOUT='__CHECKOUT_TIME__'; // مثال 15:00 و 12:00 بتوقيت +03:00\nlet status='bad_link';\nif (b.uid && b.status==='active') {\n  const a=Date.parse(b.from+'T'+CHECKIN+':00+03:00'), z=Date.parse(b.to+'T'+CHECKOUT+':00+03:00')+30*60000, n=Date.now();\n  status = n<a ? 'too_early' : (n>z ? 'expired' : 'ok');\n}\nreturn [{json:{...v, ref:b.ref, lock_id:b.lock_id, host_chat:b.host_chat, pin_hint:b.pin_hint, status, opens_at:CHECKIN}}];"
+      }
+    },
+    {
+      "id": "lt-9",
+      "name": "Window ok?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1920,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{$json.status}}",
+              "rightValue": "ok",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-10",
+      "name": "Lock unlock (HTTP placeholder)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2160,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "__LOCK_API_BASE__/unlock",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({lockId:$json.lock_id}) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "id": "lt-11",
+      "name": "Lock result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// عدّل حسب رد API القفل الفعلي (TTLock: errcode=0 نجاح — غير مؤكد)\nconst v=$('Window ok?').first().json; const r=$input.first().json;\nconst opened = !r.error && (r.errcode===0 || r.success===true);\nreturn [{json:{...v, status: opened?'opened':'offline', result: opened?'open':'lock_fail', body:{status: opened?'opened':'offline'}}}];"
+      }
+    },
+    {
+      "id": "lt-12",
+      "name": "Audit log",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        2640,
+        300
+      ],
+      "parameters": {
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_AUDIT_LOG__"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ts": "={{$json.now}}",
+            "unit": "={{$json.unit}}",
+            "ref": "={{$json.ref}}",
+            "action": "door_open",
+            "result": "={{$json.result}}"
+          }
+        }
+      }
+    },
+    {
+      "id": "lt-13",
+      "name": "Telegram host + us",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2880,
+        300
+      ],
+      "parameters": {
+        "chatId": "__OWNER_CHAT_ID__",
+        "text": "={{$('Lock result').first().json.status==='opened' ? '🔓 انفتح باب' : '⚠️ القفل ما رد —'}} {{$('Lock result').first().json.unit}} — حجز {{$('Lock result').first().json.ref}} — {{$now.setZone('Asia/Riyadh').toFormat('HH:mm')}}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      }
+    },
+    {
+      "id": "lt-14",
+      "name": "Body ok",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3120,
+        300
+      ],
+      "parameters": {
+        "jsCode": "return [{json:{body:$('Lock result').first().json.body}}];"
+      }
+    },
+    {
+      "id": "lt-15",
+      "name": "Respond ok",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3360,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.body || {status:$json.status}) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "__SITE_ORIGIN__"
+              },
+              {
+                "name": "Cache-Control",
+                "value": "no-store"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "lt-16",
+      "name": "Log fail (rate)",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        300
+      ],
+      "parameters": {
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_RATE_LIMIT__"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "key": "={{ 'ip:'+$json.ip }}",
+            "ts": "={{$json.now}}",
+            "result": "={{$json.status===\"too_early\" ? \"early\" : \"fail\"}}"
+          }
+        }
+      }
+    },
+    {
+      "id": "lt-17",
+      "name": "Body refuse",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const s=$('Check limits').first().json.status==='continue' ? $('Check window').first().json : $('Check limits').first().json;\nconst body={status:s.status}; if(s.status==='too_early') body.opens_at=s.opens_at;\nreturn [{json:{body, code: s.status==='too_many'?429:(s.status==='bad_link'?404:403)}}];"
+      }
+    },
+    {
+      "id": "lt-18",
+      "name": "Respond refuse",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2640,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.body) }}",
+        "options": {
+          "responseCode": "={{$json.code}}",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "__SITE_ORIGIN__"
+              },
+              {
+                "name": "Cache-Control",
+                "value": "no-store"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook door-open": {
+      "main": [
+        [
+          {
+            "node": "Validate shape",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate shape": {
+      "main": [
+        [
+          {
+            "node": "Rate limit lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rate limit lookup": {
+      "main": [
+        [
+          {
+            "node": "Check limits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check limits": {
+      "main": [
+        [
+          {
+            "node": "Allowed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Allowed?": {
+      "main": [
+        [
+          {
+            "node": "Hash token",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log fail (rate)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash token": {
+      "main": [
+        [
+          {
+            "node": "Find booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find booking": {
+      "main": [
+        [
+          {
+            "node": "Check window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check window": {
+      "main": [
+        [
+          {
+            "node": "Window ok?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window ok?": {
+      "main": [
+        [
+          {
+            "node": "Lock unlock (HTTP placeholder)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log fail (rate)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lock unlock (HTTP placeholder)": {
+      "main": [
+        [
+          {
+            "node": "Lock result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lock result": {
+      "main": [
+        [
+          {
+            "node": "Audit log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit log": {
+      "main": [
+        [
+          {
+            "node": "Telegram host + us",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram host + us": {
+      "main": [
+        [
+          {
+            "node": "Body ok",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Body ok": {
+      "main": [
+        [
+          {
+            "node": "Respond ok",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log fail (rate)": {
+      "main": [
+        [
+          {
+            "node": "Body refuse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Body refuse": {
+      "main": [
+        [
+          {
+            "node": "Respond refuse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "__ERROR_WORKFLOW_ID__"
+  },
+  "meta": {
+    "note": "مسودة GM-068. غير منشورة. بدون credentials. القيم __X__ يعبيها صاحب المشروع يوم الإطلاق."
+  }
+}

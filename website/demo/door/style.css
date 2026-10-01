@@ -1,0 +1,27 @@
+/* افتح الباب (عرض). فوق client.css: كروت بيضاء، وزر «اضغط مطوّل» 64px. لون المضيف من شقق المثال ثابت هنا */
+body.c { --shop: #1F3B57; --shop-line: #1F3B57; --shop-tint: #E9EEF3; }
+.d-sub { text-align: center; margin: -8px 0 var(--lt-space-24); }
+.c-main h1 { text-align: center; }
+.d-card { padding: var(--lt-space-24) var(--lt-space-20); display: grid; gap: var(--lt-space-12); }
+.d-h { margin: 0 !important; font-size: 22px; }
+.d-label { margin-top: var(--lt-space-8); }
+.d-input { min-height: 56px; padding: 0 var(--lt-space-16); border: 1px solid var(--lt-border); border-radius: var(--lt-radius-m); background: var(--lt-surface-2); font: inherit; font-size: 17px; color: var(--lt-text); }
+.d-note { margin-top: -4px; }
+.d-wide { width: 100%; margin: 0; }
+.d-ok-line { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #1C6B3A; }
+.d-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.d-hold { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-height: 72px; margin-top: var(--lt-space-8);
+  border: 0; border-radius: var(--lt-radius-m); background: var(--shop); color: #fff; font: inherit; font-size: 19px; font-weight: 700; cursor: pointer;
+  touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.d-hold > :not(.d-hold-fill) { position: relative; }
+.d-hold-fill { position: absolute; inset: 0; background: rgba(255,255,255,.22); transform: scaleX(var(--p, 0)); transform-origin: right; }
+.d-hold-i { width: 26px; height: 26px; }
+.d-hold[aria-busy="true"] { cursor: progress; }
+.d-sim { display: flex; align-items: center; gap: 10px; min-height: 48px; font-size: 14px; color: var(--lt-muted); }
+.d-sim input { width: 22px; height: 22px; accent-color: var(--shop); }
+.d-done { text-align: center; justify-items: center; }
+.d-big-i { width: 64px; height: 64px; color: #1C6B3A; }
+.d-pin { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 36px; font-weight: 700; letter-spacing: .12em; text-align: right; }
+.d-more h2 { margin-top: var(--lt-space-32); }
+.d-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: var(--lt-space-16) var(--lt-space-20); margin-bottom: var(--lt-space-12); text-decoration: none; font-weight: 600; }
+.d-card + .d-card { margin-top: var(--lt-space-16); }

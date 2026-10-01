@@ -1,0 +1,265 @@
+{
+  "name": "LT booking sync (iCal)",
+  "active": false,
+  "nodes": [
+    {
+      "id": "lt-1",
+      "name": "Every 30 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-2",
+      "name": "Get units",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_UNITS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "active",
+              "condition": "eq",
+              "keyValue": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-3",
+      "name": "Split iCal URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// كل وحدة فيها ical_urls مفصولة بفاصلة\nreturn $input.all().flatMap(i => String(i.json.ical_urls||'').split(',').map(u=>u.trim()).filter(u=>/^https:\\/\\//.test(u)).map(url=>({json:{unit:i.json.unit,host_chat:i.json.host_chat,url}})));"
+      }
+    },
+    {
+      "id": "lt-4",
+      "name": "Fetch iCal",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "url": "={{$json.url}}",
+        "options": {
+          "timeout": 15000,
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "lt-5",
+      "name": "Parse VEVENT",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const res=[];\nfor (const [i,it] of $input.all().entries()) {\n  const src=$('Split iCal URLs').all()[i].json;\n  const txt=String(it.json.data||'').replace(/\\r?\\n[ \\t]/g,'');\n  for (const ev of txt.split('BEGIN:VEVENT').slice(1)) {\n    const g=k=>(ev.match(new RegExp('^'+k+'[^:]*:(.*)$','m'))||[])[1]||'';\n    const d=s=>s?s.replace(/^(\\d{4})(\\d{2})(\\d{2}).*/,'$1-$2-$3'):'';\n    const uid=g('UID'); if(!uid) continue;\n    res.push({json:{uid, unit:src.unit, host_chat:src.host_chat, from:d(g('DTSTART')), to:d(g('DTEND')), status: /CANCELLED/i.test(g('STATUS'))?'cancelled':'pending_token'}});\n  }\n}\nreturn res;"
+      }
+    },
+    {
+      "id": "lt-6",
+      "name": "Upsert bookings",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        300
+      ],
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_BOOKINGS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid",
+              "keyValue": "={{$json.uid}}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        }
+      }
+    },
+    {
+      "id": "lt-7",
+      "name": "New or cancelled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1440,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "or",
+          "conditions": [
+            {
+              "leftValue": "={{$json.status}}",
+              "rightValue": "cancelled",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "leftValue": "={{$json.createdAt === $json.updatedAt}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-8",
+      "name": "Notify host",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1680,
+        300
+      ],
+      "parameters": {
+        "chatId": "={{$json.host_chat}}",
+        "text": "={{$json.status==='cancelled' ? '❌' : '🆕'}} حجز {{$json.unit}}: {{$json.from}} ← {{$json.to}}\n{{$json.status==='cancelled' ? 'انلغى. الرابط والرمز ينحذفون.' : 'ولّد رابط الضيف من الزر.'}}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every 30 min": {
+      "main": [
+        [
+          {
+            "node": "Get units",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get units": {
+      "main": [
+        [
+          {
+            "node": "Split iCal URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split iCal URLs": {
+      "main": [
+        [
+          {
+            "node": "Fetch iCal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch iCal": {
+      "main": [
+        [
+          {
+            "node": "Parse VEVENT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse VEVENT": {
+      "main": [
+        [
+          {
+            "node": "Upsert bookings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert bookings": {
+      "main": [
+        [
+          {
+            "node": "New or cancelled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New or cancelled?": {
+      "main": [
+        [
+          {
+            "node": "Notify host",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "__ERROR_WORKFLOW_ID__"
+  },
+  "meta": {
+    "note": "مسودة GM-068. غير منشورة. بدون credentials. القيم __X__ يعبيها صاحب المشروع يوم الإطلاق."
+  }
+}

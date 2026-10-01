@@ -1,0 +1,442 @@
+{
+  "name": "LT checkout to cleaning (GM-067)",
+  "active": false,
+  "nodes": [
+    {
+      "id": "lt-1",
+      "name": "Webhook checkout",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "checkout",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "__SITE_ORIGIN__"
+        }
+      }
+    },
+    {
+      "id": "lt-2",
+      "name": "Validate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const b=$json.body||{}; const ok=/^[a-z0-9]{3,16}$/.test(b.unit||'')&&/^[A-Za-z0-9_-]{22}$/.test(b.token||'');\nreturn [{json:{ok, unit:b.unit, token:b.token}}];"
+      }
+    },
+    {
+      "id": "lt-3",
+      "name": "Hash token",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "value": "={{$json.token||\"\"}}",
+        "dataPropertyName": "token_hash"
+      }
+    },
+    {
+      "id": "lt-4",
+      "name": "Find booking",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_BOOKINGS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "unit",
+              "keyValue": "={{$json.unit}}"
+            },
+            {
+              "keyName": "token_hash",
+              "keyValue": "={{$json.token_hash}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-5",
+      "name": "Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{$json.status}}",
+              "rightValue": "active",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-6",
+      "name": "Mark checked_out",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        300
+      ],
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_BOOKINGS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "uid",
+              "keyValue": "={{$json.uid}}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "checked_out"
+          }
+        }
+      }
+    },
+    {
+      "id": "lt-7",
+      "name": "Owner: send to cleaning?",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1440,
+        300
+      ],
+      "parameters": {
+        "chatId": "__OWNER_CHAT_ID__",
+        "text": "=🧳 تم الخروج: {{$json.unit}} — حجز {{$json.ref}}.\nأرسلها للنظافة؟",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        },
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "أرسل للنظافة",
+                    "additionalFields": {
+                      "callback_data": "={{\"clean:\"+$json.unit}}"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-8",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\"status\":\"ok\"}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "__SITE_ORIGIN__"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "lt-9",
+      "name": "Telegram button press",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "updates": [
+          "callback_query"
+        ]
+      }
+    },
+    {
+      "id": "lt-10",
+      "name": "Only owner + clean:",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{String($json.callback_query.from.id)}}",
+              "rightValue": "__OWNER_CHAT_ID__",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "leftValue": "={{$json.callback_query.data}}",
+              "rightValue": "clean:",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-11",
+      "name": "Get unit",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "__DT_UNITS__"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "unit",
+              "keyValue": "={{$json.callback_query.data.slice(6)}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lt-12",
+      "name": "To cleaning company",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "chatId": "__CLEANING_CHAT_ID__",
+        "text": "=🧹 نظافة بعد الخروج\nالعنوان: {{$json.address}}\nوقت الخروج: {{$now.setZone('Asia/Riyadh').toFormat('yyyy-MM-dd HH:mm')}}\nرمز دخول النظافة: من صاحب المشروع (محفوظ في n8n، ما ينكتب هنا)",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      }
+    },
+    {
+      "id": "lt-13",
+      "name": "Confirm to owner",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        300
+      ],
+      "parameters": {
+        "chatId": "__OWNER_CHAT_ID__",
+        "text": "=✅ انرسلت للنظافة: {{$('Get unit').item.json.unit}}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook checkout": {
+      "main": [
+        [
+          {
+            "node": "Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate": {
+      "main": [
+        [
+          {
+            "node": "Hash token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash token": {
+      "main": [
+        [
+          {
+            "node": "Find booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find booking": {
+      "main": [
+        [
+          {
+            "node": "Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Found?": {
+      "main": [
+        [
+          {
+            "node": "Mark checked_out",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark checked_out": {
+      "main": [
+        [
+          {
+            "node": "Owner: send to cleaning?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Owner: send to cleaning?": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram button press": {
+      "main": [
+        [
+          {
+            "node": "Only owner + clean:",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only owner + clean:": {
+      "main": [
+        [
+          {
+            "node": "Get unit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get unit": {
+      "main": [
+        [
+          {
+            "node": "To cleaning company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "To cleaning company": {
+      "main": [
+        [
+          {
+            "node": "Confirm to owner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "__ERROR_WORKFLOW_ID__"
+  },
+  "meta": {
+    "note": "مسودة GM-068. غير منشورة. بدون credentials. القيم __X__ يعبيها صاحب المشروع يوم الإطلاق."
+  }
+}

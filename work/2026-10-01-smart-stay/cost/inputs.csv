@@ -1,0 +1,24 @@
+key,low,base,high,unit,source
+lock_price,169,190,218,SAR/unit,amazon.sa بحث قفل ذكي TTLock (locks/report.md [4]) https://www.amazon.sa/-/en/s?k=قفل+ذكي ؛ غير مؤكد (الضريبة والشحن)
+gateway_price,81,120,159,SAR/unit,https://www.amazon.sa/dp/B0CSX8MB2X و https://www.amazon.sa/dp/B0BNPK17J6 (locks/report.md [3]) غير مؤكد
+nfc_sign,16.17,19.17,25,SAR/unit,finance/inputs.csv shop_bundle/cost_stand_unit 16.17 + شحن 3 (engineering/client-logo-printing.md) غير مؤكد لإطار الباب
+locksmith_fee,50,100,200,SAR/unit,غير مؤكد: ما فيه مصدر منشور لأجرة فني أقفال في جدة (locks/report.md بند 4)
+install_minutes,60,90,120,min/unit,افتراض fin-modeler غير مؤكد (قياس الباب + إعداد البوابة + تجربة)
+install_transport,20,20,40,SAR/unit,finance/inputs.csv all/install_delivery غير مؤكد
+labor_rate,25,25,25,SAR/hour,قرار صاحب المشروع 2026-09-27 (finance/inputs.csv all/labor_cost_per_hour)
+hosting_unit,3,3,5,SAR/unit/month,finance/inputs.csv host_free_hw/cost_hosting_monthly غير مؤكد
+n8n_plan_month,106,264,264,SAR/month,https://n8n.io/pricing (Starter ~€24 / Pro ~€60 × 4.4) غير مؤكد؛ نظام الحجوزات يصرف ~4300 تنفيذ/شهر ثابت (system/report.md بند 9) فالأغلب يحتاج Pro
+telegram_cost,0,0,0,SAR/msg,Telegram Bot API مجاني https://core.telegram.org/bots/api (تنبيهاتنا GM-048)
+wa_msg_cost,0.1,0.2,0.3,SAR/msg,finance/inputs.csv غير مؤكد؛ يُراجع https://developers.facebook.com/docs/whatsapp/pricing
+wa_msgs_unit_month,10,20,40,msg/unit/month,finance/inputs.csv host_bundle غير مؤكد (تأكيد حجز + PIN + خروج لكل حجز)
+wa_platform_month,0,50,100,SAR/month,finance/inputs.csv host_free_hw/wa_platform_monthly غير مؤكد
+sms_cost,0.08,0.12,0.2,SAR/msg,غير مؤكد: أسعار مزودي SMS في السعودية ما تأكدت
+sms_msgs_unit_month,0,3,10,msg/unit/month,افتراض fin-modeler: احتياط لو الواتساب فشل، غير مؤكد
+support_min_unit_month,10,20,40,min/unit/month,افتراض fin-modeler غير مؤكد (ضيف ما فتح، تغيير PIN، تنبيه بطارية)
+battery_unit_year,10,15,25,SAR/unit/year,غير مؤكد: بطاريات AA للقفل (locks/report.md بند 4)
+failure_rate_year,0.05,0.10,0.20,ratio/year,افتراض fin-risk/fin-modeler غير مؤكد (قفل أو بوابة يتبدل بالسنة)
+payment_fee_pct,0.02,0.025,0.03,ratio,finance/inputs.csv all/payment_fee_pct غير مؤكد
+cleaning_price_visit,179,179,299,SAR/visit,services/cleaning.md اقتراح غير معتمد
+cleaning_markup,1.5,1.5,1.5,x,services/cleaning.md (عرض الشركة × 1.5) غير مؤكد
+cleaning_visits_unit_month,4,8,12,visit/unit/month,افتراض fin-modeler غير مؤكد (عدد حجوزات الوحدة)
+cleaning_coord_min,5,10,15,min/visit,افتراض fin-modeler غير مؤكد (ضغطة إرسال + توصيل الصور)

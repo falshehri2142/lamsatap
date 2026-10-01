@@ -454,3 +454,15 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .a-text-link:active, .p-lab-link:active, .p-calc-step:active:not(:disabled), .p-calc-bill label:active span, .p-calc-step:hover:not(:disabled), .p-calc-bill label:hover span, .p-lab-link:hover svg { transform: none; }
   .p-sign-tap { animation: none; }
 }
+
+/* مقترح GM-068: باقات الإقامة الذكية (#stay). نفس سطح النظافة وكروتها (.p-clean-card)، ثلاث كروت من 1024 */
+.p-stay { margin-top: var(--lt-space-32); padding: var(--lt-space-32) var(--lt-space-20); border-radius: var(--lt-radius-l); background: var(--lt-bg); display: grid; gap: var(--lt-space-32); }
+.p-stay-list { margin: 0 0 var(--lt-space-8); }
+.p-stay-card { align-content: stretch; grid-template-rows: auto auto auto auto 1fr auto; }
+.p-stay-card--feat { outline: 2px solid var(--lt-ink); outline-offset: -2px; }
+.p-stay-note { margin: 0; color: var(--lt-muted); }
+@media (min-width: 768px) { .p-stay-plans { grid-template-columns: 1fr; } }
+@media (min-width: 1024px) {
+  .p-stay { padding: var(--lt-space-48); }
+  .p-stay-plans { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}

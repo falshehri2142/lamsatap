@@ -66,3 +66,12 @@
     if (v) { el.textContent = v; el.classList.remove('p-clean-soon'); }
   });
 })();
+
+// مقترح GM-068: سعر باقات الإقامة الذكية من config.js ‏smartStayPrices. فاضي = يبقى «السعر قريباً».
+(function () {
+  var P = (window.SITE && window.SITE.smartStayPrices) || {};
+  document.querySelectorAll('[data-stay-price]').forEach(function (el) {
+    var v = String(P[el.getAttribute('data-stay-price')] || '').trim();
+    if (v) { el.textContent = v; el.classList.remove('p-clean-soon'); }
+  });
+})();
