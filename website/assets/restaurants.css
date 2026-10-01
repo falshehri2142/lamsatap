@@ -362,19 +362,26 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .a-text-link:active, .r-lab-link:active, .r-lab-link:hover svg { transform: none; }
 }
 .r-story.is-editorial .r-steps > li::before { transition: none; }   /* رقم الخطوة يتلون فوري، والتقدّم يوضحه الشريط (scaleX) */
-/* إضافة «الطلب من الطاولة» (#order) */
-.r-order { margin-top: var(--lt-space-32); padding: var(--lt-space-32); box-shadow: var(--lt-elev-float); }
+/* إدارة المطعم (#order، GM-072 مقترح) */
+.r-order { margin-top: var(--lt-space-32); padding: var(--lt-space-32) var(--lt-space-24); box-shadow: var(--lt-elev-float); }
 .r-order-badge { display: inline-block; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--lt-bg); border: var(--lt-hairline) solid var(--lt-border); margin-bottom: var(--lt-space-12); }
-.r-order .s-h3 { font-size: 24px; }
-.r-order-lead { margin-top: var(--lt-space-8); color: var(--lt-muted); max-width: 46ch; }
-.r-order-steps { list-style: none; padding: 0; margin: var(--lt-space-24) 0; display: grid; gap: var(--lt-space-12); }
-.r-order-steps li { display: flex; align-items: center; gap: var(--lt-space-12); }
-.r-order-n { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; background: var(--lt-ink, #111); color: #fff; font-variant-numeric: tabular-nums; }
-.r-order-price { margin-top: var(--lt-space-16); font-weight: 700; font-size: 18px; }
-.r-order .s-cta { margin-top: var(--lt-space-16); }
+.r-order .s-h3 { font-size: 24px; line-height: 1.35; max-width: 22ch; }
+.r-order-lead { margin-top: var(--lt-space-12); color: var(--lt-muted); max-width: 52ch; }
+.r-order-cols { display: grid; gap: var(--lt-space-24); margin-top: var(--lt-space-32); }
+.r-order-g { font-size: 15px; font-weight: 700; color: var(--lt-muted); margin-bottom: var(--lt-space-12); }
+.r-order-tiers { display: grid; gap: var(--lt-space-12); margin-top: var(--lt-space-32); }
+.r-order-tier { padding: var(--lt-space-16) var(--lt-space-20, 20px); border-radius: 16px; background: var(--lt-bg); border: var(--lt-hairline) solid var(--lt-border); }
+.r-order-tn { font-weight: 700; font-size: 18px; }
+.r-order-td { color: var(--lt-muted); font-size: 15px; margin-top: 2px; }
+.r-order-price { margin-top: var(--lt-space-8); font-weight: 700; }
+.r-order-cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-12); margin-top: var(--lt-space-24); }
+.r-order-wa { width: 100%; min-height: 44px; display: inline-flex; align-items: center; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; color: var(--lt-ink); cursor: pointer; }
 @media (min-width: 900px) {
-  .r-order { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--lt-space-48); padding: var(--lt-space-48); }
-  .r-order > :not(.r-order-steps):not(.s-checks) { grid-column: 1 / -1; }
-  .r-order-badge { justify-self: start; }
-  .r-order .s-h3 { font-size: 28px; }
+  .r-order { padding: var(--lt-space-48); }
+  .r-order .s-h3 { font-size: 32px; }
+  .r-order-cols, .r-order-tiers { grid-template-columns: 1fr 1fr; column-gap: var(--lt-space-48); }
+  .r-order-tiers { column-gap: var(--lt-space-16); }
+  .r-order-cta .lt-btn { width: auto; flex: none; padding-inline: var(--lt-space-32); }
+  .r-order-wa { width: auto; margin-inline-start: var(--lt-space-12); }
 }
+.r-order-cta > * { margin: 0; }
