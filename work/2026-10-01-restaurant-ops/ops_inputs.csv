@@ -1,0 +1,150 @@
+key,scope,actual_value,estimate,unit,source
+labor_cost_per_hour,all,25,25,SAR/hour,قرار صاحب المشروع 2026-09-27 (finance/inputs.csv)
+tables,S,,15,tables,حد الدرجة الأعلى S≤15 (market.md)؛ نحسب على الحد الأعلى احتياطاً
+tables,M,,30,tables,حد الدرجة الأعلى M 16-30 (market.md)
+tables,L45,,45,tables,وسط L 31-60 (طلب القسم)
+tables,L60,,60,tables,حد L الأعلى (طلب القسم)
+spare_ratio,all,,0.10,ratio,احتياط 10% من الستاندات (hardware.md §4) غير مؤكد
+stand_unit_incl,all,,16.40,SAR/unit,حامل JST 4.25 شامل + ورقة الإيثار 9.20 شامل (مؤكدين 2026-09-27 engineering/client-logo-printing.md) + شريحة €0.67×4.4=2.95 (الصرف غير مؤكد)؛ يطابق جدول hardware.md §4 بالشامل
+lamination_per_stand,all,,1.5,SAR/unit,تغليف بارد للورقة: سعره غير مؤكد (hardware.md §1) افتراض fin-modeler
+order_shipping_incl,all,,65,SAR/order,شحن JST 35 (مؤكد jst.sa/shipping-and-payment) + الإيثار 30 (افتراض hardware.md غير مؤكد)
+shop_stands,all,,0,units,نداء النادل بدون حزمة المحل
+shop_stands,order,,2,units,حزمة المحل داخل الباقة: ستاند تقييم + واي فاي/روابط (finance/inputs.csv shop_stands_included)
+shop_stands,pro,,2,units,نفس order
+shop_stand_incl,all,,21.6,SAR/unit,ستاند بشعار: ورقة 9.20 + حامل 6.00 (5.22 قبل الضريبة) + شريحة 2.95 + شحن 3.45 (finance/inputs.csv shop_bundle ×1.15) غير مؤكد
+holder_incl,all,,4.25,SAR/unit,حامل JST شامل (مؤكد 2026-09-27 hardware.md) يرجع للمخزون لو التجربة ما تحولت
+setup_fixed_min,all,,120,min/client,قالب الأوراق 45 + تنسيق الموردين 20 + إعداد الشاشة وتدريب الكاشير 40 + تجربة 15 (hardware.md §3) غير مؤكد
+per_table_min,all,,8,min/table,6-10 دقائق للطاولة (hardware.md §3) غير مؤكد
+menu_entry_min,S,,180,min/client,إدخال منيو بأسعار وإضافات ~40 صنف (shop_bundle 180) افتراض fin-modeler غير مؤكد
+menu_entry_min,M,,240,min/client,~70 صنف افتراض fin-modeler غير مؤكد
+menu_entry_min,L45,,300,min/client,~100 صنف افتراض fin-modeler غير مؤكد
+menu_entry_min,L60,,300,min/client,~100 صنف افتراض fin-modeler غير مؤكد
+menu_entry_min,waiter,,30,min/client,ما فيه منيو: إعداد المطعم وأسباب النداء بس (افتراض fin-modeler غير مؤكد)
+menu_entry_min,waiter_addon,,15,min/client,المطعم موجود عندنا من حزمة المحل (افتراض fin-modeler غير مؤكد)
+menu_design_min,all,,0,min/client,نداء النادل ما فيه تصميم منيو
+menu_design_min,order,,120,min/client,design_minutes في finance/inputs.csv (shop_bundle) غير مؤكد
+menu_design_min,pro,,120,min/client,نفس order
+logo_design_min,all,,0,min/client,نداء النادل بدون ستاند شعار
+logo_design_min,order,,60,min/client,تصميم الشعار للستاند (finance/inputs.csv shop_bundle labor 310) غير مؤكد
+logo_design_min,pro,,60,min/client,نفس order
+shop_install_min,all,,0,min/client,-
+shop_install_min,order,,30,min/client,تركيب ستاندي المحل في نفس الزيارة (shop_bundle ~50 مع زيارة منفصلة) افتراض fin-modeler غير مؤكد
+shop_install_min,pro,,30,min/client,نفس order
+training_min,S,,30,min/client,تدريب الموظفين (النُدُل والكاشير) على الشاشة والنداء: افتراض fin-modeler غير مؤكد
+training_min,M,,45,min/client,افتراض fin-modeler غير مؤكد
+training_min,L45,,60,min/client,افتراض fin-modeler غير مؤكد (فترتين)
+training_min,L60,,60,min/client,افتراض fin-modeler غير مؤكد
+extra_setup_min,all,,0,min/client,-
+extra_setup_min,pro,,60,min/client,عدة شاشات (كاشير ومطبخ وبار) + تدريب المدير على اللوحة: افتراض fin-modeler غير مؤكد
+hypercare_min,waiter,,30,min/client,دعم زايد أول شهر (اتصالات وضبط): افتراض fin-modeler غير مؤكد
+hypercare_min,waiter_addon,,30,min/client,نفس waiter
+hypercare_min,order,,60,min/client,افتراض fin-modeler غير مؤكد
+hypercare_min,pro,,90,min/client,افتراض fin-modeler غير مؤكد
+visits,S,,1,visits,زيارة تركيب (hardware.md §4)
+visits,M,,1,visits,hardware.md §4
+visits,L45,,2,visits,الكبير زيارتين (hardware.md §4)
+visits,L60,,2,visits,hardware.md §4
+visit_cost,all,,20,SAR/visit,install_delivery في finance/inputs.csv غير مؤكد
+cac_per_trial,waiter,,80,SAR/trial,زيارة عرض + متابعة (ضعف cac_per_client 40 لأن المطعم يحتاج عرض) افتراض fin-modeler غير مؤكد
+cac_per_trial,waiter_addon,,20,SAR/trial,بيع إضافي لعميل حزمة المحل الحالي افتراض fin-modeler غير مؤكد
+cac_per_trial,order,,100,SAR/trial,زيارتين عرض + عرض سعر: افتراض fin-modeler غير مؤكد
+cac_per_trial,pro,,120,SAR/trial,عرض للمدير وصاحب المطعم: افتراض fin-modeler غير مؤكد
+trial_conversion,all,,0.5,ratio,نسبة التجارب اللي تتحول لعميل يدفع: ما عندنا بيانات (work/2026-09-27-trial-conversion ما حدد رقم) غير مؤكد
+trial_months,all,,0.5,months,التجربة أسبوعين ببلاش (services/pricing.md GM-027)
+holder_recovery,all,,0.8,ratio,الحوامل اللي ترجع سليمة لو ما تحولت (الورقة مطبوعة برموز الطاولات والشريحة tamper-proof تتقطع: hardware.md §1) افتراض غير مؤكد
+pickup_cost,all,,40,SAR/time,مشوار شيل العتاد (risk_recovery_cost في finance/inputs.csv) غير مؤكد
+pickup_min,all,,45,min/time,شيل الستاندات وإلغاء الروابط: افتراض fin-modeler غير مؤكد
+run_monthly,S,,5,SAR/month,رقم التسعير الأحوط (system.md §4.5)
+run_monthly,M,,5,SAR/month,system.md §4.5
+run_monthly,L45,,10,SAR/month,system.md §4.5 (كبير)
+run_monthly,L60,,10,SAR/month,system.md §4.5 (كبير؛ 60 طاولة غير مقاس) غير مؤكد
+support_min_base,waiter,,10,min/month,دعم نداء النادل: افتراض fin-modeler غير مؤكد
+support_min_base,waiter_addon,,10,min/month,نفس waiter
+support_min_base,order,,30,min/month,تحديث المنيو مرتين (20 دقيقة مثل shop_bundle) + أسئلة الشاشة 10: افتراض fin-modeler غير مؤكد
+support_min_base,pro,,60,min/month,4 تحديثات (40) + أولوية ولوحة المدير 20: افتراض fin-modeler غير مؤكد
+support_min_per_table,waiter,,0.25,min/table/month,افتراض fin-modeler غير مؤكد
+support_min_per_table,waiter_addon,,0.25,min/table/month,نفس waiter
+support_min_per_table,order,,1,min/table/month,مطعم أكبر = أصناف وموظفين وأسئلة أكثر: افتراض fin-modeler غير مؤكد
+support_min_per_table,pro,,1,min/table/month,افتراض fin-modeler غير مؤكد
+stand_loss_rate_yr,all,,0.20,ratio/yr,ضياع أو كسر الستاند كامل (hardware.md §3 = risk_damage_rate menu) غير مؤكد
+paper_refresh_rate_yr,all,,0.25,ratio/yr,تبديل الورقة لما تتبقع (hardware.md §3) غير مؤكد
+paper_incl,all,,9.20,SAR/unit,ورقة الإيثار شامل (مؤكد 2026-09-27)
+paper_refresh_min,all,,5,min/unit,hardware.md §3 غير مؤكد
+repl_min,all,,20,min/unit,replacement_labor_min (finance/inputs.csv) غير مؤكد
+repl_delivery,all,,15,SAR/time,replacement_shipping_cost (finance/inputs.csv) غير مؤكد
+shop_damage_rate_yr,all,,0.10,ratio/yr,risk_damage_replace_rate_yearly shop_bundle غير مؤكد
+client_chargeback_share,all,,0,ratio,الجزء من الكسر اللي يدفعه العميل (40/60 ريال في services/pricing.md)؛ 0 احتياطاً غير مؤكد
+payment_fee_pct,all,,0.025,ratio,finance/inputs.csv غير مؤكد
+payment_fee_vat,all,,0.15,ratio,ضريبة 15% على عمولة البوابة ما تنسترد لأننا غير مسجلين (services/pricing.md)؛ فرض البوابة للضريبة على العمولة غير مؤكد
+payment_failure_rate,all,,0.05,ratio/month,finance/inputs.csv غير مؤكد
+bad_debt_share,all,,0.30,ratio,finance/inputs.csv غير مؤكد
+churn_monthly,all,,0.03,ratio/month,risk_monthly_churn menu (fin-risk) غير مؤكد
+commit_collect_rate,all,,0.8,ratio,host_commit_collect_rate (finance/inputs.csv) غير مؤكد
+churn_worst,all,,0.08,ratio/month,risk_churn_max menu (fin-risk) غير مؤكد
+commit_collect_worst,all,,0.5,ratio,أسوأ حالة host_commit_collect_rate (finance/model.py W) غير مؤكد
+conv_stress,all,,0.3,ratio,اختبار ضغط: تحويل التجربة 30% فوق أسوأ حالة القسم: افتراض fin-modeler غير مؤكد
+cost_mult_worst,all,,1.3,ratio_mult,طلب القسم (تكلفة +30%)
+price_mult_worst,all,,0.8,ratio_mult,طلب القسم (سعر −20%)
+annual_months_charged,all,,11,months,السنوي = سعر 11 شهر (market.md على نمط GM-045)
+line_fixed_startup,all,,614,SAR,عدة عرض: تابلت Tab A9 مع حامل ~450 شامل + 10 ستاندات عينة 164 (hardware.md §2) غير مؤكد
+line_fixed_monthly,all,,21.56,SAR/month,Workers Paid 5$ × 3.75 × 1.15 ضريبة (system.md §4.4؛ فرض الضريبة غير مؤكد)
+company_fixed_startup,all,,1500,SAR,fixed_startup (finance/inputs.csv) غير مؤكد
+company_fixed_monthly,all,,100,SAR/month,fixed_monthly (finance/inputs.csv) غير مؤكد
+price_monthly,waiter:S,,49,SAR/month,مقترح fin-pricing (market.md §3)
+price_monthly,waiter:M,,69,SAR/month,market.md
+price_monthly,waiter:L45,,89,SAR/month,market.md
+price_monthly,waiter:L60,,89,SAR/month,market.md
+price_monthly,waiter_addon:S,,49,SAR/month,market.md (إضافة على حزمة المحل بنفس السعر)
+price_monthly,waiter_addon:M,,69,SAR/month,market.md
+price_monthly,waiter_addon:L45,,89,SAR/month,market.md
+price_monthly,waiter_addon:L60,,89,SAR/month,market.md
+price_monthly,order:S,,199,SAR/month,market.md
+price_monthly,order:M,,249,SAR/month,market.md
+price_monthly,order:L45,,319,SAR/month,market.md
+price_monthly,order:L60,,319,SAR/month,market.md
+price_monthly,pro:S,,329,SAR/month,market.md
+price_monthly,pro:M,,399,SAR/month,market.md
+price_monthly,pro:L45,,479,SAR/month,market.md
+price_monthly,pro:L60,,479,SAR/month,market.md
+price_setup,waiter,,199,SAR/client,market.md (بدون حزمة المحل)
+price_setup,waiter_addon,,0,SAR/client,market.md (مع حزمة المحل بدون تأسيس)
+price_setup,order,,400,SAR/client,market.md
+price_setup,pro,,400,SAR/client,market.md
+commit_months,all,,3,months,market.md (التزام 3 أشهر للشهري) غير مؤكد ونظاميته عند المحامي
+rec_price_monthly,waiter:S,,49,SAR/month,= سعر market.md (الحكم NO-GO؛ أقل سعر GO في output.txt)
+rec_price_monthly,waiter:M,,69,SAR/month,= سعر market.md (الحكم NO-GO؛ أقل سعر GO في output.txt)
+rec_price_monthly,waiter:L45,,89,SAR/month,= سعر market.md (الحكم NO-GO؛ أقل سعر GO في output.txt)
+rec_price_monthly,waiter:L60,,89,SAR/month,= سعر market.md (الحكم NO-GO؛ أقل سعر GO في output.txt)
+rec_price_monthly,waiter_addon:S,,49,SAR/month,= سعر market.md (الحكم NO-GO)
+rec_price_monthly,waiter_addon:M,,69,SAR/month,= سعر market.md (الحكم NO-GO)
+rec_price_monthly,waiter_addon:L45,,89,SAR/month,= سعر market.md (الحكم NO-GO)
+rec_price_monthly,waiter_addon:L60,,89,SAR/month,= سعر market.md (الحكم NO-GO)
+rec_price_monthly,order:S,,249,SAR/month,توصية fin-modeler (finance.md §3)
+rec_price_monthly,order:M,,329,SAR/month,توصية fin-modeler (finance.md §3)
+rec_price_monthly,order:L45,,449,SAR/month,توصية fin-modeler (finance.md §3)
+rec_price_monthly,order:L60,,449,SAR/month,توصية fin-modeler (finance.md §3)
+rec_price_monthly,pro:S,,349,SAR/month,توصية fin-modeler: الطلب من الطاولة + 100
+rec_price_monthly,pro:M,,449,SAR/month,توصية fin-modeler: الطلب من الطاولة + 100
+rec_price_monthly,pro:L45,,549,SAR/month,توصية fin-modeler: الطلب من الطاولة + 100
+rec_price_monthly,pro:L60,,549,SAR/month,توصية fin-modeler: الطلب من الطاولة + 100
+rec_setup_base,waiter,,199,SAR/client,= market.md
+rec_setup_base,waiter_addon,,0,SAR/client,= market.md
+rec_setup_base,order,,499,SAR/client,توصية fin-modeler: يشمل أول 15 طاولة
+rec_setup_base,pro,,499,SAR/client,توصية fin-modeler: يشمل أول 15 طاولة
+rec_setup_per_table,all,,25,SAR/table,توصية fin-modeler: لكل طاولة فوق المشمول (تكلفة الستاند الشامل 17.9 + 8 دقائق تركيب 3.3 + احتياط)
+rec_setup_per_table,waiter,,0,SAR/table,= market.md
+rec_setup_per_table,waiter_addon,,0,SAR/table,= market.md
+rec_setup_free_tables,all,,15,tables,توصية fin-modeler: التأسيس الأساسي يشمل 15 طاولة (حد الدرجة S)
+rec_commit_months,all,,6,months,التزام الشهري (توصية fin-modeler) غير مؤكد ونظاميته عند المحامي
+rec_trial_kit,all,,1,flag,التوصية: التجربة بطقم تجربة متنقل (1) بدل طباعة ستاندات المطعم قبل الدفع (0)
+kit_tables,all,,15,tables,طقم تجربة: 15 ستاند طاولة مرقّم بأكواد ثابتة تنعاد توجيهها بـ set-dest لكل مطعم (system.md §1.1)؛ إمكانية إعادة التوجيه بدون تغيير الطباعة غير مؤكدة عند مشرف الشبكة
+kit_wear_rate,all,,0.10,ratio,ضياع أو تلف ستاندات الطقم في كل تجربة: افتراض fin-modeler غير مؤكد
+kit_setup_min,all,,65,min/client,إعداد شاشة الطلبات وتدريب الكاشير 40 + تجربة 15 + توجيه أكواد الطقم 10 (hardware.md §3 + افتراض) غير مؤكد
+kit_per_table_min,all,,2,min/table,حط ستاند الطقم على الطاولة: افتراض fin-modeler غير مؤكد
+ref_foodics_starter,ref,,392,SAR/month,Foodics Starter سنوي 392 / شهري 423 (market.md: ملخص بحث غير مؤكد)
+ref_marn_pro,ref,,249,SAR/month,Marn Pro 249 (market.md: غير مؤكد)
+ref_marn_enterprise,ref,,499,SAR/month,Marn Enterprise 499 (market.md: غير مؤكد)
+ref_sapaad_online,ref,,184,SAR/month,Sapaad.Online $49 (market.md: غير مؤكد)
+ref_menu_qr_high,ref,,85,SAR/month,هلا أوردر من 85 (market.md: غير مؤكد)
+ref_waiter_hw_low,ref,,480,SAR/once,جهاز نداء 5 أزرار حراج (market.md: غير مؤكد)
+ref_waiter_hw_high,ref,,957,SAR/once,ساعة + 10 أزرار متجر سعودي (market.md: غير مؤكد)

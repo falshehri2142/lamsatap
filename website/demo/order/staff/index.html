@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-lt-scheme="light" data-audience="restaurants">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<meta name="robots" content="noindex">
+<meta name="description" content="مثال شاشة الطلبات عند الكاشير: الطلبات والنداءات من الطاولات، مع صوت وتنبيه.">
+<title>شاشة الطلبات، عرض تجريبي</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../../assets/brand/tokens.css?v=20261001-2">
+<link rel="stylesheet" href="../../../assets/brand/components.css?v=20261001-2">
+<link rel="stylesheet" href="../../../assets/client.css?v=20261001-2">
+<link rel="stylesheet" href="staff.css?v=20261001-3">
+</head>
+<body class="c k-page">
+<!-- إدارة المطعم: شاشة المطعم (جوال أو تابلت أفقي عند الكاشير). work/2026-10-01-restaurant-ops/goal.md «جهة المطعم».
+     الطلبات (استلمت ← جاهز ← انسلّم)، والنداءات («رحت له»)، والأصناف («خلص» يخفي الصنف من صفحة الزبون)، وملخص اليوم.
+     عرض بس: البيانات من صفحة الزبون (../) في نفس المتصفح عن طريق ../store.js. ولا شبكة ولا n8n.
+     الصوت WebAudio قصير، ويشتغل بس بعد ما الموظف يضغط «فعّل الصوت» (سياسة المتصفحات للصوت التلقائي). -->
+<aside class="c-demo lt-ink" aria-label="عرض تجريبي"><div class="c-demo-in k-demo-in"><span>عرض تجريبي، شاشة مطعم مثال</span><a class="lt-btn lt-btn--compact lt-btn--on-bar k-demo-btn" href="../" target="_blank" rel="noopener"><span>صفحة الزبون</span></a></div></aside>
+
+<header class="k-head">
+<div class="k-head-in">
+<div class="k-brand"><div><h1 class="k-title">الطلبات</h1><p class="k-sub"><img class="k-logo" src="../../_brands/cafe.svg" alt="مقهى المثال"> · جدة · <span id="k-clock"></span></p></div></div>
+<button class="k-sound" type="button" id="k-sound" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8v4h3l4 3.5v-11l-4 3.5z"/><path class="k-wave" d="M13.5 7.2a4 4 0 0 1 0 5.6M15.6 5a7 7 0 0 1 0 10"/><path class="k-mute" d="M13.5 7.5l4 5M17.5 7.5l-4 5"/></svg><span id="k-sound-t">فعّل الصوت</span></button>
+</div>
+</header>
+
+<div class="k-alert" id="k-alert" role="alert" aria-live="assertive"></div>
+
+<main class="k-main">
+<section class="k-stats" aria-label="ملخص اليوم">
+<div class="k-stat"><p class="k-stat-l">طلبات اليوم</p><p class="k-stat-n" id="k-s-orders">0</p></div>
+<div class="k-stat"><p class="k-stat-l">متوسط الاستجابة</p><p class="k-stat-n" id="k-s-resp">—</p></div>
+<div class="k-stat"><p class="k-stat-l">نداءات اليوم</p><p class="k-stat-n" id="k-s-calls">0</p></div>
+<div class="k-stat"><p class="k-stat-l">مبيعات اليوم</p><p class="k-stat-n" id="k-s-sales">0</p></div>
+</section>
+
+<div class="k-tabs" role="tablist" aria-label="أقسام الشاشة">
+<button class="k-tab" role="tab" type="button" id="k-tab-orders" aria-controls="k-orders" aria-selected="true">الطلبات <span class="k-count" id="k-c-orders">0</span></button>
+<button class="k-tab" role="tab" type="button" id="k-tab-calls" aria-controls="k-calls" aria-selected="false" tabindex="-1">النداءات <span class="k-count" id="k-c-calls">0</span></button>
+<button class="k-tab" role="tab" type="button" id="k-tab-items" aria-controls="k-items" aria-selected="false" tabindex="-1">الأصناف <span class="k-count k-count--muted" id="k-c-items" hidden>0</span></button>
+</div>
+
+<div class="k-grid">
+<section class="k-col k-col--orders" id="k-orders" role="tabpanel" aria-labelledby="k-tab-orders" tabindex="-1">
+<h2 class="k-h">الطلبات</h2>
+<div class="k-cards" id="k-order-list"></div>
+<details class="k-done" id="k-done"><summary>انسلّمت اليوم <span id="k-done-n">0</span></summary><div id="k-done-list"></div></details>
+</section>
+
+<div class="k-side">
+<section class="k-col" id="k-calls" role="tabpanel" aria-labelledby="k-tab-calls" tabindex="-1">
+<h2 class="k-h">النداءات</h2>
+<div class="k-cards" id="k-call-list"></div>
+</section>
+<section class="k-col" id="k-items" role="tabpanel" aria-labelledby="k-tab-items" tabindex="-1">
+<h2 class="k-h">الأصناف</h2>
+<p class="k-hint">اضغط «خلص» على أي صنف، ويختفي من منيو الزبون على طول.</p>
+<div class="lt-panel k-items" id="k-item-list"></div>
+</section>
+</div>
+</div>
+
+<section class="k-tools" aria-labelledby="k-tools-h">
+<h2 class="k-h" id="k-tools-h">أدوات العرض</h2>
+<p class="k-hint">افتح «صفحة الزبون» في تبويب ثاني واطلب منها، أو جرّب من هنا.</p>
+<div class="k-tools-row">
+<button class="lt-btn lt-btn--secondary lt-btn--compact" type="button" id="k-fake-order"><span>طلب تجريبي من طاولة 4</span></button>
+<button class="lt-btn lt-btn--secondary lt-btn--compact" type="button" id="k-fake-call"><span>نداء تجريبي من طاولة 2</span></button>
+<button class="lt-btn lt-btn--secondary lt-btn--compact" type="button" id="k-reset"><span>صفّر العرض</span></button>
+</div>
+<p class="c-owner-back"><a class="lt-link" href="../../../ar/restaurants/#order"><span>رجوع لصفحة المطاعم</span></a></p>
+</section>
+</main>
+
+<p class="c-sr" id="k-announce" role="status" aria-live="polite"></p>
+
+<script src="../../_brands/brands.js?v=20261001-2"></script>
+<script src="../../menu/data.js?v=20261001-2"></script>
+<script src="../store.js?v=20261001-3"></script>
+<script src="staff.js?v=20261001-3"></script>
+</body>
+</html>

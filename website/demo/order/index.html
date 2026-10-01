@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-lt-scheme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<meta name="robots" content="noindex">
+<meta name="description" content="مثال الطلب من الطاولة: زبونك يطلب من المنيو أو يستدعي النادل من نفس الباركود.">
+<title>اطلب من طاولتك، عرض تجريبي</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../assets/brand/tokens.css?v=20261001-2">
+<link rel="stylesheet" href="../../assets/brand/components.css?v=20261001-2">
+<link rel="stylesheet" href="../../assets/client.css?v=20261001-2">
+<link rel="stylesheet" href="../../templates/menu/style.css?v=20261001-2">
+<link rel="stylesheet" href="style.css?v=20261001-3">
+</head>
+<body class="c o-page">
+<!-- إدارة المطعم: صفحة الزبون (work/2026-10-01-restaurant-ops/goal.md «قرار تصميم مبدئي»).
+     المنيو يفتح على طول، وتحت شريط ثابت: «استدعِ النادل» و«السلة». آخر السلة: «أرسل الطلب للمطبخ الآن» أو «خلّ النادل يجي ياخذ طلبي».
+     عرض بس: الطلب يروح لشاشة المطعم (staff/) في نفس المتصفح عن طريق store.js، ولا يوصل مطعم حقيقي.
+     ?counter=1 = كافيه بدون نادل: الاستلام من الكاشير برقم الطلب. الأصناف والأسعار من demo/menu/data.js (أرقام مثال). -->
+<aside class="c-demo lt-ink" aria-label="عرض تجريبي"><div class="c-demo-in"><span>عرض تجريبي</span><a class="lt-btn lt-btn--compact lt-btn--on-bar o-demo-btn" href="staff/" target="_blank" rel="noopener"><span>شاشة المطعم</span></a></div></aside>
+
+<main class="c-main o-main" id="o-main">
+<header class="c-id c-id--sm"><img class="c-logo" src="../_brands/cafe.svg" alt="مقهى المثال"></header>
+<h1 class="o-title">مقهى المثال</h1>
+<p class="o-where"><span class="o-table" id="o-table">طاولة 7</span><span class="o-city">جدة</span></p>
+
+<!-- حالة آخر طلب (تطلع بعد الإرسال) -->
+<a class="lt-panel o-live" id="o-live" href="#o-status" hidden></a>
+
+<div id="o-menu"><noscript><p>ما قدرنا نفتح المنيو. فعّل JavaScript من إعدادات المتصفح، وافتحها من جديد.</p></noscript></div>
+
+<p class="c-sub o-pay" id="o-pay-note">الدفع عند الكاشير أو مع النادل.</p>
+
+<section class="c-owner" aria-labelledby="owner-h"><h2 id="owner-h">لصاحب المحل</h2>
+<p>هذي الصفحة اللي يشوفها زبونك لما يمسح باركود الطاولة أو يلمس الستاند: يطلب من المنيو، أو يضغط وينادي النادل. افتح «شاشة المطعم» في تبويب ثاني وجرّب، والطلب يوصلها على طول.</p>
+<p class="o-owner-alt" id="o-alt"></p>
+<a class="lt-btn" data-wa="shopOrder" hidden><span>أبغى الطلب من الطاولة لمحلي</span></a>
+<p class="c-owner-back"><a class="lt-link" href="../../ar/restaurants/#order"><span>رجوع لصفحة المطاعم</span></a></p></section>
+</main>
+
+<!-- شاشة حالة الطلب -->
+<main class="c-main o-main" id="o-status" hidden tabindex="-1" aria-labelledby="o-st-h"></main>
+
+<!-- الشريط الثابت تحت -->
+<div class="o-bar" id="o-bar">
+<p class="o-toast" id="o-toast" role="status" aria-live="polite"></p>
+<div class="o-bar-in">
+<button class="lt-btn lt-btn--secondary o-bar-call" type="button" id="o-call-btn"><svg class="lt-btn-icon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3a5 5 0 0 1 5 5v3l1.5 2.5h-13L5 11V8a5 5 0 0 1 5-5z"/><path d="M8.2 16a2 2 0 0 0 3.6 0"/></svg><span>استدعِ النادل</span></button>
+<button class="lt-btn lt-btn--shop o-bar-cart" type="button" id="o-cart-btn"><span class="o-cart-l"><span class="o-cart-n" id="o-cart-n" hidden></span><span>السلة</span></span><span class="o-cart-sum" id="o-cart-sum">فاضية</span></button>
+</div>
+</div>
+
+<!-- ورقة الصنف: الكمية والملاحظة -->
+<dialog class="o-sheet" id="o-item" aria-labelledby="o-item-h">
+<form method="dialog" class="o-sheet-in" id="o-item-form">
+<div class="o-sheet-top"><h2 id="o-item-h"></h2><button class="o-x" type="button" data-close aria-label="سكّر"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div>
+<p class="c-sub" id="o-item-desc"></p>
+<div class="o-qty-row"><span class="c-label">الكمية</span>
+<div class="o-step" role="group" aria-label="الكمية"><button type="button" class="o-step-b" id="o-item-minus" aria-label="أنقص واحد">−</button><output id="o-item-qty" aria-live="polite">1</output><button type="button" class="o-step-b" id="o-item-plus" aria-label="زد واحد">+</button></div></div>
+<label class="c-label o-note-l" for="o-item-note">ملاحظة للمطبخ (اختياري)</label>
+<input class="o-input" id="o-item-note" maxlength="80" autocomplete="off" placeholder="مثلاً: بدون سكر، حليب لوز">
+<button class="lt-btn lt-btn--shop" type="submit" id="o-item-add"></button>
+</form>
+</dialog>
+
+<!-- ورقة السلة -->
+<dialog class="o-sheet o-sheet--tall" id="o-cart" aria-labelledby="o-cart-h">
+<div class="o-sheet-in">
+<div class="o-sheet-top"><h2 id="o-cart-h">سلتك · طاولة 7</h2><button class="o-x" type="button" data-close aria-label="سكّر"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div>
+<div id="o-cart-body"></div>
+</div>
+</dialog>
+
+<!-- ورقة النادل -->
+<dialog class="o-sheet" id="o-call" aria-labelledby="o-call-h">
+<div class="o-sheet-in" id="o-call-ask">
+<div class="o-sheet-top"><h2 id="o-call-h">وش تحتاج من النادل؟</h2><button class="o-x" type="button" data-close aria-label="سكّر"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button></div>
+<div class="o-reasons">
+<button type="button" class="o-reason" data-reason="take_order"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M9 8.5h6M9 12h6M9 15.5h3.5"/></svg><span>أبغى أطلب</span></button>
+<button type="button" class="o-reason" data-reason="bill"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-2.5-1.6-2 1.6-1.5-1.2-1.5 1.2-2-1.6L6 20.5z"/><path d="M9 8h6M9 11.5h6"/></svg><span>الحساب</span></button>
+<button type="button" class="o-reason" data-reason="help"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.7"/><path d="M12 17h.01" stroke-width="2.4"/></svg><span>مساعدة</span></button>
+<button type="button" class="o-reason" data-reason="water"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s6 6.4 6 10.8a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5z"/></svg><span>ماي</span></button>
+</div>
+</div>
+<div class="o-sheet-in o-called" id="o-call-done" hidden tabindex="-1">
+<svg class="o-big-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></svg>
+<h2 class="o-called-h">النادل جاي لطاولة 7</h2>
+<p class="c-sub" id="o-call-why"></p>
+<button class="lt-btn lt-btn--secondary" type="button" data-close><span>تمام</span></button>
+</div>
+</dialog>
+
+<p class="c-sr" id="o-announce" role="status" aria-live="polite"></p>
+
+<script src="../../config.js?v=20261001-2"></script>
+<script src="../../assets/app.js?v=20261001-2"></script>
+<script src="../../assets/shop-color.js?v=20261001-2"></script>
+<script src="../_brands/brands.js?v=20261001-2"></script>
+<script src="../menu/data.js?v=20261001-2"></script>
+<script src="store.js?v=20261001-3"></script>
+<script src="order.js?v=20261001-3"></script>
+</body>
+</html>
