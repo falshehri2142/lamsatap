@@ -1,34 +1,41 @@
 <!doctype html>
-<html lang="ar" dir="rtl" data-lt-scheme="light">
+<html lang="en" dir="ltr" data-lt-scheme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="only light">
 <meta name="robots" content="noindex">
-<meta name="description" content="الصفحة اللي تدورها مو موجودة. ارجع لرئيسية لمسة تاب واختر الخدمة.">
-<title>الصفحة مو موجودة — لمسة تاب</title>
+<meta name="description" content="The page you’re looking for doesn’t exist. Head back to LamsaTap and pick a service.">
+<title>Page not found — LamsaTap</title>
 <link rel="icon" href="/favicon.ico">
+<link rel="preload" href="/assets/brand/fonts/figtree-latin.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="/assets/brand/tokens.css">
 <link rel="stylesheet" href="/assets/brand/components.css">
 <style>
 body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--lt-bg);color:var(--lt-text);font-family:var(--lt-font-brand)}
 main{width:min(100% - 48px,560px);padding-block:64px}
 .logo{display:inline-flex;align-items:center;min-height:44px;margin-bottom:64px}
-.logo:focus-visible{outline:2px solid var(--lt-teal-deep);outline-offset:3px}
+.logo:focus-visible,.ar a:focus-visible{outline:2px solid var(--lt-teal-deep);outline-offset:3px}
 img{display:block;width:184px;height:auto}
-p{line-height:1.9;color:var(--lt-muted)}
+p{line-height:1.6;color:var(--lt-muted)}
 .code{font-family:var(--lt-font-latin);font-size:18px}
-h1{font-size:clamp(32px,6vw,48px);line-height:1.4;font-weight:500;margin:16px 0}
+h1{font-size:clamp(32px,6vw,48px);line-height:1.1;font-weight:500;letter-spacing:-.02em;margin:16px 0}
 .lt-btn{margin-top:24px;text-decoration:none}
+/* the Arabic way home (GM-070): broken /ar/ links land here too */
+.ar{margin-top:16px;line-height:1.75}
+.ar a{display:inline-flex;align-items:center;min-height:44px;color:var(--lt-link);font-weight:500;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.3em}
+@media (hover:hover) and (pointer:fine){.ar a:hover{text-decoration-thickness:2px}}
+.ar a:active{background:var(--lt-surface-2)}
 </style>
 </head>
 <body>
 <main>
-<a class="logo" href="/" aria-label="لمسة تاب — الرئيسية"><img src="/assets/brand/logo-horizontal.svg" width="214" height="40" alt="لمسة تاب — LamsaTap"></a>
+<a class="logo" href="/" aria-label="LamsaTap — Home"><img src="/assets/brand/logo-horizontal.svg" width="214" height="40" alt="LamsaTap"></a>
 <p class="code">404</p>
-<h1>هالصفحة مو موجودة.</h1>
-<p>يمكن تغيّر الرابط. تقدر ترجع للرئيسية وتختار الخدمة اللي تحتاجها.</p>
-<a class="lt-btn" href="/">ارجع للرئيسية</a>
+<h1>We can’t find that page.</h1>
+<p>The link may have changed. Head back home and pick what you need.</p>
+<a class="lt-btn" href="/">Back to home</a>
+<p class="ar"><a href="/ar/" hreflang="ar" lang="ar">الرئيسية بالعربي</a></p>
 </main>
 </body>
 </html>

@@ -2,6 +2,9 @@
 // بدون أي طلب خارجي ولا fetch()، وكل شي يشتغل من file://.
 (function (d, w) {
   var S = w.SITE || {}, NAME = 'لمسة تاب';
+  // GM-070: صفحات الشركة الإنجليزية (<html lang="en">) تاخذ الاسم والرسائل الإنجليزية. كل صفحة عربية (والزبون) زي ما هي
+  var EN = /^en\b/i.test(String((d.documentElement && d.documentElement.lang) || ''));
+  w.LT_EN = EN;
   // مجلد assets/ محسوب من مكان هذا الملف، عشان الصفحات تشتغل على أي عمق مجلد
   var me = d.currentScript && d.currentScript.getAttribute('src');
   w.ASSETS = me ? me.replace(/app\.js(\?.*)?$/, '') : 'assets/';
@@ -31,9 +34,9 @@
     if (!el.querySelector('.lt-btn-icon')) el.insertAdjacentHTML('afterbegin', ICON);
     return el;
   };
-  // رسالة من config (SITE.waText)، و{unitRef} ينعوض
+  // رسالة من config (SITE.waText)، و{unitRef} ينعوض. الصفحة الإنجليزية تاخذ <key>En، ولو فاضي ترجع للعربي (GM-070)
   w.waText = function (key, unitRef) {
-    var t = (S.waText || {})[key];
+    var M = S.waText || {}, t = EN && typeof M[key + 'En'] === 'string' && str(M[key + 'En']) ? M[key + 'En'] : M[key];
     t = typeof t === 'string' ? t : '';
     return unitRef == null ? t : t.split('{unitRef}').join(unitRef);
   };
@@ -41,14 +44,14 @@
   // اسم الشركة: [data-company] نص، [data-company-alt] نص بديل للشعار، والعنوان إذا فيه الاسم الاحتياطي
   w.fillCompany = function () {
     var n = companyName(), en = str(S.companyNameEn), registration = str(S.commercialRegistration);
-    all('[data-company]').forEach(function (el) { el.textContent = n; });
+    all('[data-company]').forEach(function (el) { el.textContent = EN ? (en || 'LamsaTap') : n; });
     all('[data-company-en]').forEach(function (el) { el.textContent = en || 'LamsaTap'; });
-    all('[data-company-alt]').forEach(function (el) { el.alt = en ? n + ' — ' + en : n; });
+    all('[data-company-alt]').forEach(function (el) { el.alt = EN ? (en || 'LamsaTap') : (en ? n + ' — ' + en : n); });
     all('[data-commercial-registration]').forEach(function (el) {
-      el.textContent = registration ? 'السجل التجاري: ' + registration : '';
+      el.textContent = registration ? (EN ? 'CR No. ' : 'السجل التجاري: ') + registration : '';
       el.hidden = !registration;
     });
-    if (n !== NAME) d.title = d.title.split(NAME).join(n);
+    if (!EN && n !== NAME) d.title = d.title.split(NAME).join(n);
   };
 
   // أزرار واتساب الشركة: [data-wa="<مفتاح في waText>"]. بدون رقم: hidden، مو زر معطّل (GM-010، web-ux ر4-4)
@@ -76,7 +79,7 @@
     // اسم القناة في النص (مثل «نتفاهم على واتساب»): [data-channel-name] يصير «تليجرام» لما الرقم فاضي والبوت موجود
     all('[data-channel-name]').forEach(function (el) {
       if (el.__wa == null) el.__wa = el.textContent;
-      el.textContent = (!num && tgUser(S.telegram)) ? 'تليجرام' : el.__wa;
+      el.textContent = (!num && tgUser(S.telegram)) ? (EN ? 'Telegram' : 'تليجرام') : el.__wa;
     });
   };
 
@@ -165,7 +168,7 @@
       copyText(getText(), function (ok) {
         status.textContent = ok ? okMsg : failMsg;
         if (!ok) return;
-        btn.textContent = 'تم النسخ';
+        btn.textContent = EN ? 'Copied' : 'تم النسخ';
         clearTimeout(timer);
         timer = setTimeout(function () { btn.textContent = label; }, 2000);
       });

@@ -1,0 +1,3652 @@
+{
+ "res": [
+  {
+   "url": "/",
+   "sel": ".h-nav-action",
+   "W": 390,
+   "rm": "no-preference",
+   "missing": true
+  },
+  {
+   "url": "/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-pick a",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-doors .s-door",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "matrix(1, 0, 0, 1, 0, 0.00209134)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4.07144, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/",
+   "sel": ".tl__opt",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".tl__open",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-nav-action",
+   "W": 390,
+   "rm": "no-preference",
+   "missing": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-pick a",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-doors .s-door",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "matrix(1, 0, 0, 1, 0, 0.0014258)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4.07113, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__opt",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__open",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-calc-step",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-lab-link",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-calc-step",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-lab-link",
+   "W": 390,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "rapid": "price",
+   "url": "/restaurants/",
+   "W": 390,
+   "rm": "no-preference",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "price",
+   "url": "/ar/restaurants/",
+   "W": 390,
+   "rm": "no-preference",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/",
+   "W": 390,
+   "rm": "no-preference",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "matrix(1, 0, 0, 1, 0, 0)"
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/ar/",
+   "W": 390,
+   "rm": "no-preference",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "matrix(1, 0, 0, 1, 0, 0)"
+   }
+  },
+  {
+   "url": "/",
+   "sel": ".h-nav-action",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-pick a",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -2)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-doors .s-door",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "matrix(1, 0, 0, 1, 0, 0.00101825)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -2)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/",
+   "sel": ".tl__opt",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".tl__open",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-nav-action",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-pick a",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -2)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-doors .s-door",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "matrix(1, 0, 0, 1, 0, 0.00108001)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -2)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__opt",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__open",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-calc-step",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-lab-link",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, 4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-calc-step",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s"
+   },
+   "hover": {
+    "t": "matrix(1, 0, 0, 1, 0, -1)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-lab-link",
+   "W": 1440,
+   "rm": "no-preference",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.24s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "active": {
+    "t": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "transform 0.24s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "rapid": "price",
+   "url": "/restaurants/",
+   "W": 1440,
+   "rm": "no-preference",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "price",
+   "url": "/ar/restaurants/",
+   "W": 1440,
+   "rm": "no-preference",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/",
+   "W": 1440,
+   "rm": "no-preference",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "matrix(1, 0, 0, 1, 0, 0)"
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/ar/",
+   "W": 1440,
+   "rm": "no-preference",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "matrix(1, 0, 0, 1, 0, 0)"
+   }
+  },
+  {
+   "url": "/",
+   "sel": ".h-nav-action",
+   "W": 390,
+   "rm": "reduce",
+   "missing": true
+  },
+  {
+   "url": "/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-pick a",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-doors .s-door",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/",
+   "sel": ".tl__opt",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".tl__open",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-nav-action",
+   "W": 390,
+   "rm": "reduce",
+   "missing": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-pick a",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-doors .s-door",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__opt",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__open",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-calc-step",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-lab-link",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-lang",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-calc-step",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-q summary",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-lab-link",
+   "W": 390,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "rapid": "price",
+   "url": "/restaurants/",
+   "W": 390,
+   "rm": "reduce",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "price",
+   "url": "/ar/restaurants/",
+   "W": 390,
+   "rm": "reduce",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/",
+   "W": 390,
+   "rm": "reduce",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "none"
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/ar/",
+   "W": 390,
+   "rm": "reduce",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "none"
+   }
+  },
+  {
+   "url": "/",
+   "sel": ".h-nav-action",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-pick a",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".h-doors .s-door",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/",
+   "sel": ".tl__opt",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/",
+   "sel": ".tl__open",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-nav-action",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "matrix(1, 0, 0, 1, -4, 0)"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-pick a",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".h-doors .s-door",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 3px 3px rgb(20, 32, 31)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": false
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__opt",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/",
+   "sel": ".tl__open",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-head-wa",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-switch-opt",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/restaurants/",
+   "sel": ".r-lab-link",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-calc-step",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/hosts/",
+   "sel": ".p-lab-link",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-lang",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-calc-step",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".s-q summary",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "all 0s"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "all 0s"
+   },
+   "focusIsEl": true
+  },
+  {
+   "url": "/ar/hosts/",
+   "sel": ".p-lab-link",
+   "W": 1440,
+   "rm": "reduce",
+   "rest": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "hover": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "active": {
+    "t": "none",
+    "o": "1",
+    "ol": "none",
+    "tr": "transform 0.15s",
+    "arrow": "none"
+   },
+   "focus": {
+    "t": "none",
+    "o": "1",
+    "ol": "solid 2px 3px rgb(7, 94, 90)",
+    "tr": "none 0s",
+    "arrow": "none"
+   },
+   "focusIsEl": true
+  },
+  {
+   "rapid": "price",
+   "url": "/restaurants/",
+   "W": 1440,
+   "rm": "reduce",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "price",
+   "url": "/ar/restaurants/",
+   "W": 1440,
+   "rm": "reduce",
+   "st": {
+    "on": "1",
+    "checked": [
+     "false",
+     "true"
+    ],
+    "figs": [
+     "798|1"
+    ]
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/",
+   "W": 1440,
+   "rm": "reduce",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "none"
+   }
+  },
+  {
+   "rapid": "taplab",
+   "url": "/ar/",
+   "W": 1440,
+   "rm": "reduce",
+   "st": {
+    "sel": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "state": "open",
+    "phone": "none"
+   }
+  }
+ ],
+ "errs": [],
+ "bad": [
+  "/ar/ .h-nav-action 1440 reduce: arrow on hover -4, want 0"
+ ]
+}

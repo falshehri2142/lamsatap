@@ -430,3 +430,35 @@ body { margin: 0; background: var(--lt-bg); color: var(--lt-text); font-family: 
   .h-nav-action, .s-head-wa { transition: background-color .2s ease-out, color .2s ease-out, border-color .2s ease-out; }
 }
 @media (prefers-reduced-motion: reduce) { .h-nav-action .h-arrow { transition: none; } }
+
+/* ===== 13) Language switch (GM-070): «عربي» on the English pages and «English» on the Arabic pages (.s-lang, first in .s-head-end).
+   Owner: «خلي زر تغير اللغة واضح». Same weight as the header button beside it (outlined, ink line, 44px / 48px from 1024), globe icon,
+   always inside the sticky header at every width, never in a menu. The label carries lang="ar" / lang="en" and hreflang. ===== */
+.s-head-end:has(.s-lang) { gap: var(--lt-space-12); }
+.s-lang:not(.c .lt-btn) { flex: none; inline-size: auto; min-block-size: 44px; padding: 0 14px; gap: var(--lt-space-8); font-size: 15px; white-space: nowrap; }
+.s-head-end:has(.h-nav-action) .s-lang:not(.c .lt-btn) { font-size: 14px; }
+.s-lang-i { flex: none; width: 18px; height: 18px; }
+.s-lang:lang(ar) { letter-spacing: 0; }
+@media (hover: hover) and (pointer: fine) { .s-lang:hover { background: var(--lt-ink); color: var(--lt-surface); border-color: var(--lt-ink); } }
+@media (prefers-reduced-motion: no-preference) { .s-lang { transition: background-color .2s ease-out, color .2s ease-out, border-color .2s ease-out; } }
+@media (min-width: 1024px) { .s-lang:not(.c .lt-btn) { min-block-size: 48px; padding: 0 18px; } }
+/* Making room for the switch (measured 2026-10-01, Figtree/Readex local fonts):
+   - under 520 the WhatsApp capsule keeps only its chat icon (44×44; the label stays as its accessible name),
+     and the home «See the solutions / اكتشف الحلول» shortcut steps out (the two-door picker sits right under it);
+   - under 400 the switch is a little tighter; 1024–1279 the desktop gaps close a bit so «English» fits beside the capsule. */
+@media (max-width: 519px) {
+  .s-head-end:has(.s-lang) .h-nav-action { display: none; }
+  .s-head-end:has(.s-lang) .s-head-wa:not(.c .lt-btn) { inline-size: 44px; min-inline-size: 44px; padding: 0; }
+  .s-head-end:has(.s-lang) .s-head-wa .lt-btn-icon { display: block; }
+  .s-head-end:has(.s-lang) .s-head-wa > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+@media (max-width: 399px) {
+  .s-lang:not(.c .lt-btn) { padding: 0 10px; gap: 6px; font-size: 14px; }
+  .s-lang-i { width: 16px; height: 16px; }
+  .s-head-end:has(.s-lang) { gap: var(--lt-space-8); }
+}
+@media (max-width: 359px) { .s-head-end:has(.s-lang) { gap: 6px; } }
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .s-head:has(.s-lang) { gap: var(--lt-space-24); }
+  .s-head:has(.s-lang) .s-nav--top { gap: var(--lt-space-24); }
+}

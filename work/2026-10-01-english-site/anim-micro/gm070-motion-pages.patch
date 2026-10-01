@@ -1,0 +1,94 @@
+diff --git a/website/ar/hosts/index.html b/website/ar/hosts/index.html
+index c8ad171..06413c1 100644
+--- a/website/ar/hosts/index.html
++++ b/website/ar/hosts/index.html
+@@ -36,7 +36,7 @@
+ <!-- @@minis-style --><style>.mini--cafe{--shop:#7A3E2B;--on-shop:#FFFFFF;--shop-press:#662C19;--shop-line:#7A3E2B;--shop-tint:#F4F0EE;--shop-hl:rgba(0,0,0,.14)}.mini--flats{--shop:#1F3B57;--on-shop:#FFFFFF;--shop-press:#0F2B46;--shop-line:#1F3B57;--shop-tint:#EDEFF2;--shop-hl:rgba(0,0,0,.14)}.l-tag { margin: -8px 0 var(--lt-space-20); text-align: center; font-size: 15px; }.w-wa { margin-top: var(--lt-space-32); }</style><!-- /@@minis-style -->
+ <link rel="stylesheet" href="../../assets/hosts.css?v=motion-team-20260930-1">
+ <!-- الحركة (web-motion.md «النظام 2»): صفحات الشركة بس (GM-011). GSAP 3.15 و ScrollTrigger محليين (vendor/gsap/LICENSE.md) -->
+-<link rel="stylesheet" href="../../assets/motion.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="../../assets/motion.css?v=gm070-motion-1">
+ <script defer src="../../vendor/gsap/gsap.min.js"></script>
+ <script defer src="../../vendor/gsap/ScrollTrigger.min.js"></script>
+ <script defer src="../../assets/motion.js?v=motion-team-20260930-4"></script>
+diff --git a/website/ar/index.html b/website/ar/index.html
+index 8a38b27..e4ae442 100644
+--- a/website/ar/index.html
++++ b/website/ar/index.html
+@@ -33,13 +33,13 @@
+ 
+ 
+ 
+-<link rel="stylesheet" href="../assets/motion.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="../assets/motion.css?v=gm070-motion-1">
+ <script defer src="../vendor/gsap/gsap.min.js"></script>
+ <script defer src="../vendor/gsap/ScrollTrigger.min.js"></script>
+ <script defer src="../assets/motion.js?v=motion-team-20260930-4"></script>
+-<link rel="stylesheet" href="../assets/signature.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="../assets/signature.css?v=gm070-motion-1">
+ <link rel="stylesheet" href="../assets/home.css?v=motion-team-20260930-1">
+-<script defer src="../assets/signature.js?v=motion-team-20260930-1"></script>
++<script defer src="../assets/signature.js?v=gm070-motion-1"></script>
+ </head>
+ <body class="home-studio">
+ <a class="s-skip" href="#main">انتقل للمحتوى</a>
+diff --git a/website/ar/restaurants/index.html b/website/ar/restaurants/index.html
+index c16293d..654d447 100644
+--- a/website/ar/restaurants/index.html
++++ b/website/ar/restaurants/index.html
+@@ -38,7 +38,7 @@
+ <link rel="stylesheet" href="../../templates/menu/style.css">
+ <!-- @@minis-style --><style>.mini--cafe{--shop:#7A3E2B;--on-shop:#FFFFFF;--shop-press:#662C19;--shop-line:#7A3E2B;--shop-tint:#F4F0EE;--shop-hl:rgba(0,0,0,.14)}.mini--flats{--shop:#1F3B57;--on-shop:#FFFFFF;--shop-press:#0F2B46;--shop-line:#1F3B57;--shop-tint:#EDEFF2;--shop-hl:rgba(0,0,0,.14)}.l-tag { margin: -8px 0 var(--lt-space-20); text-align: center; font-size: 15px; }.w-wa { margin-top: var(--lt-space-32); }</style><!-- /@@minis-style -->
+ <!-- الحركة (web-motion.md «النظام 2»): صفحات الشركة بس، وصفحات الزبون ما تحمّلها (GM-011). GSAP 3.15 و ScrollTrigger محليين (vendor/gsap/LICENSE.md) -->
+-<link rel="stylesheet" href="../../assets/motion.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="../../assets/motion.css?v=gm070-motion-1">
+ <script defer src="../../vendor/gsap/gsap.min.js"></script>
+ <script defer src="../../vendor/gsap/ScrollTrigger.min.js"></script>
+ <script defer src="../../assets/motion.js?v=motion-team-20260930-4"></script>
+diff --git a/website/hosts/index.html b/website/hosts/index.html
+index bf18f4a..82d9a03 100644
+--- a/website/hosts/index.html
++++ b/website/hosts/index.html
+@@ -35,7 +35,7 @@
+ <style>.mini--cafe{--shop:#7A3E2B;--on-shop:#FFFFFF;--shop-press:#662C19;--shop-line:#7A3E2B;--shop-tint:#F4F0EE;--shop-hl:rgba(0,0,0,.14)}.mini--flats{--shop:#1F3B57;--on-shop:#FFFFFF;--shop-press:#0F2B46;--shop-line:#1F3B57;--shop-tint:#EDEFF2;--shop-hl:rgba(0,0,0,.14)}.l-tag { margin: -8px 0 var(--lt-space-20); text-align: center; font-size: 15px; }.w-wa { margin-top: var(--lt-space-32); }</style>
+ <link rel="stylesheet" href="../assets/hosts.css?v=motion-team-20260930-1">
+ 
+-<link rel="stylesheet" href="../assets/motion.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="../assets/motion.css?v=gm070-motion-1">
+ <script defer src="../vendor/gsap/gsap.min.js"></script>
+ <script defer src="../vendor/gsap/ScrollTrigger.min.js"></script>
+ <script defer src="../assets/motion.js?v=motion-team-20260930-4"></script>
+diff --git a/website/index.html b/website/index.html
+index 9c068ad..435d2c5 100644
+--- a/website/index.html
++++ b/website/index.html
+@@ -30,13 +30,13 @@
+ <link rel="stylesheet" href="assets/brand/components.css">
+ <link rel="stylesheet" href="assets/site.css?v=quality-20260930-7">
+ 
+-<link rel="stylesheet" href="assets/motion.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="assets/motion.css?v=gm070-motion-1">
+ <script defer src="vendor/gsap/gsap.min.js"></script>
+ <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
+ <script defer src="assets/motion.js?v=motion-team-20260930-4"></script>
+-<link rel="stylesheet" href="assets/signature.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="assets/signature.css?v=gm070-motion-1">
+ <link rel="stylesheet" href="assets/home.css?v=motion-team-20260930-1">
+-<script defer src="assets/signature.js?v=motion-team-20260930-1"></script>
++<script defer src="assets/signature.js?v=gm070-motion-1"></script>
+ <link rel="stylesheet" href="assets/ltr.css?v=gm070-1">
+ </head>
+ <body class="home-studio">
+diff --git a/website/restaurants/index.html b/website/restaurants/index.html
+index 0162d82..52b7dc0 100644
+--- a/website/restaurants/index.html
++++ b/website/restaurants/index.html
+@@ -37,7 +37,7 @@
+ <link rel="stylesheet" href="../templates/menu/style.css">
+ <style>.mini--cafe{--shop:#7A3E2B;--on-shop:#FFFFFF;--shop-press:#662C19;--shop-line:#7A3E2B;--shop-tint:#F4F0EE;--shop-hl:rgba(0,0,0,.14)}.mini--flats{--shop:#1F3B57;--on-shop:#FFFFFF;--shop-press:#0F2B46;--shop-line:#1F3B57;--shop-tint:#EDEFF2;--shop-hl:rgba(0,0,0,.14)}.l-tag { margin: -8px 0 var(--lt-space-20); text-align: center; font-size: 15px; }.w-wa { margin-top: var(--lt-space-32); }</style>
+ 
+-<link rel="stylesheet" href="../assets/motion.css?v=motion-team-20260930-1">
++<link rel="stylesheet" href="../assets/motion.css?v=gm070-motion-1">
+ <script defer src="../vendor/gsap/gsap.min.js"></script>
+ <script defer src="../vendor/gsap/ScrollTrigger.min.js"></script>
+ <script defer src="../assets/motion.js?v=motion-team-20260930-4"></script>

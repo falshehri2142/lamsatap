@@ -23,7 +23,9 @@ const BUDGETS = {
   lightweight: { raw: 100 * 1024, gzip: 50 * 1024 },
   marketing: { raw: 350 * 1024, gzip: 110 * 1024 }
 };
-const MARKETING_PAGES = new Set(['index.html', 'restaurants/index.html', 'hosts/index.html']);
+// GM-070: the same three marketing pages now exist twice (English at the root, Arabic in ar/). Same budget, no raise.
+const MARKETING_PAGES = new Set(['index.html', 'restaurants/index.html', 'hosts/index.html',
+  'ar/index.html', 'ar/restaurants/index.html', 'ar/hosts/index.html']);
 
 const stripCss = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '');
 const stripJs = (s) => s.replace(/^[ \t]*\/\/.*(\r?\n|$)/gm, '');

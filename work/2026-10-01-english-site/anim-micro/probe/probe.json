@@ -1,0 +1,1554 @@
+[
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] toward reading",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "tx": 4,
+   "fwd": 1,
+   "d": "M5 12h14m-6-6 6 6-6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "matrix(1, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "vis": "hidden",
+   "fx": 20,
+   "fy": 18,
+   "fw": 28,
+   "dx": 20,
+   "dy": 18,
+   "dw": 28
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/",
+  "w": 390,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .h-nav-action toward reading",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": 4,
+   "fwd": 1,
+   "d": "M5 12h14m-6-6 6 6-6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] toward reading",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": 4,
+   "fwd": 1,
+   "d": "M5 12h14m-6-6 6 6-6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 619.640625
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand on the outer edge",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "stand": 1225,
+   "phone": 984,
+   "ripple": null,
+   "picker": 360,
+   "waves": -1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand waves face the phone",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "stand": 1225,
+   "phone": 984,
+   "ripple": null,
+   "picker": 360,
+   "waves": -1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab phone nudges toward the stand",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "ptx": 10.6492,
+   "standSide": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab phone rests at 0",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "matrix(1, 0, 0, 1, 0, 0)"
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "matrix(1, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "vis": "hidden",
+   "fx": 120,
+   "fy": 20,
+   "fw": 40,
+   "dx": 120,
+   "dy": 20,
+   "dw": 40
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/",
+  "w": 1440,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "normal",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] toward reading",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "tx": -4,
+   "fwd": -1,
+   "d": "M19 12H5m6-6-6 6 6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "origin": "350px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "matrix(1, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "vis": "hidden",
+   "fx": 220,
+   "fy": 18,
+   "fw": 28,
+   "dx": 220,
+   "dy": 18,
+   "dw": 28
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .h-nav-action toward reading",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": -4,
+   "fwd": -1,
+   "d": "M19 12H5m6-6-6 6 6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] toward reading",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": -4,
+   "fwd": -1,
+   "d": "M19 12H5m6-6-6 6 6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "origin": "619.641px 0.5px",
+   "w": 619.640625
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand on the outer edge",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "stand": 215,
+   "phone": 456,
+   "ripple": null,
+   "picker": 1080,
+   "waves": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand waves face the phone",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "stand": 215,
+   "phone": 456,
+   "ripple": null,
+   "picker": 1080,
+   "waves": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab phone nudges toward the stand",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "ptx": -11.2869,
+   "standSide": -1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab phone rests at 0",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "matrix(1, 0, 0, 1, 0, 0)"
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "matrix(1, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "vis": "hidden",
+   "fx": 1106,
+   "fy": 20,
+   "fw": 40,
+   "dx": 1106,
+   "dy": 20,
+   "dw": 40
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link toward reading",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "tx": 4,
+   "fwd": 1,
+   "d": "M5 12h14m-6-6 6 6-6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "bx": 354,
+   "ax": 354
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "thumb": 184,
+   "opt": 184
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 20,
+   "fy": 18,
+   "fw": 28,
+   "dx": 20,
+   "dy": 18,
+   "dw": 28
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link toward reading",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": 4,
+   "fwd": 1,
+   "d": "M5 12h14m-6-6 6 6-6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 486
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "bx": 794,
+   "ax": 794
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "thumb": 785,
+   "opt": 785
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 120,
+   "fy": 20,
+   "fw": 41,
+   "dx": 120,
+   "dy": 20,
+   "dw": 40
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link toward reading",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "tx": -4,
+   "fwd": -1,
+   "d": "M19 12H5m6-6-6 6 6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "origin": "350px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "bx": 20,
+   "ax": 20
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "thumb": 186,
+   "opt": 186
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 221,
+   "fy": 18,
+   "fw": 28,
+   "dx": 220,
+   "dy": 18,
+   "dw": 28
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link toward reading",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": -4,
+   "fwd": -1,
+   "d": "M19 12H5m6-6-6 6 6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "origin": "486px 0.5px",
+   "w": 486
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "bx": 630,
+   "ax": 630
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "thumb": 635,
+   "opt": 635
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 1106,
+   "fy": 20,
+   "fw": 41,
+   "dx": 1106,
+   "dy": 20,
+   "dw": 40
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link toward reading",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "tx": 4,
+   "fwd": 1,
+   "d": "M5 12h14m-6-6 6 6-6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "bx": 354,
+   "ax": 354
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 20,
+   "fy": 18,
+   "fw": 28,
+   "dx": 20,
+   "dy": 18,
+   "dw": 28
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link toward reading",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": 4,
+   "fwd": 1,
+   "d": "M5 12h14m-6-6 6 6-6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "bx": 794,
+   "ax": 794
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 120,
+   "fy": 20,
+   "fw": 40,
+   "dx": 120,
+   "dy": 20,
+   "dw": 40
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link toward reading",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "tx": -4,
+   "fwd": -1,
+   "d": "M19 12H5m6-6-6 6 6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "bx": 20,
+   "ax": 20
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 221,
+   "fy": 18,
+   "fw": 28,
+   "dx": 220,
+   "dy": 18,
+   "dw": 28
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link toward reading",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "tx": -4,
+   "fwd": -1,
+   "d": "M19 12H5m6-6-6 6 6 6",
+   "nums": 9
+  }
+ },
+ {
+  "ok": true,
+  "name": "FAQ + stroke on the minus",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "bx": 630,
+   "ax": 630
+  }
+ },
+ {
+  "ok": true,
+  "name": "symbol flight lands on the header symbol",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "normal",
+  "info": {
+   "vis": "visible",
+   "fx": 1107,
+   "fy": 20,
+   "fw": 40,
+   "dx": 1106,
+   "dy": 20,
+   "dw": 40
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "normal"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] (reduce: none)",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "none"
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/",
+  "w": 390,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .h-nav-action (reduce: none)",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] (reduce: none)",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 619.640625
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand on the outer edge",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "stand": 1225,
+   "phone": 984,
+   "ripple": null,
+   "picker": 360,
+   "waves": -1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand waves face the phone",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "stand": 1225,
+   "phone": 984,
+   "ripple": null,
+   "picker": 360,
+   "waves": -1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "none"
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/",
+  "w": 1440,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "reduce",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] (reduce: none)",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "origin": "350px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "none"
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/",
+  "w": 390,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": "rtl"
+ },
+ {
+  "ok": false,
+  "name": "nudge .h-nav-action (reduce: none)",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": -4
+  }
+ },
+ {
+  "ok": true,
+  "name": "nudge [data-door] (reduce: none)",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line [data-how-step]::before grows from reading start",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "origin": "619.641px 0.5px",
+   "w": 619.640625
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand on the outer edge",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "stand": 215,
+   "phone": 456,
+   "ripple": null,
+   "picker": 1080,
+   "waves": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab stand waves face the phone",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "stand": 215,
+   "phone": 456,
+   "ripple": null,
+   "picker": 1080,
+   "waves": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab forward arrow key = next option",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "sel": 1
+  }
+ },
+ {
+  "ok": true,
+  "name": "Tap Lab 10 fast clicks settle",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "sel": 1,
+   "state": "open",
+   "tf": "none"
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/",
+  "w": 1440,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link (reduce: none)",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "thumb": 184,
+   "opt": 184
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/restaurants/",
+  "w": 390,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link (reduce: none)",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "origin": "0px 0.5px",
+   "w": 486
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "thumb": 785,
+   "opt": 785
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/restaurants/",
+  "w": 1440,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link (reduce: none)",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "origin": "350px 0.5px",
+   "w": 350
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "thumb": 186,
+   "opt": 186
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/restaurants/",
+  "w": 390,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .r-lab-link (reduce: none)",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "line .r-story[data-story=\"editorial\"] .r-steps > li::after grows from reading start",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "origin": "486px 0.5px",
+   "w": 486
+  }
+ },
+ {
+  "ok": true,
+  "name": "price thumb under the checked option",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "thumb": 635,
+   "opt": 635
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/restaurants/",
+  "w": 1440,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "reduce",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link (reduce: none)",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/hosts/",
+  "w": 390,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": "ltr"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link (reduce: none)",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/hosts/",
+  "w": 1440,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "reduce",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link (reduce: none)",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/hosts/",
+  "w": 390,
+  "mode": "reduce"
+ },
+ {
+  "ok": true,
+  "name": "dir",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": "rtl"
+ },
+ {
+  "ok": true,
+  "name": "nudge .p-lab-link (reduce: none)",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "reduce",
+  "info": {
+   "tx": 0
+  }
+ },
+ {
+  "ok": true,
+  "name": "console",
+  "page": "/ar/hosts/",
+  "w": 1440,
+  "mode": "reduce"
+ }
+]

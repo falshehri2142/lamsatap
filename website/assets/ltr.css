@@ -1,0 +1,58 @@
+/* English (LTR) layer — GM-070. Loaded only by the English company pages (index.html, restaurants/, hosts/), after the page CSS.
+   The Arabic pages in ar/ never load it, so nothing here can move an Arabic pixel.
+   1) Type: Latin headings tighten slightly (GM-055 §8: -0.02em display, -0.01em sub-heads); Arabic islands keep 0 and their line height.
+   2) Mirror only what is physically one-sided in the RTL design: the big door/photo corners, the hero QR card,
+      progress lines, arrow nudges, the FAQ plus sign, the «NFC + QR» tag. Photos and the Tap Lab composition stay as they are.
+   3) Arabic islands (guest-facing mockups) carry lang="ar" dir="rtl" in the HTML. */
+
+/* ---------- 1) type ---------- */
+[dir="ltr"] body { line-height: 1.6; }
+[dir="ltr"] :is(h3, .s-h3, .s-q summary, .h-pick b) { letter-spacing: -0.01em; }
+[dir="ltr"] :is(h1, h2, .s-h1, .s-h2, .h-open-h1, .tl__title, .r-close-h, .s-door-t, .p-clean-h, [data-expand-title]) { letter-spacing: -0.02em; }
+[dir="ltr"] .h-open-h1 { line-height: 1.04; }
+[dir="ltr"] .s-h1 { line-height: 1.06; }
+[dir="ltr"] :is(.s-h2, .tl__title) { line-height: 1.12; }
+[dir="ltr"] .s-lead { line-height: 1.55; }
+[dir="ltr"] [lang="ar"], [dir="ltr"] [lang="ar"] * { letter-spacing: 0; }
+[dir="ltr"] [lang="ar"] { line-height: 1.75; }
+
+/* ---------- 2) mirrors ---------- */
+/* doors: the one big corner sits on the outer edge */
+[dir="ltr"] .s-doors > li:first-child .s-door { border-top-right-radius: var(--lt-radius-s); border-top-left-radius: var(--door-big); }
+[dir="ltr"] .s-doors > li:last-child .s-door { border-bottom-left-radius: var(--lt-radius-s); border-bottom-right-radius: var(--door-big); }
+@media (min-width: 768px) {
+  [dir="ltr"] .s-doors > li:last-child .s-door { border-bottom-right-radius: var(--lt-radius-s); border-top-left-radius: var(--lt-radius-s); border-top-right-radius: var(--door-big); }
+}
+/* home hero: photo corner and the QR card swap sides with the grid */
+[dir="ltr"] .h-product-photo { border-radius: 100px var(--lt-radius-s) var(--lt-radius-s) var(--lt-radius-s); }
+[dir="ltr"] .h-open-art { left: auto; right: var(--lt-space-24); }
+@media (max-width: 767px) {
+  [dir="ltr"] .h-product-photo { border-top-right-radius: var(--lt-radius-s); border-top-left-radius: 80px; }
+  [dir="ltr"] .h-open-art { left: auto; right: var(--lt-space-12); }
+}
+/* progress hairlines grow in the reading direction */
+[dir="ltr"] .h-steps > [data-how-step]::before,
+[dir="ltr"] .r-story[data-story="editorial"] .r-steps > li::after { transform-origin: left center; }
+/* arrow nudges (the arrows themselves are drawn pointing right in the English HTML) */
+@media (hover: hover) and (pointer: fine) {
+  [dir="ltr"] .h-nav-action:hover .h-arrow,
+  [dir="ltr"] .s-door:hover .h-door-more .h-arrow,
+  [dir="ltr"] .r-lab-link:hover svg,
+  [dir="ltr"] .p-lab-link:hover svg { transform: translateX(4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [dir="ltr"] .s-door:hover .h-door-more .h-arrow, [dir="ltr"] .r-lab-link:hover svg, [dir="ltr"] .p-lab-link:hover svg { transform: none; }
+}
+[dir="ltr"] .h-ask .s-cta .lt-btn::after { content: "\2192"; }
+/* FAQ: the vertical stroke of the plus sits on the sign at the end of the row */
+[dir="ltr"].m [data-accordion] summary::before { left: auto; right: 0; }   /* .m and dir sit on the same <html> */
+/* «NFC + QR» tag on the photo caption: pushed to the end */
+[dir="ltr"] .a-photo-tech { margin-right: 0; margin-left: auto; }
+/* hosts: stand names stay under their stands in the photo (guide left, emergency centre, Wi-Fi right) */
+[dir="ltr"] .p-table-names { padding-inline: 12.18% 13.24%; }
+
+/* ---------- 3) English fit (measured 2026-10-01) ---------- */
+/* «Everything opens.» is 7.96em wide: under 414 the hero line keeps to two lines instead of orphaning «opens.» */
+@media (max-width: 413px) { [dir="ltr"] .h-open-h1 { font-size: min(44px, calc((100vw - 2 * var(--lt-gutter, 20px)) / 8.1)); } }
+/* cleaning steps: longer English lines; keep each step's icon on the same top line as its neighbour */
+[dir="ltr"] .p-clean-flow li { align-content: start; }

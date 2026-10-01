@@ -44,6 +44,19 @@ window.SITE = {
     stayEntryClean: "السلام عليكم، أبغى باقة الدخول الذكي مع نظافة بعد الخروج. عدد الوحدات والحي:",
     stayFull: "السلام عليكم، أبغى باقة الدخول الذكي مع تقويم الحجوزات لوحداتي. عدد الوحدات والحي:",
     portfolio: "السلام عليكم، عندي 5 وحدات أو أكثر، وأبغى باقة المضيف لها. عدد الوحدات والحي:",
+    // GM-070: نفس الرسائل للصفحات الإنجليزية (web-copy، work/2026-10-01-english-site/copy-en.md §6). الصفحة اللي <html lang="en">
+    //   تاخذ <المفتاح>En، ولو فاضي ترجع للعربي (assets/app.js waText). نسخ العرض ودليل الوحدة تبقى عربي (صفحات الزبون عربية)
+    homeEn: "Hi, I saw your website and have a question.",
+    shopEn: "Hi, I'm interested in the Full Venue Package for my restaurant or café. Venue name and neighborhood:",
+    shopTrialEn: "Hi, I'd like to try the Full Venue Package at my restaurant or café for two weeks. Venue name and neighborhood:",
+    reviewAnyEn: "Hi, I'd like a Google review stand for my business. Type of business and neighborhood:",
+    hostEn: "Hi, I'm interested in the Host Plan for my apartments. Number of units and neighborhood:",
+    hostTrialEn: "Hi, I'd like to try the Host Plan for two weeks. Number of units and neighborhood:",
+    hostCleaningEn: "Hi, I'd like post-checkout cleaning for my units. Number of units and neighborhood:",
+    stayEntryEn: "Hi, I'm interested in Smart Entry for my units. Number of units and neighborhood:",
+    stayEntryCleanEn: "Hi, I'm interested in Smart Entry with post-checkout cleaning. Number of units and neighborhood:",
+    stayFullEn: "Hi, I'm interested in Smart Entry with the booking calendar for my units. Number of units and neighborhood:",
+    portfolioEn: "Hi, I have 5 or more units and I'm interested in the Host Plan for them. Number of units and neighborhood:",
     // نسخ العرض (زر «أبغى مثله» وقسم «لصاحب المحل» أو «للمضيف»)
     demoMenu: "السلام عليكم، شفت مثال المنيو عندكم وأبغى منيو مثله لمحلي. اسم المحل والحي:",
     demoLinks: "السلام عليكم، شفت مثال صفحة الروابط عندكم وأبغى صفحة مثلها لمحلي. اسم المحل والحي:",

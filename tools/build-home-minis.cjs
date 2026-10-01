@@ -1,10 +1,12 @@
 // يولّد الأجزاء الثابتة في صفحات الشركة بين علامات <!-- @@<مفتاح> --> ... <!-- /@@<مفتاح> -->:
-//   البوابة index.html، و restaurants/index.html، و hosts/index.html (اللي ما انبنت للحين تنتخطى بدون خطأ)،
+//   صفحات الشركة العربية ar/index.html، و ar/restaurants/index.html، و ar/hosts/index.html (GM-070: العربي انتقل لـ /ar/)،
 //   وصفحة شرح التقييم demo/review/index.html، وورقة الباركود demo/review/qr-sheet.html.
 // كل علامة تقول وش تبي بنفسها (الجدول تحت)، فأي صفحة تقدر تستخدم أي علامة. العلامة المجهولة = خطأ واضح.
 //
 // التشغيل (من جذر المشروع): node tools/build-home-minis.cjs [صفحات...]
-//   بدون صفحات = كلها. مع صفحة = هي بس، مثل: node tools/build-home-minis.cjs restaurants/index.html
+//   بدون صفحات = كلها. مع صفحة = هي بس، مثل: node tools/build-home-minis.cjs ar/restaurants/index.html
+//   الصفحات الإنجليزية (index.html و restaurants/ و hosts/ في الجذر) ما فيها علامات: تنبني من العربي بعد هذا
+//   (tools/build-en.cjs)، فشغّل الاثنين بالترتيب.
 //   الملف ما ينكتب إلا لو محتواه تغيّر.
 // أعد تشغيله بعد أي تعديل في templates/*/render.js أو demo/*/data.js أو demo/_brands/ أو assets/client.js أو محرك اللون،
 // أو ملفات الشعار في assets/brand/، أو لما تنضاف صورة في assets/images/ أو مشهد في assets/mockups/، أو يتغير domain في config.js.
@@ -268,7 +270,8 @@ const WORD = {
   sheet: '<p class="q-word" data-company>لمسة تاب</p>'
 };
 const logo = {
-  head: (rel) => !has(LOGO.h) ? WORD.head(rel) : '<a class="s-logo-link" href="' + rel + 'index.html">' + logoImg(rel, LOGO.h, 's-logo-h', 40) + '</a>',
+  // home: مسار رئيسية نفس اللغة (صفحات ar/ ترجع لـ ar/index.html)، و rel: مسار الملفات المشتركة
+  head: (rel, home) => !has(LOGO.h) ? WORD.head(home == null ? rel : home) : '<a class="s-logo-link" href="' + (home == null ? rel : home) + 'index.html">' + logoImg(rel, LOGO.h, 's-logo-h', 40) + '</a>',
   foot: (rel) => !has(LOGO.stack) ? WORD.foot :
     (has(LOGO.stackSince) ? '<picture class="s-foot-logo"><source srcset="' + rel + LOGO.stackSince + '" media="(min-width: 1024px)" width="160" height="' + Math.round(160 / ratio(LOGO.stackSince)) + '">' + logoW(rel, LOGO.stack, 's-logo-stack', 120) + '</picture>' : logoW(rel, LOGO.stack, 's-logo-stack', 120)),
   sheet: (rel) => !has(LOGO.h) ? WORD.sheet : logoImg(rel, LOGO.h, 'q-logo', 45)
@@ -276,8 +279,9 @@ const logo = {
 
 // ===== مفتاح العلامة ← محتواها =====
 function resolve(key, page, rel, o) {
+  const base = page.replace(/^ar\//, ''), home = page.startsWith('ar/') ? '../'.repeat(page.split('/').length - 2) : rel;
   const [kind, name] = [key.split(':')[0], key.split(':').slice(1).join(':')];
-  if (key === 'logo:head') return logo.head(rel);
+  if (key === 'logo:head') return logo.head(rel, home);
   if (key === 'logo:foot' && o.layout === 'horizontal') return '<img class="h-footer-logo" src="' + rel + LOGO.h + '" width="214" height="40" alt="لمسة تاب — LamsaTap" data-company-alt>';
   if (key === 'logo:foot') return logo.foot(rel);
   if (key === 'logo:sheet') return logo.sheet(rel);
@@ -299,14 +303,14 @@ function resolve(key, page, rel, o) {
     return o.frame === 'false' ? screenOnly(screen) : phone(screen);
   }
   if (key === 'img:hero') {
-    if (!HERO_PHOTO[page]) throw new Error('img:hero بدون صورة بطل لـ ' + page + ' (HERO_PHOTO)');
-    if (page === 'hosts/index.html') {
-      const plate = pair('assets/images/' + HERO_PHOTO[page]);
+    if (!HERO_PHOTO[base]) throw new Error('img:hero بدون صورة بطل لـ ' + page + ' (HERO_PHOTO)');
+    if (base === 'hosts/index.html') {
+      const plate = pair('assets/images/' + HERO_PHOTO[base]);
       if (!plate) throw new Error('Missing blank host symbol plate.');
       const sizes = o.sizes || '100vw';
       return imgTag(plate, rel, { sizes, alt: o.alt || '', lcp: true }) + imgTag(plate, rel, { sizes, alt: '', tint: true }).replace('<img', '<img data-lift-photo');
     }
-    return photo(HERO_PHOTO[page], rel, { lcp: true, alt: o.alt || '', sizes: o.sizes });
+    return photo(HERO_PHOTO[base], rel, { lcp: true, alt: o.alt || '', sizes: o.sizes });
   }
   if (key === 'card:restaurant') return buildRestaurantCard({ url: DOMAIN + '/demo/menu/' }).svg;
   if (key === 'card:host') return buildHostCard().svg;
@@ -315,8 +319,8 @@ function resolve(key, page, rel, o) {
   throw new Error('علامة مو معروفة في ' + page + ': @@' + key);
 }
 
-// الصفحات بالترتيب. اللي ما انبنت (restaurants/ و hosts/ الحين) تنتخطى بدون خطأ
-const PAGES = ['index.html', 'restaurants/index.html', 'hosts/index.html', 'demo/review/index.html', 'demo/review/qr-sheet.html'];
+// الصفحات بالترتيب. اللي ما انبنت تنتخطى بدون خطأ. صفحات الشركة العربية في ar/ (GM-070)
+const PAGES = ['ar/index.html', 'ar/restaurants/index.html', 'ar/hosts/index.html', 'demo/review/index.html', 'demo/review/qr-sheet.html'];
 // <!-- @@مفتاح[ attributes أو : تعليق] --> المحتوى <!-- /@@مفتاح -->
 const MARK = /(<!-- @@([a-z][\w.-]*(?::[\w.-]+)*)((?::?\s)[^>]*?)? -->)([\s\S]*?)(<!-- \/@@\2 -->)/g;
 const targets = process.argv.slice(2).map((p) => p.replace(/\\/g, '/').replace(/^website\//, ''));

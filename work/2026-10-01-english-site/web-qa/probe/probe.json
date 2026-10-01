@@ -1,0 +1,782 @@
+[
+ {
+  "c": "/ lang/dir",
+  "ok": true,
+  "d": "en/ltr"
+ },
+ {
+  "c": "/ canonical self",
+  "ok": true,
+  "d": "https://lamsatap.com/"
+ },
+ {
+  "c": "/ hreflang reciprocal",
+  "ok": true,
+  "d": "{\"en\":\"/\",\"ar\":\"/ar/\",\"x-default\":\"/\"}"
+ },
+ {
+  "c": "/ og:locale",
+  "ok": true,
+  "d": "{\"l\":\"en_US\",\"a\":[\"ar_SA\"],\"url\":\"https://lamsatap.com/\"}"
+ },
+ {
+  "c": "/ switch target",
+  "ok": true,
+  "d": "{\"href\":\"ar/index.html\",\"abs\":\"http://localhost:8861/ar/index.html\",\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\"}"
+ },
+ {
+  "c": "/ internal links same language",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ no Arabic visible text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ no Arabic hidden text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ no Arabic in attributes outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ no Arabic in <head>",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ no Arabic in JSON-LD",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ Arabic islands (info)",
+  "ok": true,
+  "d": "[\"A.lt-btn عربي\"]"
+ },
+ {
+  "c": "/ price-like strings (info)",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/restaurants/ lang/dir",
+  "ok": true,
+  "d": "en/ltr"
+ },
+ {
+  "c": "/restaurants/ canonical self",
+  "ok": true,
+  "d": "https://lamsatap.com/restaurants/"
+ },
+ {
+  "c": "/restaurants/ hreflang reciprocal",
+  "ok": true,
+  "d": "{\"en\":\"/restaurants/\",\"ar\":\"/ar/restaurants/\",\"x-default\":\"/restaurants/\"}"
+ },
+ {
+  "c": "/restaurants/ og:locale",
+  "ok": true,
+  "d": "{\"l\":\"en_US\",\"a\":[\"ar_SA\"],\"url\":\"https://lamsatap.com/restaurants/\"}"
+ },
+ {
+  "c": "/restaurants/ switch target",
+  "ok": true,
+  "d": "{\"href\":\"../ar/restaurants/index.html\",\"abs\":\"http://localhost:8861/ar/restaurants/index.html\",\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\"}"
+ },
+ {
+  "c": "/restaurants/ internal links same language",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/restaurants/ no Arabic visible text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/restaurants/ no Arabic hidden text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/restaurants/ no Arabic in attributes outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/restaurants/ no Arabic in <head>",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/restaurants/ no Arabic in JSON-LD",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/restaurants/ Arabic islands (info)",
+  "ok": true,
+  "d": "[\"A.lt-btn عربي\",\"DIV.r-demo-phone مقهى المثال — المنيومثال للعرض: الأصناف \",\"FIGURE.lt-stand-stage قيّمنا في قوقلقرّب جوالك هناأو امسح البا\"]"
+ },
+ {
+  "c": "/restaurants/ price-like strings (info)",
+  "ok": true,
+  "d": "[\"SAR 1,211 per year\"]"
+ },
+ {
+  "c": "/hosts/ lang/dir",
+  "ok": true,
+  "d": "en/ltr"
+ },
+ {
+  "c": "/hosts/ canonical self",
+  "ok": true,
+  "d": "https://lamsatap.com/hosts/"
+ },
+ {
+  "c": "/hosts/ hreflang reciprocal",
+  "ok": true,
+  "d": "{\"en\":\"/hosts/\",\"ar\":\"/ar/hosts/\",\"x-default\":\"/hosts/\"}"
+ },
+ {
+  "c": "/hosts/ og:locale",
+  "ok": true,
+  "d": "{\"l\":\"en_US\",\"a\":[\"ar_SA\"],\"url\":\"https://lamsatap.com/hosts/\"}"
+ },
+ {
+  "c": "/hosts/ switch target",
+  "ok": true,
+  "d": "{\"href\":\"../ar/hosts/index.html\",\"abs\":\"http://localhost:8861/ar/hosts/index.html\",\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\"}"
+ },
+ {
+  "c": "/hosts/ internal links same language",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/hosts/ no Arabic visible text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/hosts/ no Arabic hidden text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/hosts/ no Arabic in attributes outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/hosts/ no Arabic in <head>",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/hosts/ no Arabic in JSON-LD",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/hosts/ Arabic islands (info)",
+  "ok": true,
+  "d": "[\"A.lt-btn عربي\",\"DIV.p-demo-phone أهلاً في شقة المثالالشبكةMithal-Guestكلم\",\"DIV.p-sign-frame تأكيد الخروج طالع؟ قرّب جوالك هنا، أو ام\"]"
+ },
+ {
+  "c": "/hosts/ price-like strings (info)",
+  "ok": true,
+  "d": "[\"SAR 49.50 per unit, per month. At 5 uni\",\"more, every unit drops to SAR 39.50.\",\"1–4\\tSAR 49.50\\tSAR 544.50\",\"5 or more\\tSAR 39.50\\tSAR 434.50\"]"
+ },
+ {
+  "c": "/ar/ lang/dir",
+  "ok": true,
+  "d": "ar/rtl"
+ },
+ {
+  "c": "/ar/ canonical self",
+  "ok": true,
+  "d": "https://lamsatap.com/ar/"
+ },
+ {
+  "c": "/ar/ hreflang reciprocal",
+  "ok": true,
+  "d": "{\"ar\":\"/ar/\",\"en\":\"/\",\"x-default\":\"/\"}"
+ },
+ {
+  "c": "/ar/ og:locale",
+  "ok": true,
+  "d": "{\"l\":\"ar_SA\",\"a\":[\"en_US\"],\"url\":\"https://lamsatap.com/ar/\"}"
+ },
+ {
+  "c": "/ar/ switch target",
+  "ok": true,
+  "d": "{\"href\":\"../index.html\",\"abs\":\"http://localhost:8861/index.html\",\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\"}"
+ },
+ {
+  "c": "/ar/ internal links same language",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ar/restaurants/ lang/dir",
+  "ok": true,
+  "d": "ar/rtl"
+ },
+ {
+  "c": "/ar/restaurants/ canonical self",
+  "ok": true,
+  "d": "https://lamsatap.com/ar/restaurants/"
+ },
+ {
+  "c": "/ar/restaurants/ hreflang reciprocal",
+  "ok": true,
+  "d": "{\"ar\":\"/ar/restaurants/\",\"en\":\"/restaurants/\",\"x-default\":\"/restaurants/\"}"
+ },
+ {
+  "c": "/ar/restaurants/ og:locale",
+  "ok": true,
+  "d": "{\"l\":\"ar_SA\",\"a\":[\"en_US\"],\"url\":\"https://lamsatap.com/ar/restaurants/\"}"
+ },
+ {
+  "c": "/ar/restaurants/ switch target",
+  "ok": true,
+  "d": "{\"href\":\"../../restaurants/index.html\",\"abs\":\"http://localhost:8861/restaurants/index.html\",\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\"}"
+ },
+ {
+  "c": "/ar/restaurants/ internal links same language",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/ar/hosts/ lang/dir",
+  "ok": true,
+  "d": "ar/rtl"
+ },
+ {
+  "c": "/ar/hosts/ canonical self",
+  "ok": true,
+  "d": "https://lamsatap.com/ar/hosts/"
+ },
+ {
+  "c": "/ar/hosts/ hreflang reciprocal",
+  "ok": true,
+  "d": "{\"ar\":\"/ar/hosts/\",\"en\":\"/hosts/\",\"x-default\":\"/hosts/\"}"
+ },
+ {
+  "c": "/ar/hosts/ og:locale",
+  "ok": true,
+  "d": "{\"l\":\"ar_SA\",\"a\":[\"en_US\"],\"url\":\"https://lamsatap.com/ar/hosts/\"}"
+ },
+ {
+  "c": "/ar/hosts/ switch target",
+  "ok": true,
+  "d": "{\"href\":\"../../hosts/index.html\",\"abs\":\"http://localhost:8861/hosts/index.html\",\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\"}"
+ },
+ {
+  "c": "/ar/hosts/ internal links same language",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/404.html lang/dir",
+  "ok": true,
+  "d": "en/ltr"
+ },
+ {
+  "c": "/404.html links",
+  "ok": true,
+  "d": "[{\"h\":\"/\",\"t\":\"LamsaTap — Home\"},{\"h\":\"/\",\"t\":\"Back to home\"},{\"h\":\"/ar/\",\"t\":\"الرئيسية بالعربي\"}]"
+ },
+ {
+  "c": "/404.html no Arabic visible text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/404.html no Arabic hidden text outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/404.html no Arabic in attributes outside [lang=ar]",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/404.html no Arabic in <head>",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/404.html no Arabic in JSON-LD",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/404.html Arabic islands (info)",
+  "ok": true,
+  "d": "[\"A. الرئيسية بالعربي\"]"
+ },
+ {
+  "c": "/404.html price-like strings (info)",
+  "ok": true,
+  "d": "[]"
+ },
+ {
+  "c": "/demo/menu/ company links -> /ar/",
+  "ok": true,
+  "d": "{\"company\":[\"/ar/\"],\"wrong\":[]}"
+ },
+ {
+  "c": "/demo/review/ company links -> /ar/",
+  "ok": true,
+  "d": "{\"company\":[\"/ar/\",\"/ar/\",\"/ar/restaurants/\",\"/ar/hosts/\",\"/ar/\"],\"wrong\":[]}"
+ },
+ {
+  "c": "/demo/wifi/ company links -> /ar/",
+  "ok": true,
+  "d": "{\"company\":[\"/ar/\"],\"wrong\":[]}"
+ },
+ {
+  "c": "/demo/links/ company links -> /ar/",
+  "ok": true,
+  "d": "{\"company\":[\"/ar/\"],\"wrong\":[]}"
+ },
+ {
+  "c": "/demo/rental-guide/ company links -> /ar/",
+  "ok": true,
+  "d": "{\"company\":[\"/ar/\"],\"wrong\":[]}"
+ },
+ {
+  "c": "/demo/door/ company links -> /ar/",
+  "ok": true,
+  "d": "{\"company\":[\"/ar/hosts/\"],\"wrong\":[]}"
+ },
+ {
+  "c": "round-trip / @320",
+  "ok": true,
+  "d": "/ -> /ar/ (ar) -> /"
+ },
+ {
+  "c": "round-trip / @1440",
+  "ok": true,
+  "d": "/ -> /ar/ (ar) -> /"
+ },
+ {
+  "c": "round-trip /restaurants/ @320",
+  "ok": true,
+  "d": "/restaurants/ -> /ar/restaurants/ (ar) -> /restaurants/"
+ },
+ {
+  "c": "round-trip /restaurants/ @1440",
+  "ok": true,
+  "d": "/restaurants/ -> /ar/restaurants/ (ar) -> /restaurants/"
+ },
+ {
+  "c": "round-trip /hosts/ @320",
+  "ok": true,
+  "d": "/hosts/ -> /ar/hosts/ (ar) -> /hosts/"
+ },
+ {
+  "c": "round-trip /hosts/ @1440",
+  "ok": true,
+  "d": "/hosts/ -> /ar/hosts/ (ar) -> /hosts/"
+ },
+ {
+  "c": "round-trip /ar/ @320",
+  "ok": true,
+  "d": "/ar/ -> / (en) -> /ar/"
+ },
+ {
+  "c": "round-trip /ar/ @1440",
+  "ok": true,
+  "d": "/ar/ -> / (en) -> /ar/"
+ },
+ {
+  "c": "round-trip /ar/restaurants/ @320",
+  "ok": true,
+  "d": "/ar/restaurants/ -> /restaurants/ (en) -> /ar/restaurants/"
+ },
+ {
+  "c": "round-trip /ar/restaurants/ @1440",
+  "ok": true,
+  "d": "/ar/restaurants/ -> /restaurants/ (en) -> /ar/restaurants/"
+ },
+ {
+  "c": "round-trip /ar/hosts/ @320",
+  "ok": true,
+  "d": "/ar/hosts/ -> /hosts/ (en) -> /ar/hosts/"
+ },
+ {
+  "c": "round-trip /ar/hosts/ @1440",
+  "ok": true,
+  "d": "/ar/hosts/ -> /hosts/ (en) -> /ar/hosts/"
+ },
+ {
+  "c": "layout / @320",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @360",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @375",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @390",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @414",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @768",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @1024",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @1280",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout / @1440",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @320",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @360",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @375",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @390",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @414",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @768",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @1024",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @1280",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /restaurants/ @1440",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @320",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @360",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @375",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @390",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @414",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @768",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @1024",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @1280",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /hosts/ @1440",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @320",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @360",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @375",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @390",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @414",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @768",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @1024",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @1280",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /404.html @1440",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":null,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @320",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @360",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @375",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @390",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @414",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @768",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @1024",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @1280",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/ @1440",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @320",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @360",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @375",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @390",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @414",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @768",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @1024",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @1280",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/restaurants/ @1440",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @320",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @360",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @375",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @390",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @414",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @768",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":65,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @1024",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @1280",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "layout /ar/hosts/ @1440",
+  "ok": true,
+  "d": "{\"hs\":false,\"off\":[],\"clip\":[],\"headH\":81,\"errs\":[]}"
+ },
+ {
+  "c": "arrows /",
+  "ok": true,
+  "d": "{\"n\":10,\"sameAsArabic\":0,\"after\":[\"\\\"→\\\"\"]}"
+ },
+ {
+  "c": "arrows /restaurants/",
+  "ok": true,
+  "d": "{\"n\":1,\"sameAsArabic\":0,\"after\":[]}"
+ },
+ {
+  "c": "arrows /hosts/",
+  "ok": true,
+  "d": "{\"n\":1,\"sameAsArabic\":0,\"after\":[]}"
+ },
+ {
+  "c": "dark scheme stays light /",
+  "ok": true,
+  "d": "{\"light\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\",\"dark\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\"}"
+ },
+ {
+  "c": "dark scheme stays light /restaurants/",
+  "ok": true,
+  "d": "{\"light\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\",\"dark\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\"}"
+ },
+ {
+  "c": "dark scheme stays light /hosts/",
+  "ok": true,
+  "d": "{\"light\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\",\"dark\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\"}"
+ },
+ {
+  "c": "dark scheme stays light /ar/",
+  "ok": true,
+  "d": "{\"light\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\",\"dark\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\"}"
+ },
+ {
+  "c": "dark scheme stays light /ar/restaurants/",
+  "ok": true,
+  "d": "{\"light\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\",\"dark\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\"}"
+ },
+ {
+  "c": "dark scheme stays light /ar/hosts/",
+  "ok": true,
+  "d": "{\"light\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\",\"dark\":\"rgb(250, 247, 242) | rgb(20, 32, 31) | rgb(20, 32, 31)\"}"
+ }
+]

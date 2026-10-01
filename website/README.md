@@ -7,6 +7,13 @@
 فحص الإصدار يمر على الصياغة وروابط QR والحجم: صفحات الشركة المتحركة لها حد 350KiB خام و110KiB gzip، وصفحات الزبون والأمثلة تبقى 100/50KiB. القياسات وتبرير فصل الميزانيتين في سجل الإطلاق.
 
 ## الصفحات
+**GM-070 (2026-10-01): الإنجليزي هو الأساس.** صفحات الشركة الإنجليزية في الجذر (`index.html` و`restaurants/` و`hosts/` و`404.html`، `lang="en" dir="ltr"`)،
+والعربية بنفس المحتوى في `ar/` (`ar/index.html` و`ar/restaurants/` و`ar/hosts/`). زر اللغة `.s-lang` في الرأس («عربي» / «English»)، و hreflang (en و ar و x-default=en) في كل صفحة.
+- **الإنجليزي ينبني من العربي:** عدّل الصفحة في `ar/`، ثم `node tools/build-home-minis.cjs` ثم `node tools/build-en.cjs website` (جدول النصوص داخله، من `copy-en.md`).
+  الأداة تطلع خطأ لو بقى نص عربي برّا مجسمات الضيف، أو لو جملة عربية تغيّرت وما لها ترجمة. لا تعدّل الصفحات الإنجليزية بيدك.
+- طبقة الاتجاه للإنجليزي بس: `assets/ltr.css`. ورسائل الواتساب الإنجليزية `waText.<المفتاح>En` في `config.js`.
+- صفحات الزبون (`demo/` و`templates/`) عربية ومكانها ما تغيّر.
+
 **صفحات الشركة** (فاتحة دايماً: `<html data-lt-scheme="light">` و`<meta name="color-scheme" content="only light">`، GM-038):
 - `index.html` **البوابة** (GM-040 وGM-043، «الاتجاه 3» في `work/2026-09-27-brand-identity/web-art-director.md` §3 و§10، والنصوص web-copy «الاتجاه 3»):
   البداية «باركودنا هو شعارنا» ← البابين («عندي مطعم أو كافيه» و«عندي شقق أو إيجار قصير») ← كيف نشتغل ← اسأل إنسان ← التذييل. بدون أسعار.
@@ -49,8 +56,8 @@
 - خادم محلي: `python -m http.server -d website 8123` ثم `http://localhost:8123/`.
 
 ## أداة البناء `tools/build-home-minis.cjs`
-تكتب الأجزاء الثابتة بين علامات `<!-- @@<مفتاح> -->…<!-- /@@<مفتاح> -->` في `index.html` و`restaurants/index.html` و`hosts/index.html` و`demo/review/index.html` و`demo/review/qr-sheet.html`. الصفحة اللي ما انبنت تنتخطى بدون خطأ.
-- **التشغيل من جذر المشروع:** `node tools/build-home-minis.cjs` (كل الصفحات)، أو صفحة وحدة: `node tools/build-home-minis.cjs hosts/index.html`. الملف ما ينكتب إلا لو تغيّر.
+تكتب الأجزاء الثابتة بين علامات `<!-- @@<مفتاح> -->…<!-- /@@<مفتاح> -->` في `ar/index.html` و`ar/restaurants/index.html` و`ar/hosts/index.html` و`demo/review/index.html` و`demo/review/qr-sheet.html` (الإنجليزي بدون علامات، ينبني بعدها بـ `build-en.cjs`). الصفحة اللي ما انبنت تنتخطى بدون خطأ.
+- **التشغيل من جذر المشروع:** `node tools/build-home-minis.cjs` (كل الصفحات)، أو صفحة وحدة: `node tools/build-home-minis.cjs ar/hosts/index.html`. الملف ما ينكتب إلا لو تغيّر.
 - **شغّلها بعد:** تغيير `domain` في `config.js`، أو ملفات الشعار، أو `templates/*/render.js` و`demo/*/data.js` و`demo/_brands/`، أو صورة جديدة في `assets/images/`، أو مشهد في `assets/mockups/`.
 - **العلامات** (أي صفحة تقدر تستخدم أي علامة، والمجهولة خطأ واضح. بعد المفتاح attributes اختيارية مثل `alt="…"` و`sizes="…"`):
 
@@ -153,13 +160,13 @@
 
 **الخطوات بالترتيب:**
 1. عبّ القيم فوق.
-2. `node tools/build-home-minis.cjs`: يعيد باركود البداية وباركود الستاند وورقة QR بالدومين الجديد.
+2. `node tools/build-home-minis.cjs` ثم `node tools/build-en.cjs website`: يعيد باركود البداية وباركود الستاند وورقة QR بالدومين الجديد، بالعربي ثم الإنجليزي.
 3. **فحص باركود البداية:** سطر «امسحه بجوالك» تحته يبقى، فلازم الباركود يفتح `domain/demo/rental-guide/` الحقيقي:
    - افحصه بـ jsQR (برمجياً) على 320 و220 و120px، ولو فشل مقاس، الرمز في وسطه يصغر (المدير الفني §3). jsQR **ما انجرّب للحين** (OpenCV قراه، web-motion.md).
    - وبعدها امسحه بكاميرا آيفون وأندرويد من الشاشة.
    - الباركودات داخل مشاهد المنتج وصور الطباعة لازم تكون وهمية ما تنقرى (GM-049)، وتنفحص إنها ما تنفك.
 4. جرّب كل زر واتساب بآيفون وأندرويد (الرسالة العربية فيها «—» و«:» توصل صح)، ورابط التليجرام وإشعاره.
-5. أضف `og:image` برابط كامل بالدومين، و`robots.txt` و`sitemap.xml` (فيها البوابة و`restaurants/` و`hosts/`).
+5. أضف `og:image` برابط كامل بالدومين، و`robots.txt` و`sitemap.xml` (فيها الصفحات الست بالإنجليزي والعربي مع hreflang).
 6. `node tools/build-dist.cjs`: يطلّع `dist/` بدون تعليقات ولا ملفات `.md`، ولازم يطلع «جاهز للرفع».
 7. صاحب المشروع يرفع **`dist/` بس** (مو `website/`).
 8. اطبع `demo/review/qr-sheet.html` وامسحه من الورقة المطبوعة قبل التوزيع.

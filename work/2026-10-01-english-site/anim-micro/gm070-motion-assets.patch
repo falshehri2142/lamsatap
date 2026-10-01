@@ -1,0 +1,69 @@
+diff --git a/website/assets/motion.css b/website/assets/motion.css
+index c601d8e..583012a 100644
+--- a/website/assets/motion.css
++++ b/website/assets/motion.css
+@@ -164,7 +164,7 @@
+ /* ===== الأسئلة (data-accordion): الجواب يطلع 240ms، ويروح 65% منها، و+ تصير − (الخط الواقف ينطوي) ===== */
+ .m [data-accordion] summary { position: relative; }
+ .m [data-accordion] summary::after { background: linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat; }
+-.m [data-accordion] summary::before { content: ""; position: absolute; left: 0; top: 50%; width: 16px; height: 16px; margin-top: -8px; background: linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; transition: transform var(--m-acc) var(--m-acc-ease); }
++.m [data-accordion] summary::before { content: ""; position: absolute; inset-inline-end: 0; top: 50%; width: 16px; height: 16px; margin-top: -8px; background: linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat; transition: transform var(--m-acc) var(--m-acc-ease); }
+ .m [data-accordion] details[open] summary::before { transform: scaleY(0); }
+ .m [data-accordion] details > :not(summary) { transition: opacity var(--m-acc) var(--m-acc-ease), translate var(--m-acc) var(--m-acc-ease); }
+ .m [data-accordion] details.m-opening > :not(summary) { opacity: 0; translate: 0 -8px; transition: none; }
+@@ -173,6 +173,7 @@
+ 
+ @media (prefers-reduced-motion: reduce) {
+   .m [data-accordion] summary::before, .m [data-accordion] details > :not(summary) { transition: none; }
++  html[dir="ltr"] .h-nav-action:hover .h-arrow { transform: none; }   /* GM-070: سهم الرأس ما يتحرك مع تقليل الحركة (يغلب ltr.css) */
+ }
+ 
+ /* الطباعة: كل شي ثابت وظاهر */
+diff --git a/website/assets/signature.css b/website/assets/signature.css
+index 01b8654..27fd6b5 100644
+--- a/website/assets/signature.css
++++ b/website/assets/signature.css
+@@ -27,7 +27,7 @@
+ .tl{--tl-sw:110px}
+ .tl__stand{display:block;position:absolute;left:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * 1.1);width:var(--tl-sw);z-index:1;pointer-events:none}
+ .tl__stand svg{display:block;width:100%;height:auto}
+-.tl__ripple{position:absolute;left:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) / 2 + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * .6);width:calc(var(--tl-pw) * .9);aspect-ratio:1;margin-left:calc(var(--tl-pw) * -.45);margin-top:calc(var(--tl-pw) * -.45);border-radius:50%;background:var(--lt-teal);opacity:0;transform:scale(.2);z-index:0;pointer-events:none}
++.tl__ripple{position:absolute;inset-inline-end:calc(50% - var(--tl-pw) / 2 - var(--tl-sw) / 2 + 48px);top:calc(var(--lt-space-24) + var(--tl-ph) - var(--tl-sw) * .6);width:calc(var(--tl-pw) * .9);aspect-ratio:1;margin-inline-end:calc(var(--tl-pw) * -.45);margin-top:calc(var(--tl-pw) * -.45);border-radius:50%;background:var(--lt-teal);opacity:0;transform:scale(.2);z-index:0;pointer-events:none}
+ .tl__phone{position:relative;z-index:2;width:var(--tl-pw);height:var(--tl-ph);padding:10px;background:var(--lt-ink);border-radius:36px;box-shadow:var(--lt-elev-float);transform-origin:50% 100%}
+ .tl__phone::before{content:"";position:absolute;top:18px;left:50%;width:64px;height:18px;margin-left:-32px;border-radius:var(--lt-radius-pill);background:var(--lt-ink);z-index:3}
+ .tl__screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:27px;background:var(--lt-surface)}
+@@ -74,6 +74,9 @@
+ @media (min-width:1024px){.tl{--tl-s:.7467}}
+ /* desktop: keep the "open full demo" link right under the picker instead of floating mid-column */
+ @media (min-width:1024px){.tl{grid-template-rows:auto auto 1fr}}
+-/* Stand sits beside the phone, never over it; on narrow screens the phone alone tells the story. */
+-.tl__stand{left:auto;right:calc(50% + var(--tl-pw) / 2 + var(--lt-space-16));top:auto;bottom:calc(var(--lt-space-16) + 3.4em + var(--lt-space-16))}
++/* Stand sits beside the phone, never over it; on narrow screens the phone alone tells the story.
++   GM-070: sides are logical. The stand sits on the outer edge, away from the picker (RTL left, LTR right), and the phone
++   moves 12px toward it (signature.js). In RTL these resolve to the same left/right as before. Its waves face the phone. */
++.tl__stand{inset-inline:calc(50% + var(--tl-pw) / 2 + var(--lt-space-16)) auto;top:auto;bottom:calc(var(--lt-space-16) + 3.4em + var(--lt-space-16))}
++[dir="ltr"] .tl__stand path[stroke]{transform-box:fill-box;transform-origin:center;transform:scaleX(-1)}
+ @media (max-width:767px){.tl__stand,.tl__ripple{display:none}}
+diff --git a/website/assets/signature.js b/website/assets/signature.js
+index ae63747..2abbc0f 100644
+--- a/website/assets/signature.js
++++ b/website/assets/signature.js
+@@ -39,14 +39,16 @@
+   function steps() {
+     // fade the page layer only (the screen keeps its light surface, not the ink body)
+     screen = stage.hasAttribute('data-loaded') || !poster ? frame : poster;
++    // GM-070: الجوال يتحرك 12px ناحية الستاند. الستاند على الحافة البعيدة عن الخيارات (signature.css): RTL يسار، LTR يمين
++    var lean = getComputedStyle(root).direction === 'rtl' ? -12 : 12;
+     return [
+       [0, screen, null, { opacity: 0 }, 150, 'in'],
+-      [0, phone, null, { x: -12 }, 240, 'io'],
++      [0, phone, null, { x: lean }, 240, 'io'],
+       [170, ripple, { scale: .6, opacity: .5 }, { scale: 1.6, opacity: 0 }, 480, 'out'],
+       [170, stand, { y: 0 }, { y: -2 }, 120, 'out'],
+       [290, stand, { y: -2 }, { y: 0 }, 120, 'out'],
+       [400, screen, { opacity: 0 }, { opacity: 1 }, 240, 'xo'],
+-      [400, phone, { x: -12 }, { x: 0 }, 240, 'spring']
++      [400, phone, { x: lean }, { x: 0 }, 240, 'spring']
+     ];
+   }
+   function css(o) {

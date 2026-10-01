@@ -123,7 +123,7 @@
 
   function play(tab) {
     var key = tab.getAttribute('data-tl-opt'), src = tab.getAttribute('data-tl-src'), t = ++token;
-    if (cap) cap.textContent = TEXT[key] || '';
+    if (cap) cap.textContent = tab.getAttribute('data-tl-cap') || TEXT[key] || '';   // data-tl-cap: نص الصفحة الإنجليزية (GM-070)
     if (open) open.setAttribute('href', src);
     load(src, t);
     if (reduced()) { finalState(); setState('open'); return; }
