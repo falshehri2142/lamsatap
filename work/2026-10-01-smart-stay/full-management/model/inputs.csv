@@ -1,0 +1,47 @@
+key,best,base,worst,unit,source
+days_month,30.4167,30.4167,30.4167,day/month,365 ÷ 12
+los_nights,5.4,2.5,2.0,night/booking,best: airbtics جدة 5.4 ليلة لـAirbnb https://airbtics.com/tourism-statistics-jeddah-sa (مقتطف بحث، غير مؤكد) | base 2.5 نفس افتراض acc-tax وfin-pricing | worst 2.0 افتراض (جاذر إن ويك إند) غير مؤكد
+platform_fee_pct,0.03,0.155,0.20,ratio of GBV,best: Airbnb الرسوم المقسومة 3% بدون PMS | base: Airbnb على المضيف بس 15.5% لما يرتبط PMS من 2025-10-27 https://www.futurestay.com/read/airbnb-15-5-percent-host-fee-explained-2026 و https://support.hostaway.com/hc/en-us/articles/40440128540699-Airbnb-Fee-Structure-Changes-for-Hostaway-Users | worst: جاذر إن 15–20% (acc-tax) https://raghdan.sa/en/news/tourism-real-estate-intersection-2025-small-investors-guide-to-golden-opportunities-from-gathern-to-heritage-properties/ — كلها مقتطفات بحث غير مؤكدة
+cleaning_price_small,179,179,179,SAR/visit,services/cleaning.md مقترح غير معتمد (استوديو أو غرفة وصالة)
+cleaning_price_large,299,299,299,SAR/visit,services/cleaning.md مقترح غير معتمد (غرفتين أو ثلاث)
+cleaning_large_adr_min,450,450,450,SAR/night,افتراض fin-modeler: الليلة 450 فأكثر = غرفتين، غير مؤكد
+cleaning_markup,1.5,1.5,1.3,x,services/cleaning.md (عرض الشركة × 1.5) | worst 1.3: fin-pricing لقي تنظيف شقق إيجار في جدة من 350 https://super-ksa.com (مقتطف) فتكلفتنا ممكن تكون متفائلة، غير مؤكد
+cleaning_vendor_vat,0,0,0.15,ratio,worst: الشركة مسجلة في الضريبة وإحنا لا = 15% ما تنسترد (acc-bookkeeper §6، سكيل المحاسب) غير مؤكد
+payment_fee_pct,0,0.025,0.03,ratio,cost/inputs.csv payment_fee_pct (best = تحويل بنكي) غير مؤكد
+bad_debt_pct,0,0.02,0.05,ratio of our invoice,افتراض fin-modeler: المالك ما يسدد فاتورتنا (الهيكل 1 بس) غير مؤكد
+compensation_pct,0,0.01,0.03,ratio of net rent,افتراض fin-modeler: تعويض المالك لتقصير منا (حساب 5850 في acc-bookkeeper §3.5) غير مؤكد
+min_booking_msgs,25,40,60,min/booking,افتراض fin-modeler: استفسارات وقبول الحجز ورسائل قبل الوصول وأثناء الإقامة والخروج والتقييمين، غير مؤكد
+min_booking_checkin,5,10,20,min/booking,افتراض fin-modeler: متابعة فتح القفل والـPIN والضيف اللي ما عرف يدخل، غير مؤكد
+min_booking_cleaning,5,10,15,min/booking,cost/inputs.csv cleaning_coord_min (إرسال للنظافة + فحص الصور) غير مؤكد
+min_unit_listing,30,60,120,min/unit/month,افتراض fin-modeler: تسعير وتقويم وإعلان في 2–3 منصات، غير مؤكد
+min_unit_owner_admin,20,30,60,min/unit/month,افتراض fin-modeler: فاتورة شهرية وكشف المالك وتقرير (الهيكل 1)، غير مؤكد
+min_unit_trust_extra,20,45,90,min/unit/month,افتراض fin-modeler: الهيكل 2 بس (مطابقة ثلاثية وتحويلات وتأمينات، acc-bookkeeper §3.3) غير مؤكد
+visits_per_booking,0.05,0.10,0.20,visit/booking,افتراض fin-modeler: زيارة للوحدة (ضيف تقفل، مكيف، ضرر، نظافة ناقصة) غير مؤكد
+inspections_month,0.25,0.5,1.0,visit/unit/month,افتراض fin-modeler: فحص دوري وبطارية القفل ومستلزمات، غير مؤكد
+min_per_visit,45,75,120,min/visit,افتراض fin-modeler: مشوار جدة + شغل في الوحدة، غير مؤكد
+transport_per_visit,20,30,40,SAR/visit,cost/inputs.csv install_transport (بنزين وموقف) غير مؤكد
+onboarding_hours,4,6,10,hour/unit (one-off),افتراض fin-modeler: إعلان في 2–3 منصات + صور بالجوال + دليل + ضبط الأسعار (بدون تركيب القفل اللي داخل 599). fin-pricing قدّر 4 ساعات، غير مؤكد
+unit_life_months,24,12,6,month,افتراض fin-modeler: عمر عقد الوحدة لتوزيع وقت التجهيز، غير مؤكد
+tech_unit_month,4,7.36,19,SAR/unit/month,cost/inputs.csv: استضافة 3 + واتساب 0.2×20 + SMS 0.12×3 (worst 5+12+2) غير مؤكد. البطارية واحتياط القفل على المالك لأن القفل مُباع له
+pms_unit_month,0,37.5,42.2,SAR/unit/month,best: iCal بس | base: Hospitable 10$ لكل وحدة إضافية ×3.75 https://www.roommaster.com/blog/hospitable-pricing | worst: Smoobu 9.60€ ×4.4 https://comparatifchannelmanager.fr/en/smoobu-pricing/ — مقتطفات، غير مؤكد. ربط جاذر إن بمدير قنوات غير مؤكد
+pms_fixed_month,0,108.75,154,SAR/month,base: Hospitable 29$ لأول وحدة ×3.75 | worst: Smoobu 35€ ×4.4 (نفس المصادر) غير مؤكد
+fixed_platform_month,106,314,364,SAR/month,cost/output.txt (n8n + منصة واتساب) غير مؤكد
+labor_rate,25,25,25,SAR/hour,قرار صاحب المشروع 2026-09-27 (finance/inputs.csv labor_cost_per_hour)
+owner_hours_avail,120,60,30,hour/month,افتراض fin-modeler: صاحب المشروع يبيع ويركّب ويدير الشركة بعد. غير مؤكد = سؤال له
+staff_salary,4000,5000,6500,SAR/month,best: حد نطاقات للسعودي 4000 https://www.argaam.com/en/article/articledetail/id/1422709 | base: موظف علاقات ضيوف جدة ≈ 60840 بالسنة (مقتطف glassdoor/worldsalaries) https://worldsalaries.com/average-guest-relations-officer-salary-in-saudi-arabia/ | غير مؤكد
+gosi_employer_pct,0.1275,0.1275,0.1275,ratio,التأمينات للسعودي الجديد 12.75% على صاحب العمل من يوليو 2026 https://www.silberson.com/2025/09/saudi-social-insurance-law-2025/ (مقتطف، غير مؤكد)
+staff_other_month,300,500,800,SAR/month,افتراض fin-modeler: تأمين طبي + جوال + مواصلات، غير مؤكد
+staff_hours_month,208,208,208,hour/month,نظام العمل م98: 48 ساعة بالأسبوع × 52 ÷ 12 https://www.hrsd.gov.sa/sites/default/files/2023-02/Labor.pdf (المقتطف، الملف ما انفتح) — رمضان 36 ساعة
+staff_productive_share,0.85,0.75,0.65,ratio,افتراض fin-modeler (تنقل وانتظار وتدريب) غير مؤكد
+peak_day_share,0.25,0.35,0.45,ratio of weekly check-ins,افتراض fin-modeler: نصيب أزحم يوم (الخميس) من الدخول الأسبوعي، غير مؤكد
+setup_fee,599,599,599,SAR/unit (one-off),pricing-owner-install.md مقترح غير معتمد
+setup_profit,216,216,155,SAR/unit (one-off),locks/prices-ksa.md (R1 + G2، أسوأ حالة 155) غير مؤكد
+listing_fee,299,299,299,SAR/unit (one-off),fin-pricing.md §4-ب تجهيز الإعلان مقترح غير معتمد (للإعلان الجديد)
+vat_rate,0.15,0.15,0.15,ratio,نظام ضريبة القيمة المضافة (accounting/vat-registration.md)
+vat_threshold_voluntary,187500,187500,187500,SAR/year,https://zatca.gov.sa/en/eServices/Pages/eServices_002.aspx (مؤكد سابقاً، accounting/vat-registration.md)
+vat_threshold_mandatory,375000,375000,375000,SAR/year,نفس المصدر
+zakat_rate,0.025,0.025,0.025,ratio,acc-tax.md §7 (تقدير مبسط؛ الوعاء الحقيقي يحسبه المحاسب) غير مؤكد
+install_hours,1.5,2.25,3,hour/unit (one-off),pricing-owner-install.md §1 (90 دقيقة تركيب + 45 طريق، والمدى 60–120 من cost/inputs.csv) غير مؤكد
+lite_min_booking,30,40,60,min/booking,fin-pricing.md §2 باقة «حجوزات ودخول» (قبول الحجز والرسائل والدخول بس، النظافة على منظف المالك) غير مؤكد
+lite_min_unit_month,20,30,60,min/unit/month,fin-pricing.md §2 (المالك يسعّر بنفسه) غير مؤكد
+lite_onboarding_hours,1,2,4,hour/unit (one-off),افتراض fin-modeler: ربط الإعلان الموجود بحسابنا كمدير، غير مؤكد
