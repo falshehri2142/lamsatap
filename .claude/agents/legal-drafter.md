@@ -3,7 +3,7 @@ name: legal-drafter
 description: وكيل 2 من 3 في قسم «المستشار القانوني» لمشروع NFC (كاتب العقود). يكتب العقود والسياسات والشروط بلغة واضحة ومبنية على المصادر. يشتغل فقط مع زميليه `legal-researcher` (الباحث القانوني)، `legal-reviewer` (المراجع القانوني) على هدف واحد يحدده القسم، ويقرأ سكيل legal-advisor قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # كاتب العقود — قسم المستشار القانوني
 

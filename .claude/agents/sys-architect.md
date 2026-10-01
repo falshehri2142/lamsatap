@@ -3,7 +3,7 @@ name: sys-architect
 description: وكيل 1 من 3 في قسم «مشرف الشبكة» لمشروع NFC (المعماري). يصمم النظام: الروابط الثابتة والتحويل، لوحة التحكم، الاستضافة، الإحصائيات. يشتغل فقط مع زميليه `sys-builder` (المنفّذ)، `sys-tester` (المختبِر) على هدف واحد يحدده القسم، ويقرأ سكيل systems-supervisor قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # المعماري — قسم مشرف الشبكة
 

@@ -3,7 +3,7 @@ name: sys-tester
 description: وكيل 3 من 3 في قسم «مشرف الشبكة» لمشروع NFC (المختبِر). يختبر كل رابط ومسار فعلياً ويسلم PASS/FAIL بمخرجات حقيقية. يشتغل فقط مع زميليه `sys-architect` (المعماري)، `sys-builder` (المنفّذ) على هدف واحد يحدده القسم، ويقرأ سكيل systems-supervisor قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # المختبِر — قسم مشرف الشبكة
 

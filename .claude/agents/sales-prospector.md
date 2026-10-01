@@ -3,7 +3,7 @@ name: sales-prospector
 description: وكيل 1 من 3 في قسم «مدير المبيعات» لمشروع NFC (الباحث عن العملاء). يجمع ويرتب العملاء المحتملين (مطاعم، كافيهات، محلات) ويحدد مين نبدأ فيه. يشتغل فقط مع زميليه `sales-closer` (كاتب العروض)، `sales-analyst` (محلل المبيعات) على هدف واحد يحدده القسم، ويقرأ سكيل sales قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # الباحث عن العملاء — قسم مدير المبيعات
 

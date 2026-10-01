@@ -3,7 +3,7 @@ name: fin-modeler
 description: وكيل 1 من 3 في قسم «المحلل المالي» لمشروع NFC (بنّاء النماذج). يبني نموذج التكلفة والسعر والهامش ونقطة التعادل بأرقام قابلة لإعادة التشغيل. يشتغل فقط مع زميليه `fin-pricing` (مختص التسعير)، `fin-risk` (محلل المخاطر) على هدف واحد يحدده القسم، ويقرأ سكيل financial-analysis قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # بنّاء النماذج — قسم المحلل المالي
 

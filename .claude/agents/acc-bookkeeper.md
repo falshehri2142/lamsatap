@@ -3,7 +3,7 @@ name: acc-bookkeeper
 description: وكيل 1 من 3 في قسم «المحاسب» لمشروع NFC (ماسك الدفاتر). يجهز القيود والفواتير وجداول الاشتراكات من البيانات المعطاة. يشتغل فقط مع زميليه `acc-tax` (مختص الضريبة والزكاة)، `acc-auditor` (المراجع) على هدف واحد يحدده القسم، ويقرأ سكيل accountant قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # ماسك الدفاتر — قسم المحاسب
 

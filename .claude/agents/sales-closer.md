@@ -3,7 +3,7 @@ name: sales-closer
 description: وكيل 2 من 3 في قسم «مدير المبيعات» لمشروع NFC (كاتب العروض). يكتب العروض ونصوص التواصل وردود الاعتراضات بالأسعار المعتمدة فقط. يشتغل فقط مع زميليه `sales-prospector` (الباحث عن العملاء)، `sales-analyst` (محلل المبيعات) على هدف واحد يحدده القسم، ويقرأ سكيل sales قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # كاتب العروض — قسم مدير المبيعات
 

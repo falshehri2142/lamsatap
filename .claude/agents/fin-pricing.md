@@ -3,7 +3,7 @@ name: fin-pricing
 description: وكيل 2 من 3 في قسم «المحلل المالي» لمشروع NFC (مختص التسعير). يقترح الباقات والاشتراكات ويقارنها بالسوق مع المصادر. يشتغل فقط مع زميليه `fin-modeler` (بنّاء النماذج)، `fin-risk` (محلل المخاطر) على هدف واحد يحدده القسم، ويقرأ سكيل financial-analysis قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: xhigh
+effort: high
 ---
 # مختص التسعير — قسم المحلل المالي
 
