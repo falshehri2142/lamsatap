@@ -20,6 +20,16 @@
   "d": ""
  },
  {
+  "c": "/ @320 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/ @375 console/network",
   "ok": true,
   "d": ""
@@ -38,6 +48,16 @@
   "c": "/ @375 arabic letter-spacing 0",
   "ok": true,
   "d": ""
+ },
+ {
+  "c": "/ @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/index.html\",\"border\":\"1px\"}"
  },
  {
   "c": "/ @390 console/network",
@@ -60,9 +80,24 @@
   "d": ""
  },
  {
-  "c": "/ rtl/ar/h1/meta",
+  "c": "/ @390 no Arabic outside [lang=ar]",
   "ok": true,
-  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+  "d": ""
+ },
+ {
+  "c": "/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/ en=/ x-default=/ | https://lamsatap.com/"
  },
  {
   "c": "/ img alt",
@@ -95,6 +130,16 @@
   "d": ""
  },
  {
+  "c": "/ @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":87,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/ @1024 console/network",
   "ok": true,
   "d": ""
@@ -113,6 +158,16 @@
   "c": "/ @1024 arabic letter-spacing 0",
   "ok": true,
   "d": ""
+ },
+ {
+  "c": "/ @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":95,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/index.html\",\"border\":\"1px\"}"
  },
  {
   "c": "/ @1440 console/network",
@@ -135,6 +190,16 @@
   "d": ""
  },
  {
+  "c": "/ @1440 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":95,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/restaurants/ @320 console/network",
   "ok": true,
   "d": ""
@@ -153,6 +218,16 @@
   "c": "/restaurants/ @320 arabic letter-spacing 0",
   "ok": true,
   "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/restaurants/index.html\",\"border\":\"1px\"}"
  },
  {
   "c": "/restaurants/ @375 console/network",
@@ -175,6 +250,16 @@
   "d": ""
  },
  {
+  "c": "/restaurants/ @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/restaurants/ @390 console/network",
   "ok": true,
   "d": ""
@@ -195,9 +280,24 @@
   "d": ""
  },
  {
-  "c": "/restaurants/ rtl/ar/h1/meta",
+  "c": "/restaurants/ @390 no Arabic outside [lang=ar]",
   "ok": true,
-  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/restaurants/ ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/restaurants/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/restaurants/ en=/restaurants/ x-default=/restaurants/ | https://lamsatap.com/restaurants/"
  },
  {
   "c": "/restaurants/ img alt",
@@ -230,6 +330,16 @@
   "d": ""
  },
  {
+  "c": "/restaurants/ @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":89,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/restaurants/ @1024 console/network",
   "ok": true,
   "d": ""
@@ -248,6 +358,16 @@
   "c": "/restaurants/ @1024 arabic letter-spacing 0",
   "ok": true,
   "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/restaurants/index.html\",\"border\":\"1px\"}"
  },
  {
   "c": "/restaurants/ @1440 console/network",
@@ -270,6 +390,16 @@
   "d": ""
  },
  {
+  "c": "/restaurants/ @1440 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/hosts/ @320 console/network",
   "ok": true,
   "d": ""
@@ -288,6 +418,16 @@
   "c": "/hosts/ @320 arabic letter-spacing 0",
   "ok": true,
   "d": ""
+ },
+ {
+  "c": "/hosts/ @320 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/hosts/index.html\",\"border\":\"1px\"}"
  },
  {
   "c": "/hosts/ @375 console/network",
@@ -310,6 +450,16 @@
   "d": ""
  },
  {
+  "c": "/hosts/ @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/hosts/ @390 console/network",
   "ok": true,
   "d": ""
@@ -330,9 +480,24 @@
   "d": ""
  },
  {
-  "c": "/hosts/ rtl/ar/h1/meta",
+  "c": "/hosts/ @390 no Arabic outside [lang=ar]",
   "ok": true,
-  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/hosts/ ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/hosts/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/hosts/ en=/hosts/ x-default=/hosts/ | https://lamsatap.com/hosts/"
  },
  {
   "c": "/hosts/ img alt",
@@ -365,6 +530,16 @@
   "d": ""
  },
  {
+  "c": "/hosts/ @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":89,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/hosts/ @1024 console/network",
   "ok": true,
   "d": ""
@@ -383,6 +558,16 @@
   "c": "/hosts/ @1024 arabic letter-spacing 0",
   "ok": true,
   "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/hosts/index.html\",\"border\":\"1px\"}"
  },
  {
   "c": "/hosts/ @1440 console/network",
@@ -405,6 +590,526 @@
   "d": ""
  },
  {
+  "c": "/hosts/ @1440 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8765/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ar/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ar/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ar/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ar/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/ en=/ x-default=/ | https://lamsatap.com/ar/"
+ },
+ {
+  "c": "/ar/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ar/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":102,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ar/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":110,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ar/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":110,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ar/restaurants/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ar/restaurants/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ar/restaurants/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ar/restaurants/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/restaurants/ en=/restaurants/ x-default=/restaurants/ | https://lamsatap.com/ar/restaurants/"
+ },
+ {
+  "c": "/ar/restaurants/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ar/restaurants/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":105,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ar/restaurants/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ar/restaurants/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ar/hosts/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ar/hosts/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ar/hosts/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ar/hosts/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/hosts/ en=/hosts/ x-default=/hosts/ | https://lamsatap.com/ar/hosts/"
+ },
+ {
+  "c": "/ar/hosts/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ar/hosts/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":105,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ar/hosts/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ar/hosts/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8765/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
   "c": "/404.html @320 console/network",
   "ok": true,
   "d": ""
@@ -421,6 +1126,11 @@
  },
  {
   "c": "/404.html @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @320 no Arabic outside [lang=ar]",
   "ok": true,
   "d": ""
  },
@@ -445,6 +1155,11 @@
   "d": ""
  },
  {
+  "c": "/404.html @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
   "c": "/404.html @390 console/network",
   "ok": true,
   "d": ""
@@ -465,9 +1180,14 @@
   "d": ""
  },
  {
-  "c": "/404.html rtl/ar/h1/meta",
+  "c": "/404.html @390 no Arabic outside [lang=ar]",
   "ok": true,
-  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+  "d": ""
+ },
+ {
+  "c": "/404.html ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
  },
  {
   "c": "/404.html img alt",
@@ -500,6 +1220,11 @@
   "d": ""
  },
  {
+  "c": "/404.html @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
   "c": "/404.html @1024 console/network",
   "ok": true,
   "d": ""
@@ -520,6 +1245,11 @@
   "d": ""
  },
  {
+  "c": "/404.html @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
   "c": "/404.html @1440 console/network",
   "ok": true,
   "d": ""
@@ -536,6 +1266,11 @@
  },
  {
   "c": "/404.html @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 no Arabic outside [lang=ar]",
   "ok": true,
   "d": ""
  },
@@ -1215,84 +1950,304 @@
   "d": ""
  },
  {
-  "c": "reduce / @390 headings+CTA visible",
+  "c": "/demo/door/ @320 console/network",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+  "d": ""
  },
  {
-  "c": "reduce / @1440 headings+CTA visible",
+  "c": "/demo/door/ @320 no h-scroll",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+  "d": "320/320"
  },
  {
-  "c": "reduce /restaurants/ @390 headings+CTA visible",
+  "c": "/demo/door/ @320 tap>=44",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+  "d": ""
  },
  {
-  "c": "reduce /restaurants/ @1440 headings+CTA visible",
+  "c": "/demo/door/ @320 arabic letter-spacing 0",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+  "d": ""
  },
  {
-  "c": "reduce /hosts/ @390 headings+CTA visible",
+  "c": "/demo/door/ @375 console/network",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+  "d": ""
  },
  {
-  "c": "reduce /hosts/ @1440 headings+CTA visible",
+  "c": "/demo/door/ @375 no h-scroll",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+  "d": "375/375"
  },
  {
-  "c": "nojs / @390 headings+CTA visible",
+  "c": "/demo/door/ @375 tap>=44",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+  "d": ""
  },
  {
-  "c": "nojs / @1440 headings+CTA visible",
+  "c": "/demo/door/ @375 arabic letter-spacing 0",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\"}"
+  "d": ""
  },
  {
-  "c": "nojs /restaurants/ @390 headings+CTA visible",
+  "c": "/demo/door/ @390 console/network",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+  "d": ""
  },
  {
-  "c": "nojs /restaurants/ @1440 headings+CTA visible",
+  "c": "/demo/door/ @390 no h-scroll",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\"}"
+  "d": "390/390"
  },
  {
-  "c": "nojs /hosts/ @390 headings+CTA visible",
+  "c": "/demo/door/ @390 tap>=44",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+  "d": ""
  },
  {
-  "c": "nojs /hosts/ @1440 headings+CTA visible",
+  "c": "/demo/door/ @390 arabic letter-spacing 0",
   "ok": true,
-  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\"}"
+  "d": ""
  },
  {
-  "c": "signature (no-preference) clicks",
+  "c": "/demo/door/ rtl/ar/h1/meta",
   "ok": true,
-  "d": "init:open, review:open sel=true href=demo/review/index.html, wifi:open sel=true href=demo/wifi/index.html, guide:open sel=true href=demo/rental-guide/index.html, menu:open sel=true href=demo/menu/index.html "
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
  },
  {
-  "c": "signature (no-preference) keyboard",
+  "c": "/demo/door/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/door/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/door/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/door/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "reduce / @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "reduce / @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "reduce /restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs / @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "nojs / @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "nojs /restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "signature / (no-preference) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=demo/review/index.html cap=ok, wifi:open sel=true href=demo/wifi/index.html cap=ok, guide:open sel=true href=demo/rental-guide/index.html cap=ok, menu:open sel=true href=demo/menu/index.html cap=ok "
+ },
+ {
+  "c": "signature / (no-preference) keyboard",
+  "ok": true,
+  "d": "ArrowRight->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "signature / (reduce) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=demo/review/index.html cap=ok, wifi:open sel=true href=demo/wifi/index.html cap=ok, guide:open sel=true href=demo/rental-guide/index.html cap=ok, menu:open sel=true href=demo/menu/index.html cap=ok "
+ },
+ {
+  "c": "signature / (reduce) keyboard",
+  "ok": true,
+  "d": "ArrowRight->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "signature /ar/ (no-preference) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=../demo/review/index.html cap=ok, wifi:open sel=true href=../demo/wifi/index.html cap=ok, guide:open sel=true href=../demo/rental-guide/index.html cap=ok, menu:open sel=true href=../demo/menu/index.html cap=ok "
+ },
+ {
+  "c": "signature /ar/ (no-preference) keyboard",
   "ok": true,
   "d": "ArrowLeft->review:true End->guide:true Home->menu:true tabbable=1"
  },
  {
-  "c": "signature (reduce) clicks",
+  "c": "signature /ar/ (reduce) clicks",
   "ok": true,
-  "d": "init:open, review:open sel=true href=demo/review/index.html, wifi:open sel=true href=demo/wifi/index.html, guide:open sel=true href=demo/rental-guide/index.html, menu:open sel=true href=demo/menu/index.html "
+  "d": "init:open, review:open sel=true href=../demo/review/index.html cap=ok, wifi:open sel=true href=../demo/wifi/index.html cap=ok, guide:open sel=true href=../demo/rental-guide/index.html cap=ok, menu:open sel=true href=../demo/menu/index.html cap=ok "
  },
  {
-  "c": "signature (reduce) keyboard",
+  "c": "signature /ar/ (reduce) keyboard",
   "ok": true,
   "d": "ArrowLeft->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "English WhatsApp texts + calculator (Arabic unchanged)",
+  "ok": true,
+  "d": "/home:ok, /restaurants/shop:ok, /restaurants/shopTrial:ok, /restaurants/reviewAny:ok, /hosts/host:ok, /hosts/hostTrial:ok, /hosts/hostCleaning:ok, /hosts/stayEntry:ok, /hosts/stayEntryClean:ok, /hosts/stayFull:ok, /ar/hosts/host:ok, /ar/hosts/hostTrial:ok, calc:ok, calc-ar:ok"
  },
  {
   "c": "no transition: all in assets/*.css",
@@ -1307,6 +2262,6 @@
  {
   "c": "build-dist.cjs",
   "ok": true,
-  "d": "  templates/wifi/index.html: 47.4KiB / gzip 16.4KiB (11 ملفات؛ lightweight، الحد 100.0KiB / gzip 50.0KiB) /  / جاهز للرفع: dist/"
+  "d": "  templates/wifi/index.html: 50.3KiB / gzip 17.1KiB (11 ملفات؛ lightweight، الحد 100.0KiB / gzip 50.0KiB) /  / جاهز للرفع: dist/"
  }
 ]
