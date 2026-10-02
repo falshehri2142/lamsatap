@@ -59,7 +59,7 @@
       h.push('<section aria-labelledby="' + id('out-h') + '"><h2 id="' + id('out-h') + '">الخروج والصيانة</h2>');
       if (time) h.push(cPanel([cRow({ title: 'وقت الخروج', value: esc(time) })]));
       h.push('<p class="c-sub g-notice">بالضغط يفتح واتساب وترسل رسالة من رقمك إلى <span data-company>' + co +
-        '</span>، مشغّل خدمة الوحدة. نستخدم رقمك لهذا الطلب فقط، ما نشاركه مع أحد، ونحذف المحادثة بعد إغلاق الطلب. <a href="' + esc(pvOk ? pv : '#' + id('privacy-policy')) + '">سياسة الخصوصية</a></p>');
+        '</span>، مشغّل خدمة الوحدة. نستخدم رقمك لهذا الطلب فقط، ما نشاركه مع أحد، ونحذف المحادثة بعد إغلاق الطلب. ' + (pvOk || !demo ? '<a href="' + esc(pvOk ? pv : '#' + id('privacy-policy')) + '">سياسة الخصوصية</a>' : 'سياسة الخصوصية تنضاف قبل الإطلاق.') + '</p>');
       h.push('<div class="c-stack"><button class="lt-btn lt-btn--shop" type="button" id="' + id('out') + '">' + cIcon('chat', 'lt-btn-icon') + '<span>تم الخروج</span></button>');
       // «نعم، على تليجرام» داخل التأكيد بعد «نعم، طلعت» (web-copy 2.2): الخطوات والسؤال يمرون على القناتين
       h.push('<div class="lt-panel g-confirm" id="' + id('out-confirm') + '" hidden>' +
