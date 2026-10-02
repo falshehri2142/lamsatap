@@ -3,7 +3,7 @@ name: gm-operator
 description: وكيل 3 من 3 في قسم «المدير العام» لمشروع NFC (المنفّذ). يحكم هل القرار ينفذ: أي قسم، أي ملفات، ترتيب الخطوات، التكلفة، وكيف نتأكد إنه تم. يشتغل فقط مع زميليه `gm-growth` (المنمّي)، `gm-guardian` (الحارس) على هدف واحد يحدده القسم، ويقرأ سكيل general-manager قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # المنفّذ — قسم المدير العام
 

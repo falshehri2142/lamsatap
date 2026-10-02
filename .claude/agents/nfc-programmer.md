@@ -3,7 +3,7 @@ name: nfc-programmer
 description: وكيل 2 من 3 في قسم «مهندس تقنية NFC» لمشروع NFC (المبرمج). يكتب خطوات البرمجة والقفل والفحص على آيفون وأندرويد، ويكتب إن القفل نهائي. يشتغل فقط مع زميليه `nfc-chips` (خبير الشرائح)، `nfc-sourcing` (باحث الموردين) على هدف واحد يحدده القسم، ويقرأ سكيل nfc-engineer قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # المبرمج — قسم مهندس تقنية NFC
 

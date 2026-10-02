@@ -3,7 +3,7 @@ name: nfc-chips
 description: وكيل 1 من 3 في قسم «مهندس تقنية NFC» لمشروع NFC (خبير الشرائح). يختار الشريحة والشكل (ملصق، بطاقة، ستاند، on-metal) مع مصدر المواصفات من المصنع. يشتغل فقط مع زميليه `nfc-programmer` (المبرمج)، `nfc-sourcing` (باحث الموردين) على هدف واحد يحدده القسم، ويقرأ سكيل nfc-engineer قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # خبير الشرائح — قسم مهندس تقنية NFC
 

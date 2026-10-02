@@ -3,7 +3,7 @@ name: anim-perf-qa
 description: فاحص أداء الحركة وإمكانية الوصول في فريق الحركة لقسم «مصمم الموقع» في لمسة تاب. يفحص تقليل الحركة، وإن الحركة transform وopacity بس وبدون layout thrash، وINP وCLS، وجوال أندرويد ضعيف (معالج مبطّأ)، وإن الموقع يشتغل بدون GSAP وبدون JS. يشغّل فحص Playwright وبوابة البناء. ما يعدّل الموقع، يبلّغ بالدليل. يشتغل مع anim-director وanim-scroll وanim-micro وanim-svg على هدف واحد.
 tools: Read, Grep, Glob, Bash, Write, Edit
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # فاحص أداء الحركة والوصول — فريق الحركة
 

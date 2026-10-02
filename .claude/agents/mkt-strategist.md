@@ -3,7 +3,7 @@ name: mkt-strategist
 description: وكيل 1 من 3 في قسم «مدير الإعلانات» لمشروع NFC (المخطط). يحدد المستهدفين والرسالة والقناة والميزانية وطريقة القياس. يشتغل فقط مع زميليه `mkt-creator` (صانع المحتوى)، `mkt-compliance` (مراجع الإعلانات) على هدف واحد يحدده القسم، ويقرأ سكيل marketing قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # المخطط — قسم مدير الإعلانات
 

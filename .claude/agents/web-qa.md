@@ -3,7 +3,7 @@ name: web-qa
 description: وكيل 3 من 3 في قسم «مصمم الموقع» لمشروع NFC (مختبِر الواجهة). يفتح الصفحة فعلاً على عرض جوال وسطح مكتب والوضع الداكن، ويبلغ عن الأخطاء بصور ودليل. يشتغل فقط مع زميليه `web-ux` (مخطط التجربة)، `web-builder` (المطوّر) على هدف واحد يحدده القسم، ويقرأ سكيل website-design قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # مختبِر الواجهة — قسم مصمم الموقع
 

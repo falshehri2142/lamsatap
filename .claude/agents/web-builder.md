@@ -3,7 +3,7 @@ name: web-builder
 description: وكيل 2 من 3 في قسم «مصمم الموقع» لمشروع NFC (المطوّر). يبني الصفحة (HTML/CSS/JS) سريعة على الجوال، عربي أولاً، وتشتغل من NFC ومن QR. يشتغل فقط مع زميليه `web-ux` (مخطط التجربة)، `web-qa` (مختبِر الواجهة) على هدف واحد يحدده القسم، ويقرأ سكيل website-design قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # المطوّر — قسم مصمم الموقع
 

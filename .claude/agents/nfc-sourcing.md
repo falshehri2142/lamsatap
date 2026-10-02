@@ -3,7 +3,7 @@ name: nfc-sourcing
 description: وكيل 3 من 3 في قسم «مهندس تقنية NFC» لمشروع NFC (باحث الموردين). يدور موردين الشرائح والطباعة ويقارن السعر والجودة والتوصيل للسعودية، بدون ما يطلب شي. يشتغل فقط مع زميليه `nfc-chips` (خبير الشرائح)، `nfc-programmer` (المبرمج) على هدف واحد يحدده القسم، ويقرأ سكيل nfc-engineer قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # باحث الموردين — قسم مهندس تقنية NFC
 

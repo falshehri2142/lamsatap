@@ -3,7 +3,7 @@ name: sales-analyst
 description: وكيل 3 من 3 في قسم «مدير المبيعات» لمشروع NFC (محلل المبيعات). يتابع مراحل العملاء والتحويل، ويراجع العرض قبل ما يطلع ضد الملفات المعتمدة. يشتغل فقط مع زميليه `sales-prospector` (الباحث عن العملاء)، `sales-closer` (كاتب العروض) على هدف واحد يحدده القسم، ويقرأ سكيل sales قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # محلل المبيعات — قسم مدير المبيعات
 

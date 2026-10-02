@@ -3,7 +3,7 @@ name: web-brand
 description: وكيل الهوية البصرية في فريق مصمم الموقع الخماسي لمشروع لمسة تاب. يملك الشعار والألوان والخطوط والأيقونات وملف brand/، ويتأكد إن كل صفحة ومطبوعة على الهوية. يشتغل مع web-ux وweb-builder وweb-motion وweb-qa على هدف واحد.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # مصمم الهوية — فريق الموقع الخماسي
 

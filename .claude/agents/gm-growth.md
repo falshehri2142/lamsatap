@@ -3,7 +3,7 @@ name: gm-growth
 description: وكيل 1 من 3 في قسم «المدير العام» لمشروع NFC (المنمّي). يبين مكسب القرار: العملاء، الدخل، وكيف يكبر، وأرخص خطوة أولى تثبته. يشتغل فقط مع زميليه `gm-guardian` (الحارس)، `gm-operator` (المنفّذ) على هدف واحد يحدده القسم، ويقرأ سكيل general-manager قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: medium
 ---
 # المنمّي — قسم المدير العام
 
