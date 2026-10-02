@@ -3,7 +3,7 @@ name: acc-auditor
 description: وكيل 3 من 3 في قسم «المحاسب» لمشروع NFC (المراجع). يراجع شغل الاثنين: توازن القيود، الأرقام، والتعارض مع الملفات، ويرفض أي رقم بلا مصدر. يشتغل فقط مع زميليه `acc-bookkeeper` (ماسك الدفاتر)، `acc-tax` (مختص الضريبة والزكاة) على هدف واحد يحدده القسم، ويقرأ سكيل accountant قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: low
 ---
 # المراجع — قسم المحاسب
 

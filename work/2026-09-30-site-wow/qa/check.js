@@ -67,7 +67,7 @@ add(`signature ${home} (${rm}) clicks`,ok&&!errs.length,log.join(', ')+' '+errs.
 add(`signature ${home} (${rm}) keyboard`,k1&&k2&&k3&&tabbable===1,`${next}->review:${k1} End->guide:${k2} Home->menu:${k3} tabbable=${tabbable}`);await ctx.close();}
 // English WhatsApp texts and host calculator (config.js waText <key>En, assets/hosts-smart.js)
 try{const ctx=await br.newContext({viewport:{width:390,height:800}});const p=await ctx.newPage();const out=[];let ok=true;
- for(const [u,keys] of [['/',['home']],['/restaurants/',['shop','shopTrial','reviewAny']],['/hosts/',['host','hostTrial','hostCleaning','stayEntry','hostStart','stayFull']],['/ar/hosts/',['host','hostTrial']]]){
+ for(const [u,keys] of [['/',['home']],['/restaurants/',['shop','shopTrial','reviewAny']],['/hosts/',['host','hostTrial','hostCleaning','stayEntry','hostStart','stayAll','stayFull']],['/ar/hosts/',['host','hostTrial']]]){
   await p.goto(B+u,{waitUntil:'networkidle'});
   for(const key of keys){const t=await p.$eval(`[data-wa="${key}"]`,a=>{try{return new URL(a.href).searchParams.get('text')||''}catch(e){return ''}}).catch(()=>'');const en=EN.includes(u);const good=en?/^Hi, /.test(t)&&!/[؀-ۿ]/.test(t):/^السلام عليكم/.test(t);ok=ok&&good;out.push(`${u}${key}:${good?'ok':'BAD '+t.slice(0,40)}`);}
  }

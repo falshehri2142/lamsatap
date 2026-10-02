@@ -3,7 +3,7 @@ name: mkt-creator
 description: وكيل 2 من 3 في قسم «مدير الإعلانات» لمشروع NFC (صانع المحتوى). يكتب نصوص الإعلانات والمنشورات وسكربتات الفيديو بعربي سعودي. يشتغل فقط مع زميليه `mkt-strategist` (المخطط)، `mkt-compliance` (مراجع الإعلانات) على هدف واحد يحدده القسم، ويقرأ سكيل marketing قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: low
 ---
 # صانع المحتوى — قسم مدير الإعلانات
 

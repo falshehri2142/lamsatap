@@ -27,7 +27,7 @@ window.SITE = {
   cleaningPrices: { studio: "179 ريال للزيارة", twoThree: "299 ريال للزيارة", studioEn: "SAR 179 per visit", twoThreeEn: "SAR 299 per visit" },
   // smartStayPrices (مقترح GM-068، work/2026-10-01-smart-stay/study.md): سعر باقات «الإقامة الذكية» للوحدة، نص جاهز مثل "99 ريال للوحدة بالشهر".
   //   entry = دخول ذكي، entryClean = دخول + نظافة، full = إدارة كاملة. فاضي = «السعر قريباً». ما ينعبى إلا بعد اعتماده في services/pricing.md.
-  smartStayPrices: { start: "898 ريال مرة وحدة · ثم 99 ريال للوحدة بالشهر", startEn: "SAR 898 one-time · then SAR 99 per unit/month", entry: "99 ريال للوحدة بالشهر · تجهيز 599 ريال", entryClean: "99 ريال بالشهر + النظافة لكل زيارة · تجهيز 599 ريال", full: "149 ريال للوحدة بالشهر · تجهيز 599 ريال", entryEn: "SAR 99 per unit/month · SAR 599 setup", entryCleanEn: "SAR 99/month + cleaning per visit · SAR 599 setup", fullEn: "SAR 149 per unit/month · SAR 599 setup" },
+  smartStayPrices: { entry: "89 ريال للوحدة بالشهر · تجهيز 599 ريال", full: "20% من الإيجار · بحد أدنى 249 ريال بالشهر · تجهيز 599 ريال", all: "25% من الإيجار · بحد أدنى 349 ريال بالشهر · تجهيز 599 ريال", start: "", entryEn: "SAR 89 per unit/month · SAR 599 setup", fullEn: "20% of rent · min SAR 249/month · SAR 599 setup", allEn: "25% of rent · min SAR 349/month · SAR 599 setup", startEn: "" },
   // restaurantOpsPrices (مقترح GM-072، services/restaurant-ops.md): أرقام كنص بدون «ريال». order/pro بالشهر لكل فرع، s لين 15 طاولة، m ‏16–30، l ‏31–60.
   //   setup التأسيس (يشمل 15 طاولة)، perTable لكل طاولة زيادة. فاضي = «السعر قريباً». ما ينعبى إلا بعد الاعتماد في services/pricing.md.
   restaurantOpsPrices: { order: { s: "249", m: "329", l: "449" }, pro: { s: "349", m: "449", l: "549" }, setup: "499", perTable: "25" },
@@ -44,10 +44,11 @@ window.SITE = {
     hostTrial: "السلام عليكم، أبغى أجرّب باقة المضيف أسبوعين. عدد الوحدات والحي:",
     hostCleaning: "السلام عليكم، أبغى نظافة بعد الخروج لوحداتي. عدد الوحدات والحي:",
     // باقات الإقامة الذكية (hosts/#stay، مقترح GM-068)
-    stayEntry: "السلام عليكم، أبغى باقة الدخول الذكي لوحداتي. عدد الوحدات والحي:",
+    stayEntry: "السلام عليكم، أبغى الباقة الأساسية (القفل الذكي) لوحداتي. عدد الوحدات والحي:",
     stayEntryClean: "السلام عليكم، أبغى باقة الدخول الذكي مع نظافة بعد الخروج. عدد الوحدات والحي:",
     hostStart: "السلام عليكم، عندي شقة وأبغى أبدأ إيجار قصير مع باقة «ابدأ من الصفر». الحي:",
-    stayFull: "السلام عليكم، أبغى باقة الدخول الذكي مع تقويم الحجوزات لوحداتي. عدد الوحدات والحي:",
+    stayAll: "السلام عليكم، أبغى الباقة الشاملة مع النظافة لوحداتي. عدد الوحدات والحي:",
+    stayFull: "السلام عليكم، أبغى باقة الإدارة الكاملة لوحداتي. عدد الوحدات والحي:",
     portfolio: "السلام عليكم، عندي 5 وحدات أو أكثر، وأبغى باقة المضيف لها. عدد الوحدات والحي:",
     // GM-070: نفس الرسائل للصفحات الإنجليزية (web-copy، work/2026-10-01-english-site/copy-en.md §6). الصفحة اللي <html lang="en">
     //   تاخذ <المفتاح>En، ولو فاضي ترجع للعربي (assets/app.js waText). نسخ العرض ودليل الوحدة تبقى عربي (صفحات الزبون عربية)
@@ -62,7 +63,8 @@ window.SITE = {
     hostCleaningEn: "Hi, I'd like post-checkout cleaning for my units. Number of units and neighborhood:",
     stayEntryEn: "Hi, I'm interested in Smart Entry for my units. Number of units and neighborhood:",
     stayEntryCleanEn: "Hi, I'm interested in Smart Entry with post-checkout cleaning. Number of units and neighborhood:",
-    stayFullEn: "Hi, I'm interested in Smart Entry with the booking calendar for my units. Number of units and neighborhood:",
+    stayAllEn: "Hi, I'd like the All-inclusive plan with cleaning for my units. Number of units and neighborhood:",
+    stayFullEn: "Hi, I'm interested in Full Management for my units. Number of units and neighborhood:",
     portfolioEn: "Hi, I have 5 or more units and I'm interested in the Host Plan for them. Number of units and neighborhood:",
     // نسخ العرض (زر «أبغى مثله» وقسم «لصاحب المحل» أو «للمضيف»)
     demoMenu: "السلام عليكم، شفت مثال المنيو عندكم وأبغى منيو مثله لمحلي. اسم المحل والحي:",

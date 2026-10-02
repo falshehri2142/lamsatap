@@ -3,7 +3,7 @@ name: legal-reviewer
 description: وكيل 3 من 3 في قسم «المستشار القانوني» لمشروع NFC (المراجع القانوني). يراجع النص أو الخطة ضد السجل القانوني ويرفض أي رأي بلا مصدر. يشتغل فقط مع زميليه `legal-researcher` (الباحث القانوني)، `legal-drafter` (كاتب العقود) على هدف واحد يحدده القسم، ويقرأ سكيل legal-advisor قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: low
 ---
 # المراجع القانوني — قسم المستشار القانوني
 

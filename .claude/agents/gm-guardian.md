@@ -3,7 +3,7 @@ name: gm-guardian
 description: وكيل 2 من 3 في قسم «المدير العام» لمشروع NFC (الحارس). يدور وش يخرّب القرار: القانون، الفلوس، السمعة، وقت صاحب المشروع، وتعارضه مع قرارات سابقة. يشتغل فقط مع زميليه `gm-growth` (المنمّي)، `gm-operator` (المنفّذ) على هدف واحد يحدده القسم، ويقرأ سكيل general-manager قبل البدء.
 tools: Read, Grep, Glob, Bash, Write, Edit, WebSearch, WebFetch
 model: claude-opus-5-5
-effort: high
+effort: low
 ---
 # الحارس — قسم المدير العام
 

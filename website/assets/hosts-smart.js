@@ -82,7 +82,7 @@
     d.querySelectorAll('[data-' + g[0] + '-price]').forEach(function (el) {
       var k = el.getAttribute('data-' + g[0] + '-price'), v = String((en && P[k + 'En']) || P[k] || '').trim();
       if (!v) return;
-      var m = v.match(/^((?:SAR )?[\d.,]+(?: ريال)?)\s*(.*)$/) || [v, v, ''];
+      var m = v.match(/^((?:SAR )?[\d.,]+%?(?: ريال)?)\s*(.*)$/) || [v, v, ''];
       el.textContent = m[1]; el.classList.remove('p-clean-soon');
       if (m[2]) { var t = d.createElement('small'); t.textContent = m[2].split(' · ').join('\n'); el.parentNode.appendChild(t); }
     });
