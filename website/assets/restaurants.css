@@ -461,3 +461,5 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .r-ops-pick { display: grid; justify-items: center; text-align: center; }
   .r-ops-cards { margin-top: var(--lt-space-32); }
 }
+/* 2026-10-02 (بق الجوال): زر الكرت الطويل («اطلب تجربة أسبوعين على واتساب») ينكسر بكلمة يتيمة على 360–390، فالسطرين يتوازنون */
+.s-cta .lt-btn { text-wrap: balance; }

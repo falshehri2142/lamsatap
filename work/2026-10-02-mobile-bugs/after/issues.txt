@@ -1,0 +1,257 @@
+/ar/@360 INFO logo {"cls":"js m mh | home-studio","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/ar/@390 INFO logo {"cls":"js m mh | home-studio","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/ar/@430 INFO logo {"cls":"js m mh | home-studio","clip":"inset(0px 0px 0px 21%)","w":171} head 65
+/ar/restaurants/@360 y5760 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@360 y5760 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@360 y6400 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@360 y6400 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@360 y6400 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/ar/restaurants/@360 y7040 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/ar/restaurants/@360 clip SPAN. "كلّمنا على واتساب" 102x16>1x1
+/ar/restaurants/@360 clip SPAN.s-sr ": المنيو" 50x21>1x1
+/ar/restaurants/@360 clip SPAN.s-sr ": الواي فاي" 77x21>1x1
+/ar/restaurants/@360 clip SPAN.s-sr ": روابط المحل" 98x21>1x1
+/ar/restaurants/@360 clip SPAN.s-sr "1,211 ريال بالسنة" 116x19>1x1
+/ar/restaurants/@360 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/ar/restaurants/@360 PRICE 1L SPAN. w188 "تحديث المنيو مرتين بالشهر"
+/ar/restaurants/@360 PRICE 1L SPAN.s-sr w1 "1,211 ريال بالسنة"
+/ar/restaurants/@360 PRICE 1L SPAN.r-ops-unit w75 "ريال بالشهر"
+/ar/restaurants/@360 PRICE 1L LI. w270 "تحديث المنيو مرتين بالشهر"
+/ar/restaurants/@360 PRICE 1L SPAN.r-ops-unit w75 "ريال بالشهر"
+/ar/restaurants/@360 PRICE 1L LI. w270 "تحديث المنيو 4 مرات بالشهر"
+/ar/restaurants/@360 PRICE 2L P.r-ops-setup w320 "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة."
+/ar/restaurants/@360 PRICE 5L P. w320 "إيه. ترسل لنا التعديل على واتساب، ونحدّث المنيو مرتين بالشهر داخل الحز"
+/ar/restaurants/@360 PRICE 2L P. w320 "ما يتجدد إلا بتأكيد صريح منك. ونذكّرك قبل التجديد بـ 30 يوم، والتجديد "
+/ar/restaurants/@390 y5760 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@390 y5760 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@390 y6400 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@390 y6400 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@390 y6400 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/ar/restaurants/@390 y7040 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/ar/restaurants/@390 clip SPAN. "كلّمنا على واتساب" 102x16>1x1
+/ar/restaurants/@390 clip SPAN.s-sr ": المنيو" 50x21>1x1
+/ar/restaurants/@390 clip SPAN.s-sr ": الواي فاي" 77x21>1x1
+/ar/restaurants/@390 clip SPAN.s-sr ": روابط المحل" 98x21>1x1
+/ar/restaurants/@390 clip SPAN.s-sr "1,211 ريال بالسنة" 116x19>1x1
+/ar/restaurants/@390 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/ar/restaurants/@390 PRICE 1L SPAN. w188 "تحديث المنيو مرتين بالشهر"
+/ar/restaurants/@390 PRICE 1L SPAN.s-sr w1 "1,211 ريال بالسنة"
+/ar/restaurants/@390 PRICE 1L SPAN.r-ops-unit w75 "ريال بالشهر"
+/ar/restaurants/@390 PRICE 1L LI. w300 "تحديث المنيو مرتين بالشهر"
+/ar/restaurants/@390 PRICE 1L SPAN.r-ops-unit w75 "ريال بالشهر"
+/ar/restaurants/@390 PRICE 1L LI. w300 "تحديث المنيو 4 مرات بالشهر"
+/ar/restaurants/@390 PRICE 2L P.r-ops-setup w350 "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة."
+/ar/restaurants/@390 PRICE 4L P. w350 "إيه. ترسل لنا التعديل على واتساب، ونحدّث المنيو مرتين بالشهر داخل الحز"
+/ar/restaurants/@390 PRICE 2L P. w350 "ما يتجدد إلا بتأكيد صريح منك. ونذكّرك قبل التجديد بـ 30 يوم، والتجديد "
+/ar/restaurants/@430 y5760 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@430 y5760 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@430 y6400 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@430 y6400 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/ar/restaurants/@430 y6400 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/ar/restaurants/@430 y7040 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/ar/restaurants/@430 clip SPAN. "كلّمنا على واتساب" 117x18>1x1
+/ar/restaurants/@430 clip SPAN.s-sr ": المنيو" 50x21>1x1
+/ar/restaurants/@430 clip SPAN.s-sr ": الواي فاي" 77x21>1x1
+/ar/restaurants/@430 clip SPAN.s-sr ": روابط المحل" 98x21>1x1
+/ar/restaurants/@430 clip SPAN.s-sr "1,211 ريال بالسنة" 116x19>1x1
+/ar/restaurants/@430 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":171} head 65
+/ar/restaurants/@430 PRICE 1L SPAN. w188 "تحديث المنيو مرتين بالشهر"
+/ar/restaurants/@430 PRICE 1L SPAN.s-sr w1 "1,211 ريال بالسنة"
+/ar/restaurants/@430 PRICE 1L SPAN.r-ops-unit w75 "ريال بالشهر"
+/ar/restaurants/@430 PRICE 1L LI. w340 "تحديث المنيو مرتين بالشهر"
+/ar/restaurants/@430 PRICE 1L SPAN.r-ops-unit w75 "ريال بالشهر"
+/ar/restaurants/@430 PRICE 1L LI. w340 "تحديث المنيو 4 مرات بالشهر"
+/ar/restaurants/@430 PRICE 2L P.r-ops-setup w390 "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة."
+/ar/restaurants/@430 PRICE 4L P. w390 "إيه. ترسل لنا التعديل على واتساب، ونحدّث المنيو مرتين بالشهر داخل الحز"
+/ar/restaurants/@430 PRICE 2L P. w390 "ما يتجدد إلا بتأكيد صريح منك. ونذكّرك قبل التجديد بـ 30 يوم، والتجديد "
+/ar/hosts/@360 clip SPAN. "كلّمنا على واتساب" 102x16>1x1
+/ar/hosts/@360 clip LEGEND.s-sr "طريقة الدفع" 90x28>4x1
+/ar/hosts/@360 clip CAPTION.s-sr "سعر الوحدة حسب عدد الوحدات" 208x26>1x1
+/ar/hosts/@360 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/ar/hosts/@360 PRICE 1L SPAN.p-calc-unit w90 "ريال بالشهر"
+/ar/hosts/@360 PRICE 1L SPAN. w53 "بالشهر"
+/ar/hosts/@360 PRICE 2L P.p-calc-rate w270 "49.5 ريال للوحدة بالشهر. من 5 وحدات يصير سعر الوحدة 39.5 على كل وحداتك"
+/ar/hosts/@360 PRICE 1L SPAN. w44 "بالشهر"
+/ar/hosts/@360 PRICE 1L TD. w98 "49.5 ريال"
+/ar/hosts/@360 PRICE 1L TD. w97 "544.5 ريال"
+/ar/hosts/@360 PRICE 1L TD. w98 "39.5 ريال"
+/ar/hosts/@360 PRICE 1L TD. w97 "434.5 ريال"
+/ar/hosts/@360 PRICE 1L SPAN. w123 "179 ريال"
+/ar/hosts/@360 PRICE 1L SMALL. w246 "للزيارة"
+/ar/hosts/@360 PRICE 1L SPAN. w129 "299 ريال"
+/ar/hosts/@360 PRICE 1L SMALL. w246 "للزيارة"
+/ar/hosts/@360 PRICE 1L SPAN. w110 "99 ريال"
+/ar/hosts/@360 PRICE 2L SMALL. w238 "للوحدة بالشهر تجهيز 599"
+/ar/hosts/@360 PRICE 1L SPAN. w110 "99 ريال"
+/ar/hosts/@360 PRICE 2L SMALL. w238 "بالشهر + النظافة لكل زيارة تجهيز 599"
+/ar/hosts/@360 PRICE 1L SPAN. w125 "149 ريال"
+/ar/hosts/@360 PRICE 2L SMALL. w238 "للوحدة بالشهر تجهيز 599"
+/ar/hosts/@390 clip SPAN. "كلّمنا على واتساب" 102x16>1x1
+/ar/hosts/@390 clip LEGEND.s-sr "طريقة الدفع" 90x28>4x1
+/ar/hosts/@390 clip CAPTION.s-sr "سعر الوحدة حسب عدد الوحدات" 208x26>1x1
+/ar/hosts/@390 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/ar/hosts/@390 PRICE 1L SPAN.p-calc-unit w90 "ريال بالشهر"
+/ar/hosts/@390 PRICE 1L SPAN. w53 "بالشهر"
+/ar/hosts/@390 PRICE 2L P.p-calc-rate w300 "49.5 ريال للوحدة بالشهر. من 5 وحدات يصير سعر الوحدة 39.5 على كل وحداتك"
+/ar/hosts/@390 PRICE 1L SPAN. w44 "بالشهر"
+/ar/hosts/@390 PRICE 1L TD. w109 "49.5 ريال"
+/ar/hosts/@390 PRICE 1L TD. w108 "544.5 ريال"
+/ar/hosts/@390 PRICE 1L TD. w109 "39.5 ريال"
+/ar/hosts/@390 PRICE 1L TD. w108 "434.5 ريال"
+/ar/hosts/@390 PRICE 1L SPAN. w123 "179 ريال"
+/ar/hosts/@390 PRICE 1L SMALL. w276 "للزيارة"
+/ar/hosts/@390 PRICE 1L SPAN. w129 "299 ريال"
+/ar/hosts/@390 PRICE 1L SMALL. w276 "للزيارة"
+/ar/hosts/@390 PRICE 1L SPAN. w110 "99 ريال"
+/ar/hosts/@390 PRICE 2L SMALL. w268 "للوحدة بالشهر تجهيز 599"
+/ar/hosts/@390 PRICE 1L SPAN. w110 "99 ريال"
+/ar/hosts/@390 PRICE 2L SMALL. w268 "بالشهر + النظافة لكل زيارة تجهيز 599"
+/ar/hosts/@390 PRICE 1L SPAN. w125 "149 ريال"
+/ar/hosts/@390 PRICE 2L SMALL. w268 "للوحدة بالشهر تجهيز 599"
+/ar/hosts/@430 clip SPAN. "كلّمنا على واتساب" 117x18>1x1
+/ar/hosts/@430 clip LEGEND.s-sr "طريقة الدفع" 90x28>4x1
+/ar/hosts/@430 clip CAPTION.s-sr "سعر الوحدة حسب عدد الوحدات" 208x26>1x1
+/ar/hosts/@430 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":171} head 65
+/ar/hosts/@430 PRICE 1L SPAN.p-calc-unit w90 "ريال بالشهر"
+/ar/hosts/@430 PRICE 1L SPAN. w53 "بالشهر"
+/ar/hosts/@430 PRICE 2L P.p-calc-rate w340 "49.5 ريال للوحدة بالشهر. من 5 وحدات يصير سعر الوحدة 39.5 على كل وحداتك"
+/ar/hosts/@430 PRICE 1L SPAN. w44 "بالشهر"
+/ar/hosts/@430 PRICE 1L TD. w124 "49.5 ريال"
+/ar/hosts/@430 PRICE 1L TD. w122 "544.5 ريال"
+/ar/hosts/@430 PRICE 1L TD. w124 "39.5 ريال"
+/ar/hosts/@430 PRICE 1L TD. w122 "434.5 ريال"
+/ar/hosts/@430 PRICE 1L SPAN. w123 "179 ريال"
+/ar/hosts/@430 PRICE 1L SMALL. w316 "للزيارة"
+/ar/hosts/@430 PRICE 1L SPAN. w129 "299 ريال"
+/ar/hosts/@430 PRICE 1L SMALL. w316 "للزيارة"
+/ar/hosts/@430 PRICE 1L SPAN. w110 "99 ريال"
+/ar/hosts/@430 PRICE 2L SMALL. w308 "للوحدة بالشهر تجهيز 599"
+/ar/hosts/@430 PRICE 1L SPAN. w110 "99 ريال"
+/ar/hosts/@430 PRICE 2L SMALL. w308 "بالشهر + النظافة لكل زيارة تجهيز 599"
+/ar/hosts/@430 PRICE 1L SPAN. w125 "149 ريال"
+/ar/hosts/@430 PRICE 2L SMALL. w308 "للوحدة بالشهر تجهيز 599"
+/@360 INFO logo {"cls":"js m mh | home-studio","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/@390 INFO logo {"cls":"js m mh | home-studio","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/@430 INFO logo {"cls":"js m mh | home-studio","clip":"inset(0px 0px 0px 21%)","w":171} head 65
+/restaurants/@360 y6400 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@360 y6400 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@360 y7040 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@360 y7040 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@360 y7040 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/restaurants/@360 y7680 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/restaurants/@360 clip SPAN. "Chat on WhatsApp" 114x16>1x1
+/restaurants/@360 clip SPAN.s-sr ": menu" 50x21>1x1
+/restaurants/@360 clip SPAN.s-sr ": Wi-Fi" 49x21>1x1
+/restaurants/@360 clip SPAN.s-sr ": venue links" 91x21>1x1
+/restaurants/@360 clip SPAN.s-sr "SAR 1,211 per year" 133x19>1x1
+/restaurants/@360 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/restaurants/@360 PRICE 1L SPAN.s-sr w1 "SAR 1,211 per year"
+/restaurants/@360 PRICE 1L SPAN.r-ops-unit w88 "SAR / month"
+/restaurants/@360 PRICE 1L SPAN.r-ops-unit w88 "SAR / month"
+/restaurants/@360 PRICE 2L P.r-ops-setup w320 "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra "
+/restaurants/@360 PRICE 6L P. w320 "Yes. Send us your changes on WhatsApp, and we update your menu twice a"
+/restaurants/@360 PRICE 3L P. w320 "It renews only with your explicit confirmation. We remind you 30 days "
+/restaurants/@390 y6400 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@390 y6400 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@390 y7040 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@390 y7040 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@390 y7040 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/restaurants/@390 y7680 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/restaurants/@390 clip SPAN. "Chat on WhatsApp" 114x16>1x1
+/restaurants/@390 clip SPAN.s-sr ": menu" 50x21>1x1
+/restaurants/@390 clip SPAN.s-sr ": Wi-Fi" 49x21>1x1
+/restaurants/@390 clip SPAN.s-sr ": venue links" 91x21>1x1
+/restaurants/@390 clip SPAN.s-sr "SAR 1,211 per year" 133x19>1x1
+/restaurants/@390 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/restaurants/@390 PRICE 1L SPAN.s-sr w1 "SAR 1,211 per year"
+/restaurants/@390 PRICE 1L SPAN.r-ops-unit w88 "SAR / month"
+/restaurants/@390 PRICE 1L SPAN.r-ops-unit w88 "SAR / month"
+/restaurants/@390 PRICE 2L P.r-ops-setup w350 "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra "
+/restaurants/@390 PRICE 5L P. w350 "Yes. Send us your changes on WhatsApp, and we update your menu twice a"
+/restaurants/@390 PRICE 3L P. w350 "It renews only with your explicit confirmation. We remind you 30 days "
+/restaurants/@430 y6400 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@430 y6400 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@430 y7040 img-gap ops-phone-order.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@430 y7040 img-gap ops-phone-call.webp?v=20261001-5 in DIV.r-ops-phone gap {"t":6,"b":6,"l":6,"r":6}
+/restaurants/@430 y7040 img-gap ops-staff.webp?v=20261001-5 in DIV.r-ops-tab gap {"t":8,"b":8,"l":8,"r":8}
+/restaurants/@430 clip SPAN. "Chat on WhatsApp" 132x18>1x1
+/restaurants/@430 clip SPAN.s-sr ": menu" 50x21>1x1
+/restaurants/@430 clip SPAN.s-sr ": Wi-Fi" 49x21>1x1
+/restaurants/@430 clip SPAN.s-sr ": venue links" 91x21>1x1
+/restaurants/@430 clip SPAN.s-sr "SAR 1,211 per year" 133x19>1x1
+/restaurants/@430 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":171} head 65
+/restaurants/@430 PRICE 1L SPAN.s-sr w1 "SAR 1,211 per year"
+/restaurants/@430 PRICE 1L SPAN.r-ops-unit w88 "SAR / month"
+/restaurants/@430 PRICE 1L SPAN.r-ops-unit w88 "SAR / month"
+/restaurants/@430 PRICE 2L P.r-ops-setup w390 "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra "
+/restaurants/@430 PRICE 5L P. w390 "Yes. Send us your changes on WhatsApp, and we update your menu twice a"
+/restaurants/@430 PRICE 3L P. w390 "It renews only with your explicit confirmation. We remind you 30 days "
+/hosts/@360 clip SPAN. "Chat on WhatsApp" 114x16>1x1
+/hosts/@360 clip P.s-sr "Preview of a sample guest guid" 938x26>1x1
+/hosts/@360 clip LEGEND.s-sr "Billing" 48x26>4x1
+/hosts/@360 clip CAPTION.s-sr "Price per unit by number of un" 225x26>1x1
+/hosts/@360 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/hosts/@360 PRICE 1L SPAN.p-calc-unit w106 "SAR / month"
+/hosts/@360 PRICE 3L P.p-calc-rate w270 "SAR 49.50 per unit, per month. At 5 units or more, every unit drops to"
+/hosts/@360 PRICE 3L SPAN. w242 "At 5 units or more, every unit drops to SAR 39.50."
+/hosts/@360 PRICE 1L TD. w105 "SAR 49.50"
+/hosts/@360 PRICE 1L TD. w96 "SAR 544.50"
+/hosts/@360 PRICE 1L TD. w105 "SAR 39.50"
+/hosts/@360 PRICE 1L TD. w96 "SAR 434.50"
+/hosts/@360 PRICE 1L SPAN. w125 "SAR 179"
+/hosts/@360 PRICE 1L SMALL. w246 "per visit"
+/hosts/@360 PRICE 1L SPAN. w131 "SAR 299"
+/hosts/@360 PRICE 1L SMALL. w246 "per visit"
+/hosts/@360 PRICE 1L SPAN. w112 "SAR 99"
+/hosts/@360 PRICE 2L SMALL. w238 "per unit/month SAR 599 setup"
+/hosts/@360 PRICE 1L SPAN. w112 "SAR 99"
+/hosts/@360 PRICE 2L SMALL. w238 "/month + cleaning per visit SAR 599 setup"
+/hosts/@360 PRICE 2L SPAN. w210 "Cleaning after every check-out, priced per visit"
+/hosts/@360 PRICE 1L SPAN. w127 "SAR 149"
+/hosts/@360 PRICE 2L SMALL. w238 "per unit/month SAR 599 setup"
+/hosts/@390 clip SPAN. "Chat on WhatsApp" 114x16>1x1
+/hosts/@390 clip P.s-sr "Preview of a sample guest guid" 938x26>1x1
+/hosts/@390 clip LEGEND.s-sr "Billing" 48x26>4x1
+/hosts/@390 clip CAPTION.s-sr "Price per unit by number of un" 225x26>1x1
+/hosts/@390 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":150} head 65
+/hosts/@390 PRICE 1L SPAN.p-calc-unit w106 "SAR / month"
+/hosts/@390 PRICE 2L P.p-calc-rate w300 "SAR 49.50 per unit, per month. At 5 units or more, every unit drops to"
+/hosts/@390 PRICE 2L SPAN. w283 "At 5 units or more, every unit drops to SAR 39.50."
+/hosts/@390 PRICE 1L TD. w116 "SAR 49.50"
+/hosts/@390 PRICE 1L TD. w102 "SAR 544.50"
+/hosts/@390 PRICE 1L TD. w116 "SAR 39.50"
+/hosts/@390 PRICE 1L TD. w102 "SAR 434.50"
+/hosts/@390 PRICE 1L SPAN. w125 "SAR 179"
+/hosts/@390 PRICE 1L SMALL. w276 "per visit"
+/hosts/@390 PRICE 1L SPAN. w131 "SAR 299"
+/hosts/@390 PRICE 1L SMALL. w276 "per visit"
+/hosts/@390 PRICE 1L SPAN. w112 "SAR 99"
+/hosts/@390 PRICE 2L SMALL. w268 "per unit/month SAR 599 setup"
+/hosts/@390 PRICE 1L SPAN. w112 "SAR 99"
+/hosts/@390 PRICE 2L SMALL. w268 "/month + cleaning per visit SAR 599 setup"
+/hosts/@390 PRICE 2L SPAN. w240 "Cleaning after every check-out, priced per visit"
+/hosts/@390 PRICE 1L SPAN. w127 "SAR 149"
+/hosts/@390 PRICE 2L SMALL. w268 "per unit/month SAR 599 setup"
+/hosts/@430 clip SPAN. "Chat on WhatsApp" 132x18>1x1
+/hosts/@430 clip P.s-sr "Preview of a sample guest guid" 938x26>1x1
+/hosts/@430 clip LEGEND.s-sr "Billing" 48x26>4x1
+/hosts/@430 clip CAPTION.s-sr "Price per unit by number of un" 225x26>1x1
+/hosts/@430 INFO logo {"cls":"js m mh | ","clip":"inset(0px 0px 0px 21%)","w":171} head 65
+/hosts/@430 PRICE 1L SPAN.p-calc-unit w106 "SAR / month"
+/hosts/@430 PRICE 2L P.p-calc-rate w340 "SAR 49.50 per unit, per month. At 5 units or more, every unit drops to"
+/hosts/@430 PRICE 2L SPAN. w302 "At 5 units or more, every unit drops to SAR 39.50."
+/hosts/@430 PRICE 1L TD. w131 "SAR 49.50"
+/hosts/@430 PRICE 1L TD. w116 "SAR 544.50"
+/hosts/@430 PRICE 1L TD. w131 "SAR 39.50"
+/hosts/@430 PRICE 1L TD. w116 "SAR 434.50"
+/hosts/@430 PRICE 1L SPAN. w125 "SAR 179"
+/hosts/@430 PRICE 1L SMALL. w316 "per visit"
+/hosts/@430 PRICE 1L SPAN. w131 "SAR 299"
+/hosts/@430 PRICE 1L SMALL. w316 "per visit"
+/hosts/@430 PRICE 1L SPAN. w112 "SAR 99"
+/hosts/@430 PRICE 2L SMALL. w308 "per unit/month SAR 599 setup"
+/hosts/@430 PRICE 1L SPAN. w112 "SAR 99"
+/hosts/@430 PRICE 2L SMALL. w308 "/month + cleaning per visit SAR 599 setup"
+/hosts/@430 PRICE 2L SPAN. w280 "Cleaning after every check-out, priced per visit"
+/hosts/@430 PRICE 1L SPAN. w127 "SAR 149"
+/hosts/@430 PRICE 2L SMALL. w308 "per unit/month SAR 599 setup"

@@ -362,7 +362,7 @@ const HOSTS = [
   ['<span>تقويم حجوزات تديره بنفسك</span>', '<span>A booking calendar you manage yourself</span>'],
   ['<span>الباب يفتح حسب الحجز اللي تدخله</span>', '<span>The door opens based on the bookings you enter</span>'],
   ['<span>النظافة تنضاف بطلبك</span>', '<span>Cleaning added on request</span>'],
-  ['الدفع والتواصل مع ضيفك يبقون عندك. الأسعار تطلع هنا بعد اعتمادها.', 'Payments and guest communication stay with you. Prices will appear here once they’re finalized.'],
+  ['الدفع والتواصل مع ضيفك يبقون عندك.', 'Payments and guest communication stay with you.'],   // 2026-10-02: انشال «الأسعار تطلع هنا بعد اعتمادها» بعد ما انحطت الأسعار (GM-073)
   // what we don't do
   ['ما نطلّع رقمك ولا رقم العاملة للضيف.', 'We never show your number, or your housekeeper’s, to guests.'],
   ['ما نشارك رقم ضيفك مع أحد.', 'We don’t share your guest’s number with anyone.'],

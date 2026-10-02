@@ -379,7 +379,9 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
 .p-clean-price { margin: var(--lt-space-12) 0 var(--lt-space-8); }
 .p-clean-soon { display: inline-flex; align-items: center; gap: var(--lt-space-8); padding: var(--lt-space-8) var(--lt-space-16); border-radius: var(--lt-radius-pill); background: var(--lt-surface-2); font-size: 15px; font-weight: 600; color: var(--lt-text); }
 .p-clean-soon::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lt-accent); }
-.p-clean-price > span:not(.p-clean-soon) { font-family: var(--lt-font-latin); font-size: 32px; font-weight: 700; color: var(--lt-text); }
+.p-clean-price > span:not(.p-clean-soon) { font-family: var(--lt-font-latin); font-size: 32px; line-height: 1.25; font-weight: 700; color: var(--lt-text); }
+.p-clean-price small { display: block; margin-top: var(--lt-space-4); font-size: 15px; line-height: 1.6; color: var(--lt-muted); white-space: pre-line; }   /* 2026-10-02: باقي السعر (hosts-smart.js) */
+.p-calc-table td { white-space: nowrap; }   /* 2026-10-02: «SAR 544.50» كان ينكسر سطرين على 360 */
 .p-clean-card .s-cta { justify-items: stretch; }
 .p-clean-card .s-cta .lt-btn { width: 100%; }
 @media (min-width: 768px) { .p-clean-plans { grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--lt-space-24); } }
@@ -466,3 +468,5 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .p-stay { padding: var(--lt-space-48); }
   .p-stay-plans { grid-template-columns: repeat(3, minmax(0,1fr)); }
 }
+/* 2026-10-02 (بق الجوال): زر الكرت الطويل («اطلب تجربة أسبوعين على واتساب») ينكسر بكلمة يتيمة على 360–390، فالسطرين يتوازنون */
+.s-cta .lt-btn { text-wrap: balance; }

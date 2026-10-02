@@ -73,20 +73,18 @@
   if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', render); else render();
 })(document);
 
-// GM-067: سعر النظافة من config.js ‏cleaningPrices. فاضي = يبقى «السعر قريباً» اللي في HTML.
-(function () {
-  var P = (window.SITE && window.SITE.cleaningPrices) || {};
-  document.querySelectorAll('[data-clean-price]').forEach(function (el) {
-    var k = el.getAttribute('data-clean-price'), v = String((document.documentElement.lang === 'en' && P[k + 'En']) || P[k] || '').trim();
-    if (v) { el.textContent = v; el.classList.remove('p-clean-soon'); }
+// GM-067 النظافة (cleaningPrices) ومقترح GM-068 الإقامة الذكية (smartStayPrices) من config.js. فاضي = يبقى «السعر قريباً» اللي في HTML.
+// 2026-10-02 (بق الجوال): الرقم والعملة بس بالخط الكبير، والباقي سطر صغير تحته، وكل « · » سطر جديد. قبل كان النص كله 32px وينكسر 3–4 أسطر.
+(function (d) {
+  var S = window.SITE || {}, en = d.documentElement.lang === 'en';
+  [['clean', S.cleaningPrices], ['stay', S.smartStayPrices]].forEach(function (g) {
+    var P = g[1] || {};
+    d.querySelectorAll('[data-' + g[0] + '-price]').forEach(function (el) {
+      var k = el.getAttribute('data-' + g[0] + '-price'), v = String((en && P[k + 'En']) || P[k] || '').trim();
+      if (!v) return;
+      var m = v.match(/^((?:SAR )?[\d.,]+(?: ريال)?)\s*(.*)$/) || [v, v, ''];
+      el.textContent = m[1]; el.classList.remove('p-clean-soon');
+      if (m[2]) { var t = d.createElement('small'); t.textContent = m[2].split(' · ').join('\n'); el.parentNode.appendChild(t); }
+    });
   });
-})();
-
-// مقترح GM-068: سعر باقات الإقامة الذكية من config.js ‏smartStayPrices. فاضي = يبقى «السعر قريباً».
-(function () {
-  var P = (window.SITE && window.SITE.smartStayPrices) || {};
-  document.querySelectorAll('[data-stay-price]').forEach(function (el) {
-    var k = el.getAttribute('data-stay-price'), v = String((document.documentElement.lang === 'en' && P[k + 'En']) || P[k] || '').trim();
-    if (v) { el.textContent = v; el.classList.remove('p-clean-soon'); }
-  });
-})();
+})(document);

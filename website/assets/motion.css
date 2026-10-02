@@ -82,16 +82,8 @@
   .mh [data-expand-title] > * { align-self: auto; }
 }
 .mh [data-expand-sheet], .mh [data-expand-phone] { opacity: 0; }
-/* AD-37 (تحت 1024، اللوح تحت الصورة): آخر التوسع شريط صورة تحت الرأس لين فوق اللوح، والصورة cover على الشريط نفسه، واللوح تحته بدون تداخل.
-   motion.js يحط .m-band ويحسب --m-bt (أعلى الشريط = الرأس) و --m-bh (طوله) و --m-xh (كم يطول القسم لو اللوح ما يترك مكان للشريط).
-   البطاقة الصغيرة تبقى مكانها من طول الشاشة (57%) حتى لو القسم طال. هنا بدل restaurants.css و hosts.css (ملفات المطوّر).
-   قبل ما يشتغل motion.js (بدون .m-x، والصورة ممكن تنرسم قبله على شبكة بطيئة): الصورة بطول البطاقة وعرض الشاشة وبدون تكبير، فالمنتج كامل
-   في البطاقة من أول رسم، وقريب من البداية اللي يحسبها motion.js */
-@media (max-width: 1023.98px) {
-  html.mh [data-expand]:not(.m-x) [data-expand-media] > :first-child { top: calc(var(--cy) - var(--ch) / 2); bottom: auto; height: var(--ch); transform: none; }
-  html.mh [data-expand].m-band { --cy: calc(clamp(560px, 100svh, 1000px) * .57); height: calc(clamp(560px, 100svh, 1000px) + var(--m-xh, 0px)); }
-  html.mh [data-expand].m-band [data-expand-media] > :first-child { top: var(--m-bt, 0px); bottom: auto; height: var(--m-bh, 100%); }
-}
+/* 2026-10-02 (بق الجوال): انشالت قاعدة AD-37 تحت 1024 (top: --cy - --ch/2 للصورة الأولى قبل .m-x). البطل صار inline وما أحد يحط .m-x،
+   فكانت تنزّل صورة البطل ~24px داخل الإطار وتطلع شريط بيج فوقها في المطاعم والمضيفين. */
 
 /* ===== القصة المثبّتة (data-story): الخطوة الحالية واضحة، والباقي أخف وقت التثبيت بس، والشريط يمتلي بالحبر ===== */
 .m [data-story].is-live [data-story-run] { position: relative; }
