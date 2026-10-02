@@ -77,7 +77,7 @@
 (function () {
   var P = (window.SITE && window.SITE.cleaningPrices) || {};
   document.querySelectorAll('[data-clean-price]').forEach(function (el) {
-    var v = String(P[el.getAttribute('data-clean-price')] || '').trim();
+    var k = el.getAttribute('data-clean-price'), v = String((document.documentElement.lang === 'en' && P[k + 'En']) || P[k] || '').trim();
     if (v) { el.textContent = v; el.classList.remove('p-clean-soon'); }
   });
 })();
@@ -86,7 +86,7 @@
 (function () {
   var P = (window.SITE && window.SITE.smartStayPrices) || {};
   document.querySelectorAll('[data-stay-price]').forEach(function (el) {
-    var v = String(P[el.getAttribute('data-stay-price')] || '').trim();
+    var k = el.getAttribute('data-stay-price'), v = String((document.documentElement.lang === 'en' && P[k + 'En']) || P[k] || '').trim();
     if (v) { el.textContent = v; el.classList.remove('p-clean-soon'); }
   });
 })();
