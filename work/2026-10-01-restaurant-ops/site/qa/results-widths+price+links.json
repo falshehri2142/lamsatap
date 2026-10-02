@@ -1,0 +1,7717 @@
+{
+ "checks": [
+  {
+   "pass": true,
+   "m": "ar 320 normal no horizontal scroll",
+   "d": {
+    "sw": 320,
+    "vw": 320
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "264x159",
+     "natAR": 1.6,
+     "boxAR": 1.66,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 320 normal h1+primary above fold",
+   "d": {
+    "h1": 245,
+    "primary": 402,
+    "rnew": 514,
+    "vh": 844
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal no horizontal scroll",
+   "d": {
+    "sw": 390,
+    "vw": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 normal h1+primary above fold",
+   "d": {
+    "h1": 255,
+    "primary": 412,
+    "rnew": 524,
+    "vh": 844
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce no horizontal scroll",
+   "d": {
+    "sw": 390,
+    "vw": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce reveal items final state without scroll",
+   "d": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 reduce no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark no horizontal scroll",
+   "d": {
+    "sw": 390,
+    "vw": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 dark no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal no horizontal scroll",
+   "d": {
+    "sw": 768,
+    "vw": 768
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "688x424",
+     "natAR": 1.6,
+     "boxAR": 1.623,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 768 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal no horizontal scroll",
+   "d": {
+    "sw": 1280,
+    "vw": 1280
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce no horizontal scroll",
+   "d": {
+    "sw": 1280,
+    "vw": 1280
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce reveal items final state without scroll",
+   "d": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 reduce no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark no horizontal scroll",
+   "d": {
+    "sw": 1280,
+    "vw": 1280
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 dark no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal no horizontal scroll",
+   "d": {
+    "sw": 1440,
+    "vw": 1440
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1440 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal no horizontal scroll",
+   "d": {
+    "sw": 320,
+    "vw": 320
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "264x159",
+     "natAR": 1.6,
+     "boxAR": 1.66,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 320 normal h1+primary above fold",
+   "d": {
+    "h1": 345,
+    "primary": 533,
+    "rnew": 645,
+    "vh": 844
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal no horizontal scroll",
+   "d": {
+    "sw": 390,
+    "vw": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 normal h1+primary above fold",
+   "d": {
+    "h1": 310,
+    "primary": 467,
+    "rnew": 579,
+    "vh": 844
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce no horizontal scroll",
+   "d": {
+    "sw": 390,
+    "vw": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce reveal items final state without scroll",
+   "d": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 reduce no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark no horizontal scroll",
+   "d": {
+    "sw": 390,
+    "vw": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 dark no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal no horizontal scroll",
+   "d": {
+    "sw": 768,
+    "vw": 768
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "688x424",
+     "natAR": 1.6,
+     "boxAR": 1.623,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 768 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal no horizontal scroll",
+   "d": {
+    "sw": 1280,
+    "vw": 1280
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce no horizontal scroll",
+   "d": {
+    "sw": 1280,
+    "vw": 1280
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce reveal items final state without scroll",
+   "d": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 reduce no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark no horizontal scroll",
+   "d": {
+    "sw": 1280,
+    "vw": 1280
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 dark no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal no horizontal scroll",
+   "d": {
+    "sw": 1440,
+    "vw": 1440
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal nothing past viewport edge",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal touch targets >=44",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal text contrast AA",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal no clipped text",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal #ops between #plan/#faq and no #order"
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal imgs lazy+loaded+cover",
+   "d": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal no console errors/warnings",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal no external requests",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1440 normal no 4xx/5xx",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 empty all prices \"السعر قريباً\", setup+unit hidden in s/m/l",
+   "d": {
+    "s": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، من 16 إلى 30 طاولة",
+     "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، من 31 إلى 60 طاولة",
+     "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 empty \"for\" line follows switch",
+   "d": [
+    "لكل فرع، لين 15 طاولة",
+    "لكل فرع، من 16 إلى 30 طاولة",
+    "لكل فرع، من 31 إلى 60 طاولة"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 empty no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 empty all prices \"السعر قريباً\", setup+unit hidden in s/m/l",
+   "d": {
+    "s": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، من 16 إلى 30 طاولة",
+     "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، من 31 إلى 60 طاولة",
+     "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "السعر قريباً",
+     "pro": "السعر قريباً",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 empty \"for\" line follows switch",
+   "d": [
+    "لكل فرع، لين 15 طاولة",
+    "لكل فرع، من 16 إلى 30 طاولة",
+    "لكل فرع، من 31 إلى 60 طاولة"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 empty no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 priced switch swaps prices 249/329/449 & 349/449/549",
+   "d": {
+    "s": {
+     "order": "249",
+     "pro": "349",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "329",
+     "pro": "449",
+     "for": "لكل فرع، من 16 إلى 30 طاولة",
+     "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "449",
+     "pro": "549",
+     "for": "لكل فرع، من 31 إلى 60 طاولة",
+     "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "249",
+     "pro": "349",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 priced setup line shown",
+   "d": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة."
+  },
+  {
+   "pass": true,
+   "m": "ar 390 priced unit visible + is-priced",
+   "d": {
+    "order": "249",
+    "pro": "349",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 priced priced no overflow",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 390 priced no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 priced switch swaps prices 249/329/449 & 349/449/549",
+   "d": {
+    "s": {
+     "order": "249",
+     "pro": "349",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "329",
+     "pro": "449",
+     "for": "لكل فرع، من 16 إلى 30 طاولة",
+     "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "449",
+     "pro": "549",
+     "for": "لكل فرع، من 31 إلى 60 طاولة",
+     "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "249",
+     "pro": "349",
+     "for": "لكل فرع، لين 15 طاولة",
+     "forPro": "لكل فرع، لين 15 طاولة",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 priced setup line shown",
+   "d": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة."
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 priced unit visible + is-priced",
+   "d": {
+    "order": "249",
+    "pro": "349",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 priced priced no overflow",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 priced no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 empty all prices \"Pricing coming soon\", setup+unit hidden in s/m/l",
+   "d": {
+    "s": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, 16 to 30 tables",
+     "forPro": "Per branch, 16 to 30 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, 31 to 60 tables",
+     "forPro": "Per branch, 31 to 60 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 empty \"for\" line follows switch",
+   "d": [
+    "Per branch, up to 15 tables",
+    "Per branch, 16 to 30 tables",
+    "Per branch, 31 to 60 tables"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 empty no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 empty all prices \"Pricing coming soon\", setup+unit hidden in s/m/l",
+   "d": {
+    "s": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, 16 to 30 tables",
+     "forPro": "Per branch, 16 to 30 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, 31 to 60 tables",
+     "forPro": "Per branch, 31 to 60 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "Pricing coming soon",
+     "pro": "Pricing coming soon",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      true,
+      true
+     ],
+     "setup": null,
+     "priced": [
+      false,
+      false
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 empty \"for\" line follows switch",
+   "d": [
+    "Per branch, up to 15 tables",
+    "Per branch, 16 to 30 tables",
+    "Per branch, 31 to 60 tables"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 empty no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 priced switch swaps prices 249/329/449 & 349/449/549",
+   "d": {
+    "s": {
+     "order": "249",
+     "pro": "349",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "329",
+     "pro": "449",
+     "for": "Per branch, 16 to 30 tables",
+     "forPro": "Per branch, 16 to 30 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "449",
+     "pro": "549",
+     "for": "Per branch, 31 to 60 tables",
+     "forPro": "Per branch, 31 to 60 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "249",
+     "pro": "349",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 priced setup line shown",
+   "d": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table."
+  },
+  {
+   "pass": true,
+   "m": "en 390 priced unit visible + is-priced",
+   "d": {
+    "order": "249",
+    "pro": "349",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 priced priced no overflow",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 390 priced no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 priced switch swaps prices 249/329/449 & 349/449/549",
+   "d": {
+    "s": {
+     "order": "249",
+     "pro": "349",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    },
+    "m2": {
+     "order": "329",
+     "pro": "449",
+     "for": "Per branch, 16 to 30 tables",
+     "forPro": "Per branch, 16 to 30 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "1",
+     "checked": "false,true,false"
+    },
+    "l2": {
+     "order": "449",
+     "pro": "549",
+     "for": "Per branch, 31 to 60 tables",
+     "forPro": "Per branch, 31 to 60 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "2",
+     "checked": "false,false,true"
+    },
+    "s2": {
+     "order": "249",
+     "pro": "349",
+     "for": "Per branch, up to 15 tables",
+     "forPro": "Per branch, up to 15 tables",
+     "unit": [
+      false,
+      false
+     ],
+     "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+     "priced": [
+      true,
+      true
+     ],
+     "on": "0",
+     "checked": "true,false,false"
+    }
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 priced setup line shown",
+   "d": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table."
+  },
+  {
+   "pass": true,
+   "m": "en 1280 priced unit visible + is-priced",
+   "d": {
+    "order": "249",
+    "pro": "349",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 priced priced no overflow",
+   "d": []
+  },
+  {
+   "pass": true,
+   "m": "en 1280 priced no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar partial config: order stays coming-soon, pro priced, setup hidden (perTable empty)",
+   "d": {
+    "o": "السعر قريباً",
+    "pr": "349",
+    "setup": true
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 .r-new -> #ops, h2 visible below sticky header",
+   "d": {
+    "hash": "#ops",
+    "opsTop": 72,
+    "h2Top": 144,
+    "headerBottom": 65
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 section nav -> #ops (visible=true)",
+   "d": {
+    "hash": "#ops",
+    "h2Top": 144,
+    "headerBottom": 65,
+    "isNew": "\"\""
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 demo buttons -> demo/order/ & demo/order/staff/",
+   "d": [
+    [
+     "جرّبها كأنك زبون",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "شوف شاشة المطعم",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 /demo/order/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "ar 390 /demo/order/staff/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "ar 390 WA button -> shopOrder text",
+   "d": {
+    "href": "https://wa.me/966507250396?text=%D8%A7%D9%84%D8%B3%D9%84%D8%",
+    "waTxt": "السلام عليكم، أبغى إدارة المطعم (الطلب من الطاولة ونداء النادل) لمحلي. اسم المحل والحي وعدد الطاولات:"
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 demo page /demo/order/ clean",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 demo page /demo/order/staff/ clean",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 390 focus ring visible on buttons/switch",
+   "d": [
+    {
+     "t": "جرّبها كأنك زبون",
+     "cls": "lt-btn",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "شوف شاشة المطعم",
+     "cls": "lt-btn lt-btn--secondary",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "لين 15",
+     "cls": "s-switch-opt",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "اسأل عن إدارة المطعم على واتسا",
+     "cls": "lt-btn lt-btn--secondary r-ops-wa",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "هل زبوني يحتاج تطبيق؟",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "وش لو جواله ما قرأ الشريحة؟",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 switch is one tab stop (roving tabindex)",
+   "d": [
+    "جرّبها كأنك زبون",
+    "شوف شاشة المطعم",
+    "لين 15",
+    "اسأل عن إدارة المطعم على واتسا",
+    "هل زبوني يحتاج تطبيق؟",
+    "وش لو جواله ما قرأ الشريحة؟"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 arrow keys move along reading direction + End",
+   "d": {
+    "k1": {
+     "f": "m",
+     "c": "m",
+     "for": "لكل فرع، من 16 إلى 30 طاولة"
+    },
+    "k2": "l"
+   }
+  },
+  {
+   "pass": false,
+   "m": "ar 390 thumb centred under each option (<=2px)",
+   "d": [
+    {
+     "v": "s",
+     "thumbL": 253,
+     "thumbR": 365,
+     "optL": 251.7,
+     "optR": 365,
+     "dCenter": 0.7
+    },
+    {
+     "v": "m",
+     "thumbL": 141,
+     "thumbR": 253,
+     "optL": 138.3,
+     "optR": 251.7,
+     "dCenter": 2
+    },
+    {
+     "v": "l",
+     "thumbL": 29,
+     "thumbR": 141,
+     "optL": 25,
+     "optR": 138.3,
+     "dCenter": 3.4
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 390 links run: no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 .r-new -> #ops, h2 visible below sticky header",
+   "d": {
+    "hash": "#ops",
+    "opsTop": 88,
+    "h2Top": 216,
+    "headerBottom": 81
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 section nav -> #ops (visible=true)",
+   "d": {
+    "hash": "#ops",
+    "h2Top": 216,
+    "headerBottom": 81,
+    "isNew": "\"\""
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 demo buttons -> demo/order/ & demo/order/staff/",
+   "d": [
+    [
+     "جرّبها كأنك زبون",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "شوف شاشة المطعم",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 /demo/order/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 /demo/order/staff/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 WA button -> shopOrder text",
+   "d": {
+    "href": "https://wa.me/966507250396?text=%D8%A7%D9%84%D8%B3%D9%84%D8%",
+    "waTxt": "السلام عليكم، أبغى إدارة المطعم (الطلب من الطاولة ونداء النادل) لمحلي. اسم المحل والحي وعدد الطاولات:"
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 focus ring visible on buttons/switch",
+   "d": [
+    {
+     "t": "جرّبها كأنك زبون",
+     "cls": "lt-btn",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "شوف شاشة المطعم",
+     "cls": "lt-btn lt-btn--secondary",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "لين 15",
+     "cls": "s-switch-opt",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "اسأل عن إدارة المطعم على واتسا",
+     "cls": "lt-btn lt-btn--secondary r-ops-wa",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "هل زبوني يحتاج تطبيق؟",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "وش لو جواله ما قرأ الشريحة؟",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 switch is one tab stop (roving tabindex)",
+   "d": [
+    "جرّبها كأنك زبون",
+    "شوف شاشة المطعم",
+    "لين 15",
+    "اسأل عن إدارة المطعم على واتسا",
+    "هل زبوني يحتاج تطبيق؟",
+    "وش لو جواله ما قرأ الشريحة؟"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 arrow keys move along reading direction + End",
+   "d": {
+    "k1": {
+     "f": "m",
+     "c": "m",
+     "for": "لكل فرع، من 16 إلى 30 طاولة"
+    },
+    "k2": "l"
+   }
+  },
+  {
+   "pass": false,
+   "m": "ar 1280 thumb centred under each option (<=2px)",
+   "d": [
+    {
+     "v": "s",
+     "thumbL": 709.7,
+     "thumbR": 845,
+     "optL": 708.3,
+     "optR": 845,
+     "dCenter": 0.7
+    },
+    {
+     "v": "m",
+     "thumbL": 574.3,
+     "thumbR": 709.7,
+     "optL": 571.7,
+     "optR": 708.3,
+     "dCenter": 2
+    },
+    {
+     "v": "l",
+     "thumbL": 439,
+     "thumbR": 574.3,
+     "optL": 435,
+     "optR": 571.7,
+     "dCenter": 3.3
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "ar 1280 links run: no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 .r-new -> #ops, h2 visible below sticky header",
+   "d": {
+    "hash": "#ops",
+    "opsTop": 72,
+    "h2Top": 144,
+    "headerBottom": 65
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 section nav -> #ops (visible=true)",
+   "d": {
+    "hash": "#ops",
+    "h2Top": 144,
+    "headerBottom": 65,
+    "isNew": "\"\""
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 demo buttons -> demo/order/ & demo/order/staff/",
+   "d": [
+    [
+     "Try it as a guest",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "See the staff screen",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 /demo/order/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "en 390 /demo/order/staff/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "en 390 WA button -> shopOrder text",
+   "d": {
+    "href": "https://wa.me/966507250396?text=Hi%2C%20I%27d%20like%20Resta",
+    "waTxt": "Hi, I'd like Restaurant Ops (table ordering and waiter calls) for my venue. Venue name, neighborhood and number of tables:"
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 demo page /demo/order/ clean",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 demo page /demo/order/staff/ clean",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 390 focus ring visible on buttons/switch",
+   "d": [
+    {
+     "t": "Try it as a guest",
+     "cls": "lt-btn",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "See the staff screen",
+     "cls": "lt-btn lt-btn--secondary",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "Up to 15",
+     "cls": "s-switch-opt",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "Ask about Restaurant Ops on Wh",
+     "cls": "lt-btn lt-btn--secondary r-ops-wa",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "Do my guests need an app?",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "What if their phone doesn’t re",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 switch is one tab stop (roving tabindex)",
+   "d": [
+    "Try it as a guest",
+    "See the staff screen",
+    "Up to 15",
+    "Ask about Restaurant Ops on Wh",
+    "Do my guests need an app?",
+    "What if their phone doesn’t re"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 arrow keys move along reading direction + End",
+   "d": {
+    "k1": {
+     "f": "m",
+     "c": "m",
+     "for": "Per branch, 16 to 30 tables"
+    },
+    "k2": "l"
+   }
+  },
+  {
+   "pass": false,
+   "m": "en 390 thumb centred under each option (<=2px)",
+   "d": [
+    {
+     "v": "s",
+     "thumbL": 25,
+     "thumbR": 137,
+     "optL": 25,
+     "optR": 138.3,
+     "dCenter": 0.7
+    },
+    {
+     "v": "m",
+     "thumbL": 137,
+     "thumbR": 249,
+     "optL": 138.3,
+     "optR": 251.7,
+     "dCenter": 2
+    },
+    {
+     "v": "l",
+     "thumbL": 249,
+     "thumbR": 361,
+     "optL": 251.7,
+     "optR": 365,
+     "dCenter": 3.4
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 390 links run: no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 .r-new -> #ops, h2 visible below sticky header",
+   "d": {
+    "hash": "#ops",
+    "opsTop": 88,
+    "h2Top": 216,
+    "headerBottom": 81
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 section nav -> #ops (visible=true)",
+   "d": {
+    "hash": "#ops",
+    "h2Top": 216,
+    "headerBottom": 81,
+    "isNew": "\"\""
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 demo buttons -> demo/order/ & demo/order/staff/",
+   "d": [
+    [
+     "Try it as a guest",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "See the staff screen",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 /demo/order/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "en 1280 /demo/order/staff/ 200",
+   "d": 200
+  },
+  {
+   "pass": true,
+   "m": "en 1280 WA button -> shopOrder text",
+   "d": {
+    "href": "https://wa.me/966507250396?text=Hi%2C%20I%27d%20like%20Resta",
+    "waTxt": "Hi, I'd like Restaurant Ops (table ordering and waiter calls) for my venue. Venue name, neighborhood and number of tables:"
+   }
+  },
+  {
+   "pass": true,
+   "m": "en 1280 focus ring visible on buttons/switch",
+   "d": [
+    {
+     "t": "Try it as a guest",
+     "cls": "lt-btn",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "See the staff screen",
+     "cls": "lt-btn lt-btn--secondary",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "Up to 15",
+     "cls": "s-switch-opt",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "Ask about Restaurant Ops on Wh",
+     "cls": "lt-btn lt-btn--secondary r-ops-wa",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "Do my guests need an app?",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    },
+    {
+     "t": "What if their phone doesn’t re",
+     "cls": "",
+     "ring": true,
+     "outline": "solid 2px rgb(7, 94, 90)",
+     "fv": true
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 switch is one tab stop (roving tabindex)",
+   "d": [
+    "Try it as a guest",
+    "See the staff screen",
+    "Up to 15",
+    "Ask about Restaurant Ops on Wh",
+    "Do my guests need an app?",
+    "What if their phone doesn’t re"
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 arrow keys move along reading direction + End",
+   "d": {
+    "k1": {
+     "f": "m",
+     "c": "m",
+     "for": "Per branch, 16 to 30 tables"
+    },
+    "k2": "l"
+   }
+  },
+  {
+   "pass": false,
+   "m": "en 1280 thumb centred under each option (<=2px)",
+   "d": [
+    {
+     "v": "s",
+     "thumbL": 435,
+     "thumbR": 570.3,
+     "optL": 435,
+     "optR": 571.7,
+     "dCenter": 0.7
+    },
+    {
+     "v": "m",
+     "thumbL": 570.3,
+     "thumbR": 705.7,
+     "optL": 571.7,
+     "optR": 708.3,
+     "dCenter": 2
+    },
+    {
+     "v": "l",
+     "thumbL": 705.7,
+     "thumbR": 841,
+     "optL": 708.3,
+     "optR": 845,
+     "dCenter": 3.3
+    }
+   ]
+  },
+  {
+   "pass": true,
+   "m": "en 1280 links run: no errors/external",
+   "d": {
+    "errors": [],
+    "external": [],
+    "bad": []
+   }
+  }
+ ],
+ "data": {
+  "ar 320 normal": {
+   "vw": 320,
+   "sw": 320,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "264x159",
+     "natAR": 1.6,
+     "boxAR": 1.66,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 2
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 2,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 2,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 166,
+     "top": -3745
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 20,
+     "top": -3745
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "hero ar 320 normal": {
+   "h1": 245,
+   "primary": 402,
+   "rnew": 514,
+   "vh": 844
+  },
+  "ar 390 normal": {
+   "vw": 390,
+   "sw": 390,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 201,
+     "top": -3627
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 20,
+     "top": -3627
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "hero ar 390 normal": {
+   "h1": 255,
+   "primary": 412,
+   "rnew": 524,
+   "vh": 844
+  },
+  "ar 390 reduce": {
+   "vw": 390,
+   "sw": 390,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 201,
+     "top": 439
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 20,
+     "top": 439
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "ar 390 dark": {
+   "vw": 390,
+   "sw": 390,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 201,
+     "top": -3627
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 20,
+     "top": -3627
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "ar 768 normal": {
+   "vw": 768,
+   "sw": 768,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "688x424",
+     "natAR": 1.6,
+     "boxAR": 1.623,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 390,
+     "top": -3232
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 32,
+     "top": -3232
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0039)"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "ar 1280 normal": {
+   "vw": 1280,
+   "sw": 1280,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 991,
+     "top": -2416
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 739,
+     "top": -2416
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0023)"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "ar 1280 reduce": {
+   "vw": 1280,
+   "sw": 1280,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 991,
+     "top": 517
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 739,
+     "top": 517
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "ar 1280 dark": {
+   "vw": 1280,
+   "sw": 1280,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 991,
+     "top": -2416
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 739,
+     "top": -2416
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0024)"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "ar 1440 normal": {
+   "vw": 1440,
+   "sw": 1440,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "إدارة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "يمسح الباركود أو يلمس الستاند",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويختار اللي يناسبه",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "اطلب من جوالك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "النادل يجي لك",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "ويوصلك على شاشة وحدة",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "جرّبها كأنك زبون",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "شوف شاشة المطعم",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "لين 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "الطلب من الطاولة",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "برو",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "السعر قريباً ريال بالشهر",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "أكثر من 60 طاولة؟ كلّمنا.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "جرّبها أسبوعين ببلاش",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "بدون عمولة على الطلبات",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "كاشيرك يبقى زي ما هو",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "اسأل عن إدارة المطعم على واتساب",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "جديدالطلب من الطاولة",
+     "lines": 5
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "العرض الحي",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الباقة",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "إدارة المطعم",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "الأسئلة",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "اطلب من جوالك",
+     "x": 1076,
+     "top": -2416
+    },
+    {
+     "t": "النادل يجي لك",
+     "x": 820,
+     "top": -2416
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0034)"
+    }
+   ]
+  },
+  "en 320 normal": {
+   "vw": 320,
+   "sw": 320,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "122x278",
+     "natAR": 0.462,
+     "boxAR": 0.439,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "264x159",
+     "natAR": 1.6,
+     "boxAR": 1.66,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 2
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 2
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 2,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 2,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 20,
+     "top": -4014
+    },
+    {
+     "t": "Call the waiter",
+     "x": 166,
+     "top": -4014
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "hero en 320 normal": {
+   "h1": 345,
+   "primary": 533,
+   "rnew": 645,
+   "vh": 844
+  },
+  "en 390 normal": {
+   "vw": 390,
+   "sw": 390,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 2
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 20,
+     "top": -3807
+    },
+    {
+     "t": "Call the waiter",
+     "x": 201,
+     "top": -3807
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "hero en 390 normal": {
+   "h1": 310,
+   "primary": 467,
+   "rnew": 579,
+   "vh": 844
+  },
+  "en 390 reduce": {
+   "vw": 390,
+   "sw": 390,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 2
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 20,
+     "top": 453
+    },
+    {
+     "t": "Call the waiter",
+     "x": 201,
+     "top": 453
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "en 390 dark": {
+   "vw": 390,
+   "sw": 390,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "157x354",
+     "natAR": 0.462,
+     "boxAR": 0.444,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "334x203",
+     "natAR": 1.6,
+     "boxAR": 1.647,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 2
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 20,
+     "top": -3807
+    },
+    {
+     "t": "Call the waiter",
+     "x": 201,
+     "top": -3807
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "en 768 normal": {
+   "vw": 768,
+   "sw": 768,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "208x464",
+     "natAR": 0.462,
+     "boxAR": 0.448,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "688x424",
+     "natAR": 1.6,
+     "boxAR": 1.623,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 32,
+     "top": -3336
+    },
+    {
+     "t": "Call the waiter",
+     "x": 390,
+     "top": -3336
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0003)"
+    }
+   ]
+  },
+  "en 1280 normal": {
+   "vw": 1280,
+   "sw": 1280,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 48,
+     "top": -2513
+    },
+    {
+     "t": "Call the waiter",
+     "x": 301,
+     "top": -2513
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0026)"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "en 1280 reduce": {
+   "vw": 1280,
+   "sw": 1280,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 48,
+     "top": 537
+    },
+    {
+     "t": "Call the waiter",
+     "x": 301,
+     "top": 537
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "en 1280 dark": {
+   "vw": 1280,
+   "sw": 1280,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 48,
+     "top": -2513
+    },
+    {
+     "t": "Call the waiter",
+     "x": 301,
+     "top": -2513
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0012)"
+    }
+   ]
+  },
+  "en 1440 normal": {
+   "vw": 1440,
+   "sw": 1440,
+   "overflow": [],
+   "small": [],
+   "contrast": [],
+   "imgs": [
+    {
+     "src": "ops-phone-order.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-phone-call.webp",
+     "nat": "390x844",
+     "box": "188x421",
+     "natAR": 0.462,
+     "boxAR": 0.447,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    },
+    {
+     "src": "ops-staff.webp",
+     "nat": "960x600",
+     "box": "544x334",
+     "natAR": 1.6,
+     "boxAR": 1.629,
+     "fit": "cover",
+     "loading": "lazy",
+     "complete": true
+    }
+   ],
+   "wraps": [
+    {
+     "el": "s-h2",
+     "t": "Restaurant Ops",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "They scan the code or tap the stand",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "Then they pick what suits them",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Order from your phone",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-wt",
+     "t": "Call the waiter",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-st",
+     "t": "And it all reaches one screen",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Try it as a guest",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "See the staff screen",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "Up to 15",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "16–30",
+     "lines": 1
+    },
+    {
+     "el": "s-switch-opt",
+     "t": "31–60",
+     "lines": 1
+    },
+    {
+     "el": "s-h3",
+     "t": "Table Ordering",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "s-h3",
+     "t": "Pro",
+     "lines": 1
+    },
+    {
+     "el": "r-ops-price",
+     "t": "Pricing coming soon SAR / month",
+     "lines": 2
+    },
+    {
+     "el": "r-ops-more",
+     "t": "More than 60 tables? Talk to us.",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Free for two weeks",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "No commission on orders",
+     "lines": 1
+    },
+    {
+     "el": "LI",
+     "t": "Keep your current POS",
+     "lines": 1
+    },
+    {
+     "el": "SPAN",
+     "t": "Ask about Restaurant Ops on WhatsApp",
+     "lines": 1
+    },
+    {
+     "el": "r-new",
+     "t": "NewTable ordering",
+     "lines": 4
+    }
+   ],
+   "clipped": [],
+   "nav": [
+    {
+     "t": "Live demo",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Pricing",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "Restaurant Ops",
+     "lines": 1,
+     "h": 48
+    },
+    {
+     "t": "FAQ",
+     "lines": 1,
+     "h": 48
+    }
+   ],
+   "ways": [
+    {
+     "t": "Order from your phone",
+     "x": 120,
+     "top": -2513
+    },
+    {
+     "t": "Call the waiter",
+     "x": 376,
+     "top": -2513
+    }
+   ],
+   "prev": "plan",
+   "next": "faq",
+   "order": false,
+   "opsBg": "rgb(250, 247, 242)",
+   "bodyBg": "rgb(250, 247, 242)",
+   "reveal": [
+    {
+     "op": "1",
+     "tf": "none"
+    },
+    {
+     "op": "1",
+     "tf": "matrix(1, 0, 0, 1, 0, 0.0025)"
+    },
+    {
+     "op": "1",
+     "tf": "none"
+    }
+   ]
+  },
+  "ar 390 empty": {
+   "s": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، من 16 إلى 30 طاولة",
+    "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، من 31 إلى 60 طاولة",
+    "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "ar 1280 empty": {
+   "s": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، من 16 إلى 30 طاولة",
+    "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، من 31 إلى 60 طاولة",
+    "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "السعر قريباً",
+    "pro": "السعر قريباً",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "ar 390 priced": {
+   "s": {
+    "order": "249",
+    "pro": "349",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "329",
+    "pro": "449",
+    "for": "لكل فرع، من 16 إلى 30 طاولة",
+    "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "449",
+    "pro": "549",
+    "for": "لكل فرع، من 31 إلى 60 طاولة",
+    "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "249",
+    "pro": "349",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "ar 390 priced wraps": [
+   {
+    "el": "r-ops-price",
+    "t": "329 ريال بالشهر",
+    "lines": 4
+   },
+   {
+    "el": "r-ops-price",
+    "t": "449 ريال بالشهر",
+    "lines": 4
+   }
+  ],
+  "ar 1280 priced": {
+   "s": {
+    "order": "249",
+    "pro": "349",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "329",
+    "pro": "449",
+    "for": "لكل فرع، من 16 إلى 30 طاولة",
+    "forPro": "لكل فرع، من 16 إلى 30 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "449",
+    "pro": "549",
+    "for": "لكل فرع، من 31 إلى 60 طاولة",
+    "forPro": "لكل فرع، من 31 إلى 60 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "249",
+    "pro": "349",
+    "for": "لكل فرع، لين 15 طاولة",
+    "forPro": "لكل فرع، لين 15 طاولة",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "التأسيس 499 ريال ويشمل 15 طاولة، و25 ريال لكل طاولة زيادة.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "ar 1280 priced wraps": [
+   {
+    "el": "r-ops-price",
+    "t": "329 ريال بالشهر",
+    "lines": 4
+   },
+   {
+    "el": "r-ops-price",
+    "t": "449 ريال بالشهر",
+    "lines": 4
+   }
+  ],
+  "en 390 empty": {
+   "s": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, 16 to 30 tables",
+    "forPro": "Per branch, 16 to 30 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, 31 to 60 tables",
+    "forPro": "Per branch, 31 to 60 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "en 1280 empty": {
+   "s": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, 16 to 30 tables",
+    "forPro": "Per branch, 16 to 30 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, 31 to 60 tables",
+    "forPro": "Per branch, 31 to 60 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "Pricing coming soon",
+    "pro": "Pricing coming soon",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     true,
+     true
+    ],
+    "setup": null,
+    "priced": [
+     false,
+     false
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "en 390 priced": {
+   "s": {
+    "order": "249",
+    "pro": "349",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "329",
+    "pro": "449",
+    "for": "Per branch, 16 to 30 tables",
+    "forPro": "Per branch, 16 to 30 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "449",
+    "pro": "549",
+    "for": "Per branch, 31 to 60 tables",
+    "forPro": "Per branch, 31 to 60 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "249",
+    "pro": "349",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "en 390 priced wraps": [
+   {
+    "el": "r-ops-price",
+    "t": "329 SAR / month",
+    "lines": 4
+   },
+   {
+    "el": "r-ops-price",
+    "t": "449 SAR / month",
+    "lines": 4
+   }
+  ],
+  "en 1280 priced": {
+   "s": {
+    "order": "249",
+    "pro": "349",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   },
+   "m2": {
+    "order": "329",
+    "pro": "449",
+    "for": "Per branch, 16 to 30 tables",
+    "forPro": "Per branch, 16 to 30 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "1",
+    "checked": "false,true,false"
+   },
+   "l2": {
+    "order": "449",
+    "pro": "549",
+    "for": "Per branch, 31 to 60 tables",
+    "forPro": "Per branch, 31 to 60 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "2",
+    "checked": "false,false,true"
+   },
+   "s2": {
+    "order": "249",
+    "pro": "349",
+    "for": "Per branch, up to 15 tables",
+    "forPro": "Per branch, up to 15 tables",
+    "unit": [
+     false,
+     false
+    ],
+    "setup": "One-time setup: SAR 499, covers 15 tables, plus SAR 25 for each extra table.",
+    "priced": [
+     true,
+     true
+    ],
+    "on": "0",
+    "checked": "true,false,false"
+   }
+  },
+  "en 1280 priced wraps": [
+   {
+    "el": "r-ops-price",
+    "t": "329 SAR / month",
+    "lines": 4
+   },
+   {
+    "el": "r-ops-price",
+    "t": "449 SAR / month",
+    "lines": 4
+   }
+  ],
+  "links ar 390": {
+   "demo": [
+    [
+     "جرّبها كأنك زبون",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "شوف شاشة المطعم",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ],
+   "wa": {
+    "hidden": false,
+    "href": "https://wa.me/966507250396?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%B7%D8%B9%D9%85%20(%D8%A7%D9%84%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D8%A7%D9%84%D8%B7%D8%A7%D9%88%D9%84%D8%A9%20%D9%88%D9%86%D8%AF%D8%A7%D8%A1%20%D8%A7%D9%84%D9%86%D8%A7%D8%AF%D9%84)%20%D9%84%D9%85%D8%AD%D9%84%D9%8A.%20%D8%A7%D8%B3%D9%85%20%D8%A7%D9%84%D9%85%D8%AD%D9%84%20%D9%88%D8%A7%D9%84%D8%AD%D9%8A%20%D9%88%D8%B9%D8%AF%D8%AF%20%D8%A7%D9%84%D8%B7%D8%A7%D9%88%D9%84%D8%A7%D8%AA%3A",
+    "text": "اسأل عن إدارة المطعم على واتساب"
+   }
+  },
+  "wa ar 390": "السلام عليكم، أبغى إدارة المطعم (الطلب من الطاولة ونداء النادل) لمحلي. اسم المحل والحي وعدد الطاولات:",
+  "tab ar 390": [
+   {
+    "t": "جرّبها كأنك زبون",
+    "cls": "lt-btn",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "شوف شاشة المطعم",
+    "cls": "lt-btn lt-btn--secondary",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "لين 15",
+    "cls": "s-switch-opt",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "اسأل عن إدارة المطعم على واتسا",
+    "cls": "lt-btn lt-btn--secondary r-ops-wa",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "هل زبوني يحتاج تطبيق؟",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "وش لو جواله ما قرأ الشريحة؟",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   }
+  ],
+  "thumb ar 390": [
+   {
+    "v": "s",
+    "thumbL": 253,
+    "thumbR": 365,
+    "optL": 251.7,
+    "optR": 365,
+    "dCenter": 0.7
+   },
+   {
+    "v": "m",
+    "thumbL": 141,
+    "thumbR": 253,
+    "optL": 138.3,
+    "optR": 251.7,
+    "dCenter": 2
+   },
+   {
+    "v": "l",
+    "thumbL": 29,
+    "thumbR": 141,
+    "optL": 25,
+    "optR": 138.3,
+    "dCenter": 3.4
+   }
+  ],
+  "links ar 1280": {
+   "demo": [
+    [
+     "جرّبها كأنك زبون",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "شوف شاشة المطعم",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ],
+   "wa": {
+    "hidden": false,
+    "href": "https://wa.me/966507250396?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%B7%D8%B9%D9%85%20(%D8%A7%D9%84%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%20%D8%A7%D9%84%D8%B7%D8%A7%D9%88%D9%84%D8%A9%20%D9%88%D9%86%D8%AF%D8%A7%D8%A1%20%D8%A7%D9%84%D9%86%D8%A7%D8%AF%D9%84)%20%D9%84%D9%85%D8%AD%D9%84%D9%8A.%20%D8%A7%D8%B3%D9%85%20%D8%A7%D9%84%D9%85%D8%AD%D9%84%20%D9%88%D8%A7%D9%84%D8%AD%D9%8A%20%D9%88%D8%B9%D8%AF%D8%AF%20%D8%A7%D9%84%D8%B7%D8%A7%D9%88%D9%84%D8%A7%D8%AA%3A",
+    "text": "اسأل عن إدارة المطعم على واتساب"
+   }
+  },
+  "wa ar 1280": "السلام عليكم، أبغى إدارة المطعم (الطلب من الطاولة ونداء النادل) لمحلي. اسم المحل والحي وعدد الطاولات:",
+  "tab ar 1280": [
+   {
+    "t": "جرّبها كأنك زبون",
+    "cls": "lt-btn",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "شوف شاشة المطعم",
+    "cls": "lt-btn lt-btn--secondary",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "لين 15",
+    "cls": "s-switch-opt",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "اسأل عن إدارة المطعم على واتسا",
+    "cls": "lt-btn lt-btn--secondary r-ops-wa",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "هل زبوني يحتاج تطبيق؟",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "وش لو جواله ما قرأ الشريحة؟",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   }
+  ],
+  "thumb ar 1280": [
+   {
+    "v": "s",
+    "thumbL": 709.7,
+    "thumbR": 845,
+    "optL": 708.3,
+    "optR": 845,
+    "dCenter": 0.7
+   },
+   {
+    "v": "m",
+    "thumbL": 574.3,
+    "thumbR": 709.7,
+    "optL": 571.7,
+    "optR": 708.3,
+    "dCenter": 2
+   },
+   {
+    "v": "l",
+    "thumbL": 439,
+    "thumbR": 574.3,
+    "optL": 435,
+    "optR": 571.7,
+    "dCenter": 3.3
+   }
+  ],
+  "links en 390": {
+   "demo": [
+    [
+     "Try it as a guest",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "See the staff screen",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ],
+   "wa": {
+    "hidden": false,
+    "href": "https://wa.me/966507250396?text=Hi%2C%20I%27d%20like%20Restaurant%20Ops%20(table%20ordering%20and%20waiter%20calls)%20for%20my%20venue.%20Venue%20name%2C%20neighborhood%20and%20number%20of%20tables%3A",
+    "text": "Ask about Restaurant Ops on WhatsApp"
+   }
+  },
+  "wa en 390": "Hi, I'd like Restaurant Ops (table ordering and waiter calls) for my venue. Venue name, neighborhood and number of tables:",
+  "tab en 390": [
+   {
+    "t": "Try it as a guest",
+    "cls": "lt-btn",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "See the staff screen",
+    "cls": "lt-btn lt-btn--secondary",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "Up to 15",
+    "cls": "s-switch-opt",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "Ask about Restaurant Ops on Wh",
+    "cls": "lt-btn lt-btn--secondary r-ops-wa",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "Do my guests need an app?",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "What if their phone doesn’t re",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   }
+  ],
+  "thumb en 390": [
+   {
+    "v": "s",
+    "thumbL": 25,
+    "thumbR": 137,
+    "optL": 25,
+    "optR": 138.3,
+    "dCenter": 0.7
+   },
+   {
+    "v": "m",
+    "thumbL": 137,
+    "thumbR": 249,
+    "optL": 138.3,
+    "optR": 251.7,
+    "dCenter": 2
+   },
+   {
+    "v": "l",
+    "thumbL": 249,
+    "thumbR": 361,
+    "optL": 251.7,
+    "optR": 365,
+    "dCenter": 3.4
+   }
+  ],
+  "links en 1280": {
+   "demo": [
+    [
+     "Try it as a guest",
+     "http://127.0.0.1:8893/demo/order/"
+    ],
+    [
+     "See the staff screen",
+     "http://127.0.0.1:8893/demo/order/staff/"
+    ]
+   ],
+   "wa": {
+    "hidden": false,
+    "href": "https://wa.me/966507250396?text=Hi%2C%20I%27d%20like%20Restaurant%20Ops%20(table%20ordering%20and%20waiter%20calls)%20for%20my%20venue.%20Venue%20name%2C%20neighborhood%20and%20number%20of%20tables%3A",
+    "text": "Ask about Restaurant Ops on WhatsApp"
+   }
+  },
+  "wa en 1280": "Hi, I'd like Restaurant Ops (table ordering and waiter calls) for my venue. Venue name, neighborhood and number of tables:",
+  "tab en 1280": [
+   {
+    "t": "Try it as a guest",
+    "cls": "lt-btn",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "See the staff screen",
+    "cls": "lt-btn lt-btn--secondary",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "Up to 15",
+    "cls": "s-switch-opt",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "Ask about Restaurant Ops on Wh",
+    "cls": "lt-btn lt-btn--secondary r-ops-wa",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "Do my guests need an app?",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   },
+   {
+    "t": "What if their phone doesn’t re",
+    "cls": "",
+    "ring": true,
+    "outline": "solid 2px rgb(7, 94, 90)",
+    "fv": true
+   }
+  ],
+  "thumb en 1280": [
+   {
+    "v": "s",
+    "thumbL": 435,
+    "thumbR": 570.3,
+    "optL": 435,
+    "optR": 571.7,
+    "dCenter": 0.7
+   },
+   {
+    "v": "m",
+    "thumbL": 570.3,
+    "thumbR": 705.7,
+    "optL": 571.7,
+    "optR": 708.3,
+    "dCenter": 2
+   },
+   {
+    "v": "l",
+    "thumbL": 705.7,
+    "thumbR": 841,
+    "optL": 708.3,
+    "optR": 845,
+    "dCenter": 3.3
+   }
+  ]
+ }
+}

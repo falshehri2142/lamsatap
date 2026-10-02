@@ -123,3 +123,7 @@
 - المقاسات: 800×450 (9,302 بايت)، و1600×900 (23,892 بايت).
 - الشعار فوق اللوحة طبقة SVG مستقلة: الرمز المربع وكلمة LAMSATAP مأخوذان حرفياً من مسارات `website/assets/brand/logo-horizontal.svg` عبر `tools/build-host-card.cjs`. الرمز المتحرك مستقل عن الكلمة الثابتة والصورة.
 - إعادة التصدير: `node work/2026-09-29-host-symbol-lift/export-assets.cjs`. تقرير المصدر والأبعاد في `work/2026-09-29-host-symbol-lift/export-report.json`.
+
+## إدارة المطعم (#ops في صفحة المطاعم، 2026-10-01)
+- `ops-phone-order.webp` (390×844) و`ops-phone-call.webp` (390×844) و`ops-staff.webp` (960×600): لقطات من ديمونا `website/demo/order/` (مقهى المثال، بيانات وهمية). ملكنا، بدون توليد ولا تكلفة.
+- إعادة التصدير: `NODE_PATH=/tmp/claude-0/sp/node_modules node work/2026-10-01-restaurant-ops/site/ops-images.cjs <port>` (Playwright، والتحويل WebP بـ canvas داخل Chromium لأن PIL مو مثبت).

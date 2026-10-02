@@ -222,6 +222,46 @@ const REST = [
   ['ما يتجدد إلا بتأكيد صريح منك. ونذكّرك قبل التجديد بـ 30 يوم، والتجديد 798 ريال بالسنة.', 'It renews only with your explicit confirmation. We remind you 30 days before, and renewal is SAR 798 per year.'],
   ['نجهّز صفحتك ونركّب العتاد عندك، وتجرّبها أسبوعين ببلاش. بدون دفع مقدم ولا التزام فيها، ولو ما كمّلت نشيل العتاد.',
     'We set up your page and install the hardware, and you try it free for two weeks. No upfront payment and no commitment during the trial. If you don’t continue, we pick up the hardware.'],
+  // Restaurant Ops (#ops, GM-072 proposal; copy: work/2026-10-01-restaurant-ops/site/ux.md §3)
+  ['<span class="s-badge">جديد</span>', '<span class="s-badge">New</span>'],
+  ['<span>الطلب من الطاولة</span><svg', '<span>Table ordering</span><svg'],
+  ['<a class="is-new" href="#ops">إدارة المطعم</a>', '<a class="is-new" href="#ops">Restaurant Ops</a>'],
+  ['id="ops-h">إدارة المطعم</h2>', 'id="ops-h">Restaurant Ops</h2>'],
+  ['زبونك يطلب من جواله، أو ينادي النادل بضغطة. والاثنين يوصلونك على شاشة وحدة.', 'Guests order from their phone, or call a waiter with one tap. Either way, it lands on one screen.'],
+  ['>يمسح الباركود أو يلمس الستاند</h3>', '>They scan the code or tap the stand</h3>'],
+  ['>المنيو يفتح على طول، بدون تطبيق.</p>', '>The menu opens right away. No app needed.</p>'],
+  ['>ويختار: يطلب من جواله، أو ينادي النادل</h3>', '>Then they choose: order on their phone, or call a waiter</h3>'],
+  ['>اطلب من جوالك</h4>', '>Order on your phone</h4>'],
+  ['<li>يختار من المنيو ويرسل طلبه للمطبخ</li>', '<li>Pick from the menu and send it to the kitchen</li>'],
+  ['<li>يتابع طلبه: انستلم، يتحضّر، جاهز</li>', '<li>Follow it live: received, preparing, ready</li>'],
+  ['>النادل يجي لك</h4>', '>Call a waiter</h4>'],
+  ['<li>زر «استدعِ النادل» موجود طول الوقت</li>', '<li>The “Call waiter” button is always on screen</li>'],
+  ['<li>أبغى أطلب، الحساب، مساعدة، ماي</li>', '<li>Take my order, the bill, help, water</li>'],
+  ['>ويوصلك على شاشة وحدة</h3>', '>And it all reaches one screen</h3>'],
+  ['>الطلب والنداء برقم الطاولة ومع صوت، على جوالك أو تابلتك.</p>', '>Orders and calls arrive with the table number and a sound, on your phone or tablet.</p>'],
+  ['<p class="r-ops-sm">ولا شي يتحضّر قبل ما موظفك يضغط «استلمت».</p>', '<p class="r-ops-sm">Nothing gets made until your staff taps “Received”.</p>\n<p class="r-ops-sm r-ops-lang">Demo screens are in Arabic.</p>'],
+  ['<span>جرّبها كأنك زبون</span>', '<span>Try it as a guest</span>'],
+  ['<span>شوف شاشة المطعم</span>', '<span>See the staff screen</span>'],
+  ['>كم طاولة عندك؟</p>', '>How many tables?</p>'],
+  ['aria-label="عدد الطاولات"', 'aria-label="Number of tables"'],
+  ['data-value="s">لين 15</button>', 'data-value="s">Up to 15</button>'],
+  ['id="ops-order-h">الطلب من الطاولة</h3>', 'id="ops-order-h">Table Ordering</h3>'],
+  ['id="ops-pro-h">برو</h3>', 'id="ops-pro-h">Pro</h3>'],
+  ['لكل فرع، لين 15 طاولة', 'Per branch, up to 15 tables'],
+  ['لكل فرع، من 16 إلى 30 طاولة', 'Per branch, 16 to 30 tables'],
+  ['لكل فرع، من 31 إلى 60 طاولة', 'Per branch, 31 to 60 tables'],
+  ['data-swap>السعر قريباً</span>', 'data-swap>Pricing coming soon</span>'],
+  ['data-ops-unit hidden>ريال بالشهر</span>', 'data-ops-unit hidden>SAR / month</span>'],
+  ['<li class="r-ops-all">كل اللي في حزمة المحل الكامل</li><li>الطلب من الجوال ومتابعة حالته</li><li>استدعاء النادل</li><li>شاشة الطلبات والنداءات</li><li>زر «خلص» يخفي الصنف من المنيو</li><li>تحديث المنيو مرتين بالشهر</li>',
+    '<li class="r-ops-all">Everything in the Venue Package</li><li>Phone ordering with live status</li><li>Waiter calls</li><li>One screen for orders and calls</li><li>“Sold out” hides an item instantly</li><li>Menu updates twice a month</li>'],
+  ['<li class="r-ops-all">كل اللي في الطلب من الطاولة</li><li>لوحة المدير والتقارير</li><li>أكثر من شاشة</li><li>لوحة وحدة لكل فروعك</li><li>تحديث المنيو 4 مرات بالشهر</li>',
+    '<li class="r-ops-all">Everything in Table Ordering</li><li>Manager dashboard and reports</li><li>Multiple screens</li><li>One dashboard for all your branches</li><li>Menu updates 4 times a month</li>'],
+  ['>أكثر من 60 طاولة؟ كلّمنا.</p>', '>More than 60 tables? Talk to us.</p>'],
+  ['hidden>التأسيس <span data-ops="setup"></span>&nbsp;ريال ويشمل 15 طاولة، و<span data-ops="perTable"></span>&nbsp;ريال لكل طاولة زيادة.</p>',
+    'hidden>One-time setup: SAR&nbsp;<span data-ops="setup"></span>, covers 15 tables, plus SAR&nbsp;<span data-ops="perTable"></span> for each extra table.</p>'],
+  ['<li>جرّبها أسبوعين ببلاش</li><li>بدون عمولة على الطلبات</li><li>كاشيرك يبقى زي ما هو</li>', '<li>Free for two weeks</li><li>No commission on orders</li><li>Keep your current POS</li>'],
+  ['>التجربة بستاندات مؤقتة مرقّمة، والدفع عند الكاشير أو مع النادل.</p>', '>The trial uses temporary numbered stands. Guests pay at the counter or to the waiter.</p>'],
+  ['<span>اسأل على واتساب</span>', '<span>Ask on WhatsApp</span>'],
   // close
   ['جرّبها أسبوعين في محلك. علينا.', 'Two weeks in your venue. On us.'],
   ['خبّرنا عن محلك والحي، ونرتب معك التجربة.', 'Tell us about your venue and neighborhood, and we’ll set up your trial.']
@@ -371,7 +411,8 @@ for (const P of PAGES) {
   // Latin is the critical font here (Readex still loads for the few Arabic glyphs)
   h = must(h, /<link rel="preload" href="((?:\.\.\/)*)assets\/brand\/fonts\/readex-pro-arabic-latin\.woff"/, '<link rel="preload" href="$1assets/brand/fonts/figtree-latin.woff"', 'font preload');
   const rel = P.out.includes('/') ? '../' : '';
-  h = must(h, /<\/head>/, '<link rel="stylesheet" href="' + rel + 'assets/ltr.css?v=gm070-1">\n</head>', 'head end');
+  const V = (h.match(/assets\/site\.css\?v=([\w.-]+)"/) || [])[1] || 'gm070-1';   // ltr.css follows the page's asset version
+  h = must(h, /<\/head>/, '<link rel="stylesheet" href="' + rel + 'assets/ltr.css?v=' + V + '">\n</head>', 'head end');
   // switch: «عربي» to the Arabic twin
   h = must(h, GLOBE_RE, '<a class="lt-btn lt-btn--secondary lt-btn--compact s-lang" href="' + P.ar + '" hreflang="ar" lang="ar">$1<span>عربي</span></a>', 'language switch');
   // arrows point the reading way

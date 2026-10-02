@@ -1,0 +1,43 @@
+{
+ "checks": [
+  {
+   "pass": true,
+   "m": "ar no-JS: section readable, switch hidden, setup hidden",
+   "d": {
+    "h": 2764,
+    "sw": "none",
+    "soon": "السعر قريباً",
+    "setup": true,
+    "sws": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "en no-JS: section readable, switch hidden, setup hidden",
+   "d": {
+    "h": 2858,
+    "sw": "none",
+    "soon": "Pricing coming soon",
+    "setup": true,
+    "sws": 390
+   }
+  },
+  {
+   "pass": true,
+   "m": "ar #ops HTML: no riyal numbers / banned words",
+   "d": {
+    "nums": [],
+    "bad": null
+   }
+  },
+  {
+   "pass": true,
+   "m": "en #ops HTML: no riyal numbers / banned words",
+   "d": {
+    "nums": [],
+    "bad": null
+   }
+  }
+ ],
+ "data": {}
+}

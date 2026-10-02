@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="../../assets/brand/tokens.css?v=20261001-3">
 <link rel="stylesheet" href="../../assets/brand/components.css?v=20261001-3">
 <link rel="stylesheet" href="../../assets/site.css?v=20261001-3">
-<link rel="stylesheet" href="../../assets/restaurants.css?v=20261001-3">
+<link rel="stylesheet" href="../../assets/restaurants.css?v=20261001-5">
 <!-- ستاند التقييم جنب الجوال في العرض الحي (impeccable 5، «الاتجاه 3» §10): مكوّن tools/stand.cjs، وتنسيقه هنا -->
 <link rel="stylesheet" href="../../assets/stand.css?v=20261001-3">
 <!-- الجوالات المصغرة (القصة والعرض الحي): نفس تنسيق صفحة المنيو (HTML حقيقي بنفس classes)، وألوان «مقهى المثال» فاتحة بس -->
@@ -105,6 +105,7 @@
 <a class="lt-btn r-hero-demo" href="../../demo/menu/index.html">افتح منيو تجريبي<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
 <a class="a-text-link" href="#plan">شوف السعر<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></a>
 </div>
+<a class="r-new" href="#ops"><span class="s-badge">جديد</span><span>الطلب من الطاولة</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></a>
 <ul class="a-service-list" aria-label="الخدمات المشمولة"><li>منيو إلكتروني</li><li>تقييم قوقل</li><li>واي فاي</li><li>روابط محلك</li></ul>
 <p class="r-lift-cue" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 2v15m-4-4 4 4 4-4"/></svg>مرّر… وتابع اللمسة.</p>
 </div>
@@ -139,7 +140,7 @@
 </ul>
 </div></div>
 
-<nav class="a-section-nav" aria-label="أقسام صفحة المطاعم"><div class="s-wrap"><p>لمسة تاب لمحلك</p><div><a href="#demo">العرض الحي</a><a href="#experience">التجربة</a><a href="#plan">الباقة</a><a href="#faq">الأسئلة</a></div></div></nav>
+<nav class="a-section-nav" aria-label="أقسام صفحة المطاعم"><div class="s-wrap"><p>لمسة تاب لمحلك</p><div><a href="#demo">العرض الحي</a><a href="#plan">الباقة</a><a class="is-new" href="#ops">إدارة المطعم</a><a href="#faq">الأسئلة</a></div></div></nav>
 
 <section class="s-band s-band--white r-demo" id="demo" aria-labelledby="demo-h">
 <div class="s-wrap r-demo-grid">
@@ -262,34 +263,7 @@
 </div>
 </div>
 </article>
-<div class="r-plan-trust">
-<ul class="trust trust--plan" aria-label="ضماناتنا">
-<li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4m8-4v4m-6.5 8 2 2 3.5-4"/></svg><span>جرّبها أسبوعين مجاناً</span></li>
-<li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M4 4l16 16"/></svg><span>بدون دفع مقدم</span></li>
-<li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L4 16.8V20h3.2l5.3-5.3a4 4 0 0 0 5.2-5.4l-2.5 2.5-2.3-.7-.7-2.3z"/></svg><span>العتاد والتركيب علينا طول الاشتراك</span></li>
-<li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>نركّب في جدة<small class="trust__sub"><i class="trust__dot" aria-hidden="true"></i>نرد خلال ساعة، 9 الصبح لين 11 الليل، كل يوم</small></span></li>
-</ul>
 </div>
-</div>
-<!-- إدارة المطعم (GM-072 مقترح، work/2026-10-01-restaurant-ops/study.md). الأسعار تنحط بعد اعتماد صاحب المشروع -->
-<article class="s-card r-order" id="order" aria-labelledby="order-h" data-reveal="rise">
-<p class="r-order-badge">جديد · إدارة المطعم</p>
-<h3 class="s-h3" id="order-h">زبونك يطلب من طاولته. وأنت تشوف كل شي من شاشة وحدة.</h3>
-<p class="r-order-lead">يمسح الكود أو يلمس الستاند، ويطلب أونلاين أو يستدعي النادل. والطلب يوصل شاشة الكاشير برقم الطاولة.</p>
-<div class="r-order-cols">
-<div><h4 class="r-order-g">الزبون</h4><ul class="s-checks"><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>يختار من المنيو ويرسل طلبه للمطبخ على طول</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>أو يضغط «خلّ النادل يجي ياخذ طلبي»</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>يستدعي النادل بضغطة: الحساب، مساعدة، ماي</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>يشوف حالة طلبه: انستلم، يتحضر، جاهز</span></li></ul></div>
-<div><h4 class="r-order-g">المطعم</h4><ul class="s-checks"><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>شاشة طلبات بصوت ورقم الطاولة، على جوالك أو تابلتك</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>النداءات في نفس الشاشة</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>«خلص» يخفي الصنف من المنيو على طول</span></li><li class="s-check"><svg class="s-check-i" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 10.4 8.2 14.3 15.8 6"/></svg><span>بدون عمولة على الطلبات، وكاشيرك يبقى زي ما هو</span></li></ul></div>
-</div>
-<div class="r-order-tiers">
-<div class="r-order-tier"><p class="r-order-tn">الطلب من الطاولة</p><p class="r-order-td">فيها حزمة المحل كاملة</p><p class="r-order-price">السعر قريباً</p></div>
-<div class="r-order-tier"><p class="r-order-tn">برو</p><p class="r-order-td">ومعها لوحة المدير والتقارير وأكثر من شاشة</p><p class="r-order-price">السعر قريباً</p></div>
-</div>
-<div class="r-order-cta">
-<a class="lt-btn" href="../../demo/order/"><span>جرّبها كأنك زبون</span></a>
-<a class="lt-btn lt-btn--secondary" href="../../demo/order/staff/"><span>شوف شاشة المطعم</span></a>
-<a class="r-order-wa" data-wa="shopOrder" hidden>اسأل عن إدارة المطعم على واتساب</a>
-</div>
-</article>
 <div class="r-dont">
 <h3 class="s-h3" id="dont-h">اللي ما نسويه</h3>
 <ul class="r-dont-list" aria-labelledby="dont-h">
@@ -301,11 +275,82 @@
 </div>
 </section>
 
+<!-- 6ب) إدارة المطعم (#ops، رملي، مقترح GM-072، مواصفة work/2026-10-01-restaurant-ops/site/ux.md). المحور: خيارين من نفس الباركود
+     (يطلب من جواله، أو النادل يجي له) ويوصلون نفس الشاشة. الصور من الديمو الحي (ops-images.cjs في مجلد المهمة).
+     الأسعار من config.js ‏restaurantOpsPrices (السكربت تحت app.js في آخر الصفحة). فاضي = «السعر قريباً». ولا رقم ريال هنا -->
+<section class="s-band r-ops" id="ops" aria-labelledby="ops-h">
+<div class="s-wrap">
+<div class="r-ops-head"><h2 class="s-h2" id="ops-h">إدارة المطعم</h2><span class="s-badge">جديد</span></div>
+<p class="s-lead r-ops-lead">زبونك يطلب من جواله، أو ينادي النادل بضغطة. والاثنين يوصلونك على شاشة وحدة.</p>
+<ol class="r-ops-flow">
+<li class="r-ops-s1"><span class="r-ops-n" aria-hidden="true">1</span><div><h3 class="r-ops-st">يمسح الباركود أو يلمس الستاند</h3><p class="r-ops-sm">المنيو يفتح على طول، بدون تطبيق.</p></div></li>
+<li class="r-ops-s2"><span class="r-ops-n" aria-hidden="true">2</span><div><h3 class="r-ops-st">ويختار: يطلب من جواله، أو ينادي النادل</h3></div>
+<div class="r-ops-ways">
+<div class="r-ops-way">
+<h4 class="r-ops-wt">اطلب من جوالك</h4>
+<div class="r-ops-phone" aria-hidden="true"><img src="../../assets/images/ops-phone-order.webp?v=20261001-5" width="390" height="780" alt="" loading="lazy" decoding="async"></div>
+<ul class="r-ops-ticks"><li>يختار من المنيو ويرسل طلبه للمطبخ</li><li>يتابع طلبه: انستلم، يتحضّر، جاهز</li></ul>
+</div>
+<div class="r-ops-way">
+<h4 class="r-ops-wt">النادل يجي لك</h4>
+<div class="r-ops-phone" aria-hidden="true"><img src="../../assets/images/ops-phone-call.webp?v=20261001-5" width="390" height="780" alt="" loading="lazy" decoding="async"></div>
+<ul class="r-ops-ticks"><li>زر «استدعِ النادل» موجود طول الوقت</li><li>أبغى أطلب، الحساب، مساعدة، ماي</li></ul>
+</div>
+</div>
+</li>
+<li class="r-ops-s3"><span class="r-ops-join" aria-hidden="true"><i></i></span>
+<div class="r-ops-s3-in">
+<div class="r-ops-s3-h"><span class="r-ops-n" aria-hidden="true">3</span><h3 class="r-ops-st">ويوصلك على شاشة وحدة</h3></div>
+<div class="r-ops-tab" aria-hidden="true" data-reveal="rise"><img src="../../assets/images/ops-staff.webp?v=20261001-5" width="960" height="600" alt="" loading="lazy" decoding="async"></div>
+<p class="r-ops-sm">الطلب والنداء برقم الطاولة ومع صوت، على جوالك أو تابلتك.</p>
+<p class="r-ops-sm">ولا شي يتحضّر قبل ما موظفك يضغط «استلمت».</p>
+</div>
+</li>
+</ol>
+<div class="r-ops-try">
+<a class="lt-btn" href="../../demo/order/"><span>جرّبها كأنك زبون</span></a>
+<a class="lt-btn lt-btn--secondary" href="../../demo/order/staff/"><span>شوف شاشة المطعم</span></a>
+</div>
+<div class="r-ops-plans" data-price-scope>
+<div class="r-ops-pick">
+<p class="r-ops-q">كم طاولة عندك؟</p>
+<div class="s-period">
+<div class="s-switch s-switch--3" role="radiogroup" aria-label="عدد الطاولات" data-price-switch>
+<button type="button" class="s-switch-opt" role="radio" aria-checked="true" data-value="s">لين 15</button>
+<button type="button" class="s-switch-opt" role="radio" aria-checked="false" data-value="m" tabindex="-1" dir="ltr">16–30</button>
+<button type="button" class="s-switch-opt" role="radio" aria-checked="false" data-value="l" tabindex="-1" dir="ltr">31–60</button>
+<span class="s-switch-thumb" aria-hidden="true"></span>
+</div>
+</div>
+</div>
+<div class="r-ops-cards">
+<article class="s-card r-ops-card" aria-labelledby="ops-order-h" data-reveal="rise" data-ops-card="order">
+<h3 class="s-h3" id="ops-order-h">الطلب من الطاولة</h3>
+<p class="r-ops-for" data-swap data-s="لكل فرع، لين 15 طاولة" data-m="لكل فرع، من 16 إلى 30 طاولة" data-l="لكل فرع، من 31 إلى 60 طاولة">لكل فرع، لين 15 طاولة</p>
+<p class="r-ops-price"><span data-ops-price="order" data-swap>السعر قريباً</span> <span class="r-ops-unit" data-ops-unit hidden>ريال بالشهر</span></p>
+<ul class="r-ops-ticks"><li class="r-ops-all">كل اللي في حزمة المحل الكامل</li><li>الطلب من الجوال ومتابعة حالته</li><li>استدعاء النادل</li><li>شاشة الطلبات والنداءات</li><li>زر «خلص» يخفي الصنف من المنيو</li><li>تحديث المنيو مرتين بالشهر</li></ul>
+</article>
+<article class="s-card r-ops-card" aria-labelledby="ops-pro-h" data-reveal="rise" data-ops-card="pro">
+<h3 class="s-h3" id="ops-pro-h">برو</h3>
+<p class="r-ops-for" data-swap data-s="لكل فرع، لين 15 طاولة" data-m="لكل فرع، من 16 إلى 30 طاولة" data-l="لكل فرع، من 31 إلى 60 طاولة">لكل فرع، لين 15 طاولة</p>
+<p class="r-ops-price"><span data-ops-price="pro" data-swap>السعر قريباً</span> <span class="r-ops-unit" data-ops-unit hidden>ريال بالشهر</span></p>
+<ul class="r-ops-ticks"><li class="r-ops-all">كل اللي في الطلب من الطاولة</li><li>لوحة المدير والتقارير</li><li>أكثر من شاشة</li><li>لوحة وحدة لكل فروعك</li><li>تحديث المنيو 4 مرات بالشهر</li></ul>
+</article>
+</div>
+<p class="r-ops-more">أكثر من 60 طاولة؟ كلّمنا.</p>
+<p class="r-ops-setup" data-ops-setup hidden>التأسيس <span data-ops="setup"></span>&nbsp;ريال ويشمل 15 طاولة، و<span data-ops="perTable"></span>&nbsp;ريال لكل طاولة زيادة.</p>
+</div>
+<ul class="r-ops-trust"><li>جرّبها أسبوعين ببلاش</li><li>بدون عمولة على الطلبات</li><li>كاشيرك يبقى زي ما هو</li></ul>
+<p class="r-ops-note">التجربة بستاندات مؤقتة مرقّمة، والدفع عند الكاشير أو مع النادل.</p>
+<a class="lt-btn lt-btn--secondary r-ops-wa" data-wa="shopOrder" hidden><span>اسأل على واتساب</span></a>
+</div>
+</section>
+
 <!-- 7) الأسئلة (رملي، web-copy بند 7: 8 أسئلة بالحرف) و«اسأل إنسان» جنبها على الكمبيوتر (بند 8، رسالة shop، ووعد الرد GM-046 هنا
      وفي سؤال 8). الحركة: الأكورديون (data-accordion). <details> يشتغل بدون JS.
      زر «اسأل إنسان» ثانوي بإطار في الوضعين (AD-34 بند 3): الخاتمة بعده بأقل من شاشة وفيها الزر الأساسي. الواتساب lt-btn--secondary،
      والتليجرام البديل data-tg-rank="secondary" (app.js) -->
-<section class="s-band r-faq" id="faq" aria-labelledby="faq-h">
+<section class="s-band s-band--white r-faq" id="faq" aria-labelledby="faq-h">
 <div class="s-wrap">
 <h2 class="s-h2" id="faq-h">الأسئلة</h2>
 <div class="r-faq-grid">
@@ -338,7 +383,7 @@
 </section>
 
 <!-- 8) الخاتمة (أبيض، web-copy بند 9): h2 60 / 44 / 34 («الاتجاه 3» §5)، وزر التجربة وسطر المخاطرة والتليجرام. بدون وعد الرد (تكرار) وبدون حركة -->
-<section class="s-band s-band--white r-close" aria-labelledby="close-h">
+<section class="s-band r-close" aria-labelledby="close-h">
 <div class="s-wrap">
 <h2 class="r-close-h" id="close-h">جرّبها أسبوعين في محلك. علينا.</h2>
 <p class="s-lead r-close-lead">خبّرنا عن محلك والحي، ونرتب معك التجربة.</p>
@@ -368,7 +413,28 @@
 <p class="s-foot-c">© 2026 <span data-company>لمسة تاب</span></p>
 </div>
 </footer>
-<script src="../../config.js?v=20261001-3"></script>
+<script src="../../config.js?v=20261001-4"></script>
 <script src="../../assets/app.js?v=20261001-3"></script>
+<!-- أسعار #ops من config.js ‏restaurantOpsPrices (مقترح GM-072). هنا مو في app.js عشان ميزانية صفحة المضيفين (350 KiB). يشتغل قبل
+     DOMContentLoaded، يعني قبل initPriceSwitch. الكرت ياخذ سعره بس لو s وm وl كلها معبّاة، والتأسيس بس لو setup وperTable معبّيين -->
+<script>
+(function () {
+  var P = (window.SITE || {}).restaurantOpsPrices || {}, t = function (v) { return String(v == null ? '' : v).trim(); };
+  var q = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+  q('[data-ops-card]').forEach(function (c) {
+    var p = P[c.getAttribute('data-ops-card')] || {}, e = c.querySelector('[data-ops-price]'), k = ['s', 'm', 'l'];
+    if (!e || !k.every(function (x) { return t(p[x]); })) return;
+    k.forEach(function (x) { e.setAttribute('data-' + x, t(p[x])); });
+    q('[data-ops-unit]', c).forEach(function (u) { u.hidden = false; });
+    c.classList.add('is-priced');
+  });
+  q('[data-ops-setup]').forEach(function (r) {
+    var a = t(P.setup), b = t(P.perTable);
+    if (!a || !b) return;
+    q('[data-ops]', r).forEach(function (s) { s.textContent = s.getAttribute('data-ops') === 'setup' ? a : b; });
+    r.hidden = false;
+  });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,2267 @@
+[
+ {
+  "c": "/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @320 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @390 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/ en=/ x-default=/ | https://lamsatap.com/"
+ },
+ {
+  "c": "/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":87,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":95,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":95,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/restaurants/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/restaurants/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/restaurants/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/restaurants/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/restaurants/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/restaurants/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/restaurants/ ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/restaurants/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/restaurants/ en=/restaurants/ x-default=/restaurants/ | https://lamsatap.com/restaurants/"
+ },
+ {
+  "c": "/restaurants/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/restaurants/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":89,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/restaurants/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/restaurants/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/restaurants/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/restaurants/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/restaurants/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/hosts/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/hosts/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/hosts/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/hosts/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/hosts/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/hosts/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":75,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/hosts/ ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/hosts/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/hosts/ en=/hosts/ x-default=/hosts/ | https://lamsatap.com/hosts/"
+ },
+ {
+  "c": "/hosts/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/hosts/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":89,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/hosts/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/hosts/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/hosts/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/hosts/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/hosts/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":97,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"عربي\",\"lang\":\"ar\",\"hl\":\"ar\",\"href\":\"http://localhost:8893/ar/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ar/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ar/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ar/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ar/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/ en=/ x-default=/ | https://lamsatap.com/ar/"
+ },
+ {
+  "c": "/ar/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ar/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":102,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ar/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":110,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ar/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":110,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ar/restaurants/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ar/restaurants/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ar/restaurants/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ar/restaurants/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/restaurants/ en=/restaurants/ x-default=/restaurants/ | https://lamsatap.com/ar/restaurants/"
+ },
+ {
+  "c": "/ar/restaurants/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ar/restaurants/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":105,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ar/restaurants/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/restaurants/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ar/restaurants/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/restaurants/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/restaurants/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/ar/hosts/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @320 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/ar/hosts/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @375 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/ar/hosts/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @390 language switch visible",
+  "ok": true,
+  "d": "{\"w\":90,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/ar/hosts/ hreflang+canonical",
+  "ok": true,
+  "d": "ar=/ar/hosts/ en=/hosts/ x-default=/hosts/ | https://lamsatap.com/ar/hosts/"
+ },
+ {
+  "c": "/ar/hosts/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/ar/hosts/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @768 language switch visible",
+  "ok": true,
+  "d": "{\"w\":105,\"h\":44,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/ar/hosts/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1024 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/ar/hosts/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/ar/hosts/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/ar/hosts/ @1440 language switch visible",
+  "ok": true,
+  "d": "{\"w\":113,\"h\":48,\"inView\":true,\"vis\":true,\"sticky\":true,\"text\":\"English\",\"lang\":\"en\",\"hl\":\"en\",\"href\":\"http://localhost:8893/hosts/index.html\",\"border\":\"1px\"}"
+ },
+ {
+  "c": "/404.html @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/404.html @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @320 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/404.html @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @375 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/404.html @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @390 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html ltr/en/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"ltr\",\"lang\":\"en\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/404.html img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/404.html @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @768 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/404.html @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1024 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/404.html @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/404.html @1440 no Arabic outside [lang=ar]",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/menu/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/menu/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/menu/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/menu/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/menu/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/menu/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/menu/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/menu/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/review/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/review/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/review/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/review/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/review/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/review/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/review/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/review/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/wifi/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/wifi/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/wifi/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/wifi/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/wifi/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/wifi/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/wifi/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/wifi/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/links/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/links/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/links/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/links/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/links/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/links/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/links/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/links/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/rental-guide/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/rental-guide/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/rental-guide/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/rental-guide/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/rental-guide/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/rental-guide/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @320 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @320 no h-scroll",
+  "ok": true,
+  "d": "320/320"
+ },
+ {
+  "c": "/demo/door/ @320 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @320 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @375 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @375 no h-scroll",
+  "ok": true,
+  "d": "375/375"
+ },
+ {
+  "c": "/demo/door/ @375 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @375 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @390 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @390 no h-scroll",
+  "ok": true,
+  "d": "390/390"
+ },
+ {
+  "c": "/demo/door/ @390 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @390 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ rtl/ar/h1/meta",
+  "ok": true,
+  "d": "{\"dir\":\"rtl\",\"lang\":\"ar\",\"h1\":1,\"title\":true,\"desc\":true}"
+ },
+ {
+  "c": "/demo/door/ img alt",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ links resolve",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @768 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @768 no h-scroll",
+  "ok": true,
+  "d": "768/768"
+ },
+ {
+  "c": "/demo/door/ @768 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @768 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1024 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1024 no h-scroll",
+  "ok": true,
+  "d": "1024/1024"
+ },
+ {
+  "c": "/demo/door/ @1024 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1024 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1440 console/network",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1440 no h-scroll",
+  "ok": true,
+  "d": "1440/1440"
+ },
+ {
+  "c": "/demo/door/ @1440 tap>=44",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "/demo/door/ @1440 arabic letter-spacing 0",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "reduce / @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "reduce / @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "reduce /restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "reduce /ar/hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs / @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "nojs / @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"I run a restaurant or caféTry \",\"sw\":true}"
+ },
+ {
+  "c": "nojs /restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample menu\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"Open a sample guide\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"عندي مطعم أو كافيهجرّب المنيو\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/restaurants/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/restaurants/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح منيو تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/hosts/ @390 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "nojs /ar/hosts/ @1440 headings+CTA+switch visible",
+  "ok": true,
+  "d": "{\"hid\":[],\"cta\":true,\"ctaT\":\"افتح دليل تجريبي\",\"sw\":true}"
+ },
+ {
+  "c": "signature / (no-preference) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=demo/review/index.html cap=ok, wifi:open sel=true href=demo/wifi/index.html cap=ok, guide:open sel=true href=demo/rental-guide/index.html cap=ok, menu:open sel=true href=demo/menu/index.html cap=ok "
+ },
+ {
+  "c": "signature / (no-preference) keyboard",
+  "ok": true,
+  "d": "ArrowRight->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "signature / (reduce) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=demo/review/index.html cap=ok, wifi:open sel=true href=demo/wifi/index.html cap=ok, guide:open sel=true href=demo/rental-guide/index.html cap=ok, menu:open sel=true href=demo/menu/index.html cap=ok "
+ },
+ {
+  "c": "signature / (reduce) keyboard",
+  "ok": true,
+  "d": "ArrowRight->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "signature /ar/ (no-preference) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=../demo/review/index.html cap=ok, wifi:open sel=true href=../demo/wifi/index.html cap=ok, guide:open sel=true href=../demo/rental-guide/index.html cap=ok, menu:open sel=true href=../demo/menu/index.html cap=ok "
+ },
+ {
+  "c": "signature /ar/ (no-preference) keyboard",
+  "ok": true,
+  "d": "ArrowLeft->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "signature /ar/ (reduce) clicks",
+  "ok": true,
+  "d": "init:open, review:open sel=true href=../demo/review/index.html cap=ok, wifi:open sel=true href=../demo/wifi/index.html cap=ok, guide:open sel=true href=../demo/rental-guide/index.html cap=ok, menu:open sel=true href=../demo/menu/index.html cap=ok "
+ },
+ {
+  "c": "signature /ar/ (reduce) keyboard",
+  "ok": true,
+  "d": "ArrowLeft->review:true End->guide:true Home->menu:true tabbable=1"
+ },
+ {
+  "c": "English WhatsApp texts + calculator (Arabic unchanged)",
+  "ok": true,
+  "d": "/home:ok, /restaurants/shop:ok, /restaurants/shopTrial:ok, /restaurants/reviewAny:ok, /hosts/host:ok, /hosts/hostTrial:ok, /hosts/hostCleaning:ok, /hosts/stayEntry:ok, /hosts/stayEntryClean:ok, /hosts/stayFull:ok, /ar/hosts/host:ok, /ar/hosts/hostTrial:ok, calc:ok, calc-ar:ok"
+ },
+ {
+  "c": "no transition: all in assets/*.css",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "prices match services/pricing.md",
+  "ok": true,
+  "d": ""
+ },
+ {
+  "c": "build-dist.cjs",
+  "ok": true,
+  "d": "  templates/wifi/index.html: 50.5KiB / gzip 17.2KiB (11 ملفات؛ lightweight، الحد 100.0KiB / gzip 50.0KiB) /  / جاهز للرفع: dist/"
+ }
+]

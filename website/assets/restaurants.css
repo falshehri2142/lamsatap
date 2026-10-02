@@ -342,8 +342,6 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
 .r-plan .s-price-unit { font-size: 18px; font-weight: var(--lt-weight-unit); }
 .r-plan .s-num { font-weight: var(--lt-weight-figure); font-variant-numeric: tabular-nums; }
 @media (min-width: 1024px) {
-  .r-plan-row { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: start; }
-  .trust--plan { grid-template-columns: 1fr; }
   .r-plan .s-price-fig { font-size: 64px; }
 }
 
@@ -362,26 +360,104 @@ main .s-lead { font-size: 17px; line-height: 1.7; }
   .a-text-link:active, .r-lab-link:active, .r-lab-link:hover svg { transform: none; }
 }
 .r-story.is-editorial .r-steps > li::before { transition: none; }   /* رقم الخطوة يتلون فوري، والتقدّم يوضحه الشريط (scaleX) */
-/* إدارة المطعم (#order، GM-072 مقترح) */
-.r-order { margin-top: var(--lt-space-32); padding: var(--lt-space-32) var(--lt-space-24); box-shadow: var(--lt-elev-float); }
-.r-order-badge { display: inline-block; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--lt-bg); border: var(--lt-hairline) solid var(--lt-border); margin-bottom: var(--lt-space-12); }
-.r-order .s-h3 { font-size: 24px; line-height: 1.35; max-width: 22ch; }
-.r-order-lead { margin-top: var(--lt-space-12); color: var(--lt-muted); max-width: 52ch; }
-.r-order-cols { display: grid; gap: var(--lt-space-24); margin-top: var(--lt-space-32); }
-.r-order-g { font-size: 15px; font-weight: 700; color: var(--lt-muted); margin-bottom: var(--lt-space-12); }
-.r-order-tiers { display: grid; gap: var(--lt-space-12); margin-top: var(--lt-space-32); }
-.r-order-tier { padding: var(--lt-space-16) var(--lt-space-20, 20px); border-radius: 16px; background: var(--lt-bg); border: var(--lt-hairline) solid var(--lt-border); }
-.r-order-tn { font-weight: 700; font-size: 18px; }
-.r-order-td { color: var(--lt-muted); font-size: 15px; margin-top: 2px; }
-.r-order-price { margin-top: var(--lt-space-8); font-weight: 700; }
-.r-order-cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-12); margin-top: var(--lt-space-24); }
-.r-order-wa { width: 100%; min-height: 44px; display: inline-flex; align-items: center; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; color: var(--lt-ink); cursor: pointer; }
-@media (min-width: 900px) {
-  .r-order { padding: var(--lt-space-48); }
-  .r-order .s-h3 { font-size: 32px; }
-  .r-order-cols, .r-order-tiers { grid-template-columns: 1fr 1fr; column-gap: var(--lt-space-48); }
-  .r-order-tiers { column-gap: var(--lt-space-16); }
-  .r-order-cta .lt-btn { width: auto; flex: none; padding-inline: var(--lt-space-32); }
-  .r-order-wa { width: auto; margin-inline-start: var(--lt-space-12); }
+/* ===== 6ب) إدارة المطعم (#ops، رملي، مقترح GM-072، work/2026-10-01-restaurant-ops/site/ux.md) =====
+   المسار: 1 يمسح ← 2 خيارين (جوالين جنب بعض) ← موصّل ← 3 التابلت. الإطارات والموصّل CSS بس، والصح mask مرة وحدة */
+.r-new { display: inline-flex; align-items: center; gap: var(--lt-space-12); min-height: 48px; margin-top: var(--lt-space-8); color: var(--lt-text); font-size: 15px; font-weight: 600; text-decoration: none; }
+.r-new .s-badge { padding-block: 2px; font-size: 13px; }
+.r-new svg { flex: none; width: 18px; height: 18px; }
+@media (hover: hover) { .r-new:hover > span:not(.s-badge) { text-decoration: underline; text-underline-offset: 6px; } }
+.r-new:focus-visible { outline: 2px solid var(--lt-teal-deep); outline-offset: 3px; border-radius: var(--lt-radius-s); }
+.a-section-nav a { white-space: nowrap; }
+.a-section-nav a.is-new::after { content: ""; flex: none; width: 6px; height: 6px; margin-inline-start: 6px; border-radius: 50%; background: var(--lt-accent); }
+
+.r-ops { --ops-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.2 10.4 8.2 14.3 15.8 6'/%3E%3C/svg%3E"); }
+.r-ops-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lt-space-12) var(--lt-space-16); }
+.r-ops-head .s-h2 { max-width: none; }
+.r-ops-lead { margin-top: var(--lt-space-16); max-width: 36em; }
+.r-ops :is(p, li, h3, h4) { text-wrap: pretty; }
+.r-ops-flow { list-style: none; padding: 0; margin: var(--lt-space-40) 0 0; display: grid; gap: var(--lt-space-32); }
+.r-ops-flow > li { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--lt-space-12); align-items: start; }
+.r-ops-n { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--lt-ink); color: var(--lt-on-action, #fff); font-family: var(--lt-font-latin); font-size: 15px; font-weight: 600; line-height: 1; }
+.r-ops-st { font-size: 18px; line-height: 1.45; font-weight: 600; padding-top: 2px; }
+.r-ops-sm { margin-top: var(--lt-space-4); font-size: 15px; line-height: 1.65; color: var(--lt-muted); }
+.r-ops-ways { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-space-16); margin-top: var(--lt-space-20, 20px); }
+.r-ops-way { display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; gap: var(--lt-space-8); padding: var(--lt-space-12); border: 1px solid var(--lt-border); border-radius: var(--lt-radius-m); background: var(--lt-surface); }
+.r-ops-phone, .r-ops-tab { overflow: hidden; background: var(--lt-surface); border: 6px solid var(--lt-ink); border-radius: 18px; box-shadow: var(--lt-elev-raised); }
+.r-ops-phone { width: 100%; max-width: 200px; aspect-ratio: 390 / 640; margin-block: var(--lt-space-4) var(--lt-space-8); }
+.r-ops-phone img { object-position: bottom; }
+.r-ops-phone img, .r-ops-tab img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.r-ops-phone img { border-radius: 12px; }
+.r-ops-wt { margin: 0; align-self: end; font-size: 17px; line-height: 1.35; font-weight: 700; text-wrap: balance; }
+.r-ops-ticks { list-style: none; padding: 0; display: grid; gap: var(--lt-space-8); font-size: 15px; line-height: 1.6; }
+.r-ops-ticks > li { position: relative; padding-inline-start: 26px; }
+.r-ops-ticks > li::before, .r-ops-trust > li::before { content: ""; position: absolute; inset-inline-start: 0; top: .2em; width: 18px; height: 18px; background: var(--lt-check); -webkit-mask: var(--ops-tick) center / contain no-repeat; mask: var(--ops-tick) center / contain no-repeat; }
+.r-ops-way .r-ops-ticks { font-size: 14px; color: var(--lt-muted); }
+.r-ops-way .r-ops-ticks > li { padding-inline-start: 22px; }
+.r-ops-way .r-ops-ticks > li::before { width: 16px; height: 16px; }
+/* الموصّل: خطين من الجوالين يلتقون في سهم واحد لتحت (جوال)، أو لجهة التابلت (كمبيوتر) */
+.r-ops-s3 { row-gap: 0; }
+.r-ops-join { position: relative; grid-column: 1 / -1; display: block; height: 56px; margin-top: calc(-1 * var(--lt-space-24)); }
+.r-ops-join::before { content: ""; position: absolute; top: 0; inset-inline: 25%; height: 24px; border: 1.5px solid var(--lt-muted); border-top: 0; border-radius: 0 0 14px 14px; }
+.r-ops-join::after { content: ""; position: absolute; top: 24px; left: calc(50% - .75px); width: 1.5px; height: 26px; background: var(--lt-muted); }
+.r-ops-join i { position: absolute; bottom: 4px; left: calc(50% - 5px); width: 10px; height: 10px; border-right: 1.5px solid var(--lt-muted); border-bottom: 1.5px solid var(--lt-muted); transform: rotate(45deg); }
+.r-ops-s3-in { grid-column: 1 / -1; display: grid; }
+.r-ops-s3-h { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--lt-space-12); align-items: start; margin-bottom: var(--lt-space-20, 20px); }
+.r-ops-tab { aspect-ratio: 16 / 10; border-width: 8px; border-radius: 16px; margin-bottom: var(--lt-space-12); }
+.r-ops-tab img { border-radius: 8px; }
+.r-ops-try { display: grid; align-items: center; gap: var(--lt-space-12); margin-top: var(--lt-space-40); }
+/* الباقات: المفتاح الثلاثي، والكرتين، وسطر الـ 60 والتأسيس */
+.r-ops-plans { margin-top: var(--lt-space-64, 64px); padding-top: var(--lt-space-48); border-top: 1px solid var(--lt-border); }
+.r-ops-q { font-size: 18px; font-weight: 600; margin-bottom: var(--lt-space-12); }
+.r-ops-pick .s-period.is-price-ready { width: 100%; max-width: 420px; }
+.s-switch--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.s-switch--3 .s-switch-opt { padding-inline: var(--lt-space-8); }
+.s-switch--3 .s-switch-thumb { width: calc((100% - 2 * var(--lt-space-4)) / 3); }
+.s-switch--3[data-on="1"] .s-switch-thumb { transform: translateX(-100%); }
+.s-switch--3[data-on="2"] .s-switch-thumb { transform: translateX(-200%); }
+[dir="ltr"] .s-switch--3[data-on="1"] .s-switch-thumb { transform: translateX(100%); }
+[dir="ltr"] .s-switch--3[data-on="2"] .s-switch-thumb { transform: translateX(200%); }
+.r-ops-cards { display: grid; gap: var(--lt-space-16); margin-top: var(--lt-space-24); }
+.r-ops-card { display: grid; align-content: start; gap: var(--lt-space-8); padding: var(--lt-space-24); border-color: transparent; border-radius: var(--lt-radius-m); }
+.r-ops-card .s-h3 { font-size: 22px; font-weight: 700; }
+.r-ops-for { font-size: 15px; color: var(--lt-muted); }
+.r-ops-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--lt-space-8); margin: var(--lt-space-8) 0 var(--lt-space-16); }
+.r-ops-card:not(.is-priced) [data-ops-price] { display: inline-flex; align-items: center; gap: var(--lt-space-8); padding: var(--lt-space-8) var(--lt-space-16); border-radius: var(--lt-radius-m); background: var(--lt-surface-2); font-size: 15px; font-weight: 600; }
+.r-ops-card:not(.is-priced) [data-ops-price]::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lt-accent); }
+.r-ops-card.is-priced [data-ops-price] { font-family: var(--lt-font-latin); font-size: 44px; line-height: 1.1; font-weight: 700; }
+.r-ops-unit { font-size: 15px; color: var(--lt-muted); }
+.r-ops-card .r-ops-ticks { padding-top: var(--lt-space-16); border-top: 1px solid var(--lt-border); }
+.r-ops-ticks > .r-ops-all { font-weight: 600; }
+.r-ops-more { margin-top: var(--lt-space-16); font-size: 15px; font-weight: 600; }
+.r-ops-setup { margin-top: var(--lt-space-8); font-size: 15px; color: var(--lt-muted); }
+.r-ops-trust { list-style: none; padding: 0; margin-top: var(--lt-space-32); display: flex; flex-wrap: wrap; gap: var(--lt-space-8) var(--lt-space-24); font-size: 15px; font-weight: 600; }
+.r-ops-trust > li { position: relative; padding-inline-start: 24px; }
+.r-ops-note { margin-top: var(--lt-space-8); font-size: 14px; line-height: 1.6; color: var(--lt-muted); }
+.r-ops-wa { width: 100%; margin-top: var(--lt-space-24); text-align: center; }
+.r-ops a.r-ops-wa.lt-btn { padding-inline: var(--lt-space-12); gap: var(--lt-space-8); }
+@media (min-width: 768px) {
+  .r-ops-phone { max-width: 220px; aspect-ratio: 390 / 780; }
+  .r-ops-way { padding: var(--lt-space-16); }
+  .r-ops-wt { font-size: 18px; }
+  .r-ops-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--lt-space-24); }
+  .r-ops-card { padding: var(--lt-space-32); }
+  .r-ops-try { grid-auto-flow: column; justify-content: start; }
+  .r-ops-try .lt-btn, .r-ops-wa { width: fit-content; padding-inline: var(--lt-space-32); }
+  .r-ops a.r-ops-wa.lt-btn { padding-inline: var(--lt-space-32); }
 }
-.r-order-cta > * { margin: 0; }
+@media (min-width: 1024px) {
+  .r-ops-lead { margin-top: var(--lt-space-20, 20px); }
+  .r-ops-flow { grid-template-columns: 5fr 7fr; column-gap: 0; row-gap: var(--lt-space-32); margin-top: var(--lt-space-48); }
+  .r-ops-s1, .r-ops-s2 { grid-column: 1; }
+  .r-ops-flow > .r-ops-s3 { grid-column: 2; grid-row: 1 / span 2; align-self: center; grid-template-columns: 1fr 6fr; }
+  .r-ops-phone { max-width: 200px; }
+  /* الموصّل أفقي: خطين من جهة الجوالين يلتقون في سهم لجهة التابلت */
+  .r-ops-join { grid-column: 1; height: 160px; margin: 0; align-self: center; }
+  .r-ops-join::before { top: 0; bottom: 0; height: auto; inset-inline: 0 50%; border: 1.5px solid var(--lt-muted); border-inline-start: 0; border-radius: 0; border-start-end-radius: 14px; border-end-end-radius: 14px; }
+  .r-ops-join::after { top: calc(50% - .75px); left: auto; inset-inline: 50% 12px; width: auto; height: 1.5px; }
+  .r-ops-join i { top: calc(50% - 5px); bottom: auto; left: auto; inset-inline-end: 14px; transform: rotate(135deg); }
+  [dir="ltr"] .r-ops-join i { transform: rotate(-45deg); }
+  .r-ops-s3-in { grid-column: 2; }
+  .r-ops-tab { max-width: 560px; width: 100%; }
+  .r-ops-pick { display: grid; justify-items: center; text-align: center; }
+  .r-ops-cards { margin-top: var(--lt-space-32); }
+}

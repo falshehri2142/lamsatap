@@ -28,6 +28,9 @@ window.SITE = {
   // smartStayPrices (مقترح GM-068، work/2026-10-01-smart-stay/study.md): سعر باقات «الإقامة الذكية» للوحدة، نص جاهز مثل "99 ريال للوحدة بالشهر".
   //   entry = دخول ذكي، entryClean = دخول + نظافة، full = إدارة كاملة. فاضي = «السعر قريباً». ما ينعبى إلا بعد اعتماده في services/pricing.md.
   smartStayPrices: { entry: "", entryClean: "", full: "" },
+  // restaurantOpsPrices (مقترح GM-072، services/restaurant-ops.md): أرقام كنص بدون «ريال». order/pro بالشهر لكل فرع، s لين 15 طاولة، m ‏16–30، l ‏31–60.
+  //   setup التأسيس (يشمل 15 طاولة)، perTable لكل طاولة زيادة. فاضي = «السعر قريباً». ما ينعبى إلا بعد الاعتماد في services/pricing.md.
+  restaurantOpsPrices: { order: { s: "", m: "", l: "" }, pro: { s: "", m: "", l: "" }, setup: "", perTable: "" },
   waText: {
     // البوابة: الكبسولة و«اسأل إنسان»
     home: "السلام عليكم، شفت موقعكم وعندي استفسار.",
