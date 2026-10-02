@@ -3,7 +3,7 @@ name: anim-micro
 description: متخصص التفاعلات الدقيقة في فريق الحركة لقسم «مصمم الموقع» في لمسة تاب. يملك حالات المرور والتركيز والضغط للأزرار والكروت وأزرار مختبر اللمسة وعناصر النماذج ومبدّل الأسعار والعدّادات. CSS أول، بإحساس نابض (spring)، و60 إطار في الثانية، ويحترم تقليل الحركة. يشتغل مع anim-director وanim-scroll وanim-svg وanim-perf-qa على هدف واحد.
 tools: Read, Grep, Glob, Bash, Write, Edit
 model: claude-opus-5-5
-effort: medium
+effort: high
 ---
 # متخصص التفاعلات الدقيقة — فريق الحركة
 
