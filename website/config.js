@@ -24,7 +24,7 @@ window.SITE = {
   links: { privacy: "", terms: "" },
   // cleaningPrices (GM-067): سعر زيارة «نظافة بعد الخروج» لكل حجم وحدة، نص جاهز مثل "179 ريال للزيارة".
   //   فاضي = يطلع «السعر قريباً». ما ينعبى إلا بعد اعتماده في services/pricing.md.
-  cleaningPrices: { studio: "179 ريال للزيارة", twoThree: "299 ريال للزيارة", studioEn: "SAR 179 per visit", twoThreeEn: "SAR 299 per visit" },
+  cleaningPrices: { studio: "عند الطلب", twoThree: "عند الطلب", studioEn: "On request", twoThreeEn: "On request" },
   // smartStayPrices (مقترح GM-068، work/2026-10-01-smart-stay/study.md): سعر باقات «الإقامة الذكية» للوحدة، نص جاهز مثل "99 ريال للوحدة بالشهر".
   //   entry = دخول ذكي، entryClean = دخول + نظافة، full = إدارة كاملة. فاضي = «السعر قريباً». ما ينعبى إلا بعد اعتماده في services/pricing.md.
   smartStayPrices: { entry: "49.5 ريال للوحدة بالشهر · بدون تجهيز", full: "20% من الإيجار · بحد أدنى 249 ريال بالشهر · تجهيز 599 ريال", all: "25% من الإيجار · بحد أدنى 349 ريال بالشهر · تجهيز 599 ريال", start: "900 ريال مرة وحدة · بعدها باقتك الشهرية", entryEn: "SAR 49.5 per unit/month · no setup fee", fullEn: "20% of rent · min SAR 249/month · SAR 599 setup", allEn: "25% of rent · min SAR 349/month · SAR 599 setup", startEn: "SAR 900 one-time · then your monthly plan" },
