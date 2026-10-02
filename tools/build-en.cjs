@@ -113,8 +113,8 @@ const HOME = [
   ['شوف حزمة المحل <svg', 'See the Full Venue Package <svg'],
   ['alt="لوحة بجانب باب شقة ضيافة"', 'alt="A sign beside the door of a guest apartment"'],
   ['aria-describedby="door-h-t">عندي شقق أو إيجار قصير</a>', 'aria-describedby="door-h-t">Apartments &amp; short stays</a>'],
-  ['دليل لكل وحدة، وقفل يفتح من جوال الضيف، ونجهز شقتك الجديدة من الصفر.', 'A guide for every unit, a lock that opens from the guest’s phone, and full setup for new apartments.'],
-  ['aria-label="خدمات المضيفين"><li>دليل الضيف</li><li>دخول ذكي</li><li>نظافة</li><li>ابدأ من الصفر</li>', 'aria-label="Host services"><li>Guest guide</li><li>Smart entry</li><li>Cleaning</li><li>Start from scratch</li>'],
+  ['دليل لكل وحدة، وقفل يفتح من جوال الضيف، وتوصلك رسالة أول ما يطلع ضيفك.', 'A guide for every unit, a lock that opens from the guest’s phone, and a message the moment your guest checks out.'],
+  ['aria-label="خدمات المضيفين"><li>دليل الضيف</li><li>دخول ذكي</li><li>تنبيه الخروج</li><li>نظافة</li><li>ابدأ من الصفر</li>', 'aria-label="Host services"><li>Guest guide</li><li>Smart entry</li><li>Check-out alert</li><li>Cleaning</li><li>Start from scratch</li>'],
   ['شوف باقة المضيف <svg', 'See the Host Plan <svg'],
   // how
   ['من رسالة واتساب،<br>لأول لمسة.', 'From one WhatsApp message<br>to the first tap.'],
