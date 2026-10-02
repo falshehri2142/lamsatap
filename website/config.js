@@ -27,7 +27,7 @@ window.SITE = {
   cleaningPrices: { studio: "179 ريال للزيارة", twoThree: "299 ريال للزيارة", studioEn: "SAR 179 per visit", twoThreeEn: "SAR 299 per visit" },
   // smartStayPrices (مقترح GM-068، work/2026-10-01-smart-stay/study.md): سعر باقات «الإقامة الذكية» للوحدة، نص جاهز مثل "99 ريال للوحدة بالشهر".
   //   entry = دخول ذكي، entryClean = دخول + نظافة، full = إدارة كاملة. فاضي = «السعر قريباً». ما ينعبى إلا بعد اعتماده في services/pricing.md.
-  smartStayPrices: { entry: "89 ريال للوحدة بالشهر · تجهيز 599 ريال", full: "20% من الإيجار · بحد أدنى 249 ريال بالشهر · تجهيز 599 ريال", all: "25% من الإيجار · بحد أدنى 349 ريال بالشهر · تجهيز 599 ريال", start: "", entryEn: "SAR 89 per unit/month · SAR 599 setup", fullEn: "20% of rent · min SAR 249/month · SAR 599 setup", allEn: "25% of rent · min SAR 349/month · SAR 599 setup", startEn: "" },
+  smartStayPrices: { entry: "89 ريال للوحدة بالشهر · تجهيز 599 ريال", full: "20% من الإيجار · بحد أدنى 249 ريال بالشهر · تجهيز 599 ريال", all: "25% من الإيجار · بحد أدنى 349 ريال بالشهر · تجهيز 599 ريال", start: "900 ريال مرة وحدة · بعدها باقتك الشهرية", entryEn: "SAR 89 per unit/month · SAR 599 setup", fullEn: "20% of rent · min SAR 249/month · SAR 599 setup", allEn: "25% of rent · min SAR 349/month · SAR 599 setup", startEn: "SAR 900 one-time · then your monthly plan" },
   // restaurantOpsPrices (مقترح GM-072، services/restaurant-ops.md): أرقام كنص بدون «ريال». order/pro بالشهر لكل فرع، s لين 15 طاولة، m ‏16–30، l ‏31–60.
   //   setup التأسيس (يشمل 15 طاولة)، perTable لكل طاولة زيادة. فاضي = «السعر قريباً». ما ينعبى إلا بعد الاعتماد في services/pricing.md.
   restaurantOpsPrices: { order: { s: "249", m: "329", l: "449" }, pro: { s: "349", m: "449", l: "549" }, setup: "499", perTable: "25" },
